@@ -13,8 +13,8 @@ import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-# Google 최신 GenAI SDK
-from google import genai
+# 구글 안정화 구형 SDK 사용
+import google.generativeai as genai
 
 # ==============================================================================
 # [설정] GitHub Secrets 환경 변수
@@ -181,7 +181,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 분석] Google Gemini 상위 10개 코인 분석 (100% 한국어 전용)
+# [AI 분석] Google Gemini 상위 10개 코인 분석 (안정화 구형 패키지 사용)
 # ==============================================================================
 def generate_gemini_analysis(df):
     if not GEMINI_API_KEY:
@@ -211,22 +211,20 @@ def generate_gemini_analysis(df):
 3. 상위 10개 중 가장 주목할 만한 특이 종목 2~3개를 콕 집어 한글 이름으로 언급해 주세요.
 4. 정중하고 친절한 경어체(~합니다, ~입니다)를 사용해 주세요.
 """
-        client = genai.Client(api_key=GEMINI_API_KEY.strip())
+        genai.configure(api_key=GEMINI_API_KEY.strip())
         
-        # 새 API 키에서 사용 가능한 모델 순차 시도
         models_to_try = [
-            "gemini-2.0-flash",
-            "gemini-1.5-flash",
-            "gemini-2.0-flash-lite"
+            'gemini-1.5-flash',
+            'gemini-1.5-pro',
+            'gemini-pro'
         ]
         
         for model_name in models_to_try:
             try:
                 print(f"🔄 [{model_name}] 모델 연결 시도 중...")
-                response = client.models.generate_content(
-                    model=model_name,
-                    contents=prompt
-                )
+                model = genai.GenerativeModel(model_name)
+                response = model.generate_content(prompt)
+                
                 if response and response.text:
                     print(f"✅ Gemini AI 분석 성공! (사용 모델: {model_name})")
                     return response.text.strip()
@@ -234,7 +232,7 @@ def generate_gemini_analysis(df):
                 print(f"❌ [{model_name}] 실패: {err}")
                 continue
 
-        return "모든 Gemini AI 모델 호출에 실패했습니다. (API 키의 할당량을 확인해 주세요)"
+        return "모든 Gemini AI 모델 호출에 실패했습니다."
 
     except Exception as e:
         print(f"❌ Gemini AI 예외 발생: {e}")
