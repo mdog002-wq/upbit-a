@@ -16,9 +16,10 @@ from openpyxl.utils import get_column_letter
 # ==============================================================================
 # [설정] GitHub Secrets에서 이메일 정보 가져오기 (보안 적용)
 # ==============================================================================
-SENDER_EMAIL = os.environ.get("mdog002@gmail.com")       # mdog002@gmail.com
-EMAIL_PASSWORD = os.environ.get("alub bzok obsb vfmx")   # alub bzok obsb vfmx
-RECEIVER_EMAIL = os.environ.get("mdog002@gmail.com")   # mdog002@gmail.com
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL")       # 보낼 사람 (본인 Gmail)
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")   # Gmail 앱 비밀번호 16자리
+RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")   # 받으실 이메일 주소
+
 EXCEL_FILE_PATH = "업비트_원화마켓_매집점수_날짜별기록.xlsx"
 
 # ==============================================================================
