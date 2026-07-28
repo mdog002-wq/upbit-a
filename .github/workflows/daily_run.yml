@@ -2,7 +2,7 @@ name: Upbit Daily Auto Runner
 
 on:
   schedule:
-    # 한국 시각(KST) 기준 매일 아침 09:00 실행 (UTC 기준 00:00)
+    # 한국 시각(KST) 기준 매일 아침 09:10 실행 (UTC 기준 00:00)
     - cron: '0 0 * * *'
   workflow_dispatch: # Actions 탭에서 버튼 클릭으로 즉시 수동 실행 허용
 
