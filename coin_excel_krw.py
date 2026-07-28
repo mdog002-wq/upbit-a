@@ -53,10 +53,10 @@ def get_krw_upbit_tickers():
         return []
 
 # ==============================================================================
-# [외부 이슈 데이터 수집] 1. 코인니스 속보 & 2. 구글 트렌드 검색량
+# [외부 데이터 수집] 1. 코인니스 속보 | 2. 구글 트렌드 | 3. 업비트 공지사항
 # ==============================================================================
 def get_coinness_news(coin_name):
-    """코인니스에서 특정 코인 관련 최근 속보 헤드라인 수집"""
+    """코인니스에서 특정 코인 관련 최근 속보 수집"""
     try:
         url = f"https://coinness.com/search?q={coin_name}"
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
@@ -72,11 +72,10 @@ def get_coinness_news(coin_name):
         return "속보 조회 불가"
 
 def get_google_search_trend(coin_names):
-    """상위 코인들의 구글 상대적 검색량 지수 수집"""
+    """상위 코인들의 구글 상대적 검색량 지수 수집 (0~100)"""
     try:
         pytrends = TrendReq(hl='ko', tz=540)
-        # 구글 트렌드는 한 번에 최대 5개 검색어 지원
-        keywords = [name + " 코인" for name in coin_names[:5]]
+        keywords = [name + " 코인" for name in coin_names[:5]] # 상위 5개 비교
         
         pytrends.build_payload(keywords, timeframe='now 7-d', geo='KR')
         data = pytrends.interest_over_time()
@@ -88,6 +87,29 @@ def get_google_search_trend(coin_names):
     except Exception as e:
         print(f"⚠️ 구글 트렌드 수집 건너뜀: {e}")
         return {}
+
+def get_upbit_notices(coin_name, symbol):
+    """업비트 공식 공지사항 중 해당 코인 관련 이슈 검색 (투자유의, 입출금, 상장 등)"""
+    try:
+        url = "https://api-manager.upbit.com/api/v1/notices?page=1&per_page=15"
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+        res = requests.get(url, headers=headers, timeout=3)
+        
+        if res.status_code == 200:
+            notices_list = res.json().get('data', {}).get('list', [])
+            matched_notices = []
+            
+            for notice in notices_list:
+                title = notice.get('title', '')
+                if coin_name in title or symbol in title:
+                    matched_notices.append(title)
+            
+            if matched_notices:
+                return " | ".join(matched_notices[:2])
+                
+        return "최근 업비트 공식 공지 없음 (안전)"
+    except Exception as e:
+        return "업비트 공지 조회 불가"
 
 # ==============================================================================
 # [알고리즘] 매집 점수 산출
@@ -223,7 +245,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 심층 분석] Groq AI + 이슈 데이터 융합 브리핑
+# [AI 심층 분석] Groq AI + 종합 이슈 융합 브리핑
 # ==============================================================================
 def generate_groq_analysis(df):
     if not GROQ_API_KEY:
@@ -235,18 +257,21 @@ def generate_groq_analysis(df):
         return "데이터가 없어 AI 요약을 생성하지 못했습니다."
 
     try:
-        print("\n🤖 딥러닝 이슈 결합 AI 분석 시작...")
+        print("\n🤖 차트 수급 + 이슈 + 업비트 공지 융합 AI 분석 시작...")
         top_10 = df.head(10).copy()
         
         # 1. 상위 5개 종목 구글 검색량 수집
         top_5_names = top_10['코인명'].tolist()[:5]
         search_trends = get_google_search_trend(top_5_names)
         
-        # 2. 상위 10개 종목 코인니스 속보 및 종합 데이터 구축
+        # 2. 상위 10개 종목 외부 이슈 및 데이터 종합 구축
         enriched_data = []
         for idx, row in top_10.iterrows():
             coin_name = row['코인명']
+            symbol = row['심볼']
+            
             news = get_coinness_news(coin_name)
+            upbit_notice = get_upbit_notices(coin_name, symbol)
             trend_score = search_trends.get(coin_name, "수집 미지원")
             
             enriched_data.append({
@@ -256,25 +281,26 @@ def generate_groq_analysis(df):
                 "거래량급증": f"{row['거래량 급증(배)']}배",
                 "거래대금": f"{row['거래대금(억원)']}억원",
                 "구글검색관심도(0~100)": trend_score,
-                "최신속보/이슈": news
+                "코인니스속보": news,
+                "업비트공지사항": upbit_notice
             })
 
         prompt = f"""
 당신은 가상자산 헤지펀드의 수석 데이터 분석가입니다.
-아래는 오늘 업비트 원화 마켓에서 매집 점수가 가장 높은 상위 10개 코인의 [차트 수급 데이터], [구글 검색량 관심도], [코인니스 최신 속보]를 결합한 종합 리포트용 데이터입니다.
+아래는 오늘 업비트 원화 마켓에서 매집 점수가 가장 높은 상위 10개 코인의 [차트 수급 데이터], [구글 검색량], [코인니스 속보], [업비트 공식 공지]를 결합한 종합 리포트용 데이터입니다.
 
 [종합 분석 데이터]
 {enriched_data}
 
-위 데이터를 종합 분석하여 수신자가 실전 트레이딩에 바로 참고할 수 있도록 깊이 있는 심층 리포트를 작성해 주세요.
+위 데이터를 바탕으로 수신자가 실전 트레이딩 및 위험 관리에 바로 활용할 수 있도록 최고 수준의 심층 리포트를 작성해 주세요.
 
 [작성 지침 - 전문 리서치 스타일]
-1. 단순히 숫자를 나열하지 말고, **'차트/수급(매집점수/거래량)'과 '시장 이슈/검색량' 사이의 상호관계**를 입체적으로 분석해 주세요.
-   - 예: "뉴스 이슈가 없음에도 급격한 거래량 급증을 보여 세력의 조용한 매집 가능성이 높음"
-   - 예: "구글 검색량 및 속보 호재가 몰리며 개인 투자자 수급이 몰린 단기 변동성 구간"
-2. 오늘 가장 유망한 **원픽(Top Pick) 종목 1~2개**와 **주의/과열 유의 종목 1개**를 콕 집어 명확한 근거와 함께 제안해 주세요.
-3. 무조건 100% 한국어로만 작성하고, 영단어나 영어 심볼 대신 한글 코인명을 주로 사용해 주세요.
-4. 신뢰감 있고 친절한 전문 분석가 어조(~합니다, ~입니다)를 유지하세요.
+1. 단순히 수치를 나열하지 말고, **'차트/수급(매집점수/거래량)'과 '시장 이슈/검색량/업비트 공지'** 간의 관계를 종합 분석해 주세요.
+   - 예: "업비트 공지사항에 별다른 유의 지정이나 입출금 이슈가 없고 뉴스도 조용한 상태에서 거래량이 급증했으므로 세력의 조용한 매집 구간으로 해석됨"
+   - 예: "매집 점수가 높으나 업비트 최근 공지상 '투자유의 지정' 또는 '이벤트'가 연관되어 있다면 개미 꼬시기나 설거지 물량일 수 있으므로 주의 필요"
+2. 오늘 가장 유망한 **원픽(Top Pick) 종목 1~2개**와 **주의/과열 유의 종목 1개**를 콕 집어 명확한 이유를 제시해 주세요.
+3. 100% 한국어로 작성하며, 영단어나 심볼 대신 한글 코인명을 위주로 작성해 주세요.
+4. 신뢰감 있고 정중한 전문 분석가 어조(~합니다, ~입니다)를 사용해 주세요.
 """
         client = OpenAI(
             base_url="https://api.groq.com/openai/v1",
@@ -283,15 +309,13 @@ def generate_groq_analysis(df):
         
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
-            messages=[
-                {"role": "user", "content": prompt}
-            ],
+            messages=[{"role": "user", "content": prompt}],
             temperature=0.3
         )
         
         result_text = response.choices[0].message.content
         if result_text:
-            print("✅ Groq AI 이슈 결합 분석 성공!")
+            print("✅ Groq AI 종합 융합 분석 성공!")
             return result_text.strip()
         else:
             return "Groq AI 응답이 비어 있습니다."
@@ -388,13 +412,13 @@ def send_email_with_excel(file_path, ai_analysis=""):
     
     body = f"""안녕하세요.
 
-업비트 원화(KRW) 마켓 전체 상장 종목 분석 및 Groq AI 심층 이슈 결합 리포트가 완료되었습니다.
+업비트 원화(KRW) 마켓 전체 상장 종목 분석 및 Groq AI 종합 이슈 결합 리포트가 완료되었습니다.
 
 • 분석 시각: {now_str}
 • 분석 대상: 원화 마켓 전체 종목
 
 ==================================================
-🤖 [Groq AI 이슈 결합 심층 분석 브리핑]
+🤖 [Groq AI 차트+이슈+공지 종합 심층 분석 브리핑]
 ==================================================
 {ai_analysis}
 
