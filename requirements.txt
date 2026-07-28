@@ -3,3 +3,5 @@ pyupbit
 openpyxl
 requests
 openai
+pytrends
+beautifulsoup4
