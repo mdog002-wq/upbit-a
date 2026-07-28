@@ -185,15 +185,22 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 분석] Google Gemini 상위 10개 코인 분석 (100% 한국어 전용)
+# [AI 분석] Google Gemini 상위 10개 코인 분석 (100% 한국어 전용 + 디버깅 포함)
 # ==============================================================================
 def generate_gemini_analysis(df):
-    if df.empty or not GEMINI_API_KEY:
-        print("⚠️ Gemini API Key가 없거나 데이터가 없어 AI 분석을 건너뜁니다.")
+    # 1. API 키 체크
+    if not GEMINI_API_KEY:
+        print("❌ [경고] GitHub Secrets의 GEMINI_API_KEY가 읽히지 않았습니다! Secrets 이름을 확인하세요.")
         return "Gemini API 키가 설정되지 않아 AI 요약이 생성되지 않았습니다."
 
+    print(f"🔑 읽어온 API 키 확인: {GEMINI_API_KEY[:5]}*** (총 {len(GEMINI_API_KEY)}자)")
+
+    if df.empty:
+        print("⚠️ 데이터가 없어 AI 분석을 건너뜁니다.")
+        return "데이터가 없어 AI 요약을 생성하지 못했습니다."
+
     try:
-        print("\n🤖 Google Gemini AI 분석 중...")
+        print("\n🤖 Google Gemini AI 분석 시작...")
         top_coins = df.head(10).to_dict(orient="records")
         
         prompt = f"""
@@ -211,26 +218,32 @@ def generate_gemini_analysis(df):
 3. 상위 10개 중 가장 주목할 만한 특이 종목 2~3개를 콕 집어 한글 이름으로 언급해 주세요.
 4. 정중하고 친절한 경어체(~합니다, ~입니다)를 사용해 주세요.
 """
-        genai.configure(api_key=GEMINI_API_KEY)
+        genai.configure(api_key=GEMINI_API_KEY.strip())
         
-        # 순차적 안전 모델 시도 (에러 방지)
-        models_to_try = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-1.0-pro']
+        # 최신 및 호환 가능한 모델 순차 시도
+        models_to_try = [
+            'gemini-1.5-flash',
+            'gemini-1.5-pro',
+            'gemini-pro'
+        ]
         
         for model_name in models_to_try:
             try:
+                print(f"🔄 [{model_name}] 모델 연결 시도 중...")
                 model = genai.GenerativeModel(model_name)
                 response = model.generate_content(prompt)
+                
                 if response and response.text:
-                    print(f"✅ Gemini AI 분석 완료! (사용 모델: {model_name})")
+                    print(f"✅ Gemini AI 분석 성공! (사용된 모델: {model_name})")
                     return response.text.strip()
             except Exception as err:
-                print(f"⚠️ {model_name} 호출 실패: {err}, 다음 모델 시도 중...")
+                print(f"❌ [{model_name}] 실패 사유: {err}")
                 continue
                 
-        return "모든 AI 모델 호출에 실패하여 분석 결과를 불러오지 못했습니다."
+        return "모든 Gemini AI 모델 호출에 실패했습니다. (GitHub Actions 로그를 확인해 주세요)"
 
     except Exception as e:
-        print(f"❌ Gemini AI 분석 중 오류 발생: {e}")
+        print(f"❌ Gemini AI 전체 예외 발생: {e}")
         return f"AI 분석 생성 중 오류가 발생했습니다: {e}"
 
 # ==============================================================================
