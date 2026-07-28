@@ -14,12 +14,11 @@ from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 # ==============================================================================
-# [설정] 이메일 정보 및 저장 파일 설정
+# [설정] GitHub Secrets에서 이메일 정보 가져오기 (보안 적용)
 # ==============================================================================
-SENDER_EMAIL = "mdog002@gmail.com"       # 보낼 사람 (본인 Gmail)
-EMAIL_PASSWORD = "alub bzok obsb vfmx"     # Gmail 앱 비밀번호 16자리
-RECEIVER_EMAIL = "mdog002@gmail.com"     # 받으실 이메일 주소
-
+SENDER_EMAIL = os.environ.get("mdog002@gmail.com")       # mdog002@gmail.com
+EMAIL_PASSWORD = os.environ.get("alub bzok obsb vfmx")   # alub bzok obsb vfmx
+RECEIVER_EMAIL = os.environ.get("mdog002@gmail.com")   # mdog002@gmail.com
 EXCEL_FILE_PATH = "업비트_원화마켓_매집점수_날짜별기록.xlsx"
 
 # ==============================================================================
@@ -258,6 +257,10 @@ def save_daily_excel_sheet(df):
 # ==============================================================================
 def send_email_with_excel(file_path):
     if not file_path or not os.path.exists(file_path):
+        return
+
+    if not SENDER_EMAIL or not EMAIL_PASSWORD or not RECEIVER_EMAIL:
+        print("❌ 환경변수(Secrets) 설정에 문제가 있어 이메일을 발송하지 못했습니다.")
         return
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
