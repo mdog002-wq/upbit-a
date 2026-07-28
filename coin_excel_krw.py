@@ -208,7 +208,7 @@ def generate_gemini_analysis(df):
 - 상위 10개 중 가장 주목할 만한 특이 종목 2~3개를 콕 집어 간단히 언급해 주세요.
 - 경어체(~합니다, ~입니다)를 사용하여 친절하고 전문적으로 작성해 주세요.
 """
-        # 구글 공식 안정화 구문
+        # 가장 안정적이고 호환성 높은 구문
         genai.configure(api_key=GEMINI_API_KEY)
         model = genai.GenerativeModel('gemini-1.5-flash')
         response = model.generate_content(prompt)
@@ -220,7 +220,6 @@ def generate_gemini_analysis(df):
     except Exception as e:
         print(f"❌ Gemini AI 분석 중 오류 발생: {e}")
         return f"AI 분석 생성 중 오류가 발생했습니다: {e}"
-
 # ==============================================================================
 # [날짜별 엑셀 시트 저장]
 # ==============================================================================
