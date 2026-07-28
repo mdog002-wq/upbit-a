@@ -22,7 +22,12 @@ from openai import OpenAI
 # ==============================================================================
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
-RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")
+# 수신자 이메일을 쉼표(,)로 구분하여 다중 수신 지원 (예: "user1@gmail.com, user2@naver.com")
+RECEIVER_EMAILS = [
+    email.strip() 
+    for email in os.environ.get("RECEIVER_EMAIL", "").split(",") 
+    if email.strip()
+]
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 
 EXCEL_FILE_PATH = "업비트_원화마켓_매집점수_날짜별기록.xlsx"
@@ -273,7 +278,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 심층 분석] Groq AI + 종합 이슈 + X(트위터) 융합 브리핑
+# [AI 심층 분석] Groq AI + 종합 이슈 + X(트위터) 융합 브리핑 (다양성/직설적 분석)
 # ==============================================================================
 def generate_groq_analysis(df):
     if not GROQ_API_KEY:
@@ -316,30 +321,37 @@ def generate_groq_analysis(df):
             })
 
         prompt = f"""
-당신은 가상자산 헤지펀드의 수석 데이터 분석가입니다.
-아래는 오늘 업비트 원화 마켓에서 매집 점수가 가장 높은 상위 10개 코인의 [차트 수급 데이터], [구글 검색량], [코인니스 속보], [업비트 공식 공지], [X(트위터) 실시간 반응]을 결합한 종합 리포트용 데이터입니다.
+당신은 가상자산 헤지펀드에서 가장 날카롭고 직설적인 수석 트레이더입니다.
+아래 수집된 상위 10개 코인의 종합 데이터를 바탕으로, 매일 똑같은 서술 방식을 완전히 배제하고 종목별 개별 특성에 집중한 정밀 리포트를 작성하세요.
 
-[종합 분석 데이터]
+[데이터 종합 표]
 {enriched_data}
 
-위 데이터를 바탕으로 수신자가 실전 트레이딩 및 위험 관리에 바로 활용할 수 있도록 최고 수준의 심층 리포트를 작성해 주세요.
+[❌ 절대 금지 사항 (상투적/정형화 표현 배제)]
+- "조용한 매집 구간으로 해석됩니다", "개미 꼬시기 물량일 수 있습니다", "실전 트레이딩에 바로 활용할 수 있는" 같은 틀에 박힌 템플릿 문구를 절대 사용하지 마세요.
+- 모든 종목에 동일한 형태의 문장 구조(예: ~이 높으므로 ~을 주의해야 합니다)를 복사-붙여넣기하듯 되풀이하지 마세요.
 
-[작성 지침 - 전문 리서치 스타일]
-1. 단순히 수치를 나열하지 말고, **'차트/수급(매집점수/거래량)'과 '시장 이슈/검색량/업비트 공지/X(트위터) 민심'** 간의 관계를 종합 분석해 주세요.
-2. **[추천 종목 Top 3]** 섹션을 반드시 포함하여, 수급과 호재/민심이 가장 양호한 추천 종목 3개를 1위, 2위, 3위로 선정하고 각각의 명확한 가치 및 기술적/이슈적 이유를 설명해 주세요.
-3. **[주의/과열 유의 종목 1개]** 섹션을 포함하여, 매집 점수와 무관하게 리스크(투자유의 지정 가능성, 세력의 개미 꼬시기, 과열 등)가 있는 종목 1개와 경고 이유를 작성해 주세요.
-4. 100% 한국어로 작성하며, 영단어나 심볼 대신 한글 코인명을 위주로 작성해 주세요.
-5. 신뢰감 있고 정중한 전문 분석가 어조(~합니다, ~입니다)를 사용해 주세요.
+[작성 지침 및 차별화 원칙]
+1. **종목별 독자적 시각 부여**: 각 종목마다 가장 눈에 띄는 '하나의 변수'(예: 엄청난 거래대금, 트위터 반응 폭발, 공지사항 이슈, 검색량 기괴한 증가 등)를 핵심 축으로 삼아 개별적으로 다르게 해석하세요.
+2. **구체적 인용**: 데이터에 나와있는 거래대금 액수, 구글 검색 지수 숫자, 트위터 언급 내용의 키워드를 직접 인용하여 서술하세요.
+3. **[추천 종목 Top 3] 필수 포함**:
+   - 수급과 트윗/이슈 민심이 가장 강력한 3개 종목을 1위, 2위, 3위로 명확히 선정하세요.
+   - 각 추천 종목이 '왜 다른 추천 종목과 차별화되는지' 개별적 이유를 기술하세요.
+4. **[주의/과열 유의 종목 1개] 필수 포함**:
+   - 매집 점수가 높더라도 거래대금이 쥐꼬리만 하거나, 과도하게 검색량이 폭증해 '설거지/상투' 가능성이 의심되는 1개 종목을 찍어 경고하세요.
+5. 어조는 전문적이되 뜬구름 잡지 말고, 트레이딩 현장에서 쓰는 듯한 직설적이고 명확한 어조(~함, ~임 또는 정중한 ~합니다체)를 사용하세요.
 """
         client = OpenAI(
             base_url="https://api.groq.com/openai/v1",
             api_key=GROQ_API_KEY.strip()
         )
         
+        # Temperature를 0.7로 끌어올려 창의성 및 문장 다양성 확보
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.3
+            temperature=0.7,
+            top_p=0.9
         )
         
         result_text = response.choices[0].message.content
@@ -422,13 +434,13 @@ def save_daily_excel_sheet(df):
     return EXCEL_FILE_PATH
 
 # ==============================================================================
-# [메일 전송]
+# [메일 전송] (다중 수신자 지원)
 # ==============================================================================
 def send_email_with_excel(file_path, ai_analysis=""):
     if not file_path or not os.path.exists(file_path):
         return
 
-    if not SENDER_EMAIL or not EMAIL_PASSWORD or not RECEIVER_EMAIL:
+    if not SENDER_EMAIL or not EMAIL_PASSWORD or not RECEIVER_EMAILS:
         print("❌ 환경변수(Secrets) 설정에 문제가 있어 이메일을 발송하지 못했습니다.")
         return
 
@@ -437,7 +449,7 @@ def send_email_with_excel(file_path, ai_analysis=""):
     msg = MIMEMultipart()
     msg["Subject"] = f"📊 [업비트 AI 심층분석] 원화마켓 매집 점수 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
-    msg["To"] = RECEIVER_EMAIL
+    msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
@@ -471,9 +483,9 @@ def send_email_with_excel(file_path, ai_analysis=""):
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         server.login(SENDER_EMAIL, EMAIL_PASSWORD)
-        server.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, msg.as_string())
+        server.sendmail(SENDER_EMAIL, RECEIVER_EMAILS, msg.as_string())
         server.quit()
-        print(f"📧 엑셀 + AI 심층 브리핑 이메일 발송 성공! (수신: {RECEIVER_EMAIL})")
+        print(f"📧 엑셀 + AI 심층 브리핑 이메일 발송 성공! (수신자: {', '.join(RECEIVER_EMAILS)})")
         print("--------------------------------------------------")
     except Exception as e:
         print(f"❌ 이메일 발송 실패: {e}")
