@@ -13,8 +13,8 @@ import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-# 구글 안정화 구형 SDK 사용
-import google.generativeai as genai
+# Groq 호환용 OpenAI SDK
+from openai import OpenAI
 
 # ==============================================================================
 # [설정] GitHub Secrets 환경 변수
@@ -22,7 +22,7 @@ import google.generativeai as genai
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 
 EXCEL_FILE_PATH = "업비트_원화마켓_매집점수_날짜별기록.xlsx"
 
@@ -57,12 +57,14 @@ def get_krw_upbit_tickers():
 def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_gap):
     score = 0
     
+    # 1. 거래량 급증 점수
     if vol_ratio >= 4.0: score += 35
     elif vol_ratio >= 2.5: score += 28
     elif vol_ratio >= 1.8: score += 20
     elif vol_ratio >= 1.3: score += 12
     else: score += 5
 
+    # 2. 거래대금 점수
     trade_value_eow = trade_value_krw / 100_000_000
     if trade_value_eow >= 50: score += 25
     elif trade_value_eow >= 20: score += 20
@@ -70,10 +72,12 @@ def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_ga
     elif trade_value_eow >= 5: score += 10
     else: score += 5
 
+    # 3. 주가 변동 및 양봉 여부
     if is_yangbong and 0.3 <= price_change <= 7.0: score += 20
     elif is_yangbong and price_change > 7.0: score += 12
     elif not is_yangbong: score += 0
 
+    # 4. 이동평균선(20일-60일) 수렴도
     if ma_gap <= 3.0: score += 20
     elif ma_gap <= 6.0: score += 15
     elif ma_gap <= 10.0: score += 10
@@ -181,19 +185,19 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 분석] Google Gemini 상위 10개 코인 분석 (안정화 구형 패키지 사용)
+# [AI 분석] Groq AI 상위 10개 코인 분석 (Llama 3.3 70B 모델 사용)
 # ==============================================================================
-def generate_gemini_analysis(df):
-    if not GEMINI_API_KEY:
-        print("❌ [경고] GEMINI_API_KEY 환경 변수가 없습니다.")
-        return "Gemini API 키가 설정되지 않아 AI 요약이 생성되지 않았습니다."
+def generate_groq_analysis(df):
+    if not GROQ_API_KEY:
+        print("❌ [경고] GROQ_API_KEY 환경 변수가 없습니다.")
+        return "Groq API 키가 설정되지 않아 AI 요약이 생성되지 않았습니다."
 
     if df.empty:
         print("⚠️ 데이터가 없어 AI 분석을 건너뜁니다.")
         return "데이터가 없어 AI 요약을 생성하지 못했습니다."
 
     try:
-        print("\n🤖 Google Gemini AI 분석 시작...")
+        print("\n🤖 Groq AI 분석 시작...")
         top_coins = df.head(10).to_dict(orient="records")
         
         prompt = f"""
@@ -211,32 +215,31 @@ def generate_gemini_analysis(df):
 3. 상위 10개 중 가장 주목할 만한 특이 종목 2~3개를 콕 집어 한글 이름으로 언급해 주세요.
 4. 정중하고 친절한 경어체(~합니다, ~입니다)를 사용해 주세요.
 """
-        genai.configure(api_key=GEMINI_API_KEY.strip())
+        # Groq API 클라이언트 초기화
+        client = OpenAI(
+            base_url="https://api.groq.com/openai/v1",
+            api_key=GROQ_API_KEY.strip()
+        )
         
-        models_to_try = [
-            'gemini-1.5-flash',
-            'gemini-1.5-pro',
-            'gemini-pro'
-        ]
+        # Groq의 고성능 무료 모델
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile",
+            messages=[
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.3
+        )
         
-        for model_name in models_to_try:
-            try:
-                print(f"🔄 [{model_name}] 모델 연결 시도 중...")
-                model = genai.GenerativeModel(model_name)
-                response = model.generate_content(prompt)
-                
-                if response and response.text:
-                    print(f"✅ Gemini AI 분석 성공! (사용 모델: {model_name})")
-                    return response.text.strip()
-            except Exception as err:
-                print(f"❌ [{model_name}] 실패: {err}")
-                continue
-
-        return "모든 Gemini AI 모델 호출에 실패했습니다."
+        result_text = response.choices[0].message.content
+        if result_text:
+            print("✅ Groq AI 분석 성공!")
+            return result_text.strip()
+        else:
+            return "Groq AI 응답이 비어 있습니다."
 
     except Exception as e:
-        print(f"❌ Gemini AI 예외 발생: {e}")
-        return f"AI 분석 생성 중 오류가 발생했습니다: {e}"
+        print(f"❌ Groq AI 예외 발생: {e}")
+        return f"Groq AI 분석 생성 중 오류가 발생했습니다: {e}"
 
 # ==============================================================================
 # [엑셀 저장]
@@ -326,13 +329,13 @@ def send_email_with_excel(file_path, ai_analysis=""):
     
     body = f"""안녕하세요.
 
-업비트 원화(KRW) 마켓 전체 상장 종목 분석 및 Gemini AI 리포트가 완료되었습니다.
+업비트 원화(KRW) 마켓 전체 상장 종목 분석 및 Groq AI 리포트가 완료되었습니다.
 
 • 분석 시각: {now_str}
 • 분석 대상: 원화 마켓 전체 종목
 
 ==================================================
-🤖 [Google Gemini AI 상위 코인 분석 브리핑]
+🤖 [Groq AI 상위 코인 분석 브리핑]
 ==================================================
 {ai_analysis}
 
@@ -365,6 +368,6 @@ def send_email_with_excel(file_path, ai_analysis=""):
 
 if __name__ == "__main__":
     df_ranked = scan_and_rank_coins()
-    ai_summary = generate_gemini_analysis(df_ranked)
+    ai_summary = generate_groq_analysis(df_ranked)
     excel_file = save_daily_excel_sheet(df_ranked)
     send_email_with_excel(excel_file, ai_summary)
