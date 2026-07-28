@@ -209,8 +209,10 @@ def generate_gemini_analysis(df):
 - 경어체(~합니다, ~입니다)를 사용하여 친절하게 작성해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY)
+        
+        # 💡 최신 안정화 모델인 gemini-2.0-flash 사용
         response = client.models.generate_content(
-            model="gemini-2.5-flash",
+            model="gemini-2.0-flash",
             contents=prompt
         )
         
