@@ -185,7 +185,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 분석] Google Gemini를 활용한 상위 코인 브리핑 생성
+# [AI 분석] Google Gemini를 활용한 상위 코인 브리핑 생성 (자동 모델 탐색)
 # ==============================================================================
 def generate_gemini_analysis(df):
     if df.empty or not GEMINI_API_KEY:
@@ -208,18 +208,52 @@ def generate_gemini_analysis(df):
 - 상위 10개 중 가장 주목할 만한 특이 종목 2~3개를 콕 집어 간단히 언급해 주세요.
 - 경어체(~합니다, ~입니다)를 사용하여 친절하고 전문적으로 작성해 주세요.
 """
-        # 가장 안정적이고 호환성 높은 구문
+        # 1. API 키 설정
         genai.configure(api_key=GEMINI_API_KEY)
-        model = genai.GenerativeModel('gemini-1.5-flash')
-        response = model.generate_content(prompt)
         
-        ai_text = response.text.strip()
-        print("✅ Gemini AI 분석 완료!")
-        return ai_text
+        # 2. 우선적으로 시도해볼 모델 후보들
+        candidate_models = [
+            'gemini-2.5-flash',
+            'gemini-2.0-flash',
+            'gemini-1.5-flash',
+            'gemini-1.5-flash-8b'
+        ]
+        
+        # 3. 내 계정에서 사용 가능한 generateContent 모델 목록 자동 조회
+        try:
+            available_models = [
+                m.name.replace('models/', '') 
+                for m in genai.list_models() 
+                if 'generateContent' in m.supported_generation_methods
+            ]
+            # 조회된 사용 가능 모델들을 후보 리스트 맨 앞에 추가
+            candidate_models = available_models + candidate_models
+        except Exception as e:
+            print(f"⚠️ 모델 목록 자동 조회 실패(기본 후보 사용): {e}")
+
+        # 4. 순차적으로 호출 시도 (성공할 때까지)
+        last_error = None
+        for model_name in candidate_models:
+            try:
+                print(f"🔄 [{model_name}] 모델로 생성 시도 중...")
+                model = genai.GenerativeModel(model_name)
+                response = model.generate_content(prompt)
+                
+                if response and response.text:
+                    print(f"✅ Gemini AI 분석 완료! (사용 모델: {model_name})")
+                    return response.text.strip()
+            except Exception as err:
+                last_error = err
+                print(f"❌ {model_name} 호출 실패, 다음 모델 시도...")
+                continue
+                
+        # 모든 시도가 실패했을 경우
+        raise last_error
 
     except Exception as e:
         print(f"❌ Gemini AI 분석 중 오류 발생: {e}")
         return f"AI 분석 생성 중 오류가 발생했습니다: {e}"
+
 # ==============================================================================
 # [날짜별 엑셀 시트 저장]
 # ==============================================================================
