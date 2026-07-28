@@ -181,7 +181,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 분석] Google Gemini 상위 10개 코인 분석 (100% 한국어 전용 + 자동 재시도)
+# [AI 분석] Google Gemini 상위 10개 코인 분석 (100% 한국어 전용)
 # ==============================================================================
 def generate_gemini_analysis(df):
     if not GEMINI_API_KEY:
@@ -213,33 +213,28 @@ def generate_gemini_analysis(df):
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         
-        # 💡 현재 정상 연결이 보장된 단 하나의 모델: gemini-2.0-flash
-        target_model = "gemini-2.0-flash"
+        # 새 API 키에서 사용 가능한 모델 순차 시도
+        models_to_try = [
+            "gemini-2.0-flash",
+            "gemini-1.5-flash",
+            "gemini-2.0-flash-lite"
+        ]
         
-        # 429 한도 초과(Rate Limit) 방지를 위한 자동 3회 재시도 로직
-        max_retries = 3
-        for attempt in range(1, max_retries + 1):
+        for model_name in models_to_try:
             try:
-                print(f"🔄 [{target_model}] 모델 연결 시도 중... (시도 {attempt}/{max_retries})")
+                print(f"🔄 [{model_name}] 모델 연결 시도 중...")
                 response = client.models.generate_content(
-                    model=target_model,
+                    model=model_name,
                     contents=prompt
                 )
-                
                 if response and response.text:
-                    print(f"✅ Gemini AI 분석 성공! (사용된 모델: {target_model})")
+                    print(f"✅ Gemini AI 분석 성공! (사용 모델: {model_name})")
                     return response.text.strip()
             except Exception as err:
-                err_msg = str(err)
-                print(f"❌ 시도 {attempt} 실패: {err_msg}")
-                # 429 한도 초과 에러 시 15초 대기 후 재시도
-                if "429" in err_msg or "RESOURCE_EXHAUSTED" in err_msg:
-                    print("⏳ 분당 요청 한도(429) 대기 중... 15초 후 재시도합니다.")
-                    time.sleep(15)
-                else:
-                    time.sleep(3)
-                
-        return "Gemini AI 모델 호출 한도 초과로 생성 실패했습니다. 잠시 후 다시 시도해 주세요."
+                print(f"❌ [{model_name}] 실패: {err}")
+                continue
+
+        return "모든 Gemini AI 모델 호출에 실패했습니다. (API 키의 할당량을 확인해 주세요)"
 
     except Exception as e:
         print(f"❌ Gemini AI 예외 발생: {e}")
