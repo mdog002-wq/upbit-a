@@ -1,20 +1,24 @@
-name: Upbit Daily Auto Runner
+name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   schedule:
-    # 한국 시각(KST) 기준 매일 아침 09:10 실행 (UTC 기준 00:00)
-    - cron: '0 0 * * *'
-  workflow_dispatch: # Actions 탭에서 버튼 클릭으로 즉시 수동 실행 허용
+    # cron 표현식 (분 시 일 월 요일) - UTC 기준
+    # UTC 00:10 = KST 오전 09:10
+    # UTC 09:10 = KST 저녁 18:10
+    - cron: '10 0,9 * * *'
+  
+  # 수동으로 실행할 수 있는 버튼 유지
+  workflow_dispatch:
 
 jobs:
-  run-python-script:
+  run-upbit-bot:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 저장소 코드 가져오기
+      - name: 저장소 코드 불러오기
         uses: actions/checkout@v4
 
-      - name: 파이썬 3.10 환경 설정
+      - name: 파이썬(Python) 환경 설정
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
