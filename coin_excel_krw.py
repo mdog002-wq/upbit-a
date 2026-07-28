@@ -13,12 +13,16 @@ import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
+# Google Gen AI SDK
+from google import genai
+
 # ==============================================================================
-# [설정] GitHub Secrets에서 이메일 정보 가져오기 (보안 적용)
+# [설정] GitHub Secrets에서 환경 변수 가져오기 (보안 적용)
 # ==============================================================================
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")       # 보낼 사람 (본인 Gmail)
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")   # Gmail 앱 비밀번호 16자리
 RECEIVER_EMAIL = os.environ.get("RECEIVER_EMAIL")   # 받으실 이메일 주소
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")   # Gemini API Key
 
 EXCEL_FILE_PATH = "업비트_원화마켓_매집점수_날짜별기록.xlsx"
 
@@ -35,7 +39,6 @@ def get_krw_upbit_tickers():
         
         krw_coins = []
         for coin in data:
-            # 원화(KRW) 마켓 코인만 엄격히 추출
             if coin['market'].startswith("KRW-"):
                 krw_coins.append({
                     'ticker': coin['market'],
@@ -83,7 +86,7 @@ def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_ga
     return score
 
 # ==============================================================================
-# [분석 엔진] 원화 마켓 전 종목 완전 수집 (누락 방지 재시도 로직)
+# [분석 엔진] 원화 마켓 전 종목 전수 조사
 # ==============================================================================
 def scan_and_rank_coins():
     print("--------------------------------------------------")
@@ -101,7 +104,6 @@ def scan_and_rank_coins():
         korean_name = item['korean_name']
         symbol = item['symbol']
         
-        # API 조회 재시도(Retry) 로직 (최대 3회)
         df_daily = None
         for retry in range(3):
             try:
@@ -112,7 +114,6 @@ def scan_and_rank_coins():
             except Exception:
                 time.sleep(0.1)
 
-        # 데이터 조회가 안 되는 특수 종목(신규 상장/정지 등) 예외 수집 처리
         if df_daily is None or df_daily.empty:
             results.append({
                 "코인명": korean_name,
@@ -125,13 +126,11 @@ def scan_and_rank_coins():
                 "이평선 수렴도(%)": 0.0,
                 "비고": "OHLCV 데이터 미제공(신규/정지)"
             })
-            print(f"  [예외 수집] {korean_name}({symbol}) - 데이터 미제공 포함")
             continue
 
         try:
             latest = df_daily.iloc[-1]
             
-            # 신규 상장 등으로 일봉 개수가 부족할 때 안전 처리
             if len(df_daily) >= 21:
                 prev_20_vol_avg = df_daily['volume'].iloc[-21:-1].mean()
             else:
@@ -186,6 +185,44 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
+# [AI 분석] Google Gemini를 활용한 상위 코인 브리핑 생성
+# ==============================================================================
+def generate_gemini_analysis(df):
+    if df.empty or not GEMINI_API_KEY:
+        print("⚠️ Gemini API Key가 없거나 데이터가 없어 AI 분석을 건너뜁니다.")
+        return "Gemini API 키가 설정되지 않아 AI 요약이 생성되지 않았습니다."
+
+    try:
+        print("\n🤖 Google Gemini AI 분석 중...")
+        top_coins = df.head(5).to_dict(orient="records")
+        
+        prompt = f"""
+당신은 암호화폐 전업 트레이더 겸 데이터 분석 전문가입니다.
+아래는 오늘 업비트 원화 마켓에서 매집 점수가 가장 높은 상위 5개 코인 데이터입니다.
+
+[상위 5개 매집 코인 데이터]
+{top_coins}
+
+위 데이터를 바탕으로 수신자가 한눈에 파악할 수 있도록 3~4줄 내외의 깔끔한 AI 분석 요약 보고서를 작성해 주세요.
+- 각 종목의 거래량 급증 및 변동률 특성을 반영해 주세요.
+- 매집 점수가 높은 이유와 주의해야 할 점(리스크)을 명확하게 언급해 주세요.
+- 경어체(~합니다, ~입니다)를 사용하여 친절하게 작성해 주세요.
+"""
+        client = genai.Client(api_key=GEMINI_API_KEY)
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
+        
+        ai_text = response.text.strip()
+        print("✅ Gemini AI 분석 완료!")
+        return ai_text
+
+    except Exception as e:
+        print(f"❌ Gemini AI 분석 중 오류 발생: {e}")
+        return f"AI 분석 생성 중 오류가 발생했습니다: {e}"
+
+# ==============================================================================
 # [날짜별 엑셀 시트 저장]
 # ==============================================================================
 def save_daily_excel_sheet(df):
@@ -229,7 +266,7 @@ def save_daily_excel_sheet(df):
         cell.alignment = Alignment(horizontal="center", vertical="center")
         
     for row in range(2, ws.max_row + 1):
-        score_cell = ws.cell(row=row, column=3) # 매집점수 열 위치 (3번째 열)
+        score_cell = ws.cell(row=row, column=3)
         is_high_score = score_cell.value and float(score_cell.value) >= 70
         
         for col in range(1, ws.max_column + 1):
@@ -256,7 +293,7 @@ def save_daily_excel_sheet(df):
 # ==============================================================================
 # [이메일 첨부 발송]
 # ==============================================================================
-def send_email_with_excel(file_path):
+def send_email_with_excel(file_path, ai_analysis=""):
     if not file_path or not os.path.exists(file_path):
         return
 
@@ -267,18 +304,24 @@ def send_email_with_excel(file_path):
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [원화마켓 전종목] 업비트 매집 점수 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [업비트 AI 분석] 원화마켓 매집 점수 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = RECEIVER_EMAIL
     
     body = f"""안녕하세요.
 
-업비트 원화(KRW) 마켓 전체 상장 종목 분석이 완료되었습니다.
+업비트 원화(KRW) 마켓 전체 상장 종목 분석 및 Gemini AI 리포트가 완료되었습니다.
 
 • 분석 시각: {now_str}
 • 분석 대상: 원화 마켓 전체 종목
 
-자세한 수치는 첨부된 엑셀 파일을 확인해 주세요.
+==================================================
+🤖 [Google Gemini AI 상위 코인 분석 브리핑]
+==================================================
+{ai_analysis}
+
+==================================================
+자세한 데이터는 첨부된 엑셀 파일을 확인해 주세요.
 """
     msg.attach(MIMEText(body, "plain", "utf-8"))
 
@@ -299,12 +342,13 @@ def send_email_with_excel(file_path):
         server.login(SENDER_EMAIL, EMAIL_PASSWORD)
         server.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, msg.as_string())
         server.quit()
-        print(f"📧 엑셀 첨부 이메일 발송 성공! (수신: {RECEIVER_EMAIL})")
+        print(f"📧 엑셀 + AI 브리핑 이메일 발송 성공! (수신: {RECEIVER_EMAIL})")
         print("--------------------------------------------------")
     except Exception as e:
         print(f"❌ 이메일 발송 실패: {e}")
 
 if __name__ == "__main__":
     df_ranked = scan_and_rank_coins()
+    ai_summary = generate_gemini_analysis(df_ranked)
     excel_file = save_daily_excel_sheet(df_ranked)
-    send_email_with_excel(excel_file)
+    send_email_with_excel(excel_file, ai_summary)
