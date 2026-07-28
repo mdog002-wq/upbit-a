@@ -2,4 +2,4 @@ pandas
 pyupbit
 openpyxl
 requests
-google-generativeai
+google-genai
