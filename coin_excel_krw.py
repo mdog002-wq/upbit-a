@@ -32,7 +32,7 @@ GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 EXCEL_FILE_PATH = "업비트_원화마켓_매집점수_날짜별기록.xlsx"
 
 # ==============================================================================
-# [유틸] 업비트 '원화(KRW) 마켓' 전 종목 및 15분봉 조회
+# [유틸] 업비트 '원화(KRW) 마켓' 전 종목 및 4시간봉(1주일) 조회
 # ==============================================================================
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all"
@@ -56,28 +56,30 @@ def get_krw_upbit_tickers():
         print(f"❌ 업비트 원화 코인 목록 조회 실패: {e}")
         return []
 
-def get_15m_ohlcv_summary(symbol):
-    """특정 종목의 최근 15분봉(최근 12개 봉=3시간) 수급 및 변동성 분석 요약"""
+def get_4h_ohlcv_summary(symbol):
+    """특정 종목의 최근 1주일(4시간봉 42개 = 168시간) 수급 및 변동성 분석 요약"""
     ticker = f"KRW-{symbol}"
     try:
-        df_15m = pyupbit.get_ohlcv(ticker, interval="minute15", count=12)
-        if df_15m is None or df_15m.empty:
-            return "15분봉 데이터 수집 불가"
+        # interval="minute240" (4시간봉), count=42 (7일 = 168시간)
+        df_4h = pyupbit.get_ohlcv(ticker, interval="minute240", count=42)
+        if df_4h is None or df_4h.empty:
+            return "4시간봉 데이터 수집 불가"
 
-        recent_vol_avg = df_15m['volume'].iloc[:-1].mean()
-        latest_vol = df_15m['volume'].iloc[-1]
-        vol_surge_15m = round(latest_vol / recent_vol_avg, 2) if recent_vol_avg > 0 else 1.0
+        recent_vol_avg = df_4h['volume'].iloc[:-1].mean()
+        latest_vol = df_4h['volume'].iloc[-1]
+        vol_surge_4h = round(latest_vol / recent_vol_avg, 2) if recent_vol_avg > 0 else 1.0
 
-        latest_close = df_15m['close'].iloc[-1]
-        latest_open = df_15m['open'].iloc[-1]
-        price_change_15m = round(((latest_close - latest_open) / latest_open) * 100, 2)
+        # 최근 1주일간 가격 변동률 (7일 전 시가 대비 현재 종가)
+        first_open_7d = df_4h['open'].iloc[0]
+        latest_close = df_4h['close'].iloc[-1]
+        price_change_7d = round(((latest_close - first_open_7d) / first_open_7d) * 100, 2)
 
-        max_price_3h = df_15m['high'].max()
-        min_price_3h = df_15m['low'].min()
+        max_price_7d = df_4h['high'].max()
+        min_price_7d = df_4h['low'].min()
         
-        return f"최근 15분봉 변동률: {price_change_15m}%, 순간 거래량 급증: {vol_surge_15m}배, 3시간 최고가: {max_price_3h}원 / 최저가: {min_price_3h}원"
+        return f"최근 1주일(4시간봉 기준) 변동률: {price_change_7d}%, 직전 대비 거래량: {vol_surge_4h}배, 1주일 최고가: {max_price_7d:,.0f}원 / 최저가: {min_price_7d:,.0f}원"
     except Exception as e:
-        return f"15분봉 조회 오류: {e}"
+        return f"4시간봉 조회 오류: {e}"
 
 # ==============================================================================
 # [외부 데이터 수집] 1. 코인니스 속보 | 2. 구글 트렌드 | 3. 업비트 공지 | 4. X(트위터)
@@ -290,7 +292,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 심층 분석] Groq AI + 15분봉 단기 수급 + 이슈 + X(트위터) 융합 브리핑
+# [AI 심층 분석] Groq AI + 4시간봉(1주일) 수급 + 이슈 + X(트위터) 융합 브리핑
 # ==============================================================================
 def generate_groq_analysis(df):
     if not GROQ_API_KEY:
@@ -302,7 +304,7 @@ def generate_groq_analysis(df):
         return "데이터가 없어 AI 요약을 생성하지 못했습니다."
 
     try:
-        print("\n🤖 일봉 차트 + 15분봉 수급 + 이슈 + 공지 + X(트위터) 융합 AI 분석 시작...")
+        print("\n🤖 일봉 차트 + 4시간봉(1주일) 수급 + 이슈 + 공지 + X(트위터) 융합 AI 분석 시작...")
         top_10 = df.head(10).copy()
         
         top_5_names = top_10['코인명'].tolist()[:5]
@@ -313,8 +315,8 @@ def generate_groq_analysis(df):
             coin_name = row['코인명']
             symbol = row['심볼']
             
-            # 15분봉 단기 수급 정보 수집
-            info_15m = get_15m_ohlcv_summary(symbol)
+            # 4시간봉 (1주일) 단기/중기 수급 정보 수집
+            info_4h = get_4h_ohlcv_summary(symbol)
             news = get_coinness_news(coin_name)
             upbit_notice = get_upbit_notices(coin_name, symbol)
             x_tweets = get_x_twitter_sentiment(symbol, coin_name)
@@ -326,7 +328,7 @@ def generate_groq_analysis(df):
                 "당일변동률": f"{row['당일 변동률(%)']}%",
                 "거래량급증": f"{row['거래량 급증(배)']}배",
                 "거래대금": f"{row['거래대금(억원)']}억원",
-                "15분봉단기수급": info_15m,
+                "4시간봉_1주일_수급분석": info_4h,
                 "구글검색관심도": trend_score,
                 "코인니스속보": news,
                 "업비트공지사항": upbit_notice,
@@ -335,7 +337,7 @@ def generate_groq_analysis(df):
 
         prompt = f"""
 당신은 가상자산 전문 수석 애널리스트입니다.
-아래 수집된 상위 10개 코인의 일봉 매집 점수 및 [15분봉 단기 수급 데이터]를 바탕으로, 정중하고 전문적인 어조(~입니다, ~습니다)로 분석 리포트를 작성해 주세요.
+아래 수집된 상위 10개 코인의 일봉 매집 점수 및 [최근 1주일간의 4시간봉 수급 데이터]를 바탕으로, 정중하고 전문적인 어조(~입니다, ~습니다)로 분석 리포트를 작성해 주세요.
 
 [데이터 종합 표]
 {enriched_data}
@@ -345,10 +347,10 @@ def generate_groq_analysis(df):
 - "조용한 매집 구간으로 해석됩니다", "개미 꼬시기 물량일 수 있습니다" 등 상투적 템플릿 문구를 절대 사용하지 마세요.
 
 [작성 지침 및 차별화 원칙]
-1. **[추천 종목 Top 3 및 15분봉 정밀 분석] 필수 포함**:
-   - 1위, 2위, 3위 추천 종목을 명확히 지정하고, 일봉 매집 흐름뿐만 아니라 **[15분봉 단기 수급 데이터]를 직접 인용하여 단기 진입/수급 상태**를 정밀하게 분석해 주세요.
+1. **[추천 종목 Top 3 및 4시간봉(1주일) 정밀 분석] 필수 포함**:
+   - 1위, 2위, 3위 추천 종목을 명확히 지정하고, 일봉 매집 흐름뿐만 아니라 **[최근 1주일간 4시간봉 데이터(1주일 변동률, 최고/최저가, 최근 거래량)]를 직접 인용하여 단/중기 진입 및 지지/저항 구간**을 정밀하게 분석해 주세요.
 2. **[주의/과열 유의 종목 1개] 필수 포함**:
-   - 매집 점수는 높지만 거래대금이 미미하거나 15분봉 단기 수급이 불안정한 1개 종목을 찍어 경고해 주세요.
+   - 매집 점수는 높지만 거래대금이 미미하거나 4시간봉 기준 최근 1주일간 고점 대비 변동폭이 커 위험한 1개 종목을 찍어 경고해 주세요.
 3. 데이터의 숫자를 직접 인용하여 객관적이고 날카롭게 서술하세요.
 """
         client = OpenAI(
@@ -468,7 +470,7 @@ def send_email_with_excel(file_path, ai_analysis=""):
 • 분석 대상: 원화 마켓 전체 종목
 
 ==================================================
-🤖 [Groq AI 차트+15분봉수급+이슈+공지+X(트위터) 종합 브리핑]
+🤖 [Groq AI 차트+4시간봉(1주일)수급+이슈+공지+X(트위터) 종합 브리핑]
 ==================================================
 {ai_analysis}
 
