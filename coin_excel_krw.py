@@ -13,11 +13,11 @@ import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-# Google Gen AI SDK
+# Google Generative AI (안정화 라이브러리)
 import google.generativeai as genai
 
 # ==============================================================================
-# [설정] GitHub Secrets에서 환경 변수 가져오기 (보안 적용)
+# [설정] GitHub Secrets에서 환경 변수 가져오기
 # ==============================================================================
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")       # 보낼 사람 (본인 Gmail)
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")   # Gmail 앱 비밀번호 16자리
@@ -185,7 +185,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 분석] Google Gemini를 활용한 상위 코인 브리핑 생성 (자동 모델 탐색)
+# [AI 분석] Google Gemini 상위 10개 코인 분석 (100% 한국어 전용)
 # ==============================================================================
 def generate_gemini_analysis(df):
     if df.empty or not GEMINI_API_KEY:
@@ -196,7 +196,7 @@ def generate_gemini_analysis(df):
         print("\n🤖 Google Gemini AI 분석 중...")
         top_coins = df.head(10).to_dict(orient="records")
         
-       prompt = f"""
+        prompt = f"""
 당신은 암호화폐 전업 트레이더 겸 데이터 분석 전문가입니다.
 아래는 오늘 업비트 원화 마켓에서 매집 점수가 가장 높은 상위 10개 코인 데이터입니다.
 
@@ -206,52 +206,28 @@ def generate_gemini_analysis(df):
 위 데이터를 바탕으로 수신자가 한눈에 파악할 수 있도록 4~5줄 내외의 깔끔한 AI 분석 요약 보고서를 작성해 주세요.
 
 [작성 지침 - 엄격 적용]
-1. 반드시 100% 한국어로만 작성해 주세요. (영단어, 알파벳 사용 금지. 종목 이름도 한글 코인명 위주로 작성)
+1. 반드시 100% 한국어로만 작성해 주세요. (영단어, 영어 알파벳 사용 금지. 코인 이름도 한글명 위주로 작성)
 2. 매집 점수 상위권 코인들의 주요 공통점과 특징(거래량 급증, 이동평균선 수렴 등)을 종합적으로 분석해 주세요.
 3. 상위 10개 중 가장 주목할 만한 특이 종목 2~3개를 콕 집어 한글 이름으로 언급해 주세요.
 4. 정중하고 친절한 경어체(~합니다, ~입니다)를 사용해 주세요.
 """
-        # 1. API 키 설정
         genai.configure(api_key=GEMINI_API_KEY)
         
-        # 2. 우선적으로 시도해볼 모델 후보들
-        candidate_models = [
-            'gemini-2.5-flash',
-            'gemini-2.0-flash',
-            'gemini-1.5-flash',
-            'gemini-1.5-flash-8b'
-        ]
+        # 순차적 안전 모델 시도 (에러 방지)
+        models_to_try = ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-1.0-pro']
         
-        # 3. 내 계정에서 사용 가능한 generateContent 모델 목록 자동 조회
-        try:
-            available_models = [
-                m.name.replace('models/', '') 
-                for m in genai.list_models() 
-                if 'generateContent' in m.supported_generation_methods
-            ]
-            # 조회된 사용 가능 모델들을 후보 리스트 맨 앞에 추가
-            candidate_models = available_models + candidate_models
-        except Exception as e:
-            print(f"⚠️ 모델 목록 자동 조회 실패(기본 후보 사용): {e}")
-
-        # 4. 순차적으로 호출 시도 (성공할 때까지)
-        last_error = None
-        for model_name in candidate_models:
+        for model_name in models_to_try:
             try:
-                print(f"🔄 [{model_name}] 모델로 생성 시도 중...")
                 model = genai.GenerativeModel(model_name)
                 response = model.generate_content(prompt)
-                
                 if response and response.text:
                     print(f"✅ Gemini AI 분석 완료! (사용 모델: {model_name})")
                     return response.text.strip()
             except Exception as err:
-                last_error = err
-                print(f"❌ {model_name} 호출 실패, 다음 모델 시도...")
+                print(f"⚠️ {model_name} 호출 실패: {err}, 다음 모델 시도 중...")
                 continue
                 
-        # 모든 시도가 실패했을 경우
-        raise last_error
+        return "모든 AI 모델 호출에 실패하여 분석 결과를 불러오지 못했습니다."
 
     except Exception as e:
         print(f"❌ Gemini AI 분석 중 오류 발생: {e}")
