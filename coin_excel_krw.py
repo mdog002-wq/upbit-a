@@ -22,7 +22,6 @@ from openai import OpenAI
 # ==============================================================================
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
-# 수신자 이메일을 쉼표(,)로 구분하여 다중 수신 지원 (예: "user1@gmail.com, user2@naver.com")
 RECEIVER_EMAILS = [
     email.strip() 
     for email in os.environ.get("RECEIVER_EMAIL", "").split(",") 
@@ -33,7 +32,7 @@ GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 EXCEL_FILE_PATH = "업비트_원화마켓_매집점수_날짜별기록.xlsx"
 
 # ==============================================================================
-# [유틸] 업비트 '원화(KRW) 마켓' 전 종목 조회
+# [유틸] 업비트 '원화(KRW) 마켓' 전 종목 및 15분봉 조회
 # ==============================================================================
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all"
@@ -57,11 +56,33 @@ def get_krw_upbit_tickers():
         print(f"❌ 업비트 원화 코인 목록 조회 실패: {e}")
         return []
 
+def get_15m_ohlcv_summary(symbol):
+    """특정 종목의 최근 15분봉(최근 12개 봉=3시간) 수급 및 변동성 분석 요약"""
+    ticker = f"KRW-{symbol}"
+    try:
+        df_15m = pyupbit.get_ohlcv(ticker, interval="minute15", count=12)
+        if df_15m is None or df_15m.empty:
+            return "15분봉 데이터 수집 불가"
+
+        recent_vol_avg = df_15m['volume'].iloc[:-1].mean()
+        latest_vol = df_15m['volume'].iloc[-1]
+        vol_surge_15m = round(latest_vol / recent_vol_avg, 2) if recent_vol_avg > 0 else 1.0
+
+        latest_close = df_15m['close'].iloc[-1]
+        latest_open = df_15m['open'].iloc[-1]
+        price_change_15m = round(((latest_close - latest_open) / latest_open) * 100, 2)
+
+        max_price_3h = df_15m['high'].max()
+        min_price_3h = df_15m['low'].min()
+        
+        return f"최근 15분봉 변동률: {price_change_15m}%, 순간 거래량 급증: {vol_surge_15m}배, 3시간 최고가: {max_price_3h}원 / 최저가: {min_price_3h}원"
+    except Exception as e:
+        return f"15분봉 조회 오류: {e}"
+
 # ==============================================================================
 # [외부 데이터 수집] 1. 코인니스 속보 | 2. 구글 트렌드 | 3. 업비트 공지 | 4. X(트위터)
 # ==============================================================================
 def get_coinness_news(coin_name):
-    """코인니스에서 특정 코인 관련 최근 속보 수집"""
     try:
         url = f"https://coinness.com/search?q={coin_name}"
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
@@ -77,10 +98,9 @@ def get_coinness_news(coin_name):
         return "속보 조회 불가"
 
 def get_google_search_trend(coin_names):
-    """상위 코인들의 구글 상대적 검색량 지수 수집 (0~100)"""
     try:
         pytrends = TrendReq(hl='ko', tz=540)
-        keywords = [name + " 코인" for name in coin_names[:5]] # 상위 5개 비교
+        keywords = [name + " 코인" for name in coin_names[:5]]
         
         pytrends.build_payload(keywords, timeframe='now 7-d', geo='KR')
         data = pytrends.interest_over_time()
@@ -94,7 +114,6 @@ def get_google_search_trend(coin_names):
         return {}
 
 def get_upbit_notices(coin_name, symbol):
-    """업비트 공식 공지사항 중 해당 코인 관련 이슈 검색 (투자유의, 입출금, 상장 등)"""
     try:
         url = "https://api-manager.upbit.com/api/v1/notices?page=1&per_page=15"
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
@@ -117,14 +136,12 @@ def get_upbit_notices(coin_name, symbol):
         return "업비트 공지 조회 불가"
 
 def get_x_twitter_sentiment(symbol, coin_name):
-    """X(트위터) 오픈소스 Nitter 인스턴스/검색을 통해 최근 트윗 반응 수집"""
     try:
         nitter_instances = [
             "https://nitter.net",
             "https://nitter.cz",
             "https://nitter.privacydev.net"
         ]
-        
         query = f"${symbol} OR {coin_name}"
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
         
@@ -149,15 +166,12 @@ def get_x_twitter_sentiment(symbol, coin_name):
 # ==============================================================================
 def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_gap):
     score = 0
-    
-    # 1. 거래량 급증 점수
     if vol_ratio >= 4.0: score += 35
     elif vol_ratio >= 2.5: score += 28
     elif vol_ratio >= 1.8: score += 20
     elif vol_ratio >= 1.3: score += 12
     else: score += 5
 
-    # 2. 거래대금 점수
     trade_value_eow = trade_value_krw / 100_000_000
     if trade_value_eow >= 50: score += 25
     elif trade_value_eow >= 20: score += 20
@@ -165,12 +179,10 @@ def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_ga
     elif trade_value_eow >= 5: score += 10
     else: score += 5
 
-    # 3. 주가 변동 및 양봉 여부
     if is_yangbong and 0.3 <= price_change <= 7.0: score += 20
     elif is_yangbong and price_change > 7.0: score += 12
     elif not is_yangbong: score += 0
 
-    # 4. 이동평균선(20일-60일) 수렴도
     if ma_gap <= 3.0: score += 20
     elif ma_gap <= 6.0: score += 15
     elif ma_gap <= 10.0: score += 10
@@ -278,7 +290,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 심층 분석] Groq AI + 종합 이슈 + X(트위터) 융합 브리핑 (정중한 어조 적용)
+# [AI 심층 분석] Groq AI + 15분봉 단기 수급 + 이슈 + X(트위터) 융합 브리핑
 # ==============================================================================
 def generate_groq_analysis(df):
     if not GROQ_API_KEY:
@@ -290,19 +302,19 @@ def generate_groq_analysis(df):
         return "데이터가 없어 AI 요약을 생성하지 못했습니다."
 
     try:
-        print("\n🤖 차트 수급 + 이슈 + 업비트 공지 + X(트위터) 반응 융합 AI 분석 시작...")
+        print("\n🤖 일봉 차트 + 15분봉 수급 + 이슈 + 공지 + X(트위터) 융합 AI 분석 시작...")
         top_10 = df.head(10).copy()
         
-        # 1. 상위 5개 종목 구글 검색량 수집
         top_5_names = top_10['코인명'].tolist()[:5]
         search_trends = get_google_search_trend(top_5_names)
         
-        # 2. 상위 10개 종목 외부 이슈, 공지, X(트위터) 반응 데이터 구축
         enriched_data = []
         for idx, row in top_10.iterrows():
             coin_name = row['코인명']
             symbol = row['심볼']
             
+            # 15분봉 단기 수급 정보 수집
+            info_15m = get_15m_ohlcv_summary(symbol)
             news = get_coinness_news(coin_name)
             upbit_notice = get_upbit_notices(coin_name, symbol)
             x_tweets = get_x_twitter_sentiment(symbol, coin_name)
@@ -314,7 +326,8 @@ def generate_groq_analysis(df):
                 "당일변동률": f"{row['당일 변동률(%)']}%",
                 "거래량급증": f"{row['거래량 급증(배)']}배",
                 "거래대금": f"{row['거래대금(억원)']}억원",
-                "구글검색관심도(0~100)": trend_score,
+                "15분봉단기수급": info_15m,
+                "구글검색관심도": trend_score,
                 "코인니스속보": news,
                 "업비트공지사항": upbit_notice,
                 "X(트위터)최근의견": x_tweets
@@ -322,31 +335,27 @@ def generate_groq_analysis(df):
 
         prompt = f"""
 당신은 가상자산 전문 수석 애널리스트입니다.
-아래 수집된 상위 10개 코인의 종합 데이터를 바탕으로, 정중하고 전문적인 어조(~입니다, ~습니다)로 날카로운 분석 리포트를 작성해 주세요.
+아래 수집된 상위 10개 코인의 일봉 매집 점수 및 [15분봉 단기 수급 데이터]를 바탕으로, 정중하고 전문적인 어조(~입니다, ~습니다)로 분석 리포트를 작성해 주세요.
 
 [데이터 종합 표]
 {enriched_data}
 
 [❌ 절대 금지 사항]
-- 반말, 명사형 문장 종결(~함, ~임), 반말조 서술을 절대로 사용하지 마세요. 반드시 정중한 경어체(~습니다, ~입니다)로 작성하세요.
-- "조용한 매집 구간으로 해석됩니다", "개미 꼬시기 물량일 수 있습니다", "실전 트레이딩에 바로 활용할 수 있는" 같은 틀에 박힌 템플릿 문구를 금지합니다.
-- 모든 종목에 동일한 문장 구조를 복사-붙여넣기하듯 되풀이하지 마세요.
+- 반말 및 명사형 종결(~함, ~임)을 금지합니다. 반드시 정중한 경어체(~습니다, ~입니다)로 작성하세요.
+- "조용한 매집 구간으로 해석됩니다", "개미 꼬시기 물량일 수 있습니다" 등 상투적 템플릿 문구를 절대 사용하지 마세요.
 
 [작성 지침 및 차별화 원칙]
-1. **어조 규정**: 전체 문장은 항상 **'~습니다', '~입니다', '~하십시오'** 형태의 격식 있는 경어체로 서술하세요.
-2. **종목별 독자적 시각 부여**: 각 종목마다 가장 눈에 띄는 '하나의 변수'(예: 거래대금 폭증, 트위터 반응, 공지 이슈, 검색량 급증 등)를 핵심 축으로 삼아 개별 해석을 제공하세요.
-3. **구체적 숫자 인용**: 데이터의 거래대금 액수, 구글 검색 지수, 트위터 키워드를 직접 언급하여 객관성을 높이세요.
-4. **[추천 종목 Top 3] 필수 포함**:
-   - 수급 및 이슈 민심이 가장 강력한 3개 종목을 1위, 2위, 3위로 선정하고 각각의 차별화된 추천 이유를 밝히세요.
-5. **[주의/과열 유의 종목 1개] 필수 포함**:
-   - 매집 점수가 높더라도 거래대금이 미미하거나 검색량만 이상 폭증한 1개 종목을 찍어 주의가 필요함을 지적하세요.
+1. **[추천 종목 Top 3 및 15분봉 정밀 분석] 필수 포함**:
+   - 1위, 2위, 3위 추천 종목을 명확히 지정하고, 일봉 매집 흐름뿐만 아니라 **[15분봉 단기 수급 데이터]를 직접 인용하여 단기 진입/수급 상태**를 정밀하게 분석해 주세요.
+2. **[주의/과열 유의 종목 1개] 필수 포함**:
+   - 매집 점수는 높지만 거래대금이 미미하거나 15분봉 단기 수급이 불안정한 1개 종목을 찍어 경고해 주세요.
+3. 데이터의 숫자를 직접 인용하여 객관적이고 날카롭게 서술하세요.
 """
         client = OpenAI(
             base_url="https://api.groq.com/openai/v1",
             api_key=GROQ_API_KEY.strip()
         )
         
-        # Temperature를 0.7로 설정하여 표현의 다변화 유도
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[{"role": "user", "content": prompt}],
@@ -434,7 +443,7 @@ def save_daily_excel_sheet(df):
     return EXCEL_FILE_PATH
 
 # ==============================================================================
-# [메일 전송] (다중 수신자 지원)
+# [메일 전송]
 # ==============================================================================
 def send_email_with_excel(file_path, ai_analysis=""):
     if not file_path or not os.path.exists(file_path):
@@ -459,7 +468,7 @@ def send_email_with_excel(file_path, ai_analysis=""):
 • 분석 대상: 원화 마켓 전체 종목
 
 ==================================================
-🤖 [Groq AI 차트+이슈+공지+X(트위터) 종합 심층 분석 브리핑]
+🤖 [Groq AI 차트+15분봉수급+이슈+공지+X(트위터) 종합 브리핑]
 ==================================================
 {ai_analysis}
 
