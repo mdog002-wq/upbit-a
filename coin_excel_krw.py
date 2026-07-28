@@ -53,7 +53,7 @@ def get_krw_upbit_tickers():
         return []
 
 # ==============================================================================
-# [외부 데이터 수집] 1. 코인니스 속보 | 2. 구글 트렌드 | 3. 업비트 공지사항
+# [외부 데이터 수집] 1. 코인니스 속보 | 2. 구글 트렌드 | 3. 업비트 공지 | 4. X(트위터)
 # ==============================================================================
 def get_coinness_news(coin_name):
     """코인니스에서 특정 코인 관련 최근 속보 수집"""
@@ -110,6 +110,35 @@ def get_upbit_notices(coin_name, symbol):
         return "최근 업비트 공식 공지 없음 (안전)"
     except Exception as e:
         return "업비트 공지 조회 불가"
+
+def get_x_twitter_sentiment(symbol, coin_name):
+    """X(트위터) 오픈소스 Nitter 인스턴스/검색을 통해 최근 트윗 반응 수집"""
+    try:
+        # Nitter 공용 인스턴스 활용 (API Key 없이 최근 검색 가능)
+        nitter_instances = [
+            "https://nitter.net",
+            "https://nitter.cz",
+            "https://nitter.privacydev.net"
+        ]
+        
+        query = f"${symbol} OR {coin_name}"
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+        
+        for instance in nitter_instances:
+            try:
+                url = f"{instance}/search?f=tweets&q={query}"
+                res = requests.get(url, headers=headers, timeout=2.5)
+                if res.status_code == 200:
+                    soup = BeautifulSoup(res.text, 'html.parser')
+                    tweets = [t.text.strip().replace('\n', ' ') for t in soup.find_all('div', class_='tweet-content')[:3]]
+                    if tweets:
+                        return " // ".join(tweets)
+            except Exception:
+                continue
+                
+        return "X(트위터) 실시간 특이 언급 적음"
+    except Exception:
+        return "X(트위터) 조회 불가"
 
 # ==============================================================================
 # [알고리즘] 매집 점수 산출
@@ -245,7 +274,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 심층 분석] Groq AI + 종합 이슈 융합 브리핑
+# [AI 심층 분석] Groq AI + 종합 이슈 + X(트위터) 융합 브리핑
 # ==============================================================================
 def generate_groq_analysis(df):
     if not GROQ_API_KEY:
@@ -257,14 +286,14 @@ def generate_groq_analysis(df):
         return "데이터가 없어 AI 요약을 생성하지 못했습니다."
 
     try:
-        print("\n🤖 차트 수급 + 이슈 + 업비트 공지 융합 AI 분석 시작...")
+        print("\n🤖 차트 수급 + 이슈 + 업비트 공지 + X(트위터) 반응 융합 AI 분석 시작...")
         top_10 = df.head(10).copy()
         
         # 1. 상위 5개 종목 구글 검색량 수집
         top_5_names = top_10['코인명'].tolist()[:5]
         search_trends = get_google_search_trend(top_5_names)
         
-        # 2. 상위 10개 종목 외부 이슈 및 데이터 종합 구축
+        # 2. 상위 10개 종목 외부 이슈, 공지, X(트위터) 반응 데이터 구축
         enriched_data = []
         for idx, row in top_10.iterrows():
             coin_name = row['코인명']
@@ -272,6 +301,7 @@ def generate_groq_analysis(df):
             
             news = get_coinness_news(coin_name)
             upbit_notice = get_upbit_notices(coin_name, symbol)
+            x_tweets = get_x_twitter_sentiment(symbol, coin_name)
             trend_score = search_trends.get(coin_name, "수집 미지원")
             
             enriched_data.append({
@@ -282,12 +312,13 @@ def generate_groq_analysis(df):
                 "거래대금": f"{row['거래대금(억원)']}억원",
                 "구글검색관심도(0~100)": trend_score,
                 "코인니스속보": news,
-                "업비트공지사항": upbit_notice
+                "업비트공지사항": upbit_notice,
+                "X(트위터)최근의견": x_tweets
             })
 
         prompt = f"""
 당신은 가상자산 헤지펀드의 수석 데이터 분석가입니다.
-아래는 오늘 업비트 원화 마켓에서 매집 점수가 가장 높은 상위 10개 코인의 [차트 수급 데이터], [구글 검색량], [코인니스 속보], [업비트 공식 공지]를 결합한 종합 리포트용 데이터입니다.
+아래는 오늘 업비트 원화 마켓에서 매집 점수가 가장 높은 상위 10개 코인의 [차트 수급 데이터], [구글 검색량], [코인니스 속보], [업비트 공식 공지], [X(트위터) 실시간 반응]을 결합한 종합 리포트용 데이터입니다.
 
 [종합 분석 데이터]
 {enriched_data}
@@ -295,9 +326,9 @@ def generate_groq_analysis(df):
 위 데이터를 바탕으로 수신자가 실전 트레이딩 및 위험 관리에 바로 활용할 수 있도록 최고 수준의 심층 리포트를 작성해 주세요.
 
 [작성 지침 - 전문 리서치 스타일]
-1. 단순히 수치를 나열하지 말고, **'차트/수급(매집점수/거래량)'과 '시장 이슈/검색량/업비트 공지'** 간의 관계를 종합 분석해 주세요.
-   - 예: "업비트 공지사항에 별다른 유의 지정이나 입출금 이슈가 없고 뉴스도 조용한 상태에서 거래량이 급증했으므로 세력의 조용한 매집 구간으로 해석됨"
-   - 예: "매집 점수가 높으나 업비트 최근 공지상 '투자유의 지정' 또는 '이벤트'가 연관되어 있다면 개미 꼬시기나 설거지 물량일 수 있으므로 주의 필요"
+1. 단순히 수치를 나열하지 말고, **'차트/수급(매집점수/거래량)'과 '시장 이슈/검색량/업비트 공지/X(트위터) 민심'** 간의 관계를 종합 분석해 주세요.
+   - 예: "X(트위터)에서 관련 언급이 급증하거나 세력의 매집 정황이 논의되는 가운데, 차트상 수급이 뒷받침되고 있어 유의미한 시세 분출 전조로 해석됨"
+   - 예: "매집 점수는 높으나 X(트위터) 반응이 선반영되었거나 업비트 공지상 유의 지정 가능성이 있다면 개미 꼬시기 물량일 수 있으므로 주의 필요"
 2. 오늘 가장 유망한 **원픽(Top Pick) 종목 1~2개**와 **주의/과열 유의 종목 1개**를 콕 집어 명확한 이유를 제시해 주세요.
 3. 100% 한국어로 작성하며, 영단어나 심볼 대신 한글 코인명을 위주로 작성해 주세요.
 4. 신뢰감 있고 정중한 전문 분석가 어조(~합니다, ~입니다)를 사용해 주세요.
@@ -418,7 +449,7 @@ def send_email_with_excel(file_path, ai_analysis=""):
 • 분석 대상: 원화 마켓 전체 종목
 
 ==================================================
-🤖 [Groq AI 차트+이슈+공지 종합 심층 분석 브리핑]
+🤖 [Groq AI 차트+이슈+공지+X(트위터) 종합 심층 분석 브리핑]
 ==================================================
 {ai_analysis}
 
