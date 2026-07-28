@@ -14,7 +14,7 @@ from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 # Google Gen AI SDK
-from google import genai
+import google.generativeai as genai
 
 # ==============================================================================
 # [설정] GitHub Secrets에서 환경 변수 가져오기 (보안 적용)
@@ -194,7 +194,6 @@ def generate_gemini_analysis(df):
 
     try:
         print("\n🤖 Google Gemini AI 분석 중...")
-        # 💡 기존 5개에서 상위 10개 코인 데이터로 변경
         top_coins = df.head(10).to_dict(orient="records")
         
         prompt = f"""
@@ -205,17 +204,14 @@ def generate_gemini_analysis(df):
 {top_coins}
 
 위 데이터를 바탕으로 수신자가 한눈에 파악할 수 있도록 4~5줄 내외의 깔끔한 AI 분석 요약 보고서를 작성해 주세요.
-- 매집 점수 상위권 코인들의 주요 공통점과 특징(거래량 급증, 이동평균선 수렴 등)을 종합적으로 분석해 주세요.
+- 매집 점수 상위권 코인들의 주요 공통점과 특징을 종합적으로 분석해 주세요.
 - 상위 10개 중 가장 주목할 만한 특이 종목 2~3개를 콕 집어 간단히 언급해 주세요.
 - 경어체(~합니다, ~입니다)를 사용하여 친절하고 전문적으로 작성해 주세요.
 """
-        client = genai.Client(api_key=GEMINI_API_KEY)
-        
-        # 💡 할당량이 가장 넉넉하고 빠른 모델 사용
-        response = client.models.generate_content(
-            model="gemini-1.5-flash-8b",
-            contents=prompt
-        )
+        # 구글 공식 안정화 구문
+        genai.configure(api_key=GEMINI_API_KEY)
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(prompt)
         
         ai_text = response.text.strip()
         print("✅ Gemini AI 분석 완료!")
