@@ -3,10 +3,7 @@ import time
 import datetime
 import smtplib
 import requests
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
-
+import numpy as np
 import pandas as pd
 import pyupbit
 import openpyxl
@@ -60,7 +57,6 @@ def get_4h_ohlcv_summary(symbol):
     """특정 종목의 최근 1주일(4시간봉 42개 = 168시간) 수급 및 변동성 분석 요약"""
     ticker = f"KRW-{symbol}"
     try:
-        # interval="minute240" (4시간봉), count=42 (7일 = 168시간)
         df_4h = pyupbit.get_ohlcv(ticker, interval="minute240", count=42)
         if df_4h is None or df_4h.empty:
             return "4시간봉 데이터 수집 불가"
@@ -69,7 +65,6 @@ def get_4h_ohlcv_summary(symbol):
         latest_vol = df_4h['volume'].iloc[-1]
         vol_surge_4h = round(latest_vol / recent_vol_avg, 2) if recent_vol_avg > 0 else 1.0
 
-        # 최근 1주일간 가격 변동률 (7일 전 시가 대비 현재 종가)
         first_open_7d = df_4h['open'].iloc[0]
         latest_close = df_4h['close'].iloc[-1]
         price_change_7d = round(((latest_close - first_open_7d) / first_open_7d) * 100, 2)
@@ -80,6 +75,107 @@ def get_4h_ohlcv_summary(symbol):
         return f"최근 1주일(4시간봉 기준) 변동률: {price_change_7d}%, 직전 대비 거래량: {vol_surge_4h}배, 1주일 최고가: {max_price_7d:,.0f}원 / 최저가: {min_price_7d:,.0f}원"
     except Exception as e:
         return f"4시간봉 조회 오류: {e}"
+
+# ==============================================================================
+# [고급 보조 지표 계산] OBV, 볼린저밴드 수축도, 매집봉 감지
+# ==============================================================================
+def calculate_advanced_metrics(df_daily):
+    """OBV 우상향 디버전스, 볼린저밴드 수축도, 최근 매집봉 출현 횟수 계산"""
+    df = df_daily.copy()
+    
+    # 1. OBV 누적 계산
+    obv_values = [0.0]
+    for i in range(1, len(df)):
+        if df['close'].iloc[i] > df['close'].iloc[i-1]:
+            obv_values.append(obv_values[-1] + df['volume'].iloc[i])
+        elif df['close'].iloc[i] < df['close'].iloc[i-1]:
+            obv_values.append(obv_values[-1] - df['volume'].iloc[i])
+        else:
+            obv_values.append(obv_values[-1])
+    df['obv'] = obv_values
+    
+    # 최근 10일간 OBV 기울기 및 가격 변동
+    obv_slope = df['obv'].iloc[-1] - df['obv'].iloc[-10] if len(df) >= 10 else 0
+    price_slope = df['close'].iloc[-1] - df['close'].iloc[-10] if len(df) >= 10 else 0
+    price_change_10d = (price_slope / df['close'].iloc[-10]) * 100 if len(df) >= 10 and df['close'].iloc[-10] > 0 else 0
+    
+    # OBV 디버전스: 주가는 비슷/하락(-5%~+4%) 중인데 OBV 수급은 우상향
+    is_obv_divergence = (price_change_10d <= 4.0) and (obv_slope > 0)
+
+    # 2. 볼린저 밴드 수축도 (Band Width %)
+    ma20 = df['close'].rolling(20).mean()
+    std20 = df['close'].rolling(20).std()
+    upper = ma20 + (std20 * 2)
+    lower = ma20 - (std20 * 2)
+    bandwidth = ((upper - lower) / ma20).iloc[-1] * 100 if ma20.iloc[-1] > 0 else 999.0
+
+    # 3. 최근 7일 내 '매집봉' 발생 횟수 (거래량 2.5배 이상 & 당일 몸통 상승률 0.5%~6.0%)
+    recent_7d = df.iloc[-7:]
+    prev_vol_avg = df['volume'].iloc[-27:-7].mean() if len(df) >= 27 else df['volume'].mean()
+    
+    accumulation_candles = 0
+    if prev_vol_avg > 0:
+        for idx, row in recent_7d.iterrows():
+            vol_ratio = row['volume'] / prev_vol_avg
+            p_change = ((row['close'] - row['open']) / row['open']) * 100 if row['open'] > 0 else 0
+            if vol_ratio >= 2.5 and 0.5 <= p_change <= 6.0:
+                accumulation_candles += 1
+
+    return is_obv_divergence, bandwidth, accumulation_candles
+
+# ==============================================================================
+# [알고리즘] 정교화된 매집 점수 산출
+# ==============================================================================
+def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_gap, 
+                    is_obv_divergence, bandwidth, accumulation_candles):
+    score = 0
+
+    # -------------------------------------------------------------
+    # [핵심 1] 당일 과열 페널티 (급등주 배제 및 조용한 양봉 우대)
+    # -------------------------------------------------------------
+    if price_change > 12.0:
+        score -= 30  # 이미 급등한 코인은 매집 종료/설거지 파동으로 판단하여 차감
+    elif price_change > 7.0:
+        score -= 10  # +7% 이상도 매집 타점으로는 다소 과열
+    elif is_yangbong and 0.5 <= price_change <= 4.0:
+        score += 25  # 주가가 거의 오르지 않은 고요한 양봉에 최고 점수 부여
+
+    # -------------------------------------------------------------
+    # [핵심 2] 매집 흔적 및 거래량 수급 평가
+    # -------------------------------------------------------------
+    # 최근 7일간 매집봉 출현 여부
+    if accumulation_candles >= 2:
+        score += 30
+    elif accumulation_candles == 1:
+        score += 15
+
+    # 당일 거래량 급증
+    if vol_ratio >= 3.0: score += 20
+    elif vol_ratio >= 1.8: score += 12
+    elif vol_ratio >= 1.2: score += 5
+
+    # -------------------------------------------------------------
+    # [핵심 3] 지표 디버전스 및 차트 에너축적(횡보/수축)
+    # -------------------------------------------------------------
+    # OBV 우상향 디버전스
+    if is_obv_divergence:
+        score += 25
+
+    # 이평선 수렴도 (20일-60일 밀집)
+    if ma_gap <= 3.0: score += 15
+    elif ma_gap <= 6.0: score += 10
+
+    # 볼린저밴드 수축 (에너지 응축, 밴드폭 8% 미만)
+    if bandwidth <= 8.0: score += 15
+    elif bandwidth <= 12.0: score += 8
+
+    # 거래대금 최소 기준 충족 (억원 단위)
+    trade_value_eow = trade_value_krw / 100_000_000
+    if trade_value_eow >= 50: score += 15
+    elif trade_value_eow >= 10: score += 10
+    elif trade_value_eow >= 5: score += 5
+
+    return max(0, score)  # 음수 방지
 
 # ==============================================================================
 # [외부 데이터 수집] 1. 코인니스 속보 | 2. 구글 트렌드 | 3. 업비트 공지 | 4. X(트위터)
@@ -164,35 +260,6 @@ def get_x_twitter_sentiment(symbol, coin_name):
         return "X(트위터) 조회 불가"
 
 # ==============================================================================
-# [알고리즘] 매집 점수 산출
-# ==============================================================================
-def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_gap):
-    score = 0
-    if vol_ratio >= 4.0: score += 35
-    elif vol_ratio >= 2.5: score += 28
-    elif vol_ratio >= 1.8: score += 20
-    elif vol_ratio >= 1.3: score += 12
-    else: score += 5
-
-    trade_value_eow = trade_value_krw / 100_000_000
-    if trade_value_eow >= 50: score += 25
-    elif trade_value_eow >= 20: score += 20
-    elif trade_value_eow >= 10: score += 15
-    elif trade_value_eow >= 5: score += 10
-    else: score += 5
-
-    if is_yangbong and 0.3 <= price_change <= 7.0: score += 20
-    elif is_yangbong and price_change > 7.0: score += 12
-    elif not is_yangbong: score += 0
-
-    if ma_gap <= 3.0: score += 20
-    elif ma_gap <= 6.0: score += 15
-    elif ma_gap <= 10.0: score += 10
-    else: score += 3
-
-    return score
-
-# ==============================================================================
 # [분석 엔진] 전 종목 조사
 # ==============================================================================
 def scan_and_rank_coins():
@@ -257,7 +324,14 @@ def scan_and_rank_coins():
             ma60 = df_daily['close'].rolling(60).mean().iloc[-1] if len(df_daily) >= 60 else ma20
             ma_gap = abs(ma20 - ma60) / ma20 * 100 if ma20 > 0 else 0
 
-            total_score = calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_gap)
+            # 정교화된 고급 매집 지표 계산
+            is_obv_div, bandwidth, accum_candles = calculate_advanced_metrics(df_daily)
+
+            # 새 점수 알고리즘 적용
+            total_score = calculate_score(
+                vol_ratio, trade_value_krw, price_change, is_yangbong, ma_gap,
+                is_obv_div, bandwidth, accum_candles
+            )
             
             results.append({
                 "코인명": korean_name,
@@ -315,7 +389,6 @@ def generate_gemini_analysis(df):
             coin_name = row['코인명']
             symbol = row['심볼']
             
-            # 4시간봉 (1주일) 단기/중기 수급 정보 수집
             info_4h = get_4h_ohlcv_summary(symbol)
             news = get_coinness_news(coin_name)
             upbit_notice = get_upbit_notices(coin_name, symbol)
@@ -353,7 +426,6 @@ def generate_gemini_analysis(df):
    - 매집 점수는 높지만 거래대금이 미미하거나 4시간봉 기준 최근 1주일간 고점 대비 변동폭이 커 위험한 1개 종목을 찍어 경고해 주세요.
 3. 데이터의 숫자를 직접 인용하여 객관적이고 날카롭게 서술하세요.
 """
-        # Google Gemini Client 초기화
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         
         response = client.models.generate_content(
