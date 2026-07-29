@@ -15,7 +15,7 @@ from openpyxl.utils import get_column_letter
 
 from bs4 import BeautifulSoup
 from pytrends.request import TrendReq
-from openai import OpenAI
+from google import genai
 
 # ==============================================================================
 # [설정] GitHub Secrets 환경 변수
@@ -27,7 +27,7 @@ RECEIVER_EMAILS = [
     for email in os.environ.get("RECEIVER_EMAIL", "").split(",") 
     if email.strip()
 ]
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 EXCEL_FILE_PATH = "업비트_원화마켓_매집점수_날짜별기록.xlsx"
 
@@ -292,19 +292,19 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 심층 분석] Groq AI + 4시간봉(1주일) 수급 + 이슈 + X(트위터) 융합 브리핑
+# [AI 심층 분석] Google Gemini AI + 4시간봉(1주일) 수급 + 이슈 + X(트위터) 융합 브리핑
 # ==============================================================================
-def generate_groq_analysis(df):
-    if not GROQ_API_KEY:
-        print("❌ [경고] GROQ_API_KEY 환경 변수가 없습니다.")
-        return "Groq API 키가 설정되지 않아 AI 요약이 생성되지 않았습니다."
+def generate_gemini_analysis(df):
+    if not GEMINI_API_KEY:
+        print("❌ [경고] GEMINI_API_KEY 환경 변수가 없습니다.")
+        return "Gemini API 키가 설정되지 않아 AI 요약이 생성되지 않았습니다."
 
     if df.empty:
         print("⚠️ 데이터가 없어 AI 분석을 건너뜁니다.")
         return "데이터가 없어 AI 요약을 생성하지 못했습니다."
 
     try:
-        print("\n🤖 일봉 차트 + 4시간봉(1주일) 수급 + 이슈 + 공지 + X(트위터) 융합 AI 분석 시작...")
+        print("\n🤖 일봉 차트 + 4시간봉(1주일) 수급 + 이슈 + 공지 + X(트위터) Google Gemini 분석 시작...")
         top_10 = df.head(10).copy()
         
         top_5_names = top_10['코인명'].tolist()[:5]
@@ -353,28 +353,24 @@ def generate_groq_analysis(df):
    - 매집 점수는 높지만 거래대금이 미미하거나 4시간봉 기준 최근 1주일간 고점 대비 변동폭이 커 위험한 1개 종목을 찍어 경고해 주세요.
 3. 데이터의 숫자를 직접 인용하여 객관적이고 날카롭게 서술하세요.
 """
-        client = OpenAI(
-            base_url="https://api.groq.com/openai/v1",
-            api_key=GROQ_API_KEY.strip()
+        # Google Gemini Client 초기화
+        client = genai.Client(api_key=GEMINI_API_KEY.strip())
+        
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
         )
         
-        response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7,
-            top_p=0.9
-        )
-        
-        result_text = response.choices[0].message.content
+        result_text = response.text
         if result_text:
-            print("✅ Groq AI 종합 융합 분석 성공!")
+            print("✅ Gemini AI 종합 융합 분석 성공!")
             return result_text.strip()
         else:
-            return "Groq AI 응답이 비어 있습니다."
+            return "Gemini AI 응답이 비어 있습니다."
 
     except Exception as e:
-        print(f"❌ Groq AI 예외 발생: {e}")
-        return f"Groq AI 분석 생성 중 오류가 발생했습니다: {e}"
+        print(f"❌ Gemini AI 예외 발생: {e}")
+        return f"Gemini AI 분석 생성 중 오류가 발생했습니다: {e}"
 
 # ==============================================================================
 # [엑셀 저장]
@@ -458,19 +454,19 @@ def send_email_with_excel(file_path, ai_analysis=""):
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [업비트 AI 심층분석] 원화마켓 매집 점수 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [업비트 Gemini AI 심층분석] 원화마켓 매집 점수 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
-업비트 원화(KRW) 마켓 전체 상장 종목 분석 및 Groq AI 종합 이슈 결합 리포트가 완료되었습니다.
+업비트 원화(KRW) 마켓 전체 상장 종목 분석 및 Google Gemini AI 종합 이슈 결합 리포트가 완료되었습니다.
 
 • 분석 시각: {now_str}
 • 분석 대상: 원화 마켓 전체 종목
 
 ==================================================
-🤖 [Groq AI 차트+4시간봉(1주일)수급+이슈+공지+X(트위터) 종합 브리핑]
+🤖 [Gemini AI 차트+4시간봉(1주일)수급+이슈+공지+X(트위터) 종합 브리핑]
 ==================================================
 {ai_analysis}
 
@@ -496,13 +492,13 @@ def send_email_with_excel(file_path, ai_analysis=""):
         server.login(SENDER_EMAIL, EMAIL_PASSWORD)
         server.sendmail(SENDER_EMAIL, RECEIVER_EMAILS, msg.as_string())
         server.quit()
-        print(f"📧 엑셀 + AI 심층 브리핑 이메일 발송 성공! (수신자: {', '.join(RECEIVER_EMAILS)})")
+        print(f"📧 엑셀 + Gemini AI 심층 브리핑 이메일 발송 성공! (수신자: {', '.join(RECEIVER_EMAILS)})")
         print("--------------------------------------------------")
     except Exception as e:
         print(f"❌ 이메일 발송 실패: {e}")
 
 if __name__ == "__main__":
     df_ranked = scan_and_rank_coins()
-    ai_summary = generate_groq_analysis(df_ranked)
+    ai_summary = generate_gemini_analysis(df_ranked)
     excel_file = save_daily_excel_sheet(df_ranked)
     send_email_with_excel(excel_file, ai_summary)
