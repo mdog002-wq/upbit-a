@@ -5,3 +5,4 @@ requests
 openai
 pytrends
 beautifulsoup4
+google-genai
