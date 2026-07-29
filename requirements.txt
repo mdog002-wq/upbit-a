@@ -2,7 +2,7 @@ pandas
 pyupbit
 openpyxl
 requests
-openai
+google-genai
 pytrends
 beautifulsoup4
-google-genai
+
