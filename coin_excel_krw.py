@@ -10,6 +10,10 @@ import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.application import MIMEApplication
+
 from bs4 import BeautifulSoup
 from pytrends.request import TrendReq
 from google import genai
@@ -124,11 +128,19 @@ def calculate_advanced_metrics(df_daily):
     return is_obv_divergence, bandwidth, accumulation_candles
 
 # ==============================================================================
-# [알고리즘] 정교화된 매집 점수 산출
+# [알고리즘] 정교화된 매집 점수 산출 (급등주 완벽 필터링 반영)
 # ==============================================================================
 def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_gap, 
-                    is_obv_divergence, bandwidth, accumulation_candles):
+                    is_obv_divergence, bandwidth, accumulation_candles, surge_from_bottom):
     score = 0
+
+    # -------------------------------------------------------------
+    # [강력 필터 1] 바닥 대비 이미 너무 많이 상승한 종목 대폭 감점 (고점 잡기 방지)
+    # -------------------------------------------------------------
+    if surge_from_bottom >= 50.0:
+        return 0  # 최근 20일 최저가 대비 50% 이상 급등한 종목은 매집 제외 (0점 처리)
+    elif surge_from_bottom >= 30.0:
+        score -= 40  # 30%~50% 상승 구간도 강력 감점
 
     # -------------------------------------------------------------
     # [핵심 1] 당일 과열 페널티 (급등주 배제 및 조용한 양봉 우대)
@@ -143,33 +155,27 @@ def calculate_score(vol_ratio, trade_value_krw, price_change, is_yangbong, ma_ga
     # -------------------------------------------------------------
     # [핵심 2] 매집 흔적 및 거래량 수급 평가
     # -------------------------------------------------------------
-    # 최근 7일간 매집봉 출현 여부
     if accumulation_candles >= 2:
         score += 30
     elif accumulation_candles == 1:
         score += 15
 
-    # 당일 거래량 급증
     if vol_ratio >= 3.0: score += 20
     elif vol_ratio >= 1.8: score += 12
     elif vol_ratio >= 1.2: score += 5
 
     # -------------------------------------------------------------
-    # [핵심 3] 지표 디버전스 및 차트 에너축적(횡보/수축)
+    # [핵심 3] 지표 디버전스 및 차트 에너지 축적(횡보/수축)
     # -------------------------------------------------------------
-    # OBV 우상향 디버전스
     if is_obv_divergence:
         score += 25
 
-    # 이평선 수렴도 (20일-60일 밀집)
     if ma_gap <= 3.0: score += 15
     elif ma_gap <= 6.0: score += 10
 
-    # 볼린저밴드 수축 (에너지 응축, 밴드폭 8% 미만)
     if bandwidth <= 8.0: score += 15
     elif bandwidth <= 12.0: score += 8
 
-    # 거래대금 최소 기준 충족 (억원 단위)
     trade_value_eow = trade_value_krw / 100_000_000
     if trade_value_eow >= 50: score += 15
     elif trade_value_eow >= 10: score += 10
@@ -294,6 +300,7 @@ def scan_and_rank_coins():
                 "심볼": symbol,
                 "매집점수": 0,
                 "당일 변동률(%)": 0.0,
+                "바닥 대비 상승률(%)": 0.0,
                 "거래량 급증(배)": 0.0,
                 "거래대금(억원)": 0.0,
                 "현재가(KRW)": 0,
@@ -304,6 +311,10 @@ def scan_and_rank_coins():
 
         try:
             latest = df_daily.iloc[-1]
+            
+            # 최근 20일 최저가 대비 상승률 계산 (고점 추격 방지용)
+            lowest_20d = df_daily['low'].iloc[-20:].min() if len(df_daily) >= 20 else df_daily['low'].min()
+            surge_from_bottom = round(((latest['close'] - lowest_20d) / lowest_20d) * 100, 2) if lowest_20d > 0 else 0.0
             
             if len(df_daily) >= 21:
                 prev_20_vol_avg = df_daily['volume'].iloc[-21:-1].mean()
@@ -327,10 +338,10 @@ def scan_and_rank_coins():
             # 정교화된 고급 매집 지표 계산
             is_obv_div, bandwidth, accum_candles = calculate_advanced_metrics(df_daily)
 
-            # 새 점수 알고리즘 적용
+            # 수정된 점수 알고리즘 적용 (surge_from_bottom 전달)
             total_score = calculate_score(
                 vol_ratio, trade_value_krw, price_change, is_yangbong, ma_gap,
-                is_obv_div, bandwidth, accum_candles
+                is_obv_div, bandwidth, accum_candles, surge_from_bottom
             )
             
             results.append({
@@ -338,13 +349,14 @@ def scan_and_rank_coins():
                 "심볼": symbol,
                 "매집점수": total_score,
                 "당일 변동률(%)": round(price_change, 2),
+                "바닥 대비 상승률(%)": surge_from_bottom,
                 "거래량 급증(배)": round(vol_ratio, 2),
                 "거래대금(억원)": round(trade_value_krw / 100_000_000, 1),
                 "현재가(KRW)": latest['close'],
                 "이평선 수렴도(%)": round(ma_gap, 2),
                 "비고": "정상"
             })
-            print(f"  [수집 완료] {korean_name}({symbol}) | 매집점수: {total_score}점")
+            print(f"  [수집 완료] {korean_name}({symbol}) | 매집점수: {total_score}점 | 바닥대비: +{surge_from_bottom}%")
                 
         except Exception as e:
             results.append({
@@ -352,6 +364,7 @@ def scan_and_rank_coins():
                 "심볼": symbol,
                 "매집점수": 0,
                 "당일 변동률(%)": 0.0,
+                "바닥 대비 상승률(%)": 0.0,
                 "거래량 급증(배)": 0.0,
                 "거래대금(억원)": 0.0,
                 "현재가(KRW)": 0,
@@ -399,6 +412,7 @@ def generate_gemini_analysis(df):
                 "코인명": coin_name,
                 "매집점수": row['매집점수'],
                 "당일변동률": f"{row['당일 변동률(%)']}%",
+                "바닥대비상승률": f"{row['바닥 대비 상승률(%)']}%",
                 "거래량급증": f"{row['거래량 급증(배)']}배",
                 "거래대금": f"{row['거래대금(억원)']}억원",
                 "4시간봉_1주일_수급분석": info_4h,
@@ -495,7 +509,7 @@ def save_daily_excel_sheet(df):
             cell = ws.cell(row=row, column=col)
             cell.font = data_font
             cell.border = thin_border
-            cell.alignment = Alignment(horizontal="center" if col != 7 else "right", vertical="center")
+            cell.alignment = Alignment(horizontal="center" if col != 8 else "right", vertical="center")
             
             if is_high_score:
                 cell.fill = high_score_fill
