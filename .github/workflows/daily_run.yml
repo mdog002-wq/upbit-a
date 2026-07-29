@@ -1,10 +1,6 @@
 name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
-  schedule:
-    # cron 표현식 (분 시 일 월 요일) - UTC 기준
-    # UTC 00:05 기준 4시간 간격
-    - cron: '5 */4 * * *'
   workflow_dispatch:
 
 jobs:
