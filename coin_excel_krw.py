@@ -15,8 +15,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 
-from bs4 import BeautifulSoup
-from pytrends.request import TrendReq
 from google import genai
 from google.genai import types
 
@@ -45,7 +43,6 @@ def load_cache(file_path):
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-                # 당일 캐시인 경우에만 유효
                 if data.get("date") == datetime.date.today().isoformat():
                     return data.get("content", {})
         except Exception:
@@ -64,7 +61,7 @@ def save_cache(file_path, content):
         print(f"⚠️ 캐시 저장 실패: {e}")
 
 # ==============================================================================
-# [유틸] 업비트 원화 마켓 조회
+# [유틸] 업비트 마켓 조회 & 4시간봉(1주일) 분석 복원
 # ==============================================================================
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all"
@@ -83,6 +80,32 @@ def get_krw_upbit_tickers():
     except Exception as e:
         print(f"❌ 업비트 원화 코인 목록 조회 실패: {e}")
         return []
+
+def get_4h_ohlcv_summary(symbol):
+    """[복원] 마감된 4시간봉 기준 최근 1주일(42개 봉 = 168시간) 수급 및 변동성 정적 분석"""
+    ticker = f"KRW-{symbol}"
+    try:
+        # 최근 43개 수집 후 진행 중인 마지막 봉(iloc[-1])을 제외하여 결과 고정
+        df_4h = pyupbit.get_ohlcv(ticker, interval="minute240", count=43)
+        if df_4h is None or len(df_4h) < 42:
+            return "4시간봉 데이터 수집 불가"
+
+        df_closed = df_4h.iloc[:-1].copy() # 확정된 마감 4시간봉만 사용
+
+        recent_vol_avg = df_closed['volume'].iloc[:-1].mean()
+        latest_vol = df_closed['volume'].iloc[-1]
+        vol_surge_4h = round(latest_vol / recent_vol_avg, 2) if recent_vol_avg > 0 else 1.0
+
+        first_open_7d = df_closed['open'].iloc[0]
+        latest_close = df_closed['close'].iloc[-1]
+        price_change_7d = round(((latest_close - first_open_7d) / first_open_7d) * 100, 2)
+
+        max_price_7d = df_closed['high'].max()
+        min_price_7d = df_closed['low'].min()
+        
+        return f"최근 1주일(4시간 마감봉) 변동률: {price_change_7d}%, 직전 대비 거래량: {vol_surge_4h}배, 1주일 최고가: {max_price_7d:,.0f}원 / 최저가: {min_price_7d:,.0f}원"
+    except Exception as e:
+        return f"4시간봉 조회 오류: {e}"
 
 # ==============================================================================
 # [캐싱 적용 외부 데이터] 유통량 및 GitHub 활동성
@@ -106,7 +129,7 @@ def get_cached_coingecko_tokenomics(symbols):
                 new_cache[symbol] = round(circ_ratio, 2)
             else:
                 new_cache[symbol] = 75.0
-            time.sleep(0.5) # API Rate Limit 예방
+            time.sleep(0.5)
         except Exception:
             new_cache[symbol] = 75.0
 
@@ -141,10 +164,9 @@ def get_cached_github_activity(symbols):
     return new_cache
 
 # ==============================================================================
-# [확정 봉 기반 지표 연산] 어제 마감 봉(iloc[-2]) 기준
+# [확정 봉 기반 지표 연산] 어제 마감 일봉(iloc[-2]) 기준
 # ==============================================================================
 def calculate_stable_metrics(df_daily):
-    # 어제까지 마감된 일봉만 사용 (실시간 변동 봉인 iloc[-1] 제외)
     df = df_daily.iloc[:-1].copy()
     if len(df) < 30:
         return None
@@ -152,16 +174,12 @@ def calculate_stable_metrics(df_daily):
     close = df['close']
     volume = df['volume']
     
-    # 1. 확정 봉 기준 변동률
     chg_1d = ((close.iloc[-1] - close.iloc[-2]) / close.iloc[-2]) * 100
     chg_7d = ((close.iloc[-1] - close.iloc[-8]) / close.iloc[-8]) * 100 if len(df) >= 8 else 0
-    chg_14d = ((close.iloc[-1] - close.iloc[-15]) / close.iloc[-15]) * 100 if len(df) >= 15 else 0
 
-    # 2. 거래대금 가중 이동평균(VWAP)
     vwap = (df['value'].iloc[-14:].sum()) / (volume.iloc[-14:].sum()) if volume.iloc[-14:].sum() > 0 else close.iloc[-1]
     vwap_gap = round(((close.iloc[-1] - vwap) / vwap) * 100, 2)
 
-    # 3. OBV 디버전스
     obv_values = [0.0]
     for i in range(1, len(df)):
         if close.iloc[i] > close.iloc[i-1]:
@@ -176,14 +194,12 @@ def calculate_stable_metrics(df_daily):
     price_change_10d = ((close.iloc[-1] - close.iloc[-10]) / close.iloc[-10]) * 100 if len(df) >= 10 else 0
     is_obv_divergence = (price_change_10d <= 3.0) and (obv_slope > 0)
 
-    # 4. 볼린저 밴드 수축도
     ma20 = close.rolling(20).mean()
     std20 = close.rolling(20).std()
     upper = ma20 + (std20 * 2)
     lower = ma20 - (std20 * 2)
     bandwidth = ((upper - lower) / ma20).iloc[-1] * 100 if ma20.iloc[-1] > 0 else 999.0
 
-    # 5. 확정 봉 기준 매집봉 감지
     recent_7d = df.iloc[-7:]
     prev_vol_avg = volume.iloc[-27:-7].mean() if len(df) >= 27 else volume.mean()
     accum_candles = 0
@@ -194,13 +210,11 @@ def calculate_stable_metrics(df_daily):
             if vol_ratio >= 2.3 and 0.3 <= p_change <= 5.5:
                 accum_candles += 1
 
-    # 어제 마감 봉 거래량 급증률
     vol_ratio = (volume.iloc[-1] / prev_vol_avg) if prev_vol_avg > 0 else 1.0
 
     return {
         "chg_1d": round(chg_1d, 2),
         "chg_7d": round(chg_7d, 2),
-        "chg_14d": round(chg_14d, 2),
         "vwap_gap": vwap_gap,
         "is_obv_div": is_obv_divergence,
         "bandwidth": round(bandwidth, 2),
@@ -210,43 +224,34 @@ def calculate_stable_metrics(df_daily):
         "last_value": df['value'].iloc[-1]
     }
 
-# ==============================================================================
-# [정적 점수 연산 알고리즘]
-# ==============================================================================
 def calculate_stable_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
     score = 0
 
-    # 1. 고점 추격 배제
     if surge_from_bottom >= 45.0:
         return 0
     elif surge_from_bottom >= 25.0:
         score -= 30
 
-    # 2. 변동률 조건 (고요한 양봉/횡보)
     if 0.0 <= metrics['chg_1d'] <= 3.5 and -5.0 <= metrics['chg_7d'] <= 5.0:
         score += 25
     elif metrics['chg_1d'] > 10.0:
         score -= 25
 
-    # 3. 거래량 & 수급
     if metrics['vol_ratio'] >= 2.5: score += 20
     elif metrics['vol_ratio'] >= 1.5: score += 12
 
     if -2.0 <= metrics['vwap_gap'] <= 3.0: score += 15
 
-    # 4. 차트 매집 지표
     if metrics['is_obv_div']: score += 20
     if metrics['bandwidth'] <= 8.0: score += 15
     if metrics['accum_candles'] >= 2: score += 25
     elif metrics['accum_candles'] == 1: score += 12
 
-    # 5. 토큰노믹스 & 개발 지표
     if circ_ratio >= 60.0: score += 10
     elif circ_ratio < 30.0: score -= 15
 
     if is_dev_active: score += 10
 
-    # 어제 마감 거래대금 가점
     trade_value_eow = metrics['last_value'] / 100_000_000
     if trade_value_eow >= 30: score += 10
 
@@ -257,7 +262,7 @@ def calculate_stable_score(metrics, surge_from_bottom, circ_ratio, is_dev_active
 # ==============================================================================
 def scan_and_rank_coins():
     print("--------------------------------------------------")
-    print("🚀 마감 일봉(Determinism) 기반 업비트 원화 마켓 안정 스캔 시작...")
+    print("🚀 업비트 원화 마켓 일봉 + 4시간봉 정적 스캔 시작...")
     
     krw_coins = get_krw_upbit_tickers()
     if not krw_coins:
@@ -280,12 +285,10 @@ def scan_and_rank_coins():
             if df_daily is None or len(df_daily) < 30:
                 continue
 
-            # 확정 봉 기반 지표 계산
             metrics = calculate_stable_metrics(df_daily)
             if not metrics:
                 continue
 
-            # 최근 20일 최저가 (마감 봉 기준)
             df_closed = df_daily.iloc[:-1]
             lowest_20d = df_closed['low'].iloc[-20:].min()
             surge_from_bottom = round(((metrics['last_close'] - lowest_20d) / lowest_20d) * 100, 2) if lowest_20d > 0 else 0.0
@@ -293,7 +296,6 @@ def scan_and_rank_coins():
             circ_ratio = tokenomics_map.get(symbol, 75.0)
             is_dev_active = github_map.get(symbol, False)
 
-            # 정적 매집 점수 연산
             total_score = calculate_stable_score(metrics, surge_from_bottom, circ_ratio, is_dev_active)
 
             results.append({
@@ -318,7 +320,7 @@ def scan_and_rank_coins():
     return df
 
 # ==============================================================================
-# [AI 심층 분석] Gemini API (Temperature = 0.0으로 출력 고정)
+# [AI 심층 분석] Gemini API (4시간봉 데이터 재연동 + Temperature = 0.0)
 # ==============================================================================
 def generate_gemini_analysis(df):
     if not GEMINI_API_KEY:
@@ -328,23 +330,38 @@ def generate_gemini_analysis(df):
         return "분석할 데이터가 없습니다."
 
     try:
-        top_10 = df.head(10).to_dict(orient="records")
+        top_10 = df.head(10).copy()
+        
+        enriched_data = []
+        for idx, row in top_10.iterrows():
+            symbol = row['심볼']
+            info_4h = get_4h_ohlcv_summary(symbol) # [복원] 4시간봉 데이터 연동
+            
+            enriched_data.append({
+                "코인명": row['코인명'],
+                "매집점수": row['매집점수'],
+                "1일/7일변동률": f"{row['1일 변동률(%)']}% / {row['7일 변동률(%)']}%",
+                "바닥대비상승률": f"{row['바닥 대비 상승률(%)']}%",
+                "거래량급증": f"{row['거래량 급증(배)']}배",
+                "유통량비율": f"{row['유통량 비율(%)']}%",
+                "거래대금": f"{row['거래대금(억원)']}억원",
+                "4시간봉_1주일_수급분석": info_4h
+            })
 
         prompt = f"""
-당신은 가상자산 수급 분석 전문가입니다.
-아래 마감 일봉 기준 상위 10개 코인 데이터를 바탕으로 객관적이고 일관성 있는 분석 리포트를 작성해 주세요.
+당신은 가상자산 수급 및 온체인 분석 전문가입니다.
+아래 상위 10개 코인의 일봉 매집 점수 및 [최근 1주일간의 4시간봉 수급 데이터]를 바탕으로 정중한 경어체(~습니다, ~입니다)로 정밀 분석 리포트를 작성해 주세요.
 
-[상위 10개 데이터]
-{top_10}
+[상위 10개 데이터 종합]
+{enriched_data}
 
-[작성 지침]
-- 반말을 금지하고, 반드시 정중한 경어체(~습니다, ~입니다)로 작성하세요.
-- 매집 점수 Top 3 코인을 명확히 지정하고, 1일/7일 변동률, 유통량 비율, 거래량 급증 배수를 직접 인용하여 분석하세요.
-- 리스크 유의 종목 1개를 선정하고 그 이유를 구체적으로 기술하세요.
+[작성 지침 및 차별화 원칙]
+1. **[추천 종목 Top 3 및 4시간봉(1주일) 정밀 분석] 필수 포함**:
+   - 1위, 2위, 3위 추천 종목을 지정하고, 일봉 지표뿐만 아니라 **[최근 1주일간 4시간봉 데이터(1주일 변동률, 최고/최저가, 최근 거래량)]를 직접 인용하여 단/중기 진입 및 지지/저항 구간**을 날카롭게 분석해 주세요.
+2. **[주의/과열 유의 종목 1개] 필수 포함**:
+   - 매집 점수는 높지만 바닥 대비 변동폭이 너무 크거나, 4시간봉 기준 고점 대비 낙폭이 커 진입이 위험한 1개 종목을 지정해 이유를 기술하세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
-        
-        # Temperature=0.0으로 설정하여 동일 입력에 대한 출력을 고정
         config = types.GenerateContentConfig(temperature=0.0)
         
         response = client.models.generate_content(
@@ -421,22 +438,22 @@ def send_email_with_excel(file_path, ai_analysis=""):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [안정화 매집분석] 업비트 일봉 마감 기준 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [일봉+4시간봉 융합 분석] 업비트 매집 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
-마감 일봉 기준 정적 매집 분석 및 Gemini AI 리포트가 완성되었습니다.
+일봉 마감 지표 및 최근 1주일간의 4시간봉 수급 데이터를 종합 연동한 리포트입니다.
 
 • 분석 시각: {now_str}
 
 ==================================================
-🤖 [Gemini AI 고정 리포트 (Temperature=0.0)]
+🤖 [Gemini AI 일봉 + 4시간봉(1주일) 심층 브리핑]
 ==================================================
 {ai_analysis}
 
-자세한 데이터는 첨부 엑셀 파일을 참고하세요.
+자세한 데이터는 첨부된 엑셀 파일을 확인해 주세요.
 """
     msg.attach(MIMEText(body, "plain", "utf-8"))
 
