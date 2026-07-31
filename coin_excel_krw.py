@@ -17,6 +17,7 @@ from email.mime.application import MIMEApplication
 
 from google import genai
 from google.genai import types
+from tqdm import tqdm
 
 # ==============================================================================
 # [설정] GitHub Secrets 및 환경 변수
@@ -35,6 +36,7 @@ EXCEL_FILE_PATH = "업비트_원화마켓_매집_패턴분석_리포트.xlsx"
 CACHE_TOKENOMICS_FILE = "cache_tokenomics.json"
 CACHE_GITHUB_FILE = "cache_github.json"
 
+
 # ==============================================================================
 # [유틸] 데이터 포맷팅 및 캐싱 기능
 # ==============================================================================
@@ -51,6 +53,7 @@ def format_price(x):
     except Exception:
         return x
 
+
 def format_number(x, decimals=2):
     """숫자 포맷팅 (콤마 및 소수점 자리수 지정)"""
     try:
@@ -58,6 +61,7 @@ def format_number(x, decimals=2):
         return f"{val:,.{decimals}f}"
     except Exception:
         return x
+
 
 def load_cache(file_path):
     if os.path.exists(file_path):
@@ -70,6 +74,7 @@ def load_cache(file_path):
             return {}
     return {}
 
+
 def save_cache(file_path, content):
     try:
         data = {
@@ -80,6 +85,7 @@ def save_cache(file_path, content):
             json.dump(data, f, ensure_ascii=False, indent=2)
     except Exception as e:
         print(f"⚠️ 캐시 저장 실패: {e}")
+
 
 # ==============================================================================
 # [업비트 마켓 및 외부 API 연동]
@@ -100,6 +106,7 @@ def get_krw_upbit_tickers():
     except Exception as e:
         print(f"❌ 업비트 원화 코인 목록 조회 실패: {e}")
     return []
+
 
 def get_4h_ohlcv_summary(symbol):
     """마감된 4시간봉 기준 최근 1주일 정적 분석"""
@@ -124,6 +131,7 @@ def get_4h_ohlcv_summary(symbol):
         return f"최근 1주일(4h 마감) 변동률: {price_change_7d}%, 직전 대비 거래량: {vol_surge_4h}배, 최고: {max_price_7d:,.0f}원 / 최저: {min_price_7d:,.0f}원"
     except Exception as e:
         return f"4시간봉 조회 오류: {e}"
+
 
 def get_cached_coingecko_tokenomics(symbols):
     cache = load_cache(CACHE_TOKENOMICS_FILE)
@@ -150,6 +158,7 @@ def get_cached_coingecko_tokenomics(symbols):
 
     save_cache(CACHE_TOKENOMICS_FILE, new_cache)
     return new_cache
+
 
 def get_cached_github_activity(symbols):
     cache = load_cache(CACHE_GITHUB_FILE)
@@ -178,8 +187,9 @@ def get_cached_github_activity(symbols):
     save_cache(CACHE_GITHUB_FILE, new_cache)
     return new_cache
 
+
 # ==============================================================================
-# [알고리즘] 코사인 유사도 & 매집 지표 산출
+# [알고리즘] 코사인 유사도 & T-1 선행 매집 지표 산출 (강화 버전)
 # ==============================================================================
 def calculate_cosine_similarity(vec1, vec2):
     v1 = np.array(vec1)
@@ -189,6 +199,7 @@ def calculate_cosine_similarity(vec1, vec2):
         return 0.0
     cosine_sim = np.dot(v1, v2) / (norm_v1 * norm_v2)
     return float(max(0, cosine_sim) * 100)
+
 
 def extract_pre_spike_patterns(df):
     patterns = []
@@ -212,20 +223,49 @@ def extract_pre_spike_patterns(df):
 
     return patterns, df
 
-def calculate_stable_metrics(df_daily):
-    df = df_daily.iloc[:-1].copy()
+
+def calculate_t1_advanced_metrics(df_daily, df_30m=None):
+    """T-1 선행 매집 지표 산출 엔진"""
+    df = df_daily.iloc[:-1].copy()  # 마감된 일봉 기준
     if len(df) < 30:
         return None
 
     close = df['close']
+    open_p = df['open']
+    high = df['high']
+    low = df['low']
     volume = df['volume']
-    
+
+    # 1. 일봉 변동률
     chg_1d = ((close.iloc[-1] - close.iloc[-2]) / close.iloc[-2]) * 100
     chg_7d = ((close.iloc[-1] - close.iloc[-8]) / close.iloc[-8]) * 100 if len(df) >= 8 else 0
 
-    vwap = (df['value'].iloc[-14:].sum()) / (volume.iloc[-14:].sum()) if volume.iloc[-14:].sum() > 0 else close.iloc[-1]
-    vwap_gap = round(((close.iloc[-1] - vwap) / vwap) * 100, 2)
+    # 2. 거래량 절벽 (5일 평균 대비 직전일 거래량 급감 여부)
+    vol_ma5 = volume.iloc[-6:-1].mean()
+    vol_dry_ratio = (volume.iloc[-1] / vol_ma5) if vol_ma5 > 0 else 1.0
+    is_volume_dry = (vol_dry_ratio <= 0.55)  # 거래량이 55% 이하로 급감 (매물 소진)
 
+    # 3. 이동평균선 밀집도 (5일, 10일, 20일 이평선 수렴도 %)
+    ma5 = close.rolling(5).mean().iloc[-1]
+    ma10 = close.rolling(10).mean().iloc[-1]
+    ma20 = close.rolling(20).mean().iloc[-1]
+    ma_max = max(ma5, ma10, ma20)
+    ma_min = min(ma5, ma10, ma20)
+    ma_compression = ((ma_max - ma_min) / ma20) * 100 if ma20 > 0 else 999.0
+
+    # 4. 최근 10일 내 '위꼬리 매집봉' 존재 여부
+    prev_vol_avg = volume.iloc[-25:-5].mean() if len(df) >= 25 else volume.mean()
+    has_spike_candle = False
+    if prev_vol_avg > 0:
+        for i in range(-10, -1):
+            v_ratio = volume.iloc[i] / prev_vol_avg
+            candle_body = abs(close.iloc[i] - open_p.iloc[i])
+            upper_shadow = high.iloc[i] - max(close.iloc[i], open_p.iloc[i])
+            if v_ratio >= 2.2 and upper_shadow >= (candle_body * 0.8):
+                has_spike_candle = True
+                break
+
+    # 5. OBV 다이버전스
     obv_values = [0.0]
     for i in range(1, len(df)):
         if close.iloc[i] > close.iloc[i-1]:
@@ -235,69 +275,80 @@ def calculate_stable_metrics(df_daily):
         else:
             obv_values.append(obv_values[-1])
     df['obv'] = obv_values
-    
     obv_slope = df['obv'].iloc[-1] - df['obv'].iloc[-10] if len(df) >= 10 else 0
     price_change_10d = ((close.iloc[-1] - close.iloc[-10]) / close.iloc[-10]) * 100 if len(df) >= 10 else 0
     is_obv_divergence = (price_change_10d <= 3.0) and (obv_slope > 0)
 
-    ma20 = close.rolling(20).mean()
-    std20 = close.rolling(20).std()
-    upper = ma20 + (std20 * 2)
-    lower = ma20 - (std20 * 2)
-    bandwidth = ((upper - lower) / ma20).iloc[-1] * 100 if ma20.iloc[-1] > 0 else 999.0
-
-    recent_7d = df.iloc[-7:]
-    prev_vol_avg = volume.iloc[-27:-7].mean() if len(df) >= 27 else volume.mean()
-    accum_candles = 0
-    if prev_vol_avg > 0:
-        for idx, row in recent_7d.iterrows():
-            vol_ratio = row['volume'] / prev_vol_avg
-            p_change = ((row['close'] - row['open']) / row['open']) * 100 if row['open'] > 0 else 0
-            if vol_ratio >= 2.3 and 0.3 <= p_change <= 5.5:
-                accum_candles += 1
-
-    vol_ratio = (volume.iloc[-1] / prev_vol_avg) if prev_vol_avg > 0 else 1.0
+    # 6. 30분봉 마감 직전 소폭 거래량 유입 (마지막 2개 봉)
+    late_volume_surge = False
+    if df_30m is not None and len(df_30m) >= 6:
+        avg_30m_vol = df_30m['volume'].iloc[:-2].mean()
+        recent_30m_vol = df_30m['volume'].iloc[-1]
+        if avg_30m_vol > 0 and (recent_30m_vol / avg_30m_vol) >= 1.8:
+            late_volume_surge = True
 
     return {
         "chg_1d": round(chg_1d, 2),
         "chg_7d": round(chg_7d, 2),
-        "vwap_gap": vwap_gap,
+        "vol_dry_ratio": round(vol_dry_ratio, 2),
+        "is_volume_dry": is_volume_dry,
+        "ma_compression": round(ma_compression, 2),
+        "has_spike_candle": has_spike_candle,
         "is_obv_div": is_obv_divergence,
-        "bandwidth": round(bandwidth, 2),
-        "accum_candles": accum_candles,
-        "vol_ratio": round(vol_ratio, 2),
+        "late_volume_surge": late_volume_surge,
         "last_close": close.iloc[-1],
         "last_value": df['value'].iloc[-1]
     }
 
-def calculate_stable_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
-    score = 0
-    if surge_from_bottom >= 45.0:
-        return 0
-    elif surge_from_bottom >= 25.0:
-        score -= 30
 
-    if 0.0 <= metrics['chg_1d'] <= 3.5 and -5.0 <= metrics['chg_7d'] <= 5.0:
+def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
+    """T-1 상승 직전 매집 스코어링 공식"""
+    score = 0
+
+    # 1. 바닥권 위치 필터링 (이미 폭등한 종목 강력 감점)
+    if surge_from_bottom >= 35.0:
+        return 0
+    elif surge_from_bottom <= 15.0:
+        score += 20
+    elif surge_from_bottom <= 25.0:
+        score += 10
+
+    # 2. T-1 핵심: 거래량 절벽 (매물 소진 및 수급 테스트 완료)
+    if metrics['is_volume_dry']:
         score += 25
-    elif metrics['chg_1d'] > 10.0:
+    elif metrics['vol_dry_ratio'] <= 0.75:
+        score += 15
+
+    # 3. T-1 핵심: 이동평균선 수렴 (에너지 응축)
+    if metrics['ma_compression'] <= 2.5:
+        score += 25
+    elif metrics['ma_compression'] <= 4.5:
+        score += 15
+
+    # 4. 세력 흔적: 최근 위꼬리 매집봉 및 OBV 다이버전스
+    if metrics['has_spike_candle']:
+        score += 15
+    if metrics['is_obv_div']:
+        score += 15
+
+    # 5. 당일 주가 변동폭 제어 (-2.5% ~ +3% 내 정적 횡보)
+    if -2.5 <= metrics['chg_1d'] <= 3.0:
+        score += 10
+    elif metrics['chg_1d'] > 7.0:  # 이미 당일 급등 시 감점
         score -= 25
 
-    if metrics['vol_ratio'] >= 2.5: score += 20
-    elif metrics['vol_ratio'] >= 1.5: score += 12
-
-    if -2.0 <= metrics['vwap_gap'] <= 3.0: score += 15
-    if metrics['is_obv_div']: score += 20
-    if metrics['bandwidth'] <= 8.0: score += 15
-    if metrics['accum_candles'] >= 2: score += 25
-    elif metrics['accum_candles'] == 1: score += 12
-
-    if circ_ratio >= 60.0: score += 10
-    elif circ_ratio < 30.0: score -= 15
-
-    if is_dev_active: score += 10
-    if (metrics['last_value'] / 100_000_000) >= 30: score += 10
+    # 6. 마감 직전 30분 수급 유입 & 토크노믹스/개발활력
+    if metrics['late_volume_surge']:
+        score += 10
+    if circ_ratio >= 60.0:
+        score += 5
+    if is_dev_active:
+        score += 5
+    if (metrics['last_value'] / 100_000_000) >= 30:
+        score += 5
 
     return max(0, score)
+
 
 # ==============================================================================
 # [스캔 및 분석 엔진]
@@ -311,7 +362,7 @@ def analyze_and_scan_market():
     tokenomics_map = get_cached_coingecko_tokenomics(symbols)
     github_map = get_cached_github_activity(symbols)
 
-    print("\n[1/2] 30분봉 수급 집중도(최근 12시간 15위 진입 횟수) 수집 중...")
+    print("\n[1/2] 30분봉 수급 집중도 및 마감 직전 수급 수집 중...")
     hourly_rank_details = {c['ticker']: [] for c in krw_coins}
     market_30m_data = {}
     time_12h_ago = datetime.datetime.now() - datetime.timedelta(hours=12)
@@ -340,11 +391,10 @@ def analyze_and_scan_market():
                 if t in hourly_rank_details:
                     hourly_rank_details[t].append(rank)
 
-    print("\n[2/2] 일봉 데이터 종합 수급 및 T-1 패턴 유사도 분석 중...")
+    print("\n[2/2] T-1 선행 매집 패턴 및 코사인 유사도 분석 중...")
     results = []
 
-    # tqdm 제거 및 일반 루프 적용
-    for item in krw_coins:
+    for item in tqdm(krw_coins, desc="종합 종목 분석", ncols=100):
         ticker = item['ticker']
         korean_name = item['korean_name']
         symbol = item['symbol']
@@ -355,17 +405,18 @@ def analyze_and_scan_market():
                 time.sleep(0.03)
                 continue
 
-            metrics = calculate_stable_metrics(df_daily)
+            df_30m_recent = market_30m_data.get(ticker, None)
+            metrics = calculate_t1_advanced_metrics(df_daily, df_30m_recent)
             if not metrics:
                 continue
 
-            # 1. 매집 점수 계산
+            # 1. T-1 선행 매집 점수 계산
             df_closed = df_daily.iloc[:-1]
             lowest_20d = df_closed['low'].iloc[-20:].min()
             surge_from_bottom = round(((metrics['last_close'] - lowest_20d) / lowest_20d) * 100, 2) if lowest_20d > 0 else 0.0
             circ_ratio = tokenomics_map.get(symbol, 75.0)
             is_dev_active = github_map.get(symbol, False)
-            accumulation_score = calculate_stable_score(metrics, surge_from_bottom, circ_ratio, is_dev_active)
+            accumulation_score = calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active)
 
             # 2. 패턴 코사인 유사도 계산
             patterns, processed_df = extract_pre_spike_patterns(df_daily)
@@ -397,8 +448,8 @@ def analyze_and_scan_market():
             vol_mean_total = df_daily["volume"].mean()
             vol_ratio_pattern = vol_mean_20 / vol_mean_total if vol_mean_total > 0 else 0
 
-            # 패턴 예측 종합 점수
-            pattern_prediction_score = (similarity_score * 0.5) + (spike_count * 3) + (rank_count * 2) + (vol_ratio_pattern * 5)
+            # 패턴 예측 종합 점수 (T-1 매집 점수 반영)
+            pattern_prediction_score = (accumulation_score * 0.4) + (similarity_score * 0.3) + (rank_count * 2) + (vol_ratio_pattern * 3)
 
             results.append({
                 "코인명": f"{korean_name} 🔥" if recent_buy_sell_trend == "매수세 우위" else korean_name,
@@ -407,13 +458,13 @@ def analyze_and_scan_market():
                 "패턴유사도(%)": round(similarity_score, 1),
                 "종합예측점수": round(pattern_prediction_score, 2),
                 "현재가(KRW)": format_price(metrics['last_close']),
-                "15위내_진입(회)": rank_count,
+                "거래량절벽(배)": metrics['vol_dry_ratio'],
+                "이평선수렴(%)": metrics['ma_compression'],
                 "1일 변동률(%)": metrics['chg_1d'],
                 "7일 변동률(%)": metrics['chg_7d'],
                 "바닥대비상승(%)": surge_from_bottom,
-                "거래량급증(배)": metrics['vol_ratio'],
+                "15위내_진입(회)": rank_count,
                 "과거급등(회)": spike_count,
-                "20일이평괴리도(%)": round(curr["disparity_20"], 2) if not np.isnan(curr["disparity_20"]) else 0.0,
                 "순수급금액(KRW)": format_number(net_buy_amount, 0),
                 "30분 수급": recent_buy_sell_trend,
                 "유통량비율(%)": circ_ratio,
@@ -427,12 +478,9 @@ def analyze_and_scan_market():
 
     df = pd.DataFrame(results)
     if not df.empty:
-        # 정렬 우선순위 수정: 1순위 종합예측점수, 2순위 패턴유사도(%), 3순위 매집점수
-        df = df.sort_values(
-            by=["종합예측점수", "패턴유사도(%)", "매집점수"], 
-            ascending=[False, False, False]
-        ).reset_index(drop=True)
+        df = df.sort_values(by=["매집점수", "종합예측점수", "패턴유사도(%)"], ascending=[False, False, False]).reset_index(drop=True)
     return df
+
 
 # ==============================================================================
 # [AI 심층 분석] Gemini 3.1 Flash Lite
@@ -453,26 +501,27 @@ def generate_gemini_analysis(df):
             
             enriched_data.append({
                 "코인명": row['코인명'],
-                "매집점수": row['매집점수'],
+                "T-1매집점수": row['매집점수'],
                 "패턴유사도": f"{row['패턴유사도(%)']}%",
                 "종합예측점수": row['종합예측점수'],
+                "거래량절벽비율": f"{row['거래량절벽(배)']}배 (낮을수록 매물소진)",
+                "이평선수렴도": f"{row['이평선수렴(%)']}% (낮을수록 에너지축적)",
                 "1일/7일변동률": f"{row['1일 변동률(%)']}% / {row['7일 변동률(%)']}%",
                 "바닥대비상승률": f"{row['바닥대비상승(%)']}%",
-                "거래량급증": f"{row['거래량급증(배)']}배",
                 "30분수급": row['30분 수급'],
                 "4시간봉_1주일_수급분석": info_4h
             })
 
         prompt = f"""
-당신은 가상자산 수급 및 패턴 분석 전문가입니다.
-아래 상위 10개 코인의 [일봉 매집 점수], [T-1 급등 패턴 코사인 유사도], 및 [최근 1주일간 4시간봉 수급 데이터]를 바탕으로 정중한 경어체(~습니다, ~입니다)로 정밀 분석 리포트를 작성해 주세요.
+당신은 가상자산 수급 및 T-1 상승 직전 패턴 분석 전문가입니다.
+아래 상위 10개 코인의 [T-1 선행 매집 점수], [거래량 절벽 및 이평선 수렴도], 및 [4시간봉 수급 데이터]를 바탕으로 정중한 경어체(~습니다, ~입니다)로 정밀 분석 리포트를 작성해 주세요.
 
 [상위 10개 통합 분석 데이터]
 {enriched_data}
 
 [작성 지침 및 차별화 원칙]
-1. **[추천 종목 Top 3 및 수급/패턴 정밀 분석] 필수 포함**:
-   - 1위, 2위, 3위 추천 종목을 지정하고, 매집 점수와 함께 **[최근 1주일간 4시간봉 데이터(1주일 변동률, 최고/최저가, 직전 대비 거래량)] 및 [30분 수급/패턴 유사도]를 직접 인용**하여 진입 타점과 주요 지지/저항 구간을 제시하세요.
+1. **[T-1 상승 직전 추천 종목 Top 3] 필수 포함**:
+   - 1위, 2위, 3위 추천 종목을 지정하고, **[거래량 절벽 현상], [이평선 밀집 상태], [최근 1주일간 4시간봉 데이터]를 직접 인용**하여 상승 직전 선제 진입 타점과 목표 구간을 제시하세요.
 2. **[주의/과열 유의 종목 1개] 필수 포함**:
    - 점수는 높으나 바닥 대비 변동폭이 지나치게 크거나 고점 대비 낙폭/매도세 우위로 위험성이 존재하는 1개 종목을 지정해 주의점 및 대응책을 기술하세요.
 """
@@ -487,6 +536,7 @@ def generate_gemini_analysis(df):
         return response.text.strip() if response.text else "AI 응답 없음"
     except Exception as e:
         return f"AI 분석 중 오류 발생: {e}"
+
 
 # ==============================================================================
 # [엑셀 리포트 저장 및 이메일 전송]
@@ -513,7 +563,7 @@ def save_integrated_excel(df):
     header_fill = PatternFill(start_color="1F497D", end_color="1F497D", fill_type="solid")
     header_font = Font(name="맑은 고딕", size=10, bold=True, color="FFFFFF")
     data_font = Font(name="맑은 고딕", size=10)
-    high_score_fill = PatternFill(start_color="FFF3CD", end_color="FFF3CD", fill_type="solid") # 연한 노란색
+    high_score_fill = PatternFill(start_color="FFF3CD", end_color="FFF3CD", fill_type="solid")  # 연한 노란색
     
     thin_border = Border(
         left=Side(style='thin', color='D9D9D9'), right=Side(style='thin', color='D9D9D9'),
@@ -533,7 +583,7 @@ def save_integrated_excel(df):
     # 데이터 행 스타일링
     for row_idx, row in enumerate(range(2, ws.max_row + 1)):
         df_idx = row_idx
-        accum_score_cell = ws.cell(row=row, column=3) # 매집점수 (3번째 컬럼)
+        accum_score_cell = ws.cell(row=row, column=3)  # 매집점수 (3번째 컬럼)
         
         # 매집점수 >= 70 이거나 종합예측점수 상위 5위인 경우 강조
         is_high_score = (accum_score_cell.value and float(accum_score_cell.value) >= 70) or (df_idx in top5_pred_indices)
@@ -556,6 +606,7 @@ def save_integrated_excel(df):
     wb.close()
     return EXCEL_FILE_PATH
 
+
 def send_email_report(file_path, ai_analysis):
     if not file_path or not os.path.exists(file_path) or not SENDER_EMAIL or not RECEIVER_EMAILS:
         print("⚠️ 이메일 발송 조건이 충족되지 않았습니다 (환경 변수/파일 확인 필요).")
@@ -563,18 +614,18 @@ def send_email_report(file_path, ai_analysis):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [매집+급등패턴 통합 리포트] 업비트 종합 수급 브리핑 ({now_str})"
+    msg["Subject"] = f"📊 [T-1 선행매집 통합 리포트] 업비트 상승직전 종목 브리핑 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
-업비트 원화 마켓 [일봉 매집 지표]와 [과거 T-1 급등 패턴 코사인 유사도]를 종합 산출한 리포트입니다.
+업비트 원화 마켓 [T-1 선행 매집 지표]와 [과거 상승 패턴 코사인 유사도]를 종합 산출한 리포트입니다.
 
 • 분석 시각: {now_str}
 
 ==================================================
-🤖 [Gemini AI 수급 & 패턴 심층 분석 리포트]
+🤖 [Gemini AI T-1 수급 & 패턴 심층 분석 리포트]
 ==================================================
 {ai_analysis}
 
@@ -597,18 +648,19 @@ def send_email_report(file_path, ai_analysis):
     except Exception as e:
         print(f"❌ 이메일 발송 실패: {e}")
 
+
 # ==============================================================================
 # [메인 실행부]
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] 매집 분석 + T-1 급등 패턴 통합 분석 프로세스 시작...")
+    print("🚀 [업비트 원화 마켓] T-1 선행 매집 분석 + 급등 패턴 통합 분석 프로세스 시작...")
     
     df_result = analyze_and_scan_market()
     
     if not df_result.empty:
-        print("\n=== 🎯 상위 5개 종합 추천 종목 미리보기 ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "30분 수급", "거래대금(억원)"]].head(5))
+        print("\n=== 🎯 상위 5개 T-1 선행 매집 추천 종목 미리보기 ===")
+        print(df_result[["코인명", "매집점수", "거래량절벽(배)", "이평선수렴(%)", "종합예측점수", "30분 수급", "거래대금(억원)"]].head(5))
 
         print("\n🤖 Gemini AI 브리핑 리포트 생성 중...")
         ai_summary = generate_gemini_analysis(df_result)
