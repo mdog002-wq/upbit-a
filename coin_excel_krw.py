@@ -109,7 +109,8 @@ def save_scan_history(df_result):
             "스캔당시가격": float(str(row["현재가(KRW)"]).replace(",", "")),
             "거래량절벽": row["거래량절벽(배)"],
             "이평선수렴": row["이평선수렴(%)"],
-            "CMF지표": row["CMF지표"]
+            "CMF지표": row["CMF지표"],
+            "스프레드비율": row["스프레드(%)"]
         })
 
     df_new_hist = pd.DataFrame(history_data)
@@ -286,6 +287,39 @@ def get_cached_github_activity(symbols):
 
 
 # ==============================================================================
+# 🆕 [호가창 분석] 스프레드 및 호가 잔량 비율 분석 함수
+# ==============================================================================
+def get_orderbook_metrics(ticker):
+    """호가창 스프레드 비율 및 매수/매도 잔량 불균형 비율 산출"""
+    try:
+        orderbook = pyupbit.get_orderbook(ticker)
+        if not orderbook or 'orderbook_units' not in orderbook:
+            return {"spread_ratio": 0.0, "bid_ask_ratio": 1.0}
+
+        units = orderbook['orderbook_units']
+        if not units:
+            return {"spread_ratio": 0.0, "bid_ask_ratio": 1.0}
+
+        best_ask = units[0]['ask_price']  # 최저 매도호가
+        best_bid = units[0]['bid_price']  # 최고 매수호가
+
+        # 1. 호가 스프레드 비율 (%)
+        spread_ratio = ((best_ask - best_bid) / best_bid) * 100 if best_bid > 0 else 0.0
+
+        # 2. 호가 잔량 불균형 (총 매수 잔량 / 총 매도 잔량)
+        total_ask_size = orderbook.get('total_ask_size', 1.0)
+        total_bid_size = orderbook.get('total_bid_size', 1.0)
+        bid_ask_ratio = (total_bid_size / total_ask_size) if total_ask_size > 0 else 1.0
+
+        return {
+            "spread_ratio": round(spread_ratio, 3),
+            "bid_ask_ratio": round(bid_ask_ratio, 2)
+        }
+    except Exception:
+        return {"spread_ratio": 0.0, "bid_ask_ratio": 1.0}
+
+
+# ==============================================================================
 # [알고리즘 고도화] 코사인 유사도 & T-1 선행 매집 점수 산출
 # ==============================================================================
 def calculate_cosine_similarity(vec1, vec2):
@@ -385,9 +419,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
         if avg_30m_vol > 0 and (recent_30m_vol / avg_30m_vol) >= 1.8:
             late_volume_surge = True
 
-    # ==============================================================================
-    # 🆕 [신규 지표 추가] CMF (Chaikin Money Flow, 20일) & VWAP (14일)
-    # ==============================================================================
+    # 6. CMF (Chaikin Money Flow) & VWAP
     high_low_diff = (high - low).replace(0, np.nan)
     clv = (((close - low) - (high - close)) / high_low_diff).fillna(0)
     money_flow_vol = clv * volume
@@ -419,7 +451,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     }
 
 
-def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
+def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics):
     score = 0
 
     # 바닥 대비 과도한 상승 감점
@@ -452,16 +484,25 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
     if metrics['is_obv_div']:
         score += 15
 
-    # 🆕 [신규 반영] CMF 및 VWAP 연동 스마트 머니 자금 유입 가점/감점
+    # CMF 및 VWAP 연동 가점/감점
     cmf_val = metrics['cmf']
     is_above_vwap = metrics['is_above_vwap']
 
     if cmf_val >= 0.10 and is_above_vwap:
-        score += 20  # 강력한 스마트 머니 매집 유입
+        score += 20
     elif cmf_val >= 0.02:
-        score += 10  # 완만한 자금 순유입
+        score += 10
     elif cmf_val < -0.08:
-        score -= 20  # 거래량 절벽을 가장한 음침한 물량 이탈 (패널티)
+        score -= 20
+
+    # 🆕 [신규 제안 반영] 호가창 스프레드 및 잔량 불균형 반영
+    spread = ob_metrics["spread_ratio"]
+    bid_ask = ob_metrics["bid_ask_ratio"]
+
+    if spread <= 0.15 and bid_ask >= 1.8:
+        score += 15  # 호가가 촘촘하고 아래로 매수 받침이 둔둔한 진짜 매집 형태
+    elif spread > 0.50:
+        score -= 15  # 호가 공백이 너무 넓어 거래 자체가 완전히 죽은 무관심 종목 (패널티)
 
     # 당일 변동률 패널티 및 가점
     if -2.5 <= metrics['chg_1d'] <= 3.0:
@@ -494,7 +535,7 @@ def analyze_and_scan_market():
     tokenomics_map = get_cached_coingecko_tokenomics(symbols)
     github_map = get_cached_github_activity(symbols)
 
-    print("\n[1/2] 30분봉 수급 집중도 및 마감 직전 수급 수집 중...")
+    print("\n[1/2] 30분봉 수급 및 호가창 데이터 수집 중...")
     hourly_rank_details = {c['ticker']: [] for c in krw_coins}
     market_30m_data = {}
     time_12h_ago = datetime.datetime.now() - datetime.timedelta(hours=12)
@@ -523,7 +564,7 @@ def analyze_and_scan_market():
                 if t in hourly_rank_details:
                     hourly_rank_details[t].append(rank)
 
-    print("\n[2/2] T-1 선행 매집 패턴 및 코사인 유사도 분석 중...")
+    print("\n[2/2] T-1 선행 매집 패턴 및 호가창 스프레드 종합 분석 중...")
     results = []
 
     for item in tqdm(krw_coins, desc="종합 종목 분석", ncols=100):
@@ -537,6 +578,9 @@ def analyze_and_scan_market():
                 time.sleep(0.03)
                 continue
 
+            # 🆕 호가창 지표 실시간 수집
+            ob_metrics = get_orderbook_metrics(ticker)
+
             df_30m_recent = market_30m_data.get(ticker, None)
             metrics = calculate_t1_advanced_metrics(df_daily, df_30m_recent)
             if not metrics:
@@ -547,7 +591,9 @@ def analyze_and_scan_market():
             surge_from_bottom = round(((metrics['last_close'] - lowest_20d) / lowest_20d) * 100, 2) if lowest_20d > 0 else 0.0
             circ_ratio = tokenomics_map.get(symbol, 75.0)
             is_dev_active = github_map.get(symbol, False)
-            accumulation_score = calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active)
+            
+            # 매집 점수 계산 (호가창 지표 포함)
+            accumulation_score = calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics)
 
             patterns, processed_df = extract_pre_spike_patterns(df_daily)
             spike_count = len(patterns)
@@ -577,9 +623,7 @@ def analyze_and_scan_market():
             vol_mean_total = df_daily["volume"].mean()
             vol_ratio_pattern = vol_mean_20 / vol_mean_total if vol_mean_total > 0 else 0
 
-            # ==================================================================
-            # 🔥 거래량 절벽 역수 가중치 & 매집점수 곱셈 연산
-            # ==================================================================
+            # 거래량 절벽 역수 가중치 & 매집점수 곱셈 연산
             vol_dry_ratio = metrics['vol_dry_ratio']
             inv_vol_dry = 1.0 / (vol_dry_ratio + 0.1)
             compression_score = accumulation_score * inv_vol_dry
@@ -601,6 +645,8 @@ def analyze_and_scan_market():
                 "거래량절벽(배)": metrics['vol_dry_ratio'],
                 "이평선수렴(%)": metrics['ma_compression'],
                 "CMF지표": metrics['cmf'],
+                "스프레드(%)": ob_metrics['spread_ratio'],
+                "매수매도비율": ob_metrics['bid_ask_ratio'],
                 "VWAP상회": "상회" if metrics['is_above_vwap'] else "하회",
                 "1일 변동률(%)": metrics['chg_1d'],
                 "7일 변동률(%)": metrics['chg_7d'],
@@ -628,7 +674,7 @@ def analyze_and_scan_market():
 
 
 # ==============================================================================
-# [AI 심층 분석] Gemini 3.1 Flash Lite - 현재 vs 과거 백테스트 비교
+# [AI 심층 분석] Gemini 3.1 Flash Lite - 호가창 밀도 반영 분석
 # ==============================================================================
 def generate_gemini_analysis(df, eval_summary, eval_details):
     if not GEMINI_API_KEY:
@@ -651,7 +697,9 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
                 "T-1매집점수": row['매집점수'],
                 "거래량절벽비율": f"{row['거래량절벽(배)']}배",
                 "이평선수렴도": f"{row['이평선수렴(%)']}%",
-                "CMF(자금유입지표)": row['CMF지표'],
+                "CMF(자금유입)": row['CMF지표'],
+                "호가스프레드": f"{row['스프레드(%)']}%",
+                "매수매도잔량비율": f"{row['매수매도비율']}배",
                 "VWAP위치": row['VWAP상회'],
                 "1일/7일변동률": f"{row['1일 변동률(%)']}% / {row['7일 변동률(%)']}%",
                 "바닥대비상승률": f"{row['바닥대비상승(%)']}%",
@@ -663,7 +711,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 당신은 가상자산 수급 및 T-1 상승 직전 패턴 분석 전문가입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목의 실제 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 통합 리포트를 작성해 주세요.
 
-특히 이번 알고리즘은 **[거래량 절벽 역수 가중치]**와 더불어 **[VWAP + CMF(Chaikin Money Flow) 자금 유입 지표]**가 새로 결합되어, 거래량은 마르고 실질적인 스마트 머니 매집 유입이 이루어지는 '진짜 매집주'를 엄선하도록 고도화되었습니다.
+이번 알고리즘에는 **[거래량 절벽 역수 가중치]**, **[VWAP + CMF]** 지표에 더해 **[호가창 스프레드 및 매수 잔량 비율]**까지 연동되어 인위적인 호가 공백과 세력의 촘촘한 받침 매집을 동시에 검증합니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -673,13 +721,12 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 세부 성과: {json.dumps(eval_details[:8], ensure_ascii=False, indent=2)} (최대 8개 표기)
 
 [작성 지침]
-1. **[과거 리포트 성과 검증 및 비교 분석] (필수 섹션)**:
-   - 과거 추천 종목 중 **성공한 종목(+5% 이상 상승)과 실패/보류된 종목의 차이점**을 분석하세요.
-   - 신규 도입된 CMF(자금유입지표) 및 VWAP 분석이 종목 선별 정확도에 미친 정밀화 효과를 평가해 주세요.
+1. **[과거 리포트 성과 검증 및 호가창 분석 영향]**:
+   - 과거 성과와 비교하여, 거래량 절벽 구간에서의 호가창 촘촘함(스프레드)과 매수 잔량 받침이 진짜 매집주를 구분해 내는 데 미치는 영향을 분석해 주세요.
 2. **[현재 스캔 T-1 상승 직전 추천 종목 Top 3]**:
-   - 새로 구성된 1~3위 추천 종목의 **진입 타점, 목표 수익률, 주의 구간**을 거래량 절벽, CMF 자금유입 데이터와 함께 제시하세요.
-3. **[알고리즘 추가 정밀도 향상 제안]**:
-   - 향후 시장 변화에 맞춰 추가적으로 보완할 수 있는 지표나 가중치 미세 조정 방안을 1문장으로 제안해 주세요.
+   - 상위 1~3위 추천 종목의 **진입 타점, 목표 수익률, 손절 기준**을 호가창 스프레성 및 CMF 수급과 연관지어 설명해 주세요.
+3. **[알고리즘 추가 보완 제안]**:
+   - 매집 완결성을 더욱 정밀화하기 위한 다음 단계 제안을 1문장으로 남겨주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.0)
@@ -791,14 +838,14 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [T-1 압축매집+VWAP/CMF] 실시간 분석 & 과거 성과 백테스트 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [T-1 압축매집+호가스프레드] 실시간 분석 & 백테스트 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
-업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과와 [과거 추천 종목 성과 검증] 결과입니다.
-* 이번 리포트는 'VWAP + CMF 스마트 머니 자금유입 지표'가 새로 결합되어 적용되었습니다.
+업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과입니다.
+* 이번 리포트에는 '호가창 스프레드 변화율 & 호가 잔량 비율' 및 'VWAP/CMF 지표'가 함께 반영되었습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
@@ -823,7 +870,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
         server.login(SENDER_EMAIL, EMAIL_PASSWORD)
         server.sendmail(SENDER_EMAIL, RECEIVER_EMAILS, msg.as_string())
         server.quit()
-        print("📧 백테스팅 비교 통합 리포트 이메일 발송 완료!")
+        print("📧 통합 리포트 이메일 발송 완료!")
     except Exception as e:
         print(f"❌ 이메일 발송 실패: {e}")
 
@@ -833,7 +880,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] T-1 매집 분석 + VWAP/CMF 연동 프로세스 시작...")
+    print("🚀 [업비트 원화 마켓] T-1 매집 분석 + 호가창 스프레드 통합 연동 시작...")
     
     # 1. 과거 히스토리 성과 검증 (백테스팅)
     print("\n🔍 과거 추천 종목 수익률 자동 검증 중...")
@@ -848,12 +895,12 @@ if __name__ == "__main__":
         save_scan_history(df_result)
 
         print("\n=== 🎯 현재 상위 5개 추천 종목 (종합예측점수 순) ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "거래량절벽(배)", "CMF지표", "VWAP상회"]].head(5))
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "거래량절벽(배)", "CMF지표", "스프레드(%)", "매수매도비율"]].head(5))
 
-        print("\n🤖 Gemini AI 현재 vs 과거 비교 분석 중...")
+        print("\n🤖 Gemini AI 호가창 밀도 연동 심층 분석 중...")
         ai_summary = generate_gemini_analysis(df_result, eval_summary, eval_details)
         
-        print("\n📊 엑셀 저장 (백테스트 시트 포함) 중...")
+        print("\n📊 엑셀 저장 중...")
         excel_file = save_integrated_excel(df_result, eval_details)
         
         print("\n📧 통합 리포트 이메일 발송 중...")
