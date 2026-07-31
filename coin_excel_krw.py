@@ -87,7 +87,7 @@ def save_cache(file_path, content):
 
 
 # ==============================================================================
-# [신규 추가] 히스토리 자동 누적 및 과거 성과 백테스트 모듈
+# [백테스팅] 히스토리 자동 누적 및 과거 성과 검증 모듈
 # ==============================================================================
 def save_scan_history(df_result):
     """현재 스캔된 상위 10개 종목을 CSV에 누적 기록"""
@@ -150,7 +150,6 @@ def evaluate_past_performance():
             scan_time = row["스캔시각"]
             scan_price = row["스캔당시가격"]
 
-            # 스캔 시점 이후의 1시간봉 데이터 조회
             df_ohlcv = pyupbit.get_ohlcv(ticker, interval="minute60", to=now, count=72)
             if df_ohlcv is not None and not df_ohlcv.empty:
                 df_after = df_ohlcv[df_ohlcv.index >= scan_time]
@@ -286,7 +285,7 @@ def get_cached_github_activity(symbols):
 
 
 # ==============================================================================
-# [알고리즘] 코사인 유사도 & T-1 선행 매집 지표 산출
+# [알고리즘 고도화] 코사인 유사도 & T-1 선행 매집 점수 산출 (수정 반영)
 # ==============================================================================
 def calculate_cosine_similarity(vec1, vec2):
     v1 = np.array(vec1)
@@ -335,10 +334,14 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     chg_1d = ((close.iloc[-1] - close.iloc[-2]) / close.iloc[-2]) * 100
     chg_7d = ((close.iloc[-1] - close.iloc[-8]) / close.iloc[-8]) * 100 if len(df) >= 8 else 0
 
+    # 1. 거래량 절벽 비율 산출 (최근 5일 평균 대비)
     vol_ma5 = volume.iloc[-6:-1].mean()
     vol_dry_ratio = (volume.iloc[-1] / vol_ma5) if vol_ma5 > 0 else 1.0
-    is_volume_dry = (vol_dry_ratio <= 0.55)
+    
+    # 절벽 기준 0.50배 이하 강화
+    is_volume_dry = (vol_dry_ratio <= 0.50)
 
+    # 2. 이동평균선 수렴도 산출 (5, 10, 20일선)
     ma5 = close.rolling(5).mean().iloc[-1]
     ma10 = close.rolling(10).mean().iloc[-1]
     ma20 = close.rolling(20).mean().iloc[-1]
@@ -346,6 +349,10 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     ma_min = min(ma5, ma10, ma20)
     ma_compression = ((ma_max - ma_min) / ma20) * 100 if ma20 > 0 else 999.0
 
+    # 💡 [신규] 이평선 수렴도 3% 미만 변동성 임계치 플래그
+    is_volatility_threshold = (ma_compression < 3.0)
+
+    # 3. 매집 봉(윗꼬리 급등봉) 존재 여부
     prev_vol_avg = volume.iloc[-25:-5].mean() if len(df) >= 25 else volume.mean()
     has_spike_candle = False
     if prev_vol_avg > 0:
@@ -357,6 +364,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
                 has_spike_candle = True
                 break
 
+    # 4. OBV 다이버전스 산출
     obv_values = [0.0]
     for i in range(1, len(df)):
         if close.iloc[i] > close.iloc[i-1]:
@@ -370,6 +378,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     price_change_10d = ((close.iloc[-1] - close.iloc[-10]) / close.iloc[-10]) * 100 if len(df) >= 10 else 0
     is_obv_divergence = (price_change_10d <= 3.0) and (obv_slope > 0)
 
+    # 5. 마감 직전 30분 수급 유입
     late_volume_surge = False
     if df_30m is not None and len(df_30m) >= 6:
         avg_30m_vol = df_30m['volume'].iloc[:-2].mean()
@@ -383,6 +392,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
         "vol_dry_ratio": round(vol_dry_ratio, 2),
         "is_volume_dry": is_volume_dry,
         "ma_compression": round(ma_compression, 2),
+        "is_volatility_threshold": is_volatility_threshold,
         "has_spike_candle": has_spike_candle,
         "is_obv_div": is_obv_divergence,
         "late_volume_surge": late_volume_surge,
@@ -394,6 +404,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
 def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
     score = 0
 
+    # 바닥 대비 과도한 상승 감점
     if surge_from_bottom >= 35.0:
         return 0
     elif surge_from_bottom <= 15.0:
@@ -401,26 +412,35 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
     elif surge_from_bottom <= 25.0:
         score += 10
 
-    if metrics['is_volume_dry']:
-        score += 25
+    # 🔥 [개선 1] 거래량 절벽 비율 가중치 2배 상향 적용 (0.50배 이하 50점)
+    if metrics['vol_dry_ratio'] <= 0.50:
+        score += 50
     elif metrics['vol_dry_ratio'] <= 0.75:
-        score += 15
+        score += 30
 
+    # 이평선 수렴 기본 점수
     if metrics['ma_compression'] <= 2.5:
         score += 25
     elif metrics['ma_compression'] <= 4.5:
         score += 15
 
+    # 🔥 [개선 2] 이평선 수렴도 3% 미만 시 '변동성 임계치' 보너스 점수(+15점) 추가
+    if metrics['is_volatility_threshold']:
+        score += 15
+
+    # 기타 시그널 점수
     if metrics['has_spike_candle']:
         score += 15
     if metrics['is_obv_div']:
         score += 15
 
+    # 당일 변동률 패널티 및 가점
     if -2.5 <= metrics['chg_1d'] <= 3.0:
         score += 10
     elif metrics['chg_1d'] > 7.0:
-        score -= 25
+        score -= 25  # 과열 종목 페널티
 
+    # 기타 보조 가점
     if metrics['late_volume_surge']:
         score += 10
     if circ_ratio >= 60.0:
@@ -612,7 +632,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 2. **[현재 스캔 T-1 상승 직전 추천 종목 Top 3]**:
    - 백테스팅 교훈을 바탕으로, 현재 1~3위 추천 종목의 **진입 타점, 목표 수익률, 주의 구간**을 거래량 절벽 및 이평선 수렴 데이터와 함께 제시하세요.
 3. **[알고리즘 가중치 개선 제안]**:
-   - 과거 검증 결과를 기반으로 현행 종합예측점수 수식(매집점수 0.4 + 패턴유사도 0.3 + 수급)을 어떻게 조정하면 정밀도가 더 올라갈지 1문장으로 제안해 주세요.
+   - 과거 검증 결과를 기반으로 현행 종합예측점수 수식을 어떻게 조정하면 정밀도가 더 올라갈지 1문장으로 제안해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.0)
@@ -687,7 +707,7 @@ def save_integrated_excel(df, eval_details):
         col_letter = get_column_letter(col[0].column)
         ws.column_dimensions[col_letter].width = max(max_len + 4, 12)
 
-    # 2. [신규 추가] 과거 백테스트 검증 시트 추가 생성
+    # 2. 과거 백테스트 검증 시트 생성
     if eval_details:
         eval_sheet_name = "과거검증_백테스트"
         if eval_sheet_name in wb.sheetnames:
