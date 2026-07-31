@@ -108,7 +108,8 @@ def save_scan_history(df_result):
             "매집점수": row["매집점수"],
             "스캔당시가격": float(str(row["현재가(KRW)"]).replace(",", "")),
             "거래량절벽": row["거래량절벽(배)"],
-            "이평선수렴": row["이평선수렴(%)"]
+            "이평선수렴": row["이평선수렴(%)"],
+            "CMF지표": row["CMF지표"]
         })
 
     df_new_hist = pd.DataFrame(history_data)
@@ -384,6 +385,23 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
         if avg_30m_vol > 0 and (recent_30m_vol / avg_30m_vol) >= 1.8:
             late_volume_surge = True
 
+    # ==============================================================================
+    # 🆕 [신규 지표 추가] CMF (Chaikin Money Flow, 20일) & VWAP (14일)
+    # ==============================================================================
+    high_low_diff = (high - low).replace(0, np.nan)
+    clv = (((close - low) - (high - close)) / high_low_diff).fillna(0)
+    money_flow_vol = clv * volume
+    
+    vol_20_sum = volume.rolling(20).sum()
+    cmf_series = money_flow_vol.rolling(20).sum() / vol_20_sum
+    latest_cmf = cmf_series.iloc[-1] if not np.isnan(cmf_series.iloc[-1]) else 0.0
+
+    typical_price = (high + low + close) / 3
+    tp_vol_sum_14 = (typical_price * volume).tail(14).sum()
+    vol_sum_14 = volume.tail(14).sum()
+    vwap_14 = (tp_vol_sum_14 / vol_sum_14) if vol_sum_14 > 0 else close.iloc[-1]
+    is_above_vwap = (close.iloc[-1] >= vwap_14)
+
     return {
         "chg_1d": round(chg_1d, 2),
         "chg_7d": round(chg_7d, 2),
@@ -395,7 +413,9 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
         "is_obv_div": is_obv_divergence,
         "late_volume_surge": late_volume_surge,
         "last_close": close.iloc[-1],
-        "last_value": df['value'].iloc[-1]
+        "last_value": df['value'].iloc[-1],
+        "cmf": round(latest_cmf, 3),
+        "is_above_vwap": is_above_vwap
     }
 
 
@@ -431,6 +451,17 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
         score += 15
     if metrics['is_obv_div']:
         score += 15
+
+    # 🆕 [신규 반영] CMF 및 VWAP 연동 스마트 머니 자금 유입 가점/감점
+    cmf_val = metrics['cmf']
+    is_above_vwap = metrics['is_above_vwap']
+
+    if cmf_val >= 0.10 and is_above_vwap:
+        score += 20  # 강력한 스마트 머니 매집 유입
+    elif cmf_val >= 0.02:
+        score += 10  # 완만한 자금 순유입
+    elif cmf_val < -0.08:
+        score -= 20  # 거래량 절벽을 가장한 음침한 물량 이탈 (패널티)
 
     # 당일 변동률 패널티 및 가점
     if -2.5 <= metrics['chg_1d'] <= 3.0:
@@ -547,21 +578,16 @@ def analyze_and_scan_market():
             vol_ratio_pattern = vol_mean_20 / vol_mean_total if vol_mean_total > 0 else 0
 
             # ==================================================================
-            # 🔥 [수정 및 고도화] 거래량 절벽 역수 가중치 & 매집점수 곱셈 연산 강화
+            # 🔥 거래량 절벽 역수 가중치 & 매집점수 곱셈 연산
             # ==================================================================
             vol_dry_ratio = metrics['vol_dry_ratio']
-            
-            # 거래량 절벽 비율의 역수 산출 (0 나누기 방지용 +0.1 스무딩)
             inv_vol_dry = 1.0 / (vol_dry_ratio + 0.1)
-
-            # [핵심] 매집점수와 거래량 절벽 역수의 곱셈 연산 (상호작용 증폭)
             compression_score = accumulation_score * inv_vol_dry
 
-            # 최종 종합예측점수 수식 반영
             pattern_prediction_score = (
-                (compression_score * 0.15) +    # 압축 구간(매집 x 역수절벽) 강화
-                (similarity_score * 0.25) +     # 급등 전 패턴 코사인 유사도
-                (rank_count * 2.0) +            # 최근 30분 수급 상위 진입 횟수
+                (compression_score * 0.15) +    # 압축 구간(매집 x 역수절벽)
+                (similarity_score * 0.25) +     # 코사인 유사도
+                (rank_count * 2.0) +            # 30분 수급 상위 진입 횟수
                 (vol_ratio_pattern * 2.5)       # 수급선 형성 비율
             )
 
@@ -574,6 +600,8 @@ def analyze_and_scan_market():
                 "현재가(KRW)": format_price(metrics['last_close']),
                 "거래량절벽(배)": metrics['vol_dry_ratio'],
                 "이평선수렴(%)": metrics['ma_compression'],
+                "CMF지표": metrics['cmf'],
+                "VWAP상회": "상회" if metrics['is_above_vwap'] else "하회",
                 "1일 변동률(%)": metrics['chg_1d'],
                 "7일 변동률(%)": metrics['chg_7d'],
                 "바닥대비상승(%)": surge_from_bottom,
@@ -623,6 +651,8 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
                 "T-1매집점수": row['매집점수'],
                 "거래량절벽비율": f"{row['거래량절벽(배)']}배",
                 "이평선수렴도": f"{row['이평선수렴(%)']}%",
+                "CMF(자금유입지표)": row['CMF지표'],
+                "VWAP위치": row['VWAP상회'],
                 "1일/7일변동률": f"{row['1일 변동률(%)']}% / {row['7일 변동률(%)']}%",
                 "바닥대비상승률": f"{row['바닥대비상승(%)']}%",
                 "30분수급": row['30분 수급'],
@@ -633,7 +663,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 당신은 가상자산 수급 및 T-1 상승 직전 패턴 분석 전문가입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목의 실제 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 통합 리포트를 작성해 주세요.
 
-특히 이번 알고리즘은 **[거래량 절벽 비율 역수 가중치 & 매집점수 곱셈 상호작용]**을 적용하여, 매집은 끝났으나 거래량이 극도로 마른 '폭발 직전 압축 종목'이 최상단에 배치되도록 고도화되었습니다.
+특히 이번 알고리즘은 **[거래량 절벽 역수 가중치]**와 더불어 **[VWAP + CMF(Chaikin Money Flow) 자금 유입 지표]**가 새로 결합되어, 거래량은 마르고 실질적인 스마트 머니 매집 유입이 이루어지는 '진짜 매집주'를 엄선하도록 고도화되었습니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -645,11 +675,11 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 [작성 지침]
 1. **[과거 리포트 성과 검증 및 비교 분석] (필수 섹션)**:
    - 과거 추천 종목 중 **성공한 종목(+5% 이상 상승)과 실패/보류된 종목의 차이점**을 분석하세요.
-   - 거래량 절벽 역수 및 매집점수 수식 개선이 이번 스캔 결과 상위권 종목들의 질적 차이에 어떤 영향을 미쳤는지 평가해 주세요.
+   - 신규 도입된 CMF(자금유입지표) 및 VWAP 분석이 종목 선별 정확도에 미친 정밀화 효과를 평가해 주세요.
 2. **[현재 스캔 T-1 상승 직전 추천 종목 Top 3]**:
-   - 새로 구성된 1~3위 추천 종목의 **진입 타점, 목표 수익률, 주의 구간**을 거래량 절벽 및 이평선 수렴 데이터와 함께 제시하세요.
+   - 새로 구성된 1~3위 추천 종목의 **진입 타점, 목표 수익률, 주의 구간**을 거래량 절벽, CMF 자금유입 데이터와 함께 제시하세요.
 3. **[알고리즘 추가 정밀도 향상 제안]**:
-   - 향후 시장 변화에 맞춰 추가적으로 보완할 수 있는 지표(예: RVI, CMF 등)나 가중치 미세 조정 방안을 1문장으로 제안해 주세요.
+   - 향후 시장 변화에 맞춰 추가적으로 보완할 수 있는 지표나 가중치 미세 조정 방안을 1문장으로 제안해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.0)
@@ -761,14 +791,14 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [T-1 압축매집] 실시간 분석 & 과거 성과 백테스트 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [T-1 압축매집+VWAP/CMF] 실시간 분석 & 과거 성과 백테스트 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과와 [과거 추천 종목 성과 검증] 결과입니다.
-* 이번 리포트는 '거래량 절벽 역수 가중치 & 매집점수 곱셈 상호작용 수식'이 강화 적용되었습니다.
+* 이번 리포트는 'VWAP + CMF 스마트 머니 자금유입 지표'가 새로 결합되어 적용되었습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
@@ -803,7 +833,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] T-1 매집 분석 + 과거 성과 백테스트 프로세스 시작...")
+    print("🚀 [업비트 원화 마켓] T-1 매집 분석 + VWAP/CMF 연동 프로세스 시작...")
     
     # 1. 과거 히스토리 성과 검증 (백테스팅)
     print("\n🔍 과거 추천 종목 수익률 자동 검증 중...")
@@ -818,7 +848,7 @@ if __name__ == "__main__":
         save_scan_history(df_result)
 
         print("\n=== 🎯 현재 상위 5개 추천 종목 (종합예측점수 순) ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "거래량절벽(배)", "이평선수렴(%)", "30분 수급"]].head(5))
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "거래량절벽(배)", "CMF지표", "VWAP상회"]].head(5))
 
         print("\n🤖 Gemini AI 현재 vs 과거 비교 분석 중...")
         ai_summary = generate_gemini_analysis(df_result, eval_summary, eval_details)
