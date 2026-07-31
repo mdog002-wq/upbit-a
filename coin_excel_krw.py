@@ -189,7 +189,7 @@ def get_cached_github_activity(symbols):
 
 
 # ==============================================================================
-# [알고리즘] 코사인 유사도 & T-1 선행 매집 지표 산출 (강화 버전)
+# [알고리즘] 코사인 유사도 & T-1 선행 매집 지표 산출
 # ==============================================================================
 def calculate_cosine_similarity(vec1, vec2):
     v1 = np.array(vec1)
@@ -454,9 +454,9 @@ def analyze_and_scan_market():
             results.append({
                 "코인명": f"{korean_name} 🔥" if recent_buy_sell_trend == "매수세 우위" else korean_name,
                 "심볼": symbol,
-                "매집점수": accumulation_score,
-                "패턴유사도(%)": round(similarity_score, 1),
                 "종합예측점수": round(pattern_prediction_score, 2),
+                "패턴유사도(%)": round(similarity_score, 1),
+                "매집점수": accumulation_score,
                 "현재가(KRW)": format_price(metrics['last_close']),
                 "거래량절벽(배)": metrics['vol_dry_ratio'],
                 "이평선수렴(%)": metrics['ma_compression'],
@@ -478,7 +478,11 @@ def analyze_and_scan_market():
 
     df = pd.DataFrame(results)
     if not df.empty:
-        df = df.sort_values(by=["매집점수", "종합예측점수", "패턴유사도(%)"], ascending=[False, False, False]).reset_index(drop=True)
+        # 요청사항 반영: 종합예측점수 -> 패턴유사도(%) -> 매집점수 순으로 내림차순 정렬
+        df = df.sort_values(
+            by=["종합예측점수", "패턴유사도(%)", "매집점수"], 
+            ascending=[False, False, False]
+        ).reset_index(drop=True)
     return df
 
 
@@ -501,9 +505,9 @@ def generate_gemini_analysis(df):
             
             enriched_data.append({
                 "코인명": row['코인명'],
-                "T-1매집점수": row['매집점수'],
-                "패턴유사도": f"{row['패턴유사도(%)']}%",
                 "종합예측점수": row['종합예측점수'],
+                "패턴유사도": f"{row['패턴유사도(%)']}%",
+                "T-1매집점수": row['매집점수'],
                 "거래량절벽비율": f"{row['거래량절벽(배)']}배 (낮을수록 매물소진)",
                 "이평선수렴도": f"{row['이평선수렴(%)']}% (낮을수록 에너지축적)",
                 "1일/7일변동률": f"{row['1일 변동률(%)']}% / {row['7일 변동률(%)']}%",
@@ -514,14 +518,14 @@ def generate_gemini_analysis(df):
 
         prompt = f"""
 당신은 가상자산 수급 및 T-1 상승 직전 패턴 분석 전문가입니다.
-아래 상위 10개 코인의 [T-1 선행 매집 점수], [거래량 절벽 및 이평선 수렴도], 및 [4시간봉 수급 데이터]를 바탕으로 정중한 경어체(~습니다, ~입니다)로 정밀 분석 리포트를 작성해 주세요.
+아래 상위 10개 코인의 [종합예측점수], [패턴유사도], [T-1 선행 매집 점수], [거래량 절벽 및 이평선 수렴도]를 바탕으로 정중한 경어체(~습니다, ~입니다)로 정밀 분석 리포트를 작성해 주세요.
 
-[상위 10개 통합 분석 데이터]
+[상위 10개 통합 분석 데이터 (종합예측점수 순 정렬됨)]
 {enriched_data}
 
 [작성 지침 및 차별화 원칙]
 1. **[T-1 상승 직전 추천 종목 Top 3] 필수 포함**:
-   - 1위, 2위, 3위 추천 종목을 지정하고, **[거래량 절벽 현상], [이평선 밀집 상태], [최근 1주일간 4시간봉 데이터]를 직접 인용**하여 상승 직전 선제 진입 타점과 목표 구간을 제시하세요.
+   - 종합예측점수와 패턴유사도가 높은 1위, 2위, 3위 추천 종목을 지정하고, **[거래량 절벽 현상], [이평선 밀집 상태], [최근 1주일간 4시간봉 데이터]를 직접 인용**하여 상승 직전 선제 진입 타점과 목표 구간을 제시하세요.
 2. **[주의/과열 유의 종목 1개] 필수 포함**:
    - 점수는 높으나 바닥 대비 변동폭이 지나치게 크거나 고점 대비 낙폭/매도세 우위로 위험성이 존재하는 1개 종목을 지정해 주의점 및 대응책을 기술하세요.
 """
@@ -583,7 +587,7 @@ def save_integrated_excel(df):
     # 데이터 행 스타일링
     for row_idx, row in enumerate(range(2, ws.max_row + 1)):
         df_idx = row_idx
-        accum_score_cell = ws.cell(row=row, column=3)  # 매집점수 (3번째 컬럼)
+        accum_score_cell = ws.cell(row=row, column=5)  # 매집점수 (5번째 컬럼으로 변경됨)
         
         # 매집점수 >= 70 이거나 종합예측점수 상위 5위인 경우 강조
         is_high_score = (accum_score_cell.value and float(accum_score_cell.value) >= 70) or (df_idx in top5_pred_indices)
@@ -659,8 +663,8 @@ if __name__ == "__main__":
     df_result = analyze_and_scan_market()
     
     if not df_result.empty:
-        print("\n=== 🎯 상위 5개 T-1 선행 매집 추천 종목 미리보기 ===")
-        print(df_result[["코인명", "매집점수", "거래량절벽(배)", "이평선수렴(%)", "종합예측점수", "30분 수급", "거래대금(억원)"]].head(5))
+        print("\n=== 🎯 상위 5개 종합 추천 종목 미리보기 (종합예측점수 순) ===")
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "거래량절벽(배)", "이평선수렴(%)", "30분 수급"]].head(5))
 
         print("\n🤖 Gemini AI 브리핑 리포트 생성 중...")
         ai_summary = generate_gemini_analysis(df_result)
