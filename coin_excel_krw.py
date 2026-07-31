@@ -17,7 +17,6 @@ from email.mime.application import MIMEApplication
 
 from google import genai
 from google.genai import types
-from tqdm import tqdm
 
 # ==============================================================================
 # [설정] GitHub Secrets 및 환경 변수
@@ -344,7 +343,8 @@ def analyze_and_scan_market():
     print("\n[2/2] 일봉 데이터 종합 수급 및 T-1 패턴 유사도 분석 중...")
     results = []
 
-    for item in tqdm(krw_coins, desc="종합 종목 분석", ncols=100):
+    # tqdm 제거 및 일반 루프 적용
+    for item in krw_coins:
         ticker = item['ticker']
         korean_name = item['korean_name']
         symbol = item['symbol']
@@ -427,7 +427,11 @@ def analyze_and_scan_market():
 
     df = pd.DataFrame(results)
     if not df.empty:
-        df = df.sort_values(by=["매집점수", "패턴유사도(%)", "종합예측점수"], ascending=[False, False, False]).reset_index(drop=True)
+        # 정렬 우선순위 수정: 1순위 종합예측점수, 2순위 패턴유사도(%), 3순위 매집점수
+        df = df.sort_values(
+            by=["종합예측점수", "패턴유사도(%)", "매집점수"], 
+            ascending=[False, False, False]
+        ).reset_index(drop=True)
     return df
 
 # ==============================================================================
@@ -604,7 +608,7 @@ if __name__ == "__main__":
     
     if not df_result.empty:
         print("\n=== 🎯 상위 5개 종합 추천 종목 미리보기 ===")
-        print(df_result[["코인명", "매집점수", "패턴유사도(%)", "종합예측점수", "30분 수급", "거래대금(억원)"]].head(5))
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "30분 수급", "거래대금(억원)"]].head(5))
 
         print("\n🤖 Gemini AI 브리핑 리포트 생성 중...")
         ai_summary = generate_gemini_analysis(df_result)
