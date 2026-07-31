@@ -285,7 +285,7 @@ def get_cached_github_activity(symbols):
 
 
 # ==============================================================================
-# [알고리즘 고도화] 코사인 유사도 & T-1 선행 매집 점수 산출 (수정 반영)
+# [알고리즘 고도화] 코사인 유사도 & T-1 선행 매집 점수 산출
 # ==============================================================================
 def calculate_cosine_similarity(vec1, vec2):
     v1 = np.array(vec1)
@@ -338,7 +338,6 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     vol_ma5 = volume.iloc[-6:-1].mean()
     vol_dry_ratio = (volume.iloc[-1] / vol_ma5) if vol_ma5 > 0 else 1.0
     
-    # 절벽 기준 0.50배 이하 강화
     is_volume_dry = (vol_dry_ratio <= 0.50)
 
     # 2. 이동평균선 수렴도 산출 (5, 10, 20일선)
@@ -349,7 +348,6 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     ma_min = min(ma5, ma10, ma20)
     ma_compression = ((ma_max - ma_min) / ma20) * 100 if ma20 > 0 else 999.0
 
-    # 💡 [신규] 이평선 수렴도 3% 미만 변동성 임계치 플래그
     is_volatility_threshold = (ma_compression < 3.0)
 
     # 3. 매집 봉(윗꼬리 급등봉) 존재 여부
@@ -412,11 +410,11 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
     elif surge_from_bottom <= 25.0:
         score += 10
 
-    # 🔥 [개선 1] 거래량 절벽 비율 가중치 2배 상향 적용 (0.50배 이하 50점)
+    # 거래량 절벽 기본 점수
     if metrics['vol_dry_ratio'] <= 0.50:
-        score += 50
+        score += 40
     elif metrics['vol_dry_ratio'] <= 0.75:
-        score += 30
+        score += 20
 
     # 이평선 수렴 기본 점수
     if metrics['ma_compression'] <= 2.5:
@@ -424,7 +422,7 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
     elif metrics['ma_compression'] <= 4.5:
         score += 15
 
-    # 🔥 [개선 2] 이평선 수렴도 3% 미만 시 '변동성 임계치' 보너스 점수(+15점) 추가
+    # 변동성 임계치 보너스 점수
     if metrics['is_volatility_threshold']:
         score += 15
 
@@ -438,7 +436,7 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active):
     if -2.5 <= metrics['chg_1d'] <= 3.0:
         score += 10
     elif metrics['chg_1d'] > 7.0:
-        score -= 25  # 과열 종목 페널티
+        score -= 25
 
     # 기타 보조 가점
     if metrics['late_volume_surge']:
@@ -548,7 +546,27 @@ def analyze_and_scan_market():
             vol_mean_total = df_daily["volume"].mean()
             vol_ratio_pattern = vol_mean_20 / vol_mean_total if vol_mean_total > 0 else 0
 
-            pattern_prediction_score = (accumulation_score * 0.4) + (similarity_score * 0.3) + (rank_count * 2) + (vol_ratio_pattern * 3)
+            # ==================================================================
+            # 🔥 [수정 및 고도화] 거래량 절벽 역수 가중치 & 매집점수 곱셈 연산 강화
+            # ==================================================================
+            vol_dry_ratio = metrics['vol_dry_ratio']
+            
+            # 거래량 절벽 비율의 역수 산출 (0 나누기 방지용 +0.1 스무딩)
+            # 예: vol_dry_ratio = 0.2배 -> inv_vol_dry = 1 / 0.3 = 3.33 (매우 높음)
+            # 예: vol_dry_ratio = 1.0배 -> inv_vol_dry = 1 / 1.1 = 0.90 (낮음)
+            inv_vol_dry = 1.0 / (vol_dry_ratio + 0.1)
+
+            # [핵심] 매집점수와 거래량 절벽 역수의 곱셈 연산 (상호작용 증폭)
+            # "매집점수는 높은데 거래량은 극도로 고갈된 종목"만 점수가 비약적으로 상승함
+            compression_score = accumulation_score * inv_vol_dry
+
+            # 최종 종합예측점수 수식 반영
+            pattern_prediction_score = (
+                (compression_score * 0.15) +    # 압축 구간(매집 x 역수절벽) 강화
+                (similarity_score * 0.25) +     # 급등 전 패턴 코사인 유사도
+                (rank_count * 2.0) +            # 최근 30분 수급 상위 진입 횟수
+                (vol_ratio_pattern * 2.5)       # 수급선 형성 비율
+            )
 
             results.append({
                 "코인명": f"{korean_name} 🔥" if recent_buy_sell_trend == "매수세 우위" else korean_name,
@@ -618,6 +636,8 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 당신은 가상자산 수급 및 T-1 상승 직전 패턴 분석 전문가입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목의 실제 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 통합 리포트를 작성해 주세요.
 
+특히 이번 알고리즘은 **[거래량 절벽 비율 역수 가중치 & 매집점수 곱셈 상호작용]**을 적용하여, 매집은 끝났으나 거래량이 극도로 마른 '폭발 직전 압축 종목'이 최상단에 배치되도록 고도화되었습니다.
+
 [1. 현재 스캔 상위 10개 데이터]
 {enriched_data}
 
@@ -628,11 +648,11 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 [작성 지침]
 1. **[과거 리포트 성과 검증 및 비교 분석] (필수 섹션)**:
    - 과거 추천 종목 중 **성공한 종목(+5% 이상 상승)과 실패/보류된 종목의 차이점**을 분석하세요.
-   - 매집점수, 패턴유사도, 거래량절벽 중 어떤 지표가 실제로 높은 적중률을 보였는지 설명해 주세요.
+   - 거래량 절벽 역수 및 매집점수 수식 개선이 이번 스캔 결과 상위권 종목들의 질적 차이에 어떤 영향을 미쳤는지 평가해 주세요.
 2. **[현재 스캔 T-1 상승 직전 추천 종목 Top 3]**:
-   - 백테스팅 교훈을 바탕으로, 현재 1~3위 추천 종목의 **진입 타점, 목표 수익률, 주의 구간**을 거래량 절벽 및 이평선 수렴 데이터와 함께 제시하세요.
-3. **[알고리즘 가중치 개선 제안]**:
-   - 과거 검증 결과를 기반으로 현행 종합예측점수 수식을 어떻게 조정하면 정밀도가 더 올라갈지 1문장으로 제안해 주세요.
+   - 새로 구성된 1~3위 추천 종목의 **진입 타점, 목표 수익률, 주의 구간**을 거래량 절벽 및 이평선 수렴 데이터와 함께 제시하세요.
+3. **[알고리즘 추가 정밀도 향상 제안]**:
+   - 향후 시장 변화에 맞춰 추가적으로 보완할 수 있는 지표(예: RVI, CMF 등)나 가중치 미세 조정 방안을 1문장으로 제안해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.0)
@@ -744,13 +764,14 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [T-1 선행매집] 실시간 분석 & 과거 성과 백테스트 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [T-1 압축매집] 실시간 분석 & 과거 성과 백테스트 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과와 [과거 추천 종목 성과 검증] 결과입니다.
+* 이번 리포트는 '거래량 절벽 역수 가중치 & 매집점수 곱셈 상호작용 수식'이 강화 적용되었습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
