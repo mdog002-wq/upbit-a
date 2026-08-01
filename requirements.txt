@@ -6,3 +6,4 @@ google-genai
 pytrends
 beautifulsoup4
 tqdm
+websockets
