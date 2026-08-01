@@ -36,6 +36,14 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "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")
 ONCHAIN_API_KEY = os.environ.get("ONCHAIN_API_KEY", "zeE9TxFVk7ucx1MY7ODqZe1QJwrTIooANhmrpGxZhN9hH6ZeIpgKtxGnMC4soat0XY2Agut")
 
+# [추가] 텔레그램 연동 환경 변수
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_IDS = [
+    chat_id.strip() 
+    for chat_id in os.environ.get("TELEGRAM_CHAT_ID", "").split(",") 
+    if chat_id.strip()
+]
+
 EXCEL_FILE_PATH = "업비트_원화마켓_매집_패턴분석_리포트.xlsx"
 HISTORY_CSV_PATH = "scan_history.csv"
 CACHE_TOKENOMICS_FILE = "cache_tokenomics.json"
@@ -46,7 +54,7 @@ CACHE_WALLET_LEADTIME_FILE = "cache_wallet_leadtime.json"
 
 
 # ==============================================================================
-# [유틸] 데이터 포맷팅 및 캐싱 기능
+# [유틸] 데이터 포맷팅, 캐싱 및 텔레그램 알림 기능
 # ==============================================================================
 def format_price(x):
     try:
@@ -91,6 +99,30 @@ def save_cache(file_path, content):
             json.dump(data, f, ensure_ascii=False, indent=2)
     except Exception as e:
         print(f"⚠️ 캐시 저장 실패: {e}")
+
+
+def send_telegram_alert(message):
+    """[추가] 다중 수신자 지원 텔레그램 알림 전송 함수"""
+    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_IDS:
+        print("⚠️ 텔레그램 봇 토큰(TELEGRAM_BOT_TOKEN) 또는 Chat ID(TELEGRAM_CHAT_ID)가 설정되지 않았습니다.")
+        return
+
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    
+    for chat_id in TELEGRAM_CHAT_IDS:
+        payload = {
+            "chat_id": chat_id,
+            "text": message,
+            "parse_mode": "Markdown"
+        }
+        try:
+            response = requests.post(url, json=payload, timeout=5)
+            if response.status_code == 200:
+                print(f"📲 텔레그램 알림 전송 완료 (Chat ID: {chat_id})")
+            else:
+                print(f"❌ 텔레그램 전송 실패 ({chat_id}): {response.text}")
+        except Exception as e:
+            print(f"❌ 텔레그램 요청 중 오류 발생: {e}")
 
 
 # ==============================================================================
@@ -457,7 +489,7 @@ def get_realtime_dumping_velocity(ticker):
 
 
 async def _capture_upbit_ws_data(ticker, duration=1.5):
-    """WebSocket을 통해 1.5간 호가 및 체결 데이터를 수집합니다."""
+    """WebSocket을 통해 일정 시간 동안 호가 및 체결 데이터를 수집합니다."""
     uri = "wss://api.upbit.com/websocket/v1"
     data_log = []
     try:
@@ -487,9 +519,7 @@ async def _capture_upbit_ws_data(ticker, duration=1.5):
 
 def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     """
-    [고주파 트래킹] WebSocket 스트림을 통해 100ms 단위로 체결 강도와 호가창 변화를 샘플링하여,
-    아이스버그 매도 잔량의 '소진 속도(Depletion Rate)'와 '재생성 주기(Regen Cycle)'를 실시간 역산하고,
-    딥러닝/통계 기반 '덤핑 5분 전 선제적 예고 모델(Deep Dump Predictor)' 확률을 산출합니다.
+    [고주파 트래킹] WebSocket 스트림을 통해 샘플링하여 아이스버그 매도 잔량의 소진 속도 및 재생성 주기를 역산합니다.
     """
     try:
         loop = asyncio.new_event_loop()
@@ -519,7 +549,6 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
                 bid_sz = units[0]['bid_size']
                 bins[bin_key]['best_ask_size'] = ask_sz
                 bins[bin_key]['best_bid_size'] = bid_sz
-                # 호가창 불균형(Order Book Imbalance) 계산
                 total_sz = ask_sz + bid_sz
                 bins[bin_key]['orderbook_imbalance'] = (bid_sz - ask_sz) / total_sz if total_sz > 0 else 0.0
 
@@ -558,8 +587,6 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     avg_regen_ms = (regen_time_ms_total / regen_count) if regen_count > 0 else 0.0
     avg_imbalance = np.mean(imbalance_values) if imbalance_values else 0.0
 
-    # [딥러닝 추정 모형 기반 덤핑 5분 전 선제적 임계치 확률 계산]
-    # 호가 불균형 급감 및 고주파 아이스버그 재생성 빈도를 로지스틱 함수 형태로 결합
     dump_probability = 1.0 / (1.0 + np.exp(-( (depletion_rate * 2.0) + (max(0, -avg_imbalance) * 3.0) - (0.01 * avg_regen_ms) - 1.5 )))
     dump_probability_pct = round(float(dump_probability * 100), 1)
 
@@ -635,7 +662,7 @@ def get_delta_t_iceberg_metrics(ticker):
 
 
 # ==============================================================================
-# [실시간 수급 및 자전거래 판별 엔진] 체결강도 & 호가잔량 시차 상관계수
+# [실시간 수급 및 자전거래 판별 엔진]
 # ==============================================================================
 def get_orderbook_metrics(ticker):
     try:
@@ -1320,8 +1347,12 @@ if __name__ == "__main__":
         print("\n=== 🎯 현재 상위 5개 추천 종목 (고주파 트래킹 아이스버그 역산 반영) ===")
         print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "아이스버그역산(고주파)", "진짜매집판정"]].head(5))
 
-        print("\n📊 엑셀 저장 중...")
+        print("\n📊 엑셀 저장 및 AI 분석 생성 중...")
         excel_file = save_integrated_excel(df_result, eval_details)
+        ai_report_text = generate_gemini_analysis(df_result, eval_summary, eval_details)
+        
+        print("\n📧 이메일 발송 중...")
+        send_email_report(excel_file, ai_report_text, eval_summary)
         
         # ==========================================
         # [핵심] 급락/위험 신호가 잡힌 종목이 있을 때만 텔레그램 발송
@@ -1334,7 +1365,6 @@ if __name__ == "__main__":
         if not danger_condition.empty:
             print(f"\n🚨 [위험 감지] 총 {len(danger_condition)}개 종목에서 급락/덤핑 임박 신호 포착! 텔레그램 알림을 전송합니다.")
             
-            # 텔레그램으로 보낼 메시지 구성
             msg_lines = ["🚨 *[업비트 덤핑 5분 전 예고 경고]* 🚨\n"]
             for _, row in danger_condition.iterrows():
                 msg_lines.append(f"• *코인*: {row['코인명']} ({row['심볼']})")
