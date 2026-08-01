@@ -1320,14 +1320,35 @@ if __name__ == "__main__":
         print("\n=== 🎯 현재 상위 5개 추천 종목 (고주파 트래킹 아이스버그 역산 반영) ===")
         print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "아이스버그역산(고주파)", "진짜매집판정"]].head(5))
 
-        print("\n🤖 Gemini AI 실시간 수급/고주파 아이스버그 역산 심층 분석 중...")
-        ai_summary = generate_gemini_analysis(df_result, eval_summary, eval_details)
-        
         print("\n📊 엑셀 저장 중...")
         excel_file = save_integrated_excel(df_result, eval_details)
         
-        print("\n📧 통합 리포트 이메일 발송 중...")
-        send_email_report(excel_file, ai_summary, eval_summary)
+        # ==========================================
+        # [핵심] 급락/위험 신호가 잡힌 종목이 있을 때만 텔레그램 발송
+        # ==========================================
+        danger_condition = df_result[
+            df_result['매도덤핑속도'].str.contains("🚨|임박", na=False) | 
+            df_result['아이스버그역산(고주파)'].str.contains("🚨|임박", na=False)
+        ]
+
+        if not danger_condition.empty:
+            print(f"\n🚨 [위험 감지] 총 {len(danger_condition)}개 종목에서 급락/덤핑 임박 신호 포착! 텔레그램 알림을 전송합니다.")
+            
+            # 텔레그램으로 보낼 메시지 구성
+            msg_lines = ["🚨 *[업비트 덤핑 5분 전 예고 경고]* 🚨\n"]
+            for _, row in danger_condition.iterrows():
+                msg_lines.append(f"• *코인*: {row['코인명']} ({row['심볼']})")
+                msg_lines.append(f"  - 현재가: {row['현재가(KRW)']}")
+                msg_lines.append(f"  - 상태: {row['아이스버그역산(고주파)']}\n")
+            
+            msg_lines.append("⚠️ 세력의 대규모 물량 소진 및 덤핑 위험이 있으니 주의하세요!")
+            
+            telegram_message = "\n".join(msg_lines)
+            send_telegram_alert(telegram_message)
+            
+        else:
+            print("\n✨ [안전] 현재 덤핑 임박 신호가 잡힌 종목이 없어 텔레그램 알림을 생략합니다. (데이터 및 이력은 정상 기록됨)")
+            
     else:
         print("❌ 분석된 결과가 없습니다.")
 
