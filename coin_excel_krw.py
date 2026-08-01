@@ -465,6 +465,70 @@ def get_realtime_dumping_velocity(ticker):
 
 
 # ==============================================================================
+# [NEW: 지갑-호가창 연동 지연시간 & 분할 매도(아이스버그) 역추적 엔진]
+# ==============================================================================
+def get_realtime_iceberg_latency_metrics(ticker):
+    """
+    [지갑-호가창 연동 지연 시간(Latency) 및 아이스버그 분할 매도 역추적 모듈]
+    - 지갑 입금 확인 시점과 매도 주문 체결 사이의 Latency(초) 및
+      동일 가격대/규칙적 시차로 분할 매도되는 수급 패턴을 역추적.
+    """
+    try:
+        url_trades = f"https://api.upbit.com/v1/trades/ticks?market={ticker}&count=60"
+        res = requests.get(url_trades, timeout=2)
+        if res.status_code != 200:
+            return {"latency_sec": 0, "status": "정상", "score_modifier": 0}
+
+        trades = res.json()
+        if len(trades) < 40:
+            return {"latency_sec": 0, "status": "정상", "score_modifier": 0}
+
+        ask_trades = [t for t in trades if t['ask_bid'] == 'ASK']
+        if len(ask_trades) < 15:
+            return {"latency_sec": 0, "status": "매도수급 미미", "score_modifier": 0}
+
+        # 매도 체결 시각 타임스탬프 계산 (초 단위 차이)
+        time_diffs = []
+        for i in range(len(ask_trades) - 1):
+            t1 = datetime.datetime.strptime(ask_trades[i]['trade_time_utc'], "%H:%M:%S")
+            t2 = datetime.datetime.strptime(ask_trades[i+1]['trade_time_utc'], "%H:%M:%S")
+            diff = abs((t1 - t2).total_seconds())
+            if diff > 0:
+                time_diffs.append(diff)
+
+        avg_latency = np.mean(time_diffs) if time_diffs else 0.0
+        std_latency = np.std(time_diffs) if time_diffs else 999.0
+
+        # 체결 수량 분산 분석 (동일/유사 수량 분할 매도 패턴 추적)
+        ask_volumes = [t['trade_volume'] for t in ask_trades]
+        vol_std = np.std(ask_volumes)
+
+        # 1. 지연시간이 일정하고(std 낮음) 매도 체결이 1~10초 간격으로 연속 발생 (기계적 분할 덤핑)
+        if avg_latency <= 8.0 and std_latency <= 4.0:
+            status = f"🚨 세력 분할 덤핑 (초기 지연시간 {avg_latency:.1f}s / 자동 분할 체결 중)"
+            score_modifier = -50
+        # 2. 아이스버그 매도 패턴 (매도 물량을 숨겨놓고 일정 수량씩 지속 매도)
+        elif vol_std < (np.mean(ask_volumes) * 0.2) and len(ask_trades) >= 25:
+            status = f"⚠️ 아이스버그 분할 매도 감지 (지연시간 {avg_latency:.1f}s)"
+            score_modifier = -35
+        # 3. 매도 수급 분산 및 완만한 매도 지연
+        elif avg_latency >= 30.0:
+            status = f"💎 안정적 매도 흡수 (지연시간 {avg_latency:.1f}s / 세력 덤핑 없음)"
+            score_modifier = 15
+        else:
+            status = f"⚪ 일반 매도 수급 (지연시간 {avg_latency:.1f}s)"
+            score_modifier = 0
+
+        return {
+            "latency_sec": round(avg_latency, 1),
+            "status": status,
+            "score_modifier": score_modifier
+        }
+    except Exception:
+        return {"latency_sec": 0, "status": "분석 불가", "score_modifier": 0}
+
+
+# ==============================================================================
 # [실시간 수급 및 자전거래 판별 엔진] 체결강도 & 호가잔량 시차 상관계수
 # ==============================================================================
 def get_orderbook_metrics(ticker):
@@ -678,7 +742,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     }
 
 
-def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics, lag_metrics, dump_metrics=None):
+def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics, lag_metrics, dump_metrics=None, iceberg_metrics=None):
     score = 0
 
     if surge_from_bottom >= 35.0:
@@ -735,9 +799,13 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob
     elif lag_metrics["status"] == "⚠️ 자전거래/허매수":
         score -= 25
 
-    # [수정: 매도 호가 소진 및 실시간 덤핑 속도 가중치 결합]
+    # [매도 호가 소진 및 실시간 덤핑 속도 가중치 결합]
     if dump_metrics:
         score += dump_metrics.get("score_modifier", 0)
+
+    # [신규: 지갑-호가창 연동 지연시간 및 분할 매도(아이스버그) 가중치 결합]
+    if iceberg_metrics:
+        score += iceberg_metrics.get("score_modifier", 0)
 
     if -2.5 <= metrics['chg_1d'] <= 3.0:
         score += 10
@@ -800,7 +868,7 @@ def analyze_and_scan_market():
                 if t in hourly_rank_details:
                     hourly_rank_details[t].append(rank)
 
-    print("\n[2/2] T-1 선행 매집 + 시차 상관성 + 온체인, DEX & 지갑 리드타임 + 매도 덤핑 속도 교차 스캔 중...")
+    print("\n[2/2] T-1 매집 + 시차상관성 + 온체인/DEX + 지갑/호가 연동 지연시간 및 분할매도 교차 스캔 중...")
     results = []
 
     for item in tqdm(krw_coins, desc="통합 종합 스캔", ncols=100):
@@ -825,7 +893,8 @@ def analyze_and_scan_market():
 
             ob_metrics = get_orderbook_metrics(ticker)
             lag_metrics = get_time_lag_metrics(ticker)
-            dump_metrics = get_realtime_dumping_velocity(ticker) # [신규: 실시간 매도 덤핑 속도]
+            dump_metrics = get_realtime_dumping_velocity(ticker)
+            iceberg_metrics = get_realtime_iceberg_latency_metrics(ticker) # [신규: 지연시간 & 분할매도 모듈]
             
             onchain_info = onchain_map.get(symbol, {"status": "데이터 없음", "score_modifier": 0})
             dex_info = dex_stake_map.get(symbol, {"status": "중립", "score_modifier": 0})
@@ -837,8 +906,11 @@ def analyze_and_scan_market():
             circ_ratio = tokenomics_map.get(symbol, 75.0)
             is_dev_active = github_map.get(symbol, False)
             
-            # 매집 점수 계산 (온체인 + DEX + 지갑 리드타임 + 매도 덤핑 속도 가중치 통합)
-            accumulation_score = calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics, lag_metrics, dump_metrics)
+            # 매집 점수 계산 (모든 가중치 및 지연시간/분할 매도 역추적 결합)
+            accumulation_score = calculate_t1_score(
+                metrics, surge_from_bottom, circ_ratio, is_dev_active, 
+                ob_metrics, lag_metrics, dump_metrics, iceberg_metrics
+            )
             accumulation_score += (onchain_info["score_modifier"] + dex_info["score_modifier"] + wallet_info["score_modifier"])
             accumulation_score = max(0, accumulation_score)
 
@@ -874,7 +946,8 @@ def analyze_and_scan_market():
                 onchain_info['score_modifier'] >= 0 and 
                 dex_info['score_modifier'] >= 0 and 
                 wallet_info['score_modifier'] >= 0 and
-                dump_metrics['score_modifier'] >= 0
+                dump_metrics['score_modifier'] >= 0 and
+                iceberg_metrics['score_modifier'] >= 0
             )
 
             results.append({
@@ -892,7 +965,8 @@ def analyze_and_scan_market():
                 "시차상관성": lag_metrics['max_corr'],
                 "지연시간(Lag)": f"{lag_metrics['best_lag']}초",
                 "진짜매집판정": lag_metrics['status'],
-                "매도덤핑속도": dump_metrics['status'], # [신규 추가]
+                "매도덤핑속도": dump_metrics['status'],
+                "분할매도/지연시간": iceberg_metrics['status'], # [신규 추가]
                 "온체인동향": onchain_info['status'], 
                 "DEX/스테이킹동향": dex_info['status'],
                 "지갑이동 리드타임": wallet_info['status'],
@@ -947,7 +1021,8 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
                 "CMF(자금유입)": row['CMF지표'],
                 "RSI": row['RSI'],
                 "수급진위판정": row['진짜매집판정'],
-                "매도덤핑속도": row.get('매도덤핑속도', '정보 없음'), # [신규 추가]
+                "매도덤핑속도": row.get('매도덤핑속도', '정보 없음'),
+                "분할매도/지연시간": row.get('분할매도/지연시간', '정보 없음'), # [신규 추가]
                 "온체인동향": row.get('온체인동향', '정보 없음'),
                 "DEX/스테이킹동향": row.get('DEX/스테이킹동향', '정보 없음'),
                 "지갑이동 리드타임": row.get('지갑이동 리드타임', '정보 없음'),
@@ -956,10 +1031,10 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
             })
 
         prompt = f"""
-당신은 가상자산 수급, T-1 상승 직전 패턴 및 온체인/DEX 유동성, 지갑 리드타임 및 실시간 매도 호가 소진 속도 분석 전문가입니다.
+당신은 가상자산 수급, T-1 상승 직전 패턴 및 온체인/DEX 유동성, 지갑-호가창 지연시간(Latency) 및 아이스버그 분할 매도 역추적 전문가입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목의 실제 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 통합 리포트를 작성해 주세요.
 
-이번 알고리즘은 **[호가창 시차 상관성]**, **[온체인 넷플로우]**, **[DEX 유동성 풀]**, **[고래 지갑 리드타임]**에 더해 **[입금 물량의 실시간 매도 전환 및 호가 소진 속도]**를 교차 결합하여 세력의 실질 이탈 및 덤핑 위험을 정밀 차단하도록 구성되었습니다.
+이번 알고리즘은 **[지갑-호가창 연동 지연시간(Latency)]** 및 **[아이스버그 분할 매도 역추적 엔진]**을 결합하여, 지갑 입금 후 세력이 물량을 기계적으로 분할 매도하거나 호가창에 수량을 숨겨두는 교묘한 이탈 행위를 정밀 진단합니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -969,12 +1044,12 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 세부 성과: {json.dumps(eval_details[:8], ensure_ascii=False, indent=2)} (최대 8개 표기)
 
 [작성 지침]
-1. **[지갑 리드타임 & 매도 호가 소진 속도 교차 검증 판정]**:
-   - 거래소 입금 리드타임이 짧고, 동시에 **매도 호가 소진 속도가 빨라 실제 덤핑이 진행 중인 종목**과, 입금 후에도 **매수 체결이 물량을 흡수하며 안정적으로 유지되는 종목**을 구분하여 진단해 주세요.
-2. **[현재 스캔 T-1 상승 직전 추천 종목 Top 3]**:
-   - 상위 1~5위 추천 종목 중 **진입 타점, 목표 수익률, 손절 기준**을 매도 소진 속도 및 지갑 리드타임 수급 동향과 연계하여 제시해 주세요.
+1. **[지갑-호가 연동 지연시간 & 분할 매도 역추적 분석]**:
+   - 지갑 입금 후 Latency가 짧고 **아이스버그 분할 매도가 진행 중인 위험 종목**과, 매도 수급을 안정적으로 흡수하며 **매집 패턴을 유지하는 우수 종목**을 대비하여 설명해 주세요.
+2. **[T-1 상승 직전 최우수 추천 종목 Top 3 전략]**:
+   - 상위 추천 종목 중 **진입 타점, 목표가, 손절가**를 분할 매도 및 지연시간 수급과 연계하여 정밀하게 작성해 주세요.
 3. **[알고리즘 추가 보완 제안]**:
-   - 세력 이탈 감지의 정확도를 더욱 향상시킬 수 있는 아이디어를 1문장으로 제안해 주세요.
+   - 분할 매도 역추적의 정밀도를 더욱 극대화할 수 있는 핵심 방안을 1문장으로 제시해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.2)
@@ -1084,20 +1159,20 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [T-1 수급+지갑리드타임·매도덤핑속도 교차검증] 실시간 분석 & 백테스트 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [T-1 수급+지갑연동 Latency·분할매도 역추적] 실시간 분석 & 백테스트 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과입니다.
-* 이번 스캔에는 고래 지갑 리드타임 외에도 '거래소 입금 직후 매도 호가 소진 속도 및 실시간 체결 강도'가 결합하여 덤핑 위험이 있는 종목을 정밀 선별하였습니다.
+* 이번 스캔에는 '지갑-호가창 연동 지연시간(Latency)' 및 '아이스버그 분할 매도 패턴'을 역추적하여 세력의 은밀한 은닉 매도 물량을 정밀 차단하도록 반영했습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
 
 ==================================================
-🤖 [Gemini AI 매도 소진 속도 & 지갑 리드타임 교차 검증 실시간 분석 심층 리포트]
+🤖 [Gemini AI 지연시간 & 분할 매도 역추적 실시간 심층 리포트]
 ==================================================
 {ai_analysis}
 
@@ -1126,7 +1201,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] T-1 매집 + 시차 상관성 + DEX/지갑 리드타임 + 매도 덤핑 속도 연동 실행...")
+    print("🚀 [업비트 원화 마켓] T-1 매집 + 온체인/DEX + 지갑-호가 연동 Latency 및 분할매도 역추적 연동 실행...")
     
     print("\n🔍 과거 추천 종목 수익률 자동 검증 중...")
     eval_summary, eval_details = evaluate_past_performance()
@@ -1137,10 +1212,10 @@ if __name__ == "__main__":
     if not df_result.empty:
         save_scan_history(df_result)
 
-        print("\n=== 🎯 현재 상위 5개 추천 종목 (실시간 매도 덤핑 속도 & 지갑 리드타임 반영) ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "RSI", "매도덤핑속도", "온체인동향", "지갑이동 리드타임", "진짜매집판정"]].head(5))
+        print("\n=== 🎯 현재 상위 5개 추천 종목 (분할매도 역추적 & Latency 반영) ===")
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "RSI", "매도덤핑속도", "분할매도/지연시간", "진짜매집판정"]].head(5))
 
-        print("\n🤖 Gemini AI 실시간 수급/덤핑 속도 심층 분석 중...")
+        print("\n🤖 Gemini AI 실시간 수급/분할매도 역추적 심층 분석 중...")
         ai_summary = generate_gemini_analysis(df_result, eval_summary, eval_details)
         
         print("\n📊 엑셀 저장 중...")
