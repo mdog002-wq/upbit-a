@@ -1,4 +1,4 @@
-Name: 업비트 코인 매집점수 분석 및 메일 발송
+name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   workflow_dispatch:
@@ -6,8 +6,7 @@ on:
 jobs:
   run-upbit-bot:
     runs-on: ubuntu-latest
-    
-    # 깃허브 봇이 저장소에 변경사항(CSV)을 쓸 수 있도록 권한 부여
+
     permissions:
       contents: write
 
