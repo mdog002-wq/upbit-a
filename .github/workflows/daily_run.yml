@@ -1,4 +1,4 @@
-name: 업비트 코인 매집점수 분석 및 메일 발송
+Name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   workflow_dispatch:
@@ -6,6 +6,10 @@ on:
 jobs:
   run-upbit-bot:
     runs-on: ubuntu-latest
+    
+    # 깃허브 봇이 저장소에 변경사항(CSV)을 쓸 수 있도록 권한 부여
+    permissions:
+      contents: write
 
     steps:
       - name: 저장소 코드 불러오기
@@ -27,5 +31,14 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           python coin_excel_krw.py
+
+      - name: 누적 히스토리(CSV) 및 캐시 자동 커밋 & 푸시
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add scan_history.csv cache_*.json
+          git commit -m "Auto: Update scan history and cache [skip ci]" || exit 0
+          git push
