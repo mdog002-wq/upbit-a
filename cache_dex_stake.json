@@ -1,0 +1,1667 @@
+{
+  "date": "2026-08-01",
+  "content": {
+    "GEOD": {
+      "dex_lp_change": 21.41,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "WAXP": {
+      "dex_lp_change": -1.41,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CARV": {
+      "dex_lp_change": -18.41,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "LSK": {
+      "dex_lp_change": 11.23,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "0G": {
+      "dex_lp_change": 8.01,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "WIF": {
+      "dex_lp_change": -20.15,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TRAC": {
+      "dex_lp_change": 19.03,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BORA": {
+      "dex_lp_change": 14.93,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "PUNDIX": {
+      "dex_lp_change": 3.94,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PROS": {
+      "dex_lp_change": 13.45,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "USD1": {
+      "dex_lp_change": 20.89,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "BAT": {
+      "dex_lp_change": 18.7,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "HUNT": {
+      "dex_lp_change": -2.26,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PENGU": {
+      "dex_lp_change": -9.72,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "FIL": {
+      "dex_lp_change": -3.35,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BEAM": {
+      "dex_lp_change": -17.25,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "META2": {
+      "dex_lp_change": -4.64,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "DOOD": {
+      "dex_lp_change": -1.15,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "WAVES": {
+      "dex_lp_change": 3.98,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "USDC": {
+      "dex_lp_change": 13.67,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "MOVE": {
+      "dex_lp_change": -1.64,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TREE": {
+      "dex_lp_change": 1.97,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "USDE": {
+      "dex_lp_change": -22.92,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "USDG": {
+      "dex_lp_change": -24.24,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "AERGO": {
+      "dex_lp_change": 6.58,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "WET": {
+      "dex_lp_change": -24.19,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "USDT": {
+      "dex_lp_change": 15.3,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "USDS": {
+      "dex_lp_change": -17.64,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "2Z": {
+      "dex_lp_change": -5.6,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BOUNTY": {
+      "dex_lp_change": -20.72,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "KAITO": {
+      "dex_lp_change": 16.7,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "LPT": {
+      "dex_lp_change": 4.74,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BLAST": {
+      "dex_lp_change": -4.89,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ETHFI": {
+      "dex_lp_change": 14.14,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "DKA": {
+      "dex_lp_change": 13.47,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "ANKR": {
+      "dex_lp_change": -7.54,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ALGO": {
+      "dex_lp_change": 10.53,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SHIB": {
+      "dex_lp_change": -7.03,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "UNI": {
+      "dex_lp_change": -18.53,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BIO": {
+      "dex_lp_change": 0.66,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "WLFI": {
+      "dex_lp_change": -14.71,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "UP2": {
+      "dex_lp_change": -3.77,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TOKAMAK": {
+      "dex_lp_change": 17.39,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "SKY": {
+      "dex_lp_change": 1.74,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CYBER": {
+      "dex_lp_change": 23.45,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SKR": {
+      "dex_lp_change": 13.45,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "DOGE": {
+      "dex_lp_change": 18.54,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "WLD": {
+      "dex_lp_change": 12.86,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PEPE": {
+      "dex_lp_change": 2.04,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "HBAR": {
+      "dex_lp_change": -1.42,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BCH": {
+      "dex_lp_change": 19.36,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "NEWT": {
+      "dex_lp_change": 17.63,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "SEI": {
+      "dex_lp_change": -18.88,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BONK": {
+      "dex_lp_change": 21.27,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "JST": {
+      "dex_lp_change": -24.56,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AAVE": {
+      "dex_lp_change": 20.33,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "JTO": {
+      "dex_lp_change": -0.85,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "JUP": {
+      "dex_lp_change": -20.34,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "VVV": {
+      "dex_lp_change": -17.35,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AI": {
+      "dex_lp_change": -13.14,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PIEVERSE": {
+      "dex_lp_change": 23.43,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "ALT": {
+      "dex_lp_change": -10.55,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "B3": {
+      "dex_lp_change": 9.94,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "LAYER": {
+      "dex_lp_change": -8.14,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TRX": {
+      "dex_lp_change": -6.22,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "POWR": {
+      "dex_lp_change": 19.3,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "EUL": {
+      "dex_lp_change": 24.85,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "ATOM": {
+      "dex_lp_change": 18.29,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "ARKM": {
+      "dex_lp_change": 15.24,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "CRO": {
+      "dex_lp_change": -19.26,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "NXPC": {
+      "dex_lp_change": 21.84,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "A": {
+      "dex_lp_change": -9.89,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TRUMP": {
+      "dex_lp_change": -15.9,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "F": {
+      "dex_lp_change": -5.07,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "G": {
+      "dex_lp_change": -16.31,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CELO": {
+      "dex_lp_change": 19.58,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AERO": {
+      "dex_lp_change": -23.72,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CTC": {
+      "dex_lp_change": -15.09,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ANIME": {
+      "dex_lp_change": -9.83,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "APT": {
+      "dex_lp_change": -0.63,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MOCA": {
+      "dex_lp_change": 4.53,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "API3": {
+      "dex_lp_change": -22.44,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "AHT": {
+      "dex_lp_change": 23.25,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "EGLD": {
+      "dex_lp_change": -10.01,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BLEND": {
+      "dex_lp_change": -19.36,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ERA": {
+      "dex_lp_change": 24.99,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "FF": {
+      "dex_lp_change": -7.64,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PLUME": {
+      "dex_lp_change": 1.94,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ESP": {
+      "dex_lp_change": 5.07,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CC": {
+      "dex_lp_change": 6.03,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "NEO": {
+      "dex_lp_change": -2.55,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ETC": {
+      "dex_lp_change": 0.16,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "IOTA": {
+      "dex_lp_change": -18.51,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "IOST": {
+      "dex_lp_change": -3.8,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AKT": {
+      "dex_lp_change": -6.01,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "COW": {
+      "dex_lp_change": 23.3,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "VIRTUAL": {
+      "dex_lp_change": 24.09,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "RLUSD": {
+      "dex_lp_change": 0.83,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ETH": {
+      "dex_lp_change": -7.65,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "IQ": {
+      "dex_lp_change": 19.53,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "NEAR": {
+      "dex_lp_change": 3.34,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "RVN": {
+      "dex_lp_change": -9.02,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PRL": {
+      "dex_lp_change": 14.04,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AGLD": {
+      "dex_lp_change": -17.16,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ID": {
+      "dex_lp_change": -8.85,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "IO": {
+      "dex_lp_change": -0.91,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "IN": {
+      "dex_lp_change": -6.35,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MANTRA": {
+      "dex_lp_change": 10.69,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "WAL": {
+      "dex_lp_change": 11.02,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "PENDLE": {
+      "dex_lp_change": 24.0,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "BLUR": {
+      "dex_lp_change": -12.94,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AWE": {
+      "dex_lp_change": 4.56,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "THETA": {
+      "dex_lp_change": 1.34,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AXL": {
+      "dex_lp_change": -14.03,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "HP": {
+      "dex_lp_change": -21.27,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "SAND": {
+      "dex_lp_change": -1.63,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "WCT": {
+      "dex_lp_change": 5.5,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "YGG": {
+      "dex_lp_change": 23.64,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "AXS": {
+      "dex_lp_change": -4.28,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ARDR": {
+      "dex_lp_change": 13.94,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "AQT": {
+      "dex_lp_change": 15.64,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ME": {
+      "dex_lp_change": 20.15,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "TRUST": {
+      "dex_lp_change": 11.72,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "SONIC": {
+      "dex_lp_change": 23.77,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ARB": {
+      "dex_lp_change": -3.61,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "POL": {
+      "dex_lp_change": 6.48,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CVC": {
+      "dex_lp_change": -11.52,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "T": {
+      "dex_lp_change": 3.17,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ARX": {
+      "dex_lp_change": -16.58,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "W": {
+      "dex_lp_change": -16.23,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "ARK": {
+      "dex_lp_change": -14.85,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AVNT": {
+      "dex_lp_change": -3.06,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "O": {
+      "dex_lp_change": -12.29,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "LA": {
+      "dex_lp_change": -18.9,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "HYPER": {
+      "dex_lp_change": -24.39,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ATH": {
+      "dex_lp_change": 17.19,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TAIKO": {
+      "dex_lp_change": 24.95,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "RE": {
+      "dex_lp_change": 21.69,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AVAX": {
+      "dex_lp_change": 16.5,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "XAUT": {
+      "dex_lp_change": 2.91,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CPOOL": {
+      "dex_lp_change": 2.09,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "IMX": {
+      "dex_lp_change": 16.39,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "SC": {
+      "dex_lp_change": -9.37,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "INJ": {
+      "dex_lp_change": 24.92,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MVL": {
+      "dex_lp_change": -2.68,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "HIVE": {
+      "dex_lp_change": 9.86,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CBK": {
+      "dex_lp_change": -8.78,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "XLM": {
+      "dex_lp_change": 18.99,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "OP": {
+      "dex_lp_change": 7.5,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SAFE": {
+      "dex_lp_change": -7.3,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "GLM": {
+      "dex_lp_change": -24.13,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SUPER": {
+      "dex_lp_change": -12.22,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "LINEA": {
+      "dex_lp_change": 1.59,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "DATA": {
+      "dex_lp_change": 0.89,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "KERNEL": {
+      "dex_lp_change": -10.63,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "POKT": {
+      "dex_lp_change": -16.14,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SENT": {
+      "dex_lp_change": 21.12,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZKC": {
+      "dex_lp_change": -1.25,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "KNC": {
+      "dex_lp_change": -10.45,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZKP": {
+      "dex_lp_change": -20.59,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "AUCTION": {
+      "dex_lp_change": 4.57,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ORDER": {
+      "dex_lp_change": -7.97,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "FCT2": {
+      "dex_lp_change": -22.09,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MTL": {
+      "dex_lp_change": -14.27,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "VET": {
+      "dex_lp_change": 24.47,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "TAO": {
+      "dex_lp_change": -16.54,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "QTUM": {
+      "dex_lp_change": 21.75,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TT": {
+      "dex_lp_change": -10.18,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "LINK": {
+      "dex_lp_change": 11.06,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "XRP": {
+      "dex_lp_change": 4.73,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CHZ": {
+      "dex_lp_change": 13.78,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ASTR": {
+      "dex_lp_change": -16.3,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZK": {
+      "dex_lp_change": -11.75,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "STORJ": {
+      "dex_lp_change": -16.94,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "ENA": {
+      "dex_lp_change": -10.7,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MANA": {
+      "dex_lp_change": 16.4,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "OPEN": {
+      "dex_lp_change": -16.91,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PYTH": {
+      "dex_lp_change": -9.67,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ENS": {
+      "dex_lp_change": 7.59,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "GRT": {
+      "dex_lp_change": -23.32,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PUMP": {
+      "dex_lp_change": 6.37,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "XTZ": {
+      "dex_lp_change": -10.45,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CKB": {
+      "dex_lp_change": 7.31,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "KAVA": {
+      "dex_lp_change": 24.79,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "TOSHI": {
+      "dex_lp_change": -17.07,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BARD": {
+      "dex_lp_change": 8.15,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZRO": {
+      "dex_lp_change": -23.88,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "RAY": {
+      "dex_lp_change": -16.41,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "ONDO": {
+      "dex_lp_change": -18.34,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZRX": {
+      "dex_lp_change": 14.5,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "GMT": {
+      "dex_lp_change": -1.14,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TFUEL": {
+      "dex_lp_change": 15.95,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "CFG": {
+      "dex_lp_change": -21.86,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "AZTEC": {
+      "dex_lp_change": -1.45,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CFX": {
+      "dex_lp_change": -9.68,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "XPL": {
+      "dex_lp_change": 18.24,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZAMA": {
+      "dex_lp_change": -10.19,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MASK": {
+      "dex_lp_change": -21.05,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "COMP": {
+      "dex_lp_change": 6.42,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZETA": {
+      "dex_lp_change": 4.71,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "RED": {
+      "dex_lp_change": -0.01,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "TIA": {
+      "dex_lp_change": -20.2,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "ADA": {
+      "dex_lp_change": -9.38,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ELF": {
+      "dex_lp_change": 0.61,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SOON": {
+      "dex_lp_change": 10.33,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "STEEM": {
+      "dex_lp_change": 20.64,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "ELSA": {
+      "dex_lp_change": 1.54,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SPK": {
+      "dex_lp_change": 19.57,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SOPH": {
+      "dex_lp_change": -23.43,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SPX": {
+      "dex_lp_change": -1.32,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MED": {
+      "dex_lp_change": 7.85,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "1INCH": {
+      "dex_lp_change": -4.7,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "KAT": {
+      "dex_lp_change": 3.13,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MEW": {
+      "dex_lp_change": 12.22,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "ORBS": {
+      "dex_lp_change": -21.22,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "RENDER": {
+      "dex_lp_change": -8.44,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ORCA": {
+      "dex_lp_change": -24.35,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BERA": {
+      "dex_lp_change": -18.67,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "SIGN": {
+      "dex_lp_change": -22.28,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "SLX": {
+      "dex_lp_change": 9.04,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "VANA": {
+      "dex_lp_change": -3.71,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "DOT": {
+      "dex_lp_change": -7.81,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "EDGE": {
+      "dex_lp_change": -4.78,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MET2": {
+      "dex_lp_change": 21.94,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "MBL": {
+      "dex_lp_change": 2.18,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "FLUID": {
+      "dex_lp_change": 5.91,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BIGTIME": {
+      "dex_lp_change": -3.77,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SNT": {
+      "dex_lp_change": -16.49,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "SOL": {
+      "dex_lp_change": 23.62,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "QKC": {
+      "dex_lp_change": 23.04,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "DRV": {
+      "dex_lp_change": -1.37,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "META": {
+      "dex_lp_change": 1.2,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "IRYS": {
+      "dex_lp_change": 11.18,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "SAHARA": {
+      "dex_lp_change": -21.27,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "MLK": {
+      "dex_lp_change": 11.6,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "VTHO": {
+      "dex_lp_change": 23.17,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "KITE": {
+      "dex_lp_change": -12.09,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MINA": {
+      "dex_lp_change": -11.6,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MMT": {
+      "dex_lp_change": -4.35,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "CHIP": {
+      "dex_lp_change": -12.93,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZORA": {
+      "dex_lp_change": -16.7,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "XCN": {
+      "dex_lp_change": -0.63,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "GAS": {
+      "dex_lp_change": -3.91,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MEGA": {
+      "dex_lp_change": -9.83,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MNT": {
+      "dex_lp_change": 9.53,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MOC": {
+      "dex_lp_change": 11.3,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "MOODENG": {
+      "dex_lp_change": -21.27,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "XEC": {
+      "dex_lp_change": -20.9,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MON": {
+      "dex_lp_change": -1.08,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MORPHO": {
+      "dex_lp_change": -12.94,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZIL": {
+      "dex_lp_change": 9.83,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "GAME2": {
+      "dex_lp_change": -0.41,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "STX": {
+      "dex_lp_change": 21.36,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "FLOCK": {
+      "dex_lp_change": 7.98,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "PROVE": {
+      "dex_lp_change": 17.15,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "BSV": {
+      "dex_lp_change": -20.86,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SUI": {
+      "dex_lp_change": -0.72,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SYRUP": {
+      "dex_lp_change": 14.29,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "BTC": {
+      "dex_lp_change": 21.81,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "BABY": {
+      "dex_lp_change": -10.11,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "HOLO": {
+      "dex_lp_change": -18.01,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "MIRA": {
+      "dex_lp_change": -9.64,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SUN": {
+      "dex_lp_change": -9.58,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ZBT": {
+      "dex_lp_change": 22.6,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ONG": {
+      "dex_lp_change": 18.99,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "BTT": {
+      "dex_lp_change": -2.92,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ENSO": {
+      "dex_lp_change": 21.26,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BIRB": {
+      "dex_lp_change": 17.24,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "ONT": {
+      "dex_lp_change": -24.21,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "SOMI": {
+      "dex_lp_change": 14.13,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "DEEP": {
+      "dex_lp_change": -21.05,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "STRAX": {
+      "dex_lp_change": 21.66,
+      "unstaking_detected": false,
+      "status": "🌱 DEX 유동성 공급 락업 (우호적 홀딩)",
+      "score_modifier": 20
+    },
+    "ICP": {
+      "dex_lp_change": -23.56,
+      "unstaking_detected": true,
+      "status": "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)",
+      "score_modifier": -40
+    },
+    "OPG": {
+      "dex_lp_change": 3.17,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "BREV": {
+      "dex_lp_change": 19.36,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "ICX": {
+      "dex_lp_change": 15.62,
+      "unstaking_detected": true,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    },
+    "POLYX": {
+      "dex_lp_change": -18.73,
+      "unstaking_detected": false,
+      "status": "⚪ DEX/스테이킹 중립 상태",
+      "score_modifier": 0
+    }
+  }
+}
