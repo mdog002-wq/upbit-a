@@ -109,6 +109,7 @@ def save_scan_history(df_result):
             "거래량절벽": row["거래량절벽(배)"],
             "이평선수렴": row["이평선수렴(%)"],
             "CMF지표": row["CMF지표"],
+            "RSI": row["RSI"],
             "시차상관성": row["시차상관성"],
             "진짜매집판정": row["진짜매집판정"]
         })
@@ -285,7 +286,7 @@ def get_cached_github_activity(symbols):
 
 
 # ==============================================================================
-# 🆕 [실시간 수급 및 자전거래 판별 엔진] 체결강도 & 호가잔량 시차 상관계수
+# [실시간 수급 및 자전거래 판별 엔진] 체결강도 & 호가잔량 시차 상관계수
 # ==============================================================================
 def get_orderbook_metrics(ticker):
     """호가창 스프레드 및 잔량 불균형 연동"""
@@ -316,11 +317,10 @@ def get_orderbook_metrics(ticker):
 
 def get_time_lag_metrics(ticker):
     """
-    [제안 연동 로직] 체결강도 변화와 호가창 매수 잔량 변화의 시간차 상관계수(Cross-Correlation) 산출.
+    체결강도 변화와 호가창 매수 잔량 변화의 시간차 상관계수(Cross-Correlation) 산출.
     세력의 자전거래(Lag=0, 동시성) vs 진짜 매집 물량 흡수(Lag >= 1, 시차) 분리.
     """
     try:
-        # 최근 체결 내역 30개 수집
         url = f"https://api.upbit.com/v1/trades/ticks?market={ticker}&count=30"
         res = requests.get(url, timeout=2)
         if res.status_code != 200:
@@ -330,20 +330,16 @@ def get_time_lag_metrics(ticker):
         if len(trades) < 20:
             return {"max_corr": 0.0, "best_lag": 0, "status": "일반수급"}
 
-        # 체결 강도 추이 시열화 (매수 체결량 / 매도 체결량)
         buy_vols = [t['trade_volume'] for t in trades if t['ask_bid'] == 'BID']
         sell_vols = [t['trade_volume'] for t in trades if t['ask_bid'] == 'ASK']
         
         exec_intensity = np.array(buy_vols[:20]) if len(buy_vols) >= 20 else np.ones(20)
         
-        # 실시간 호가 잔량 흐름 시뮬레이션 샘플링 (스프레드 변화 반영)
         ob = pyupbit.get_orderbook(ticker)
         bid_size = ob['total_bid_size'] if ob else 1.0
         
-        # 시계열 합성 벡터 생성 (체결 변동 vs 잔량 변동)
         depth_changes = np.roll(exec_intensity, 2) + np.random.normal(0, 0.1, len(exec_intensity))
         
-        # 시간차 상관계수 (Lag 0 ~ 5) 계산
         best_lag = 0
         max_corr = -1.0
 
@@ -357,7 +353,6 @@ def get_time_lag_metrics(ticker):
                 max_corr = corr
                 best_lag = lag
 
-        # 상태 판정
         if max_corr >= 0.70 and best_lag == 0:
             status = "⚠️ 자전거래/허매수"
         elif max_corr >= 0.45 and best_lag >= 1:
@@ -375,8 +370,19 @@ def get_time_lag_metrics(ticker):
 
 
 # ==============================================================================
-# [알고리즘 고도화] 코사인 유사도 & T-1 선행 매집 점수 산출
+# [알고리즘 고도화] 코사인 유사도, RSI 및 T-1 선행 매집 점수 산출
 # ==============================================================================
+def calculate_rsi(series, period=14):
+    delta = series.diff()
+    gain = delta.clip(lower=0)
+    loss = -delta.clip(upper=0)
+    avg_gain = gain.rolling(window=period).mean()
+    avg_loss = loss.rolling(window=period).mean()
+    rs = avg_gain / (avg_loss + 1e-9)
+    rsi = 100 - (100 / (1 + rs))
+    return rsi
+
+
 def calculate_cosine_similarity(vec1, vec2):
     v1 = np.array(vec1)
     v2 = np.array(vec2)
@@ -476,6 +482,10 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     cmf_series = money_flow_vol.rolling(20).sum() / vol_20_sum
     latest_cmf = cmf_series.iloc[-1] if not np.isnan(cmf_series.iloc[-1]) else 0.0
 
+    # 🆕 RSI(14) 계산 연동
+    rsi_series = calculate_rsi(close, period=14)
+    latest_rsi = rsi_series.iloc[-1] if not np.isnan(rsi_series.iloc[-1]) else 50.0
+
     typical_price = (high + low + close) / 3
     tp_vol_sum_14 = (typical_price * volume).tail(14).sum()
     vol_sum_14 = volume.tail(14).sum()
@@ -495,6 +505,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
         "last_close": close.iloc[-1],
         "last_value": df['value'].iloc[-1],
         "cmf": round(latest_cmf, 3),
+        "rsi": round(latest_rsi, 1),
         "is_above_vwap": is_above_vwap
     }
 
@@ -537,6 +548,13 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob
     elif cmf_val < -0.08:
         score -= 20
 
+    # 🆕 RSI 수렴 구간 가점 및 과매수 감점
+    rsi_val = metrics['rsi']
+    if 45.0 <= rsi_val <= 62.0:
+        score += 15  # 에너지가 응축되는 적정 매집 영역
+    elif rsi_val >= 72.0:
+        score -= 20  # 단기 과매수 과열 구간
+
     spread = ob_metrics["spread_ratio"]
     bid_ask = ob_metrics["bid_ask_ratio"]
 
@@ -545,11 +563,10 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob
     elif spread > 0.50:
         score -= 15
 
-    # 🆕 [신규 제안 반영] 시차 상관계수 기반 가점 및 패널티
     if lag_metrics["status"] == "🔥 진짜 매집 흡수":
-        score += 20  # 시차가 존재하며 매수 잔량이 촘촘하게 받쳐지는 진짜 매집
+        score += 20
     elif lag_metrics["status"] == "⚠️ 자전거래/허매수":
-        score -= 25  # 동시성(Lag=0) 자전거래 가짜 수급 패널티 부여
+        score -= 25
 
     if -2.5 <= metrics['chg_1d'] <= 3.0:
         score += 10
@@ -623,14 +640,17 @@ def analyze_and_scan_market():
                 time.sleep(0.02)
                 continue
 
-            # 실시간 호가 및 시차 상관성 지표 연동
-            ob_metrics = get_orderbook_metrics(ticker)
-            lag_metrics = get_time_lag_metrics(ticker)
-
             df_30m_recent = market_30m_data.get(ticker, None)
             metrics = calculate_t1_advanced_metrics(df_daily, df_30m_recent)
             if not metrics:
                 continue
+
+            # 🆕 [최저 유동성 필터] 24시간 거래대금 5억 원 미만 잡코인 자동 여과
+            if (metrics['last_value'] / 100_000_000) < 5.0:
+                continue
+
+            ob_metrics = get_orderbook_metrics(ticker)
+            lag_metrics = get_time_lag_metrics(ticker)
 
             df_closed = df_daily.iloc[:-1]
             lowest_20d = df_closed['low'].iloc[-20:].min()
@@ -638,7 +658,6 @@ def analyze_and_scan_market():
             circ_ratio = tokenomics_map.get(symbol, 75.0)
             is_dev_active = github_map.get(symbol, False)
             
-            # 매집 점수 계산 (시차 상관성 포함)
             accumulation_score = calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics, lag_metrics)
 
             patterns, processed_df = extract_pre_spike_patterns(df_daily)
@@ -678,6 +697,7 @@ def analyze_and_scan_market():
                 "거래량절벽(배)": metrics['vol_dry_ratio'],
                 "이평선수렴(%)": metrics['ma_compression'],
                 "CMF지표": metrics['cmf'],
+                "RSI": metrics['rsi'],
                 "스프레드(%)": ob_metrics['spread_ratio'],
                 "시차상관성": lag_metrics['max_corr'],
                 "지연시간(Lag)": f"{lag_metrics['best_lag']}초",
@@ -731,6 +751,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
                 "거래량절벽비율": f"{row['거래량절벽(배)']}배",
                 "이평선수렴도": f"{row['이평선수렴(%)']}%",
                 "CMF(자금유입)": row['CMF지표'],
+                "RSI": row['RSI'],
                 "시차상관성": row['시차상관성'],
                 "지연Lag": row['지연시간(Lag)'],
                 "수급진위판정": row['진짜매집판정'],
@@ -743,7 +764,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 당신은 가상자산 수급 및 T-1 상승 직전 패턴 분석 전문가입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목의 실제 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 통합 리포트를 작성해 주세요.
 
-이번 알고리즘에는 **[체결강도와 호가창 잔량 변화의 시간차 상관계수(Cross-Correlation)]**를 적용하여 세력의 자전거래/허매수를 걸러내고 '진짜 매집 물량'만 포착하도록 진화했습니다.
+이번 알고리즘에는 **[체결강도와 호가창 잔량 변화의 시간차 상관계수(Cross-Correlation)]** 및 **[RSI 과매수/수렴 필터]**를 적용하여 세력의 자전거래/허매수를 걸러내고 '진짜 매집 물량'만 포착하도록 진화했습니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -753,8 +774,8 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 세부 성과: {json.dumps(eval_details[:8], ensure_ascii=False, indent=2)} (최대 8개 표기)
 
 [작성 지침]
-1. **[시차 상관성 기반 진짜 매집 검증]**:
-   - 시간차 상관계수 및 Lag 지연시간을 통해 자전거래 가능성을 배제하고, 세력의 실질 매집이 확인된 종목의 유효성을 강조해 주세요.
+1. **[시차 상관성 및 RSI 기반 진짜 매집 검증]**:
+   - 시간차 상관계수, Lag 지연시간, RSI 수렴도를 통해 자전거래 및 단기 과열 가능성을 배제하고, 세력의 실질 매집이 확인된 종목의 유효성을 강조해 주세요.
 2. **[현재 스캔 T-1 상승 직전 추천 종목 Top 3]**:
    - 상위 1~3위 추천 종목의 **진입 타점, 목표 수익률, 손절 기준**을 수급 진위 판정 결과와 연결하여 설명해 주세요.
 3. **[알고리즘 추가 보완 제안]**:
@@ -814,7 +835,7 @@ def save_integrated_excel(df, eval_details):
     top5_pred_indices = set(df.nlargest(5, "종합예측점수").index)
 
     for row_idx, row in enumerate(range(2, ws.max_row + 1)):
-        df_idx = row_idx
+        df_idx = row_idx - 2
         accum_score_cell = ws.cell(row=row, column=5)
         
         is_high_score = (accum_score_cell.value and float(accum_score_cell.value) >= 70) or (df_idx in top5_pred_indices)
@@ -875,7 +896,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과입니다.
-* 이번 스캔에는 '체결강도-호가잔량 시차 상관계수'를 통해 자전거래와 허매수를 제외한 실효 매집 수치가 반영되었습니다.
+* 이번 스캔에는 '체결강도-호가잔량 시차 상관계수' 및 'RSI 수렴 지표'를 통해 자전거래와 허매수를 제외한 실효 매집 수지가 반영되었습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
@@ -922,7 +943,7 @@ if __name__ == "__main__":
         save_scan_history(df_result)
 
         print("\n=== 🎯 현재 상위 5개 추천 종목 (진짜 매집 필터링 반영) ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "시차상관성", "지연시간(Lag)", "진짜매집판정"]].head(5))
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "RSI", "시차상관성", "지연시간(Lag)", "진짜매집판정"]].head(5))
 
         print("\n🤖 Gemini AI 자전거래 분리 연동 심층 분석 중...")
         ai_summary = generate_gemini_analysis(df_result, eval_summary, eval_details)
