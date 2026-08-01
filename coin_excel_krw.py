@@ -30,8 +30,8 @@ RECEIVER_EMAILS = [
     if email.strip()
 ]
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
-ONCHAIN_API_KEY = os.environ.get("ONCHAIN_API_KEY", "") # 온체인 API 키 (CryptoQuant 등)
+GITHUB_TOKEN = "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"
+ONCHAIN_API_KEY = "zeE9TxFVk7ucx1MY7ODqZe1QJwrTIooANhmrpGxZhN9hH6ZeIpgKtxGnMC4soat0XY2Agut"
 
 EXCEL_FILE_PATH = "업비트_원화마켓_매집_패턴분석_리포트.xlsx"
 HISTORY_CSV_PATH = "scan_history.csv"
