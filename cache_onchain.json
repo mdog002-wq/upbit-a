@@ -1,0 +1,1667 @@
+{
+  "date": "2026-08-01",
+  "content": {
+    "GEOD": {
+      "net_flow": -117128.53156468697,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "WAXP": {
+      "net_flow": -488118.56832078047,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CARV": {
+      "net_flow": -64068.50789852295,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "LSK": {
+      "net_flow": -446333.17718192446,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "0G": {
+      "net_flow": 123163.25760637701,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "WIF": {
+      "net_flow": 210622.30279424763,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TRAC": {
+      "net_flow": 87412.23092111119,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BORA": {
+      "net_flow": -228789.89184937323,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "PUNDIX": {
+      "net_flow": -391625.2111250487,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "PROS": {
+      "net_flow": -377387.2679108984,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "USD1": {
+      "net_flow": -12151.74074757495,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BAT": {
+      "net_flow": 31037.456277635763,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "HUNT": {
+      "net_flow": 193869.15840782714,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "PENGU": {
+      "net_flow": 143161.35005931428,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "FIL": {
+      "net_flow": 432607.21583086415,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BEAM": {
+      "net_flow": -285222.27250825835,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "META2": {
+      "net_flow": 79183.09074803581,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "DOOD": {
+      "net_flow": 117354.90575911489,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "WAVES": {
+      "net_flow": 385379.7588879835,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "USDC": {
+      "net_flow": 330943.57629277813,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MOVE": {
+      "net_flow": 63870.25507982366,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TREE": {
+      "net_flow": -337845.15431619145,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "USDE": {
+      "net_flow": 260968.62168072385,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "USDG": {
+      "net_flow": -178077.07983232656,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AERGO": {
+      "net_flow": 491147.4038238517,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "WET": {
+      "net_flow": 118029.95538261067,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "USDT": {
+      "net_flow": -170240.5688108388,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "USDS": {
+      "net_flow": -496997.9602513023,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "2Z": {
+      "net_flow": 329816.1829191453,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BOUNTY": {
+      "net_flow": -474118.11875572376,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "KAITO": {
+      "net_flow": -235413.45287686912,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "LPT": {
+      "net_flow": -101785.31179422623,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BLAST": {
+      "net_flow": 275665.1054019452,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "ETHFI": {
+      "net_flow": -109116.63643432304,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "DKA": {
+      "net_flow": 378826.9881482308,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ANKR": {
+      "net_flow": 172093.5690891234,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ALGO": {
+      "net_flow": -93445.67701832775,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SHIB": {
+      "net_flow": 199762.713107805,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "UNI": {
+      "net_flow": 292361.8762269515,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "BIO": {
+      "net_flow": 89904.07958799589,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "WLFI": {
+      "net_flow": -52827.57700848882,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "UP2": {
+      "net_flow": 93050.21728373214,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TOKAMAK": {
+      "net_flow": 39880.760326655814,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SKY": {
+      "net_flow": 224155.26500449213,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CYBER": {
+      "net_flow": 141504.78381098376,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SKR": {
+      "net_flow": -302523.75584344694,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "DOGE": {
+      "net_flow": 210892.556758889,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "WLD": {
+      "net_flow": -439428.53231474035,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "PEPE": {
+      "net_flow": 423759.4814365875,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "HBAR": {
+      "net_flow": -372362.82370877557,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BCH": {
+      "net_flow": -277813.76090164634,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "NEWT": {
+      "net_flow": 329563.98506354215,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "SEI": {
+      "net_flow": 257312.9950076416,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BONK": {
+      "net_flow": -469947.3265109591,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "JST": {
+      "net_flow": 63904.91434946924,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AAVE": {
+      "net_flow": -39958.07557031425,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "JTO": {
+      "net_flow": 440556.82106259407,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "JUP": {
+      "net_flow": 271464.0525848275,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "VVV": {
+      "net_flow": 371102.5787070906,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "AI": {
+      "net_flow": 211081.05971976428,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "PIEVERSE": {
+      "net_flow": -103569.61342695501,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ALT": {
+      "net_flow": -309459.90974978486,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "B3": {
+      "net_flow": -474229.5668390576,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "LAYER": {
+      "net_flow": -239723.3054980299,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TRX": {
+      "net_flow": 344490.2464606513,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "POWR": {
+      "net_flow": -72715.09683376807,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "EUL": {
+      "net_flow": 87475.72918190237,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ATOM": {
+      "net_flow": 420045.8420237253,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ARKM": {
+      "net_flow": 307763.3306902378,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CRO": {
+      "net_flow": 198105.08814795967,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "NXPC": {
+      "net_flow": -267540.45233293157,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "A": {
+      "net_flow": -376731.6833482075,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TRUMP": {
+      "net_flow": -289094.5534534614,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "F": {
+      "net_flow": -190097.60474523186,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "G": {
+      "net_flow": 247049.56882019795,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "CELO": {
+      "net_flow": -69353.51210632967,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AERO": {
+      "net_flow": 342881.2714644845,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CTC": {
+      "net_flow": 61689.782076062635,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ANIME": {
+      "net_flow": 296355.05757338845,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "APT": {
+      "net_flow": -448237.1464569833,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MOCA": {
+      "net_flow": 252950.6107717536,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "API3": {
+      "net_flow": 188995.1662824665,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AHT": {
+      "net_flow": 407947.81998649077,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "EGLD": {
+      "net_flow": -6654.891602919553,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BLEND": {
+      "net_flow": -121985.78354154923,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ERA": {
+      "net_flow": -25332.559754227637,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "FF": {
+      "net_flow": -397045.1449444701,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "PLUME": {
+      "net_flow": -385316.26089369983,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ESP": {
+      "net_flow": 218989.3134801403,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CC": {
+      "net_flow": -489610.022376549,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "NEO": {
+      "net_flow": 188747.60176381143,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ETC": {
+      "net_flow": 183706.58037324704,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "IOTA": {
+      "net_flow": 245352.6817161371,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "IOST": {
+      "net_flow": 169456.2067464369,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AKT": {
+      "net_flow": 438502.5408940357,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "COW": {
+      "net_flow": 282624.2987212542,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "VIRTUAL": {
+      "net_flow": -401574.48919107864,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "RLUSD": {
+      "net_flow": 390266.1488110941,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "ETH": {
+      "net_flow": -220295.5144141051,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "IQ": {
+      "net_flow": 17398.68320248439,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "NEAR": {
+      "net_flow": -406547.8662595928,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "RVN": {
+      "net_flow": -343408.09873061394,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "PRL": {
+      "net_flow": 271891.29396177887,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "AGLD": {
+      "net_flow": -215689.76112332515,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ID": {
+      "net_flow": 374870.16644230066,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "IO": {
+      "net_flow": 124643.40126195084,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "IN": {
+      "net_flow": -484702.81719364825,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "MANTRA": {
+      "net_flow": -87484.01531850727,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "WAL": {
+      "net_flow": -418460.64723352884,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "PENDLE": {
+      "net_flow": 13072.262802917161,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BLUR": {
+      "net_flow": -69018.02527557331,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AWE": {
+      "net_flow": 313244.1083358773,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "THETA": {
+      "net_flow": 849.064727702993,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AXL": {
+      "net_flow": -230140.2339508285,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "HP": {
+      "net_flow": -337835.8449630934,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SAND": {
+      "net_flow": -14309.28611746186,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "WCT": {
+      "net_flow": -107851.06033683923,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "YGG": {
+      "net_flow": 363498.7789579175,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AXS": {
+      "net_flow": -494222.4617330322,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ARDR": {
+      "net_flow": -401015.3564472333,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "AQT": {
+      "net_flow": -32801.399077073904,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ME": {
+      "net_flow": -229875.33631572442,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TRUST": {
+      "net_flow": -381703.10258986027,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SONIC": {
+      "net_flow": -155078.17181187798,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "ARB": {
+      "net_flow": -210689.52001334983,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "POL": {
+      "net_flow": 392233.8349917091,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CVC": {
+      "net_flow": 155222.57678792195,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "T": {
+      "net_flow": -433781.31715924497,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ARX": {
+      "net_flow": 166831.4446430402,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "W": {
+      "net_flow": -438852.7830010161,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ARK": {
+      "net_flow": -56048.71177613881,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AVNT": {
+      "net_flow": 339589.84705740144,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "O": {
+      "net_flow": 373001.644478795,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "LA": {
+      "net_flow": 336755.0910872526,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "HYPER": {
+      "net_flow": 16678.70900810277,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ATH": {
+      "net_flow": -127451.60204216512,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TAIKO": {
+      "net_flow": 241896.38915198285,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "RE": {
+      "net_flow": -235126.8270355682,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AVAX": {
+      "net_flow": 379736.8081659257,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "XAUT": {
+      "net_flow": -54777.409937274,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CPOOL": {
+      "net_flow": -390673.6544556671,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "IMX": {
+      "net_flow": -239019.96852352514,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SC": {
+      "net_flow": 248337.8609974241,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "INJ": {
+      "net_flow": 227551.06018859858,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MVL": {
+      "net_flow": -322564.4546339267,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "HIVE": {
+      "net_flow": 369111.2038418092,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "CBK": {
+      "net_flow": 368404.8805634348,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "XLM": {
+      "net_flow": 43619.211509098066,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "OP": {
+      "net_flow": 80450.04116273229,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SAFE": {
+      "net_flow": -407856.49546075176,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "GLM": {
+      "net_flow": 36860.08557769959,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SUPER": {
+      "net_flow": 144720.13725312252,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "LINEA": {
+      "net_flow": -67179.6973437203,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "DATA": {
+      "net_flow": 286650.9841806068,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "KERNEL": {
+      "net_flow": -297766.7544824675,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "POKT": {
+      "net_flow": -114718.88567295804,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SENT": {
+      "net_flow": -322183.4794292777,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "ZKC": {
+      "net_flow": -46280.218047463975,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "KNC": {
+      "net_flow": -394416.0158502742,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ZKP": {
+      "net_flow": 115947.08862170391,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AUCTION": {
+      "net_flow": 401557.45793978777,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ORDER": {
+      "net_flow": 191901.80265948037,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "FCT2": {
+      "net_flow": -44510.53248752555,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MTL": {
+      "net_flow": 75809.3678961863,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "VET": {
+      "net_flow": -11291.327333287627,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TAO": {
+      "net_flow": -186861.84195271984,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "QTUM": {
+      "net_flow": 264881.1660628276,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TT": {
+      "net_flow": 475573.40283157444,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "LINK": {
+      "net_flow": -346982.25366765726,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "XRP": {
+      "net_flow": 278709.27976919746,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CHZ": {
+      "net_flow": -166471.19305813964,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ASTR": {
+      "net_flow": 153702.04989819007,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ZK": {
+      "net_flow": -30674.22104118031,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "STORJ": {
+      "net_flow": -185762.4692889569,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ENA": {
+      "net_flow": 402815.4749094094,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MANA": {
+      "net_flow": 170758.31979812623,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "OPEN": {
+      "net_flow": -72224.96086758078,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "PYTH": {
+      "net_flow": 288302.250069199,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "ENS": {
+      "net_flow": -327601.0789293218,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "GRT": {
+      "net_flow": 159648.49403939163,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "PUMP": {
+      "net_flow": -319788.5965170575,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "XTZ": {
+      "net_flow": 425341.2674163451,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "CKB": {
+      "net_flow": -349878.19883673644,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "KAVA": {
+      "net_flow": 31561.2894872881,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TOSHI": {
+      "net_flow": -200248.3142427134,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BARD": {
+      "net_flow": -265609.21487191366,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "ZRO": {
+      "net_flow": -156944.86866411142,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "RAY": {
+      "net_flow": -59401.31341134361,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ONDO": {
+      "net_flow": 467563.7577011618,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "ZRX": {
+      "net_flow": -490820.4345740208,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "GMT": {
+      "net_flow": 249875.76888160093,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TFUEL": {
+      "net_flow": -175136.23987694335,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "CFG": {
+      "net_flow": -174474.04803962552,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "AZTEC": {
+      "net_flow": 61659.767663062084,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "CFX": {
+      "net_flow": -241064.4188239256,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "XPL": {
+      "net_flow": 430332.34877581045,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ZAMA": {
+      "net_flow": -330778.3745282208,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MASK": {
+      "net_flow": 270122.12400524796,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "COMP": {
+      "net_flow": 419630.43180883664,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ZETA": {
+      "net_flow": -279785.4703415197,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "RED": {
+      "net_flow": 15037.60395680042,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "TIA": {
+      "net_flow": -317009.54774159007,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ADA": {
+      "net_flow": -177482.01204668632,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ELF": {
+      "net_flow": 218011.13627868635,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SOON": {
+      "net_flow": -461065.18813214824,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "STEEM": {
+      "net_flow": 232647.84318440128,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ELSA": {
+      "net_flow": 213415.58788480808,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "SPK": {
+      "net_flow": -57914.25447331165,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SOPH": {
+      "net_flow": 24857.7061576501,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SPX": {
+      "net_flow": -149165.01520325808,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MED": {
+      "net_flow": -234536.8272531603,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "1INCH": {
+      "net_flow": -115765.76300827181,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "KAT": {
+      "net_flow": 166819.17961525253,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MEW": {
+      "net_flow": 364667.97825426876,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ORBS": {
+      "net_flow": -47360.418956028065,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "RENDER": {
+      "net_flow": -99372.16355214664,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ORCA": {
+      "net_flow": 66179.04982152395,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BERA": {
+      "net_flow": -62487.623848166724,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SIGN": {
+      "net_flow": 331789.092481322,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "SLX": {
+      "net_flow": -404781.5444092053,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "VANA": {
+      "net_flow": 31455.789940740447,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "DOT": {
+      "net_flow": -383014.0437831748,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "EDGE": {
+      "net_flow": 15943.880270500842,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MET2": {
+      "net_flow": -164774.79207381228,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MBL": {
+      "net_flow": -249463.69897200205,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "FLUID": {
+      "net_flow": 206399.89024989214,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BIGTIME": {
+      "net_flow": -432773.367690393,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SNT": {
+      "net_flow": 65838.94603111083,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SOL": {
+      "net_flow": -397353.2252316411,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "QKC": {
+      "net_flow": 92163.55444838398,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "DRV": {
+      "net_flow": 420777.1775234868,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "META": {
+      "net_flow": 404519.92709666095,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "IRYS": {
+      "net_flow": 377175.34570907557,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "SAHARA": {
+      "net_flow": 130932.54229160713,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MLK": {
+      "net_flow": -11011.140030035574,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "VTHO": {
+      "net_flow": -434836.6409040237,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "KITE": {
+      "net_flow": 268067.2854509725,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MINA": {
+      "net_flow": 495626.88379739004,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "MMT": {
+      "net_flow": 250517.90442706062,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "CHIP": {
+      "net_flow": -40270.25634219439,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ZORA": {
+      "net_flow": 445384.8577944684,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "XCN": {
+      "net_flow": 185501.44998186186,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "GAS": {
+      "net_flow": -223012.3721238646,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "MEGA": {
+      "net_flow": 20804.3709279935,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MNT": {
+      "net_flow": 494560.38370822486,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MOC": {
+      "net_flow": 85323.29219709162,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MOODENG": {
+      "net_flow": 172923.5402933195,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "XEC": {
+      "net_flow": 172654.7598998855,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MON": {
+      "net_flow": 180497.7680064655,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MORPHO": {
+      "net_flow": -296689.0039888004,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ZIL": {
+      "net_flow": 276088.5839927222,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "GAME2": {
+      "net_flow": 112976.89714268572,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "STX": {
+      "net_flow": 159198.15110646363,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "FLOCK": {
+      "net_flow": 28489.766422540415,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "PROVE": {
+      "net_flow": -270844.98021005234,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BSV": {
+      "net_flow": 306855.1072023071,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SUI": {
+      "net_flow": -184830.9798957726,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SYRUP": {
+      "net_flow": -177879.4884361896,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "BTC": {
+      "net_flow": 23983.338238841912,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BABY": {
+      "net_flow": 93826.10079837847,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "HOLO": {
+      "net_flow": 190736.53714713966,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "MIRA": {
+      "net_flow": -134891.28436055983,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SUN": {
+      "net_flow": -51988.10334717331,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ZBT": {
+      "net_flow": 286742.1993559444,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ONG": {
+      "net_flow": -163614.01089225058,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "BTT": {
+      "net_flow": 415029.9126067973,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ENSO": {
+      "net_flow": 335211.1682607753,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "BIRB": {
+      "net_flow": -12278.222098039754,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ONT": {
+      "net_flow": 125154.35561222711,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "SOMI": {
+      "net_flow": 206565.56426868797,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "DEEP": {
+      "net_flow": 332074.01896703534,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "STRAX": {
+      "net_flow": 244874.34848629567,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "ICP": {
+      "net_flow": -368429.91598001204,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "OPG": {
+      "net_flow": 291174.6735997598,
+      "whale_alert": true,
+      "status": "⚠️ 대규모 유입 (매도폭탄 경고)",
+      "score_modifier": -50
+    },
+    "BREV": {
+      "net_flow": -480439.66521935776,
+      "whale_alert": true,
+      "status": "💎 거래소 유출 (공급충격/홀딩)",
+      "score_modifier": 30
+    },
+    "ICX": {
+      "net_flow": -88073.57173147047,
+      "whale_alert": true,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    },
+    "POLYX": {
+      "net_flow": -316296.17959135084,
+      "whale_alert": false,
+      "status": "⚪ 일반적인 흐름",
+      "score_modifier": 0
+    }
+  }
+}
