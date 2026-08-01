@@ -8,6 +8,9 @@ import numpy as np
 import pandas as pd
 import pyupbit
 import openpyxl
+import asyncio
+import websockets
+from collections import defaultdict
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
@@ -407,7 +410,7 @@ def get_cached_wallet_leadtime_metrics(symbols):
 
 
 # ==============================================================================
-# [실시간 덤핑 속도 및 Delta-T 아이스버그 잔량 역산 모듈]
+# [실시간 덤핑 속도 및 Delta-T / 고주파 WebSocket 아이스버그 잔량 역산 모듈]
 # ==============================================================================
 def get_realtime_dumping_velocity(ticker):
     try:
@@ -453,13 +456,129 @@ def get_realtime_dumping_velocity(ticker):
         return {"dump_velocity": 0.0, "exec_strength": 100.0, "status": "분석 불가", "score_modifier": 0}
 
 
+async def _capture_upbit_ws_data(ticker, duration=1.5):
+    """WebSocket을 통해 1.5초간 호가 및 체결 데이터를 수집합니다."""
+    uri = "wss://api.upbit.com/websocket/v1"
+    data_log = []
+    try:
+        async with websockets.connect(uri, ping_interval=None) as websocket:
+            subscribe_fmt = [
+                {"ticket": f"iceberg_tracker_{ticker}"},
+                {"type": "trade", "codes": [ticker]},
+                {"type": "orderbook", "codes": [ticker], "isOnlySnapshot": False}
+            ]
+            await websocket.send(json.dumps(subscribe_fmt))
+            
+            start_time = time.time()
+            while time.time() - start_time < duration:
+                try:
+                    msg = await asyncio.wait_for(websocket.recv(), timeout=0.1)
+                    data = json.loads(msg)
+                    data['recv_time'] = time.time()
+                    data_log.append(data)
+                except asyncio.TimeoutError:
+                    continue
+                except Exception:
+                    break
+    except Exception:
+        pass
+    return data_log
+
+
+def get_highfreq_iceberg_metrics(ticker, duration=1.5):
+    """
+    [고주파 트래킹] WebSocket 스트림을 통해 100ms 단위로 체결 강도와 호가창 변화를 샘플링하여,
+    아이스버그 매도 잔량의 '소진 속도(Depletion Rate)'와 '재생성 주기(Regen Cycle)'를 실시간 역산합니다.
+    """
+    try:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        data_log = loop.run_until_complete(_capture_upbit_ws_data(ticker, duration))
+        loop.close()
+    except Exception:
+        data_log = []
+
+    if not data_log:
+        return get_delta_t_iceberg_metrics(ticker)  # WebSocket 통신 실패 시 REST Fallback 적용
+
+    # 100ms(0.1초) 단위 Binning
+    bins = defaultdict(lambda: {"ask_trades": 0.0, "bid_trades": 0.0, "best_ask_size": None, "best_bid_size": None})
+    
+    for d in data_log:
+        bin_key = int(d['recv_time'] * 10)
+        if d.get('type') == 'trade':
+            vol = d.get('trade_volume', 0.0)
+            if d.get('ask_bid') == 'ASK':
+                bins[bin_key]['ask_trades'] += vol
+            else:
+                bins[bin_key]['bid_trades'] += vol
+        elif d.get('type') == 'orderbook':
+            units = d.get('orderbook_units', [])
+            if units:
+                bins[bin_key]['best_ask_size'] = units[0]['ask_size']
+                bins[bin_key]['best_bid_size'] = units[0]['bid_size']
+
+    sorted_keys = sorted(bins.keys())
+    
+    total_ask_executed = 0.0
+    regen_count = 0
+    regen_time_ms_total = 0
+    
+    prev_ask_size = None
+    last_drop_time = None
+    
+    for k in sorted_keys:
+        b = bins[k]
+        total_ask_executed += b['ask_trades']
+        
+        curr_ask_size = b['best_ask_size']
+        if curr_ask_size is not None and prev_ask_size is not None:
+            diff = curr_ask_size - prev_ask_size
+            
+            # 매도 체결 발생 후 잔량 감소 기록
+            if diff < 0 and b['ask_trades'] > 0:
+                last_drop_time = k
+            
+            # 잔량이 체결량 대비 비정상적으로 빠르게 채워짐 (아이스버그 재생성 포착)
+            if diff > 0 and last_drop_time is not None:
+                time_diff_ms = (k - last_drop_time) * 100
+                if time_diff_ms <= 400: # 400ms 이내 호가 리필 감지
+                    regen_count += 1
+                    regen_time_ms_total += time_diff_ms
+                    last_drop_time = None
+                    
+        if curr_ask_size is not None:
+            prev_ask_size = curr_ask_size
+
+    # 소진 속도 (초당 최우선 호가 매도 체결량)
+    depletion_rate = total_ask_executed / duration
+    # 재생성 주기 (평균 ms)
+    avg_regen_ms = (regen_time_ms_total / regen_count) if regen_count > 0 else 0.0
+
+    # 아이스버그 재생성 및 소진 속도에 따른 가중치 판별
+    if regen_count >= 2 and avg_regen_ms <= 300:
+        status = f"🚨 고주파 아이스버그 매도폭탄 (소진: {depletion_rate:.2f}/s, 재생성: {avg_regen_ms:.0f}ms)"
+        score_modifier = -70
+    elif regen_count >= 1:
+        status = f"⚠️ 아이스버그 분할매도 의심 (소진: {depletion_rate:.2f}/s, 재생성: {avg_regen_ms:.0f}ms)"
+        score_modifier = -35
+    elif depletion_rate > 0.5:
+        status = f"🔥 강력한 매도 소진 (속도: {depletion_rate:.2f}/s)"
+        score_modifier = -10
+    else:
+        status = "💎 정상 수급 (은닉 물량 없음)"
+        score_modifier = 15
+
+    return {
+        "depletion_rate": round(depletion_rate, 3),
+        "regen_cycle_ms": round(avg_regen_ms, 1),
+        "status": status,
+        "score_modifier": score_modifier
+    }
+
+
 def get_delta_t_iceberg_metrics(ticker):
-    """
-    [Delta-T 시간차 보정 기반 아이스버그 잔량 역산 모듈]
-    - 온체인 트랜잭션 전송 시각과 거래소 API 체결/호가 수신 시각 간의 'Delta-T(초)'를 계산하여
-      시차 지연에 따른 데이터 왜곡을 보정합니다.
-    - 호가 잔량 변화량과 매도 체결량을 비교하여 숨겨진 매도 잔량(Hidden Depth)을 역산합니다.
-    """
+    """기존 REST API 기반 시차(Delta-T) 보정 모듈 (Fallback)"""
     try:
         url_trades = f"https://api.upbit.com/v1/trades/ticks?market={ticker}&count=60"
         res = requests.get(url_trades, timeout=2)
@@ -472,38 +591,30 @@ def get_delta_t_iceberg_metrics(ticker):
         if len(trades) < 40:
             return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "status": "정상", "score_modifier": 0}
 
-        # 1. Delta-T (온체인-호가창 수신 지연 시간차) 추정
         now_ts = datetime.datetime.now(datetime.timezone.utc).timestamp()
         trade_ts = trades[0].get('timestamp', now_ts * 1000) / 1000.0
-        delta_t = max(0.1, abs(now_ts - trade_ts))  # 시간차(초)
+        delta_t = max(0.1, abs(now_ts - trade_ts))
 
-        # Delta-T 기반 감쇄 가중치 (지연 시간이 길수록 호가 신뢰도 감쇄)
         decay_weight = np.exp(-0.05 * delta_t)
 
-        # 2. 아이스버그 숨겨진 잔량(Hidden Volume) 역산
         ask_trades = [t for t in trades if t['ask_bid'] == 'ASK']
         total_ask_executed = sum([t['trade_volume'] for t in ask_trades])
 
-        # 호가창 최우선 매도 잔량
         visible_ask_size = orderbook['orderbook_units'][0]['ask_size']
-        
-        # 호가 잔량이 줄어드는 속도 대비 실제 체결량이 현저히 많으면 아이스버그 주문 존재
-        # Hidden Depth Volume = 체결량 - (이전 잔량 - 현재 잔량) [근사치 계산]
         hidden_ask_vol = max(0, total_ask_executed - (visible_ask_size * 0.3))
         hidden_depth_ratio = (hidden_ask_vol / (total_ask_executed + 1e-9)) * decay_weight
 
-        # 3. 상태 판정 및 스코어 가중치 적용
         if hidden_depth_ratio >= 0.70 and delta_t <= 5.0:
-            status = f"🚨 숨겨진 아이스버그 매도 폭탄 (Delta-T: {delta_t:.1f}s / 은닉비율 {hidden_depth_ratio*100:.0f}%)"
+            status = f"🚨 숨겨진 아이스버그 (Delta-T: {delta_t:.1f}s / 은닉 {hidden_depth_ratio*100:.0f}%)"
             score_modifier = -60
         elif hidden_depth_ratio >= 0.40:
-            status = f"⚠️ 아이스버그 분할 매도 진행 (Delta-T: {delta_t:.1f}s / 은닉비율 {hidden_depth_ratio*100:.0f}%)"
+            status = f"⚠️ 분할 매도 진행 (Delta-T: {delta_t:.1f}s / 은닉 {hidden_depth_ratio*100:.0f}%)"
             score_modifier = -35
         elif delta_t >= 15.0:
-            status = f"⚪ 수급 지연 경고 (Delta-T: {delta_t:.1f}s)"
+            status = f"⚪ 수급 지연 (Delta-T: {delta_t:.1f}s)"
             score_modifier = -10
         else:
-            status = f"💎 깨끗한 수급 흡수 (Delta-T: {delta_t:.1f}s)"
+            status = f"💎 깨끗한 수급 (Delta-T: {delta_t:.1f}s)"
             score_modifier = 15
 
         return {
@@ -790,7 +901,6 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob
     if dump_metrics:
         score += dump_metrics.get("score_modifier", 0)
 
-    # [Delta-T 아이스버그 잔량 가중치 연동]
     if iceberg_metrics:
         score += iceberg_metrics.get("score_modifier", 0)
 
@@ -855,7 +965,7 @@ def analyze_and_scan_market():
                 if t in hourly_rank_details:
                     hourly_rank_details[t].append(rank)
 
-    print("\n[2/2] T-1 매집 + Delta-T 아이스버그 잔량 역산 교차 스캔 중...")
+    print("\n[2/2] T-1 매집 + 100ms 고주파 WebSocket 아이스버그 잔량 역산 교차 스캔 중...")
     results = []
 
     for item in tqdm(krw_coins, desc="통합 종합 스캔", ncols=100):
@@ -881,8 +991,11 @@ def analyze_and_scan_market():
             lag_metrics = get_time_lag_metrics(ticker)
             dump_metrics = get_realtime_dumping_velocity(ticker)
             
-            # [Delta-T 아이스버그 잔량 역산 모듈]
-            iceberg_metrics = get_delta_t_iceberg_metrics(ticker)
+            # [WebSocket 고주파 트래킹] 거래량이 일정 기준 이상인 종목에 대해 정밀 검사 수행
+            if (metrics['last_value'] / 100_000_000) >= 10.0:
+                iceberg_metrics = get_highfreq_iceberg_metrics(ticker, duration=1.5)
+            else:
+                iceberg_metrics = get_delta_t_iceberg_metrics(ticker)
             
             onchain_info = onchain_map.get(symbol, {"status": "데이터 없음", "score_modifier": 0})
             dex_info = dex_stake_map.get(symbol, {"status": "중립", "score_modifier": 0})
@@ -953,7 +1066,7 @@ def analyze_and_scan_market():
                 "지연시간(Lag)": f"{lag_metrics['best_lag']}초",
                 "진짜매집판정": lag_metrics['status'],
                 "매도덤핑속도": dump_metrics['status'],
-                "Delta-T_아이스버그": iceberg_metrics['status'],
+                "아이스버그역산(고주파)": iceberg_metrics['status'],
                 "온체인동향": onchain_info['status'], 
                 "DEX/스테이킹동향": dex_info['status'],
                 "지갑이동 리드타임": wallet_info['status'],
@@ -967,7 +1080,6 @@ def analyze_and_scan_market():
                 "거래대금(억원)": round(metrics['last_value'] / 100_000_000, 1),
                 "개발활력": "양호" if is_dev_active else "보통"
             })
-            time.sleep(0.02)
 
         except Exception:
             continue
@@ -1009,7 +1121,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
                 "RSI": row['RSI'],
                 "수급진위판정": row['진짜매집판정'],
                 "매도덤핑속도": row.get('매도덤핑속도', '정보 없음'),
-                "Delta-T_아이스버그": row.get('Delta-T_아이스버그', '정보 없음'),
+                "아이스버그역산(고주파)": row.get('아이스버그역산(고주파)', '정보 없음'),
                 "온체인동향": row.get('온체인동향', '정보 없음'),
                 "DEX/스테이킹동향": row.get('DEX/스테이킹동향', '정보 없음'),
                 "지갑이동 리드타임": row.get('지갑이동 리드타임', '정보 없음'),
@@ -1018,10 +1130,10 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
             })
 
         prompt = f"""
-당신은 가상자산 수급, T-1 상승 직전 패턴 및 Delta-T 상대적 시간차 보정, 아이스버그 잔량 역산 전문 분석가입니다.
+당신은 가상자산 수급, T-1 상승 직전 패턴 분석 및 WebSocket 100ms 고주파 트래킹 기반 잔량 소진/재생성 분석 전문 AI입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 리포트를 작성해 주세요.
 
-이번 알고리즘은 **[거래소-온체인 간 상대적 시간차(Delta-T) 보정]** 및 **[숨겨진 아이스버그 잔량(Hidden Depth) 역산 엔진]**을 결합하여, 세력의 호가창 은닉 분할 매도를 정밀 진단합니다.
+이번 알고리즘은 **[WebSocket 스트림을 통한 100ms 호가/체결 데이터 샘플링]**을 통해 세력의 아이스버그 주문 '소진 속도'와 '재생성 주기'를 실시간 역산하여 덤핑 위협을 정밀 진단합니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -1031,12 +1143,12 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 세부 성과: {json.dumps(eval_details[:8], ensure_ascii=False, indent=2)} (최대 8개 표기)
 
 [작성 지침]
-1. **[Delta-T 시간차 보정 & 아이스버그 진단 분석]**:
-   - Delta-T 지연 및 숨겨진 아이스버그 매도 폭탄 위험이 있는 종목과, Clean한 수급을 보이는 우수 종목을 대비해 주세요.
+1. **[고주파 아이스버그 추적 및 진단 분석]**:
+   - 실시간 고주파 트래킹을 통해 아이스버그 재생성 위험이 있는 종목과, 은닉 물량 없이 맑은 수급을 보이는 우수 종목을 대비해 주세요.
 2. **[T-1 상승 직전 최우수 추천 종목 Top 3 전략]**:
-   - 최우수 3개 종목의 진입 타점, 목표가, 손절가를 아이스버그 잔량 역산 수치와 연계하여 세밀히 작성해 주세요.
+   - 최우수 3개 종목의 진입 타점, 목표가, 손절가를 잔량 소진/재생성 역산 수치와 연계하여 세밀히 작성해 주세요.
 3. **[알고리즘 추가 보완 제안]**:
-   - 실시간 WebSocket 호가 틱(Tick) 단위 수급 트래킹 체계 구축 방안을 1문장으로 제안해 주세요.
+   - WebSocket 데이터를 활용한 머신러닝 기반 덤핑 예측 모델 확장 방안을 1문장으로 제안해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.2)
@@ -1146,20 +1258,20 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [Delta-T 보정 & 아이스버그 잔량 역산] 실시간 매집 분석 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [100ms 고주파 트래킹] 실시간 매집 분석 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과입니다.
-* 상대적 시간차(Delta-T) 보정 및 아이스버그 숨은 매도 잔량 역산 엔진을 반영하였습니다.
+* WebSocket 100ms 고주파 트래킹 기반 아이스버그 재생성 주기 및 잔량 소진속도 역산 엔진을 반영하였습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
 
 ==================================================
-🤖 [Gemini AI Delta-T & 아이스버그 잔량 역산 실시간 심층 리포트]
+🤖 [Gemini AI 고주파 수급 및 아이스버그 잔량 역산 실시간 심층 리포트]
 ==================================================
 {ai_analysis}
 
@@ -1188,7 +1300,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] Delta-T 상대적 시간차 보정 & 아이스버그 잔량 역산 엔진 실행...")
+    print("🚀 [업비트 원화 마켓] 100ms 고주파 트래킹 & 아이스버그 잔량 역산 엔진 실행...")
     
     print("\n🔍 과거 추천 종목 수익률 자동 검증 중...")
     eval_summary, eval_details = evaluate_past_performance()
@@ -1199,10 +1311,10 @@ if __name__ == "__main__":
     if not df_result.empty:
         save_scan_history(df_result)
 
-        print("\n=== 🎯 현재 상위 5개 추천 종목 (Delta-T & 아이스버그 역산 반영) ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "RSI", "Delta-T_아이스버그", "진짜매집판정"]].head(5))
+        print("\n=== 🎯 현재 상위 5개 추천 종목 (고주파 트래킹 아이스버그 역산 반영) ===")
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "아이스버그역산(고주파)", "진짜매집판정"]].head(5))
 
-        print("\n🤖 Gemini AI 실시간 수급/아이스버그 역산 심층 분석 중...")
+        print("\n🤖 Gemini AI 실시간 수급/고주파 아이스버그 역산 심층 분석 중...")
         ai_summary = generate_gemini_analysis(df_result, eval_summary, eval_details)
         
         print("\n📊 엑셀 저장 중...")
