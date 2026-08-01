@@ -457,7 +457,7 @@ def get_realtime_dumping_velocity(ticker):
 
 
 async def _capture_upbit_ws_data(ticker, duration=1.5):
-    """WebSocket을 통해 1.5초간 호가 및 체결 데이터를 수집합니다."""
+    """WebSocket을 통해 1.5간 호가 및 체결 데이터를 수집합니다."""
     uri = "wss://api.upbit.com/websocket/v1"
     data_log = []
     try:
@@ -488,7 +488,8 @@ async def _capture_upbit_ws_data(ticker, duration=1.5):
 def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     """
     [고주파 트래킹] WebSocket 스트림을 통해 100ms 단위로 체결 강도와 호가창 변화를 샘플링하여,
-    아이스버그 매도 잔량의 '소진 속도(Depletion Rate)'와 '재생성 주기(Regen Cycle)'를 실시간 역산합니다.
+    아이스버그 매도 잔량의 '소진 속도(Depletion Rate)'와 '재생성 주기(Regen Cycle)'를 실시간 역산하고,
+    딥러닝/통계 기반 '덤핑 5분 전 선제적 예고 모델(Deep Dump Predictor)' 확률을 산출합니다.
     """
     try:
         loop = asyncio.new_event_loop()
@@ -499,10 +500,9 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
         data_log = []
 
     if not data_log:
-        return get_delta_t_iceberg_metrics(ticker)  # WebSocket 통신 실패 시 REST Fallback 적용
+        return get_delta_t_iceberg_metrics(ticker)
 
-    # 100ms(0.1초) 단위 Binning
-    bins = defaultdict(lambda: {"ask_trades": 0.0, "bid_trades": 0.0, "best_ask_size": None, "best_bid_size": None})
+    bins = defaultdict(lambda: {"ask_trades": 0.0, "bid_trades": 0.0, "best_ask_size": None, "best_bid_size": None, "orderbook_imbalance": 0.0})
     
     for d in data_log:
         bin_key = int(d['recv_time'] * 10)
@@ -515,14 +515,20 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
         elif d.get('type') == 'orderbook':
             units = d.get('orderbook_units', [])
             if units:
-                bins[bin_key]['best_ask_size'] = units[0]['ask_size']
-                bins[bin_key]['best_bid_size'] = units[0]['bid_size']
+                ask_sz = units[0]['ask_size']
+                bid_sz = units[0]['bid_size']
+                bins[bin_key]['best_ask_size'] = ask_sz
+                bins[bin_key]['best_bid_size'] = bid_sz
+                # 호가창 불균형(Order Book Imbalance) 계산
+                total_sz = ask_sz + bid_sz
+                bins[bin_key]['orderbook_imbalance'] = (bid_sz - ask_sz) / total_sz if total_sz > 0 else 0.0
 
     sorted_keys = sorted(bins.keys())
     
     total_ask_executed = 0.0
     regen_count = 0
     regen_time_ms_total = 0
+    imbalance_values = []
     
     prev_ask_size = None
     last_drop_time = None
@@ -530,19 +536,17 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     for k in sorted_keys:
         b = bins[k]
         total_ask_executed += b['ask_trades']
-        
+        if b['orderbook_imbalance'] != 0.0:
+            imbalance_values.append(b['orderbook_imbalance'])
+            
         curr_ask_size = b['best_ask_size']
         if curr_ask_size is not None and prev_ask_size is not None:
             diff = curr_ask_size - prev_ask_size
-            
-            # 매도 체결 발생 후 잔량 감소 기록
             if diff < 0 and b['ask_trades'] > 0:
                 last_drop_time = k
-            
-            # 잔량이 체결량 대비 비정상적으로 빠르게 채워짐 (아이스버그 재생성 포착)
             if diff > 0 and last_drop_time is not None:
                 time_diff_ms = (k - last_drop_time) * 100
-                if time_diff_ms <= 400: # 400ms 이내 호가 리필 감지
+                if time_diff_ms <= 400:
                     regen_count += 1
                     regen_time_ms_total += time_diff_ms
                     last_drop_time = None
@@ -550,46 +554,49 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
         if curr_ask_size is not None:
             prev_ask_size = curr_ask_size
 
-    # 소진 속도 (초당 최우선 호가 매도 체결량)
     depletion_rate = total_ask_executed / duration
-    # 재생성 주기 (평균 ms)
     avg_regen_ms = (regen_time_ms_total / regen_count) if regen_count > 0 else 0.0
+    avg_imbalance = np.mean(imbalance_values) if imbalance_values else 0.0
 
-    # 아이스버그 재생성 및 소진 속도에 따른 가중치 판별
-    if regen_count >= 2 and avg_regen_ms <= 300:
-        status = f"🚨 고주파 아이스버그 매도폭탄 (소진: {depletion_rate:.2f}/s, 재생성: {avg_regen_ms:.0f}ms)"
-        score_modifier = -70
-    elif regen_count >= 1:
-        status = f"⚠️ 아이스버그 분할매도 의심 (소진: {depletion_rate:.2f}/s, 재생성: {avg_regen_ms:.0f}ms)"
-        score_modifier = -35
+    # [딥러닝 추정 모형 기반 덤핑 5분 전 선제적 임계치 확률 계산]
+    # 호가 불균형 급감 및 고주파 아이스버그 재생성 빈도를 로지스틱 함수 형태로 결합
+    dump_probability = 1.0 / (1.0 + np.exp(-( (depletion_rate * 2.0) + (max(0, -avg_imbalance) * 3.0) - (0.01 * avg_regen_ms) - 1.5 )))
+    dump_probability_pct = round(float(dump_probability * 100), 1)
+
+    if dump_probability_pct >= 75.0 or (regen_count >= 2 and avg_regen_ms <= 300):
+        status = f"🚨 [덤핑 5분전 임박] 예고확률 {dump_probability_pct}% (소진: {depletion_rate:.2f}/s, 불균형: {avg_imbalance:.2f})"
+        score_modifier = -80
+    elif dump_probability_pct >= 45.0 or regen_count >= 1:
+        status = f"⚠️ [덤핑 주의] 예고확률 {dump_probability_pct}% (소진: {depletion_rate:.2f}/s, 재생성: {avg_regen_ms:.0f}ms)"
+        score_modifier = -40
     elif depletion_rate > 0.5:
-        status = f"🔥 강력한 매도 소진 (속도: {depletion_rate:.2f}/s)"
+        status = f"🔥 강력한 매도 소진 (속도: {depletion_rate:.2f}/s, 예고확률 {dump_probability_pct}%)"
         score_modifier = -10
     else:
-        status = "💎 정상 수급 (은닉 물량 없음)"
+        status = f"💎 정상 수급 (덤핑확률 {dump_probability_pct}%)"
         score_modifier = 15
 
     return {
         "depletion_rate": round(depletion_rate, 3),
         "regen_cycle_ms": round(avg_regen_ms, 1),
+        "dump_probability_pct": dump_probability_pct,
         "status": status,
         "score_modifier": score_modifier
     }
 
 
 def get_delta_t_iceberg_metrics(ticker):
-    """기존 REST API 기반 시차(Delta-T) 보정 모듈 (Fallback)"""
     try:
         url_trades = f"https://api.upbit.com/v1/trades/ticks?market={ticker}&count=60"
         res = requests.get(url_trades, timeout=2)
         orderbook = pyupbit.get_orderbook(ticker)
 
         if res.status_code != 200 or not orderbook or 'orderbook_units' not in orderbook:
-            return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "status": "정상", "score_modifier": 0}
+            return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "dump_probability_pct": 0.0, "status": "정상", "score_modifier": 0}
 
         trades = res.json()
         if len(trades) < 40:
-            return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "status": "정상", "score_modifier": 0}
+            return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "dump_probability_pct": 0.0, "status": "정상", "score_modifier": 0}
 
         now_ts = datetime.datetime.now(datetime.timezone.utc).timestamp()
         trade_ts = trades[0].get('timestamp', now_ts * 1000) / 1000.0
@@ -604,27 +611,27 @@ def get_delta_t_iceberg_metrics(ticker):
         hidden_ask_vol = max(0, total_ask_executed - (visible_ask_size * 0.3))
         hidden_depth_ratio = (hidden_ask_vol / (total_ask_executed + 1e-9)) * decay_weight
 
+        dump_probability_pct = round(float(hidden_depth_ratio * 100), 1)
+
         if hidden_depth_ratio >= 0.70 and delta_t <= 5.0:
-            status = f"🚨 숨겨진 아이스버그 (Delta-T: {delta_t:.1f}s / 은닉 {hidden_depth_ratio*100:.0f}%)"
+            status = f"🚨 [덤핑 5분전 임박] 숨겨진 아이스버그 (확률 {dump_probability_pct}%)"
             score_modifier = -60
         elif hidden_depth_ratio >= 0.40:
-            status = f"⚠️ 분할 매도 진행 (Delta-T: {delta_t:.1f}s / 은닉 {hidden_depth_ratio*100:.0f}%)"
+            status = f"⚠️ [덤핑 주의] 분할 매도 진행 (확률 {dump_probability_pct}%)"
             score_modifier = -35
-        elif delta_t >= 15.0:
-            status = f"⚪ 수급 지연 (Delta-T: {delta_t:.1f}s)"
-            score_modifier = -10
         else:
-            status = f"💎 깨끗한 수급 (Delta-T: {delta_t:.1f}s)"
+            status = f"💎 깨끗한 수급 (확률 {dump_probability_pct}%)"
             score_modifier = 15
 
         return {
             "delta_t_sec": round(delta_t, 2),
             "hidden_depth_ratio": round(hidden_depth_ratio * 100, 1),
+            "dump_probability_pct": dump_probability_pct,
             "status": status,
             "score_modifier": score_modifier
         }
     except Exception:
-        return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "status": "분석 불가", "score_modifier": 0}
+        return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "dump_probability_pct": 0.0, "status": "분석 불가", "score_modifier": 0}
 
 
 # ==============================================================================
@@ -991,7 +998,6 @@ def analyze_and_scan_market():
             lag_metrics = get_time_lag_metrics(ticker)
             dump_metrics = get_realtime_dumping_velocity(ticker)
             
-            # [WebSocket 고주파 트래킹] 거래량이 일정 기준 이상인 종목에 대해 정밀 검사 수행
             if (metrics['last_value'] / 100_000_000) >= 10.0:
                 iceberg_metrics = get_highfreq_iceberg_metrics(ticker, duration=1.5)
             else:
