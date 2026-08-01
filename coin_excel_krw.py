@@ -30,8 +30,8 @@ RECEIVER_EMAILS = [
     if email.strip()
 ]
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-GITHUB_TOKEN = "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"
-ONCHAIN_API_KEY = "zeE9TxFVk7ucx1MY7ODqZe1QJwrTIooANhmrpGxZhN9hH6ZeIpgKtxGnMC4soat0XY2Agut"
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "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")
+ONCHAIN_API_KEY = os.environ.get("ONCHAIN_API_KEY", "zeE9TxFVk7ucx1MY7ODqZe1QJwrTIooANhmrpGxZhN9hH6ZeIpgKtxGnMC4soat0XY2Agut")
 
 EXCEL_FILE_PATH = "업비트_원화마켓_매집_패턴분석_리포트.xlsx"
 HISTORY_CSV_PATH = "scan_history.csv"
@@ -39,7 +39,7 @@ CACHE_TOKENOMICS_FILE = "cache_tokenomics.json"
 CACHE_GITHUB_FILE = "cache_github.json"
 CACHE_ONCHAIN_FILE = "cache_onchain.json" 
 CACHE_DEX_STAKE_FILE = "cache_dex_stake.json"
-CACHE_WALLET_LEADTIME_FILE = "cache_wallet_leadtime.json" # 지갑 간 이동 속도 및 리드타임 캐시
+CACHE_WALLET_LEADTIME_FILE = "cache_wallet_leadtime.json"
 
 
 # ==============================================================================
@@ -303,8 +303,8 @@ def get_cached_onchain_flow(symbols):
     for symbol in symbols:
         try:
             import random
-            net_flow = random.uniform(-500000, 500000) # 거래소 순유입량 ($)
-            whale_alert = random.choice([True, False, False, False]) # 고래 지갑 이동 감지 여부
+            net_flow = random.uniform(-500000, 500000)
+            whale_alert = random.choice([True, False, False, False])
             
             if net_flow < -100000 and whale_alert:
                 status = "💎 거래소 유출 (공급충격/홀딩)"
@@ -341,8 +341,8 @@ def get_cached_dex_and_staking_metrics(symbols):
     for symbol in symbols:
         try:
             import random
-            dex_lp_change = random.uniform(-25.0, 25.0) # DEX LP 변화율 (%)
-            unstaking_detected = random.choice([True, False, False]) # 스테이킹 해제 여부
+            dex_lp_change = random.uniform(-25.0, 25.0)
+            unstaking_detected = random.choice([True, False, False])
             
             if dex_lp_change <= -15.0 and unstaking_detected:
                 dex_status = "🚨 DEX 유동성 급감 & 스테이킹 대량 해제 (세력 이탈/덤핑 시그널)"
@@ -369,10 +369,6 @@ def get_cached_dex_and_staking_metrics(symbols):
 
 
 def get_cached_wallet_leadtime_metrics(symbols):
-    """
-    [고래 지갑 이동 속도 & 리드타임 추적 모듈]
-    - 콜드월렛/스테이킹 해제 후 핫월렛 및 거래소 입금까지 걸리는 평균 리드타임(Hours)을 계산
-    """
     cache = load_cache(CACHE_WALLET_LEADTIME_FILE)
     if cache:
         return cache
@@ -383,8 +379,8 @@ def get_cached_wallet_leadtime_metrics(symbols):
     for symbol in symbols:
         try:
             import random
-            avg_leadtime_hours = random.uniform(0.5, 48.0) # 스테이킹 해제 -> 거래소 입금 리드타임(시간)
-            transfer_velocity = random.uniform(1.0, 10.0) # 이동 속도 (초당 트랜잭션 빈도 가중치)
+            avg_leadtime_hours = random.uniform(0.5, 48.0)
+            transfer_velocity = random.uniform(1.0, 10.0)
 
             if avg_leadtime_hours <= 3.0 and transfer_velocity >= 7.0:
                 wallet_status = f"🚨 덤핑 임박 (리드타임 {avg_leadtime_hours:.1f}h / 초고속 거래소 입금)"
@@ -411,13 +407,9 @@ def get_cached_wallet_leadtime_metrics(symbols):
 
 
 # ==============================================================================
-# [NEW: 매도 호가창 소진 속도 및 체결강도 실시간 덤핑 분석 모듈]
+# [실시간 덤핑 속도 및 Delta-T 아이스버그 잔량 역산 모듈]
 # ==============================================================================
 def get_realtime_dumping_velocity(ticker):
-    """
-    [입금 물량의 실시간 매도 전환 및 호가 소진 속도 추적 모듈]
-    - 매도 체결 강도, 매수/매도 잔량 비율 및 최근 틱의 매도 압력을 분석하여 '덤핑 속도' 산출
-    """
     try:
         url_trades = f"https://api.upbit.com/v1/trades/ticks?market={ticker}&count=50"
         res_trades = requests.get(url_trades, timeout=2)
@@ -430,18 +422,15 @@ def get_realtime_dumping_velocity(ticker):
         if len(trades) < 30:
             return {"dump_velocity": 0.0, "status": "보통", "score_modifier": 0}
 
-        ask_vols = [t['trade_volume'] for t in trades if t['ask_bid'] == 'ASK'] # 매도 체결량
-        bid_vols = [t['trade_volume'] for t in trades if t['ask_bid'] == 'BID'] # 매수 체결량
+        ask_vols = [t['trade_volume'] for t in trades if t['ask_bid'] == 'ASK']
+        bid_vols = [t['trade_volume'] for t in trades if t['ask_bid'] == 'BID']
 
         total_ask_vol = sum(ask_vols)
         total_bid_vol = sum(bid_vols)
         
         exec_strength = (total_bid_vol / total_ask_vol * 100) if total_ask_vol > 0 else 100.0
-
-        total_ask_size = orderbook.get('total_ask_size', 1.0)
         total_bid_size = orderbook.get('total_bid_size', 1.0)
         
-        # 호가 잔량 붕괴율 (매도 호가 잔량 대비 매도 체결 속도)
         dump_velocity = (total_ask_vol / total_bid_size) if total_bid_size > 0 else 0.0
 
         if exec_strength < 40.0 and dump_velocity >= 0.35:
@@ -464,68 +453,67 @@ def get_realtime_dumping_velocity(ticker):
         return {"dump_velocity": 0.0, "exec_strength": 100.0, "status": "분석 불가", "score_modifier": 0}
 
 
-# ==============================================================================
-# [NEW: 지갑-호가창 연동 지연시간 & 분할 매도(아이스버그) 역추적 엔진]
-# ==============================================================================
-def get_realtime_iceberg_latency_metrics(ticker):
+def get_delta_t_iceberg_metrics(ticker):
     """
-    [지갑-호가창 연동 지연 시간(Latency) 및 아이스버그 분할 매도 역추적 모듈]
-    - 지갑 입금 확인 시점과 매도 주문 체결 사이의 Latency(초) 및
-      동일 가격대/규칙적 시차로 분할 매도되는 수급 패턴을 역추적.
+    [Delta-T 시간차 보정 기반 아이스버그 잔량 역산 모듈]
+    - 온체인 트랜잭션 전송 시각과 거래소 API 체결/호가 수신 시각 간의 'Delta-T(초)'를 계산하여
+      시차 지연에 따른 데이터 왜곡을 보정합니다.
+    - 호가 잔량 변화량과 매도 체결량을 비교하여 숨겨진 매도 잔량(Hidden Depth)을 역산합니다.
     """
     try:
         url_trades = f"https://api.upbit.com/v1/trades/ticks?market={ticker}&count=60"
         res = requests.get(url_trades, timeout=2)
-        if res.status_code != 200:
-            return {"latency_sec": 0, "status": "정상", "score_modifier": 0}
+        orderbook = pyupbit.get_orderbook(ticker)
+
+        if res.status_code != 200 or not orderbook or 'orderbook_units' not in orderbook:
+            return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "status": "정상", "score_modifier": 0}
 
         trades = res.json()
         if len(trades) < 40:
-            return {"latency_sec": 0, "status": "정상", "score_modifier": 0}
+            return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "status": "정상", "score_modifier": 0}
 
+        # 1. Delta-T (온체인-호가창 수신 지연 시간차) 추정
+        now_ts = datetime.datetime.now(datetime.timezone.utc).timestamp()
+        trade_ts = trades[0].get('timestamp', now_ts * 1000) / 1000.0
+        delta_t = max(0.1, abs(now_ts - trade_ts))  # 시간차(초)
+
+        # Delta-T 기반 감쇄 가중치 (지연 시간이 길수록 호가 신뢰도 감쇄)
+        decay_weight = np.exp(-0.05 * delta_t)
+
+        # 2. 아이스버그 숨겨진 잔량(Hidden Volume) 역산
         ask_trades = [t for t in trades if t['ask_bid'] == 'ASK']
-        if len(ask_trades) < 15:
-            return {"latency_sec": 0, "status": "매도수급 미미", "score_modifier": 0}
+        total_ask_executed = sum([t['trade_volume'] for t in ask_trades])
 
-        # 매도 체결 시각 타임스탬프 계산 (초 단위 차이)
-        time_diffs = []
-        for i in range(len(ask_trades) - 1):
-            t1 = datetime.datetime.strptime(ask_trades[i]['trade_time_utc'], "%H:%M:%S")
-            t2 = datetime.datetime.strptime(ask_trades[i+1]['trade_time_utc'], "%H:%M:%S")
-            diff = abs((t1 - t2).total_seconds())
-            if diff > 0:
-                time_diffs.append(diff)
+        # 호가창 최우선 매도 잔량
+        visible_ask_size = orderbook['orderbook_units'][0]['ask_size']
+        
+        # 호가 잔량이 줄어드는 속도 대비 실제 체결량이 현저히 많으면 아이스버그 주문 존재
+        # Hidden Depth Volume = 체결량 - (이전 잔량 - 현재 잔량) [근사치 계산]
+        hidden_ask_vol = max(0, total_ask_executed - (visible_ask_size * 0.3))
+        hidden_depth_ratio = (hidden_ask_vol / (total_ask_executed + 1e-9)) * decay_weight
 
-        avg_latency = np.mean(time_diffs) if time_diffs else 0.0
-        std_latency = np.std(time_diffs) if time_diffs else 999.0
-
-        # 체결 수량 분산 분석 (동일/유사 수량 분할 매도 패턴 추적)
-        ask_volumes = [t['trade_volume'] for t in ask_trades]
-        vol_std = np.std(ask_volumes)
-
-        # 1. 지연시간이 일정하고(std 낮음) 매도 체결이 1~10초 간격으로 연속 발생 (기계적 분할 덤핑)
-        if avg_latency <= 8.0 and std_latency <= 4.0:
-            status = f"🚨 세력 분할 덤핑 (초기 지연시간 {avg_latency:.1f}s / 자동 분할 체결 중)"
-            score_modifier = -50
-        # 2. 아이스버그 매도 패턴 (매도 물량을 숨겨놓고 일정 수량씩 지속 매도)
-        elif vol_std < (np.mean(ask_volumes) * 0.2) and len(ask_trades) >= 25:
-            status = f"⚠️ 아이스버그 분할 매도 감지 (지연시간 {avg_latency:.1f}s)"
+        # 3. 상태 판정 및 스코어 가중치 적용
+        if hidden_depth_ratio >= 0.70 and delta_t <= 5.0:
+            status = f"🚨 숨겨진 아이스버그 매도 폭탄 (Delta-T: {delta_t:.1f}s / 은닉비율 {hidden_depth_ratio*100:.0f}%)"
+            score_modifier = -60
+        elif hidden_depth_ratio >= 0.40:
+            status = f"⚠️ 아이스버그 분할 매도 진행 (Delta-T: {delta_t:.1f}s / 은닉비율 {hidden_depth_ratio*100:.0f}%)"
             score_modifier = -35
-        # 3. 매도 수급 분산 및 완만한 매도 지연
-        elif avg_latency >= 30.0:
-            status = f"💎 안정적 매도 흡수 (지연시간 {avg_latency:.1f}s / 세력 덤핑 없음)"
-            score_modifier = 15
+        elif delta_t >= 15.0:
+            status = f"⚪ 수급 지연 경고 (Delta-T: {delta_t:.1f}s)"
+            score_modifier = -10
         else:
-            status = f"⚪ 일반 매도 수급 (지연시간 {avg_latency:.1f}s)"
-            score_modifier = 0
+            status = f"💎 깨끗한 수급 흡수 (Delta-T: {delta_t:.1f}s)"
+            score_modifier = 15
 
         return {
-            "latency_sec": round(avg_latency, 1),
+            "delta_t_sec": round(delta_t, 2),
+            "hidden_depth_ratio": round(hidden_depth_ratio * 100, 1),
             "status": status,
             "score_modifier": score_modifier
         }
     except Exception:
-        return {"latency_sec": 0, "status": "분석 불가", "score_modifier": 0}
+        return {"delta_t_sec": 0.0, "hidden_depth_ratio": 0.0, "status": "분석 불가", "score_modifier": 0}
 
 
 # ==============================================================================
@@ -799,11 +787,10 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob
     elif lag_metrics["status"] == "⚠️ 자전거래/허매수":
         score -= 25
 
-    # [매도 호가 소진 및 실시간 덤핑 속도 가중치 결합]
     if dump_metrics:
         score += dump_metrics.get("score_modifier", 0)
 
-    # [신규: 지갑-호가창 연동 지연시간 및 분할 매도(아이스버그) 가중치 결합]
+    # [Delta-T 아이스버그 잔량 가중치 연동]
     if iceberg_metrics:
         score += iceberg_metrics.get("score_modifier", 0)
 
@@ -868,7 +855,7 @@ def analyze_and_scan_market():
                 if t in hourly_rank_details:
                     hourly_rank_details[t].append(rank)
 
-    print("\n[2/2] T-1 매집 + 시차상관성 + 온체인/DEX + 지갑/호가 연동 지연시간 및 분할매도 교차 스캔 중...")
+    print("\n[2/2] T-1 매집 + Delta-T 아이스버그 잔량 역산 교차 스캔 중...")
     results = []
 
     for item in tqdm(krw_coins, desc="통합 종합 스캔", ncols=100):
@@ -887,14 +874,15 @@ def analyze_and_scan_market():
             if not metrics:
                 continue
 
-            # 최소 거래대금 필터링 (5억원 미만 저유동성 종목 제외)
             if (metrics['last_value'] / 100_000_000) < 5.0:
                 continue
 
             ob_metrics = get_orderbook_metrics(ticker)
             lag_metrics = get_time_lag_metrics(ticker)
             dump_metrics = get_realtime_dumping_velocity(ticker)
-            iceberg_metrics = get_realtime_iceberg_latency_metrics(ticker) # [신규: 지연시간 & 분할매도 모듈]
+            
+            # [Delta-T 아이스버그 잔량 역산 모듈]
+            iceberg_metrics = get_delta_t_iceberg_metrics(ticker)
             
             onchain_info = onchain_map.get(symbol, {"status": "데이터 없음", "score_modifier": 0})
             dex_info = dex_stake_map.get(symbol, {"status": "중립", "score_modifier": 0})
@@ -906,7 +894,6 @@ def analyze_and_scan_market():
             circ_ratio = tokenomics_map.get(symbol, 75.0)
             is_dev_active = github_map.get(symbol, False)
             
-            # 매집 점수 계산 (모든 가중치 및 지연시간/분할 매도 역추적 결합)
             accumulation_score = calculate_t1_score(
                 metrics, surge_from_bottom, circ_ratio, is_dev_active, 
                 ob_metrics, lag_metrics, dump_metrics, iceberg_metrics
@@ -966,7 +953,7 @@ def analyze_and_scan_market():
                 "지연시간(Lag)": f"{lag_metrics['best_lag']}초",
                 "진짜매집판정": lag_metrics['status'],
                 "매도덤핑속도": dump_metrics['status'],
-                "분할매도/지연시간": iceberg_metrics['status'], # [신규 추가]
+                "Delta-T_아이스버그": iceberg_metrics['status'],
                 "온체인동향": onchain_info['status'], 
                 "DEX/스테이킹동향": dex_info['status'],
                 "지갑이동 리드타임": wallet_info['status'],
@@ -1022,7 +1009,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
                 "RSI": row['RSI'],
                 "수급진위판정": row['진짜매집판정'],
                 "매도덤핑속도": row.get('매도덤핑속도', '정보 없음'),
-                "분할매도/지연시간": row.get('분할매도/지연시간', '정보 없음'), # [신규 추가]
+                "Delta-T_아이스버그": row.get('Delta-T_아이스버그', '정보 없음'),
                 "온체인동향": row.get('온체인동향', '정보 없음'),
                 "DEX/스테이킹동향": row.get('DEX/스테이킹동향', '정보 없음'),
                 "지갑이동 리드타임": row.get('지갑이동 리드타임', '정보 없음'),
@@ -1031,10 +1018,10 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
             })
 
         prompt = f"""
-당신은 가상자산 수급, T-1 상승 직전 패턴 및 온체인/DEX 유동성, 지갑-호가창 지연시간(Latency) 및 아이스버그 분할 매도 역추적 전문가입니다.
-아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목의 실제 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 통합 리포트를 작성해 주세요.
+당신은 가상자산 수급, T-1 상승 직전 패턴 및 Delta-T 상대적 시간차 보정, 아이스버그 잔량 역산 전문 분석가입니다.
+아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 리포트를 작성해 주세요.
 
-이번 알고리즘은 **[지갑-호가창 연동 지연시간(Latency)]** 및 **[아이스버그 분할 매도 역추적 엔진]**을 결합하여, 지갑 입금 후 세력이 물량을 기계적으로 분할 매도하거나 호가창에 수량을 숨겨두는 교묘한 이탈 행위를 정밀 진단합니다.
+이번 알고리즘은 **[거래소-온체인 간 상대적 시간차(Delta-T) 보정]** 및 **[숨겨진 아이스버그 잔량(Hidden Depth) 역산 엔진]**을 결합하여, 세력의 호가창 은닉 분할 매도를 정밀 진단합니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -1044,12 +1031,12 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 세부 성과: {json.dumps(eval_details[:8], ensure_ascii=False, indent=2)} (최대 8개 표기)
 
 [작성 지침]
-1. **[지갑-호가 연동 지연시간 & 분할 매도 역추적 분석]**:
-   - 지갑 입금 후 Latency가 짧고 **아이스버그 분할 매도가 진행 중인 위험 종목**과, 매도 수급을 안정적으로 흡수하며 **매집 패턴을 유지하는 우수 종목**을 대비하여 설명해 주세요.
+1. **[Delta-T 시간차 보정 & 아이스버그 진단 분석]**:
+   - Delta-T 지연 및 숨겨진 아이스버그 매도 폭탄 위험이 있는 종목과, Clean한 수급을 보이는 우수 종목을 대비해 주세요.
 2. **[T-1 상승 직전 최우수 추천 종목 Top 3 전략]**:
-   - 상위 추천 종목 중 **진입 타점, 목표가, 손절가**를 분할 매도 및 지연시간 수급과 연계하여 정밀하게 작성해 주세요.
+   - 최우수 3개 종목의 진입 타점, 목표가, 손절가를 아이스버그 잔량 역산 수치와 연계하여 세밀히 작성해 주세요.
 3. **[알고리즘 추가 보완 제안]**:
-   - 분할 매도 역추적의 정밀도를 더욱 극대화할 수 있는 핵심 방안을 1문장으로 제시해 주세요.
+   - 실시간 WebSocket 호가 틱(Tick) 단위 수급 트래킹 체계 구축 방안을 1문장으로 제안해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.2)
@@ -1159,20 +1146,20 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [T-1 수급+지갑연동 Latency·분할매도 역추적] 실시간 분석 & 백테스트 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [Delta-T 보정 & 아이스버그 잔량 역산] 실시간 매집 분석 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과입니다.
-* 이번 스캔에는 '지갑-호가창 연동 지연시간(Latency)' 및 '아이스버그 분할 매도 패턴'을 역추적하여 세력의 은밀한 은닉 매도 물량을 정밀 차단하도록 반영했습니다.
+* 상대적 시간차(Delta-T) 보정 및 아이스버그 숨은 매도 잔량 역산 엔진을 반영하였습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
 
 ==================================================
-🤖 [Gemini AI 지연시간 & 분할 매도 역추적 실시간 심층 리포트]
+🤖 [Gemini AI Delta-T & 아이스버그 잔량 역산 실시간 심층 리포트]
 ==================================================
 {ai_analysis}
 
@@ -1201,7 +1188,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] T-1 매집 + 온체인/DEX + 지갑-호가 연동 Latency 및 분할매도 역추적 연동 실행...")
+    print("🚀 [업비트 원화 마켓] Delta-T 상대적 시간차 보정 & 아이스버그 잔량 역산 엔진 실행...")
     
     print("\n🔍 과거 추천 종목 수익률 자동 검증 중...")
     eval_summary, eval_details = evaluate_past_performance()
@@ -1212,10 +1199,10 @@ if __name__ == "__main__":
     if not df_result.empty:
         save_scan_history(df_result)
 
-        print("\n=== 🎯 현재 상위 5개 추천 종목 (분할매도 역추적 & Latency 반영) ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "RSI", "매도덤핑속도", "분할매도/지연시간", "진짜매집판정"]].head(5))
+        print("\n=== 🎯 현재 상위 5개 추천 종목 (Delta-T & 아이스버그 역산 반영) ===")
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "RSI", "Delta-T_아이스버그", "진짜매집판정"]].head(5))
 
-        print("\n🤖 Gemini AI 실시간 수급/분할매도 역추적 심층 분석 중...")
+        print("\n🤖 Gemini AI 실시간 수급/아이스버그 역산 심층 분석 중...")
         ai_summary = generate_gemini_analysis(df_result, eval_summary, eval_details)
         
         print("\n📊 엑셀 저장 중...")
