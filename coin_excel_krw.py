@@ -372,7 +372,6 @@ def get_cached_wallet_leadtime_metrics(symbols):
     """
     [고래 지갑 이동 속도 & 리드타임 추적 모듈]
     - 콜드월렛/스테이킹 해제 후 핫월렛 및 거래소 입금까지 걸리는 평균 리드타임(Hours)을 계산
-    - 리드타임이 매우 짧고 Velocity가 높으면 거래소 즉시 덤핑 시그널로 간주
     """
     cache = load_cache(CACHE_WALLET_LEADTIME_FILE)
     if cache:
@@ -409,6 +408,60 @@ def get_cached_wallet_leadtime_metrics(symbols):
 
     save_cache(CACHE_WALLET_LEADTIME_FILE, new_cache)
     return new_cache
+
+
+# ==============================================================================
+# [NEW: 매도 호가창 소진 속도 및 체결강도 실시간 덤핑 분석 모듈]
+# ==============================================================================
+def get_realtime_dumping_velocity(ticker):
+    """
+    [입금 물량의 실시간 매도 전환 및 호가 소진 속도 추적 모듈]
+    - 매도 체결 강도, 매수/매도 잔량 비율 및 최근 틱의 매도 압력을 분석하여 '덤핑 속도' 산출
+    """
+    try:
+        url_trades = f"https://api.upbit.com/v1/trades/ticks?market={ticker}&count=50"
+        res_trades = requests.get(url_trades, timeout=2)
+        orderbook = pyupbit.get_orderbook(ticker)
+
+        if res_trades.status_code != 200 or not orderbook or 'orderbook_units' not in orderbook:
+            return {"dump_velocity": 0.0, "status": "보통", "score_modifier": 0}
+
+        trades = res_trades.json()
+        if len(trades) < 30:
+            return {"dump_velocity": 0.0, "status": "보통", "score_modifier": 0}
+
+        ask_vols = [t['trade_volume'] for t in trades if t['ask_bid'] == 'ASK'] # 매도 체결량
+        bid_vols = [t['trade_volume'] for t in trades if t['ask_bid'] == 'BID'] # 매수 체결량
+
+        total_ask_vol = sum(ask_vols)
+        total_bid_vol = sum(bid_vols)
+        
+        exec_strength = (total_bid_vol / total_ask_vol * 100) if total_ask_vol > 0 else 100.0
+
+        total_ask_size = orderbook.get('total_ask_size', 1.0)
+        total_bid_size = orderbook.get('total_bid_size', 1.0)
+        
+        # 호가 잔량 붕괴율 (매도 호가 잔량 대비 매도 체결 속도)
+        dump_velocity = (total_ask_vol / total_bid_size) if total_bid_size > 0 else 0.0
+
+        if exec_strength < 40.0 and dump_velocity >= 0.35:
+            status = "🚨 매도호가 초고속 소진 (실제 덤핑 진행 중)"
+            score_modifier = -45
+        elif exec_strength > 150.0 and dump_velocity < 0.10:
+            status = "🔥 매수 체결 흡수 우수"
+            score_modifier = 20
+        else:
+            status = "⚪ 일반 체결 흐름"
+            score_modifier = 0
+
+        return {
+            "dump_velocity": round(dump_velocity, 3),
+            "exec_strength": round(exec_strength, 1),
+            "status": status,
+            "score_modifier": score_modifier
+        }
+    except Exception:
+        return {"dump_velocity": 0.0, "exec_strength": 100.0, "status": "분석 불가", "score_modifier": 0}
 
 
 # ==============================================================================
@@ -625,7 +678,7 @@ def calculate_t1_advanced_metrics(df_daily, df_30m=None):
     }
 
 
-def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics, lag_metrics):
+def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics, lag_metrics, dump_metrics=None):
     score = 0
 
     if surge_from_bottom >= 35.0:
@@ -681,6 +734,10 @@ def calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob
         score += 20
     elif lag_metrics["status"] == "⚠️ 자전거래/허매수":
         score -= 25
+
+    # [수정: 매도 호가 소진 및 실시간 덤핑 속도 가중치 결합]
+    if dump_metrics:
+        score += dump_metrics.get("score_modifier", 0)
 
     if -2.5 <= metrics['chg_1d'] <= 3.0:
         score += 10
@@ -743,7 +800,7 @@ def analyze_and_scan_market():
                 if t in hourly_rank_details:
                     hourly_rank_details[t].append(rank)
 
-    print("\n[2/2] T-1 선행 매집 + 시차 상관성 + 온체인, DEX & 지갑 리드타임 교차 스캔 중...")
+    print("\n[2/2] T-1 선행 매집 + 시차 상관성 + 온체인, DEX & 지갑 리드타임 + 매도 덤핑 속도 교차 스캔 중...")
     results = []
 
     for item in tqdm(krw_coins, desc="통합 종합 스캔", ncols=100):
@@ -768,6 +825,8 @@ def analyze_and_scan_market():
 
             ob_metrics = get_orderbook_metrics(ticker)
             lag_metrics = get_time_lag_metrics(ticker)
+            dump_metrics = get_realtime_dumping_velocity(ticker) # [신규: 실시간 매도 덤핑 속도]
+            
             onchain_info = onchain_map.get(symbol, {"status": "데이터 없음", "score_modifier": 0})
             dex_info = dex_stake_map.get(symbol, {"status": "중립", "score_modifier": 0})
             wallet_info = wallet_leadtime_map.get(symbol, {"status": "중립", "score_modifier": 0})
@@ -778,8 +837,8 @@ def analyze_and_scan_market():
             circ_ratio = tokenomics_map.get(symbol, 75.0)
             is_dev_active = github_map.get(symbol, False)
             
-            # 매집 점수 계산 (온체인 + DEX + 지갑 이동 속도 리드타임 가중치 통합)
-            accumulation_score = calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics, lag_metrics)
+            # 매집 점수 계산 (온체인 + DEX + 지갑 리드타임 + 매도 덤핑 속도 가중치 통합)
+            accumulation_score = calculate_t1_score(metrics, surge_from_bottom, circ_ratio, is_dev_active, ob_metrics, lag_metrics, dump_metrics)
             accumulation_score += (onchain_info["score_modifier"] + dex_info["score_modifier"] + wallet_info["score_modifier"])
             accumulation_score = max(0, accumulation_score)
 
@@ -814,7 +873,8 @@ def analyze_and_scan_market():
                 lag_metrics['status'] == "🔥 진짜 매집 흡수" and 
                 onchain_info['score_modifier'] >= 0 and 
                 dex_info['score_modifier'] >= 0 and 
-                wallet_info['score_modifier'] >= 0
+                wallet_info['score_modifier'] >= 0 and
+                dump_metrics['score_modifier'] >= 0
             )
 
             results.append({
@@ -832,6 +892,7 @@ def analyze_and_scan_market():
                 "시차상관성": lag_metrics['max_corr'],
                 "지연시간(Lag)": f"{lag_metrics['best_lag']}초",
                 "진짜매집판정": lag_metrics['status'],
+                "매도덤핑속도": dump_metrics['status'], # [신규 추가]
                 "온체인동향": onchain_info['status'], 
                 "DEX/스테이킹동향": dex_info['status'],
                 "지갑이동 리드타임": wallet_info['status'],
@@ -860,7 +921,7 @@ def analyze_and_scan_market():
 
 
 # ==============================================================================
-# [AI 심층 분석] Gemini API (최신 google-genai 규격) - DEX/지갑 리드타임 교차 검증 리포트
+# [AI 심층 분석] Gemini API (최신 google-genai 규격)
 # ==============================================================================
 def generate_gemini_analysis(df, eval_summary, eval_details):
     if not GEMINI_API_KEY:
@@ -886,6 +947,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
                 "CMF(자금유입)": row['CMF지표'],
                 "RSI": row['RSI'],
                 "수급진위판정": row['진짜매집판정'],
+                "매도덤핑속도": row.get('매도덤핑속도', '정보 없음'), # [신규 추가]
                 "온체인동향": row.get('온체인동향', '정보 없음'),
                 "DEX/스테이킹동향": row.get('DEX/스테이킹동향', '정보 없음'),
                 "지갑이동 리드타임": row.get('지갑이동 리드타임', '정보 없음'),
@@ -894,10 +956,10 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
             })
 
         prompt = f"""
-당신은 가상자산 수급, T-1 상승 직전 패턴 및 온체인/DEX 유동성, 지갑 리드타임 분석 전문가입니다.
+당신은 가상자산 수급, T-1 상승 직전 패턴 및 온체인/DEX 유동성, 지갑 리드타임 및 실시간 매도 호가 소진 속도 분석 전문가입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목의 실제 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 통합 리포트를 작성해 주세요.
 
-이번 알고리즘은 **[호가창 시차 상관성]**, **[온체인 넷플로우]**, **[DEX 유동성 풀]**에 더해 **[고래 지갑의 스테이킹 해제 후 거래소 입금까지의 이동 속도 및 리드타임]**을 결합하여 세력의 실질 이탈 및 덤핑 위험을 선제 차단하도록 구성되었습니다.
+이번 알고리즘은 **[호가창 시차 상관성]**, **[온체인 넷플로우]**, **[DEX 유동성 풀]**, **[고래 지갑 리드타임]**에 더해 **[입금 물량의 실시간 매도 전환 및 호가 소진 속도]**를 교차 결합하여 세력의 실질 이탈 및 덤핑 위험을 정밀 차단하도록 구성되었습니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -907,12 +969,12 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 세부 성과: {json.dumps(eval_details[:8], ensure_ascii=False, indent=2)} (최대 8개 표기)
 
 [작성 지침]
-1. **[지갑 리드타임 & DEX 교차 검증 판정]**:
-   - 콜드월렛/스테이킹 해제 후 거래소 유입 리드타임이 3시간 이하로 짧아 **덤핑 위험이 높은 종목**과 리드타임이 길어 **안정적인 홀딩세가 유지되는 종목**을 구분하여 평가해 주세요.
+1. **[지갑 리드타임 & 매도 호가 소진 속도 교차 검증 판정]**:
+   - 거래소 입금 리드타임이 짧고, 동시에 **매도 호가 소진 속도가 빨라 실제 덤핑이 진행 중인 종목**과, 입금 후에도 **매수 체결이 물량을 흡수하며 안정적으로 유지되는 종목**을 구분하여 진단해 주세요.
 2. **[현재 스캔 T-1 상승 직전 추천 종목 Top 3]**:
-   - 상위 1~5위 추천 종목 중 **진입 타점, 목표 수익률, 손절 기준**을 지갑 리드타임 및 DEX/온체인 수급 동향과 연결하여 제시해 주세요.
+   - 상위 1~5위 추천 종목 중 **진입 타점, 목표 수익률, 손절 기준**을 매도 소진 속도 및 지갑 리드타임 수급 동향과 연계하여 제시해 주세요.
 3. **[알고리즘 추가 보완 제안]**:
-   - 세력 매집 및 이탈 분석의 정교함을 높일 수 있는 다음 단계의 추가 아이디어를 1문장으로 제시해 주세요.
+   - 세력 이탈 감지의 정확도를 더욱 향상시킬 수 있는 아이디어를 1문장으로 제안해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.2)
@@ -1022,20 +1084,20 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [T-1 수급+지갑리드타임·DEX 교차검증] 실시간 분석 & 백테스트 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [T-1 수급+지갑리드타임·매도덤핑속도 교차검증] 실시간 분석 & 백테스트 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과입니다.
-* 이번 스캔에는 호가창 시차 상관성, 온체인 넷플로우, DEX 유동성뿐만 아니라 '고래 지갑의 스테이킹 해제 후 거래소 입금 리드타임 및 이동 속도(Velocity)'가 통합 반영되어 세력의 선제 이탈 시그널이 진단되었습니다.
+* 이번 스캔에는 고래 지갑 리드타임 외에도 '거래소 입금 직후 매도 호가 소진 속도 및 실시간 체결 강도'가 결합하여 덤핑 위험이 있는 종목을 정밀 선별하였습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
 
 ==================================================
-🤖 [Gemini AI 지갑 리드타임 & 온체인 교차 검증 실시간 분석 심층 리포트]
+🤖 [Gemini AI 매도 소진 속도 & 지갑 리드타임 교차 검증 실시간 분석 심층 리포트]
 ==================================================
 {ai_analysis}
 
@@ -1064,7 +1126,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] T-1 매집 + 시차 상관성 + DEX 및 지갑 리드타임 교차 연동 실행...")
+    print("🚀 [업비트 원화 마켓] T-1 매집 + 시차 상관성 + DEX/지갑 리드타임 + 매도 덤핑 속도 연동 실행...")
     
     print("\n🔍 과거 추천 종목 수익률 자동 검증 중...")
     eval_summary, eval_details = evaluate_past_performance()
@@ -1075,10 +1137,10 @@ if __name__ == "__main__":
     if not df_result.empty:
         save_scan_history(df_result)
 
-        print("\n=== 🎯 현재 상위 5개 추천 종목 (지갑 리드타임 및 온체인 교차 검증 반영) ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "RSI", "시차상관성", "온체인동향", "DEX/스테이킹동향", "지갑이동 리드타임", "진짜매집판정"]].head(5))
+        print("\n=== 🎯 현재 상위 5개 추천 종목 (실시간 매도 덤핑 속도 & 지갑 리드타임 반영) ===")
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "RSI", "매도덤핑속도", "온체인동향", "지갑이동 리드타임", "진짜매집판정"]].head(5))
 
-        print("\n🤖 Gemini AI 지갑 리드타임/온체인 교차 연동 심층 분석 중...")
+        print("\n🤖 Gemini AI 실시간 수급/덤핑 속도 심층 분석 중...")
         ai_summary = generate_gemini_analysis(df_result, eval_summary, eval_details)
         
         print("\n📊 엑셀 저장 중...")
