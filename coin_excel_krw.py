@@ -44,8 +44,8 @@ RECEIVER_EMAILS = [
     if email.strip()
 ]
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "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")
-ONCHAIN_API_KEY = os.environ.get("ONCHAIN_API_KEY", "zeE9TxFVk7ucx1MY7ODqZe1QJwrTIooANhmrpGxZhN9hH6ZeIpgKtxGnMC4soat0XY2Agut")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
+ONCHAIN_API_KEY = os.environ.get("ONCHAIN_API_KEY", "")
 
 # 텔레그램 연동 환경 변수
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
