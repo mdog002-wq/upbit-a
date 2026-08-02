@@ -1422,7 +1422,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
 
 # ==============================================================================
-# [메인 실행부]
+# [메인 실행부] - 자동: 급락 시 텔레그램 / 수동: 무조건 이메일 발송 적용
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
@@ -1444,12 +1444,21 @@ if __name__ == "__main__":
         excel_file = save_integrated_excel(df_result, eval_details)
         ai_report_text = generate_gemini_analysis(df_result, eval_summary, eval_details)
         
-        print("\n📧 이메일 발송 중...")
-        send_email_report(excel_file, ai_report_text, eval_summary)
-        
-        # ==========================================
-        # [핵심] 급락/위험 신호가 잡힌 종목이 있을 때만 텔레그램 발송
-        # ==========================================
+        # GitHub Actions가 수동으로 실행되었는지 여부 확인
+        is_manual_run = os.environ.get("IS_MANUAL_RUN", "false").lower() == "true"
+
+        # ----------------------------------------------------------------------
+        # [1] 이메일 발송 조건: "수동 실행(workflow_dispatch)" 일 때만 무조건 발송
+        # ----------------------------------------------------------------------
+        if is_manual_run:
+            print("\n👆 [수동 실행 감지] 설정에 따라 이메일 종합 리포트를 발송합니다.")
+            send_email_report(excel_file, ai_report_text, eval_summary)
+        else:
+            print("\n🤖 [자동 예약 실행] 이메일 리포트는 발송하지 않습니다. (수동 실행 시에만 발송)")
+
+        # ----------------------------------------------------------------------
+        # [2] 텔레그램 발송 조건: 급락/덤핑 임박 신호(🚨 또는 임박) 감지 시 항상 발송
+        # ----------------------------------------------------------------------
         danger_condition = df_result[
             df_result['매도덤핑속도'].str.contains("🚨|임박", na=False) | 
             df_result['아이스버그역산(고주파)'].str.contains("🚨|임박", na=False)
@@ -1468,9 +1477,8 @@ if __name__ == "__main__":
             
             telegram_message = "\n".join(msg_lines)
             send_telegram_alert(telegram_message)
-            
         else:
-            print("\n✨ [안전] 현재 덤핑 임박 신호가 잡힌 종목이 없어 텔레그램 알림을 생략합니다. (데이터 및 이력은 정상 기록됨)")
+            print("\n✨ [안전] 현재 덤핑 임박 신호가 잡힌 종목이 없어 텔레그램 알림을 생략합니다.")
             
     else:
         print("❌ 분석된 결과가 없습니다.")
