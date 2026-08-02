@@ -1,1666 +1,1666 @@
 {
-  "date": "2026-08-01",
+  "date": "2026-08-02",
   "content": {
     "GEOD": {
-      "leadtime_hours": 36.0,
-      "velocity": 4.9,
-      "status": "🔒 장기 홀딩/출금 (리드타임 36.0h / 완만한 이동)",
+      "leadtime_hours": 32.8,
+      "velocity": 1.26,
+      "status": "🔒 장기 홀딩/출금 (리드타임 32.8h / 완만한 이동)",
       "score_modifier": 15
     },
     "WAXP": {
-      "leadtime_hours": 0.5,
-      "velocity": 6.26,
-      "status": "⚪ 일반 지갑 이동 (0.5h)",
-      "score_modifier": 0
-    },
-    "CARV": {
-      "leadtime_hours": 17.8,
-      "velocity": 9.94,
-      "status": "⚪ 일반 지갑 이동 (17.8h)",
-      "score_modifier": 0
-    },
-    "LSK": {
       "leadtime_hours": 21.3,
-      "velocity": 8.89,
+      "velocity": 6.66,
       "status": "⚪ 일반 지갑 이동 (21.3h)",
       "score_modifier": 0
     },
-    "0G": {
-      "leadtime_hours": 38.9,
-      "velocity": 4.61,
-      "status": "🔒 장기 홀딩/출금 (리드타임 38.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "WIF": {
-      "leadtime_hours": 25.1,
-      "velocity": 3.82,
-      "status": "🔒 장기 홀딩/출금 (리드타임 25.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "TRAC": {
-      "leadtime_hours": 31.1,
-      "velocity": 3.27,
-      "status": "🔒 장기 홀딩/출금 (리드타임 31.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BORA": {
-      "leadtime_hours": 7.9,
-      "velocity": 1.85,
-      "status": "⚪ 일반 지갑 이동 (7.9h)",
-      "score_modifier": 0
-    },
-    "PUNDIX": {
-      "leadtime_hours": 16.9,
-      "velocity": 5.77,
-      "status": "⚪ 일반 지갑 이동 (16.9h)",
-      "score_modifier": 0
-    },
-    "PROS": {
-      "leadtime_hours": 42.6,
-      "velocity": 1.55,
-      "status": "🔒 장기 홀딩/출금 (리드타임 42.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "USD1": {
-      "leadtime_hours": 19.8,
-      "velocity": 1.82,
-      "status": "⚪ 일반 지갑 이동 (19.8h)",
-      "score_modifier": 0
-    },
-    "BAT": {
-      "leadtime_hours": 21.9,
-      "velocity": 9.62,
-      "status": "⚪ 일반 지갑 이동 (21.9h)",
-      "score_modifier": 0
-    },
-    "HUNT": {
-      "leadtime_hours": 45.5,
-      "velocity": 2.47,
-      "status": "🔒 장기 홀딩/출금 (리드타임 45.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "PENGU": {
-      "leadtime_hours": 39.9,
-      "velocity": 2.12,
-      "status": "🔒 장기 홀딩/출금 (리드타임 39.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "FIL": {
-      "leadtime_hours": 19.6,
-      "velocity": 1.33,
-      "status": "⚪ 일반 지갑 이동 (19.6h)",
-      "score_modifier": 0
-    },
-    "BEAM": {
-      "leadtime_hours": 43.5,
-      "velocity": 9.99,
-      "status": "🔒 장기 홀딩/출금 (리드타임 43.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "META2": {
-      "leadtime_hours": 44.2,
-      "velocity": 2.63,
-      "status": "🔒 장기 홀딩/출금 (리드타임 44.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "DOOD": {
-      "leadtime_hours": 32.9,
-      "velocity": 4.75,
-      "status": "🔒 장기 홀딩/출금 (리드타임 32.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "WAVES": {
-      "leadtime_hours": 27.2,
-      "velocity": 3.46,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "USDC": {
-      "leadtime_hours": 37.1,
-      "velocity": 3.19,
-      "status": "🔒 장기 홀딩/출금 (리드타임 37.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MOVE": {
-      "leadtime_hours": 15.6,
-      "velocity": 8.52,
-      "status": "⚪ 일반 지갑 이동 (15.6h)",
-      "score_modifier": 0
-    },
-    "TREE": {
-      "leadtime_hours": 8.1,
-      "velocity": 6.65,
-      "status": "⚪ 일반 지갑 이동 (8.1h)",
-      "score_modifier": 0
-    },
-    "USDE": {
-      "leadtime_hours": 21.4,
-      "velocity": 9.62,
-      "status": "⚪ 일반 지갑 이동 (21.4h)",
-      "score_modifier": 0
-    },
-    "USDG": {
-      "leadtime_hours": 13.4,
-      "velocity": 7.1,
-      "status": "⚪ 일반 지갑 이동 (13.4h)",
-      "score_modifier": 0
-    },
-    "AERGO": {
-      "leadtime_hours": 21.9,
-      "velocity": 3.89,
-      "status": "⚪ 일반 지갑 이동 (21.9h)",
-      "score_modifier": 0
-    },
-    "WET": {
-      "leadtime_hours": 31.6,
-      "velocity": 6.45,
-      "status": "🔒 장기 홀딩/출금 (리드타임 31.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "USDT": {
-      "leadtime_hours": 15.4,
-      "velocity": 5.34,
-      "status": "⚪ 일반 지갑 이동 (15.4h)",
-      "score_modifier": 0
-    },
-    "USDS": {
-      "leadtime_hours": 21.7,
-      "velocity": 5.82,
-      "status": "⚪ 일반 지갑 이동 (21.7h)",
-      "score_modifier": 0
-    },
-    "2Z": {
-      "leadtime_hours": 35.9,
-      "velocity": 2.2,
-      "status": "🔒 장기 홀딩/출금 (리드타임 35.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BOUNTY": {
-      "leadtime_hours": 14.9,
-      "velocity": 4.43,
-      "status": "⚪ 일반 지갑 이동 (14.9h)",
-      "score_modifier": 0
-    },
-    "KAITO": {
-      "leadtime_hours": 3.0,
-      "velocity": 1.83,
-      "status": "⚪ 일반 지갑 이동 (3.0h)",
-      "score_modifier": 0
-    },
-    "LPT": {
-      "leadtime_hours": 12.7,
-      "velocity": 8.29,
-      "status": "⚪ 일반 지갑 이동 (12.7h)",
-      "score_modifier": 0
-    },
-    "BLAST": {
-      "leadtime_hours": 30.9,
-      "velocity": 1.46,
-      "status": "🔒 장기 홀딩/출금 (리드타임 30.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ETHFI": {
-      "leadtime_hours": 35.6,
-      "velocity": 3.57,
-      "status": "🔒 장기 홀딩/출금 (리드타임 35.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "DKA": {
-      "leadtime_hours": 19.9,
-      "velocity": 4.24,
-      "status": "⚪ 일반 지갑 이동 (19.9h)",
-      "score_modifier": 0
-    },
-    "ANKR": {
-      "leadtime_hours": 40.8,
-      "velocity": 3.19,
-      "status": "🔒 장기 홀딩/출금 (리드타임 40.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ALGO": {
-      "leadtime_hours": 15.1,
-      "velocity": 9.69,
-      "status": "⚪ 일반 지갑 이동 (15.1h)",
-      "score_modifier": 0
-    },
-    "SHIB": {
-      "leadtime_hours": 39.9,
-      "velocity": 9.75,
-      "status": "🔒 장기 홀딩/출금 (리드타임 39.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "UNI": {
-      "leadtime_hours": 33.5,
-      "velocity": 3.54,
-      "status": "🔒 장기 홀딩/출금 (리드타임 33.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BIO": {
-      "leadtime_hours": 36.9,
-      "velocity": 1.37,
-      "status": "🔒 장기 홀딩/출금 (리드타임 36.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "WLFI": {
-      "leadtime_hours": 18.4,
-      "velocity": 2.11,
-      "status": "⚪ 일반 지갑 이동 (18.4h)",
-      "score_modifier": 0
-    },
-    "UP2": {
-      "leadtime_hours": 29.8,
-      "velocity": 9.81,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "TOKAMAK": {
-      "leadtime_hours": 26.5,
-      "velocity": 3.98,
-      "status": "🔒 장기 홀딩/출금 (리드타임 26.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SKY": {
-      "leadtime_hours": 19.0,
-      "velocity": 5.99,
-      "status": "⚪ 일반 지갑 이동 (19.0h)",
-      "score_modifier": 0
-    },
-    "CYBER": {
-      "leadtime_hours": 10.1,
-      "velocity": 6.02,
-      "status": "⚪ 일반 지갑 이동 (10.1h)",
-      "score_modifier": 0
-    },
-    "SKR": {
-      "leadtime_hours": 47.6,
-      "velocity": 8.84,
-      "status": "🔒 장기 홀딩/출금 (리드타임 47.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "DOGE": {
-      "leadtime_hours": 7.9,
-      "velocity": 4.72,
-      "status": "⚪ 일반 지갑 이동 (7.9h)",
-      "score_modifier": 0
-    },
-    "WLD": {
-      "leadtime_hours": 18.6,
-      "velocity": 9.24,
-      "status": "⚪ 일반 지갑 이동 (18.6h)",
-      "score_modifier": 0
-    },
-    "PEPE": {
-      "leadtime_hours": 4.2,
-      "velocity": 4.52,
-      "status": "⚪ 일반 지갑 이동 (4.2h)",
-      "score_modifier": 0
-    },
-    "HBAR": {
-      "leadtime_hours": 4.5,
-      "velocity": 1.31,
-      "status": "⚪ 일반 지갑 이동 (4.5h)",
-      "score_modifier": 0
-    },
-    "BCH": {
-      "leadtime_hours": 29.3,
-      "velocity": 2.97,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "NEWT": {
-      "leadtime_hours": 42.7,
-      "velocity": 4.37,
-      "status": "🔒 장기 홀딩/출금 (리드타임 42.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SEI": {
-      "leadtime_hours": 39.5,
-      "velocity": 3.89,
-      "status": "🔒 장기 홀딩/출금 (리드타임 39.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BONK": {
-      "leadtime_hours": 37.0,
-      "velocity": 5.08,
-      "status": "🔒 장기 홀딩/출금 (리드타임 37.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "JST": {
-      "leadtime_hours": 13.2,
-      "velocity": 4.5,
-      "status": "⚪ 일반 지갑 이동 (13.2h)",
-      "score_modifier": 0
-    },
-    "AAVE": {
-      "leadtime_hours": 27.5,
-      "velocity": 6.56,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "JTO": {
-      "leadtime_hours": 40.3,
-      "velocity": 8.9,
-      "status": "🔒 장기 홀딩/출금 (리드타임 40.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "JUP": {
-      "leadtime_hours": 21.6,
-      "velocity": 9.23,
-      "status": "⚪ 일반 지갑 이동 (21.6h)",
-      "score_modifier": 0
-    },
-    "VVV": {
-      "leadtime_hours": 29.9,
-      "velocity": 3.73,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "AI": {
-      "leadtime_hours": 34.7,
-      "velocity": 8.76,
-      "status": "🔒 장기 홀딩/출금 (리드타임 34.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "PIEVERSE": {
-      "leadtime_hours": 37.9,
-      "velocity": 9.78,
-      "status": "🔒 장기 홀딩/출금 (리드타임 37.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ALT": {
-      "leadtime_hours": 4.5,
-      "velocity": 3.04,
-      "status": "⚪ 일반 지갑 이동 (4.5h)",
-      "score_modifier": 0
-    },
-    "B3": {
-      "leadtime_hours": 38.7,
-      "velocity": 7.96,
-      "status": "🔒 장기 홀딩/출금 (리드타임 38.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "LAYER": {
-      "leadtime_hours": 36.4,
-      "velocity": 5.78,
-      "status": "🔒 장기 홀딩/출금 (리드타임 36.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "TRX": {
-      "leadtime_hours": 31.5,
-      "velocity": 6.7,
-      "status": "🔒 장기 홀딩/출금 (리드타임 31.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "POWR": {
-      "leadtime_hours": 37.3,
-      "velocity": 1.08,
-      "status": "🔒 장기 홀딩/출금 (리드타임 37.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "EUL": {
-      "leadtime_hours": 21.5,
-      "velocity": 1.19,
-      "status": "⚪ 일반 지갑 이동 (21.5h)",
-      "score_modifier": 0
-    },
-    "ATOM": {
-      "leadtime_hours": 19.0,
-      "velocity": 8.15,
-      "status": "⚪ 일반 지갑 이동 (19.0h)",
-      "score_modifier": 0
-    },
-    "ARKM": {
-      "leadtime_hours": 47.1,
-      "velocity": 2.97,
-      "status": "🔒 장기 홀딩/출금 (리드타임 47.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "CRO": {
-      "leadtime_hours": 13.1,
-      "velocity": 9.11,
-      "status": "⚪ 일반 지갑 이동 (13.1h)",
-      "score_modifier": 0
-    },
-    "NXPC": {
-      "leadtime_hours": 34.0,
-      "velocity": 2.21,
-      "status": "🔒 장기 홀딩/출금 (리드타임 34.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "A": {
-      "leadtime_hours": 17.1,
-      "velocity": 4.92,
-      "status": "⚪ 일반 지갑 이동 (17.1h)",
-      "score_modifier": 0
-    },
-    "TRUMP": {
-      "leadtime_hours": 38.9,
-      "velocity": 6.25,
-      "status": "🔒 장기 홀딩/출금 (리드타임 38.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "F": {
-      "leadtime_hours": 47.5,
-      "velocity": 3.6,
-      "status": "🔒 장기 홀딩/출금 (리드타임 47.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "G": {
-      "leadtime_hours": 10.7,
-      "velocity": 5.37,
-      "status": "⚪ 일반 지갑 이동 (10.7h)",
-      "score_modifier": 0
-    },
-    "CELO": {
-      "leadtime_hours": 22.6,
-      "velocity": 2.57,
-      "status": "⚪ 일반 지갑 이동 (22.6h)",
-      "score_modifier": 0
-    },
-    "AERO": {
-      "leadtime_hours": 1.8,
-      "velocity": 9.24,
-      "status": "🚨 덤핑 임박 (리드타임 1.8h / 초고속 거래소 입금)",
-      "score_modifier": -50
-    },
-    "CTC": {
-      "leadtime_hours": 44.0,
-      "velocity": 9.54,
-      "status": "🔒 장기 홀딩/출금 (리드타임 44.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ANIME": {
-      "leadtime_hours": 24.8,
-      "velocity": 9.26,
-      "status": "🔒 장기 홀딩/출금 (리드타임 24.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "APT": {
-      "leadtime_hours": 1.0,
-      "velocity": 3.35,
-      "status": "⚪ 일반 지갑 이동 (1.0h)",
-      "score_modifier": 0
-    },
-    "MOCA": {
-      "leadtime_hours": 15.6,
-      "velocity": 5.18,
-      "status": "⚪ 일반 지갑 이동 (15.6h)",
-      "score_modifier": 0
-    },
-    "API3": {
-      "leadtime_hours": 23.1,
-      "velocity": 6.93,
-      "status": "⚪ 일반 지갑 이동 (23.1h)",
-      "score_modifier": 0
-    },
-    "AHT": {
-      "leadtime_hours": 28.7,
-      "velocity": 7.3,
-      "status": "🔒 장기 홀딩/출금 (리드타임 28.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "EGLD": {
-      "leadtime_hours": 29.3,
-      "velocity": 4.9,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BLEND": {
-      "leadtime_hours": 47.4,
-      "velocity": 7.92,
-      "status": "🔒 장기 홀딩/출금 (리드타임 47.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ERA": {
-      "leadtime_hours": 29.6,
-      "velocity": 9.3,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "FF": {
-      "leadtime_hours": 34.2,
-      "velocity": 9.4,
-      "status": "🔒 장기 홀딩/출금 (리드타임 34.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "PLUME": {
-      "leadtime_hours": 43.0,
-      "velocity": 4.99,
-      "status": "🔒 장기 홀딩/출금 (리드타임 43.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ESP": {
-      "leadtime_hours": 43.4,
-      "velocity": 8.6,
-      "status": "🔒 장기 홀딩/출금 (리드타임 43.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "CC": {
-      "leadtime_hours": 40.8,
-      "velocity": 7.67,
-      "status": "🔒 장기 홀딩/출금 (리드타임 40.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "NEO": {
-      "leadtime_hours": 47.7,
-      "velocity": 7.69,
-      "status": "🔒 장기 홀딩/출금 (리드타임 47.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ETC": {
-      "leadtime_hours": 21.2,
-      "velocity": 7.13,
-      "status": "⚪ 일반 지갑 이동 (21.2h)",
-      "score_modifier": 0
-    },
-    "IOTA": {
-      "leadtime_hours": 30.2,
-      "velocity": 3.97,
-      "status": "🔒 장기 홀딩/출금 (리드타임 30.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "IOST": {
-      "leadtime_hours": 32.8,
-      "velocity": 3.7,
-      "status": "🔒 장기 홀딩/출금 (리드타임 32.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "AKT": {
-      "leadtime_hours": 28.3,
-      "velocity": 6.5,
-      "status": "🔒 장기 홀딩/출금 (리드타임 28.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "COW": {
-      "leadtime_hours": 0.7,
-      "velocity": 4.04,
-      "status": "⚪ 일반 지갑 이동 (0.7h)",
-      "score_modifier": 0
-    },
-    "VIRTUAL": {
-      "leadtime_hours": 8.3,
-      "velocity": 2.56,
-      "status": "⚪ 일반 지갑 이동 (8.3h)",
-      "score_modifier": 0
-    },
-    "RLUSD": {
-      "leadtime_hours": 29.5,
-      "velocity": 8.89,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ETH": {
-      "leadtime_hours": 26.8,
-      "velocity": 9.88,
-      "status": "🔒 장기 홀딩/출금 (리드타임 26.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "IQ": {
-      "leadtime_hours": 16.2,
-      "velocity": 2.52,
-      "status": "⚪ 일반 지갑 이동 (16.2h)",
-      "score_modifier": 0
-    },
-    "NEAR": {
-      "leadtime_hours": 39.4,
-      "velocity": 3.87,
-      "status": "🔒 장기 홀딩/출금 (리드타임 39.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "RVN": {
-      "leadtime_hours": 24.3,
-      "velocity": 6.92,
-      "status": "🔒 장기 홀딩/출금 (리드타임 24.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "PRL": {
-      "leadtime_hours": 9.8,
-      "velocity": 8.01,
-      "status": "⚪ 일반 지갑 이동 (9.8h)",
-      "score_modifier": 0
-    },
-    "AGLD": {
-      "leadtime_hours": 27.4,
-      "velocity": 4.64,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ID": {
-      "leadtime_hours": 24.8,
-      "velocity": 4.96,
-      "status": "🔒 장기 홀딩/출금 (리드타임 24.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "IO": {
-      "leadtime_hours": 19.1,
-      "velocity": 7.35,
-      "status": "⚪ 일반 지갑 이동 (19.1h)",
-      "score_modifier": 0
-    },
-    "IN": {
-      "leadtime_hours": 37.0,
-      "velocity": 7.5,
-      "status": "🔒 장기 홀딩/출금 (리드타임 37.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MANTRA": {
-      "leadtime_hours": 17.7,
+    "CARV": {
+      "leadtime_hours": 45.6,
       "velocity": 1.59,
-      "status": "⚪ 일반 지갑 이동 (17.7h)",
-      "score_modifier": 0
-    },
-    "WAL": {
-      "leadtime_hours": 27.0,
-      "velocity": 8.2,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "PENDLE": {
-      "leadtime_hours": 27.5,
-      "velocity": 8.81,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BLUR": {
-      "leadtime_hours": 38.4,
-      "velocity": 1.57,
-      "status": "🔒 장기 홀딩/출금 (리드타임 38.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "AWE": {
-      "leadtime_hours": 27.7,
-      "velocity": 2.84,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "THETA": {
-      "leadtime_hours": 4.3,
-      "velocity": 8.9,
-      "status": "⚪ 일반 지갑 이동 (4.3h)",
-      "score_modifier": 0
-    },
-    "AXL": {
-      "leadtime_hours": 39.3,
-      "velocity": 2.19,
-      "status": "🔒 장기 홀딩/출금 (리드타임 39.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "HP": {
-      "leadtime_hours": 20.5,
-      "velocity": 6.88,
-      "status": "⚪ 일반 지갑 이동 (20.5h)",
-      "score_modifier": 0
-    },
-    "SAND": {
-      "leadtime_hours": 9.3,
-      "velocity": 4.55,
-      "status": "⚪ 일반 지갑 이동 (9.3h)",
-      "score_modifier": 0
-    },
-    "WCT": {
-      "leadtime_hours": 30.4,
-      "velocity": 5.51,
-      "status": "🔒 장기 홀딩/출금 (리드타임 30.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "YGG": {
-      "leadtime_hours": 23.7,
-      "velocity": 3.81,
-      "status": "⚪ 일반 지갑 이동 (23.7h)",
-      "score_modifier": 0
-    },
-    "AXS": {
-      "leadtime_hours": 11.4,
-      "velocity": 7.56,
-      "status": "⚪ 일반 지갑 이동 (11.4h)",
-      "score_modifier": 0
-    },
-    "ARDR": {
-      "leadtime_hours": 17.9,
-      "velocity": 3.76,
-      "status": "⚪ 일반 지갑 이동 (17.9h)",
-      "score_modifier": 0
-    },
-    "AQT": {
-      "leadtime_hours": 20.9,
-      "velocity": 3.73,
-      "status": "⚪ 일반 지갑 이동 (20.9h)",
-      "score_modifier": 0
-    },
-    "ME": {
-      "leadtime_hours": 3.4,
-      "velocity": 1.42,
-      "status": "⚪ 일반 지갑 이동 (3.4h)",
-      "score_modifier": 0
-    },
-    "TRUST": {
-      "leadtime_hours": 37.2,
-      "velocity": 1.01,
-      "status": "🔒 장기 홀딩/출금 (리드타임 37.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SONIC": {
-      "leadtime_hours": 14.3,
-      "velocity": 6.43,
-      "status": "⚪ 일반 지갑 이동 (14.3h)",
-      "score_modifier": 0
-    },
-    "ARB": {
-      "leadtime_hours": 13.2,
-      "velocity": 6.24,
-      "status": "⚪ 일반 지갑 이동 (13.2h)",
-      "score_modifier": 0
-    },
-    "POL": {
-      "leadtime_hours": 14.0,
-      "velocity": 7.72,
-      "status": "⚪ 일반 지갑 이동 (14.0h)",
-      "score_modifier": 0
-    },
-    "CVC": {
-      "leadtime_hours": 25.9,
-      "velocity": 5.32,
-      "status": "🔒 장기 홀딩/출금 (리드타임 25.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "T": {
-      "leadtime_hours": 41.4,
-      "velocity": 8.28,
-      "status": "🔒 장기 홀딩/출금 (리드타임 41.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ARX": {
-      "leadtime_hours": 36.2,
-      "velocity": 9.81,
-      "status": "🔒 장기 홀딩/출금 (리드타임 36.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "W": {
-      "leadtime_hours": 27.1,
-      "velocity": 2.95,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ARK": {
-      "leadtime_hours": 2.1,
-      "velocity": 7.6,
-      "status": "🚨 덤핑 임박 (리드타임 2.1h / 초고속 거래소 입금)",
-      "score_modifier": -50
-    },
-    "AVNT": {
-      "leadtime_hours": 36.3,
-      "velocity": 8.76,
-      "status": "🔒 장기 홀딩/출금 (리드타임 36.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "O": {
-      "leadtime_hours": 2.7,
-      "velocity": 7.08,
-      "status": "🚨 덤핑 임박 (리드타임 2.7h / 초고속 거래소 입금)",
-      "score_modifier": -50
-    },
-    "LA": {
-      "leadtime_hours": 20.3,
-      "velocity": 9.95,
-      "status": "⚪ 일반 지갑 이동 (20.3h)",
-      "score_modifier": 0
-    },
-    "HYPER": {
-      "leadtime_hours": 22.3,
-      "velocity": 1.46,
-      "status": "⚪ 일반 지갑 이동 (22.3h)",
-      "score_modifier": 0
-    },
-    "ATH": {
-      "leadtime_hours": 22.7,
-      "velocity": 8.54,
-      "status": "⚪ 일반 지갑 이동 (22.7h)",
-      "score_modifier": 0
-    },
-    "TAIKO": {
-      "leadtime_hours": 20.1,
-      "velocity": 4.64,
-      "status": "⚪ 일반 지갑 이동 (20.1h)",
-      "score_modifier": 0
-    },
-    "RE": {
-      "leadtime_hours": 42.2,
-      "velocity": 3.16,
-      "status": "🔒 장기 홀딩/출금 (리드타임 42.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "AVAX": {
-      "leadtime_hours": 3.7,
-      "velocity": 4.35,
-      "status": "⚪ 일반 지갑 이동 (3.7h)",
-      "score_modifier": 0
-    },
-    "XAUT": {
-      "leadtime_hours": 20.4,
-      "velocity": 4.01,
-      "status": "⚪ 일반 지갑 이동 (20.4h)",
-      "score_modifier": 0
-    },
-    "CPOOL": {
-      "leadtime_hours": 2.2,
-      "velocity": 8.94,
-      "status": "🚨 덤핑 임박 (리드타임 2.2h / 초고속 거래소 입금)",
-      "score_modifier": -50
-    },
-    "IMX": {
-      "leadtime_hours": 13.5,
-      "velocity": 8.57,
-      "status": "⚪ 일반 지갑 이동 (13.5h)",
-      "score_modifier": 0
-    },
-    "SC": {
-      "leadtime_hours": 35.4,
-      "velocity": 3.5,
-      "status": "🔒 장기 홀딩/출금 (리드타임 35.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "INJ": {
-      "leadtime_hours": 6.0,
-      "velocity": 5.47,
-      "status": "⚪ 일반 지갑 이동 (6.0h)",
-      "score_modifier": 0
-    },
-    "MVL": {
-      "leadtime_hours": 33.4,
-      "velocity": 8.07,
-      "status": "🔒 장기 홀딩/출금 (리드타임 33.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "HIVE": {
-      "leadtime_hours": 47.4,
-      "velocity": 3.61,
-      "status": "🔒 장기 홀딩/출금 (리드타임 47.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "CBK": {
-      "leadtime_hours": 31.6,
-      "velocity": 8.16,
-      "status": "🔒 장기 홀딩/출금 (리드타임 31.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "XLM": {
-      "leadtime_hours": 30.0,
-      "velocity": 9.1,
-      "status": "🔒 장기 홀딩/출금 (리드타임 30.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "OP": {
-      "leadtime_hours": 42.9,
-      "velocity": 5.81,
-      "status": "🔒 장기 홀딩/출금 (리드타임 42.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SAFE": {
-      "leadtime_hours": 20.9,
-      "velocity": 3.19,
-      "status": "⚪ 일반 지갑 이동 (20.9h)",
-      "score_modifier": 0
-    },
-    "GLM": {
-      "leadtime_hours": 39.0,
-      "velocity": 6.76,
-      "status": "🔒 장기 홀딩/출금 (리드타임 39.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SUPER": {
-      "leadtime_hours": 33.4,
-      "velocity": 3.95,
-      "status": "🔒 장기 홀딩/출금 (리드타임 33.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "LINEA": {
-      "leadtime_hours": 28.7,
-      "velocity": 3.58,
-      "status": "🔒 장기 홀딩/출금 (리드타임 28.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "DATA": {
-      "leadtime_hours": 35.7,
-      "velocity": 6.54,
-      "status": "🔒 장기 홀딩/출금 (리드타임 35.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "KERNEL": {
-      "leadtime_hours": 46.7,
-      "velocity": 4.44,
-      "status": "🔒 장기 홀딩/출금 (리드타임 46.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "POKT": {
-      "leadtime_hours": 43.3,
-      "velocity": 4.89,
-      "status": "🔒 장기 홀딩/출금 (리드타임 43.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SENT": {
-      "leadtime_hours": 38.7,
-      "velocity": 3.07,
-      "status": "🔒 장기 홀딩/출금 (리드타임 38.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ZKC": {
-      "leadtime_hours": 1.8,
-      "velocity": 3.81,
-      "status": "⚪ 일반 지갑 이동 (1.8h)",
-      "score_modifier": 0
-    },
-    "KNC": {
-      "leadtime_hours": 10.8,
-      "velocity": 1.09,
-      "status": "⚪ 일반 지갑 이동 (10.8h)",
-      "score_modifier": 0
-    },
-    "ZKP": {
-      "leadtime_hours": 6.7,
-      "velocity": 7.15,
-      "status": "⚪ 일반 지갑 이동 (6.7h)",
-      "score_modifier": 0
-    },
-    "AUCTION": {
-      "leadtime_hours": 21.7,
-      "velocity": 2.04,
-      "status": "⚪ 일반 지갑 이동 (21.7h)",
-      "score_modifier": 0
-    },
-    "ORDER": {
-      "leadtime_hours": 10.1,
-      "velocity": 1.94,
-      "status": "⚪ 일반 지갑 이동 (10.1h)",
-      "score_modifier": 0
-    },
-    "FCT2": {
-      "leadtime_hours": 8.4,
-      "velocity": 8.09,
-      "status": "⚪ 일반 지갑 이동 (8.4h)",
-      "score_modifier": 0
-    },
-    "MTL": {
-      "leadtime_hours": 13.0,
-      "velocity": 3.81,
-      "status": "⚪ 일반 지갑 이동 (13.0h)",
-      "score_modifier": 0
-    },
-    "VET": {
-      "leadtime_hours": 41.0,
-      "velocity": 2.72,
-      "status": "🔒 장기 홀딩/출금 (리드타임 41.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "TAO": {
-      "leadtime_hours": 42.2,
-      "velocity": 3.91,
-      "status": "🔒 장기 홀딩/출금 (리드타임 42.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "QTUM": {
-      "leadtime_hours": 46.3,
-      "velocity": 8.45,
-      "status": "🔒 장기 홀딩/출금 (리드타임 46.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "TT": {
-      "leadtime_hours": 31.0,
-      "velocity": 1.04,
-      "status": "🔒 장기 홀딩/출금 (리드타임 31.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "LINK": {
-      "leadtime_hours": 29.2,
-      "velocity": 5.32,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "XRP": {
-      "leadtime_hours": 37.0,
-      "velocity": 3.85,
-      "status": "🔒 장기 홀딩/출금 (리드타임 37.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "CHZ": {
-      "leadtime_hours": 18.8,
-      "velocity": 9.27,
-      "status": "⚪ 일반 지갑 이동 (18.8h)",
-      "score_modifier": 0
-    },
-    "ASTR": {
-      "leadtime_hours": 3.3,
-      "velocity": 9.71,
-      "status": "⚪ 일반 지갑 이동 (3.3h)",
-      "score_modifier": 0
-    },
-    "ZK": {
-      "leadtime_hours": 15.1,
-      "velocity": 1.82,
-      "status": "⚪ 일반 지갑 이동 (15.1h)",
-      "score_modifier": 0
-    },
-    "STORJ": {
-      "leadtime_hours": 11.0,
-      "velocity": 7.19,
-      "status": "⚪ 일반 지갑 이동 (11.0h)",
-      "score_modifier": 0
-    },
-    "ENA": {
-      "leadtime_hours": 34.8,
-      "velocity": 2.25,
-      "status": "🔒 장기 홀딩/출금 (리드타임 34.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MANA": {
-      "leadtime_hours": 29.0,
-      "velocity": 3.01,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "OPEN": {
-      "leadtime_hours": 47.0,
-      "velocity": 2.83,
-      "status": "🔒 장기 홀딩/출금 (리드타임 47.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "PYTH": {
-      "leadtime_hours": 38.6,
-      "velocity": 7.03,
-      "status": "🔒 장기 홀딩/출금 (리드타임 38.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ENS": {
-      "leadtime_hours": 23.7,
-      "velocity": 9.98,
-      "status": "⚪ 일반 지갑 이동 (23.7h)",
-      "score_modifier": 0
-    },
-    "GRT": {
-      "leadtime_hours": 9.7,
-      "velocity": 9.29,
-      "status": "⚪ 일반 지갑 이동 (9.7h)",
-      "score_modifier": 0
-    },
-    "PUMP": {
-      "leadtime_hours": 36.8,
-      "velocity": 3.24,
-      "status": "🔒 장기 홀딩/출금 (리드타임 36.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "XTZ": {
-      "leadtime_hours": 3.7,
-      "velocity": 8.82,
-      "status": "⚪ 일반 지갑 이동 (3.7h)",
-      "score_modifier": 0
-    },
-    "CKB": {
-      "leadtime_hours": 3.9,
-      "velocity": 1.68,
-      "status": "⚪ 일반 지갑 이동 (3.9h)",
-      "score_modifier": 0
-    },
-    "KAVA": {
-      "leadtime_hours": 32.0,
-      "velocity": 1.92,
-      "status": "🔒 장기 홀딩/출금 (리드타임 32.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "TOSHI": {
-      "leadtime_hours": 36.9,
-      "velocity": 5.14,
-      "status": "🔒 장기 홀딩/출금 (리드타임 36.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BARD": {
-      "leadtime_hours": 41.3,
-      "velocity": 3.15,
-      "status": "🔒 장기 홀딩/출금 (리드타임 41.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ZRO": {
-      "leadtime_hours": 44.8,
-      "velocity": 9.46,
-      "status": "🔒 장기 홀딩/출금 (리드타임 44.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "RAY": {
-      "leadtime_hours": 6.1,
-      "velocity": 3.47,
-      "status": "⚪ 일반 지갑 이동 (6.1h)",
-      "score_modifier": 0
-    },
-    "ONDO": {
-      "leadtime_hours": 28.6,
-      "velocity": 3.64,
-      "status": "🔒 장기 홀딩/출금 (리드타임 28.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ZRX": {
-      "leadtime_hours": 9.3,
-      "velocity": 2.0,
-      "status": "⚪ 일반 지갑 이동 (9.3h)",
-      "score_modifier": 0
-    },
-    "GMT": {
-      "leadtime_hours": 10.6,
-      "velocity": 2.52,
-      "status": "⚪ 일반 지갑 이동 (10.6h)",
-      "score_modifier": 0
-    },
-    "TFUEL": {
-      "leadtime_hours": 2.4,
-      "velocity": 7.57,
-      "status": "🚨 덤핑 임박 (리드타임 2.4h / 초고속 거래소 입금)",
-      "score_modifier": -50
-    },
-    "CFG": {
-      "leadtime_hours": 23.4,
-      "velocity": 3.2,
-      "status": "⚪ 일반 지갑 이동 (23.4h)",
-      "score_modifier": 0
-    },
-    "AZTEC": {
-      "leadtime_hours": 14.2,
-      "velocity": 2.78,
-      "status": "⚪ 일반 지갑 이동 (14.2h)",
-      "score_modifier": 0
-    },
-    "CFX": {
-      "leadtime_hours": 18.8,
-      "velocity": 6.04,
-      "status": "⚪ 일반 지갑 이동 (18.8h)",
-      "score_modifier": 0
-    },
-    "XPL": {
-      "leadtime_hours": 23.0,
-      "velocity": 7.0,
-      "status": "⚪ 일반 지갑 이동 (23.0h)",
-      "score_modifier": 0
-    },
-    "ZAMA": {
-      "leadtime_hours": 8.4,
-      "velocity": 4.99,
-      "status": "⚪ 일반 지갑 이동 (8.4h)",
-      "score_modifier": 0
-    },
-    "MASK": {
-      "leadtime_hours": 41.9,
-      "velocity": 8.7,
-      "status": "🔒 장기 홀딩/출금 (리드타임 41.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "COMP": {
-      "leadtime_hours": 43.1,
-      "velocity": 9.87,
-      "status": "🔒 장기 홀딩/출금 (리드타임 43.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ZETA": {
-      "leadtime_hours": 35.0,
-      "velocity": 5.91,
-      "status": "🔒 장기 홀딩/출금 (리드타임 35.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "RED": {
-      "leadtime_hours": 9.9,
-      "velocity": 3.31,
-      "status": "⚪ 일반 지갑 이동 (9.9h)",
-      "score_modifier": 0
-    },
-    "TIA": {
-      "leadtime_hours": 6.1,
-      "velocity": 6.33,
-      "status": "⚪ 일반 지갑 이동 (6.1h)",
-      "score_modifier": 0
-    },
-    "ADA": {
-      "leadtime_hours": 39.8,
-      "velocity": 6.02,
-      "status": "🔒 장기 홀딩/출금 (리드타임 39.8h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ELF": {
-      "leadtime_hours": 43.5,
-      "velocity": 9.01,
-      "status": "🔒 장기 홀딩/출금 (리드타임 43.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SOON": {
-      "leadtime_hours": 29.1,
-      "velocity": 7.3,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "STEEM": {
-      "leadtime_hours": 25.5,
-      "velocity": 6.02,
-      "status": "🔒 장기 홀딩/출금 (리드타임 25.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ELSA": {
-      "leadtime_hours": 27.3,
-      "velocity": 5.6,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SPK": {
-      "leadtime_hours": 13.3,
-      "velocity": 3.37,
-      "status": "⚪ 일반 지갑 이동 (13.3h)",
-      "score_modifier": 0
-    },
-    "SOPH": {
-      "leadtime_hours": 15.8,
-      "velocity": 9.89,
-      "status": "⚪ 일반 지갑 이동 (15.8h)",
-      "score_modifier": 0
-    },
-    "SPX": {
-      "leadtime_hours": 48.0,
-      "velocity": 8.67,
-      "status": "🔒 장기 홀딩/출금 (리드타임 48.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MED": {
-      "leadtime_hours": 35.1,
-      "velocity": 2.12,
-      "status": "🔒 장기 홀딩/출금 (리드타임 35.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "1INCH": {
-      "leadtime_hours": 30.9,
-      "velocity": 3.82,
-      "status": "🔒 장기 홀딩/출금 (리드타임 30.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "KAT": {
-      "leadtime_hours": 26.6,
-      "velocity": 1.13,
-      "status": "🔒 장기 홀딩/출금 (리드타임 26.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MEW": {
-      "leadtime_hours": 32.6,
-      "velocity": 6.69,
-      "status": "🔒 장기 홀딩/출금 (리드타임 32.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ORBS": {
-      "leadtime_hours": 4.2,
-      "velocity": 8.95,
-      "status": "⚪ 일반 지갑 이동 (4.2h)",
-      "score_modifier": 0
-    },
-    "RENDER": {
-      "leadtime_hours": 23.1,
-      "velocity": 6.4,
-      "status": "⚪ 일반 지갑 이동 (23.1h)",
-      "score_modifier": 0
-    },
-    "ORCA": {
-      "leadtime_hours": 16.3,
-      "velocity": 9.71,
-      "status": "⚪ 일반 지갑 이동 (16.3h)",
-      "score_modifier": 0
-    },
-    "BERA": {
-      "leadtime_hours": 39.7,
-      "velocity": 9.75,
-      "status": "🔒 장기 홀딩/출금 (리드타임 39.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SIGN": {
-      "leadtime_hours": 37.5,
-      "velocity": 2.44,
-      "status": "🔒 장기 홀딩/출금 (리드타임 37.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SLX": {
-      "leadtime_hours": 16.9,
-      "velocity": 6.55,
-      "status": "⚪ 일반 지갑 이동 (16.9h)",
-      "score_modifier": 0
-    },
-    "VANA": {
-      "leadtime_hours": 35.6,
-      "velocity": 3.72,
-      "status": "🔒 장기 홀딩/출금 (리드타임 35.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "DOT": {
-      "leadtime_hours": 3.1,
-      "velocity": 1.09,
-      "status": "⚪ 일반 지갑 이동 (3.1h)",
-      "score_modifier": 0
-    },
-    "EDGE": {
-      "leadtime_hours": 9.5,
-      "velocity": 7.65,
-      "status": "⚪ 일반 지갑 이동 (9.5h)",
-      "score_modifier": 0
-    },
-    "MET2": {
-      "leadtime_hours": 45.9,
-      "velocity": 8.97,
-      "status": "🔒 장기 홀딩/출금 (리드타임 45.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MBL": {
-      "leadtime_hours": 47.3,
-      "velocity": 7.06,
-      "status": "🔒 장기 홀딩/출금 (리드타임 47.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "FLUID": {
-      "leadtime_hours": 7.8,
-      "velocity": 6.95,
-      "status": "⚪ 일반 지갑 이동 (7.8h)",
-      "score_modifier": 0
-    },
-    "BIGTIME": {
-      "leadtime_hours": 45.4,
-      "velocity": 6.67,
-      "status": "🔒 장기 홀딩/출금 (리드타임 45.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SNT": {
-      "leadtime_hours": 19.8,
-      "velocity": 6.74,
-      "status": "⚪ 일반 지갑 이동 (19.8h)",
-      "score_modifier": 0
-    },
-    "SOL": {
-      "leadtime_hours": 27.7,
-      "velocity": 4.0,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "QKC": {
-      "leadtime_hours": 45.0,
-      "velocity": 2.35,
-      "status": "🔒 장기 홀딩/출금 (리드타임 45.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "DRV": {
-      "leadtime_hours": 12.5,
-      "velocity": 4.41,
-      "status": "⚪ 일반 지갑 이동 (12.5h)",
-      "score_modifier": 0
-    },
-    "META": {
-      "leadtime_hours": 17.5,
-      "velocity": 4.5,
-      "status": "⚪ 일반 지갑 이동 (17.5h)",
-      "score_modifier": 0
-    },
-    "IRYS": {
-      "leadtime_hours": 0.8,
-      "velocity": 5.59,
-      "status": "⚪ 일반 지갑 이동 (0.8h)",
-      "score_modifier": 0
-    },
-    "SAHARA": {
-      "leadtime_hours": 25.9,
-      "velocity": 5.92,
-      "status": "🔒 장기 홀딩/출금 (리드타임 25.9h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MLK": {
-      "leadtime_hours": 32.2,
-      "velocity": 8.72,
-      "status": "🔒 장기 홀딩/출금 (리드타임 32.2h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "VTHO": {
-      "leadtime_hours": 23.5,
-      "velocity": 9.03,
-      "status": "⚪ 일반 지갑 이동 (23.5h)",
-      "score_modifier": 0
-    },
-    "KITE": {
-      "leadtime_hours": 18.3,
-      "velocity": 2.88,
-      "status": "⚪ 일반 지갑 이동 (18.3h)",
-      "score_modifier": 0
-    },
-    "MINA": {
-      "leadtime_hours": 32.1,
-      "velocity": 3.29,
-      "status": "🔒 장기 홀딩/출금 (리드타임 32.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MMT": {
-      "leadtime_hours": 27.1,
-      "velocity": 1.93,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "CHIP": {
-      "leadtime_hours": 33.5,
-      "velocity": 2.32,
-      "status": "🔒 장기 홀딩/출금 (리드타임 33.5h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ZORA": {
-      "leadtime_hours": 40.7,
-      "velocity": 4.0,
-      "status": "🔒 장기 홀딩/출금 (리드타임 40.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "XCN": {
-      "leadtime_hours": 16.6,
-      "velocity": 8.34,
-      "status": "⚪ 일반 지갑 이동 (16.6h)",
-      "score_modifier": 0
-    },
-    "GAS": {
-      "leadtime_hours": 42.7,
-      "velocity": 5.5,
-      "status": "🔒 장기 홀딩/출금 (리드타임 42.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MEGA": {
-      "leadtime_hours": 43.6,
-      "velocity": 3.09,
-      "status": "🔒 장기 홀딩/출금 (리드타임 43.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MNT": {
-      "leadtime_hours": 10.1,
-      "velocity": 3.33,
-      "status": "⚪ 일반 지갑 이동 (10.1h)",
-      "score_modifier": 0
-    },
-    "MOC": {
-      "leadtime_hours": 23.9,
-      "velocity": 5.31,
-      "status": "⚪ 일반 지갑 이동 (23.9h)",
-      "score_modifier": 0
-    },
-    "MOODENG": {
-      "leadtime_hours": 42.4,
-      "velocity": 6.6,
-      "status": "🔒 장기 홀딩/출금 (리드타임 42.4h / 완만한 이동)",
+      "status": "🔒 장기 홀딩/출금 (리드타임 45.6h / 완만한 이동)",
       "score_modifier": 15
     },
-    "XEC": {
-      "leadtime_hours": 32.8,
-      "velocity": 8.22,
-      "status": "🔒 장기 홀딩/출금 (리드타임 32.8h / 완만한 이동)",
+    "LSK": {
+      "leadtime_hours": 36.0,
+      "velocity": 6.08,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.0h / 완만한 이동)",
       "score_modifier": 15
-    },
-    "MON": {
-      "leadtime_hours": 45.4,
-      "velocity": 3.98,
-      "status": "🔒 장기 홀딩/출금 (리드타임 45.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "MORPHO": {
-      "leadtime_hours": 1.4,
-      "velocity": 3.49,
-      "status": "⚪ 일반 지갑 이동 (1.4h)",
-      "score_modifier": 0
-    },
-    "ZIL": {
-      "leadtime_hours": 45.0,
-      "velocity": 8.3,
-      "status": "🔒 장기 홀딩/출금 (리드타임 45.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "GAME2": {
-      "leadtime_hours": 15.7,
-      "velocity": 9.14,
-      "status": "⚪ 일반 지갑 이동 (15.7h)",
-      "score_modifier": 0
-    },
-    "STX": {
-      "leadtime_hours": 9.8,
-      "velocity": 2.66,
-      "status": "⚪ 일반 지갑 이동 (9.8h)",
-      "score_modifier": 0
-    },
-    "FLOCK": {
-      "leadtime_hours": 23.9,
-      "velocity": 5.33,
-      "status": "⚪ 일반 지갑 이동 (23.9h)",
-      "score_modifier": 0
-    },
-    "PROVE": {
-      "leadtime_hours": 43.4,
-      "velocity": 2.99,
-      "status": "🔒 장기 홀딩/출금 (리드타임 43.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BSV": {
-      "leadtime_hours": 35.7,
-      "velocity": 5.35,
-      "status": "🔒 장기 홀딩/출금 (리드타임 35.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "SUI": {
-      "leadtime_hours": 14.3,
-      "velocity": 6.99,
-      "status": "⚪ 일반 지갑 이동 (14.3h)",
-      "score_modifier": 0
-    },
-    "SYRUP": {
-      "leadtime_hours": 31.1,
-      "velocity": 6.5,
-      "status": "🔒 장기 홀딩/출금 (리드타임 31.1h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BTC": {
-      "leadtime_hours": 29.6,
-      "velocity": 2.94,
-      "status": "🔒 장기 홀딩/출금 (리드타임 29.6h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BABY": {
-      "leadtime_hours": 32.4,
-      "velocity": 2.54,
-      "status": "🔒 장기 홀딩/출금 (리드타임 32.4h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "HOLO": {
-      "leadtime_hours": 10.8,
-      "velocity": 7.52,
-      "status": "⚪ 일반 지갑 이동 (10.8h)",
-      "score_modifier": 0
-    },
-    "MIRA": {
-      "leadtime_hours": 22.5,
-      "velocity": 5.51,
-      "status": "⚪ 일반 지갑 이동 (22.5h)",
-      "score_modifier": 0
-    },
-    "SUN": {
-      "leadtime_hours": 23.3,
-      "velocity": 4.64,
-      "status": "⚪ 일반 지갑 이동 (23.3h)",
-      "score_modifier": 0
-    },
-    "ZBT": {
-      "leadtime_hours": 30.7,
-      "velocity": 3.84,
-      "status": "🔒 장기 홀딩/출금 (리드타임 30.7h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ONG": {
-      "leadtime_hours": 25.0,
-      "velocity": 7.8,
-      "status": "🔒 장기 홀딩/출금 (리드타임 25.0h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "BTT": {
-      "leadtime_hours": 16.9,
-      "velocity": 9.5,
-      "status": "⚪ 일반 지갑 이동 (16.9h)",
-      "score_modifier": 0
-    },
-    "ENSO": {
-      "leadtime_hours": 1.7,
-      "velocity": 9.32,
-      "status": "🚨 덤핑 임박 (리드타임 1.7h / 초고속 거래소 입금)",
-      "score_modifier": -50
-    },
-    "BIRB": {
-      "leadtime_hours": 27.3,
-      "velocity": 9.0,
-      "status": "🔒 장기 홀딩/출금 (리드타임 27.3h / 완만한 이동)",
-      "score_modifier": 15
-    },
-    "ONT": {
-      "leadtime_hours": 9.9,
-      "velocity": 4.64,
-      "status": "⚪ 일반 지갑 이동 (9.9h)",
-      "score_modifier": 0
     },
-    "SOMI": {
+    "0G": {
       "leadtime_hours": 20.7,
-      "velocity": 1.25,
+      "velocity": 5.86,
       "status": "⚪ 일반 지갑 이동 (20.7h)",
       "score_modifier": 0
     },
-    "DEEP": {
-      "leadtime_hours": 3.4,
-      "velocity": 4.76,
-      "status": "⚪ 일반 지갑 이동 (3.4h)",
+    "WIF": {
+      "leadtime_hours": 24.3,
+      "velocity": 5.8,
+      "status": "🔒 장기 홀딩/출금 (리드타임 24.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "TRAC": {
+      "leadtime_hours": 20.8,
+      "velocity": 6.36,
+      "status": "⚪ 일반 지갑 이동 (20.8h)",
       "score_modifier": 0
     },
-    "STRAX": {
-      "leadtime_hours": 3.1,
-      "velocity": 4.29,
-      "status": "⚪ 일반 지갑 이동 (3.1h)",
+    "BORA": {
+      "leadtime_hours": 4.5,
+      "velocity": 8.13,
+      "status": "⚪ 일반 지갑 이동 (4.5h)",
       "score_modifier": 0
     },
-    "ICP": {
-      "leadtime_hours": 7.0,
-      "velocity": 8.64,
-      "status": "⚪ 일반 지갑 이동 (7.0h)",
+    "PUNDIX": {
+      "leadtime_hours": 25.1,
+      "velocity": 10.0,
+      "status": "🔒 장기 홀딩/출금 (리드타임 25.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "PROS": {
+      "leadtime_hours": 20.9,
+      "velocity": 7.25,
+      "status": "⚪ 일반 지갑 이동 (20.9h)",
       "score_modifier": 0
     },
-    "OPG": {
-      "leadtime_hours": 13.6,
-      "velocity": 7.33,
-      "status": "⚪ 일반 지갑 이동 (13.6h)",
+    "USD1": {
+      "leadtime_hours": 22.6,
+      "velocity": 6.78,
+      "status": "⚪ 일반 지갑 이동 (22.6h)",
       "score_modifier": 0
     },
-    "BREV": {
+    "BAT": {
+      "leadtime_hours": 40.9,
+      "velocity": 4.4,
+      "status": "🔒 장기 홀딩/출금 (리드타임 40.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "HUNT": {
+      "leadtime_hours": 41.8,
+      "velocity": 5.45,
+      "status": "🔒 장기 홀딩/출금 (리드타임 41.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "PENGU": {
+      "leadtime_hours": 17.4,
+      "velocity": 3.66,
+      "status": "⚪ 일반 지갑 이동 (17.4h)",
+      "score_modifier": 0
+    },
+    "FIL": {
+      "leadtime_hours": 1.3,
+      "velocity": 4.87,
+      "status": "⚪ 일반 지갑 이동 (1.3h)",
+      "score_modifier": 0
+    },
+    "BEAM": {
+      "leadtime_hours": 16.0,
+      "velocity": 3.1,
+      "status": "⚪ 일반 지갑 이동 (16.0h)",
+      "score_modifier": 0
+    },
+    "META2": {
+      "leadtime_hours": 42.9,
+      "velocity": 3.66,
+      "status": "🔒 장기 홀딩/출금 (리드타임 42.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "DOOD": {
+      "leadtime_hours": 1.1,
+      "velocity": 6.66,
+      "status": "⚪ 일반 지갑 이동 (1.1h)",
+      "score_modifier": 0
+    },
+    "WAVES": {
+      "leadtime_hours": 25.6,
+      "velocity": 2.33,
+      "status": "🔒 장기 홀딩/출금 (리드타임 25.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "USDC": {
+      "leadtime_hours": 25.4,
+      "velocity": 5.58,
+      "status": "🔒 장기 홀딩/출금 (리드타임 25.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MOVE": {
+      "leadtime_hours": 25.9,
+      "velocity": 2.91,
+      "status": "🔒 장기 홀딩/출금 (리드타임 25.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "TREE": {
+      "leadtime_hours": 28.5,
+      "velocity": 5.66,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "USDE": {
+      "leadtime_hours": 12.1,
+      "velocity": 8.49,
+      "status": "⚪ 일반 지갑 이동 (12.1h)",
+      "score_modifier": 0
+    },
+    "USDG": {
+      "leadtime_hours": 22.1,
+      "velocity": 7.06,
+      "status": "⚪ 일반 지갑 이동 (22.1h)",
+      "score_modifier": 0
+    },
+    "AERGO": {
+      "leadtime_hours": 33.0,
+      "velocity": 9.12,
+      "status": "🔒 장기 홀딩/출금 (리드타임 33.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "WET": {
+      "leadtime_hours": 45.7,
+      "velocity": 4.42,
+      "status": "🔒 장기 홀딩/출금 (리드타임 45.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "USDT": {
+      "leadtime_hours": 8.4,
+      "velocity": 8.39,
+      "status": "⚪ 일반 지갑 이동 (8.4h)",
+      "score_modifier": 0
+    },
+    "USDS": {
+      "leadtime_hours": 24.6,
+      "velocity": 1.53,
+      "status": "🔒 장기 홀딩/출금 (리드타임 24.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "2Z": {
+      "leadtime_hours": 36.6,
+      "velocity": 6.3,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "BOUNTY": {
+      "leadtime_hours": 27.2,
+      "velocity": 4.26,
+      "status": "🔒 장기 홀딩/출금 (리드타임 27.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "KAITO": {
+      "leadtime_hours": 18.7,
+      "velocity": 7.17,
+      "status": "⚪ 일반 지갑 이동 (18.7h)",
+      "score_modifier": 0
+    },
+    "LPT": {
+      "leadtime_hours": 6.3,
+      "velocity": 4.24,
+      "status": "⚪ 일반 지갑 이동 (6.3h)",
+      "score_modifier": 0
+    },
+    "BLAST": {
+      "leadtime_hours": 22.4,
+      "velocity": 3.5,
+      "status": "⚪ 일반 지갑 이동 (22.4h)",
+      "score_modifier": 0
+    },
+    "ETHFI": {
       "leadtime_hours": 5.6,
-      "velocity": 3.62,
+      "velocity": 9.99,
       "status": "⚪ 일반 지갑 이동 (5.6h)",
       "score_modifier": 0
     },
-    "ICX": {
-      "leadtime_hours": 9.9,
+    "DKA": {
+      "leadtime_hours": 5.9,
+      "velocity": 8.55,
+      "status": "⚪ 일반 지갑 이동 (5.9h)",
+      "score_modifier": 0
+    },
+    "ANKR": {
+      "leadtime_hours": 17.7,
+      "velocity": 7.48,
+      "status": "⚪ 일반 지갑 이동 (17.7h)",
+      "score_modifier": 0
+    },
+    "ALGO": {
+      "leadtime_hours": 28.6,
+      "velocity": 8.64,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SHIB": {
+      "leadtime_hours": 40.6,
+      "velocity": 3.61,
+      "status": "🔒 장기 홀딩/출금 (리드타임 40.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "UNI": {
+      "leadtime_hours": 40.9,
+      "velocity": 8.32,
+      "status": "🔒 장기 홀딩/출금 (리드타임 40.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "BIO": {
+      "leadtime_hours": 14.1,
+      "velocity": 4.53,
+      "status": "⚪ 일반 지갑 이동 (14.1h)",
+      "score_modifier": 0
+    },
+    "WLFI": {
+      "leadtime_hours": 14.1,
+      "velocity": 4.8,
+      "status": "⚪ 일반 지갑 이동 (14.1h)",
+      "score_modifier": 0
+    },
+    "UP2": {
+      "leadtime_hours": 4.7,
+      "velocity": 9.27,
+      "status": "⚪ 일반 지갑 이동 (4.7h)",
+      "score_modifier": 0
+    },
+    "TOKAMAK": {
+      "leadtime_hours": 4.8,
+      "velocity": 7.32,
+      "status": "⚪ 일반 지갑 이동 (4.8h)",
+      "score_modifier": 0
+    },
+    "SKY": {
+      "leadtime_hours": 44.0,
+      "velocity": 3.76,
+      "status": "🔒 장기 홀딩/출금 (리드타임 44.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "CYBER": {
+      "leadtime_hours": 31.1,
+      "velocity": 6.27,
+      "status": "🔒 장기 홀딩/출금 (리드타임 31.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SKR": {
+      "leadtime_hours": 45.9,
+      "velocity": 2.75,
+      "status": "🔒 장기 홀딩/출금 (리드타임 45.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "DOGE": {
+      "leadtime_hours": 14.7,
+      "velocity": 7.66,
+      "status": "⚪ 일반 지갑 이동 (14.7h)",
+      "score_modifier": 0
+    },
+    "WLD": {
+      "leadtime_hours": 26.5,
+      "velocity": 5.79,
+      "status": "🔒 장기 홀딩/출금 (리드타임 26.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "PEPE": {
+      "leadtime_hours": 47.1,
+      "velocity": 6.87,
+      "status": "🔒 장기 홀딩/출금 (리드타임 47.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "HBAR": {
+      "leadtime_hours": 37.6,
+      "velocity": 4.68,
+      "status": "🔒 장기 홀딩/출금 (리드타임 37.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "BCH": {
+      "leadtime_hours": 15.6,
+      "velocity": 7.01,
+      "status": "⚪ 일반 지갑 이동 (15.6h)",
+      "score_modifier": 0
+    },
+    "NEWT": {
+      "leadtime_hours": 18.3,
+      "velocity": 7.67,
+      "status": "⚪ 일반 지갑 이동 (18.3h)",
+      "score_modifier": 0
+    },
+    "SEI": {
+      "leadtime_hours": 36.8,
+      "velocity": 2.22,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "BONK": {
+      "leadtime_hours": 7.7,
+      "velocity": 4.28,
+      "status": "⚪ 일반 지갑 이동 (7.7h)",
+      "score_modifier": 0
+    },
+    "JST": {
+      "leadtime_hours": 7.0,
+      "velocity": 8.91,
+      "status": "⚪ 일반 지갑 이동 (7.0h)",
+      "score_modifier": 0
+    },
+    "AAVE": {
+      "leadtime_hours": 34.8,
+      "velocity": 7.1,
+      "status": "🔒 장기 홀딩/출금 (리드타임 34.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "JTO": {
+      "leadtime_hours": 44.2,
+      "velocity": 2.19,
+      "status": "🔒 장기 홀딩/출금 (리드타임 44.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "JUP": {
+      "leadtime_hours": 2.0,
+      "velocity": 7.14,
+      "status": "🚨 덤핑 임박 (리드타임 2.0h / 초고속 거래소 입금)",
+      "score_modifier": -50
+    },
+    "VVV": {
+      "leadtime_hours": 0.6,
+      "velocity": 9.78,
+      "status": "🚨 덤핑 임박 (리드타임 0.6h / 초고속 거래소 입금)",
+      "score_modifier": -50
+    },
+    "AI": {
+      "leadtime_hours": 7.6,
+      "velocity": 2.62,
+      "status": "⚪ 일반 지갑 이동 (7.6h)",
+      "score_modifier": 0
+    },
+    "PIEVERSE": {
+      "leadtime_hours": 39.0,
+      "velocity": 2.2,
+      "status": "🔒 장기 홀딩/출금 (리드타임 39.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ALT": {
+      "leadtime_hours": 7.0,
+      "velocity": 2.65,
+      "status": "⚪ 일반 지갑 이동 (7.0h)",
+      "score_modifier": 0
+    },
+    "B3": {
+      "leadtime_hours": 3.3,
+      "velocity": 3.37,
+      "status": "⚪ 일반 지갑 이동 (3.3h)",
+      "score_modifier": 0
+    },
+    "LAYER": {
+      "leadtime_hours": 32.8,
+      "velocity": 1.59,
+      "status": "🔒 장기 홀딩/출금 (리드타임 32.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "TRX": {
+      "leadtime_hours": 3.9,
+      "velocity": 2.87,
+      "status": "⚪ 일반 지갑 이동 (3.9h)",
+      "score_modifier": 0
+    },
+    "POWR": {
+      "leadtime_hours": 36.1,
+      "velocity": 4.11,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "EUL": {
+      "leadtime_hours": 22.4,
+      "velocity": 6.68,
+      "status": "⚪ 일반 지갑 이동 (22.4h)",
+      "score_modifier": 0
+    },
+    "ATOM": {
+      "leadtime_hours": 21.3,
+      "velocity": 6.29,
+      "status": "⚪ 일반 지갑 이동 (21.3h)",
+      "score_modifier": 0
+    },
+    "ARKM": {
+      "leadtime_hours": 23.2,
+      "velocity": 9.14,
+      "status": "⚪ 일반 지갑 이동 (23.2h)",
+      "score_modifier": 0
+    },
+    "CRO": {
+      "leadtime_hours": 32.1,
+      "velocity": 4.45,
+      "status": "🔒 장기 홀딩/출금 (리드타임 32.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "NXPC": {
+      "leadtime_hours": 43.8,
+      "velocity": 6.19,
+      "status": "🔒 장기 홀딩/출금 (리드타임 43.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "A": {
+      "leadtime_hours": 11.1,
+      "velocity": 5.91,
+      "status": "⚪ 일반 지갑 이동 (11.1h)",
+      "score_modifier": 0
+    },
+    "TRUMP": {
+      "leadtime_hours": 15.0,
+      "velocity": 4.12,
+      "status": "⚪ 일반 지갑 이동 (15.0h)",
+      "score_modifier": 0
+    },
+    "F": {
+      "leadtime_hours": 5.7,
+      "velocity": 3.25,
+      "status": "⚪ 일반 지갑 이동 (5.7h)",
+      "score_modifier": 0
+    },
+    "G": {
+      "leadtime_hours": 41.6,
+      "velocity": 3.81,
+      "status": "🔒 장기 홀딩/출금 (리드타임 41.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "CELO": {
+      "leadtime_hours": 39.5,
+      "velocity": 6.24,
+      "status": "🔒 장기 홀딩/출금 (리드타임 39.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "AERO": {
+      "leadtime_hours": 31.9,
+      "velocity": 9.24,
+      "status": "🔒 장기 홀딩/출금 (리드타임 31.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "CTC": {
+      "leadtime_hours": 28.8,
+      "velocity": 8.87,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ANIME": {
+      "leadtime_hours": 28.7,
+      "velocity": 9.94,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "APT": {
+      "leadtime_hours": 34.0,
+      "velocity": 3.8,
+      "status": "🔒 장기 홀딩/출금 (리드타임 34.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MOCA": {
+      "leadtime_hours": 38.4,
+      "velocity": 7.82,
+      "status": "🔒 장기 홀딩/출금 (리드타임 38.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "API3": {
+      "leadtime_hours": 10.3,
+      "velocity": 7.75,
+      "status": "⚪ 일반 지갑 이동 (10.3h)",
+      "score_modifier": 0
+    },
+    "AHT": {
+      "leadtime_hours": 30.5,
+      "velocity": 7.6,
+      "status": "🔒 장기 홀딩/출금 (리드타임 30.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "EGLD": {
+      "leadtime_hours": 42.4,
+      "velocity": 8.87,
+      "status": "🔒 장기 홀딩/출금 (리드타임 42.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "BLEND": {
+      "leadtime_hours": 7.3,
+      "velocity": 3.25,
+      "status": "⚪ 일반 지갑 이동 (7.3h)",
+      "score_modifier": 0
+    },
+    "ERA": {
+      "leadtime_hours": 8.2,
+      "velocity": 9.25,
+      "status": "⚪ 일반 지갑 이동 (8.2h)",
+      "score_modifier": 0
+    },
+    "FF": {
+      "leadtime_hours": 23.0,
+      "velocity": 2.75,
+      "status": "⚪ 일반 지갑 이동 (23.0h)",
+      "score_modifier": 0
+    },
+    "PLUME": {
+      "leadtime_hours": 15.4,
+      "velocity": 2.63,
+      "status": "⚪ 일반 지갑 이동 (15.4h)",
+      "score_modifier": 0
+    },
+    "ESP": {
+      "leadtime_hours": 17.9,
+      "velocity": 2.89,
+      "status": "⚪ 일반 지갑 이동 (17.9h)",
+      "score_modifier": 0
+    },
+    "CC": {
+      "leadtime_hours": 28.4,
+      "velocity": 7.09,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "NEO": {
+      "leadtime_hours": 24.5,
+      "velocity": 1.68,
+      "status": "🔒 장기 홀딩/출금 (리드타임 24.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ETC": {
+      "leadtime_hours": 42.9,
+      "velocity": 5.45,
+      "status": "🔒 장기 홀딩/출금 (리드타임 42.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "IOTA": {
+      "leadtime_hours": 36.4,
+      "velocity": 4.71,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "IOST": {
+      "leadtime_hours": 17.3,
+      "velocity": 6.06,
+      "status": "⚪ 일반 지갑 이동 (17.3h)",
+      "score_modifier": 0
+    },
+    "AKT": {
+      "leadtime_hours": 27.1,
+      "velocity": 2.63,
+      "status": "🔒 장기 홀딩/출금 (리드타임 27.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "COW": {
+      "leadtime_hours": 25.9,
+      "velocity": 7.17,
+      "status": "🔒 장기 홀딩/출금 (리드타임 25.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "VIRTUAL": {
+      "leadtime_hours": 11.8,
+      "velocity": 5.8,
+      "status": "⚪ 일반 지갑 이동 (11.8h)",
+      "score_modifier": 0
+    },
+    "RLUSD": {
+      "leadtime_hours": 26.5,
+      "velocity": 6.83,
+      "status": "🔒 장기 홀딩/출금 (리드타임 26.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ETH": {
+      "leadtime_hours": 36.5,
+      "velocity": 6.98,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "IQ": {
+      "leadtime_hours": 27.9,
+      "velocity": 4.88,
+      "status": "🔒 장기 홀딩/출금 (리드타임 27.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "NEAR": {
+      "leadtime_hours": 22.0,
       "velocity": 5.77,
+      "status": "⚪ 일반 지갑 이동 (22.0h)",
+      "score_modifier": 0
+    },
+    "RVN": {
+      "leadtime_hours": 30.5,
+      "velocity": 6.01,
+      "status": "🔒 장기 홀딩/출금 (리드타임 30.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "PRL": {
+      "leadtime_hours": 12.9,
+      "velocity": 2.92,
+      "status": "⚪ 일반 지갑 이동 (12.9h)",
+      "score_modifier": 0
+    },
+    "AGLD": {
+      "leadtime_hours": 5.3,
+      "velocity": 1.41,
+      "status": "⚪ 일반 지갑 이동 (5.3h)",
+      "score_modifier": 0
+    },
+    "ID": {
+      "leadtime_hours": 15.6,
+      "velocity": 2.29,
+      "status": "⚪ 일반 지갑 이동 (15.6h)",
+      "score_modifier": 0
+    },
+    "IO": {
+      "leadtime_hours": 8.7,
+      "velocity": 2.54,
+      "status": "⚪ 일반 지갑 이동 (8.7h)",
+      "score_modifier": 0
+    },
+    "IN": {
+      "leadtime_hours": 41.1,
+      "velocity": 4.88,
+      "status": "🔒 장기 홀딩/출금 (리드타임 41.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MANTRA": {
+      "leadtime_hours": 44.9,
+      "velocity": 1.45,
+      "status": "🔒 장기 홀딩/출금 (리드타임 44.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "WAL": {
+      "leadtime_hours": 30.8,
+      "velocity": 9.0,
+      "status": "🔒 장기 홀딩/출금 (리드타임 30.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "PENDLE": {
+      "leadtime_hours": 15.9,
+      "velocity": 8.66,
+      "status": "⚪ 일반 지갑 이동 (15.9h)",
+      "score_modifier": 0
+    },
+    "BLUR": {
+      "leadtime_hours": 30.8,
+      "velocity": 1.04,
+      "status": "🔒 장기 홀딩/출금 (리드타임 30.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "AWE": {
+      "leadtime_hours": 23.0,
+      "velocity": 1.25,
+      "status": "⚪ 일반 지갑 이동 (23.0h)",
+      "score_modifier": 0
+    },
+    "THETA": {
+      "leadtime_hours": 18.9,
+      "velocity": 7.26,
+      "status": "⚪ 일반 지갑 이동 (18.9h)",
+      "score_modifier": 0
+    },
+    "AXL": {
+      "leadtime_hours": 41.0,
+      "velocity": 1.18,
+      "status": "🔒 장기 홀딩/출금 (리드타임 41.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "HP": {
+      "leadtime_hours": 12.7,
+      "velocity": 1.29,
+      "status": "⚪ 일반 지갑 이동 (12.7h)",
+      "score_modifier": 0
+    },
+    "SAND": {
+      "leadtime_hours": 34.5,
+      "velocity": 9.87,
+      "status": "🔒 장기 홀딩/출금 (리드타임 34.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "WCT": {
+      "leadtime_hours": 28.1,
+      "velocity": 9.94,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "YGG": {
+      "leadtime_hours": 37.5,
+      "velocity": 7.4,
+      "status": "🔒 장기 홀딩/출금 (리드타임 37.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "AXS": {
+      "leadtime_hours": 13.6,
+      "velocity": 5.79,
+      "status": "⚪ 일반 지갑 이동 (13.6h)",
+      "score_modifier": 0
+    },
+    "ARDR": {
+      "leadtime_hours": 9.0,
+      "velocity": 9.81,
+      "status": "⚪ 일반 지갑 이동 (9.0h)",
+      "score_modifier": 0
+    },
+    "AQT": {
+      "leadtime_hours": 1.8,
+      "velocity": 6.94,
+      "status": "⚪ 일반 지갑 이동 (1.8h)",
+      "score_modifier": 0
+    },
+    "ME": {
+      "leadtime_hours": 5.3,
+      "velocity": 5.35,
+      "status": "⚪ 일반 지갑 이동 (5.3h)",
+      "score_modifier": 0
+    },
+    "TRUST": {
+      "leadtime_hours": 41.0,
+      "velocity": 3.24,
+      "status": "🔒 장기 홀딩/출금 (리드타임 41.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SONIC": {
+      "leadtime_hours": 2.7,
+      "velocity": 3.44,
+      "status": "⚪ 일반 지갑 이동 (2.7h)",
+      "score_modifier": 0
+    },
+    "ARB": {
+      "leadtime_hours": 14.8,
+      "velocity": 2.16,
+      "status": "⚪ 일반 지갑 이동 (14.8h)",
+      "score_modifier": 0
+    },
+    "POL": {
+      "leadtime_hours": 3.7,
+      "velocity": 2.04,
+      "status": "⚪ 일반 지갑 이동 (3.7h)",
+      "score_modifier": 0
+    },
+    "CVC": {
+      "leadtime_hours": 42.9,
+      "velocity": 2.26,
+      "status": "🔒 장기 홀딩/출금 (리드타임 42.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "T": {
+      "leadtime_hours": 26.1,
+      "velocity": 9.93,
+      "status": "🔒 장기 홀딩/출금 (리드타임 26.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ARX": {
+      "leadtime_hours": 9.0,
+      "velocity": 7.45,
+      "status": "⚪ 일반 지갑 이동 (9.0h)",
+      "score_modifier": 0
+    },
+    "W": {
+      "leadtime_hours": 3.1,
+      "velocity": 1.94,
+      "status": "⚪ 일반 지갑 이동 (3.1h)",
+      "score_modifier": 0
+    },
+    "ARK": {
+      "leadtime_hours": 17.9,
+      "velocity": 3.79,
+      "status": "⚪ 일반 지갑 이동 (17.9h)",
+      "score_modifier": 0
+    },
+    "AVNT": {
+      "leadtime_hours": 32.6,
+      "velocity": 2.82,
+      "status": "🔒 장기 홀딩/출금 (리드타임 32.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "O": {
+      "leadtime_hours": 39.7,
+      "velocity": 3.8,
+      "status": "🔒 장기 홀딩/출금 (리드타임 39.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "LA": {
+      "leadtime_hours": 2.4,
+      "velocity": 8.94,
+      "status": "🚨 덤핑 임박 (리드타임 2.4h / 초고속 거래소 입금)",
+      "score_modifier": -50
+    },
+    "HYPER": {
+      "leadtime_hours": 45.7,
+      "velocity": 6.71,
+      "status": "🔒 장기 홀딩/출금 (리드타임 45.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ATH": {
+      "leadtime_hours": 22.0,
+      "velocity": 4.99,
+      "status": "⚪ 일반 지갑 이동 (22.0h)",
+      "score_modifier": 0
+    },
+    "TAIKO": {
+      "leadtime_hours": 9.9,
+      "velocity": 7.3,
       "status": "⚪ 일반 지갑 이동 (9.9h)",
       "score_modifier": 0
     },
+    "RE": {
+      "leadtime_hours": 43.8,
+      "velocity": 4.17,
+      "status": "🔒 장기 홀딩/출금 (리드타임 43.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "AVAX": {
+      "leadtime_hours": 3.4,
+      "velocity": 6.58,
+      "status": "⚪ 일반 지갑 이동 (3.4h)",
+      "score_modifier": 0
+    },
+    "XAUT": {
+      "leadtime_hours": 40.7,
+      "velocity": 2.16,
+      "status": "🔒 장기 홀딩/출금 (리드타임 40.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "CPOOL": {
+      "leadtime_hours": 43.5,
+      "velocity": 2.08,
+      "status": "🔒 장기 홀딩/출금 (리드타임 43.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "IMX": {
+      "leadtime_hours": 35.9,
+      "velocity": 4.56,
+      "status": "🔒 장기 홀딩/출금 (리드타임 35.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SC": {
+      "leadtime_hours": 15.7,
+      "velocity": 6.94,
+      "status": "⚪ 일반 지갑 이동 (15.7h)",
+      "score_modifier": 0
+    },
+    "INJ": {
+      "leadtime_hours": 4.2,
+      "velocity": 6.25,
+      "status": "⚪ 일반 지갑 이동 (4.2h)",
+      "score_modifier": 0
+    },
+    "MVL": {
+      "leadtime_hours": 7.3,
+      "velocity": 5.13,
+      "status": "⚪ 일반 지갑 이동 (7.3h)",
+      "score_modifier": 0
+    },
+    "HIVE": {
+      "leadtime_hours": 40.3,
+      "velocity": 7.62,
+      "status": "🔒 장기 홀딩/출금 (리드타임 40.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "CBK": {
+      "leadtime_hours": 6.5,
+      "velocity": 1.05,
+      "status": "⚪ 일반 지갑 이동 (6.5h)",
+      "score_modifier": 0
+    },
+    "XLM": {
+      "leadtime_hours": 20.6,
+      "velocity": 5.29,
+      "status": "⚪ 일반 지갑 이동 (20.6h)",
+      "score_modifier": 0
+    },
+    "OP": {
+      "leadtime_hours": 5.7,
+      "velocity": 8.47,
+      "status": "⚪ 일반 지갑 이동 (5.7h)",
+      "score_modifier": 0
+    },
+    "SAFE": {
+      "leadtime_hours": 2.9,
+      "velocity": 7.94,
+      "status": "🚨 덤핑 임박 (리드타임 2.9h / 초고속 거래소 입금)",
+      "score_modifier": -50
+    },
+    "GLM": {
+      "leadtime_hours": 28.2,
+      "velocity": 6.25,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SUPER": {
+      "leadtime_hours": 38.0,
+      "velocity": 7.5,
+      "status": "🔒 장기 홀딩/출금 (리드타임 38.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "LINEA": {
+      "leadtime_hours": 38.7,
+      "velocity": 8.03,
+      "status": "🔒 장기 홀딩/출금 (리드타임 38.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "DATA": {
+      "leadtime_hours": 26.9,
+      "velocity": 4.22,
+      "status": "🔒 장기 홀딩/출금 (리드타임 26.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "KERNEL": {
+      "leadtime_hours": 40.7,
+      "velocity": 2.42,
+      "status": "🔒 장기 홀딩/출금 (리드타임 40.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "POKT": {
+      "leadtime_hours": 1.1,
+      "velocity": 2.99,
+      "status": "⚪ 일반 지갑 이동 (1.1h)",
+      "score_modifier": 0
+    },
+    "SENT": {
+      "leadtime_hours": 5.6,
+      "velocity": 6.06,
+      "status": "⚪ 일반 지갑 이동 (5.6h)",
+      "score_modifier": 0
+    },
+    "ZKC": {
+      "leadtime_hours": 26.4,
+      "velocity": 1.25,
+      "status": "🔒 장기 홀딩/출금 (리드타임 26.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "KNC": {
+      "leadtime_hours": 32.5,
+      "velocity": 8.22,
+      "status": "🔒 장기 홀딩/출금 (리드타임 32.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ZKP": {
+      "leadtime_hours": 16.1,
+      "velocity": 1.76,
+      "status": "⚪ 일반 지갑 이동 (16.1h)",
+      "score_modifier": 0
+    },
+    "AUCTION": {
+      "leadtime_hours": 0.8,
+      "velocity": 8.4,
+      "status": "🚨 덤핑 임박 (리드타임 0.8h / 초고속 거래소 입금)",
+      "score_modifier": -50
+    },
+    "ORDER": {
+      "leadtime_hours": 24.5,
+      "velocity": 9.88,
+      "status": "🔒 장기 홀딩/출금 (리드타임 24.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "FCT2": {
+      "leadtime_hours": 5.3,
+      "velocity": 3.56,
+      "status": "⚪ 일반 지갑 이동 (5.3h)",
+      "score_modifier": 0
+    },
+    "MTL": {
+      "leadtime_hours": 34.1,
+      "velocity": 8.43,
+      "status": "🔒 장기 홀딩/출금 (리드타임 34.1h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "VET": {
+      "leadtime_hours": 9.6,
+      "velocity": 9.6,
+      "status": "⚪ 일반 지갑 이동 (9.6h)",
+      "score_modifier": 0
+    },
+    "TAO": {
+      "leadtime_hours": 26.2,
+      "velocity": 7.98,
+      "status": "🔒 장기 홀딩/출금 (리드타임 26.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "QTUM": {
+      "leadtime_hours": 11.6,
+      "velocity": 7.87,
+      "status": "⚪ 일반 지갑 이동 (11.6h)",
+      "score_modifier": 0
+    },
+    "TT": {
+      "leadtime_hours": 11.8,
+      "velocity": 5.17,
+      "status": "⚪ 일반 지갑 이동 (11.8h)",
+      "score_modifier": 0
+    },
+    "LINK": {
+      "leadtime_hours": 1.3,
+      "velocity": 9.26,
+      "status": "🚨 덤핑 임박 (리드타임 1.3h / 초고속 거래소 입금)",
+      "score_modifier": -50
+    },
+    "XRP": {
+      "leadtime_hours": 14.8,
+      "velocity": 4.51,
+      "status": "⚪ 일반 지갑 이동 (14.8h)",
+      "score_modifier": 0
+    },
+    "CHZ": {
+      "leadtime_hours": 41.4,
+      "velocity": 6.06,
+      "status": "🔒 장기 홀딩/출금 (리드타임 41.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ASTR": {
+      "leadtime_hours": 15.6,
+      "velocity": 6.99,
+      "status": "⚪ 일반 지갑 이동 (15.6h)",
+      "score_modifier": 0
+    },
+    "ZK": {
+      "leadtime_hours": 47.8,
+      "velocity": 2.92,
+      "status": "🔒 장기 홀딩/출금 (리드타임 47.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "STORJ": {
+      "leadtime_hours": 42.3,
+      "velocity": 1.33,
+      "status": "🔒 장기 홀딩/출금 (리드타임 42.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ENA": {
+      "leadtime_hours": 29.0,
+      "velocity": 4.31,
+      "status": "🔒 장기 홀딩/출금 (리드타임 29.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MANA": {
+      "leadtime_hours": 11.6,
+      "velocity": 7.81,
+      "status": "⚪ 일반 지갑 이동 (11.6h)",
+      "score_modifier": 0
+    },
+    "OPEN": {
+      "leadtime_hours": 18.5,
+      "velocity": 2.13,
+      "status": "⚪ 일반 지갑 이동 (18.5h)",
+      "score_modifier": 0
+    },
+    "PYTH": {
+      "leadtime_hours": 38.8,
+      "velocity": 5.26,
+      "status": "🔒 장기 홀딩/출금 (리드타임 38.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ENS": {
+      "leadtime_hours": 23.1,
+      "velocity": 8.19,
+      "status": "⚪ 일반 지갑 이동 (23.1h)",
+      "score_modifier": 0
+    },
+    "GRT": {
+      "leadtime_hours": 16.9,
+      "velocity": 4.13,
+      "status": "⚪ 일반 지갑 이동 (16.9h)",
+      "score_modifier": 0
+    },
+    "PUMP": {
+      "leadtime_hours": 30.5,
+      "velocity": 9.62,
+      "status": "🔒 장기 홀딩/출금 (리드타임 30.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "XTZ": {
+      "leadtime_hours": 33.5,
+      "velocity": 8.97,
+      "status": "🔒 장기 홀딩/출금 (리드타임 33.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "CKB": {
+      "leadtime_hours": 9.9,
+      "velocity": 8.03,
+      "status": "⚪ 일반 지갑 이동 (9.9h)",
+      "score_modifier": 0
+    },
+    "KAVA": {
+      "leadtime_hours": 13.2,
+      "velocity": 2.05,
+      "status": "⚪ 일반 지갑 이동 (13.2h)",
+      "score_modifier": 0
+    },
+    "TOSHI": {
+      "leadtime_hours": 8.3,
+      "velocity": 7.38,
+      "status": "⚪ 일반 지갑 이동 (8.3h)",
+      "score_modifier": 0
+    },
+    "BARD": {
+      "leadtime_hours": 22.7,
+      "velocity": 2.38,
+      "status": "⚪ 일반 지갑 이동 (22.7h)",
+      "score_modifier": 0
+    },
+    "ZRO": {
+      "leadtime_hours": 6.1,
+      "velocity": 2.44,
+      "status": "⚪ 일반 지갑 이동 (6.1h)",
+      "score_modifier": 0
+    },
+    "RAY": {
+      "leadtime_hours": 2.5,
+      "velocity": 6.7,
+      "status": "⚪ 일반 지갑 이동 (2.5h)",
+      "score_modifier": 0
+    },
+    "ONDO": {
+      "leadtime_hours": 36.9,
+      "velocity": 1.84,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.9h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ZRX": {
+      "leadtime_hours": 36.6,
+      "velocity": 6.74,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "GMT": {
+      "leadtime_hours": 14.8,
+      "velocity": 9.53,
+      "status": "⚪ 일반 지갑 이동 (14.8h)",
+      "score_modifier": 0
+    },
+    "TFUEL": {
+      "leadtime_hours": 26.7,
+      "velocity": 7.83,
+      "status": "🔒 장기 홀딩/출금 (리드타임 26.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "CFG": {
+      "leadtime_hours": 40.0,
+      "velocity": 8.93,
+      "status": "🔒 장기 홀딩/출금 (리드타임 40.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "AZTEC": {
+      "leadtime_hours": 8.5,
+      "velocity": 1.74,
+      "status": "⚪ 일반 지갑 이동 (8.5h)",
+      "score_modifier": 0
+    },
+    "CFX": {
+      "leadtime_hours": 23.2,
+      "velocity": 9.26,
+      "status": "⚪ 일반 지갑 이동 (23.2h)",
+      "score_modifier": 0
+    },
+    "XPL": {
+      "leadtime_hours": 20.7,
+      "velocity": 5.6,
+      "status": "⚪ 일반 지갑 이동 (20.7h)",
+      "score_modifier": 0
+    },
+    "ZAMA": {
+      "leadtime_hours": 24.7,
+      "velocity": 7.65,
+      "status": "🔒 장기 홀딩/출금 (리드타임 24.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MASK": {
+      "leadtime_hours": 18.1,
+      "velocity": 1.77,
+      "status": "⚪ 일반 지갑 이동 (18.1h)",
+      "score_modifier": 0
+    },
+    "COMP": {
+      "leadtime_hours": 12.8,
+      "velocity": 3.76,
+      "status": "⚪ 일반 지갑 이동 (12.8h)",
+      "score_modifier": 0
+    },
+    "ZETA": {
+      "leadtime_hours": 45.4,
+      "velocity": 1.41,
+      "status": "🔒 장기 홀딩/출금 (리드타임 45.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "RED": {
+      "leadtime_hours": 46.3,
+      "velocity": 2.36,
+      "status": "🔒 장기 홀딩/출금 (리드타임 46.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "TIA": {
+      "leadtime_hours": 8.2,
+      "velocity": 9.63,
+      "status": "⚪ 일반 지갑 이동 (8.2h)",
+      "score_modifier": 0
+    },
+    "ADA": {
+      "leadtime_hours": 17.3,
+      "velocity": 3.23,
+      "status": "⚪ 일반 지갑 이동 (17.3h)",
+      "score_modifier": 0
+    },
+    "ELF": {
+      "leadtime_hours": 45.5,
+      "velocity": 7.89,
+      "status": "🔒 장기 홀딩/출금 (리드타임 45.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SOON": {
+      "leadtime_hours": 16.0,
+      "velocity": 3.05,
+      "status": "⚪ 일반 지갑 이동 (16.0h)",
+      "score_modifier": 0
+    },
+    "STEEM": {
+      "leadtime_hours": 14.4,
+      "velocity": 8.65,
+      "status": "⚪ 일반 지갑 이동 (14.4h)",
+      "score_modifier": 0
+    },
+    "ELSA": {
+      "leadtime_hours": 13.1,
+      "velocity": 9.84,
+      "status": "⚪ 일반 지갑 이동 (13.1h)",
+      "score_modifier": 0
+    },
+    "SPK": {
+      "leadtime_hours": 18.9,
+      "velocity": 1.66,
+      "status": "⚪ 일반 지갑 이동 (18.9h)",
+      "score_modifier": 0
+    },
+    "SOPH": {
+      "leadtime_hours": 46.2,
+      "velocity": 5.82,
+      "status": "🔒 장기 홀딩/출금 (리드타임 46.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SPX": {
+      "leadtime_hours": 2.4,
+      "velocity": 6.38,
+      "status": "⚪ 일반 지갑 이동 (2.4h)",
+      "score_modifier": 0
+    },
+    "MED": {
+      "leadtime_hours": 20.2,
+      "velocity": 9.11,
+      "status": "⚪ 일반 지갑 이동 (20.2h)",
+      "score_modifier": 0
+    },
+    "1INCH": {
+      "leadtime_hours": 43.6,
+      "velocity": 4.71,
+      "status": "🔒 장기 홀딩/출금 (리드타임 43.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "KAT": {
+      "leadtime_hours": 25.2,
+      "velocity": 4.18,
+      "status": "🔒 장기 홀딩/출금 (리드타임 25.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MEW": {
+      "leadtime_hours": 35.3,
+      "velocity": 2.44,
+      "status": "🔒 장기 홀딩/출금 (리드타임 35.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ORBS": {
+      "leadtime_hours": 46.7,
+      "velocity": 2.68,
+      "status": "🔒 장기 홀딩/출금 (리드타임 46.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "RENDER": {
+      "leadtime_hours": 22.0,
+      "velocity": 5.79,
+      "status": "⚪ 일반 지갑 이동 (22.0h)",
+      "score_modifier": 0
+    },
+    "ORCA": {
+      "leadtime_hours": 13.9,
+      "velocity": 7.61,
+      "status": "⚪ 일반 지갑 이동 (13.9h)",
+      "score_modifier": 0
+    },
+    "BERA": {
+      "leadtime_hours": 28.8,
+      "velocity": 2.94,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SIGN": {
+      "leadtime_hours": 5.0,
+      "velocity": 3.64,
+      "status": "⚪ 일반 지갑 이동 (5.0h)",
+      "score_modifier": 0
+    },
+    "SLX": {
+      "leadtime_hours": 23.3,
+      "velocity": 2.61,
+      "status": "⚪ 일반 지갑 이동 (23.3h)",
+      "score_modifier": 0
+    },
+    "VANA": {
+      "leadtime_hours": 31.3,
+      "velocity": 4.56,
+      "status": "🔒 장기 홀딩/출금 (리드타임 31.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "DOT": {
+      "leadtime_hours": 42.2,
+      "velocity": 9.33,
+      "status": "🔒 장기 홀딩/출금 (리드타임 42.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "EDGE": {
+      "leadtime_hours": 16.7,
+      "velocity": 7.87,
+      "status": "⚪ 일반 지갑 이동 (16.7h)",
+      "score_modifier": 0
+    },
+    "MET2": {
+      "leadtime_hours": 9.8,
+      "velocity": 2.17,
+      "status": "⚪ 일반 지갑 이동 (9.8h)",
+      "score_modifier": 0
+    },
+    "MBL": {
+      "leadtime_hours": 32.3,
+      "velocity": 5.83,
+      "status": "🔒 장기 홀딩/출금 (리드타임 32.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "FLUID": {
+      "leadtime_hours": 32.7,
+      "velocity": 8.9,
+      "status": "🔒 장기 홀딩/출금 (리드타임 32.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "BIGTIME": {
+      "leadtime_hours": 19.2,
+      "velocity": 6.68,
+      "status": "⚪ 일반 지갑 이동 (19.2h)",
+      "score_modifier": 0
+    },
+    "SNT": {
+      "leadtime_hours": 9.3,
+      "velocity": 3.0,
+      "status": "⚪ 일반 지갑 이동 (9.3h)",
+      "score_modifier": 0
+    },
+    "SOL": {
+      "leadtime_hours": 17.8,
+      "velocity": 2.18,
+      "status": "⚪ 일반 지갑 이동 (17.8h)",
+      "score_modifier": 0
+    },
+    "QKC": {
+      "leadtime_hours": 46.6,
+      "velocity": 8.0,
+      "status": "🔒 장기 홀딩/출금 (리드타임 46.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "DRV": {
+      "leadtime_hours": 26.8,
+      "velocity": 8.63,
+      "status": "🔒 장기 홀딩/출금 (리드타임 26.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "META": {
+      "leadtime_hours": 12.6,
+      "velocity": 8.44,
+      "status": "⚪ 일반 지갑 이동 (12.6h)",
+      "score_modifier": 0
+    },
+    "IRYS": {
+      "leadtime_hours": 17.4,
+      "velocity": 7.6,
+      "status": "⚪ 일반 지갑 이동 (17.4h)",
+      "score_modifier": 0
+    },
+    "SAHARA": {
+      "leadtime_hours": 6.3,
+      "velocity": 8.31,
+      "status": "⚪ 일반 지갑 이동 (6.3h)",
+      "score_modifier": 0
+    },
+    "MLK": {
+      "leadtime_hours": 4.5,
+      "velocity": 1.57,
+      "status": "⚪ 일반 지갑 이동 (4.5h)",
+      "score_modifier": 0
+    },
+    "VTHO": {
+      "leadtime_hours": 1.5,
+      "velocity": 9.3,
+      "status": "🚨 덤핑 임박 (리드타임 1.5h / 초고속 거래소 입금)",
+      "score_modifier": -50
+    },
+    "KITE": {
+      "leadtime_hours": 38.2,
+      "velocity": 5.15,
+      "status": "🔒 장기 홀딩/출금 (리드타임 38.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MINA": {
+      "leadtime_hours": 30.4,
+      "velocity": 4.83,
+      "status": "🔒 장기 홀딩/출금 (리드타임 30.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MMT": {
+      "leadtime_hours": 36.5,
+      "velocity": 4.1,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "CHIP": {
+      "leadtime_hours": 24.5,
+      "velocity": 9.95,
+      "status": "🔒 장기 홀딩/출금 (리드타임 24.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ZORA": {
+      "leadtime_hours": 21.0,
+      "velocity": 4.69,
+      "status": "⚪ 일반 지갑 이동 (21.0h)",
+      "score_modifier": 0
+    },
+    "XCN": {
+      "leadtime_hours": 42.7,
+      "velocity": 3.36,
+      "status": "🔒 장기 홀딩/출금 (리드타임 42.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "GAS": {
+      "leadtime_hours": 39.7,
+      "velocity": 7.94,
+      "status": "🔒 장기 홀딩/출금 (리드타임 39.7h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MEGA": {
+      "leadtime_hours": 36.6,
+      "velocity": 6.51,
+      "status": "🔒 장기 홀딩/출금 (리드타임 36.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MNT": {
+      "leadtime_hours": 16.4,
+      "velocity": 1.77,
+      "status": "⚪ 일반 지갑 이동 (16.4h)",
+      "score_modifier": 0
+    },
+    "MOC": {
+      "leadtime_hours": 8.4,
+      "velocity": 5.78,
+      "status": "⚪ 일반 지갑 이동 (8.4h)",
+      "score_modifier": 0
+    },
+    "MOODENG": {
+      "leadtime_hours": 10.4,
+      "velocity": 9.64,
+      "status": "⚪ 일반 지갑 이동 (10.4h)",
+      "score_modifier": 0
+    },
+    "XEC": {
+      "leadtime_hours": 12.9,
+      "velocity": 9.21,
+      "status": "⚪ 일반 지갑 이동 (12.9h)",
+      "score_modifier": 0
+    },
+    "MON": {
+      "leadtime_hours": 21.9,
+      "velocity": 9.35,
+      "status": "⚪ 일반 지갑 이동 (21.9h)",
+      "score_modifier": 0
+    },
+    "MORPHO": {
+      "leadtime_hours": 28.4,
+      "velocity": 4.51,
+      "status": "🔒 장기 홀딩/출금 (리드타임 28.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ZIL": {
+      "leadtime_hours": 44.3,
+      "velocity": 1.55,
+      "status": "🔒 장기 홀딩/출금 (리드타임 44.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "GAME2": {
+      "leadtime_hours": 47.8,
+      "velocity": 7.07,
+      "status": "🔒 장기 홀딩/출금 (리드타임 47.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "STX": {
+      "leadtime_hours": 23.0,
+      "velocity": 6.68,
+      "status": "⚪ 일반 지갑 이동 (23.0h)",
+      "score_modifier": 0
+    },
+    "FLOCK": {
+      "leadtime_hours": 47.4,
+      "velocity": 2.46,
+      "status": "🔒 장기 홀딩/출금 (리드타임 47.4h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "PROVE": {
+      "leadtime_hours": 44.5,
+      "velocity": 4.44,
+      "status": "🔒 장기 홀딩/출금 (리드타임 44.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "BSV": {
+      "leadtime_hours": 9.3,
+      "velocity": 6.14,
+      "status": "⚪ 일반 지갑 이동 (9.3h)",
+      "score_modifier": 0
+    },
+    "SUI": {
+      "leadtime_hours": 43.3,
+      "velocity": 4.07,
+      "status": "🔒 장기 홀딩/출금 (리드타임 43.3h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SYRUP": {
+      "leadtime_hours": 20.6,
+      "velocity": 8.87,
+      "status": "⚪ 일반 지갑 이동 (20.6h)",
+      "score_modifier": 0
+    },
+    "BTC": {
+      "leadtime_hours": 32.2,
+      "velocity": 3.2,
+      "status": "🔒 장기 홀딩/출금 (리드타임 32.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "BABY": {
+      "leadtime_hours": 23.4,
+      "velocity": 2.3,
+      "status": "⚪ 일반 지갑 이동 (23.4h)",
+      "score_modifier": 0
+    },
+    "HOLO": {
+      "leadtime_hours": 43.0,
+      "velocity": 4.04,
+      "status": "🔒 장기 홀딩/출금 (리드타임 43.0h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "MIRA": {
+      "leadtime_hours": 11.7,
+      "velocity": 2.92,
+      "status": "⚪ 일반 지갑 이동 (11.7h)",
+      "score_modifier": 0
+    },
+    "SUN": {
+      "leadtime_hours": 35.5,
+      "velocity": 2.01,
+      "status": "🔒 장기 홀딩/출금 (리드타임 35.5h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ZBT": {
+      "leadtime_hours": 27.8,
+      "velocity": 1.09,
+      "status": "🔒 장기 홀딩/출금 (리드타임 27.8h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ONG": {
+      "leadtime_hours": 18.4,
+      "velocity": 9.53,
+      "status": "⚪ 일반 지갑 이동 (18.4h)",
+      "score_modifier": 0
+    },
+    "BTT": {
+      "leadtime_hours": 16.7,
+      "velocity": 3.0,
+      "status": "⚪ 일반 지갑 이동 (16.7h)",
+      "score_modifier": 0
+    },
+    "ENSO": {
+      "leadtime_hours": 16.7,
+      "velocity": 8.4,
+      "status": "⚪ 일반 지갑 이동 (16.7h)",
+      "score_modifier": 0
+    },
+    "BIRB": {
+      "leadtime_hours": 4.8,
+      "velocity": 4.73,
+      "status": "⚪ 일반 지갑 이동 (4.8h)",
+      "score_modifier": 0
+    },
+    "ONT": {
+      "leadtime_hours": 45.2,
+      "velocity": 4.52,
+      "status": "🔒 장기 홀딩/출금 (리드타임 45.2h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "SOMI": {
+      "leadtime_hours": 13.8,
+      "velocity": 7.3,
+      "status": "⚪ 일반 지갑 이동 (13.8h)",
+      "score_modifier": 0
+    },
+    "DEEP": {
+      "leadtime_hours": 17.1,
+      "velocity": 5.27,
+      "status": "⚪ 일반 지갑 이동 (17.1h)",
+      "score_modifier": 0
+    },
+    "STRAX": {
+      "leadtime_hours": 12.9,
+      "velocity": 6.43,
+      "status": "⚪ 일반 지갑 이동 (12.9h)",
+      "score_modifier": 0
+    },
+    "ICP": {
+      "leadtime_hours": 20.5,
+      "velocity": 6.7,
+      "status": "⚪ 일반 지갑 이동 (20.5h)",
+      "score_modifier": 0
+    },
+    "OPG": {
+      "leadtime_hours": 8.2,
+      "velocity": 4.01,
+      "status": "⚪ 일반 지갑 이동 (8.2h)",
+      "score_modifier": 0
+    },
+    "BREV": {
+      "leadtime_hours": 43.6,
+      "velocity": 5.26,
+      "status": "🔒 장기 홀딩/출금 (리드타임 43.6h / 완만한 이동)",
+      "score_modifier": 15
+    },
+    "ICX": {
+      "leadtime_hours": 15.3,
+      "velocity": 6.57,
+      "status": "⚪ 일반 지갑 이동 (15.3h)",
+      "score_modifier": 0
+    },
     "POLYX": {
-      "leadtime_hours": 31.4,
-      "velocity": 3.93,
-      "status": "🔒 장기 홀딩/출금 (리드타임 31.4h / 완만한 이동)",
+      "leadtime_hours": 44.2,
+      "velocity": 5.96,
+      "status": "🔒 장기 홀딩/출금 (리드타임 44.2h / 완만한 이동)",
       "score_modifier": 15
     }
   }
