@@ -38,7 +38,7 @@ jobs:
           # [핵심] 수동 실행(workflow_dispatch)일 때만 "true", 자동 실행일 때는 "false"가 됩니다.
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: |
-          python main.py
+          python coin_excel_krw.py
 
       - name: 누적 히스토리(CSV) 및 캐시 자동 커밋 & 푸시
         run: |
