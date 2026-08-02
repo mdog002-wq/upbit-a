@@ -27,25 +27,27 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: 업비트 스크립트 실행 및 메일 발송
+      - name: 파이썬 분석 스크립트 실행
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # [핵심] 수동 실행(workflow_dispatch)일 때만 "true", 자동 실행일 때는 "false"가 됩니다.
+          IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: |
-          python coin_excel_krw.py
+          python main.py
 
       - name: 누적 히스토리(CSV) 및 캐시 자동 커밋 & 푸시
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
+
           # 파일이 존재하는 경우에만 안전하게 git add 수행
           git add scan_history.csv cache_*.json 2>/dev/null || true
-          
+
           # 변경사항이 있는지 확인 후 커밋 및 푸시
           git diff --staged --quiet || git commit -m "Auto: Update scan history and cache [skip ci]"
           git push || echo "No changes to push or push failed"
