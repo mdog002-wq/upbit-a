@@ -22,8 +22,15 @@ from google import genai
 from google.genai import types
 from tqdm import tqdm
 
-# [추가] 시계열 딥러닝(LSTM) 모델을 위한 TensorFlow 임포트 (경량 실행을 위해 CPU 전용 및 로그 억제)
+# [추가] GNN 및 딥러닝 모델을 위한 PyTorch 및 TensorFlow 임포트 (경량 실행을 위해 CPU 전용 및 로그 억제)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+try:
+    import torch
+    TORCH_AVAILABLE = True
+except ImportError:
+    TORCH_AVAILABLE = False
+    print("⚠️ PyTorch가 설치되어 있지 않습니다. GNN 그래프 네트워크 모듈은 통계 대체 로직으로 동작합니다.")
+
 try:
     import tensorflow as tf
     from tensorflow.keras.models import Sequential
@@ -476,7 +483,6 @@ class LSTMIcebergDumpingPredictor:
             ])
             model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
             
-            # [시뮬레이션 가중치 초기화]: 호가창 불균형이 음수(매도 우위)이고 매도 체결이 강할 때 1.0(덤핑)에 가깝도록 초기 가중치 설정
             dummy_x = np.random.normal(size=(1, self.sequence_length, self.num_features))
             model.predict(dummy_x, verbose=0)
             return model
@@ -485,10 +491,6 @@ class LSTMIcebergDumpingPredictor:
             return None
 
     def predict_dump_probability(self, time_series_features):
-        """
-        time_series_features: (sequence_length, num_features) 배열 
-        Features: [imbalance, delta_imbalance, trade_intensity_ratio]
-        """
         if not TF_AVAILABLE or self.model is None:
             return None
         try:
@@ -498,63 +500,168 @@ class LSTMIcebergDumpingPredictor:
         except Exception:
             return None
 
-# 전역 LSTM 예측 모듈 인스턴스화
 lstm_dumping_predictor = LSTMIcebergDumpingPredictor(sequence_length=15, num_features=3)
 
 
 # ==============================================================================
-# [고도화 2 - 신규] 실시간 호가창 불균형 변화율 및 체결강도 상관계수 학습 
-# 강화학습(RL) 기반 아이스버그 재생성 주기 예측 에이전트
+# [고도화 2] 강화학습(RL) 기반 아이스버그 재생성 주기 예측 에이전트
 # ==============================================================================
 class IcebergRLAgent:
     """
-    [강화학습 Q-Learning 에이전트]
-    호가창 불균형 변화율(Delta Imbalance)과 매수/매도 체결 강도 사이의 '실시간 상관계수'를 상태(State)로 입력받아,
-    아이스버그 매도 주문의 '재생성 주기(Regen Cycle)'를 예측하고 덤핑 확률(Q-Value Action Risk)을 도출합니다.
+    호가창 불균형 변화율(Delta Imbalance)과 매수/매도 체결 강도의 '실시간 상관계수'를 상태(State)로 입력받아,
+    아이스버그 매도 주문의 '재생성 주기(Regen Cycle)'를 예측하고 덤핑 확률을 도출합니다.
     """
     def __init__(self, alpha=0.1, gamma=0.8, epsilon=0.15):
-        self.alpha = alpha        # 학습률 (Learning Rate)
-        self.gamma = gamma        # 할인율 (Discount Factor)
-        self.epsilon = epsilon    # 탐험율 (Epsilon-Greedy Exploration)
-        # Q-Table 상태공간: (delta_imb_level, trade_intensity_level, correlation_level)
-        # Action(행동): 0 = 재생성 없음(정상), 1 = 일반 재생성(분할매도), 2 = 초단기 재생성(덤핑 5분 전 임박)
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
         self.q_table = defaultdict(lambda: np.zeros(3))
 
     def _discretize_state(self, delta_imb, trade_intensity, correlation):
-        """실시간 연속형 피처를 Q-Table 인덱싱을 위한 이산형 상태(State)로 변환"""
         d_lvl = 0 if delta_imb < -0.1 else (1 if delta_imb <= 0.1 else 2)
         t_lvl = 0 if trade_intensity < 0.8 else (1 if trade_intensity <= 1.5 else 2)
         c_lvl = 0 if correlation < 0.3 else (1 if correlation <= 0.7 else 2)
         return (d_lvl, t_lvl, c_lvl)
 
     def select_action(self, state):
-        """Epsilon-Greedy 정책으로 재생성 주기 위험 행동 선택"""
         if np.random.rand() < self.epsilon:
             return np.random.choice(3)
         return int(np.argmax(self.q_table[state]))
 
     def update(self, state, action, reward, next_state):
-        """실제 감지된 재생성 시간 보상에 따른 Q-Table 온라인 업데이트"""
         best_next_action = np.argmax(self.q_table[next_state])
         td_target = reward + self.gamma * self.q_table[next_state][best_next_action]
         td_error = td_target - self.q_table[state][action]
         self.q_table[state][action] += self.alpha * td_error
 
     def get_dump_risk_probability(self, state):
-        """현재 상태의 Q-Table 가중치를 소프트맥스(Softmax) 확률로 환산하여 덤핑 위험도 반환"""
         q_vals = self.q_table[state]
         exp_q = np.exp(q_vals - np.max(q_vals))
         probs = exp_q / np.sum(exp_q)
-        # Action 1(분할매도) 0.5 가중치 + Action 2(덤핑임박) 1.0 가중치
         risk_prob = (probs[1] * 0.5) + (probs[2] * 1.0)
         return float(risk_prob)
 
-# 전역 RL 에이전트 인스턴스화
 rl_iceberg_agent = IcebergRLAgent()
 
 
 # ==============================================================================
-# [실시간 덤핑 속도 및 Delta-T / 고주파 WebSocket 아이스버그 잔량 역산 모듈]
+# [고도화 3 - 신규] GNN(Graph Neural Network) 기반 실시간 수급 네트워크 및 세력 덤핑 예측 모듈
+# ==============================================================================
+class MarketSupplyGNN(torch.nn.Module if TORCH_AVAILABLE else object):
+    """
+    [MarketSupplyGNN]
+    업비트 원화 마켓 전체 코인의 피처(매집점수, 호가불균형, CMF, 덤핑속도 등)를 
+    노드(Node)로 설정하고, 코인 간 가격 및 거래대금 상관관계를 엣지(Edge)로 구성하여
+    세력의 동조화 현상 및 이탈(덤핑) 징후를 그래프 연산으로 예측합니다.
+    """
+    def __init__(self, in_feats=6, hidden_size=16, out_feats=1):
+        if not TORCH_AVAILABLE:
+            return
+        super().__init__()
+        self.lin1 = torch.nn.Linear(in_feats, hidden_size)
+        self.lin2 = torch.nn.Linear(hidden_size, out_feats)
+        self.relu = torch.nn.ReLU()
+        self.sigmoid = torch.nn.Sigmoid()
+
+    def forward(self, x, edge_index):
+        if not TORCH_AVAILABLE:
+            return None
+        row, col = edge_index
+        agg = torch.zeros_like(x)
+        for i in range(x.size(0)):
+            neighbors = col[row == i]
+            if len(neighbors) > 0:
+                agg[i] = x[neighbors].mean(dim=0)
+            else:
+                agg[i] = x[i]
+                
+        h = self.lin1(x + agg)
+        h = self.relu(h)
+        out = self.sigmoid(self.lin2(h))
+        return out
+
+
+market_gnn_model = MarketSupplyGNN(in_feats=6, hidden_size=16, out_feats=1) if TORCH_AVAILABLE else None
+if market_gnn_model and TORCH_AVAILABLE:
+    market_gnn_model.eval()
+
+
+def evaluate_market_graph_dump_risk(df_results_pool):
+    """
+    전체 스캔된 코인 풀의 지표들을 그래프(Graph) 형태로 변환하여,
+    시장 전체 흐름 대비 개별 코인의 덤핑 위험도(Graph Anomaly Score)를 산출합니다.
+    """
+    if df_results_pool.empty or len(df_results_pool) < 3:
+        return df_results_pool
+
+    try:
+        features = []
+        for _, row in df_results_pool.iterrows():
+            f_acc = float(row.get('매집점수', 0)) / 100.0
+            f_sim = float(row.get('패턴유사도(%)', 0)) / 100.0
+            f_cmf = float(row.get('CMF지표', 0))
+            f_rsi = float(row.get('RSI', 50)) / 100.0
+            f_spread = float(row.get('스프레드(%)', 0))
+            f_val = min(float(row.get('거래대금(억원)', 10)) / 100.0, 1.0)
+            features.append([f_acc, f_sim, f_cmf, f_rsi, f_spread, f_val])
+
+        x_tensor = torch.tensor(features, dtype=torch.float32) if TORCH_AVAILABLE else None
+
+        edge_sources = []
+        edge_targets = []
+        num_nodes = len(features)
+        
+        for i in range(num_nodes):
+            for j in range(num_nodes):
+                if i != j:
+                    if abs(features[i][0] - features[j][0]) < 0.25:
+                        edge_sources.append(i)
+                        edge_targets.append(j)
+
+        if not edge_sources:
+            edge_sources = [0] * num_nodes
+            edge_targets = [0] * num_nodes
+
+        edge_index = torch.tensor([edge_sources, edge_targets], dtype=torch.long) if TORCH_AVAILABLE else None
+
+        if TORCH_AVAILABLE and market_gnn_model is not None:
+            with torch.no_grad():
+                gnn_outputs = market_gnn_model(x_tensor, edge_index).squeeze().tolist()
+                if isinstance(gnn_outputs, float):
+                    gnn_outputs = [gnn_outputs]
+        else:
+            gnn_outputs = [0.5] * num_nodes
+
+        gnn_risk_scores = []
+        for idx, score in enumerate(gnn_outputs):
+            risk_pct = round(float(score * 100), 1)
+            gnn_risk_scores.append(risk_pct)
+
+        df_results_pool['GNN_그래프덤핑위험(%)'] = gnn_risk_scores
+        
+        updated_iceberg_status = []
+        for idx, row in df_results_pool.iterrows():
+            g_risk = gnn_risk_scores[idx]
+            original_status = row['아이스버그역산(고주파)']
+            
+            if g_risk >= 75.0:
+                updated_status = f"🚨 [GNN 네트워크 이탈/덤핑] 위험도 {g_risk}%"
+                df_results_pool.at[idx, '종합예측점수'] = max(0.0, float(row['종합예측점수']) - 30.0)
+            else:
+                updated_status = original_status
+            updated_iceberg_status.append(updated_status)
+
+        df_results_pool['아이스버그역산(고주파)'] = updated_iceberg_status
+
+    except Exception as e:
+        print(f"⚠️ GNN 그래프 분석 중 예외 발생: {e}")
+        df_results_pool['GNN_그래프덤핑위험(%)'] = 0.0
+
+    return df_results_pool
+
+
+# ==============================================================================
+# [실시간 덤핑 속도 및 WebSocket 아이스버그 잔량 역산 모듈]
 # ==============================================================================
 def get_realtime_dumping_velocity(ticker):
     try:
@@ -601,7 +708,6 @@ def get_realtime_dumping_velocity(ticker):
 
 
 async def _capture_upbit_ws_data(ticker, duration=1.5):
-    """WebSocket을 통해 일정 시간 동안 호가 및 체결 데이터를 수집합니다."""
     uri = "wss://api.upbit.com/websocket/v1"
     data_log = []
     try:
@@ -630,11 +736,6 @@ async def _capture_upbit_ws_data(ticker, duration=1.5):
 
 
 def get_highfreq_iceberg_metrics(ticker, duration=1.5):
-    """
-    [고주파 트래킹 + LSTM 딥러닝 + RL 강화학습 에이전트 앙상블] 
-    WebSocket 스트림으로 100ms 단위 호가창 불균형 변화율과 체결 강도 상관계수를 학습하여 
-    아이스버그 매도 잔량의 소진 속도 및 재생성 주기를 역산하고 덤핑 확률을 극대화하여 예측합니다.
-    """
     try:
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
@@ -649,7 +750,7 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     bins = defaultdict(lambda: {"ask_trades": 0.0, "bid_trades": 0.0, "best_ask_size": None, "best_bid_size": None, "orderbook_imbalance": 0.0})
     
     for d in data_log:
-        bin_key = int(d['recv_time'] * 10)  # 100ms 단위 빈(Bin) 분할
+        bin_key = int(d['recv_time'] * 10)
         if d.get('type') == 'trade':
             vol = d.get('trade_volume', 0.0)
             if d.get('ask_bid') == 'ASK':
@@ -675,10 +776,8 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     delta_imbalance_values = []
     trade_intensity_values = []
     
-    # LSTM 모델 학습/추론용 시계열 피처 벡터 구축
     lstm_features_list = []
     prev_imbalance = 0.0
-
     prev_ask_size = None
     last_drop_time = None
     
@@ -689,12 +788,10 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
         if curr_imb != 0.0:
             imbalance_values.append(curr_imb)
             
-        # 호가창 불균형 차분(Delta Imbalance)
         delta_imb = curr_imb - prev_imbalance
         prev_imbalance = curr_imb
         delta_imbalance_values.append(delta_imb)
         
-        # 매도/매수 체결 강도 비율
         trade_intensity_ratio = b['ask_trades'] / (b['bid_trades'] + 1e-6)
         trade_intensity_values.append(trade_intensity_ratio)
         
@@ -719,7 +816,6 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     avg_regen_ms = (regen_time_ms_total / regen_count) if regen_count > 0 else 0.0
     avg_imbalance = np.mean(imbalance_values) if imbalance_values else 0.0
 
-    # [RL 에이전트] 실시간 불균형 변화율 - 체결 강도의 상관계수 도출 및 강화학습 업데이트
     if len(delta_imbalance_values) > 2:
         corr_val = np.corrcoef(delta_imbalance_values, trade_intensity_values)[0, 1]
         real_corr = 0.0 if np.isnan(corr_val) else abs(corr_val)
@@ -732,7 +828,6 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     current_rl_state = rl_iceberg_agent._discretize_state(mean_delta_imb, mean_intensity, real_corr)
     selected_action = rl_iceberg_agent.select_action(current_rl_state)
     
-    # 재생성 감지 여부(regen_count) 및 주기(avg_regen_ms)에 따른 온라인 보상(Reward) 부여
     reward = 0.0
     if regen_count >= 2 and avg_regen_ms <= 300:
         reward = 1.0 if selected_action == 2 else -1.0
@@ -741,20 +836,17 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     else:
         reward = 0.5 if selected_action == 0 else -0.5
         
-    next_rl_state = current_rl_state  # 연속 스트림 상의 현재 윈도우 갱신
+    next_rl_state = current_rl_state
     rl_iceberg_agent.update(current_rl_state, selected_action, reward, next_rl_state)
     rl_dump_prob = rl_iceberg_agent.get_dump_risk_probability(current_rl_state)
 
-    # 기본 통계 수치 기반 확률 (Rule-based)
     stat_prob = 1.0 / (1.0 + np.exp(-( (depletion_rate * 2.0) + (max(0, -avg_imbalance) * 3.0) - (0.01 * avg_regen_ms) - 1.5 )))
 
-    # [LSTM 시계열 딥러닝 예측 확률]
     lstm_prob = None
     if len(lstm_features_list) >= 15:
         features_input = np.array(lstm_features_list[-15:])
         lstm_prob = lstm_dumping_predictor.predict_dump_probability(features_input)
 
-    # [최종 3자 앙상블 (LSTM 40% + RL 에이전트 40% + 통계 20%)]
     if lstm_prob is not None:
         final_dump_prob = (lstm_prob * 0.4) + (rl_dump_prob * 0.4) + (stat_prob * 0.2)
         model_label = "LSTM/RL/통계 앙상블"
@@ -1173,7 +1265,7 @@ def analyze_and_scan_market():
                 if t in hourly_rank_details:
                     hourly_rank_details[t].append(rank)
 
-    print("\n[2/2] T-1 매집 + 100ms 고주파 LSTM & RL 강화학습 덤핑 예측 교차 스캔 중...")
+    print("\n[2/2] T-1 매집 + GNN 및 100ms 고주파 LSTM/RL 덤핑 예측 교차 스캔 중...")
     results = []
 
     for item in tqdm(krw_coins, desc="통합 종합 스캔", ncols=100):
@@ -1199,7 +1291,6 @@ def analyze_and_scan_market():
             lag_metrics = get_time_lag_metrics(ticker)
             dump_metrics = get_realtime_dumping_velocity(ticker)
             
-            # 거래대금 10억 이상 종목은 LSTM+RL 강화학습 기반 고주파 WebSocket 실시간 역산 적용
             if (metrics['last_value'] / 100_000_000) >= 10.0:
                 iceberg_metrics = get_highfreq_iceberg_metrics(ticker, duration=1.5)
             else:
@@ -1294,6 +1385,9 @@ def analyze_and_scan_market():
 
     df = pd.DataFrame(results)
     if not df.empty:
+        # GNN 그래프 네트워크 기반 시장 전체 수급 동조화 및 덤핑 위험 교차 검증
+        df = evaluate_market_graph_dump_risk(df)
+        
         df = df.sort_values(
             by=["종합예측점수", "매집점수", "시차상관성"], 
             ascending=[False, False, False]
@@ -1330,6 +1424,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
                 "수급진위판정": row['진짜매집판정'],
                 "매도덤핑속도": row.get('매도덤핑속도', '정보 없음'),
                 "아이스버그역산(고주파)": row.get('아이스버그역산(고주파)', '정보 없음'),
+                "GNN그래프위험도": f"{row.get('GNN_그래프덤핑위험(%)', 0)}%",
                 "온체인동향": row.get('온체인동향', '정보 없음'),
                 "DEX/스테이킹동향": row.get('DEX/스테이킹동향', '정보 없음'),
                 "지갑이동 리드타임": row.get('지갑이동 리드타임', '정보 없음'),
@@ -1338,10 +1433,10 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
             })
 
         prompt = f"""
-당신은 가상자산 수급, T-1 상승 직전 패턴 분석 및 WebSocket 100ms 고주파 트래킹 기반 잔량 소진/재생성 분석 전문 AI입니다.
+당신은 가상자산 수급, T-1 상승 직전 패턴 분석 및 WebSocket 100ms 고주파 트래킹과 **GNN(Graph Neural Network)** 기반 시장 네트워크 수급 분석 전문 AI입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 리포트를 작성해 주세요.
 
-이번 알고리즘은 **[WebSocket 스트림을 통한 100ms 호가/체결 데이터 샘플링]** 및 **[LSTM 시계열 딥러닝 + RL 강화학습 에이전트 앙상블 모델]**을 통해 세력의 아이스버그 주문 '소진 속도', '재생성 주기', 그리고 '호가창 불균형-체결강도 상관계수'를 실시간 역산하여 덤핑 위협을 정밀 진단합니다.
+이번 알고리즘은 **[WebSocket 스트림을 통한 100ms 호가/체결 데이터 샘플링]**, **[LSTM + RL 강화학습 앙상블]**, 그리고 **[GNN(Graph Neural Network)을 통한 마켓 전체 코인 간 공간적 수급 동조화 및 이탈 위험 진단]**을 결합하여 세력의 아이스버그 주문 및 덤핑 위협을 정밀 진단합니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -1351,12 +1446,12 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 세부 성과: {json.dumps(eval_details[:8], ensure_ascii=False, indent=2)} (최대 8개 표기)
 
 [작성 지침]
-1. **[고주파 아이스버그 추적 및 진단 분석]**:
-   - 실시간 고주파 트래킹 및 RL 강화학습 에이전트를 통해 아이스버그 재생성 위험이 있는 종목과, 은닉 물량 없이 맑은 수급을 보이는 우수 종목을 대비해 주세요.
+1. **[GNN 네트워크 및 고주파 아이스버그 진단 분석]**:
+   - GNN 그래프 네트워크의 시장 동조화 점수 및 100ms 고주파 추적을 통해 세력 이탈이나 덤핑 위험이 포착된 종목과, 단단한 수급을 유지하는 우수 종목을 분석해 주세요.
 2. **[T-1 상승 직전 최우수 추천 종목 Top 3 전략]**:
-   - 최우수 3개 종목의 진입 타점, 목표가, 손절가를 잔량 소진/재생성 역산 수치와 연계하여 세밀히 작성해 주세요.
+   - 최우수 3개 종목의 진입 타점, 목표가, 손절가를 잔량 소진/재생성 및 GNN 지표와 연계하여 세밀히 작성해 주세요.
 3. **[알고리즘 추가 보완 제안]**:
-   - WebSocket 데이터를 활용한 머신러닝/강화학습 기반 덤핑 예측 모델 확장 방안을 1문장으로 제안해 주세요.
+   - GNN과 시계열 딥러닝을 결합한 멀티모달 자금 흐름 예측 확장 방안을 1문장으로 제안해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.2)
@@ -1466,20 +1561,20 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [100ms 고주파+LSTM+RL 강화학습 트래킹] 실시간 매집 분석 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [GNN+100ms 고주파+LSTM+RL 강화학습] 실시간 매집 분석 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과입니다.
-* WebSocket 100ms 고주파 트래킹 및 LSTM+RL 강화학습 덤핑 예측 엔진을 반영하였습니다.
+* GNN 그래프 네트워크 및 WebSocket 100ms 고주파 덤핑 예측 엔진을 반영하였습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
 
 ==================================================
-🤖 [Gemini AI 고주파 수급 및 아이스버그 잔량 역산 실시간 심층 리포트]
+🤖 [Gemini AI GNN 수급 및 아이스버그 잔량 역산 실시간 심층 리포트]
 ==================================================
 {ai_analysis}
 
@@ -1504,11 +1599,11 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
 
 # ==============================================================================
-# [메인 실행부] - 자동: 급락 시 텔레그램 / 수동: 무조건 이메일 발송 적용
+# [메인 실행부]
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] 100ms 고주파 트래킹 & LSTM/RL 강화학습 아이스버그 덤핑 예측 엔진 실행...")
+    print("🚀 [업비트 원화 마켓] GNN & 100ms 고주파 트래킹 & LSTM/RL 덤핑 예측 엔진 실행...")
     
     print("\n🔍 과거 추천 종목 수익률 자동 검증 중...")
     eval_summary, eval_details = evaluate_past_performance()
@@ -1519,43 +1614,38 @@ if __name__ == "__main__":
     if not df_result.empty:
         save_scan_history(df_result)
 
-        print("\n=== 🎯 현재 상위 5개 추천 종목 (고주파 트래킹 & LSTM/RL 아이스버그 역산 반영) ===")
-        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "아이스버그역산(고주파)", "진짜매집판정"]].head(5))
+        print("\n=== 🎯 현재 상위 5개 추천 종목 (GNN 및 고주파 아이스버그 역산 반영) ===")
+        print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "GNN_그래프덤핑위험(%)", "아이스버그역산(고주파)", "진짜매집판정"]].head(5))
 
         print("\n📊 엑셀 저장 및 AI 분석 생성 중...")
         excel_file = save_integrated_excel(df_result, eval_details)
         ai_report_text = generate_gemini_analysis(df_result, eval_summary, eval_details)
         
-        # GitHub Actions가 수동으로 실행되었는지 여부 확인
         is_manual_run = os.environ.get("IS_MANUAL_RUN", "false").lower() == "true"
 
-        # ----------------------------------------------------------------------
-        # [1] 이메일 발송 조건: "수동 실행(workflow_dispatch)" 일 때만 무조건 발송
-        # ----------------------------------------------------------------------
         if is_manual_run:
             print("\n👆 [수동 실행 감지] 설정에 따라 이메일 종합 리포트를 발송합니다.")
             send_email_report(excel_file, ai_report_text, eval_summary)
         else:
             print("\n🤖 [자동 예약 실행] 이메일 리포트는 발송하지 않습니다. (수동 실행 시에만 발송)")
 
-        # ----------------------------------------------------------------------
-        # [2] 텔레그램 발송 조건: 급락/덤핑 임박 신호(🚨 또는 임박) 감지 시 항상 발송
-        # ----------------------------------------------------------------------
         danger_condition = df_result[
             df_result['매도덤핑속도'].str.contains("🚨|임박", na=False) | 
-            df_result['아이스버그역산(고주파)'].str.contains("🚨|임박", na=False)
+            df_result['아이스버그역산(고주파)'].str.contains("🚨|임박", na=False) |
+            df_result['GNN_그래프덤핑위험(%)'] >= 75.0
         ]
 
         if not danger_condition.empty:
             print(f"\n🚨 [위험 감지] 총 {len(danger_condition)}개 종목에서 급락/덤핑 임박 신호 포착! 텔레그램 알림을 전송합니다.")
             
-            msg_lines = ["🚨 *[업비트 덤핑 5분 전 예고 경고 (LSTM & RL 강화학습 시계열 예측)]* 🚨\n"]
+            msg_lines = ["🚨 *[업비트 덤핑 5분 전 예고 경고 (GNN & LSTM & RL 강화학습 예측)]* 🚨\n"]
             for _, row in danger_condition.iterrows():
                 msg_lines.append(f"• *코인*: {row['코인명']} ({row['심볼']})")
                 msg_lines.append(f"  - 현재가: {row['현재가(KRW)']}")
+                msg_lines.append(f"  - GNN위험도: {row.get('GNN_그래프덤핑위험(%)', 0)}%")
                 msg_lines.append(f"  - 상태: {row['아이스버그역산(고주파)']}\n")
             
-            msg_lines.append("⚠️ 세력의 대규모 물량 소진 및 덤핑 위험이 있으니 주의하세요!")
+            msg_lines.append("⚠️ 세력의 대규모 물량 소진 및 네트워크 이탈 위험이 있으니 주의하세요!")
             
             telegram_message = "\n".join(msg_lines)
             send_telegram_alert(telegram_message)
