@@ -453,7 +453,7 @@ def get_cached_wallet_leadtime_metrics(symbols):
 
 
 # ==============================================================================
-# [고도화] 시계열 딥러닝(LSTM) 기반 아이스버그 재생성 및 덤핑 예측 모듈
+# [고도화 1] 시계열 딥러닝(LSTM) 기반 아이스버그 재생성 및 덤핑 예측 모듈
 # ==============================================================================
 class LSTMIcebergDumpingPredictor:
     """
@@ -500,6 +500,57 @@ class LSTMIcebergDumpingPredictor:
 
 # 전역 LSTM 예측 모듈 인스턴스화
 lstm_dumping_predictor = LSTMIcebergDumpingPredictor(sequence_length=15, num_features=3)
+
+
+# ==============================================================================
+# [고도화 2 - 신규] 실시간 호가창 불균형 변화율 및 체결강도 상관계수 학습 
+# 강화학습(RL) 기반 아이스버그 재생성 주기 예측 에이전트
+# ==============================================================================
+class IcebergRLAgent:
+    """
+    [강화학습 Q-Learning 에이전트]
+    호가창 불균형 변화율(Delta Imbalance)과 매수/매도 체결 강도 사이의 '실시간 상관계수'를 상태(State)로 입력받아,
+    아이스버그 매도 주문의 '재생성 주기(Regen Cycle)'를 예측하고 덤핑 확률(Q-Value Action Risk)을 도출합니다.
+    """
+    def __init__(self, alpha=0.1, gamma=0.8, epsilon=0.15):
+        self.alpha = alpha        # 학습률 (Learning Rate)
+        self.gamma = gamma        # 할인율 (Discount Factor)
+        self.epsilon = epsilon    # 탐험율 (Epsilon-Greedy Exploration)
+        # Q-Table 상태공간: (delta_imb_level, trade_intensity_level, correlation_level)
+        # Action(행동): 0 = 재생성 없음(정상), 1 = 일반 재생성(분할매도), 2 = 초단기 재생성(덤핑 5분 전 임박)
+        self.q_table = defaultdict(lambda: np.zeros(3))
+
+    def _discretize_state(self, delta_imb, trade_intensity, correlation):
+        """실시간 연속형 피처를 Q-Table 인덱싱을 위한 이산형 상태(State)로 변환"""
+        d_lvl = 0 if delta_imb < -0.1 else (1 if delta_imb <= 0.1 else 2)
+        t_lvl = 0 if trade_intensity < 0.8 else (1 if trade_intensity <= 1.5 else 2)
+        c_lvl = 0 if correlation < 0.3 else (1 if correlation <= 0.7 else 2)
+        return (d_lvl, t_lvl, c_lvl)
+
+    def select_action(self, state):
+        """Epsilon-Greedy 정책으로 재생성 주기 위험 행동 선택"""
+        if np.random.rand() < self.epsilon:
+            return np.random.choice(3)
+        return int(np.argmax(self.q_table[state]))
+
+    def update(self, state, action, reward, next_state):
+        """실제 감지된 재생성 시간 보상에 따른 Q-Table 온라인 업데이트"""
+        best_next_action = np.argmax(self.q_table[next_state])
+        td_target = reward + self.gamma * self.q_table[next_state][best_next_action]
+        td_error = td_target - self.q_table[state][action]
+        self.q_table[state][action] += self.alpha * td_error
+
+    def get_dump_risk_probability(self, state):
+        """현재 상태의 Q-Table 가중치를 소프트맥스(Softmax) 확률로 환산하여 덤핑 위험도 반환"""
+        q_vals = self.q_table[state]
+        exp_q = np.exp(q_vals - np.max(q_vals))
+        probs = exp_q / np.sum(exp_q)
+        # Action 1(분할매도) 0.5 가중치 + Action 2(덤핑임박) 1.0 가중치
+        risk_prob = (probs[1] * 0.5) + (probs[2] * 1.0)
+        return float(risk_prob)
+
+# 전역 RL 에이전트 인스턴스화
+rl_iceberg_agent = IcebergRLAgent()
 
 
 # ==============================================================================
@@ -580,8 +631,9 @@ async def _capture_upbit_ws_data(ticker, duration=1.5):
 
 def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     """
-    [고주파 트래킹 + LSTM 딥러닝] WebSocket 스트림을 통해 샘플링하여 아이스버그 매도 잔량의 
-    소진 속도 및 재생성 주기를 역산하고, LSTM 시계열 모델로 덤핑 위험 확률을 예측합니다.
+    [고주파 트래킹 + LSTM 딥러닝 + RL 강화학습 에이전트 앙상블] 
+    WebSocket 스트림으로 100ms 단위 호가창 불균형 변화율과 체결 강도 상관계수를 학습하여 
+    아이스버그 매도 잔량의 소진 속도 및 재생성 주기를 역산하고 덤핑 확률을 극대화하여 예측합니다.
     """
     try:
         loop = asyncio.new_event_loop()
@@ -620,8 +672,10 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     regen_count = 0
     regen_time_ms_total = 0
     imbalance_values = []
+    delta_imbalance_values = []
+    trade_intensity_values = []
     
-    # [추가] LSTM 모델 학습/추론용 시계열 피처 벡터 구축
+    # LSTM 모델 학습/추론용 시계열 피처 벡터 구축
     lstm_features_list = []
     prev_imbalance = 0.0
 
@@ -638,9 +692,12 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
         # 호가창 불균형 차분(Delta Imbalance)
         delta_imb = curr_imb - prev_imbalance
         prev_imbalance = curr_imb
+        delta_imbalance_values.append(delta_imb)
         
         # 매도/매수 체결 강도 비율
         trade_intensity_ratio = b['ask_trades'] / (b['bid_trades'] + 1e-6)
+        trade_intensity_values.append(trade_intensity_ratio)
+        
         lstm_features_list.append([curr_imb, delta_imb, trade_intensity_ratio])
 
         curr_ask_size = b['best_ask_size']
@@ -662,31 +719,56 @@ def get_highfreq_iceberg_metrics(ticker, duration=1.5):
     avg_regen_ms = (regen_time_ms_total / regen_count) if regen_count > 0 else 0.0
     avg_imbalance = np.mean(imbalance_values) if imbalance_values else 0.0
 
+    # [RL 에이전트] 실시간 불균형 변화율 - 체결 강도의 상관계수 도출 및 강화학습 업데이트
+    if len(delta_imbalance_values) > 2:
+        corr_val = np.corrcoef(delta_imbalance_values, trade_intensity_values)[0, 1]
+        real_corr = 0.0 if np.isnan(corr_val) else abs(corr_val)
+    else:
+        real_corr = 0.0
+
+    mean_delta_imb = np.mean(delta_imbalance_values) if delta_imbalance_values else 0.0
+    mean_intensity = np.mean(trade_intensity_values) if trade_intensity_values else 0.0
+
+    current_rl_state = rl_iceberg_agent._discretize_state(mean_delta_imb, mean_intensity, real_corr)
+    selected_action = rl_iceberg_agent.select_action(current_rl_state)
+    
+    # 재생성 감지 여부(regen_count) 및 주기(avg_regen_ms)에 따른 온라인 보상(Reward) 부여
+    reward = 0.0
+    if regen_count >= 2 and avg_regen_ms <= 300:
+        reward = 1.0 if selected_action == 2 else -1.0
+    elif regen_count == 1:
+        reward = 0.5 if selected_action == 1 else -0.5
+    else:
+        reward = 0.5 if selected_action == 0 else -0.5
+        
+    next_rl_state = current_rl_state  # 연속 스트림 상의 현재 윈도우 갱신
+    rl_iceberg_agent.update(current_rl_state, selected_action, reward, next_rl_state)
+    rl_dump_prob = rl_iceberg_agent.get_dump_risk_probability(current_rl_state)
+
     # 기본 통계 수치 기반 확률 (Rule-based)
     stat_prob = 1.0 / (1.0 + np.exp(-( (depletion_rate * 2.0) + (max(0, -avg_imbalance) * 3.0) - (0.01 * avg_regen_ms) - 1.5 )))
 
-    # [LSTM 시계열 딥러닝 예측 확률 앙상블]
+    # [LSTM 시계열 딥러닝 예측 확률]
     lstm_prob = None
     if len(lstm_features_list) >= 15:
-        # 최근 15개 시퀀스 타임스텝 추출
         features_input = np.array(lstm_features_list[-15:])
         lstm_prob = lstm_dumping_predictor.predict_dump_probability(features_input)
 
-    # 최종 덤핑 확률 계산 (LSTM 모델 예측이 유효할 시 50%씩 앙상블)
+    # [최종 3자 앙상블 (LSTM 40% + RL 에이전트 40% + 통계 20%)]
     if lstm_prob is not None:
-        final_dump_prob = (stat_prob * 0.5) + (lstm_prob * 0.5)
-        model_label = "LSTM/통계 앙상블"
+        final_dump_prob = (lstm_prob * 0.4) + (rl_dump_prob * 0.4) + (stat_prob * 0.2)
+        model_label = "LSTM/RL/통계 앙상블"
     else:
-        final_dump_prob = stat_prob
-        model_label = "통계 역산"
+        final_dump_prob = (rl_dump_prob * 0.6) + (stat_prob * 0.4)
+        model_label = "RL강화학습/통계 앙상블"
 
     dump_probability_pct = round(float(final_dump_prob * 100), 1)
 
     if dump_probability_pct >= 75.0 or (regen_count >= 2 and avg_regen_ms <= 300):
-        status = f"🚨 [덤핑 5분전 임박] 확률 {dump_probability_pct}% ({model_label} / 소진: {depletion_rate:.2f}/s)"
+        status = f"🚨 [덤핑 5분전 임박] 확률 {dump_probability_pct}% ({model_label} / 소진: {depletion_rate:.2f}/s / 상관계수: {real_corr:.2f})"
         score_modifier = -80
     elif dump_probability_pct >= 45.0 or regen_count >= 1:
-        status = f"⚠️ [덤핑 주의] 확률 {dump_probability_pct}% ({model_label} / 소진: {depletion_rate:.2f}/s)"
+        status = f"⚠️ [덤핑 주의] 확률 {dump_probability_pct}% ({model_label} / 소진: {depletion_rate:.2f}/s / 상관계수: {real_corr:.2f})"
         score_modifier = -40
     elif depletion_rate > 0.5:
         status = f"🔥 강력한 매도 소진 (속도: {depletion_rate:.2f}/s, 확률 {dump_probability_pct}%)"
@@ -1091,7 +1173,7 @@ def analyze_and_scan_market():
                 if t in hourly_rank_details:
                     hourly_rank_details[t].append(rank)
 
-    print("\n[2/2] T-1 매집 + 100ms 고주파 LSTM 덤핑 예측 교차 스캔 중...")
+    print("\n[2/2] T-1 매집 + 100ms 고주파 LSTM & RL 강화학습 덤핑 예측 교차 스캔 중...")
     results = []
 
     for item in tqdm(krw_coins, desc="통합 종합 스캔", ncols=100):
@@ -1117,7 +1199,7 @@ def analyze_and_scan_market():
             lag_metrics = get_time_lag_metrics(ticker)
             dump_metrics = get_realtime_dumping_velocity(ticker)
             
-            # 거래대금 10억 이상 종목은 LSTM 기반 고주파 WebSocket 실시간 역산 적용
+            # 거래대금 10억 이상 종목은 LSTM+RL 강화학습 기반 고주파 WebSocket 실시간 역산 적용
             if (metrics['last_value'] / 100_000_000) >= 10.0:
                 iceberg_metrics = get_highfreq_iceberg_metrics(ticker, duration=1.5)
             else:
@@ -1259,7 +1341,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 당신은 가상자산 수급, T-1 상승 직전 패턴 분석 및 WebSocket 100ms 고주파 트래킹 기반 잔량 소진/재생성 분석 전문 AI입니다.
 아래 [현재 스캔 상위 10개 데이터]와 [과거 추천 종목 성과 검증 데이터]를 비교 분석하여 정중한 경어체(~습니다, ~입니다)로 리포트를 작성해 주세요.
 
-이번 알고리즘은 **[WebSocket 스트림을 통한 100ms 호가/체결 데이터 샘플링]** 및 **[LSTM 시계열 딥러닝 불균형-체결 강도 예측 모델]**을 통해 세력의 아이스버그 주문 '소진 속도'와 '재생성 주기'를 실시간 역산하여 덤핑 위협을 정밀 진단합니다.
+이번 알고리즘은 **[WebSocket 스트림을 통한 100ms 호가/체결 데이터 샘플링]** 및 **[LSTM 시계열 딥러닝 + RL 강화학습 에이전트 앙상블 모델]**을 통해 세력의 아이스버그 주문 '소진 속도', '재생성 주기', 그리고 '호가창 불균형-체결강도 상관계수'를 실시간 역산하여 덤핑 위협을 정밀 진단합니다.
 
 [1. 현재 스캔 상위 10개 데이터]
 {json.dumps(enriched_data, ensure_ascii=False, indent=2)}
@@ -1270,11 +1352,11 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 
 [작성 지침]
 1. **[고주파 아이스버그 추적 및 진단 분석]**:
-   - 실시간 고주파 트래킹을 통해 아이스버그 재생성 위험이 있는 종목과, 은닉 물량 없이 맑은 수급을 보이는 우수 종목을 대비해 주세요.
+   - 실시간 고주파 트래킹 및 RL 강화학습 에이전트를 통해 아이스버그 재생성 위험이 있는 종목과, 은닉 물량 없이 맑은 수급을 보이는 우수 종목을 대비해 주세요.
 2. **[T-1 상승 직전 최우수 추천 종목 Top 3 전략]**:
    - 최우수 3개 종목의 진입 타점, 목표가, 손절가를 잔량 소진/재생성 역산 수치와 연계하여 세밀히 작성해 주세요.
 3. **[알고리즘 추가 보완 제안]**:
-   - WebSocket 데이터를 활용한 머신러닝 기반 덤핑 예측 모델 확장 방안을 1문장으로 제안해 주세요.
+   - WebSocket 데이터를 활용한 머신러닝/강화학습 기반 덤핑 예측 모델 확장 방안을 1문장으로 제안해 주세요.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.2)
@@ -1384,14 +1466,14 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     msg = MIMEMultipart()
-    msg["Subject"] = f"📊 [100ms 고주파+LSTM 트래킹] 실시간 매집 분석 리포트 ({now_str})"
+    msg["Subject"] = f"📊 [100ms 고주파+LSTM+RL 강화학습 트래킹] 실시간 매집 분석 리포트 ({now_str})"
     msg["From"] = SENDER_EMAIL
     msg["To"] = ", ".join(RECEIVER_EMAILS)
     
     body = f"""안녕하세요.
 
 업비트 원화 마켓 [T-1 선행 매집 지표] 실시간 스캔 결과입니다.
-* WebSocket 100ms 고주파 트래킹 및 LSTM 딥러닝 덤핑 예측 엔진을 반영하였습니다.
+* WebSocket 100ms 고주파 트래킹 및 LSTM+RL 강화학습 덤핑 예측 엔진을 반영하였습니다.
 
 • 분석 시각: {now_str}
 • 과거 성과: {eval_summary}
@@ -1426,7 +1508,7 @@ def send_email_report(file_path, ai_analysis, eval_summary):
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-    print("🚀 [업비트 원화 마켓] 100ms 고주파 트래킹 & LSTM 딥러닝 아이스버그 덤핑 예측 엔진 실행...")
+    print("🚀 [업비트 원화 마켓] 100ms 고주파 트래킹 & LSTM/RL 강화학습 아이스버그 덤핑 예측 엔진 실행...")
     
     print("\n🔍 과거 추천 종목 수익률 자동 검증 중...")
     eval_summary, eval_details = evaluate_past_performance()
@@ -1437,7 +1519,7 @@ if __name__ == "__main__":
     if not df_result.empty:
         save_scan_history(df_result)
 
-        print("\n=== 🎯 현재 상위 5개 추천 종목 (고주파 트래킹 & LSTM 아이스버그 역산 반영) ===")
+        print("\n=== 🎯 현재 상위 5개 추천 종목 (고주파 트래킹 & LSTM/RL 아이스버그 역산 반영) ===")
         print(df_result[["코인명", "종합예측점수", "패턴유사도(%)", "매집점수", "아이스버그역산(고주파)", "진짜매집판정"]].head(5))
 
         print("\n📊 엑셀 저장 및 AI 분석 생성 중...")
@@ -1467,7 +1549,7 @@ if __name__ == "__main__":
         if not danger_condition.empty:
             print(f"\n🚨 [위험 감지] 총 {len(danger_condition)}개 종목에서 급락/덤핑 임박 신호 포착! 텔레그램 알림을 전송합니다.")
             
-            msg_lines = ["🚨 *[업비트 덤핑 5분 전 예고 경고 (LSTM 시계열 예측)]* 🚨\n"]
+            msg_lines = ["🚨 *[업비트 덤핑 5분 전 예고 경고 (LSTM & RL 강화학습 시계열 예측)]* 🚨\n"]
             for _, row in danger_condition.iterrows():
                 msg_lines.append(f"• *코인*: {row['코인명']} ({row['심볼']})")
                 msg_lines.append(f"  - 현재가: {row['현재가(KRW)']}")
