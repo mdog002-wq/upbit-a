@@ -1451,7 +1451,7 @@ def generate_gemini_analysis(df, eval_summary, eval_details):
 2. **[T-1 상승 직전 최우수 추천 종목 Top 3 전략]**:
    - 최우수 3개 종목의 진입 타점, 목표가, 손절가를 잔량 소진/재생성 및 GNN 지표와 연계하여 세밀히 작성해 주세요.
 3. **[알고리즘 추가 보완 제안]**:
-   - GNN과 시계열 딥러닝을 결합한 멀티모달 자금 흐름 예측 확장 방안을 1문장으로 제안해 주세요.
+   - GNN의 공간적 노드 관계성과 Transformer 기반의 시계열 패턴을 결합한 'Spatiotemporal Graph Transformer' 모델을 도입하여, 자금 흐름의 전이 경로와 변곡점 발생 시점을 예측하는 멀티모달 프레임워크로 확장할 것을 제안합니다.
 """
         client = genai.Client(api_key=GEMINI_API_KEY.strip())
         config = types.GenerateContentConfig(temperature=0.2)
