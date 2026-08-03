@@ -10,6 +10,7 @@ import pyupbit
 import openpyxl
 import asyncio
 import pickle
+import redis
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
@@ -54,6 +55,10 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_IDS = [chat_id.strip() for chat_id in os.environ.get("TELEGRAM_CHAT_ID", "").split(",") if chat_id.strip()]
 
+# Redis 서버 설정 (기본 로컬 연결)
+REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
+REDIS_PORT = int(os.environ.get("REDIS_PORT", 6379))
+
 EXCEL_FILE_PATH = "업비트_원화마켓_매집_패턴분석_리포트.xlsx"
 HISTORY_CSV_PATH = "scan_history.csv"
 CACHE_DIR = "./cache"
@@ -62,6 +67,13 @@ EXPERIENCE_FILE = os.path.join(AI_MODELS_DIR, "ai_experience.json")
 
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
+
+# Redis 클라이언트 초기화
+try:
+    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True)
+except Exception as e:
+    redis_client = None
+    print(f"⚠️ Redis 연결 설정 실패: {e}")
 
 # ==============================================================================
 # [유틸] 데이터 포맷팅 및 캐싱
@@ -378,6 +390,67 @@ def analyze_and_scan_market():
     return df.sort_values(by="종합예측점수", ascending=False)
 
 # ==============================================================================
+# [신규 모듈] 5단계 AI 등급 부여 및 Redis 대시보드 연동
+# ==============================================================================
+def calculate_ai_grade(score, dump_risk):
+    """
+    종합예측점수와 STGT 덤핑위험도를 조합하여 5단계 등급 부여
+    """
+    if dump_risk >= 70.0:
+        return "🔴 경고"
+    elif dump_risk >= 50.0 or score < 40.0:
+        return "🟠 주의"
+    elif score >= 80.0 and dump_risk < 30.0:
+        return "🟢 추천"
+    elif score >= 65.0 and dump_risk < 45.0:
+        return "🔵 관심"
+    else:
+        return "⚪ 보통"
+
+def update_redis_for_dashboard(df_result, ai_report):
+    """Program B(웹 대시보드)가 읽어갈 수 있도록 Redis에 최신 AI 분석 데이터 전달"""
+    if not redis_client or df_result.empty: return
+
+    try:
+        coin_grades = []
+        for _, row in df_result.iterrows():
+            score = row['종합예측점수']
+            dump_risk = row['STGT_그래프덤핑위험(%)']
+            grade = calculate_ai_grade(score, dump_risk)
+
+            coin_grades.append({
+                "name": row['코인명'],
+                "symbol": row['심볼'],
+                "price": row['현재가(KRW)'],
+                "score": score,
+                "dump_risk": dump_risk,
+                "iceberg": row['아이스버그역산(고주파)'],
+                "grade": grade
+            })
+
+        recommended_coins = [c for c in coin_grades if c['grade'] in ["🟢 추천", "🔵 관심"]]
+        warning_coins = [c for c in coin_grades if c['grade'] in ["🟠 주의", "🔴 경고"]]
+
+        dashboard_payload = {
+            "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "ai_report": ai_report,
+            "summary": {
+                "total_scanned": len(coin_grades),
+                "recommended_count": len(recommended_coins),
+                "warning_count": len(warning_coins)
+            },
+            "recommended_coins": sorted(recommended_coins, key=lambda x: x['score'], reverse=True)[:5],
+            "warning_coins": sorted(warning_coins, key=lambda x: x['dump_risk'], reverse=True)[:5],
+            "all_coins": coin_grades
+        }
+
+        # Redis 키 저장
+        redis_client.set("upbit_ai_dashboard_data", json.dumps(dashboard_payload, ensure_ascii=False))
+        print("⚡ [Redis] 웹 대시보드 연동용 AI 리포트 및 5단계 등급 데이터 업데이트 완료!")
+    except Exception as e:
+        print(f"❌ [Redis] 데이터 업로드 실패: {e}")
+
+# ==============================================================================
 # [리포트 생성 및 이메일 발송]
 # ==============================================================================
 def generate_gemini_analysis(df_top):
@@ -487,8 +560,13 @@ if __name__ == "__main__":
             print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
             send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
 
-        # 4. Gemini AI 요약 작성 및 엑셀/이메일 발송
+        # 4. Gemini AI 요약 작성
         ai_report = generate_gemini_analysis(df_result)
+
+        # 5. [신규 추가] 5단계 AI 등급 생성 및 Redis 연동 (Program B 대시보드 전달용)
+        update_redis_for_dashboard(df_result, ai_report)
+
+        # 6. 엑셀 저장 및 이메일 발송
         export_to_excel_and_email(df_result, ai_report)
 
     print(f"\n✨ 자가학습 AI 프로세스 완료 (소요 시간: {round(time.time() - start_time, 2)}초)")
