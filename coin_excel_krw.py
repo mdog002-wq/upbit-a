@@ -574,11 +574,11 @@ if __name__ == "__main__":
 
     
 # ==============================================================================
-# [신규 모듈] 인터랙티브 웹 대시보드 HTML 자동 생성 기능
+# [신규 모듈] 인터랙티브 웹 대시보드 HTML 자동 생성 기능 (버튼 추가 버전)
 # ==============================================================================
 def generate_dashboard_html(df_result, ai_report):
     """
-    분석된 데이터를 바탕으로 요구사항에 맞춘 모던한 대시보드 HTML 파일을 docs/index.html로 생성합니다.
+    분석된 데이터를 바탕으로 좌측 상단 '급등주포착' 단추가 포함된 대시보드 HTML을 생성합니다.
     """
     os.makedirs("docs", exist_ok=True)
     html_path = "docs/index.html"
@@ -589,14 +589,12 @@ def generate_dashboard_html(df_result, ai_report):
             f.write(html_content)
         return
 
-    # 데이터 가공
     coins_data = []
     for _, row in df_result.iterrows():
         score = float(row['종합예측점수'])
         dump_risk = float(row['STGT_그래프덤핑위험(%)'])
         grade = calculate_ai_grade(score, dump_risk)
         
-        # 가상의 전일 대비 등락률 및 매도가/진입가 산출 (실제 데이터에 맞게 변형 가능)
         cmf = float(row['CMF지표'])
         est_change = round(cmf * 5.2, 2)
         
@@ -613,16 +611,13 @@ def generate_dashboard_html(df_result, ai_report):
             "target_price": format_price(float(str(row['현재가(KRW)']).replace(',', '')) * 1.07) if str(row['현재가(KRW)']).replace(',', '').replace('.', '').isdigit() else "-"
         })
 
-    # 섹터별 분류
     recommended_sector = [c for c in coins_data if c['grade'] == "🟢 추천"]
     interested_sector = [c for c in coins_data if c['grade'] == "🔵 관심"]
     normal_sector = [c for c in coins_data if c['grade'] == "⚪ 보통"]
     warning_sector = [c for c in coins_data if c['grade'] in ["🟠 주의", "🔴 경고"]]
 
-    # AI 추천 Top 3 (점수 기준 상위 3개)
     top3_coins = sorted(coins_data, key=lambda x: x['score'], reverse=True)[:3]
 
-    # 급등/급락 알림 대상 선정
     alerts = []
     for c in coins_data:
         if c['dump_risk'] >= 75.0:
@@ -649,7 +644,6 @@ def generate_dashboard_html(df_result, ai_report):
         .badge-normal {{ background-color: #64748b; }}
         .badge-warning {{ background-color: #f97316; }}
         .badge-danger {{ background-color: #ef4444; }}
-        /* 우측 스티커 스타일 */
         .sticky-sticker {{
             position: fixed; right: 20px; top: 20px; width: 280px; z-index: 1050;
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -675,12 +669,18 @@ def generate_dashboard_html(df_result, ai_report):
     </div>
 
     <div class="container-fluid my-4 px-4" style="max-width: 1600px;">
-        <!-- 타이틀 -->
-        <div class="row mb-4">
-            <div class="col-12 text-center">
-                <h1 class="fw-bold text-white"><i class="fa-solid fa-robot text-primary"></i> 업비트 AI 매집 패턴 & 자가학습 분석 대시보드</h1>
-                <p class="text-muted">최종 업데이트 시각: {updated_time} | 5단계 실시간 멀티스레딩 분석</p>
+        <!-- 상단 네비게이션 (좌측 상단 급등주포착 버튼 포함) -->
+        <div class="row mb-4 align-items-center">
+            <div class="col-md-3 text-start">
+                <a href="/" class="btn btn-outline-primary fw-bold px-3 py-2 shadow-sm">
+                    <i class="fa-solid fa-bolt text-warning"></i> 급등주포착
+                </a>
             </div>
+            <div class="col-md-6 text-center">
+                <h1 class="fw-bold text-white mb-0" style="font-size: 1.8rem;"><i class="fa-solid fa-robot text-primary"></i> 업비트 AI 매집 패턴 대시보드</h1>
+                <small class="text-muted">최종 업데이트: {updated_time}</small>
+            </div>
+            <div class="col-md-3"></div>
         </div>
 
         <div class="row">
@@ -797,9 +797,7 @@ def generate_dashboard_html(df_result, ai_report):
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("🎨 [대시보드] 요구사항 맞춤형 HTML 대시보드 생성 완료 (`docs/index.html`)!")
-        # ==========================================================
-        generate_dashboard_html(df_result, ai_report)
+    print("🎨 [대시보드] '급등주포착' 버튼이 포함된 HTML 대시보드 생성 완료 (`docs/index.html`)!")
 
         # 6. 엑셀 저장 및 이메일 발송
        # (현재 시간 기준 한국 시간(KST) 시각 구하기: UTC + 9시간)
