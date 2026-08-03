@@ -572,7 +572,7 @@ if __name__ == "__main__":
         current_hour = kst_now.hour
 
         # 원하는 시간대(시)를 리스트에 적어주세요 (예: 9시, 15시, 21시)
-        target_hours = [9, 15, 21] 
+        target_hours = [9, 13, 17, 21] 
 
         if current_hour in target_hours:
             export_to_excel_and_email(df_result, ai_report)
