@@ -1,4 +1,5 @@
 import os
+import io
 import time
 import datetime
 import json
@@ -12,6 +13,7 @@ import asyncio
 import pickle
 import redis
 import oracledb
+import paramiko
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
@@ -45,6 +47,44 @@ except ImportError:
     TF_AVAILABLE = False
     print("⚠️ TensorFlow가 설치되어 있지 않습니다. 기본 통계 기반 알고리즘으로 동작합니다.")
 
+
+def upload_html_to_oracle_server(local_file_path):
+    """
+    GitHub Secrets에 등록된 ORACLE_SSH_KEY(.key 내용)를 이용해 
+    오라클 서버로 대시보드 HTML 파일을 자동 전송하는 함수
+    """
+    hostname = os.environ.get("ORACLE_DSN")          # 오라클 서버 공인 IP
+    username = os.environ.get("ORACLE_USER", "opc")  # 계정명 (기본 opc 또는 ubuntu)
+    ssh_key_content = os.environ.get("ORACLE_SSH_KEY") # GitHub Secrets에서 가져온 개인키 내용
+
+    if not hostname or not ssh_key_content:
+        print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
+        return
+
+    remote_file_path = "/var/www/html/index.html" # 오라클 서버 내 웹서버 저장 경로 (환경에 맞게 수정)
+
+    try:
+        # 문자열 형태의 프라이빗 키(.key)를 메모리에서 읽어오기
+        key_file_like = io.StringIO(ssh_key_content)
+        pkey = paramiko.RSAKey.from_private_key(key_file_like)
+
+        # SSH 클라이언트 연결 설정
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        
+        # .key 개인키로 접속
+        ssh.connect(hostname, port=22, username=username, pkey=pkey)
+
+        # SFTP를 통해 파일 전송
+        sftp = ssh.open_sftp()
+        sftp.put(local_file_path, remote_file_path)
+        print(f"🚀 오라클 서버로 HTML 대시보드 전송 완료! ({remote_file_path})")
+        
+        sftp.close()
+        ssh.close()
+        
+    except Exception as e:
+        print(f"❌ 오라클 서버 전송 실패: {e}")
 # ==============================================================================
 # [설정] 환경 변수 및 파일 경로
 # ==============================================================================
