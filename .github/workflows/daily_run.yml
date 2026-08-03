@@ -30,11 +30,13 @@ jobs:
           echo "${{ secrets.ORACLE_WALLET_BASE64 }}" | base64 -d > /tmp/wallet/wallet.zip
           unzip -o /tmp/wallet/wallet.zip -d /tmp/wallet/
 
-      - name: 필요 라이브러리 설치 (가볍고 빠른 경량화)
+            - name: 필요 라이브러리 설치 (가볍고 빠른 경량화)
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install pyupbit pandas numpy requests openpyxl tqdm websockets google-genai oracledb
+          pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu  # 👈 여기에 추가!
+
 
       - name: 파이썬 분석 스크립트 실행
         env:
