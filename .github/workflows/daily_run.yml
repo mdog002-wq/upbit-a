@@ -1,8 +1,10 @@
 name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
- 
   workflow_dispatch:
+  # 만약 10분마다 자동으로 돌리고 싶다면 아래 주석을 해제하세요
+  # schedule:
+  #   - cron: '*/10 * * * *'
 
 jobs:
   run-upbit-bot:
@@ -24,7 +26,7 @@ jobs:
       - name: 필요 라이브러리 설치
         run: |
           python -m pip install --upgrade pip
-          pip install pyupbit pandas numpy requests openpyxl tqdm websockets google-genai oracledb redis
+          pip install pyupbit pandas numpy requests openpyxl tqdm websockets google-genai oracledb redis fastapi uvicorn
           pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 
       - name: 파이썬 분석 스크립트 실행
@@ -33,7 +35,7 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           ORACLE_USER: ${{ secrets.ORACLE_USER }}
           ORACLE_PASSWORD: ${{ secrets.ORACLE_PASSWORD }}
@@ -44,15 +46,17 @@ jobs:
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: python coin_excel_krw.py
 
-      - name: 누적 히스토리 및 캐시 자동 커밋
+      - name: 대시보드 HTML 및 누적 히스토리 자동 커밋
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add scan_history.csv cache_*.json ai_models/* 2>/dev/null || true
+          
+          # 🚀 [수정] docs/ 폴더(대시보드 HTML)를 Git 추적 목록에 포함
+          git add docs/ scan_history.csv cache_*.json ai_models/* 2>/dev/null || true
           
           if ! git diff --staged --quiet; then
             git pull --rebase origin main || true
-            git commit -m "Auto: Update scan history and cache [skip ci]"
+            git commit -m "Auto: Update dashboard and AI cache [skip ci]"
             git push
           else
             echo "변경사항이 없어 커밋을 스킵합니다."
