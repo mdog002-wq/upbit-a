@@ -378,7 +378,7 @@ def process_single_coin(item):
 
 def analyze_and_scan_market():
     krw_coins = get_krw_upbit_tickers()
-    results, stgt_feat_list = [], []
+    results = []
     
     print("\n🚀 [멀티스레딩] 병렬 코인 스캔 및 AI 예측 시작...")
     with ThreadPoolExecutor(max_workers=10) as executor:
@@ -388,23 +388,37 @@ def analyze_and_scan_market():
             if res: results.append(res)
 
     df = pd.DataFrame(results)
-    if not df.empty and TORCH_AVAILABLE and stgt_manager.model:
-        # STGT 그래프 배치 예측
-        feats = np.array(df['_stgt_feats'].tolist())
-        x_t = torch.tensor(feats, dtype=torch.float32)
+    if df.empty:
+        return df
         
-        # 임시 완전 연결 그래프 구성 (유사도 로직은 생략)
-        n = len(feats)
-        e_src, e_dst = np.where(~np.eye(n, dtype=bool))
-        edge_idx = torch.tensor([e_src, e_dst], dtype=torch.long)
-        
-        preds = stgt_manager.predict(x_t, edge_idx)
-        if isinstance(preds, float): preds = [preds]
-        
-        df['STGT_그래프덤핑위험(%)'] = [round(p * 100, 1) for p in preds]
+    # 💡 [해결 포인트] PyTorch 설치 여부와 상관없이 기본 컬럼을 0.0으로 먼저 생성합니다.
+    df['STGT_그래프덤핑위험(%)'] = 0.0
+
+    # PyTorch가 설치되어 있고 모델이 정상 로드된 경우에만 예측값으로 덮어씁니다.
+    if TORCH_AVAILABLE and stgt_manager.model:
+        try:
+            # STGT 그래프 배치 예측
+            feats = np.array(df['_stgt_feats'].tolist())
+            x_t = torch.tensor(feats, dtype=torch.float32)
+            
+            # 임시 완전 연결 그래프 구성
+            n = len(feats)
+            e_src, e_dst = np.where(~np.eye(n, dtype=bool))
+            edge_idx = torch.tensor([e_src, e_dst], dtype=torch.long)
+            
+            preds = stgt_manager.predict(x_t, edge_idx)
+            if isinstance(preds, float): preds = [preds]
+            
+            df['STGT_그래프덤핑위험(%)'] = [round(p * 100, 1) for p in preds]
+        except Exception as e:
+            print(f"⚠️ STGT 분석 중 예외 발생 (기본값으로 대체): {e}")
+            
+    # 학습/분석용 임시 피처 컬럼은 깔끔하게 삭제합니다.
+    if '_stgt_feats' in df.columns:
         df = df.drop(columns=['_stgt_feats'])
 
     return df.sort_values(by="종합예측점수", ascending=False)
+
 
 # ==============================================================================
 # [메인 실행부]
