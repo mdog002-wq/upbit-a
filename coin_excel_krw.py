@@ -11,6 +11,7 @@ import openpyxl
 import asyncio
 import pickle
 import redis
+import oracledb
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
