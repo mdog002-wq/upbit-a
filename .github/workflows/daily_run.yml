@@ -1,8 +1,8 @@
-name: 업비트 코인 매집점수 분석 및 메일 발송
+Name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   schedule:
-    # UTC 기준 (한국 시간 01:00, 05:00)
+    # UTC 기준
     - cron: '0 16,20 * * *'
   workflow_dispatch:
 
@@ -22,21 +22,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      # 오라클 Secrets가 있을 때만 지갑 복원 수행
-      - name: 오라클 전자서명(Wallet) 복원
-        if: ${{ secrets.ORACLE_WALLET_BASE64 != '' }}
-        run: |
-          mkdir -p /tmp/wallet
-          echo "${{ secrets.ORACLE_WALLET_BASE64 }}" | base64 -d > /tmp/wallet/wallet.zip
-          unzip -o /tmp/wallet/wallet.zip -d /tmp/wallet/
-
-            - name: 필요 라이브러리 설치 (가볍고 빠른 경량화)
+      - name: 필요 라이브러리 설치
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install pyupbit pandas numpy requests openpyxl tqdm websockets google-genai oracledb
-          pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu  # 👈 여기에 추가!
-
 
       - name: 파이썬 분석 스크립트 실행
         env:
@@ -46,22 +35,19 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          
-          # 오라클 DB 환경변수
-          ORACLE_USER: ${{ secrets.ORACLE_USER }}
-          ORACLE_PASSWORD: ${{ secrets.ORACLE_PASSWORD }}
-          ORACLE_DSN: ${{ secrets.ORACLE_DSN }}
-          TNS_ADMIN: /tmp/wallet
-          
+          # [핵심] 수동 실행(workflow_dispatch)일 때만 "true", 자동 실행일 때는 "false"가 됩니다.
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: |
           python coin_excel_krw.py
 
-      - name: 누적 히스토리 및 캐시 자동 커밋 & 푸시
+      - name: 누적 히스토리(CSV) 및 캐시 자동 커밋 & 푸시
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          git add scan_history.csv cache_*.json ai_models/* 2>/dev/null || true
+          # 파일이 존재하는 경우에만 안전하게 git add 수행
+          git add scan_history.csv cache_*.json 2>/dev/null || true
+
+          # 변경사항이 있는지 확인 후 커밋 및 푸시
           git diff --staged --quiet || git commit -m "Auto: Update scan history and cache [skip ci]"
           git push || echo "No changes to push or push failed"
