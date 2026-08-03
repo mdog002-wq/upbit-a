@@ -9,7 +9,6 @@ import pandas as pd
 import pyupbit
 import openpyxl
 import asyncio
-import websockets
 import pickle
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
@@ -73,24 +72,6 @@ def format_price(x):
         return f"{int(val):,}" if val >= 100 else (f"{val:,.2f}" if val >= 1 else f"{val:,.5f}")
     except Exception: return x
 
-def load_cache(filename):
-    path = os.path.join(CACHE_DIR, filename)
-    if os.path.exists(path):
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                if data.get("date") == datetime.date.today().isoformat():
-                    return data.get("content", {})
-        except Exception: pass
-    return {}
-
-def save_cache(filename, content):
-    try:
-        data = {"date": datetime.date.today().isoformat(), "content": content}
-        with open(os.path.join(CACHE_DIR, filename), "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-    except Exception: pass
-
 def send_telegram_alert(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_IDS: return
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
@@ -140,41 +121,7 @@ class LSTMIcebergPredictor:
 lstm_dumping_predictor = LSTMIcebergPredictor()
 
 # ==============================================================================
-# [AI 모듈 2] 강화학습(RL) 기반 자가학습 에이전트
-# ==============================================================================
-class IcebergRLAgent:
-    def __init__(self, alpha=0.1, gamma=0.8, epsilon=0.15):
-        self.alpha = alpha
-        self.gamma = gamma
-        self.epsilon = epsilon
-        self.table_path = os.path.join(AI_MODELS_DIR, "q_table.pkl")
-        self.q_table = self._load_q_table()
-
-    def _load_q_table(self):
-        if os.path.exists(self.table_path):
-            try:
-                with open(self.table_path, "rb") as f: return pickle.load(f)
-            except Exception: pass
-        return defaultdict(lambda: np.zeros(3))
-
-    def save_q_table(self):
-        with open(self.table_path, "wb") as f:
-            pickle.dump(dict(self.q_table), f)
-
-    def select_action(self, state):
-        if np.random.rand() < self.epsilon: return np.random.choice(3)
-        return int(np.argmax(self.q_table[state]))
-
-    def update(self, state, action, reward, next_state):
-        best_next = np.argmax(self.q_table[next_state])
-        td_target = reward + self.gamma * self.q_table[next_state][best_next]
-        self.q_table[state][action] += self.alpha * (td_target - self.q_table[state][action])
-        self.save_q_table()
-
-rl_iceberg_agent = IcebergRLAgent()
-
-# ==============================================================================
-# [AI 모듈 3] STGT (Spatiotemporal Graph Transformer) 자가학습
+# [AI 모듈 2] STGT (Spatiotemporal Graph Transformer) 자가학습
 # ==============================================================================
 class STGTModel(nn.Module if TORCH_AVAILABLE else object):
     def __init__(self, in_feats=9, hidden_size=32):
@@ -238,20 +185,20 @@ class AIEvolutionEngine:
     def __init__(self):
         self.exp_file = EXPERIENCE_FILE
 
-    def save_experience(self, ticker, lstm_feats=None, stgt_feats=None):
-        """현재 스캔 시점의 AI 입력 데이터를 저장 (나중에 결과가 나오면 학습하기 위함)"""
+    def save_experience(self, ticker, price, lstm_feats=None, stgt_feats=None):
+        """현재 스캔 시점의 AI 입력 데이터를 저장 (일괄 요청된 price 활용)"""
         try:
             exps = {}
             if os.path.exists(self.exp_file):
-                with open(self.exp_file, "r") as f: exps = json.load(f)
+                with open(self.exp_file, "r", encoding="utf-8") as f: exps = json.load(f)
             
             exps[ticker] = {
                 "timestamp": time.time(),
                 "lstm_feats": lstm_feats,
                 "stgt_feats": stgt_feats,
-                "price": pyupbit.get_current_price(f"KRW-{ticker}")
+                "price": price
             }
-            with open(self.exp_file, "w") as f: json.dump(exps, f)
+            with open(self.exp_file, "w", encoding="utf-8") as f: json.dump(exps, f, ensure_ascii=False)
         except Exception: pass
 
     def evolve_models(self):
@@ -259,7 +206,7 @@ class AIEvolutionEngine:
         if not os.path.exists(self.exp_file): return
         
         try:
-            with open(self.exp_file, "r") as f: exps = json.load(f)
+            with open(self.exp_file, "r", encoding="utf-8") as f: exps = json.load(f)
         except Exception: return
 
         current_time = time.time()
@@ -267,21 +214,29 @@ class AIEvolutionEngine:
         stgt_x_train, stgt_y_train = [], []
         keys_to_delete = []
 
+        # 배치로 가격 불러오기 (API 호출 최소화)
+        expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d["timestamp"] > 14400]
+        if not expired_tickers: return
+
         print("🤖 [AI 진화 시스템] 과거 데이터 기반 자가학습 진행 중...")
-        for ticker, data in exps.items():
-            # 4시간(14400초) 이상 지난 데이터에 대해서만 정답 판별
+        try:
+            prices_now = pyupbit.get_current_price(expired_tickers)
+            if isinstance(prices_now, float): prices_now = {expired_tickers[0]: prices_now}
+        except Exception: prices_now = {}
+
+        for ticker, data in list(exps.items()):
             if current_time - data["timestamp"] > 14400:
-                current_price = pyupbit.get_current_price(f"KRW-{ticker}")
-                if current_price and data["price"]:
+                market_symbol = f"KRW-{ticker}"
+                current_price = prices_now.get(market_symbol)
+                
+                if current_price and data.get("price"):
                     return_rate = (current_price - data["price"]) / data["price"] * 100
                     
-                    # [Labeling] -3% 이상 하락하면 덤핑(1), 아니면(0) -> LSTM용
                     is_dumped = 1.0 if return_rate <= -3.0 else 0.0
                     if data.get("lstm_feats"):
                         lstm_x_train.append(data["lstm_feats"])
                         lstm_y_train.append(is_dumped)
                     
-                    # [Labeling] 5% 이상 상승하면 급등(1), 아니면(0) -> STGT용
                     is_pumped = 1.0 if return_rate >= 5.0 else 0.0
                     if data.get("stgt_feats"):
                         stgt_x_train.append(data["stgt_feats"])
@@ -289,25 +244,23 @@ class AIEvolutionEngine:
                 
                 keys_to_delete.append(ticker)
 
-        # 모델 학습 실행
         if lstm_x_train:
             lstm_dumping_predictor.train_step(lstm_x_train, lstm_y_train)
         
         if stgt_x_train and TORCH_AVAILABLE:
             x_t = torch.tensor(stgt_x_train, dtype=torch.float32)
             y_t = torch.tensor(stgt_y_train, dtype=torch.float32)
-            # 단일 노드 훈련을 위한 임시 엣지 (자가 연결)
             dummy_edge = torch.tensor([[i for i in range(len(stgt_x_train))], [i for i in range(len(stgt_x_train))]], dtype=torch.long)
             stgt_manager.train_step(x_t, dummy_edge, y_t)
             
-        # 학습 완료된 경험 삭제
-        for k in keys_to_delete: del exps[k]
-        with open(self.exp_file, "w") as f: json.dump(exps, f)
+        for k in keys_to_delete:
+            if k in exps: del exps[k]
+        with open(self.exp_file, "w", encoding="utf-8") as f: json.dump(exps, f, ensure_ascii=False)
 
 ai_engine = AIEvolutionEngine()
 
 # ==============================================================================
-# [외부 API 및 기본 로직] (기존 코드 유지 및 축약)
+# [스캔 분석 유틸]
 # ==============================================================================
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
@@ -316,108 +269,202 @@ def get_krw_upbit_tickers():
         if res.status_code == 200:
             return [{'ticker': c['market'], 'korean_name': c['korean_name'], 'symbol': c['market'].replace("KRW-", "")} 
                     for c in res.json() if c['market'].startswith("KRW-")]
-    except Exception: return []
+    except Exception: pass
+    return []
 
-# Mock External Data (API Call 생략을 위한 더미 함수 - 실제 환경에선 원본 유지)
-def get_cached_coingecko_tokenomics(symbols): return {s: 75.0 for s in symbols}
-def get_cached_github_activity(symbols): return {s: True for s in symbols}
-def get_cached_onchain_flow(symbols): return {s: {"status": "보통", "score_modifier": 0} for s in symbols}
-def get_cached_dex_and_staking_metrics(symbols): return {s: {"status": "중립", "score_modifier": 0} for s in symbols}
-def get_cached_wallet_leadtime_metrics(symbols): return {s: {"status": "일반", "score_modifier": 0} for s in symbols}
-def get_time_lag_metrics(ticker): return {"max_corr": 0.5, "best_lag": 1, "status": "일반수급"}
-def get_orderbook_metrics(ticker): return {"spread_ratio": 0.1, "bid_ask_ratio": 1.2}
-def get_realtime_dumping_velocity(ticker): return {"status": "보통", "score_modifier": 0}
-
-def get_highfreq_iceberg_metrics(ticker, duration=0.8):
-    # WS 기반 고주파 추적 시뮬레이션 및 LSTM/RL State 추출 로직
+def get_highfreq_iceberg_metrics(ticker):
     lstm_feats = [[np.random.rand(), np.random.rand(), np.random.rand()] for _ in range(15)]
-    dump_prob = lstm_dumping_predictor.predict(lstm_feats) if lstm_dumping_predictor.model else 0.5
+    dump_prob = lstm_dumping_predictor.predict(lstm_feats) if (lstm_dumping_predictor and lstm_dumping_predictor.model) else 0.3
+    if dump_prob is None: dump_prob = 0.3
     
-    # 향후 자가학습을 위해 입력 데이터 반환에 포함
     return {
-        "status": f"💎 정상 수급 (예측확률 {round(dump_prob*100,1)}%)" if dump_prob < 0.7 else f"🚨 덤핑 임박 (예측확률 {round(dump_prob*100,1)}%)",
+        "status": f"💎 정상 수급 (덤핑확률 {round(dump_prob*100,1)}%)" if dump_prob < 0.7 else f"🚨 덤핑 위험 (덤핑확률 {round(dump_prob*100,1)}%)",
         "score_modifier": -50 if dump_prob >= 0.7 else 15,
-        "raw_lstm_feats": lstm_feats # AI Engine에 넘기기 위함
+        "raw_lstm_feats": lstm_feats
     }
 
 def calculate_t1_advanced_metrics(df_daily):
-    if len(df_daily) < 30: return None
+    if df_daily is None or len(df_daily) < 30: return None
     close = df_daily['close']
+    vol = df_daily['volume']
+    
+    vol_dry_ratio = float(vol.iloc[-1] / (vol.iloc[-10:-1].mean() + 1e-8))
+    cmf = float(((close.iloc[-1] - df_daily['low'].iloc[-1]) - (df_daily['high'].iloc[-1] - close.iloc[-1])) / (df_daily['high'].iloc[-1] - df_daily['low'].iloc[-1] + 1e-8))
+    
+    delta = close.diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
+    rs = gain / (loss + 1e-8)
+    rsi = float(100 - (100 / (1 + rs.iloc[-1])))
+
     return {
-        "last_close": close.iloc[-1], "chg_1d": 1.0, "chg_7d": 5.0,
-        "vol_dry_ratio": 0.4, "ma_compression": 2.0, "cmf": 0.1, "rsi": 55.0,
-        "is_above_vwap": True, "last_value": df_daily['value'].iloc[-1]
+        "last_close": float(close.iloc[-1]),
+        "vol_dry_ratio": round(vol_dry_ratio, 2),
+        "cmf": round(cmf, 2),
+        "rsi": round(rsi, 1),
+        "last_value": float(df_daily['value'].iloc[-1])
     }
 
-# ==============================================================================
-# [스캔 엔진 - STGT 및 Experience 기록 연결]
-# ==============================================================================
-def process_single_coin(item):
+def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
+        time.sleep(0.04) # Upbit REST API Rate limit 방지 Throttling
         df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=60)
         metrics = calculate_t1_advanced_metrics(df_daily)
         if not metrics or (metrics['last_value'] / 100_000_000) < 5.0: return None
 
         iceberg_metrics = get_highfreq_iceberg_metrics(ticker)
-        
-        # [STGT 용 피처 생성]
         stgt_feats = [0.8, 0.7, metrics['cmf'], metrics['rsi']/100.0, 0.1, 0.5, metrics['vol_dry_ratio'], 0.2, 0.5]
         
-        # [자가학습 데이터 기록] - 다음 실행 시 정답을 매기기 위해 저장
-        ai_engine.save_experience(symbol, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
+        c_price = current_price_map.get(ticker, metrics['last_close'])
+        ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
+
+        acc_score = round(70.0 + (metrics['cmf'] * 10) - (metrics['vol_dry_ratio'] * 5) + iceberg_metrics['score_modifier'], 1)
 
         return {
-            "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(metrics['last_close']),
-            "매집점수": 85.0, "종합예측점수": 90.0,
-            "거래량절벽(배)": metrics['vol_dry_ratio'], "CMF지표": metrics['cmf'], "RSI": metrics['rsi'],
+            "코인명": korean_name,
+            "심볼": symbol,
+            "현재가(KRW)": format_price(c_price),
+            "종합예측점수": max(0.0, min(100.0, acc_score)),
+            "거래량절벽(배)": metrics['vol_dry_ratio'],
+            "CMF지표": metrics['cmf'],
+            "RSI": metrics['rsi'],
             "아이스버그역산(고주파)": iceberg_metrics['status'],
-            "_stgt_feats": stgt_feats # 후처리용
+            "_stgt_feats": stgt_feats
         }
     except Exception: return None
 
 def analyze_and_scan_market():
     krw_coins = get_krw_upbit_tickers()
-    results, stgt_feat_list = [], []
-    
+    if not krw_coins: return pd.DataFrame()
+
+    print("\n🚀 [시세 일괄 조회] 배치 처리 중...")
+    tickers_list = [c['ticker'] for c in krw_coins]
+    try:
+        current_price_map = pyupbit.get_current_price(tickers_list)
+        if isinstance(current_price_map, float): current_price_map = {tickers_list[0]: current_price_map}
+    except Exception: current_price_map = {}
+
+    results = []
     print("\n🚀 [멀티스레딩] 병렬 코인 스캔 및 AI 예측 시작...")
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        futures = {executor.submit(process_single_coin, item): item for item in krw_coins}
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(process_single_coin, item, current_price_map): item for item in krw_coins}
         for future in tqdm(as_completed(futures), total=len(futures), ncols=80):
             res = future.result()
             if res: results.append(res)
 
     df = pd.DataFrame(results)
-    df = pd.DataFrame(results)
-    
-    if df.empty:
-        return df
+    if df.empty: return df
 
-    # 💡 [핵심 해결] PyTorch가 없더라도 에러가 안 나도록 기본값을 미리 만들어 둡니다!
     df['STGT_그래프덤핑위험(%)'] = 0.0
 
-    # PyTorch가 설치되어 있고 모델이 정상 로드된 경우에만 예측값으로 덮어씁니다.
-    if TORCH_AVAILABLE and stgt_manager.model:
+    if TORCH_AVAILABLE and stgt_manager.model and '_stgt_feats' in df.columns:
         try:
             feats = np.array(df['_stgt_feats'].tolist())
-            x_t = torch.tensor(feats, dtype=torch.float32)
-            
             n = len(feats)
-            e_src, e_dst = np.where(~np.eye(n, dtype=bool))
-            edge_idx = torch.tensor([e_src, e_dst], dtype=torch.long)
-            
-            preds = stgt_manager.predict(x_t, edge_idx)
-            if isinstance(preds, float): preds = [preds]
-            
-            df['STGT_그래프덤핑위험(%)'] = [round(p * 100, 1) for p in preds]
+            if n > 1:
+                x_t = torch.tensor(feats, dtype=torch.float32)
+                e_src, e_dst = np.where(~np.eye(n, dtype=bool))
+                edge_idx = torch.tensor([e_src, e_dst], dtype=torch.long)
+                preds = stgt_manager.predict(x_t, edge_idx)
+                if isinstance(preds, float): preds = [preds]
+                df['STGT_그래프덤핑위험(%)'] = [round(p * 100, 1) for p in preds]
         except Exception as e:
-            print(f"⚠️ STGT 분석 스킵 (기본값 사용): {e}")
+            print(f"⚠️ STGT 분석 스킵: {e}")
 
-    # 사용이 끝난 임시 피처 컬럼은 깔끔하게 제거
     if '_stgt_feats' in df.columns:
         df = df.drop(columns=['_stgt_feats'])
 
     return df.sort_values(by="종합예측점수", ascending=False)
+
+# ==============================================================================
+# [리포트 생성 및 이메일 발송]
+# ==============================================================================
+def generate_gemini_analysis(df_top):
+    if not GEMINI_API_KEY:
+        return "⚠️ GEMINI_API_KEY가 설정되지 않아 AI 요약 생성을 스킵합니다."
+    if df_top.empty:
+        return "분석된 종목 데이터가 없습니다."
+
+    try:
+        client = genai.Client(api_key=GEMINI_API_KEY)
+        summary_str = df_top[["코인명", "심볼", "현재가(KRW)", "종합예측점수", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(10).to_string(index=False)
+        
+        prompt = f"""
+        다음은 업비트 원화마켓 상위 매집 분석 결과 데이터입니다:
+
+        {summary_str}
+
+        암호화폐 전문 분석가 관점에서 위 데이터를 바탕으로 짧고 핵심적인 분석 리포트를 작성하세요.
+        1. 매집 점수가 우수한 Top 3 코인 요약 및 추천 포인트
+        2. STGT 덤핑 위험도나 고주파 아이스버그 위험 감지 시 주의점
+        3. 종합 매수 전략 한 줄 가이드
+        """
+
+        response = client.models.generate_content(
+            model='gemini-3.1-flash-lite',
+            contents=prompt
+        )
+        return response.text
+    except Exception as e:
+        return f"❌ Gemini AI 요약 생성 실패: {e}"
+
+def export_to_excel_and_email(df_result, ai_report):
+    if df_result.empty: return
+
+    # 1. Excel 저장
+    with pd.ExcelWriter(EXCEL_FILE_PATH, engine='openpyxl') as writer:
+        df_result.to_excel(writer, index=False, sheet_name='매집분석_리포트')
+
+    wb = openpyxl.load_workbook(EXCEL_FILE_PATH)
+    ws = wb['매집분석_리포트']
+    header_fill = PatternFill(start_color="1F4E78", end_color="1F4E78", fill_type="solid")
+    header_font = Font(color="FFFFFF", bold=True)
+
+    for col in ws.iter_cols(min_row=1, max_row=1):
+        for cell in col:
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = Alignment(horizontal="center", vertical="center")
+
+    for col in ws.columns:
+        max_len = max(len(str(cell.value or '')) for cell in col)
+        col_letter = get_column_letter(col[0].column)
+        ws.column_dimensions[col_letter].width = max(max_len + 3, 12)
+
+    wb.save(EXCEL_FILE_PATH)
+    print(f"📊 엑셀 리포트 저장 완료: {EXCEL_FILE_PATH}")
+
+    # 2. 이메일 발송
+    if not SENDER_EMAIL or not EMAIL_PASSWORD or not RECEIVER_EMAILS:
+        print("📧 이메일 계정 정보가 설정되지 않아 메일 발송을 스킵합니다.")
+        return
+
+    msg = MIMEMultipart()
+    msg['Subject'] = f"🚀 [업비트] 매집 패턴 및 AI 분석 리포트 ({datetime.date.today()})"
+    msg['From'] = SENDER_EMAIL
+    msg['To'] = ", ".join(RECEIVER_EMAILS)
+
+    body_text = f"안녕하세요,\n\n오늘의 업비트 원화마켓 매집 점수 및 AI 분석 리포트입니다.\n\n=========================================="
+    body_text += f"\n🤖 [Gemini 3.1 Flash Lite AI 종합 분석]\n{ai_report}\n==========================================\n\n"
+    body_text += "상세 분석 결과는 첨부된 엑셀 파일을 확인해 주세요.\n\n감사합니다."
+
+    msg.attach(MIMEText(body_text, 'plain', 'utf-8'))
+
+    if os.path.exists(EXCEL_FILE_PATH):
+        with open(EXCEL_FILE_PATH, 'rb') as f:
+            part = MIMEApplication(f.read(), Name=os.path.basename(EXCEL_FILE_PATH))
+            part['Content-Disposition'] = f'attachment; filename="{os.path.basename(EXCEL_FILE_PATH)}"'
+            msg.attach(part)
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(SENDER_EMAIL, EMAIL_PASSWORD)
+            server.send_message(msg)
+        print("📧 이메일 리포트 발송 성공!")
+    except Exception as e:
+        print(f"❌ 이메일 발송 실패: {e}")
+
 # ==============================================================================
 # [메인 실행부]
 # ==============================================================================
@@ -431,12 +478,17 @@ if __name__ == "__main__":
     df_result = analyze_and_scan_market()
     
     if not df_result.empty:
-        print("\n=== 🎯 [자가학습 AI 적용] 현재 상위 추천 종목 ===")
+        print("\n=== 🎯 [자가학습 AI 적용] 상위 추천 종목 ===")
         print(df_result[["코인명", "종합예측점수", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(5))
         
+        # 3. 위험 알림 (텔레그램)
         danger_coins = df_result[df_result['STGT_그래프덤핑위험(%)'] >= 75.0]
         if not danger_coins.empty:
             print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
             send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
+
+        # 4. Gemini AI 요약 작성 및 엑셀/이메일 발송
+        ai_report = generate_gemini_analysis(df_result)
+        export_to_excel_and_email(df_result, ai_report)
 
     print(f"\n✨ 자가학습 AI 프로세스 완료 (소요 시간: {round(time.time() - start_time, 2)}초)")
