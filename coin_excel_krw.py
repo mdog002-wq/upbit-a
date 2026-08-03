@@ -563,10 +563,18 @@ if __name__ == "__main__":
         # 4. Gemini AI 요약 작성
         ai_report = generate_gemini_analysis(df_result)
 
-        # 5. [신규 추가] 5단계 AI 등급 생성 및 Redis 연동 (Program B 대시보드 전달용)
+        # 5. 5단계 AI 등급 생성 및 Redis 연동 
         update_redis_for_dashboard(df_result, ai_report)
 
         # 6. 엑셀 저장 및 이메일 발송
-        export_to_excel_and_email(df_result, ai_report)
+       # (현재 시간 기준 한국 시간(KST) 시각 구하기: UTC + 9시간)
+        kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+        current_hour = kst_now.hour
 
-    print(f"\n✨ 자가학습 AI 프로세스 완료 (소요 시간: {round(time.time() - start_time, 2)}초)")
+        # 원하는 시간대(시)를 리스트에 적어주세요 (예: 9시, 15시, 21시)
+        target_hours = [9, 15, 21] 
+
+        if current_hour in target_hours:
+            export_to_excel_and_email(df_result, ai_report)
+        else:
+            print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
