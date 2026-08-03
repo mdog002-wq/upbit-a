@@ -795,19 +795,19 @@ def generate_dashboard_html(df_result, ai_report):
 </html>
 """
 
-    with open(html_path, "w", encoding="utf-8") as f:
+with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print("🎨 [대시보드] '급등주포착' 버튼이 포함된 HTML 대시보드 생성 완료 (`docs/index.html`)!")
 
-        # 6. 엑셀 저장 및 이메일 발송
-       # (현재 시간 기준 한국 시간(KST) 시각 구하기: UTC + 9시간)
-        kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
-        current_hour = kst_now.hour
+    # 6. 엑셀 저장 및 이메일 발송
+    # (현재 시간 기준 한국 시간(KST) 시각 구하기: UTC + 9시간)
+    kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+    current_hour = kst_now.hour
 
-        # 원하는 시간대(시)를 리스트에 적어주세요 (예: 9시, 15시, 21시)
-        target_hours = [9, 13, 17, 21] 
+    # 원하는 시간대(시)를 리스트에 적어주세요 (예: 9시, 15시, 21시)
+    target_hours = [9, 13, 17, 21] 
 
-        if current_hour in target_hours:
-            export_to_excel_and_email(df_result, ai_report)
-        else:
-            print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
+    if current_hour in target_hours:
+        export_to_excel_and_email(df_result, ai_report)
+    else:
+        print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
