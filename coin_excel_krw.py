@@ -580,41 +580,7 @@ def export_to_excel_and_email(df_result, ai_report):
         print(f"❌ 이메일 발송 실패: {e}")
 
 # ==============================================================================
-# [메인 실행부]
-# ==============================================================================
-if __name__ == "__main__":
-    start_time = time.time()
-    
-    # 1. 이전 실행에서 기록된 데이터 기반으로 AI 자가학습 진행
-    ai_engine.evolve_models()
-    
-    # 2. 시장 스캔 및 새로운 데이터 추론/기록
-    df_result = analyze_and_scan_market()
-    
-    if not df_result.empty:
-        print("\n=== 🎯 [자가학습 AI 적용] 상위 추천 종목 ===")
-        print(df_result[["코인명", "종합예측점수", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(5))
-        
-        # 3. 위험 알림 (텔레그램)
-        danger_coins = df_result[df_result['STGT_그래프덤핑위험(%)'] >= 75.0]
-        if not danger_coins.empty:
-            print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
-            send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
-
-        # 4. Gemini AI 요약 작성
-        ai_report = generate_gemini_analysis(df_result)
-
-        # 5. 5단계 AI 등급 생성 및 Redis 연동 
-        update_redis_for_dashboard(df_result, ai_report)
-
-        # 🚀 [추가] 요구사항 맞춤형 HTML 대시보드 파일 실시간 생성!
-        generate_dashboard_html(df_result, ai_report)
-
-        # 엑셀 저장 및 이메일 발송 등 나머지 코드...
-
-    
-# ==============================================================================
-# [신규 모듈] 인터랙티브 웹 대시보드 HTML 자동 생성 기능 (버튼 추가 버전)
+# [신규 모듈] 인터랙티브 웹 대시보드 HTML 자동 생성 기능 정의 (먼저 선언되어야 함)
 # ==============================================================================
 def generate_dashboard_html(df_result, ai_report):
     """
@@ -835,19 +801,52 @@ def generate_dashboard_html(df_result, ai_report):
 </html>
 """
 
-with open(html_path, "w", encoding="utf-8") as f:
+    with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-print("🎨 [대시보드] '급등주포착' 버튼이 포함된 HTML 대시보드 생성 완료 (`docs/index.html`)!")
+    print("🎨 [대시보드] '급등주포착' 버튼이 포함된 HTML 대시보드 생성 완료 (`docs/index.html`)!")
 
-# 6. 엑셀 저장 및 이메일 발송
-# (현재 시간 기준 한국 시간(KST) 시각 구하기: UTC + 9시간)
-kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
-current_hour = kst_now.hour
 
-# 원하는 시간대(시)를 리스트에 적어주세요 (예: 9시, 15시, 21시)
-target_hours = [9, 13, 17, 21] 
+# ==============================================================================
+# [메인 실행부]
+# ==============================================================================
+if __name__ == "__main__":
+    start_time = time.time()
+    
+    # 1. 이전 실행에서 기록된 데이터 기반으로 AI 자가학습 진행
+    ai_engine.evolve_models()
+    
+    # 2. 시장 스캔 및 새로운 데이터 추론/기록
+    df_result = analyze_and_scan_market()
+    
+    if not df_result.empty:
+        print("\n=== 🎯 [자가학습 AI 적용] 상위 추천 종목 ===")
+        print(df_result[["코인명", "종합예측점수", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(5))
+        
+        # 3. 위험 알림 (텔레그램)
+        danger_coins = df_result[df_result['STGT_그래프덤핑위험(%)'] >= 75.0]
+        if not danger_coins.empty:
+            print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
+            send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
 
-if current_hour in target_hours:
-    export_to_excel_and_email(df_result, ai_report)
-else:
-    print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
+        # 4. Gemini AI 요약 작성
+        ai_report = generate_gemini_analysis(df_result)
+
+        # 5. 5단계 AI 등급 생성 및 Redis 연동 
+        update_redis_for_dashboard(df_result, ai_report)
+
+        # 🚀 6. 대시보드 HTML 파일 실시간 생성
+        generate_dashboard_html(df_result, ai_report)
+
+        # 🚀 7. 오라클 서버로 HTML 대시보드 자동 전송
+        upload_html_to_oracle_server("docs/index.html")
+
+        # 8. 엑셀 저장 및 이메일 발송
+        kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+        current_hour = kst_now.hour
+
+        target_hours = [9, 13, 17, 21] 
+
+        if current_hour in target_hours:
+            export_to_excel_and_email(df_result, ai_report)
+        else:
+            print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
