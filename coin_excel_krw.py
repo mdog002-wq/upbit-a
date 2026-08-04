@@ -452,9 +452,9 @@ def calculate_ai_grade(score, dump_risk):
         return "🔴 경고"
     elif dump_risk >= 50.0 or score < 40.0:
         return "🟠 주의"
-    elif score >= 80.0 and dump_risk < 30.0:
+    elif score >= 70.0 and dump_risk < 30.0:
         return "🟢 추천"
-    elif score >= 65.0 and dump_risk < 45.0:
+    elif score >= 55.0 and dump_risk < 45.0:
         return "🔵 관심"
     else:
         return "⚪ 보통"
@@ -699,7 +699,6 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     for sym in gemini_symbols:
         sym_upper = sym.upper()
         if sym_upper not in rec_history:
-            # 현재 코인 데이터에서 해당 심볼의 진입가 찾기
             match_coin = next((c for c in coins_data if c['symbol'].upper() == sym_upper), None)
             if match_coin:
                 rec_history[sym_upper] = {
@@ -708,25 +707,27 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                     "entry_val": match_coin['entry_val'],
                     "count": 1
                 }
+        else:
+            rec_history[sym_upper]["count"] = rec_history[sym_upper].get("count", 1) + 1
 
-    # 2. 이력 파일(rec_history)에 등록된 모든 종목을 기준으로 트래킹 목록 구성 (목표가 달성 전까지 유지)
+    # 2. 이력 파일(rec_history)에 등록된 모든 종목을 기준으로 트래킹 목록 구성
     active_recommended_tracking = []
     for c in coins_data:
         symbol_upper = c['symbol'].upper()
-        # 이력에 존재하고, 아직 가치 유지 상태(20% 미만 상승 및 경고 아님)인 경우 트래킹에 포함
-        if symbol_upper in rec_history and c['is_valuable']:
-            c['rec_time'] = rec_history[symbol_upper]["first_recommended"]
-            c['rec_count'] = rec_history[symbol_upper]["count"]
-            active_recommended_tracking.append(c)
-        elif symbol_upper in rec_history and not c['is_valuable']:
-            # 목표가 달성(+20% 이상) 또는 위험 상태가 되면 이력에서 제거
-            del rec_history[symbol_upper]
+        if symbol_upper in rec_history:
+            if c['is_valuable']:
+                c['rec_time'] = rec_history[symbol_upper].get("first_recommended", current_time_str)
+                c['rec_count'] = rec_history[symbol_upper].get("count", 1)
+                active_recommended_tracking.append(c)
+            else:
+                del rec_history[symbol_upper]
 
     try:
         with open(history_path, "w", encoding="utf-8") as f:
             json.dump(rec_history, f, ensure_ascii=False)
     except Exception as e:
         print(f"⚠️ 추천 이력 저장 실패: {e}")
+
     alerts = []
     for c in coins_data:
         if c['dump_risk'] >= 75.0 or c['grade'] == "🔴 경고":
@@ -789,7 +790,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     html_content += f"""                    </div>
                 </div>
 
-                <!-- [신규] 추천 종목 속보 및 이슈 섹션 -->
+                <!-- 추천 종목 속보 및 이슈 섹션 -->
                 <div class="card p-3 shadow-sm">
                     <h5 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 추천 종목 실시간 속보</h5>
                     <div class="news-box d-flex flex-column gap-2">
@@ -840,15 +841,18 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
         t_html += '<table class="table table-hover align-middle small search-table text-nowrap">_TABLE_HEADER_<tbody>'
         
         sorted_sector = sorted(sector_list, key=lambda x: x['score'], reverse=True)
-        for c in sorted_sector:
-            badge_class = "badge-recommend" if c['grade']=="🟢 추천" else ("badge-interest" if c['grade']=="🔵 관심" else ("badge-normal" if c['grade']=="⚪ 보통" else ("badge-warning" if c['grade']=="🟠 주의" else "badge-danger")))
-            t_html += f"""<tr class="coin-row" data-name="{c['name']}" data-symbol="{c['symbol']}">
-                <td class="fw-bold">{c['name']} <small class="text-muted">({c['symbol']})</small></td>
-                <td>{c['price']}원</td>
-                <td class="text-primary fw-bold">{c['score']}점</td>
-                <td class="text-danger">{c['dump_risk']}%</td>
-                <td><span class="badge {badge_class}">{c['grade']}</span></td>
-            </tr>"""
+        if not sorted_sector:
+            t_html += '<tr><td colspan="5" class="text-center text-muted py-4">해당 등급의 종목이 없습니다.</td></tr>'
+        else:
+            for c in sorted_sector:
+                badge_class = "badge-recommend" if c['grade']=="🟢 추천" else ("badge-interest" if c['grade']=="🔵 관심" else ("badge-normal" if c['grade']=="⚪ 보통" else ("badge-warning" if c['grade']=="🟠 주의" else "badge-danger")))
+                t_html += f"""<tr class="coin-row" data-name="{c['name']}" data-symbol="{c['symbol']}">
+                    <td class="fw-bold">{c['name']} <small class="text-muted">({c['symbol']})</small></td>
+                    <td>{c['price']}원</td>
+                    <td class="text-primary fw-bold">{c['score']}점</td>
+                    <td class="text-danger">{c['dump_risk']}%</td>
+                    <td><span class="badge {badge_class}">{c['grade']}</span></td>
+                </tr>"""
         t_html += '</tbody></table></div></div>'
         return t_html.replace('_TABLE_HEADER_', '<thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>등급</th></tr></thead>')
 
@@ -908,6 +912,8 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
         </div>
     </div>
 
+    <!-- Bootstrap JS Bundle CDN (탭 기능 정상 작동을 위해 필수) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
     function filterCoins() {{
         let input = document.getElementById('coinSearchInput').value.toLowerCase();
@@ -963,25 +969,24 @@ if __name__ == "__main__":
         # 4. Gemini AI 요약 및 추천 심볼 추출
         ai_report, gemini_symbols = generate_gemini_analysis(df_result)
 
-        # 5. 추천 종목 실시간 속보 수집 대상 추출 (자체 추천 코인 + Gemini 추천 코인)
+        # 5. 추천 종목 실시간 속보 수집 대상 추출
         internal_recommended_names = df_result[df_result['종합예측점수'] >= 80.0]['코인명'].tolist()
-        # 심볼에 대응하는 코인명 매핑용 사전
         symbol_to_name = dict(zip(df_result['심볼'], df_result['코인명']))
         gemini_recommended_names = [symbol_to_name.get(s, s) for s in gemini_symbols]
         
-        all_target_coins = list(set(internal_recommended_names + gemini_recommended_names))[:5] # 최대 5개 제한
+        all_target_coins = list(set(internal_recommended_names + gemini_recommended_names))[:5]
         news_data = fetch_news_for_recommended_coins(all_target_coins)
 
         # 6. Redis 연동
         update_redis_for_dashboard(df_result, ai_report)
 
-        # 7. 대시보드 HTML 파일 생성 (오타 수정 및 속보 데이터 반영)
+        # 7. 대시보드 HTML 파일 생성
         generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data)
 
         # 8. 오라클 서버로 HTML 대시보드 전송
         upload_html_to_oracle_server("docs/index.html")
 
-        # 9. 엑셀 저장 및 이메일 발송 (지정 시간대)
+        # 9. 엑셀 저장 및 이메일 발송
         kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         current_hour = kst_now.hour
         target_hours = [9, 13, 17, 21] 
