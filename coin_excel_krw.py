@@ -5,6 +5,8 @@ import datetime
 import json
 import smtplib
 import requests
+import urllib.parse
+import feedparser
 import numpy as np
 import pandas as pd
 import pyupbit
@@ -54,28 +56,23 @@ def upload_html_to_oracle_server(local_file_path):
     오라클 서버로 대시보드 HTML 파일을 자동 전송하는 함수
     """
     hostname = os.environ.get("ORACLE_DSN")          # 오라클 서버 공인 IP
-    username = os.environ.get("ORACLE_USER", "ubuntu") # 계정명 (변경됨: ubuntu)
-    ssh_key_content = os.environ.get("ORACLE_SSH_KEY") # GitHub Secrets에서 가져온 개인키 내용
+    username = os.environ.get("ORACLE_USER", "ubuntu") # 계정명
+    ssh_key_content = os.environ.get("ORACLE_SSH_KEY") # GitHub Secrets SSH 개인키
 
     if not hostname or not ssh_key_content:
         print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
         return
 
-    remote_file_path = "templates/dashboard.html" # 서버에서의 저장 위치 (필요에 따라 유지 또는 변경)
+    remote_file_path = "templates/dashboard.html"
 
     try:
-        # 문자열 형태의 프라이빗 키(.key)를 메모리에서 읽어오기
         key_file_like = io.StringIO(ssh_key_content)
         pkey = paramiko.RSAKey.from_private_key(key_file_like)
 
-        # SSH 클라이언트 연결 설정
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        
-        # .key 개인키로 접속
         ssh.connect(hostname, port=22, username=username, pkey=pkey)
 
-        # SFTP를 통해 파일 전송 (local_file_path가 올바른 경로를 가리키도록 확인)
         sftp = ssh.open_sftp()
         sftp.put(local_file_path, remote_file_path)
         print(f"🚀 오라클 서버로 HTML 대시보드 전송 완료! ({remote_file_path})")
@@ -85,6 +82,7 @@ def upload_html_to_oracle_server(local_file_path):
         
     except Exception as e:
         print(f"❌ 오라클 서버 전송 실패: {e}")
+
 # ==============================================================================
 # [설정] 환경 변수 및 파일 경로
 # ==============================================================================
@@ -96,7 +94,6 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_IDS = [chat_id.strip() for chat_id in os.environ.get("TELEGRAM_CHAT_ID", "").split(",") if chat_id.strip()]
 
-# Redis 서버 설정 (기본 로컬 연결)
 REDIS_HOST = os.environ.get("REDIS_HOST", "localhost")
 REDIS_PORT = int(os.environ.get("REDIS_PORT", 6379))
 
@@ -109,7 +106,6 @@ EXPERIENCE_FILE = os.path.join(AI_MODELS_DIR, "ai_experience.json")
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
 
-# Redis 클라이언트 초기화
 try:
     redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True)
 except Exception as e:
@@ -131,6 +127,26 @@ def send_telegram_alert(message):
     for chat_id in TELEGRAM_CHAT_IDS:
         try: requests.post(url, json={"chat_id": chat_id, "text": message, "parse_mode": "Markdown"}, timeout=5)
         except Exception: pass
+
+# ==============================================================================
+# [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (Google RSS 기반)
+# ==============================================================================
+def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
+    """추천 종목 리스트를 받아 종목별 최신 뉴스/이슈 수집"""
+    coin_news_dict = {}
+    for coin in target_coins:
+        query = urllib.parse.quote(f"{coin} 코인 이슈")
+        rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
+        try:
+            feed = feedparser.parse(rss_url)
+            news_items = []
+            for entry in feed.entries[:max_news_per_coin]:
+                news_items.append({"title": entry.title, "link": entry.link})
+            if news_items:
+                coin_news_dict[coin] = news_items
+        except Exception as e:
+            print(f"⚠️ {coin} 속보 수집 스킵: {e}")
+    return coin_news_dict
 
 # ==============================================================================
 # [AI 모듈 1] 시계열 딥러닝(LSTM) 자가학습 덤핑 예측
@@ -462,14 +478,12 @@ def update_redis_for_dashboard(df_result, ai_report):
                 "grade": grade
             })
 
-        # 추천, 관심, 보통, 주의, 경고별 분류 리스트 생성
         recommended_coins = [c for c in coin_grades if c['grade'] == "🟢 추천"]
         interest_coins = [c for c in coin_grades if c['grade'] == "🔵 관심"]
         normal_coins = [c for c in coin_grades if c['grade'] == "⚪ 보통"]
         warning_coins = [c for c in coin_grades if c['grade'] == "🟠 주의"]
         danger_coins = [c for c in coin_grades if c['grade'] == "🔴 경고"]
         
-        # AI 추천 종목 (🟢 추천 및 🔵 관심 종목 전체 혹은 상위 트래킹 대상)
         ai_recommended_tracking = [c for c in coin_grades if c['grade'] in ["🟢 추천", "🔵 관심"]]
 
         dashboard_payload = {
@@ -483,7 +497,6 @@ def update_redis_for_dashboard(df_result, ai_report):
                 "warning_count": len(warning_coins),
                 "danger_count": len(danger_coins)
             },
-            # 요구사항 반영: 아이스버그 및 5단계 등급별 분류, AI 추천 종목 전체 포함
             "classified_sectors": {
                 "recommend": recommended_coins,
                 "interest": interest_coins,
@@ -496,7 +509,7 @@ def update_redis_for_dashboard(df_result, ai_report):
         }
 
         redis_client.set("upbit_ai_dashboard_data", json.dumps(dashboard_payload, ensure_ascii=False))
-        print("⚡ [Redis] 아이스버그 및 5단계 등급, AI 추천 종목 데이터 포함 페이로드 업데이트 완료!")
+        print("⚡ [Redis] 페이로드 업데이트 완료!")
     except Exception as e:
         print(f"❌ [Redis] 데이터 업로드 실패: {e}")
 
@@ -505,9 +518,9 @@ def update_redis_for_dashboard(df_result, ai_report):
 # ==============================================================================
 def generate_gemini_analysis(df_top):
     if not GEMINI_API_KEY:
-        return "⚠️ GEMINI_API_KEY가 설정되지 않아 AI 요약 생성을 스킵합니다."
+        return "⚠️ GEMINI_API_KEY가 설정되지 않아 AI 요약 생성을 스킵합니다.", []
     if df_top.empty:
-        return "분석된 종목 데이터가 없습니다."
+        return "분석된 종목 데이터가 없습니다.", []
 
     try:
         client = genai.Client(api_key=GEMINI_API_KEY)
@@ -522,15 +535,31 @@ def generate_gemini_analysis(df_top):
         1. 매집 점수가 우수한 Top 3 코인 요약 및 추천 포인트
         2. STGT 덤핑 위험도나 고주파 아이스버그 위험 감지 시 주의점
         3. 종합 매수 전략 한 줄 가이드
+
+        [출력 규칙]
+        리포트 작성이 끝난 후 맨 마지막 줄에 Gemini가 분석하여 최종 추천하는 Top 3 코인의 심볼(Symbol)만 쉼표로 구분하여 반드시 아래 형식으로 적어주세요.
+        GEMINI_RECOMMENDED_SYMBOLS: BTC, ETH, XRP
         """
 
         response = client.models.generate_content(
             model='gemini-3.1-flash-lite',
             contents=prompt
         )
-        return response.text
+        
+        full_text = response.text
+        gemini_symbols = []
+
+        if "GEMINI_RECOMMENDED_SYMBOLS:" in full_text:
+            parts = full_text.split("GEMINI_RECOMMENDED_SYMBOLS:")
+            ai_report_text = parts[0].strip()
+            symbols_line = parts[1].strip().split("\n")[0]
+            gemini_symbols = [s.strip().upper() for s in symbols_line.split(",") if s.strip()]
+        else:
+            ai_report_text = full_text
+
+        return ai_report_text, gemini_symbols
     except Exception as e:
-        return f"❌ Gemini AI 요약 생성 실패: {e}"
+        return f"❌ Gemini AI 요약 생성 실패: {e}", []
 
 def export_to_excel_and_email(df_result, ai_report):
     if df_result.empty: return
@@ -587,14 +616,18 @@ def export_to_excel_and_email(df_result, ai_report):
         print(f"❌ 이메일 발송 실패: {e}")
 
 # ==============================================================================
-# [웹 대시보드 HTML 자동 생성] ("AI 실시간" 네비게이션 버튼 적용)
+# [웹 대시보드 HTML 자동 생성 (속보 기능 및 이력 관리 포함)]
 # ==============================================================================
-def generate_dashboard_html(df_result, ai_report):
-    """
-    화이트 테마 기반의 모던 대시보드 HTML을 생성합니다. (검색창, 5개 탭, 우측 추천 종목 트래킹 및 자동 삭제/조건 반영)
-    """
+def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data=None):
+    if gemini_symbols is None:
+        gemini_symbols = []
+    if news_data is None:
+        news_data = {}
+
     os.makedirs("docs", exist_ok=True)
+    os.makedirs("cache", exist_ok=True)
     html_path = "docs/index.html"
+    history_path = "cache/recommend_history.json"
 
     if df_result.empty:
         html_content = "<html><body><h1>분석된 데이터가 없습니다.</h1></body></html>"
@@ -602,8 +635,18 @@ def generate_dashboard_html(df_result, ai_report):
             f.write(html_content)
         return
 
+    try:
+        with open(history_path, "r", encoding="utf-8") as f:
+            rec_history = json.load(f)
+    except Exception:
+        rec_history = {}
+
+    current_time = datetime.datetime.now()
+    current_time_str = current_time.strftime("%Y-%m-%d %H:%M")
+
     coins_data = []
     for _, row in df_result.iterrows():
+        symbol = row['심볼']
         score = float(row['종합예측점수'])
         dump_risk = float(row['STGT_그래프덤핑위험(%)'])
         grade = calculate_ai_grade(score, dump_risk)
@@ -614,28 +657,33 @@ def generate_dashboard_html(df_result, ai_report):
         except:
             curr_val = 0.0
 
-        entry_price = curr_val * 0.98 if curr_val > 0 else curr_val
-        target_price = entry_price * 1.20 if entry_price > 0 else 0  # 20% 목표가 기준
-        
+        if symbol in rec_history and "entry_val" in rec_history[symbol]:
+            entry_val = float(rec_history[symbol]["entry_val"])
+        else:
+            entry_val = curr_val * 0.98 if curr_val > 0 else curr_val
+
+        target_val = entry_val * 1.20 if entry_val > 0 else 0
+
         is_valuable = True
         price_change_rate = 0.0
-        if entry_price > 0 and curr_val > 0:
-            price_change_rate = (curr_val - entry_price) / entry_price * 100
+        if entry_val > 0 and curr_val > 0:
+            price_change_rate = (curr_val - entry_val) / entry_val * 100
 
         if price_change_rate >= 20.0 or grade in ["🟠 주의", "🔴 경고"]:
             is_valuable = False
 
         coins_data.append({
             "name": row['코인명'],
-            "symbol": row['심볼'],
+            "symbol": symbol,
             "price": row['현재가(KRW)'],
             "curr_val": curr_val,
+            "entry_val": entry_val,
             "score": score,
             "dump_risk": dump_risk,
             "iceberg": row['아이스버그역산(고주파)'],
             "grade": grade,
-            "entry_price": format_price(entry_price),
-            "target_price": format_price(target_price),
+            "entry_price": format_price(entry_val),
+            "target_price": format_price(target_val),
             "price_change_rate": round(price_change_rate, 1),
             "is_valuable": is_valuable
         })
@@ -646,19 +694,47 @@ def generate_dashboard_html(df_result, ai_report):
     warning_sector = [c for c in coins_data if c['grade'] == "🟠 주의"]
     danger_sector = [c for c in coins_data if c['grade'] == "🔴 경고"]
 
-    active_recommended_tracking = [c for c in coins_data if c['grade'] in ["🟢 추천", "🔵 관심"] and c['is_valuable']]
+    if gemini_symbols:
+        active_recommended_tracking = [c for c in coins_data if c['symbol'].upper() in gemini_symbols and c['is_valuable']]
+    else:
+        active_recommended_tracking = [c for c in coins_data if c['grade'] == "🟢 추천" and c['is_valuable']]
+
+    for c in active_recommended_tracking:
+        symbol = c['symbol']
+        if symbol not in rec_history:
+            rec_history[symbol] = {
+                "first_recommended": current_time_str,
+                "last_recommended": current_time_str,
+                "entry_val": c['entry_val'],
+                "count": 1
+            }
+        else:
+            last_time = datetime.datetime.strptime(rec_history[symbol]["last_recommended"], "%Y-%m-%d %H:%M")
+            if (current_time - last_time).total_seconds() >= 7200:
+                rec_history[symbol]["count"] += 1
+                rec_history[symbol]["last_recommended"] = current_time_str
+
+        c['rec_time'] = rec_history[symbol]["first_recommended"]
+        c['rec_count'] = rec_history[symbol]["count"]
+
+    try:
+        with open(history_path, "w", encoding="utf-8") as f:
+            json.dump(rec_history, f, ensure_ascii=False)
+    except Exception as e:
+        print(f"⚠️ 추천 이력 저장 실패: {e}")
 
     alerts = []
     for c in coins_data:
         if c['dump_risk'] >= 75.0 or c['grade'] == "🔴 경고":
             alerts.append({"type": "danger", "text": f"🚨 [급락/경고] {c['name']}({c['symbol']}) 위험도 {c['dump_risk']}%"})
 
-    updated_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    updated_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
 
     html_content = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upbit AI Quantitative Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -673,27 +749,27 @@ def generate_dashboard_html(df_result, ai_report):
         .badge-danger {{ background-color: #ef4444; color: white; }}
         .alert-box {{ max-height: 220px; overflow-y: auto; }}
         .tracking-box {{ max-height: 450px; overflow-y: auto; }}
+        .news-box {{ max-height: 280px; overflow-y: auto; }}
         .search-input {{ max-width: 250px; }}
+        @media (max-width: 768px) {{ .table-responsive {{ padding-right: 1px; }} }}
     </style>
 </head>
 <body>
     <div class="container-fluid my-4 px-4" style="max-width: 1700px;">
-        <!-- 상단 네비게이션: 좌측 AI 실시간 버튼, 중앙 타이틀 -->
         <div class="row mb-4 align-items-center">
-            <div class="col-md-3 text-start">
-                <a href="http://140.245.99.254:8000" class="btn btn-primary fw-bold px-3 py-2 shadow-sm">
+            <div class="col-md-3 text-start mb-2 mb-md-0">
+                <a href="http://140.245.99.254:8000" class="btn btn-primary fw-bold px-3 py-2 shadow-sm w-100 w-md-auto">
                     <i class="fa-solid fa-robot me-1"></i> AI 실시간
                 </a>
             </div>
             <div class="col-md-6 text-center">
-                <h2 class="fw-bold text-dark mb-0"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>
+                <h2 class="fw-bold text-dark mb-0 fs-4 fs-md-2"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>
                 <small class="text-muted">최종 업데이트: {updated_time}</small>
             </div>
             <div class="col-md-3"></div>
         </div>
 
         <div class="row">
-            <!-- [좌측 영역] 급락경고창 및 제미나이 분석 리포트 -->
             <div class="col-lg-3 mb-4 d-flex flex-column gap-3">
                 <div class="card p-3 shadow-sm">
                     <h5 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h5>
@@ -701,12 +777,27 @@ def generate_dashboard_html(df_result, ai_report):
 """
 
     for alert in alerts[:10]:
-        html_content += f"""                        <div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">
-                            {alert['text']}
-                        </div>\n"""
+        html_content += f"""                        <div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert['text']}</div>\n"""
 
     if not alerts:
         html_content += """                        <div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>\n"""
+
+    html_content += f"""                    </div>
+                </div>
+
+                <!-- [신규] 추천 종목 속보 및 이슈 섹션 -->
+                <div class="card p-3 shadow-sm">
+                    <h5 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 추천 종목 실시간 속보</h5>
+                    <div class="news-box d-flex flex-column gap-2">
+"""
+    if news_data:
+        for coin, items in news_data.items():
+            html_content += f"""                        <div class="p-2 border rounded bg-light"><strong class="text-primary">{coin}</strong><ul class="mb-0 ps-3 small">"""
+            for item in items:
+                html_content += f"""<li><a href="{item['link']}" target="_blank" class="text-decoration-none text-dark">{item['title']}</a></li>"""
+            html_content += f"""</ul></div>"""
+    else:
+        html_content += """                        <div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>\n"""
 
     html_content += f"""                    </div>
                 </div>
@@ -717,20 +808,17 @@ def generate_dashboard_html(df_result, ai_report):
                 </div>
             </div>
 
-            <!-- [중앙 영역] 5개 등급 탭 및 실시간 검색창, 코인 목록 테이블 -->
             <div class="col-lg-6 mb-4">
-                <div class="card p-4 shadow-sm">
+                <div class="card p-3 p-md-4 shadow-sm">
                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                        <h4 class="fw-bold mb-0 text-dark"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류</h4>
-                        <!-- 검색창 -->
-                        <div class="input-group search-input">
+                        <h4 class="fw-bold mb-0 text-dark fs-5 fs-md-4"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류</h4>
+                        <div class="input-group search-input w-100 w-md-auto">
                             <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
                             <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명 또는 심볼 검색..." onkeyup="filterCoins()">
                         </div>
                     </div>
 
-                    <!-- 5개 등급 탭 버튼 -->
-                    <ul class="nav nav-tabs mb-3" id="coinTab" role="tablist">
+                    <ul class="nav nav-tabs mb-3 flex-nowrap overflow-auto" id="coinTab" role="tablist" style="white-space: nowrap;">
                         <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button">🟢 추천 ({len(recommended_sector)})</button></li>
                         <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button">🔵 관심 ({len(interested_sector)})</button></li>
                         <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button">⚪ 보통 ({len(normal_sector)})</button></li>
@@ -745,7 +833,7 @@ def generate_dashboard_html(df_result, ai_report):
         active_cls = "show active" if is_active else ""
         t_html = f'<div class="tab-pane fade {active_cls}" id="{tab_id}" role="tabpanel">'
         t_html += '<div class="table-responsive" style="max-height: 500px; overflow-y: auto;">'
-        t_html += '<table class="table table-hover align-middle small search-table">_TABLE_HEADER_<tbody>'
+        t_html += '<table class="table table-hover align-middle small search-table text-nowrap">_TABLE_HEADER_<tbody>'
         
         sorted_sector = sorted(sector_list, key=lambda x: x['score'], reverse=True)
         for c in sorted_sector:
@@ -771,36 +859,44 @@ def generate_dashboard_html(df_result, ai_report):
                 </div>
             </div>
 
-            <!-- [우측 영역] AI 추천 종목 트래킹 (진입가, 목표가, 자동삭제 조건 반영) -->
             <div class="col-lg-3 mb-4">
                 <div class="card p-3 shadow-sm">
-                    <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-bullseye me-1"></i> AI 추천 종목 트래킹</h5>
-                    <p class="text-muted" style="font-size: 0.75rem;">* 20% 이상 상승 시 또는 가치 상실 시 자동 삭제</p>
+                    <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-robot me-1"></i> Gemini 추천 종목 트래킹</h5>
+                    <p class="text-muted" style="font-size: 0.75rem;">* Gemini 분석 리포트 추천 종목 기준 (20% 상승 시 자동 삭제)</p>
                     <div class="tracking-box d-flex flex-column gap-3 mt-2">
 """
 
     for c in active_recommended_tracking:
+        count_badge = f'<span class="badge bg-danger ms-1 px-2 py-1 shadow-sm" style="font-size:0.7rem;">🔥 {c["rec_count"]}회 추천</span>' if c['rec_count'] >= 2 else ""
+
         html_content += f"""                        <div class="p-3 border rounded bg-light shadow-sm">
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <span class="fw-bold text-dark">{c['name']} ({c['symbol']})</span>
+                            <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
+                                <div>
+                                    <span class="fw-bold text-dark">{c['name']} <small class="text-muted">({c['symbol']})</small></span>
+                                    {count_badge}
+                                </div>
                                 <span class="badge bg-success">{c['grade']}</span>
                             </div>
-                            <div class="d-flex justify-content-between text-muted" style="font-size: 0.8rem;">
+                            <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.85rem;">
+                                <span>최초 추천일시:</span>
+                                <span class="fw-semibold text-secondary">{c['rec_time']}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.85rem;">
                                 <span>추천 진입가:</span>
                                 <span class="fw-semibold text-dark">{c['entry_price']}원</span>
                             </div>
-                            <div class="d-flex justify-content-between text-muted" style="font-size: 0.8rem;">
+                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.85rem;">
                                 <span>현재 가격:</span>
                                 <span class="fw-bold text-primary">{c['price']}원</span>
                             </div>
-                            <div class="d-flex justify-content-between text-muted" style="font-size: 0.8rem;">
+                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.85rem;">
                                 <span>목표 매도가(+20%):</span>
                                 <span class="fw-semibold text-danger">{c['target_price']}원</span>
                             </div>
                         </div>\n"""
 
     if not active_recommended_tracking:
-        html_content += """                        <div class="text-muted small text-center py-4">조건을 충족하는 활성 추천 종목이 없습니다.</div>\n"""
+        html_content += """                        <div class="text-muted small text-center py-4">Gemini가 추천한 종목이 없거나 조건(+20% 달성 등)을 충족하여 제외되었습니다.</div>\n"""
 
     html_content += f"""                    </div>
                 </div>
@@ -808,7 +904,6 @@ def generate_dashboard_html(df_result, ai_report):
         </div>
     </div>
 
-    <!-- 실시간 검색어 필터링 스크립트 -->
     <script>
     function filterCoins() {{
         let input = document.getElementById('coinSearchInput').value.toLowerCase();
@@ -832,7 +927,7 @@ def generate_dashboard_html(df_result, ai_report):
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("🎨 [대시보드] 'AI 실시간' 버튼 적용 대시보드 파일 생성 완료 (`templates/dashboard.html`)!")
+    print("🎨 [대시보드] 속보 반영 및 검증 완료된 HTML 대시보드 생성 성공 (`docs/index.html`)!")
 
 
 # ==============================================================================
@@ -841,10 +936,10 @@ def generate_dashboard_html(df_result, ai_report):
 if __name__ == "__main__":
     start_time = time.time()
     
-    # 1. 이전 실행에서 기록된 데이터 기반으로 AI 자가학습 진행
+    # 1. AI 자가학습 진행
     ai_engine.evolve_models()
     
-    # 2. 시장 스캔 및 새로운 데이터 추론/기록
+    # 2. 시장 스캔 및 데이터 분석
     df_result = analyze_and_scan_market()
     
     if not df_result.empty:
@@ -857,22 +952,30 @@ if __name__ == "__main__":
             print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
             send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
 
-        # 4. Gemini AI 요약 작성
-        ai_report = generate_gemini_analysis(df_result)
+        # 4. Gemini AI 요약 및 추천 심볼 추출
+        ai_report, gemini_symbols = generate_gemini_analysis(df_result)
 
-        # 5. 5단계 AI 등급 생성 및 Redis 연동 (아이스버그 데이터 및 AI 추천 목록 통합 포함)
+        # 5. 추천 종목 실시간 속보 수집 대상 추출 (자체 추천 코인 + Gemini 추천 코인)
+        internal_recommended_names = df_result[df_result['종합예측점수'] >= 80.0]['코인명'].tolist()
+        # 심볼에 대응하는 코인명 매핑용 사전
+        symbol_to_name = dict(zip(df_result['심볼'], df_result['코인명']))
+        gemini_recommended_names = [symbol_to_name.get(s, s) for s in gemini_symbols]
+        
+        all_target_coins = list(set(internal_recommended_names + gemini_recommended_names))[:5] # 최대 5개 제한
+        news_data = fetch_news_for_recommended_coins(all_target_coins)
+
+        # 6. Redis 연동
         update_redis_for_dashboard(df_result, ai_report)
 
-        # 🚀 6. 대시보드 HTML 파일 실시간 생성 ("AI 실시간" 네비게이션 버튼 반영)
-        generate_dashboard_html(df_result, ai_report)
+        # 7. 대시보드 HTML 파일 생성 (오타 수정 및 속보 데이터 반영)
+        generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data)
 
-        # 🚀 7. 오라클 서버로 HTML 대시보드 자동 전송 (ubuntu@instance... 서버 내 templates/dashboard.html 경로로 전송)
+        # 8. 오라클 서버로 HTML 대시보드 전송
         upload_html_to_oracle_server("docs/index.html")
 
-        # 8. 엑셀 저장 및 이메일 발송
+        # 9. 엑셀 저장 및 이메일 발송 (지정 시간대)
         kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         current_hour = kst_now.hour
-
         target_hours = [9, 13, 17, 21] 
 
         if current_hour in target_hours:
