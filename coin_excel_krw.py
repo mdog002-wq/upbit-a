@@ -641,7 +641,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     except Exception:
         rec_history = {}
 
-    current_time = datetime.datetime.now()
+    current_time = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
     current_time_str = current_time.strftime("%Y-%m-%d %H:%M")
 
     coins_data = []
