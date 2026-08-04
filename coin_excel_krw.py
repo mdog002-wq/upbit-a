@@ -594,8 +594,8 @@ def generate_dashboard_html(df_result, ai_report):
     """
     화이트 테마 기반의 모던 대시보드 HTML을 생성합니다. (검색창, 5개 탭, 우측 추천 종목 트래킹 및 자동 삭제/조건 반영)
     """
-    os.makedirs("templates", exist_ok=True)
-    html_path = "templates/dashboard.html"
+    os.makedirs("docs", exist_ok=True)
+    html_path = "docs/index.html"
 
     if df_result.empty:
         html_content = "<html><body><h1>분석된 데이터가 없습니다.</h1></body></html>"
