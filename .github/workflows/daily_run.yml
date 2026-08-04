@@ -44,14 +44,22 @@ jobs:
           REDIS_PORT: ${{ secrets.REDIS_PORT }}
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: python coin_excel_krw.py
-
+ 
       - name: 대시보드 HTML 및 누적 히스토리 자동 커밋
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 🚀 [수정] 파이썬 스크립트가 생성하는 templates/ 폴더와 기타 캐시/결과물을 정확히 추적하도록 수정
-          git add templates/ dashboard.html scan_history.csv cache_*.json ai_models/* 2>/dev/null || true
+          # 🚀 docs/ 폴더를 타겟으로 지정
+          git add docs/ scan_history.csv cache_*.json ai_models/* 2>/dev/null || true
+          
+          if ! git diff --staged --quiet; then
+            git pull --rebase origin main || true
+            git commit -m "Auto: Update dashboard and AI cache [skip ci]"
+            git push
+          else
+            echo "변경사항이 없어 커밋을 스킵합니다."
+          fi
           
           if ! git diff --staged --quiet; then
             git pull --rebase origin main || true
