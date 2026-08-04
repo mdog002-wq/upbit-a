@@ -2,117 +2,121 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Upbit AI Quantitative Dashboard</title>
+    <title>Upbit AI Quantitative Dashboard (White Mode)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .card { background-color: #1e293b; border: 1px solid #334155; border-radius: 12px; }
-        .table { color: #f8fafc; }
-        .table-dark { background-color: #1e293b; }
-        .badge-recommend { background-color: #22c55e; }
-        .badge-interest { background-color: #3b82f6; }
-        .badge-normal { background-color: #64748b; }
-        .badge-warning { background-color: #f97316; }
-        .badge-danger { background-color: #ef4444; }
-        .sticky-sticker {
-            position: fixed; right: 20px; top: 20px; width: 280px; z-index: 1050;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid #3b82f6; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            padding: 15px; font-size: 0.9rem;
+        /* 화이트 모드 기반 CSS */
+        body { 
+            background-color: #f1f5f9; 
+            color: #1e293b; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
         }
-        .alert-box { max-height: 250px; overflow-y: auto; }
-        .top3-card { background: linear-gradient(135deg, #334155 100%, #1e293b 0%); border-left: 5px solid #3b82f6; }
+        .card { 
+            background-color: #ffffff; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+        }
+        .top3-card { 
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); 
+            border-left: 5px solid #3b82f6; 
+        }
+        .alert-box { 
+            max-height: 250px; 
+            overflow-y: auto; 
+        }
+        /* 탭 버튼 스타일링 */
+        .nav-tabs .nav-link {
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-tabs .nav-link.active {
+            opacity: 1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        /* 테이블 스타일링 */
+        .table {
+            color: #334155;
+        }
+        .table thead th {
+            border-bottom: 2px solid #cbd5e1;
+            color: #475569;
+        }
+        .search-container {
+            width: 250px;
+        }
     </style>
 </head>
 <body>
-    <!-- 우측 누적 추천 스티커 영역 -->
-    <div class="sticky-sticker">
-        <h6 class="fw-bold text-primary mb-2"><i class="fa-solid fa-thumbtack"></i> 당일 AI 추천 스티커</h6>
-        <div id="sticker-content">
-            <p class="text-muted small mb-1">누적 추천 이력 및 트래킹</p>
-            <ul class="list-unstyled small mb-0" id="sticker-list">
-                <li>🟢 <b>BTC</b> (추천 3회) <br><span class="text-muted">진입: 92,000,000 | 목표: 98,000,000</span></li>
-                <hr class="my-1 border-secondary">
-                <li>🟢 <b>ETH</b> (추천 2회) <br><span class="text-muted">진입: 4,500,000 | 목표: 4,900,000</span></li>
-            </ul>
-        </div>
-    </div>
-
     <div class="container-fluid my-4 px-4" style="max-width: 1600px;">
-        <!-- 상단 네비게이션 (좌측 상단 급등주포착 버튼 포함) -->
+        
+        <!-- 상단 네비게이션 -->
         <div class="row mb-4 align-items-center">
             <div class="col-md-3 text-start">
-                <a href="/" class="btn btn-outline-primary fw-bold px-3 py-2 shadow-sm">
+                <a href="/" class="btn btn-outline-primary fw-bold px-3 py-2 shadow-sm bg-white">
                     <i class="fa-solid fa-bolt text-warning"></i> 급등주포착
                 </a>
             </div>
             <div class="col-md-6 text-center">
-                <h1 class="fw-bold text-white mb-0" style="font-size: 1.8rem;"><i class="fa-solid fa-robot text-primary"></i> 업비트 AI 매집 패턴 대시보드</h1>
+                <h1 class="fw-bold text-dark mb-0" style="font-size: 1.8rem;">
+                    <i class="fa-solid fa-robot text-primary"></i> 업비트 AI 매집 패턴 대시보드
+                </h1>
                 <small class="text-muted">최종 업데이트: 2026-08-04 03:01:58</small>
             </div>
             <div class="col-md-3"></div>
         </div>
 
         <div class="row">
-            <!-- [좌측] 급등/급락 예상 알림창 -->
+            <!-- [좌측] 추천 누적 스티커 및 알림창 -->
             <div class="col-lg-3 mb-4">
-                <div class="card p-3 shadow h-100">
+                
+                <!-- 기존 겹치던 스티커를 좌측 카드로 이동하여 레이아웃 문제 해결 -->
+                <div class="card p-3 shadow-sm mb-4 border-primary bg-primary bg-opacity-10">
+                    <h6 class="fw-bold text-primary mb-2"><i class="fa-solid fa-thumbtack"></i> 당일 AI 추천 누적</h6>
+                    <div id="sticker-content">
+                        <ul class="list-unstyled small mb-0" id="sticker-list">
+                            <li class="mb-2">🟢 <b>BTC</b> (추천 3회) <br><span class="text-muted">진입: 92,000,000 | 목표: 98,000,000</span></li>
+                            <hr class="my-2 border-primary border-opacity-25">
+                            <li>🟢 <b>ETH</b> (추천 2회) <br><span class="text-muted">진입: 4,500,000 | 목표: 4,900,000</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card p-3 shadow-sm h-100">
                     <h5 class="fw-bold text-warning mb-3"><i class="fa-solid fa-bell"></i> 실시간 급등/급락 알림</h5>
                     <div class="alert-box d-flex flex-column gap-2">
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 에이다(ADA) 매집 점수 93.9점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 비트코인(BTC) 매집 점수 93.5점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 솔라나(SOL) 매집 점수 92.8점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 엑스알피(리플)(XRP) 매집 점수 92.7점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 체인링크(LINK) 매집 점수 91.5점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 수이(SUI) 매집 점수 91.0점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 이더리움(ETH) 매집 점수 90.9점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 헤이엘사(ELSA) 매집 점수 90.5점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 월드코인(WLD) 매집 점수 89.8점
-                        </div>
-                        <div class="p-2 rounded bg-success bg-opacity-25 border border-success small">
-                            🚀 [급등포착] 아발란체(AVAX) 매집 점수 86.3점
-                        </div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 에이다(ADA) 매집 점수 93.9점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 비트코인(BTC) 매집 점수 93.5점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 솔라나(SOL) 매집 점수 92.8점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 엑스알피(리플)(XRP) 매집 점수 92.7점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 체인링크(LINK) 매집 점수 91.5점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 수이(SUI) 매집 점수 91.0점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 이더리움(ETH) 매집 점수 90.9점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 헤이엘사(ELSA) 매집 점수 90.5점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 월드코인(WLD) 매집 점수 89.8점</div>
+                        <div class="p-2 rounded bg-success bg-opacity-10 border border-success small text-dark">🚀 [급등포착] 아발란체(AVAX) 매집 점수 86.3점</div>
                     </div>
                     
-                    <hr class="border-secondary my-3">
+                    <hr class="border-secondary my-3 opacity-25">
                     <h6 class="fw-bold text-info mb-2"><i class="fa-solid fa-brain"></i> Gemini AI 요약</h6>
-                    <p class="small text-light bg-dark p-2 rounded" style="white-space: pre-line; max-height: 200px; overflow-y: auto;">## [업비트 시장 분석 리포트] 우량주 중심의 견고한 매집 흐름 포착
+                    <div class="small bg-light p-3 rounded border text-dark" style="white-space: pre-line; max-height: 250px; overflow-y: auto;">## [업비트 시장 분석 리포트] 우량주 중심의 견고한 매집 흐름 포착
 
 제공된 매집 분석 데이터를 바탕으로 현재 시장의 수급 상황과 투자 전략을 다음과 같이 정리합니다.
 
----
-
-### 1. 매집 점수 Top 3 및 추천 포인트
+**1. 매집 점수 Top 3 및 추천 포인트**
 종합예측점수 상위 3개 코인은 시장의 대장주이자 강력한 기관/세력 매집이 확인되는 종목들입니다.
-
 *   **1위 에이다 (ADA, 93.9):** 가장 높은 수급 점수를 기록하며, 최근 매집 세력이 가장 활발히 개입하고 있습니다. 단기 상승 탄력이 가장 기대되는 구간입니다.
 *   **2위 비트코인 (BTC, 93.5):** 시장의 기준점 역할을 하는 비트코인이 상위권에 위치함에 따라, 현재 시장 전체의 투자 심리가 매우 안정적이고 건강함을 시사합니다.
 *   **3위 솔라나 (SOL, 92.8):** 고주파 수급 점수와 더불어 높은 종합 점수를 유지하고 있습니다. 생태계 확장성에 기반한 견조한 매집 흐름이 확인됩니다.
 
-### 2. 리스크 관리: STGT 덤핑 및 아이스버그 주의점
-*   **리스크 상태:** 전 종목이 **'💎 정상 수급'** 상태로, 현재 급격한 매도 물량이 쏟아질 덤핑 위험(평균 30% 내외)은 낮은 수준입니다.
-*   **주의점:** 현재 수치상으로는 이상 징후가 없으나, **종합예측점수가 90점 이하로 급락**하거나 **STGT 덤핑 확률이 40%를 상회**할 경우, 고주파 아이스버그 매도세가 출현한 것으로 간주하고 즉시 분할 익절 또는 손절 대응을 권고합니다. 특히 현재는 횡보 혹은 완만한 상승 구간으로 보이나, 장중 변동성 확대 시 수급 이탈 여부를 실시간 체크해야 합니다.
-
-### 3. 종합 매수 전략 한 줄 가이드
-**"대형주 중심의 눌림목 매수 전략을 유지하되, 전체 포트폴리오의 30%를 현금으로 확보하여 장중 급변동 시 불타기보다는 분할 진입으로 대응하십시오."**</p>
+**2. 종합 매수 전략 한 줄 가이드**
+"대형주 중심의 눌림목 매수 전략을 유지하되, 전체 포트폴리오의 30%를 현금으로 확보하여 장중 급변동 시 불타기보다는 분할 진입으로 대응하십시오."</div>
                 </div>
             </div>
 
@@ -124,15 +128,15 @@
                         <h4 class="fw-bold text-success mb-3"><i class="fa-solid fa-star"></i> AI 선정 오늘의 강력 추천 Top 3</h4>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <div class="card top3-card p-3 shadow">
+                        <div class="card top3-card p-3 shadow-sm">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="fw-bold mb-0">에이다 <small class="text-muted">(ADA)</small></h5>
+                                <h5 class="fw-bold mb-0 text-dark">에이다 <small class="text-muted">(ADA)</small></h5>
                                 <span class="badge bg-primary">Top 1</span>
                             </div>
-                            <hr class="my-2 border-secondary">
+                            <hr class="my-2 border-secondary opacity-25">
                             <div class="d-flex justify-content-between small mb-1">
                                 <span class="text-muted">현재가:</span>
-                                <span class="fw-bold">278 KRW</span>
+                                <span class="fw-bold text-dark">278 KRW</span>
                             </div>
                             <div class="d-flex justify-content-between small mb-1">
                                 <span class="text-muted">전일 대비:</span>
@@ -145,15 +149,15 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <div class="card top3-card p-3 shadow">
+                        <div class="card top3-card p-3 shadow-sm">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="fw-bold mb-0">비트코인 <small class="text-muted">(BTC)</small></h5>
+                                <h5 class="fw-bold mb-0 text-dark">비트코인 <small class="text-muted">(BTC)</small></h5>
                                 <span class="badge bg-primary">Top 2</span>
                             </div>
-                            <hr class="my-2 border-secondary">
+                            <hr class="my-2 border-secondary opacity-25">
                             <div class="d-flex justify-content-between small mb-1">
                                 <span class="text-muted">현재가:</span>
-                                <span class="fw-bold">90,717,000 KRW</span>
+                                <span class="fw-bold text-dark">90,717,000 KRW</span>
                             </div>
                             <div class="d-flex justify-content-between small mb-1">
                                 <span class="text-muted">전일 대비:</span>
@@ -166,15 +170,15 @@
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <div class="card top3-card p-3 shadow">
+                        <div class="card top3-card p-3 shadow-sm">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="fw-bold mb-0">솔라나 <small class="text-muted">(SOL)</small></h5>
+                                <h5 class="fw-bold mb-0 text-dark">솔라나 <small class="text-muted">(SOL)</small></h5>
                                 <span class="badge bg-primary">Top 3</span>
                             </div>
-                            <hr class="my-2 border-secondary">
+                            <hr class="my-2 border-secondary opacity-25">
                             <div class="d-flex justify-content-between small mb-1">
                                 <span class="text-muted">현재가:</span>
-                                <span class="fw-bold">105,100 KRW</span>
+                                <span class="fw-bold text-dark">105,100 KRW</span>
                             </div>
                             <div class="d-flex justify-content-between small mb-1">
                                 <span class="text-muted">전일 대비:</span>
@@ -188,227 +192,105 @@
                     </div>
                 </div>
 
-                <!-- 중앙 본문: 점수 순위 및 섹터별 정렬 테이블 -->
-                <div class="card p-4 shadow">
-                    <h4 class="fw-bold mb-3"><i class="fa-solid fa-chart-line"></i> 전체 분석 코인 섹터별 상세 순위</h4>
+                <!-- 중앙 본문: 5칸 탭 및 글로벌 검색 기능 -->
+                <div class="card p-4 shadow-sm">
+                    <div class="d-flex flex-wrap justify-content-between align-items-end mb-3 gap-3">
+                        <h4 class="fw-bold mb-0"><i class="fa-solid fa-chart-line text-primary"></i> 전체 분석 코인 섹터별 상세 순위</h4>
+                        
+                        <!-- 통합 검색창 -->
+                        <div class="search-container input-group">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <input type="text" id="globalSearch" class="form-control border-start-0 ps-0" placeholder="종목명 또는 심볼 검색...">
+                        </div>
+                    </div>
                     
-                    <ul class="nav nav-tabs mb-3" id="coinTab" role="tablist">
-                        <li class="nav-item" role="presentation"><button class="nav-link active bg-success text-white me-2" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button">🟢 추천 (7)</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link bg-primary text-white me-2" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button">🔵 관심 (18)</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link bg-secondary text-white me-2" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button">⚪ 보통 (1)</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link bg-warning text-dark" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button">🟠 주의/경고 (0)</button></li>
+                    <!-- 5개 탭 분리 적용 (숫자 갱신됨) -->
+                    <ul class="nav nav-tabs mb-3 border-0 gap-2" id="coinTab" role="tablist">
+                        <li class="nav-item" role="presentation"><button class="nav-link active bg-success text-white" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button">🟢 추천 (7)</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link bg-primary text-white" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button">🔵 관심 (18)</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link bg-secondary text-white" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button">⚪ 보통 (1)</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link bg-warning text-dark" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button">🟠 주의 (0)</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link bg-danger text-white" id="danger-tab" data-bs-toggle="tab" data-bs-target="#danger" type="button">🔴 경고 (0)</button></li>
                     </ul>
 
+                    <!-- 탭 컨텐츠 -->
                     <div class="tab-content" id="coinTabContent">
-<div class="tab-pane fade show active" id="rec" role="tabpanel"><div class="table-responsive"><table class="table table-dark table-hover table-striped align-middle small"><thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead><tbody><tr>
-                <td>1</td>
-                <td class="fw-bold">이더리움 <small class="text-muted">(ETH)</small></td>
-                <td>2,653,000 KRW</td>
-                <td class="text-warning fw-bold">90.9</td>
-                <td class="text-danger">29.9%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-success">🟢 추천</span></td>
-            </tr><tr>
-                <td>2</td>
-                <td class="fw-bold">헤이엘사 <small class="text-muted">(ELSA)</small></td>
-                <td>81.80 KRW</td>
-                <td class="text-warning fw-bold">90.5</td>
-                <td class="text-danger">29.7%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-success">🟢 추천</span></td>
-            </tr><tr>
-                <td>3</td>
-                <td class="fw-bold">월드코인 <small class="text-muted">(WLD)</small></td>
-                <td>468 KRW</td>
-                <td class="text-warning fw-bold">89.8</td>
-                <td class="text-danger">29.7%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-success">🟢 추천</span></td>
-            </tr><tr>
-                <td>4</td>
-                <td class="fw-bold">오리진트레일 <small class="text-muted">(TRAC)</small></td>
-                <td>406 KRW</td>
-                <td class="text-warning fw-bold">83.4</td>
-                <td class="text-danger">27.8%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-success">🟢 추천</span></td>
-            </tr><tr>
-                <td>5</td>
-                <td class="fw-bold">미라네트워크 <small class="text-muted">(MIRA)</small></td>
-                <td>58.20 KRW</td>
-                <td class="text-warning fw-bold">83.3</td>
-                <td class="text-danger">27.0%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-success">🟢 추천</span></td>
-            </tr><tr>
-                <td>6</td>
-                <td class="fw-bold">도지코인 <small class="text-muted">(DOGE)</small></td>
-                <td>100 KRW</td>
-                <td class="text-warning fw-bold">82.1</td>
-                <td class="text-danger">26.7%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-success">🟢 추천</span></td>
-            </tr><tr>
-                <td>7</td>
-                <td class="fw-bold">아카시네트워크 <small class="text-muted">(AKT)</small></td>
-                <td>757 KRW</td>
-                <td class="text-warning fw-bold">81.0</td>
-                <td class="text-danger">27.8%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-success">🟢 추천</span></td>
-            </tr></tbody></table></div></div><div class="tab-pane fade " id="int" role="tabpanel"><div class="table-responsive"><table class="table table-dark table-hover table-striped align-middle small"><thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead><tbody><tr>
-                <td>1</td>
-                <td class="fw-bold">에이다 <small class="text-muted">(ADA)</small></td>
-                <td>278 KRW</td>
-                <td class="text-warning fw-bold">93.9</td>
-                <td class="text-danger">30.8%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>2</td>
-                <td class="fw-bold">비트코인 <small class="text-muted">(BTC)</small></td>
-                <td>90,717,000 KRW</td>
-                <td class="text-warning fw-bold">93.5</td>
-                <td class="text-danger">31.2%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>3</td>
-                <td class="fw-bold">솔라나 <small class="text-muted">(SOL)</small></td>
-                <td>105,100 KRW</td>
-                <td class="text-warning fw-bold">92.8</td>
-                <td class="text-danger">30.9%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>4</td>
-                <td class="fw-bold">엑스알피(리플) <small class="text-muted">(XRP)</small></td>
-                <td>1,532 KRW</td>
-                <td class="text-warning fw-bold">92.7</td>
-                <td class="text-danger">30.9%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>5</td>
-                <td class="fw-bold">체인링크 <small class="text-muted">(LINK)</small></td>
-                <td>11,670 KRW</td>
-                <td class="text-warning fw-bold">91.5</td>
-                <td class="text-danger">30.3%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>6</td>
-                <td class="fw-bold">수이 <small class="text-muted">(SUI)</small></td>
-                <td>989 KRW</td>
-                <td class="text-warning fw-bold">91.0</td>
-                <td class="text-danger">30.3%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>7</td>
-                <td class="fw-bold">아발란체 <small class="text-muted">(AVAX)</small></td>
-                <td>9,840 KRW</td>
-                <td class="text-warning fw-bold">86.3</td>
-                <td class="text-danger">30.6%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>8</td>
-                <td class="fw-bold">하이퍼레인 <small class="text-muted">(HYPER)</small></td>
-                <td>85.10 KRW</td>
-                <td class="text-warning fw-bold">79.2</td>
-                <td class="text-danger">26.1%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>9</td>
-                <td class="fw-bold">시바이누 <small class="text-muted">(SHIB)</small></td>
-                <td>0.00709 KRW</td>
-                <td class="text-warning fw-bold">77.3</td>
-                <td class="text-danger">25.3%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>10</td>
-                <td class="fw-bold">에스프레소 <small class="text-muted">(ESP)</small></td>
-                <td>91.40 KRW</td>
-                <td class="text-warning fw-bold">77.2</td>
-                <td class="text-danger">25.6%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>11</td>
-                <td class="fw-bold">카이토 <small class="text-muted">(KAITO)</small></td>
-                <td>1,300 KRW</td>
-                <td class="text-warning fw-bold">76.8</td>
-                <td class="text-danger">25.6%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>12</td>
-                <td class="fw-bold">오브스 <small class="text-muted">(ORBS)</small></td>
-                <td>8.01 KRW</td>
-                <td class="text-warning fw-bold">76.5</td>
-                <td class="text-danger">27.4%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>13</td>
-                <td class="fw-bold">모멘텀 <small class="text-muted">(MMT)</small></td>
-                <td>221 KRW</td>
-                <td class="text-warning fw-bold">76.3</td>
-                <td class="text-danger">25.7%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>14</td>
-                <td class="fw-bold">만트라 <small class="text-muted">(MANTRA)</small></td>
-                <td>7.73 KRW</td>
-                <td class="text-warning fw-bold">75.5</td>
-                <td class="text-danger">25.9%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>15</td>
-                <td class="fw-bold">썬더코어 <small class="text-muted">(TT)</small></td>
-                <td>0.62100 KRW</td>
-                <td class="text-warning fw-bold">75.3</td>
-                <td class="text-danger">26.2%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>16</td>
-                <td class="fw-bold">스토리지 <small class="text-muted">(STORJ)</small></td>
-                <td>66.40 KRW</td>
-                <td class="text-warning fw-bold">75.2</td>
-                <td class="text-danger">26.7%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>17</td>
-                <td class="fw-bold">왁스 <small class="text-muted">(WAXP)</small></td>
-                <td>5.68 KRW</td>
-                <td class="text-warning fw-bold">71.1</td>
-                <td class="text-danger">26.2%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr><tr>
-                <td>18</td>
-                <td class="fw-bold">보라 <small class="text-muted">(BORA)</small></td>
-                <td>30.60 KRW</td>
-                <td class="text-warning fw-bold">68.5</td>
-                <td class="text-danger">34.6%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-primary">🔵 관심</span></td>
-            </tr></tbody></table></div></div><div class="tab-pane fade " id="norm" role="tabpanel"><div class="table-responsive"><table class="table table-dark table-hover table-striped align-middle small"><thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead><tbody><tr>
-                <td>1</td>
-                <td class="fw-bold">오닉스코인 <small class="text-muted">(XCN)</small></td>
-                <td>4.70 KRW</td>
-                <td class="text-warning fw-bold">54.4</td>
-                <td class="text-danger">33.1%</td>
-                <td>💎 정상 수급 (덤핑확률 30.0%)</td>
-                <td><span class="badge bg-secondary">⚪ 보통</span></td>
-            </tr></tbody></table></div></div><div class="tab-pane fade " id="warn" role="tabpanel"><div class="table-responsive"><table class="table table-dark table-hover table-striped align-middle small"><thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead><tbody></tbody></table></div></div>
+                        
+                        <!-- 검색 결과 전용 가상 탭 (평소엔 숨김) -->
+                        <div class="tab-pane fade" id="search-result" role="tabpanel">
+                            <div class="alert alert-info py-2 small mb-2"><i class="fa-solid fa-circle-info"></i> 검색 결과입니다. 탭에 관계없이 매칭되는 모든 종목을 보여줍니다.</div>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle small bg-white">
+                                    <thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead>
+                                    <tbody id="search-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 1. 추천 -->
+                        <div class="tab-pane fade show active" id="rec" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle small bg-white">
+                                    <thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>1</td><td class="fw-bold text-dark">이더리움 <small class="text-muted">(ETH)</small></td><td>2,653,000 KRW</td><td class="text-warning fw-bold">90.9</td><td class="text-danger">29.9%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-success">🟢 추천</span></td></tr>
+                                        <tr><td>2</td><td class="fw-bold text-dark">헤이엘사 <small class="text-muted">(ELSA)</small></td><td>81.80 KRW</td><td class="text-warning fw-bold">90.5</td><td class="text-danger">29.7%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-success">🟢 추천</span></td></tr>
+                                        <tr><td>3</td><td class="fw-bold text-dark">월드코인 <small class="text-muted">(WLD)</small></td><td>468 KRW</td><td class="text-warning fw-bold">89.8</td><td class="text-danger">29.7%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-success">🟢 추천</span></td></tr>
+                                        <tr><td>4</td><td class="fw-bold text-dark">오리진트레일 <small class="text-muted">(TRAC)</small></td><td>406 KRW</td><td class="text-warning fw-bold">83.4</td><td class="text-danger">27.8%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-success">🟢 추천</span></td></tr>
+                                        <tr><td>5</td><td class="fw-bold text-dark">미라네트워크 <small class="text-muted">(MIRA)</small></td><td>58.20 KRW</td><td class="text-warning fw-bold">83.3</td><td class="text-danger">27.0%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-success">🟢 추천</span></td></tr>
+                                        <tr><td>6</td><td class="fw-bold text-dark">도지코인 <small class="text-muted">(DOGE)</small></td><td>100 KRW</td><td class="text-warning fw-bold">82.1</td><td class="text-danger">26.7%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-success">🟢 추천</span></td></tr>
+                                        <tr><td>7</td><td class="fw-bold text-dark">아카시네트워크 <small class="text-muted">(AKT)</small></td><td>757 KRW</td><td class="text-warning fw-bold">81.0</td><td class="text-danger">27.8%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-success">🟢 추천</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- 2. 관심 -->
+                        <div class="tab-pane fade" id="int" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle small bg-white">
+                                    <thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>1</td><td class="fw-bold text-dark">에이다 <small class="text-muted">(ADA)</small></td><td>278 KRW</td><td class="text-warning fw-bold">93.9</td><td class="text-danger">30.8%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>2</td><td class="fw-bold text-dark">비트코인 <small class="text-muted">(BTC)</small></td><td>90,717,000 KRW</td><td class="text-warning fw-bold">93.5</td><td class="text-danger">31.2%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>3</td><td class="fw-bold text-dark">솔라나 <small class="text-muted">(SOL)</small></td><td>105,100 KRW</td><td class="text-warning fw-bold">92.8</td><td class="text-danger">30.9%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>4</td><td class="fw-bold text-dark">엑스알피(리플) <small class="text-muted">(XRP)</small></td><td>1,532 KRW</td><td class="text-warning fw-bold">92.7</td><td class="text-danger">30.9%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>5</td><td class="fw-bold text-dark">체인링크 <small class="text-muted">(LINK)</small></td><td>11,670 KRW</td><td class="text-warning fw-bold">91.5</td><td class="text-danger">30.3%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>6</td><td class="fw-bold text-dark">수이 <small class="text-muted">(SUI)</small></td><td>989 KRW</td><td class="text-warning fw-bold">91.0</td><td class="text-danger">30.3%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>7</td><td class="fw-bold text-dark">아발란체 <small class="text-muted">(AVAX)</small></td><td>9,840 KRW</td><td class="text-warning fw-bold">86.3</td><td class="text-danger">30.6%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>8</td><td class="fw-bold text-dark">하이퍼레인 <small class="text-muted">(HYPER)</small></td><td>85.10 KRW</td><td class="text-warning fw-bold">79.2</td><td class="text-danger">26.1%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>9</td><td class="fw-bold text-dark">시바이누 <small class="text-muted">(SHIB)</small></td><td>0.00709 KRW</td><td class="text-warning fw-bold">77.3</td><td class="text-danger">25.3%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>10</td><td class="fw-bold text-dark">에스프레소 <small class="text-muted">(ESP)</small></td><td>91.40 KRW</td><td class="text-warning fw-bold">77.2</td><td class="text-danger">25.6%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>11</td><td class="fw-bold text-dark">카이토 <small class="text-muted">(KAITO)</small></td><td>1,300 KRW</td><td class="text-warning fw-bold">76.8</td><td class="text-danger">25.6%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>12</td><td class="fw-bold text-dark">오브스 <small class="text-muted">(ORBS)</small></td><td>8.01 KRW</td><td class="text-warning fw-bold">76.5</td><td class="text-danger">27.4%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>13</td><td class="fw-bold text-dark">모멘텀 <small class="text-muted">(MMT)</small></td><td>221 KRW</td><td class="text-warning fw-bold">76.3</td><td class="text-danger">25.7%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>14</td><td class="fw-bold text-dark">만트라 <small class="text-muted">(MANTRA)</small></td><td>7.73 KRW</td><td class="text-warning fw-bold">75.5</td><td class="text-danger">25.9%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>15</td><td class="fw-bold text-dark">썬더코어 <small class="text-muted">(TT)</small></td><td>0.62100 KRW</td><td class="text-warning fw-bold">75.3</td><td class="text-danger">26.2%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>16</td><td class="fw-bold text-dark">스토리지 <small class="text-muted">(STORJ)</small></td><td>66.40 KRW</td><td class="text-warning fw-bold">75.2</td><td class="text-danger">26.7%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>17</td><td class="fw-bold text-dark">왁스 <small class="text-muted">(WAXP)</small></td><td>5.68 KRW</td><td class="text-warning fw-bold">71.1</td><td class="text-danger">26.2%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                        <tr><td>18</td><td class="fw-bold text-dark">보라 <small class="text-muted">(BORA)</small></td><td>30.60 KRW</td><td class="text-warning fw-bold">68.5</td><td class="text-danger">34.6%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-primary">🔵 관심</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 3. 보통 -->
+                        <div class="tab-pane fade" id="norm" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle small bg-white">
+                                    <thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>1</td><td class="fw-bold text-dark">오닉스코인 <small class="text-muted">(XCN)</small></td><td>4.70 KRW</td><td class="text-warning fw-bold">54.4</td><td class="text-danger">33.1%</td><td>💎 정상 수급 (덤핑확률 30.0%)</td><td><span class="badge bg-secondary">⚪ 보통</span></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- 4. 주의 -->
+                        <div class="tab-pane fade" id="warn" role="tabpanel"><div class="table-responsive"><table class="table table-hover align-middle small bg-white"><thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead><tbody></tbody></table></div></div>
+                        
+                        <!-- 5. 경고 -->
+                        <div class="tab-pane fade" id="danger" role="tabpanel"><div class="table-responsive"><table class="table table-hover align-middle small bg-white"><thead><tr><th>순위</th><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>고주파 아이스버그</th><th>등급</th></tr></thead><tbody></tbody></table></div></div>
                     </div>
                 </div>
             </div>
@@ -416,5 +298,64 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 글로벌 검색 기능 로직
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById('globalSearch');
+            const searchPane = document.getElementById('search-result');
+            const searchTbody = document.getElementById('search-tbody');
+            const standardPanes = document.querySelectorAll('.tab-pane:not(#search-result)');
+            const navTabs = document.getElementById('coinTab');
+            
+            let lastActiveTabId = 'rec'; // 기본 활성 탭 기억용
+
+            // 탭 클릭 시 활성화된 탭 기록
+            document.querySelectorAll('#coinTab .nav-link').forEach(tabBtn => {
+                tabBtn.addEventListener('click', function() {
+                    lastActiveTabId = this.getAttribute('data-bs-target').replace('#', '');
+                });
+            });
+
+            searchInput.addEventListener('input', function(e) {
+                const term = e.target.value.toLowerCase().trim();
+
+                // 검색어가 없을 경우 원래 상태로 복구
+                if (term === '') {
+                    navTabs.style.display = 'flex';
+                    searchPane.classList.remove('show', 'active');
+                    
+                    // 기존 활성화되었던 탭 복구
+                    standardPanes.forEach(pane => pane.classList.remove('show', 'active'));
+                    document.getElementById(lastActiveTabId).classList.add('show', 'active');
+                    return;
+                }
+
+                // 검색어가 있을 경우: 탭 숨기고 검색 결과창 표시
+                navTabs.style.display = 'none';
+                standardPanes.forEach(pane => pane.classList.remove('show', 'active'));
+                searchPane.classList.add('show', 'active');
+                
+                searchTbody.innerHTML = '';
+                let matchCount = 0;
+
+                // 모든 일반 탭의 테이블 행을 순회하며 검색어 매칭 검사
+                standardPanes.forEach(pane => {
+                    const rows = pane.querySelectorAll('tbody tr');
+                    rows.forEach(row => {
+                        if (row.innerText.toLowerCase().includes(term)) {
+                            // 매칭되는 행 복제하여 검색 결과 탭에 추가
+                            searchTbody.appendChild(row.cloneNode(true));
+                            matchCount++;
+                        }
+                    });
+                });
+
+                // 결과가 없을 경우
+                if (matchCount === 0) {
+                    searchTbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-4 fw-bold">검색 결과가 없습니다.</td></tr>';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
