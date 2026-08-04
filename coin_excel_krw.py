@@ -923,13 +923,11 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
             }}
         }});
     }}
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    // 5분(300,000ms)마다 페이지 새로고침
-    setTimeout(function() {
+
+    // 5분(300,000ms)마다 페이지 자동 새로고침
+    setTimeout(function() {{
         location.reload();
-    }, 300000);
+    }}, 300000);
     </script>
 </body>
 </html>
