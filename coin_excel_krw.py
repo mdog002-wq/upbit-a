@@ -54,14 +54,15 @@ def upload_html_to_oracle_server(local_file_path):
     오라클 서버로 대시보드 HTML 파일을 자동 전송하는 함수
     """
     hostname = os.environ.get("ORACLE_DSN")          # 오라클 서버 공인 IP
-    username = os.environ.get("ORACLE_USER", "opc")  # 계정명 (기본 opc 또는 ubuntu)
+    username = os.environ.get("ORACLE_USER", "ubuntu") # 계정명 (변경됨: ubuntu)
     ssh_key_content = os.environ.get("ORACLE_SSH_KEY") # GitHub Secrets에서 가져온 개인키 내용
 
     if not hostname or not ssh_key_content:
         print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
         return
 
-    remote_file_path = "/var/www/html/index.html" # 오라클 서버 내 웹서버 저장 경로 (환경에 맞게 수정)
+    # [수정] 오라클 서버 내 변경된 템플릿 파일 저장 경로로 지정
+    remote_file_path = "templates/dashboard.html"
 
     try:
         # 문자열 형태의 프라이빗 키(.key)를 메모리에서 읽어오기
@@ -85,6 +86,7 @@ def upload_html_to_oracle_server(local_file_path):
         
     except Exception as e:
         print(f"❌ 오라클 서버 전송 실패: {e}")
+
 # ==============================================================================
 # [설정] 환경 변수 및 파일 경로
 # ==============================================================================
@@ -267,7 +269,6 @@ class AIEvolutionEngine:
         stgt_x_train, stgt_y_train = [], []
         keys_to_delete = []
 
-        # 배치로 가격 불러오기 (API 호출 최소화)
         expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d["timestamp"] > 14400]
         if not expired_tickers: return
 
@@ -361,7 +362,7 @@ def calculate_t1_advanced_metrics(df_daily):
 def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
-        time.sleep(0.04) # Upbit REST API Rate limit 방지 Throttling
+        time.sleep(0.04)
         df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=60)
         metrics = calculate_t1_advanced_metrics(df_daily)
         if not metrics or (metrics['last_value'] / 100_000_000) < 5.0: return None
@@ -434,9 +435,6 @@ def analyze_and_scan_market():
 # [신규 모듈] 5단계 AI 등급 부여 및 Redis 대시보드 연동
 # ==============================================================================
 def calculate_ai_grade(score, dump_risk):
-    """
-    종합예측점수와 STGT 덤핑위험도를 조합하여 5단계 등급 부여
-    """
     if dump_risk >= 70.0:
         return "🔴 경고"
     elif dump_risk >= 50.0 or score < 40.0:
@@ -449,7 +447,6 @@ def calculate_ai_grade(score, dump_risk):
         return "⚪ 보통"
 
 def update_redis_for_dashboard(df_result, ai_report):
-    """Program B(웹 대시보드)가 읽어갈 수 있도록 Redis에 최신 AI 분석 데이터 전달"""
     if not redis_client or df_result.empty: return
 
     try:
@@ -485,7 +482,6 @@ def update_redis_for_dashboard(df_result, ai_report):
             "all_coins": coin_grades
         }
 
-        # Redis 키 저장
         redis_client.set("upbit_ai_dashboard_data", json.dumps(dashboard_payload, ensure_ascii=False))
         print("⚡ [Redis] 웹 대시보드 연동용 AI 리포트 및 5단계 등급 데이터 업데이트 완료!")
     except Exception as e:
@@ -526,7 +522,6 @@ def generate_gemini_analysis(df_top):
 def export_to_excel_and_email(df_result, ai_report):
     if df_result.empty: return
 
-    # 1. Excel 저장
     with pd.ExcelWriter(EXCEL_FILE_PATH, engine='openpyxl') as writer:
         df_result.to_excel(writer, index=False, sheet_name='매집분석_리포트')
 
@@ -549,7 +544,6 @@ def export_to_excel_and_email(df_result, ai_report):
     wb.save(EXCEL_FILE_PATH)
     print(f"📊 엑셀 리포트 저장 완료: {EXCEL_FILE_PATH}")
 
-    # 2. 이메일 발송
     if not SENDER_EMAIL or not EMAIL_PASSWORD or not RECEIVER_EMAILS:
         print("📧 이메일 계정 정보가 설정되지 않아 메일 발송을 스킵합니다.")
         return
@@ -580,14 +574,15 @@ def export_to_excel_and_email(df_result, ai_report):
         print(f"❌ 이메일 발송 실패: {e}")
 
 # ==============================================================================
-# [신규 모듈] 인터랙티브 웹 대시보드 HTML 자동 생성 기능 정의 (먼저 선언되어야 함)
+# [신규 모듈] 인터랙티브 웹 대시보드 HTML 자동 생성 기능 정의
 # ==============================================================================
 def generate_dashboard_html(df_result, ai_report):
     """
     분석된 데이터를 바탕으로 좌측 상단 '급등주포착' 단추가 포함된 대시보드 HTML을 생성합니다.
     """
-    os.makedirs("docs", exist_ok=True)
-    html_path = "docs/index.html"
+    # [수정] 오라클 서버 구조의 로컬 경로 'templates' 디렉토리에 맞춤
+    os.makedirs("templates", exist_ok=True)
+    html_path = "templates/dashboard.html"
 
     if df_result.empty:
         html_content = "<html><body><h1>분석된 데이터가 없습니다.</h1></body></html>"
@@ -803,7 +798,7 @@ def generate_dashboard_html(df_result, ai_report):
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("🎨 [대시보드] '급등주포착' 버튼이 포함된 HTML 대시보드 생성 완료 (`docs/index.html`)!")
+    print("🎨 [대시보드] '급등주포착' 버튼이 포함된 HTML 대시보드 생성 완료 (`templates/dashboard.html`)!")
 
 
 # ==============================================================================
@@ -834,11 +829,11 @@ if __name__ == "__main__":
         # 5. 5단계 AI 등급 생성 및 Redis 연동 
         update_redis_for_dashboard(df_result, ai_report)
 
-        # 🚀 6. 대시보드 HTML 파일 실시간 생성
+        # 🚀 6. 대시보드 HTML 파일 실시간 생성 (templates 폴더 내부)
         generate_dashboard_html(df_result, ai_report)
 
-        # 🚀 7. 오라클 서버로 HTML 대시보드 자동 전송
-        upload_html_to_oracle_server("docs/index.html")
+        # 🚀 7. 오라클 서버로 HTML 대시보드 자동 전송 (ubuntu@instance... 서버 내 templates/dashboard.html 경로로 전송)
+        upload_html_to_oracle_server("templates/dashboard.html")
 
         # 8. 엑셀 저장 및 이메일 발송
         kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
