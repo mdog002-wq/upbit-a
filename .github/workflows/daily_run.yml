@@ -42,7 +42,6 @@ jobs:
           ORACLE_DSN: ${{ secrets.ORACLE_DSN }}
           REDIS_HOST: ${{ secrets.REDIS_HOST }}
           REDIS_PORT: ${{ secrets.REDIS_PORT }}
-          TNS_ADMIN: /tmp/wallet
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: python coin_excel_krw.py
 
