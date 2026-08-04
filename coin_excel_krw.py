@@ -543,7 +543,7 @@ def generate_gemini_analysis(df_top):
         """
 
         response = client.models.generate_content(
-            model='gemini-3.1-flash-lite',
+            model='gemini-2.5-flash',
             contents=prompt
         )
         
@@ -597,7 +597,7 @@ def export_to_excel_and_email(df_result, ai_report):
     msg['To'] = ", ".join(RECEIVER_EMAILS)
 
     body_text = f"안녕하세요,\n\n오늘의 업비트 원화마켓 매집 점수 및 AI 분석 리포트입니다.\n\n=========================================="
-    body_text += f"\n🤖 [Gemini 3.1 Flash Lite AI 종합 분석]\n{ai_report}\n==========================================\n\n"
+    body_text += f"\n🤖 [Gemini AI 종합 분석]\n{ai_report}\n==========================================\n\n"
     body_text += "상세 분석 결과는 첨부된 엑셀 파일을 확인해 주세요.\n\n감사합니다."
 
     msg.attach(MIMEText(body_text, 'plain', 'utf-8'))
