@@ -28,6 +28,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyupbit pandas numpy requests openpyxl tqdm websockets google-genai oracledb redis fastapi uvicorn paramiko tensorflow
           pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+
       - name: 파이썬 분석 스크립트 실행
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
@@ -49,8 +50,8 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 🚀 [수정] docs/ 폴더(대시보드 HTML)를 Git 추적 목록에 포함
-          git add docs/ scan_history.csv cache_*.json ai_models/* 2>/dev/null || true
+          # 🚀 [수정] 파이썬 스크립트가 생성하는 templates/ 폴더와 기타 캐시/결과물을 정확히 추적하도록 수정
+          git add templates/ dashboard.html scan_history.csv cache_*.json ai_models/* 2>/dev/null || true
           
           if ! git diff --staged --quiet; then
             git pull --rebase origin main || true
