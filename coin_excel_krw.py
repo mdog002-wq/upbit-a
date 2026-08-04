@@ -695,35 +695,38 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     warning_sector = [c for c in coins_data if c['grade'] == "🟠 주의"]
     danger_sector = [c for c in coins_data if c['grade'] == "🔴 경고"]
 
-    if gemini_symbols:
-        active_recommended_tracking = [c for c in coins_data if c['symbol'].upper() in gemini_symbols and c['is_valuable']]
-    else:
-        active_recommended_tracking = [c for c in coins_data if c['grade'] == "🟢 추천" and c['is_valuable']]
+    # 1. Gemini 추천 심볼이 있으면 이력 파일에 새로 추가/갱신
+    for sym in gemini_symbols:
+        sym_upper = sym.upper()
+        if sym_upper not in rec_history:
+            # 현재 코인 데이터에서 해당 심볼의 진입가 찾기
+            match_coin = next((c for c in coins_data if c['symbol'].upper() == sym_upper), None)
+            if match_coin:
+                rec_history[sym_upper] = {
+                    "first_recommended": current_time_str,
+                    "last_recommended": current_time_str,
+                    "entry_val": match_coin['entry_val'],
+                    "count": 1
+                }
 
-    for c in active_recommended_tracking:
-        symbol = c['symbol']
-        if symbol not in rec_history:
-            rec_history[symbol] = {
-                "first_recommended": current_time_str,
-                "last_recommended": current_time_str,
-                "entry_val": c['entry_val'],
-                "count": 1
-            }
-        else:
-            last_time = datetime.datetime.strptime(rec_history[symbol]["last_recommended"], "%Y-%m-%d %H:%M")
-            if (current_time - last_time).total_seconds() >= 7200:
-                rec_history[symbol]["count"] += 1
-                rec_history[symbol]["last_recommended"] = current_time_str
-
-        c['rec_time'] = rec_history[symbol]["first_recommended"]
-        c['rec_count'] = rec_history[symbol]["count"]
+    # 2. 이력 파일(rec_history)에 등록된 모든 종목을 기준으로 트래킹 목록 구성 (목표가 달성 전까지 유지)
+    active_recommended_tracking = []
+    for c in coins_data:
+        symbol_upper = c['symbol'].upper()
+        # 이력에 존재하고, 아직 가치 유지 상태(20% 미만 상승 및 경고 아님)인 경우 트래킹에 포함
+        if symbol_upper in rec_history and c['is_valuable']:
+            c['rec_time'] = rec_history[symbol_upper]["first_recommended"]
+            c['rec_count'] = rec_history[symbol_upper]["count"]
+            active_recommended_tracking.append(c)
+        elif symbol_upper in rec_history and not c['is_valuable']:
+            # 목표가 달성(+20% 이상) 또는 위험 상태가 되면 이력에서 제거
+            del rec_history[symbol_upper]
 
     try:
         with open(history_path, "w", encoding="utf-8") as f:
             json.dump(rec_history, f, ensure_ascii=False)
     except Exception as e:
         print(f"⚠️ 추천 이력 저장 실패: {e}")
-
     alerts = []
     for c in coins_data:
         if c['dump_risk'] >= 75.0 or c['grade'] == "🔴 경고":
