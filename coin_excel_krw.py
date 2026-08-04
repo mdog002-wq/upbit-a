@@ -61,7 +61,7 @@ def upload_html_to_oracle_server(local_file_path):
         print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
         return
 
-    remote_file_path = "templates/dashboard.html"
+    remote_file_path = "templates/dashboard.html" # 서버에서의 저장 위치 (필요에 따라 유지 또는 변경)
 
     try:
         # 문자열 형태의 프라이빗 키(.key)를 메모리에서 읽어오기
@@ -75,7 +75,7 @@ def upload_html_to_oracle_server(local_file_path):
         # .key 개인키로 접속
         ssh.connect(hostname, port=22, username=username, pkey=pkey)
 
-        # SFTP를 통해 파일 전송
+        # SFTP를 통해 파일 전송 (local_file_path가 올바른 경로를 가리키도록 확인)
         sftp = ssh.open_sftp()
         sftp.put(local_file_path, remote_file_path)
         print(f"🚀 오라클 서버로 HTML 대시보드 전송 완료! ({remote_file_path})")
@@ -85,7 +85,6 @@ def upload_html_to_oracle_server(local_file_path):
         
     except Exception as e:
         print(f"❌ 오라클 서버 전송 실패: {e}")
-
 # ==============================================================================
 # [설정] 환경 변수 및 파일 경로
 # ==============================================================================
@@ -868,7 +867,7 @@ if __name__ == "__main__":
         generate_dashboard_html(df_result, ai_report)
 
         # 🚀 7. 오라클 서버로 HTML 대시보드 자동 전송 (ubuntu@instance... 서버 내 templates/dashboard.html 경로로 전송)
-        upload_html_to_oracle_server("templates/dashboard.html")
+        upload_html_to_oracle_server("docs/index.html")
 
         # 8. 엑셀 저장 및 이메일 발송
         kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
