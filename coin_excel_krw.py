@@ -641,7 +641,7 @@ def export_to_excel_and_email(df_result, ai_report):
         print(f"❌ 이메일 발송 실패: {e}")
 
 # ==============================================================================
-# [웹 대시보드 HTML 자동 생성 (차트 제거 및 전체 코인 등급 분류 상단 이동)]
+# [웹 대시보드 HTML 자동 생성 (3단 레이아웃: 좌측/중앙등급분류/우측트래킹)]
 # ==============================================================================
 def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data=None):
     if gemini_symbols is None:
@@ -775,14 +775,15 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
         .badge-warning {{ background-color: #f97316; color: white; }}
         .badge-danger {{ background-color: #ef4444; color: white; }}
         .alert-box {{ max-height: 220px; overflow-y: auto; }}
-        .tracking-box {{ max-height: 450px; overflow-y: auto; }}
-        .news-box {{ max-height: 280px; overflow-y: auto; }}
+        .tracking-box {{ max-height: 600px; overflow-y: auto; }}
+        .news-box {{ max-height: 250px; overflow-y: auto; }}
         .search-input {{ max-width: 250px; }}
         @media (max-width: 768px) {{ .table-responsive {{ padding-right: 1px; }} }}
     </style>
 </head>
 <body>
     <div class="container-fluid my-4 px-4" style="max-width: 1700px;">
+        <!-- 상단 헤더 영역 -->
         <div class="row mb-4 align-items-center">
             <div class="col-md-3 text-start mb-2 mb-md-0">
                 <a href="http://140.245.99.254:8000" class="btn btn-primary fw-bold px-3 py-2 shadow-sm w-100 w-md-auto">
@@ -790,18 +791,57 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                 </a>
             </div>
             <div class="col-md-6 text-center">
-                <h2 class="fw-bold text-dark mb-0 fs-4 fs-md-2"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 전체 종목 AI 분석 대시보드</h2>
+                <h2 class="fw-bold text-dark mb-0 fs-4 fs-md-2"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>
                 <small class="text-muted">최종 업데이트: {updated_time} (총 {len(coins_data)}개 종목 분석 완료)</small>
             </div>
             <div class="col-md-3"></div>
         </div>
 
-        <!-- [배치 수정] 전체 코인 등급 분류를 최상단 메인 영역으로 배치 -->
+        <!-- 3단 레이아웃 메인 영역 -->
         <div class="row">
-            <div class="col-12 mb-4">
-                <div class="card p-3 p-md-4 shadow-sm">
+            <!-- [좌측 컬럼] 실시간 급락/위험 경고, 실시간 속보, Gemini AI 분석 리포트 -->
+            <div class="col-lg-3 mb-4 d-flex flex-column gap-3">
+                <div class="card p-3 shadow-sm">
+                    <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>
+                    <div class="alert-box d-flex flex-column gap-2">
+"""
+
+    for alert in alerts[:15]:
+        html_content += f"""                        <div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert['text']}</div>\n"""
+
+    if not alerts:
+        html_content += """                        <div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>\n"""
+
+    html_content += f"""                    </div>
+                </div>
+
+                <div class="card p-3 shadow-sm">
+                    <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보</h6>
+                    <div class="news-box d-flex flex-column gap-2">
+"""
+    if news_data:
+        for coin, items in news_data.items():
+            html_content += f"""                        <div class="p-2 border rounded bg-light"><strong class="text-primary">{coin}</strong><ul class="mb-0 ps-3 small">"""
+            for item in items:
+                html_content += f"""<li><a href="{item['link']}" target="_blank" class="text-decoration-none text-dark">{item['title']}</a></li>"""
+            html_content += f"""</ul></div>"""
+    else:
+        html_content += """                        <div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>\n"""
+
+    html_content += f"""                    </div>
+                </div>
+
+                <div class="card p-3 shadow-sm flex-grow-1">
+                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-robot me-1"></i> AI 분석 리포트</h6>
+                    <div class="text-secondary small bg-light p-3 rounded" style="white-space: pre-line; max-height: 300px; overflow-y: auto; line-height: 1.5;">{ai_report}</div>
+                </div>
+            </div>
+
+            <!-- [중앙 컬럼] 전체 코인 등급 분류 (차트 영역 대체 및 상단 배치) -->
+            <div class="col-lg-6 mb-4">
+                <div class="card p-3 p-md-4 shadow-sm h-100">
                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                        <h4 class="fw-bold mb-0 text-dark fs-5 fs-md-4"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류 ({len(coins_data)}개)</h4>
+                        <h5 class="fw-bold mb-0 text-dark fs-6 fs-md-5"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류 <small class="text-muted" style="font-size: 0.75rem;">(종목 클릭시 위 차트 연동)</small></h5>
                         <div class="input-group search-input w-100 w-md-auto">
                             <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
                             <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명 또는 심볼 검색..." onkeyup="filterCoins()">
@@ -822,7 +862,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     def make_table_html(sector_list, tab_id, is_active=""):
         active_cls = "show active" if is_active else ""
         t_html = f'<div class="tab-pane fade {active_cls}" id="{tab_id}" role="tabpanel">'
-        t_html += '<div class="table-responsive" style="max-height: 550px; overflow-y: auto;">'
+        t_html += '<div class="table-responsive" style="max-height: 520px; overflow-y: auto;">'
         t_html += '<table class="table table-hover align-middle small search-table text-nowrap">_TABLE_HEADER_<tbody>'
         
         sorted_sector = sorted(sector_list, key=lambda x: x['score'], reverse=True)
@@ -851,51 +891,12 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 하단 영역: 경고, 속보, AI 리포트 및 추천 종목 트래킹 -->
-        <div class="row">
-            <div class="col-lg-4 mb-4 d-flex flex-column gap-3">
-                <div class="card p-3 shadow-sm">
-                    <h5 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h5>
-                    <div class="alert-box d-flex flex-column gap-2">
-"""
-
-    for alert in alerts[:15]:
-        html_content += f"""                        <div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert['text']}</div>\n"""
-
-    if not alerts:
-        html_content += """                        <div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>\n"""
-
-    html_content += f"""                    </div>
-                </div>
-
-                <div class="card p-3 shadow-sm">
-                    <h5 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 추천 종목 실시간 속보</h5>
-                    <div class="news-box d-flex flex-column gap-2">
-"""
-    if news_data:
-        for coin, items in news_data.items():
-            html_content += f"""                        <div class="p-2 border rounded bg-light"><strong class="text-primary">{coin}</strong><ul class="mb-0 ps-3 small">"""
-            for item in items:
-                html_content += f"""<li><a href="{item['link']}" target="_blank" class="text-decoration-none text-dark">{item['title']}</a></li>"""
-            html_content += f"""</ul></div>"""
-    else:
-        html_content += """                        <div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>\n"""
-
-    html_content += f"""                    </div>
-                </div>
-
-                <div class="card p-3 shadow-sm flex-grow-1">
-                    <h5 class="fw-bold text-primary mb-3"><i class="fa-solid fa-robot me-1"></i> Gemini AI 분석 리포트</h5>
-                    <div class="text-secondary small bg-light p-3 rounded" style="white-space: pre-line; max-height: 350px; overflow-y: auto; line-height: 1.5;">{ai_report}</div>
-                </div>
-            </div>
-
-            <div class="col-lg-8 mb-4">
-                <div class="card p-3 shadow-sm">
-                    <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-robot me-1"></i> Gemini 추천 종목 트래킹</h5>
-                    <p class="text-muted" style="font-size: 0.75rem;">* Gemini 분석 리포트 추천 종목 기준 (20% 상승 시 자동 삭제)</p>
+            <!-- [우측 컬럼] Gemini 추천 종목 트래킹 -->
+            <div class="col-lg-3 mb-4">
+                <div class="card p-3 shadow-sm h-100">
+                    <h6 class="fw-bold text-success mb-1"><i class="fa-solid fa-robot me-1"></i> Gemini 추천 종목 트래킹</h6>
+                    <p class="text-muted mb-2" style="font-size: 0.72rem;">* 종목 클릭시 위 차트 연동</p>
                     <div class="tracking-box d-flex flex-column gap-3 mt-2">
 """
 
@@ -905,24 +906,24 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
         html_content += f"""                        <div class="p-3 border rounded bg-light shadow-sm">
                             <div class="d-flex justify-content-between align-items-center mb-2 border-bottom pb-2">
                                 <div>
-                                    <span class="fw-bold text-dark">{c['name']} <small class="text-muted">({c['symbol']})</small></span>
+                                    <span class="fw-bold text-dark small">{c['name']} <small class="text-muted">({c['symbol']})</small></span>
                                     {count_badge}
                                 </div>
-                                <span class="badge bg-success">{c['grade']}</span>
+                                <span class="badge bg-success" style="font-size: 0.7rem;">{c['grade']}</span>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.85rem;">
+                            <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.8rem;">
                                 <span>최초 추천일시:</span>
                                 <span class="fw-semibold text-secondary">{c['rec_time']}</span>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.85rem;">
+                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.8rem;">
                                 <span>추천 진입가:</span>
                                 <span class="fw-semibold text-dark">{c['entry_price']}원</span>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.85rem;">
+                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.8rem;">
                                 <span>현재 가격:</span>
                                 <span class="fw-bold text-primary">{c['price']}원</span>
                             </div>
-                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.85rem;">
+                            <div class="d-flex justify-content-between align-items-center text-muted mt-1" style="font-size: 0.8rem;">
                                 <span>목표 매도가(+20%):</span>
                                 <span class="fw-semibold text-danger">{c['target_price']}원</span>
                             </div>
@@ -965,7 +966,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("🎨 [대시보드] 차트 관련 요소 완전 제거 및 전체 코인 등급 분류 최상단 배치 HTML 생성 완료 (`docs/index.html`)!")
+    print("🎨 [대시보드] 차트 기능 완전 제거 및 3단 레이아웃(중앙 등급 분류 상단 배치) HTML 생성 완료 (`docs/index.html`)!")
 
 
 # ==============================================================================
@@ -1004,7 +1005,7 @@ if __name__ == "__main__":
         # 6. Redis 연동 (전체 종목 페이로드 반영)
         update_redis_for_dashboard(df_result, ai_report)
 
-        # 7. 대시보드 HTML 파일 생성 (차트 제거 및 전체 코인 분류 상단 배치)
+        # 7. 대시보드 HTML 파일 생성 (3단 구조 및 차트 완전 제거 후 코인 등급 분류 상단 배치)
         generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data)
 
         # 8. 오라클 서버로 HTML 대시보드 전송
