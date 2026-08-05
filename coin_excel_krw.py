@@ -472,13 +472,14 @@ def analyze_and_scan_market():
 # [신규 모듈] 5단계 AI 등급 부여 및 Redis 대시보드 연동
 # ==============================================================================
 def calculate_ai_grade(score, dump_risk):
-    if dump_risk >= 70.0:
+    # 덤핑 위험도가 일괄적으로 높게 잡히는 현상을 방지하기 위해 기준선을 상향 조정하고 점수 비중을 높임
+    if dump_risk >= 85.0:
         return "🔴 경고"
-    elif dump_risk >= 50.0 or score < 40.0:
+    elif dump_risk >= 70.0 and score < 50.0:
         return "🟠 주의"
-    elif score >= 70.0 and dump_risk < 30.0:
+    elif score >= 65.0 and dump_risk < 40.0:
         return "🟢 추천"
-    elif score >= 55.0 and dump_risk < 45.0:
+    elif score >= 50.0 and dump_risk < 60.0:
         return "🔵 관심"
     else:
         return "⚪ 보통"
