@@ -2,11 +2,11 @@
   "MVL": {
     "name": "엠블",
     "symbol": "MVL",
-    "count": 11,
+    "count": 12,
     "entry_price": 1.11,
     "current_price": 1.11,
     "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 20:42:33"
+    "last_recommended_at": "2026-08-05 20:52:33"
   },
   "STRAX": {
     "name": "저트라",
@@ -20,20 +20,20 @@
   "QKC": {
     "name": "쿼크체인",
     "symbol": "QKC",
-    "count": 7,
+    "count": 8,
     "entry_price": 2.75,
     "current_price": 2.76,
     "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 20:42:33"
+    "last_recommended_at": "2026-08-05 20:52:33"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 7,
+    "count": 8,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 20:42:33"
+    "last_recommended_at": "2026-08-05 20:52:33"
   },
   "LPT": {
     "name": "라이브피어",
@@ -52,5 +52,14 @@
     "current_price": 90.0,
     "first_recommended_at": "2026-08-05 19:32:39",
     "last_recommended_at": "2026-08-05 19:32:39"
+  },
+  "MET2": {
+    "name": "메테오라",
+    "symbol": "MET2",
+    "count": 1,
+    "entry_price": 242.0,
+    "current_price": 242.0,
+    "first_recommended_at": "2026-08-05 20:52:33",
+    "last_recommended_at": "2026-08-05 20:52:33"
   }
 }
