@@ -2,29 +2,29 @@
   "MVL": {
     "name": "엠블",
     "symbol": "MVL",
-    "count": 3,
+    "count": 4,
     "entry_price": 1.11,
     "current_price": 1.11,
     "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 19:21:58"
+    "last_recommended_at": "2026-08-05 19:32:39"
   },
   "STRAX": {
     "name": "저트라",
     "symbol": "STRAX",
-    "count": 3,
+    "count": 4,
     "entry_price": 12.3,
     "current_price": 12.3,
     "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 19:21:58"
+    "last_recommended_at": "2026-08-05 19:32:39"
   },
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 3,
+    "count": 4,
     "entry_price": 1.18,
     "current_price": 1.18,
     "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 19:21:58"
+    "last_recommended_at": "2026-08-05 19:32:39"
   },
   "QKC": {
     "name": "쿼크체인",
@@ -49,8 +49,17 @@
     "symbol": "LPT",
     "count": 2,
     "entry_price": 1845.0,
-    "current_price": 1845.0,
+    "current_price": 1835.0,
     "first_recommended_at": "2026-08-05 19:12:30",
     "last_recommended_at": "2026-08-05 19:21:58"
+  },
+  "BLEND": {
+    "name": "플루언트",
+    "symbol": "BLEND",
+    "count": 1,
+    "entry_price": 91.8,
+    "current_price": 91.8,
+    "first_recommended_at": "2026-08-05 19:32:39",
+    "last_recommended_at": "2026-08-05 19:32:39"
   }
 }
