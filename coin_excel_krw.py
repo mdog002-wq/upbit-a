@@ -554,25 +554,18 @@ def create_table_rows(sector_coins):
             badge_class = coin.get('badge_class', 'bg-secondary')
             grade = coin.get('grade', '⚪ 보통')
             
+            # 소괄호를 사용해 여러 줄의 문자열을 하나로 안전하게 연결합니다.
             row_html = (
-                f"<tr>"
-                f'<td class="fw-bold">{name}</td>'
-                f"<td>{price}</td>"
-                f'<td class="text-primary">{score:.1f}점</td>'
-                f'<td><span class="badge {badge_class}">{grade}</span></td>'
-                f"</tr>"
+                f"<tr>\n"
+                f'    <td class="fw-bold">{name}</td>\n'
+                f'    <td>{price}</td>\n'
+                f'    <td class="text-primary">{score:.1f}점</td>\n'
+                f'    <td><span class="badge {badge_class}">{grade}</span></td>\n'
+                f"</tr>\n"
             )
             rows_list.append(row_html)
         
         return "".join(rows_list)
-                    <td class="fw-bold">{coin.get('name', 'N/A')}</td>
-                    <td>{coin.get('price', 'N/A')}</td>
-                    <td class="text-primary">{coin.get('score', 0):.1f}점</td>
-                    <td><span class="badge {coin.get('badge_class', 'bg-secondary')}">{coin.get('grade', '⚪ 보통')}</span></td>
-                </tr>
-            """
-        return rows
-
     html_content = f"""<!DOCTYPE html>
 <html lang="ko">
 <head>
