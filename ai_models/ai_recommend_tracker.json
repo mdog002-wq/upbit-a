@@ -4,7 +4,7 @@
     "symbol": "CVC",
     "count": 10,
     "entry_price": 25.2,
-    "current_price": 25.1,
+    "current_price": 25.0,
     "first_recommended_at": "2026-08-05 19:02:46",
     "last_recommended_at": "2026-08-05 21:12:28"
   },
@@ -13,7 +13,7 @@
     "symbol": "WAXP",
     "count": 7,
     "entry_price": 5.4,
-    "current_price": 5.41,
+    "current_price": 5.36,
     "first_recommended_at": "2026-08-05 21:12:28",
     "last_recommended_at": "2026-08-05 23:22:11"
   },
@@ -22,7 +22,7 @@
     "symbol": "TFUEL",
     "count": 6,
     "entry_price": 10.5,
-    "current_price": 10.4,
+    "current_price": 10.5,
     "first_recommended_at": "2026-08-05 21:12:28",
     "last_recommended_at": "2026-08-05 22:22:24"
   },
@@ -38,36 +38,36 @@
   "SUN": {
     "name": "썬",
     "symbol": "SUN",
-    "count": 6,
+    "count": 7,
     "entry_price": 25.5,
     "current_price": 25.6,
     "first_recommended_at": "2026-08-05 21:52:17",
-    "last_recommended_at": "2026-08-05 23:32:23"
+    "last_recommended_at": "2026-08-05 23:42:17"
   },
   "JTO": {
     "name": "지토",
     "symbol": "JTO",
     "count": 2,
     "entry_price": 739.0,
-    "current_price": 733.0,
+    "current_price": 734.0,
     "first_recommended_at": "2026-08-05 22:12:20",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
   "SUPER": {
     "name": "슈퍼버스",
     "symbol": "SUPER",
-    "count": 7,
+    "count": 8,
     "entry_price": 120.0,
     "current_price": 121.0,
     "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 23:32:23"
+    "last_recommended_at": "2026-08-05 23:42:17"
   },
   "SOON": {
     "name": "쑨",
     "symbol": "SOON",
     "count": 4,
     "entry_price": 322.0,
-    "current_price": 323.0,
+    "current_price": 321.0,
     "first_recommended_at": "2026-08-05 22:32:27",
     "last_recommended_at": "2026-08-05 23:12:16"
   },
@@ -76,7 +76,7 @@
     "symbol": "ALT",
     "count": 3,
     "entry_price": 8.11,
-    "current_price": 8.11,
+    "current_price": 8.18,
     "first_recommended_at": "2026-08-05 23:02:42",
     "last_recommended_at": "2026-08-05 23:32:23"
   },
@@ -94,8 +94,26 @@
     "symbol": "MNT",
     "count": 1,
     "entry_price": 576.0,
-    "current_price": 576.0,
+    "current_price": 578.0,
     "first_recommended_at": "2026-08-05 23:32:23",
     "last_recommended_at": "2026-08-05 23:32:23"
+  },
+  "1INCH": {
+    "name": "1인치네트워크",
+    "symbol": "1INCH",
+    "count": 1,
+    "entry_price": 117.0,
+    "current_price": 117.0,
+    "first_recommended_at": "2026-08-05 23:42:17",
+    "last_recommended_at": "2026-08-05 23:42:17"
+  },
+  "PRL": {
+    "name": "펄",
+    "symbol": "PRL",
+    "count": 1,
+    "entry_price": 385.0,
+    "current_price": 385.0,
+    "first_recommended_at": "2026-08-05 23:42:17",
+    "last_recommended_at": "2026-08-05 23:42:17"
   }
 }
