@@ -968,11 +968,11 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     }
 
     async function loadCoinChart(market, koreanName) {
-        document.getElementById('chartTitle').innerHTML = `<i class="fa-solid fa-chart-candlestick text-primary me-1"></i> ${koreanName} (${market}) 실시간 10분봉 차트`;
+        document.getElementById('chartTitle').innerHTML = `<i class="fa-solid fa-chart-candlestick text-primary me-1"></i> ${koreanName} (${market}) 실시간 1시간봉 차트`;
         document.getElementById('chartStatus').innerText = '불러오는 중...';
         
         try {
-            let res = await fetch(`https://api.upbit.com/v1/candles/minutes/10?market=${market}&count=200`);
+            let res = await fetch(`https://api.upbit.com/v1/candles/minutes/60?market=${market}&count=200`);
             let data = await res.json();
             data.reverse();
             
