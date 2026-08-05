@@ -101,18 +101,18 @@
   "ZKP": {
     "name": "지케이패스",
     "symbol": "ZKP",
-    "count": 4,
+    "count": 5,
     "entry_price": 64.8,
     "current_price": 64.8,
     "first_recommended_at": "2026-08-05 17:22:27",
-    "last_recommended_at": "2026-08-05 17:52:22"
+    "last_recommended_at": "2026-08-05 18:02:33"
   },
   "MOVE": {
     "name": "무브먼트",
     "symbol": "MOVE",
     "count": 1,
     "entry_price": 10.8,
-    "current_price": 10.8,
+    "current_price": 10.7,
     "first_recommended_at": "2026-08-05 17:22:27",
     "last_recommended_at": "2026-08-05 17:22:27"
   },
@@ -128,28 +128,28 @@
   "MVL": {
     "name": "엠블",
     "symbol": "MVL",
-    "count": 1,
+    "count": 2,
     "entry_price": 1.11,
     "current_price": 1.11,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 17:52:22"
+    "last_recommended_at": "2026-08-05 18:02:33"
   },
   "STRAX": {
     "name": "저트라",
     "symbol": "STRAX",
-    "count": 1,
+    "count": 2,
     "entry_price": 12.3,
     "current_price": 12.3,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 17:52:22"
+    "last_recommended_at": "2026-08-05 18:02:33"
   },
   "JTO": {
     "name": "지토",
     "symbol": "JTO",
-    "count": 1,
+    "count": 2,
     "entry_price": 738.0,
     "current_price": 738.0,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 17:52:22"
+    "last_recommended_at": "2026-08-05 18:02:33"
   }
 }
