@@ -2,11 +2,11 @@
   "MVL": {
     "name": "엠블",
     "symbol": "MVL",
-    "count": 12,
+    "count": 13,
     "entry_price": 1.11,
     "current_price": 1.11,
     "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 20:52:33"
+    "last_recommended_at": "2026-08-05 21:02:30"
   },
   "STRAX": {
     "name": "저트라",
@@ -29,11 +29,11 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 8,
+    "count": 9,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 20:52:33"
+    "last_recommended_at": "2026-08-05 21:02:30"
   },
   "LPT": {
     "name": "라이브피어",
@@ -49,17 +49,26 @@
     "symbol": "BLEND",
     "count": 1,
     "entry_price": 91.8,
-    "current_price": 90.0,
+    "current_price": 90.1,
     "first_recommended_at": "2026-08-05 19:32:39",
     "last_recommended_at": "2026-08-05 19:32:39"
   },
   "MET2": {
     "name": "메테오라",
     "symbol": "MET2",
-    "count": 1,
+    "count": 2,
     "entry_price": 242.0,
     "current_price": 242.0,
     "first_recommended_at": "2026-08-05 20:52:33",
-    "last_recommended_at": "2026-08-05 20:52:33"
+    "last_recommended_at": "2026-08-05 21:02:30"
+  },
+  "ERA": {
+    "name": "칼데라",
+    "symbol": "ERA",
+    "count": 1,
+    "entry_price": 95.3,
+    "current_price": 95.3,
+    "first_recommended_at": "2026-08-05 21:02:30",
+    "last_recommended_at": "2026-08-05 21:02:30"
   }
 }
