@@ -15,7 +15,6 @@ import openpyxl
 import asyncio
 import pickle
 import redis
-import oracledb
 import paramiko
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
@@ -30,7 +29,7 @@ from google import genai
 from google.genai import types
 from tqdm import tqdm
 
-# [추가] 딥러닝 모델 경량 실행 및 로그 억제
+# 딥러닝 모델 경량 실행 및 로그 억제
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 try:
     import torch
@@ -56,9 +55,9 @@ def upload_html_to_oracle_server(local_file_path):
     GitHub Secrets에 등록된 ORACLE_SSH_KEY(.key 내용)를 이용해 
     오라클 서버로 대시보드 HTML 파일을 자동 전송하는 함수
     """
-    hostname = os.environ.get("ORACLE_DSN")          # 오라클 서버 공인 IP
-    username = os.environ.get("ORACLE_USER", "ubuntu") # 계정명
-    ssh_key_content = os.environ.get("ORACLE_SSH_KEY") # GitHub Secrets SSH 개인키
+    hostname = os.environ.get("ORACLE_DSN")          
+    username = os.environ.get("ORACLE_USER", "ubuntu") 
+    ssh_key_content = os.environ.get("ORACLE_SSH_KEY") 
 
     if not hostname or not ssh_key_content:
         print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
@@ -103,6 +102,7 @@ HISTORY_CSV_PATH = "scan_history.csv"
 CACHE_DIR = "./cache"
 AI_MODELS_DIR = "./ai_models"
 EXPERIENCE_FILE = os.path.join(AI_MODELS_DIR, "ai_experience.json")
+AI_TRACKER_HISTORY_FILE = os.path.join(AI_MODELS_DIR, "ai_recommend_tracker.json")
 
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
@@ -384,6 +384,7 @@ def process_single_coin(item, current_price_map):
                 "코인명": korean_name,
                 "심볼": symbol,
                 "현재가(KRW)": format_price(c_price),
+                "raw_price": float(c_price),
                 "종합예측점수": 50.0,
                 "거래량절벽(배)": 1.0,
                 "CMF지표": 0.0,
@@ -404,6 +405,7 @@ def process_single_coin(item, current_price_map):
             "코인명": korean_name,
             "심볼": symbol,
             "현재가(KRW)": format_price(c_price),
+            "raw_price": float(c_price),
             "종합예측점수": max(0.0, min(100.0, acc_score)),
             "거래량절벽(배)": metrics['vol_dry_ratio'],
             "CMF지표": metrics['cmf'],
@@ -417,6 +419,7 @@ def process_single_coin(item, current_price_map):
             "코인명": korean_name,
             "심볼": symbol,
             "현재가(KRW)": format_price(c_price),
+            "raw_price": float(c_price),
             "종합예측점수": 50.0,
             "거래량절벽(배)": 1.0,
             "CMF지표": 0.0,
@@ -469,7 +472,7 @@ def analyze_and_scan_market():
     return df.sort_values(by="종합예측점수", ascending=False)
 
 # ==============================================================================
-# [신규 모듈] 5단계 AI 등급 부여 및 Redis 대시보드 연동
+# [신규 모듈] AI 추천종목 모니터 누적 트래킹 시스템 (추천 횟수/진입가/현재가/추천시간)
 # ==============================================================================
 def calculate_ai_grade(score, dump_risk):
     if dump_risk >= 85.0:
@@ -483,7 +486,74 @@ def calculate_ai_grade(score, dump_risk):
     else:
         return "⚪ 보통"
 
-def update_redis_for_dashboard(df_result, ai_report):
+def update_ai_recommendation_tracker(recommended_coins, current_price_map):
+    """
+    AI 분석 리포트에서 추천된 종목들의 추천 횟수, 진입가, 현재가, 추천시간을 파일/메모리에 누적 갱신
+    """
+    history = {}
+    if os.path.exists(AI_TRACKER_HISTORY_FILE):
+        try:
+            with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
+                history = json.load(f)
+        except Exception:
+            history = {}
+
+    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # 추천된 종목들의 누적 정보 업데이트
+    for coin in recommended_coins:
+        symbol = coin['symbol']
+        name = coin['name']
+        c_price = current_price_map.get(symbol, coin.get('raw_price', 0.0))
+
+        if symbol in history:
+            history[symbol]['count'] += 1
+            history[symbol]['current_price'] = c_price
+            history[symbol]['last_recommended_at'] = now_str
+        else:
+            history[symbol] = {
+                "name": name,
+                "symbol": symbol,
+                "count": 1,
+                "entry_price": c_price,
+                "current_price": c_price,
+                "first_recommended_at": now_str,
+                "last_recommended_at": now_str
+            }
+
+    # 추천 리스트에 없더라도 기존 트래킹 종목의 현재가는 업데이트
+    for symbol, item in history.items():
+        if symbol in current_price_map:
+            item['current_price'] = current_price_map[symbol]
+
+    try:
+        with open(AI_TRACKER_HISTORY_FILE, "w", encoding="utf-8") as f:
+            json.dump(history, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"⚠️ 트래킹 데이터 저장 실패: {e}")
+
+    # 리스트 형태로 변환하여 반환
+    tracker_list = []
+    for symbol, item in history.items():
+        entry_p = item['entry_price']
+        curr_p = item['current_price']
+        profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
+        
+        tracker_list.append({
+            "name": item['name'],
+            "symbol": item['symbol'],
+            "count": item['count'],
+            "entry_price": format_price(entry_p),
+            "current_price": format_price(curr_p),
+            "profit_rate": round(profit_rate, 2),
+            "recommend_time": item['last_recommended_at']
+        })
+
+    # 누적 추천 횟수 및 최근 추천시간 기준 정렬
+    tracker_list.sort(key=lambda x: (x['count'], x['recommend_time']), reverse=True)
+    return tracker_list
+
+def update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data):
     if not redis_client or df_result.empty: return
 
     try:
@@ -508,8 +578,6 @@ def update_redis_for_dashboard(df_result, ai_report):
         normal_coins = [c for c in coin_grades if c['grade'] == "⚪ 보통"]
         warning_coins = [c for c in coin_grades if c['grade'] == "🟠 주의"]
         danger_coins = [c for c in coin_grades if c['grade'] == "🔴 경고"]
-        
-        ai_recommended_tracking = [c for c in coin_grades if c['grade'] in ["🟢 추천", "🔵 관심"]]
 
         dashboard_payload = {
             "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -529,7 +597,7 @@ def update_redis_for_dashboard(df_result, ai_report):
                 "warning": warning_coins,
                 "danger": danger_coins
             },
-            "ai_recommended_tracking": ai_recommended_tracking,
+            "ai_recommended_monitor": tracking_monitor_data,
             "all_coins": coin_grades
         }
 
@@ -539,7 +607,7 @@ def update_redis_for_dashboard(df_result, ai_report):
         print(f"❌ [Redis] 데이터 업로드 실패: {e}")
 
 # ==============================================================================
-# [Gemini 리포트 생성 및 엑셀/이메일 백업]
+# [Gemini 3.1 Flash-Lite 리포트 생성 및 엑셀/이메일 백업]
 # ==============================================================================
 def generate_gemini_analysis(df_result):
     if df_result.empty:
@@ -549,18 +617,26 @@ def generate_gemini_analysis(df_result):
     top_symbols = df_result.head(5)['심볼'].tolist()
     
     if not GEMINI_API_KEY:
-        report = f"AI 리포트: 현재 상위 모니터링 종목은 {', '.join(top_coins)} 입니다."
+        report = f"AI 리포트 (제미나이 3.1플래시라이트): 현재 상위 모니터링 종목은 {', '.join(top_coins)} 입니다."
         return report, top_symbols
 
     try:
         client = genai.Client(api_key=GEMINI_API_KEY)
-        prompt = f"다음 코인 퀀트 분석 데이터 상위 10개 종목을 분석하여 핵심 요약 리포트를 작성해줘:\n{df_result.head(10).to_string()}"
-        response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-        ai_report = response.text if response.text else f"상위 모니터링 종목: {', '.join(top_coins)}"
+        prompt = (
+            "당신은 암호화폐 퀀트 투자 전문가입니다. 아래 업비트 원화마켓 AI 퀀트 분석 상위 종목 데이터를 바탕으로 "
+            "핵심 시장 동향과 추천 종목 분석 보고서를 작성하세요.\n\n"
+            f"분석 데이터:\n{df_result.head(10).to_string()}"
+        )
+        # 제미나이 3.1 플래시 라이트 모델 지정
+        response = client.models.generate_content(
+            model='gemini-3.1-flash-lite',
+            contents=prompt
+        )
+        ai_report = response.text if response.text else f"상위 모니터링 추천 종목: {', '.join(top_coins)}"
         return ai_report, top_symbols
     except Exception as e:
-        print(f"⚠️ Gemini 리포트 생성 실패: {e}")
-        return f"AI 분석 리포트 생성 실패 (상위 종목: {', '.join(top_coins)})", top_symbols
+        print(f"⚠️ Gemini 3.1 Flash-Lite 리포트 생성 스킵 (대체 로직): {e}")
+        return f"AI 분석 리포트 (상위 추천 종목: {', '.join(top_coins)})", top_symbols
 
 def export_to_excel_and_email(df_result, ai_report):
     try:
@@ -590,12 +666,11 @@ def export_to_excel_and_email(df_result, ai_report):
 # ==============================================================================
 # [리포트 생성 및 대시보드 HTML 출력]
 # ==============================================================================
-def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, html_path="docs/index.html"):
+def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
     
     coin_grades = []
     alerts = []
-    tracking_list = []
     
     if not df_result.empty:
         for _, row in df_result.iterrows():
@@ -623,8 +698,6 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, htm
             
             if grade in ["🟠 주의", "🔴 경고"]:
                 alerts.append({"text": f"⚠️ {row['코인명']}({row['심볼']}) - {row['아이스버그역산(고주파)']}"})
-            if grade in ["🟢 추천", "🔵 관심"]:
-                tracking_list.append({"name": row['코인명'], "status": f"점수 {score:.1f}점 / 위험도 {dump_risk:.1f}%"})
     
     recommended_sector = [c for c in coin_grades if c['grade'] == "🟢 추천"]
     interested_sector = [c for c in coin_grades if c['grade'] == "🔵 관심"]
@@ -676,13 +749,29 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, htm
     else:
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
 
-    # 4. 트래킹 모니터 HTML 생성
+    # 4. 'AI 추천종목 모니터' HTML 생성 (추천 횟수, 진입가, 현재가, 추천시간)
     tracking_items = []
-    for item in tracking_list:
-        t_name = item.get('name', '')
-        t_status = item.get('status', '')
-        tracking_items.append(f'<div class="p-2 border rounded bg-light small"><strong>{t_name}</strong>: {t_status}</div>')
-    tracking_html = "\n".join(tracking_items) if tracking_items else '<div class="text-muted small text-center py-3">트래킹 데이터가 없습니다.</div>'
+    for item in tracking_monitor_data:
+        p_rate = item['profit_rate']
+        rate_color = "text-danger" if p_rate > 0 else ("text-primary" if p_rate < 0 else "text-dark")
+        sign = "+" if p_rate > 0 else ""
+
+        card_html = (
+            f'<div class="p-3 border rounded bg-white shadow-sm mb-2">\n'
+            f'    <div class="d-flex justify-content-between align-items-center mb-1">\n'
+            f'        <strong class="text-dark fs-6">{item["name"]} <span class="text-muted small">({item["symbol"]})</span></strong>\n'
+            f'        <span class="badge bg-primary rounded-pill">추천 {item["count"]}회</span>\n'
+            f'    </div>\n'
+            f'    <div class="row g-1 small text-secondary mt-1">\n'
+            f'        <div class="col-6">진입가: <b>{item["entry_price"]}</b></div>\n'
+            f'        <div class="col-6 text-end">현재가: <b>{item["current_price"]}</b></div>\n'
+            f'        <div class="col-6">수익률: <b class="{rate_color}">{sign}{p_rate}%</b></div>\n'
+            f'        <div class="col-6 text-end text-muted" style="font-size:0.75rem;">{item["recommend_time"]}</div>\n'
+            f'    </div>\n'
+            f'</div>\n'
+        )
+        tracking_items.append(card_html)
+    tracking_html = "\n".join(tracking_items) if tracking_items else '<div class="text-muted small text-center py-3">현재 누적된 추천 종목이 없습니다.</div>'
 
     # 5. 각 섹션별 코인 테이블 데이터 생성
     rec_rows = create_table_rows(recommended_sector)
@@ -691,7 +780,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, htm
     warn_rows = create_table_rows(warning_sector)
     dang_rows = create_table_rows(danger_sector)
 
-    # 6. HTML 템플릿 생성 (삼중 따옴표 완전 제거 구문)
+    # 6. HTML 템플릿 생성
     html_template = (
         '<!DOCTYPE html>\n'
         '<html lang="ko">\n'
@@ -707,7 +796,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, htm
         '        .alert-box { max-height: 140px; overflow-y: auto; }\n'
         '        .news-box { max-height: 140px; overflow-y: auto; }\n'
         '        .table-scroll-box { max-height: 500px; overflow-y: auto; }\n'
-        '        .tracking-box { max-height: 600px; overflow-y: auto; }\n'
+        '        .tracking-box { max-height: 750px; overflow-y: auto; }\n'
         '    </style>\n'
         '</head>\n'
         '<body>\n'
@@ -727,7 +816,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, htm
         '        </div>\n'
         '        <!-- 3단 레이아웃 메인 -->\n'
         '        <div class="row g-4">\n'
-        '            <!-- [좌측 컬럼: 너비 3] -->\n'
+        '            <!-- [좌측 컬럼: AI 분석 리포트 (제미나이 3.1플래시라이트 연동)] -->\n'
         '            <div class="col-lg-3">\n'
         '                <div class="d-flex flex-column gap-3">\n'
         '                    <div class="card p-3 shadow-sm">\n'
@@ -743,17 +832,17 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, htm
         '                        </div>\n'
         '                    </div>\n'
         '                    <div class="card p-3 shadow-sm">\n'
-        '                        <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-robot me-1"></i> AI 분석 리포트</h6>\n'
+        '                        <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트 (Gemini 3.1 Flash-Lite)</h6>\n'
         '                        <div class="text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.4; white-space: pre-line;">__AI_REPORT__</div>\n'
         '                    </div>\n'
         '                </div>\n'
         '            </div>\n'
-        '            <!-- [중앙 컬럼: 너비 6] -->\n'
-        '            <div class="col-lg-6">\n'
+        '            <!-- [중앙 컬럼: 전체 코인 등급 분류] -->\n'
+        '            <div class="col-lg-5">\n'
         '                <div class="card p-4 shadow-sm">\n'
         '                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">\n'
         '                        <h5 class="fw-bold mb-0 text-dark fs-5"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류</h5>\n'
-        '                        <div class="input-group" style="max-width: 220px;">\n'
+        '                        <div class="input-group" style="max-width: 200px;">\n'
         '                            <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>\n'
         '                            <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명 검색..." onkeyup="filterCoins()">\n'
         '                        </div>\n'
@@ -799,10 +888,10 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, htm
         '                    </div>\n'
         '                </div>\n'
         '            </div>\n'
-        '            <!-- [우측 컬럼: 너비 3] -->\n'
-        '            <div class="col-lg-3">\n'
+        '            <!-- [우측 컬럼: AI 추천종목 모니터] -->\n'
+        '            <div class="col-lg-4">\n'
         '                <div class="card p-3 shadow-sm tracking-box">\n'
-        '                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> 실시간 트래킹 모니터</h6>\n'
+        '                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> AI 추천종목 모니터</h6>\n'
         '                    <div class="d-flex flex-column gap-2">\n'
         '                        __TRACKING_HTML__\n'
         '                    </div>\n'
@@ -870,27 +959,44 @@ if __name__ == "__main__":
             print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
             send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
 
-        # 4. Gemini AI 요약 및 추천 심볼 추출
+        # 4. Gemini 3.1 Flash-Lite AI 요약 및 추천 심볼 추출
         ai_report, gemini_symbols = generate_gemini_analysis(df_result)
 
-        # 5. 추천 종목 실시간 속보 수집 대상 추출
-        internal_recommended_names = df_result[df_result['종합예측점수'] >= 80.0]['코인명'].tolist()
+        # 5. 추천 종목 추출 및 누적 트래킹 모니터 데이터 업데이트
         symbol_to_name = dict(zip(df_result['심볼'], df_result['코인명']))
-        gemini_recommended_names = [symbol_to_name.get(s, s) for s in gemini_symbols]
+        symbol_to_raw_price = dict(zip(df_result['심볼'], df_result['raw_price']))
         
-        all_target_coins = list(set(internal_recommended_names + gemini_recommended_names))[:5]
+        # 상위 🟢 추천 종목 및 Gemini 모델 추천 종목
+        recommended_df = df_result[df_result['종합예측점수'] >= 65.0]
+        rec_list = []
+        for _, r in recommended_df.iterrows():
+            rec_list.append({"symbol": r['심볼'], "name": r['코인명'], "raw_price": r['raw_price']})
+            
+        for s in gemini_symbols:
+            if s not in [item['symbol'] for item in rec_list]:
+                rec_list.append({
+                    "symbol": s,
+                    "name": symbol_to_name.get(s, s),
+                    "raw_price": symbol_to_raw_price.get(s, 0.0)
+                })
+
+        # 트래킹 모니터 데이터 갱신 (추천 횟수, 진입가, 현재가, 추천시간)
+        tracking_monitor_data = update_ai_recommendation_tracker(rec_list, symbol_to_raw_price)
+
+        # 6. 추천 종목 실시간 속보 수집 대상 추출
+        all_target_coins = [item['name'] for item in rec_list[:5]]
         news_data = fetch_news_for_recommended_coins(all_target_coins)
 
-        # 6. Redis 연동 (전체 종목 페이로드 반영)
-        update_redis_for_dashboard(df_result, ai_report)
+        # 7. Redis 연동 (전체 종목 페이로드 및 AI 추천종목 모니터 반영)
+        update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data)
 
-        # 7. 대시보드 HTML 파일 생성
-        generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, html_path="docs/index.html")
+        # 8. 대시보드 HTML 파일 생성 (Gemini 3.1 Flash-Lite 연동 & AI 추천종목 모니터 반영)
+        generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
 
-        # 8. 오라클 서버로 HTML 대시보드 전송
+        # 9. 오라클 서버로 HTML 대시보드 전송
         upload_html_to_oracle_server("docs/index.html")
 
-        # 9. 엑셀 저장 및 이메일 발송 (지정 시간에만 발송)
+        # 10. 엑셀 저장 및 이메일 발송
         kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         current_hour = kst_now.hour
         target_hours = [9, 13, 17, 21] 
