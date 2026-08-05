@@ -542,7 +542,9 @@ def update_redis_for_dashboard(df_result, ai_report):
 # ==============================================================================
 # [리포트 생성 및 이메일 발송]
 # ==============================================================================
-def create_table_rows(sector_coins):
+def generate_dashboard_html(coins_data, recommended_sector, interested_sector, normal_sector, warning_sector, danger_sector, tracking_list, alerts, news_data, ai_report, updated_time):
+    # 1. 각 섹션별 테이블 행 생성 헬퍼 함수
+    def create_table_rows(sector_coins):
         if not sector_coins:
             return '<tr><td colspan="4" class="text-center text-muted py-3">해당하는 종목이 없습니다.</td></tr>'
         
@@ -554,7 +556,6 @@ def create_table_rows(sector_coins):
             badge_class = coin.get('badge_class', 'bg-secondary')
             grade = coin.get('grade', '⚪ 보통')
             
-            # 소괄호를 사용해 여러 줄의 문자열을 하나로 안전하게 연결합니다.
             row_html = (
                 f"<tr>\n"
                 f'    <td class="fw-bold">{name}</td>\n'
@@ -566,7 +567,41 @@ def create_table_rows(sector_coins):
             rows_list.append(row_html)
         
         return "".join(rows_list)
-    html_content = f"""<!DOCTYPE html>
+
+    # 2. 경고 리스트 HTML 생성
+    alert_items = []
+    for alert in alerts[:15]:
+        alert_text = alert.get('text', '')
+        alert_items.append(f'<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert_text}</div>')
+    alerts_html = "\n".join(alert_items) if alert_items else '<div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>'
+
+    # 3. 속보 리스트 HTML 생성
+    news_items = []
+    if news_data:
+        for coin, items in news_data.items():
+            li_tags = "".join([f'<li><a href="{item.get("link", "#")}" target="_blank" class="text-decoration-none text-dark">{item.get("title", "")}</a></li>' for item in items])
+            news_items.append(f'<div class="p-2 border rounded bg-light"><strong class="text-primary">{coin}</strong><ul class="mb-0 ps-3 small">{li_tags}</ul></div>')
+        news_html = "\n".join(news_items)
+    else:
+        news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
+
+    # 4. 트래킹 모니터 HTML 생성
+    tracking_items = []
+    for item in tracking_list:
+        t_name = item.get('name', '')
+        t_status = item.get('status', '')
+        tracking_items.append(f'<div class="p-2 border rounded bg-light small"><strong>{t_name}</strong>: {t_status}</div>')
+    tracking_html = "\n".join(tracking_items) if tracking_items else '<div class="text-muted small text-center py-3">트래킹 데이터가 없습니다.</div>'
+
+    # 5. 각 섹션별 코인 테이블 데이터 생성
+    rec_rows = create_table_rows(recommended_sector)
+    int_rows = create_table_rows(interested_sector)
+    norm_rows = create_table_rows(normal_sector)
+    warn_rows = create_table_rows(warning_sector)
+    dang_rows = create_table_rows(danger_sector)
+
+    # 6. HTML 템플릿 정의 (일반 삼중 따옴표 사용으로 CSS, JS 내 중괄호 이스케이프 오류 방지)
+    html_template = """<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -575,12 +610,12 @@ def create_table_rows(sector_coins):
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {{ background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }}
-        .card {{ background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }}
-        .alert-box {{ max-height: 140px; overflow-y: auto; }}
-        .news-box {{ max-height: 140px; overflow-y: auto; }}
-        .table-scroll-box {{ max-height: 500px; overflow-y: auto; }}
-        .tracking-box {{ max-height: 600px; overflow-y: auto; }}
+        body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }
+        .alert-box { max-height: 140px; overflow-y: auto; }
+        .news-box { max-height: 140px; overflow-y: auto; }
+        .table-scroll-box { max-height: 500px; overflow-y: auto; }
+        .tracking-box { max-height: 600px; overflow-y: auto; }
     </style>
 </head>
 <body>
@@ -594,7 +629,7 @@ def create_table_rows(sector_coins):
             </div>
             <div class="col-md-6 text-center">
                 <h2 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>
-                <small class="text-muted">최종 업데이트: {updated_time} (총 {len(coins_data)}개 종목 분석 완료)</small>
+                <small class="text-muted">최종 업데이트: __UPDATED_TIME__ (총 __TOTAL_COINS__개 종목 분석 완료)</small>
             </div>
             <div class="col-md-3"></div>
         </div>
@@ -607,34 +642,20 @@ def create_table_rows(sector_coins):
                     <div class="card p-3 shadow-sm">
                         <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>
                         <div class="alert-box d-flex flex-column gap-2">
-"""
-    for alert in alerts[:15]:
-        html_content += f"""                            <div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert.get('text', '')}</div>\n"""
-    if not alerts:
-        html_content += """                            <div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>\n"""
-
-    html_content += f"""                        </div>
+                            __ALERTS_HTML__
+                        </div>
                     </div>
 
                     <div class="card p-3 shadow-sm">
                         <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보</h6>
                         <div class="news-box d-flex flex-column gap-2">
-"""
-    if news_data:
-        for coin, items in news_data.items():
-            html_content += f"""                            <div class="p-2 border rounded bg-light"><strong class="text-primary">{coin}</strong><ul class="mb-0 ps-3 small">"""
-            for item in items:
-                html_content += f"""<li><a href="{item.get('link', '#')}" target="_blank" class="text-decoration-none text-dark">{item.get('title', '')}</a></li>"""
-            html_content += f"""</ul></div>"""
-    else:
-        html_content += """                            <div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>\n"""
-
-    html_content += f"""                        </div>
+                            __NEWS_HTML__
+                        </div>
                     </div>
 
                     <div class="card p-3 shadow-sm">
                         <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-robot me-1"></i> AI 분석 리포트</h6>
-                        <div class="text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.4; white-space: pre-line;">{ai_report}</div>
+                        <div class="text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.4; white-space: pre-line;">__AI_REPORT__</div>
                     </div>
                 </div>
             </div>
@@ -651,42 +672,42 @@ def create_table_rows(sector_coins):
                     </div>
 
                     <ul class="nav nav-tabs mb-3 flex-nowrap overflow-auto" id="coinTab" role="tablist" style="white-space: nowrap;">
-                        <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button" role="tab">🟢 추천 ({len(recommended_sector)})</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button" role="tab">🔵 관심 ({len(interested_sector)})</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button" role="tab">⚪ 보통 ({len(normal_sector)})</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-warning" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button" role="tab">🟠 주의 ({len(warning_sector)})</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-danger" id="dang-tab" data-bs-toggle="tab" data-bs-target="#dang" type="button" role="tab">🔴 경고 ({len(danger_sector)})</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button" role="tab">🟢 추천 (__REC_COUNT__)</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button" role="tab">🔵 관심 (__INT_COUNT__)</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button" role="tab">⚪ 보통 (__NORM_COUNT__)</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-warning" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button" role="tab">🟠 주의 (__WARN_COUNT__)</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-danger" id="dang-tab" data-bs-toggle="tab" data-bs-target="#dang" type="button" role="tab">🔴 경고 (__DANG_COUNT__)</button></li>
                     </ul>
 
                     <div class="tab-content table-scroll-box" id="coinTabContent">
                         <div class="tab-pane fade show active" id="rec" role="tabpanel">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>{create_table_rows(recommended_sector)}</tbody>
+                                <tbody>__REC_ROWS__</tbody>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="int" role="tabpanel">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>{create_table_rows(interested_sector)}</tbody>
+                                <tbody>__INT_ROWS__</tbody>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="norm" role="tabpanel">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>{create_table_rows(normal_sector)}</tbody>
+                                <tbody>__NORM_ROWS__</tbody>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="warn" role="tabpanel">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>{create_table_rows(warning_sector)}</tbody>
+                                <tbody>__WARN_ROWS__</tbody>
                             </table>
                         </div>
                         <div class="tab-pane fade" id="dang" role="tabpanel">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>{create_table_rows(danger_sector)}</tbody>
+                                <tbody>__DANG_ROWS__</tbody>
                             </table>
                         </div>
                     </div>
@@ -698,30 +719,44 @@ def create_table_rows(sector_coins):
                 <div class="card p-3 shadow-sm tracking-box">
                     <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> 실시간 트래킹 모니터</h6>
                     <div class="d-flex flex-column gap-2">
-"""
-    for item in tracking_list:
-        html_content += f"""                        <div class="p-2 border rounded bg-light small"><strong>{item.get('name', '')}</strong>: {item.get('status', '')}</div>\n"""
-    if not tracking_list:
-        html_content += """                        <div class="text-muted small text-center py-3">트래킹 데이터가 없습니다.</div>\n"""
-
-    html_content += f"""                    </div>
+                        __TRACKING_HTML__
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function filterCoins() {{
+        function filterCoins() {
             let input = document.getElementById('coinSearchInput').value.toLowerCase();
             let rows = document.querySelectorAll('.tab-pane.active tbody tr');
-            rows.forEach(row => {{
+            rows.forEach(row => {
                 let name = row.cells[0]?.innerText.toLowerCase() || '';
                 row.style.display = name.includes(input) ? '' : 'none';
-            }});
-        }}
+            });
+        }
     </script>
 </body>
 </html>"""
+
+    # 7. 안전한 치환 작업으로 최종 HTML 생성
+    html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
+                                .replace("__TOTAL_COINS__", str(len(coins_data)))\
+                                .replace("__ALERTS_HTML__", alerts_html)\
+                                .replace("__NEWS_HTML__", news_html)\
+                                .replace("__AI_REPORT__", str(ai_report))\
+                                .replace("__REC_COUNT__", str(len(recommended_sector)))\
+                                .replace("__INT_COUNT__", str(len(interested_sector)))\
+                                .replace("__NORM_COUNT__", str(len(normal_sector)))\
+                                .replace("__WARN_COUNT__", str(len(warning_sector)))\
+                                .replace("__DANG_COUNT__", str(len(danger_sector)))\
+                                .replace("__REC_ROWS__", rec_rows)\
+                                .replace("__INT_ROWS__", int_rows)\
+                                .replace("__NORM_ROWS__", norm_rows)\
+                                .replace("__WARN_ROWS__", warn_rows)\
+                                .replace("__DANG_ROWS__", dang_rows)\
+                                .replace("__TRACKING_HTML__", tracking_html)
+
     return html_content
     """
 
