@@ -1,1 +1,38 @@
-{}
+{
+  "CKB": {
+    "name": "너보스",
+    "symbol": "CKB",
+    "count": 1,
+    "entry_price": 1.18,
+    "current_price": 1.18,
+    "first_recommended_at": "2026-08-05 13:22:33",
+    "last_recommended_at": "2026-08-05 13:22:33"
+  },
+  "BOUNTY": {
+    "name": "체인바운티",
+    "symbol": "BOUNTY",
+    "count": 1,
+    "entry_price": 18.6,
+    "current_price": 18.6,
+    "first_recommended_at": "2026-08-05 13:22:33",
+    "last_recommended_at": "2026-08-05 13:22:33"
+  },
+  "1INCH": {
+    "name": "1인치네트워크",
+    "symbol": "1INCH",
+    "count": 1,
+    "entry_price": 118.0,
+    "current_price": 118.0,
+    "first_recommended_at": "2026-08-05 13:22:33",
+    "last_recommended_at": "2026-08-05 13:22:33"
+  },
+  "SUPER": {
+    "name": "슈퍼버스",
+    "symbol": "SUPER",
+    "count": 1,
+    "entry_price": 119.0,
+    "current_price": 119.0,
+    "first_recommended_at": "2026-08-05 13:22:33",
+    "last_recommended_at": "2026-08-05 13:22:33"
+  }
+}
