@@ -2,11 +2,11 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 13,
+    "count": 14,
     "entry_price": 25.0,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 08:36:31",
-    "last_recommended_at": "2026-08-05 10:32:29"
+    "last_recommended_at": "2026-08-05 10:42:19"
   },
   "1INCH": {
     "name": "1인치네트워크",
@@ -20,18 +20,18 @@
   "MET2": {
     "name": "메테오라",
     "symbol": "MET2",
-    "count": 7,
+    "count": 8,
     "entry_price": 234.0,
     "current_price": 236.0,
     "first_recommended_at": "2026-08-05 08:36:31",
-    "last_recommended_at": "2026-08-05 10:32:29"
+    "last_recommended_at": "2026-08-05 10:42:19"
   },
   "MON": {
     "name": "모나드",
     "symbol": "MON",
     "count": 4,
     "entry_price": 29.8,
-    "current_price": 29.9,
+    "current_price": 30.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -85,7 +85,7 @@
     "symbol": "PUMP",
     "count": 4,
     "entry_price": 3.61,
-    "current_price": 3.53,
+    "current_price": 3.59,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -112,7 +112,7 @@
     "symbol": "FLOCK",
     "count": 4,
     "entry_price": 40.6,
-    "current_price": 40.3,
+    "current_price": 40.4,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -175,7 +175,7 @@
     "symbol": "MINA",
     "count": 4,
     "entry_price": 58.4,
-    "current_price": 58.4,
+    "current_price": 58.2,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -184,7 +184,7 @@
     "symbol": "ADA",
     "count": 4,
     "entry_price": 275.0,
-    "current_price": 276.0,
+    "current_price": 279.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -193,7 +193,7 @@
     "symbol": "ZAMA",
     "count": 4,
     "entry_price": 70.5,
-    "current_price": 72.2,
+    "current_price": 74.1,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -229,7 +229,7 @@
     "symbol": "RE",
     "count": 4,
     "entry_price": 561.0,
-    "current_price": 558.0,
+    "current_price": 563.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -238,18 +238,18 @@
     "symbol": "GAS",
     "count": 4,
     "entry_price": 1320.0,
-    "current_price": 1317.0,
+    "current_price": 1319.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
   "MEGA": {
     "name": "메가이더",
     "symbol": "MEGA",
-    "count": 4,
+    "count": 5,
     "entry_price": 51.3,
-    "current_price": 51.5,
+    "current_price": 51.6,
     "first_recommended_at": "2026-08-05 08:36:31",
-    "last_recommended_at": "2026-08-05 09:02:29"
+    "last_recommended_at": "2026-08-05 10:42:19"
   },
   "MNT": {
     "name": "맨틀",
@@ -265,7 +265,7 @@
     "symbol": "F",
     "count": 4,
     "entry_price": 4.0,
-    "current_price": 4.0,
+    "current_price": 4.02,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -283,7 +283,7 @@
     "symbol": "AERO",
     "count": 4,
     "entry_price": 599.0,
-    "current_price": 599.0,
+    "current_price": 601.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -310,7 +310,7 @@
     "symbol": "UNI",
     "count": 4,
     "entry_price": 5615.0,
-    "current_price": 5595.0,
+    "current_price": 5630.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -319,7 +319,7 @@
     "symbol": "DEEP",
     "count": 4,
     "entry_price": 22.1,
-    "current_price": 22.0,
+    "current_price": 22.1,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -328,7 +328,7 @@
     "symbol": "AAVE",
     "count": 4,
     "entry_price": 130300.0,
-    "current_price": 129400.0,
+    "current_price": 129900.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -337,7 +337,7 @@
     "symbol": "CARV",
     "count": 4,
     "entry_price": 38.6,
-    "current_price": 38.4,
+    "current_price": 38.3,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -346,7 +346,7 @@
     "symbol": "THETA",
     "count": 4,
     "entry_price": 184.0,
-    "current_price": 185.0,
+    "current_price": 184.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -355,7 +355,7 @@
     "symbol": "APT",
     "count": 4,
     "entry_price": 825.0,
-    "current_price": 830.0,
+    "current_price": 831.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -364,7 +364,7 @@
     "symbol": "VIRTUAL",
     "count": 4,
     "entry_price": 799.0,
-    "current_price": 801.0,
+    "current_price": 800.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -382,7 +382,7 @@
     "symbol": "ALGO",
     "count": 5,
     "entry_price": 128.0,
-    "current_price": 128.0,
+    "current_price": 129.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 10:12:16"
   },
@@ -391,7 +391,7 @@
     "symbol": "RAY",
     "count": 4,
     "entry_price": 881.0,
-    "current_price": 885.0,
+    "current_price": 886.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -418,7 +418,7 @@
     "symbol": "SOMI",
     "count": 4,
     "entry_price": 121.0,
-    "current_price": 124.0,
+    "current_price": 125.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -454,7 +454,7 @@
     "symbol": "KITE",
     "count": 4,
     "entry_price": 143.0,
-    "current_price": 145.0,
+    "current_price": 146.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -463,7 +463,7 @@
     "symbol": "EGLD",
     "count": 4,
     "entry_price": 3991.0,
-    "current_price": 3977.0,
+    "current_price": 3999.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -497,11 +497,11 @@
   "KNC": {
     "name": "카이버네트워크",
     "symbol": "KNC",
-    "count": 11,
+    "count": 12,
     "entry_price": 146.0,
     "current_price": 147.0,
     "first_recommended_at": "2026-08-05 08:36:31",
-    "last_recommended_at": "2026-08-05 10:32:29"
+    "last_recommended_at": "2026-08-05 10:42:19"
   },
   "TREE": {
     "name": "트리하우스",
@@ -544,7 +544,7 @@
     "symbol": "ARX",
     "count": 4,
     "entry_price": 200.0,
-    "current_price": 206.0,
+    "current_price": 207.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -553,7 +553,7 @@
     "symbol": "AXS",
     "count": 4,
     "entry_price": 1197.0,
-    "current_price": 1207.0,
+    "current_price": 1206.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -571,7 +571,7 @@
     "symbol": "ETHFI",
     "count": 4,
     "entry_price": 520.0,
-    "current_price": 519.0,
+    "current_price": 520.0,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -589,25 +589,25 @@
     "symbol": "CPOOL",
     "count": 4,
     "entry_price": 25.4,
-    "current_price": 25.7,
+    "current_price": 25.8,
     "first_recommended_at": "2026-08-05 08:36:31",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
   "BARD": {
     "name": "롬바드",
     "symbol": "BARD",
-    "count": 11,
+    "count": 12,
     "entry_price": 159.0,
     "current_price": 162.0,
     "first_recommended_at": "2026-08-05 08:36:31",
-    "last_recommended_at": "2026-08-05 10:32:29"
+    "last_recommended_at": "2026-08-05 10:42:19"
   },
   "A": {
     "name": "볼타",
     "symbol": "A",
     "count": 3,
     "entry_price": 91.6,
-    "current_price": 92.8,
+    "current_price": 93.1,
     "first_recommended_at": "2026-08-05 08:42:15",
     "last_recommended_at": "2026-08-05 09:02:29"
   },
@@ -625,7 +625,7 @@
     "symbol": "BABY",
     "count": 1,
     "entry_price": 15.3,
-    "current_price": 15.3,
+    "current_price": 15.5,
     "first_recommended_at": "2026-08-05 10:32:29",
     "last_recommended_at": "2026-08-05 10:32:29"
   }
