@@ -897,7 +897,6 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
             <div class="col-lg-3 mb-4">
                 <div class="card p-3 shadow-sm h-100">
                     <h6 class="fw-bold text-success mb-1"><i class="fa-solid fa-robot me-1"></i> Gemini 추천 종목 트래킹</h6>
-                    <p class="text-muted mb-2" style="font-size: 0.72rem;">* 종목 클릭시 위 차트 연동</p>
                     <div class="tracking-box d-flex flex-column gap-3 mt-2">
 """
 
