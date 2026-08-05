@@ -837,10 +837,29 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                 </div>
             </div>
 
-           ㅍ
+            <!-- [중앙 컬럼] 전체 코인 등급 분류 -->
+            <div class="col-lg-6 mb-4">
+                <div class="card p-3 p-md-4 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <h5 class="fw-bold mb-0 text-dark fs-6 fs-md-5"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류 <small class="text-muted" style="font-size: 0.75rem;">(종목 검색 연동)</small></h5>
+                        <div class="input-group search-input w-100 w-md-auto" style="max-width: 220px;">
+                            <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
+                            <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명 검색..." onkeyup="filterCoins()">
+                        </div>
+                    </div>
+
+                    <ul class="nav nav-tabs mb-3 flex-nowrap overflow-auto" id="coinTab" role="tablist" style="white-space: nowrap;">
+                        <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button" role="tab">🟢 추천 ({len(recommended_sector)})</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button" role="tab">🔵 관심 ({len(interested_sector)})</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button" role="tab">⚪ 보통 ({len(normal_sector)})</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-warning" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button" role="tab">🟠 주의 ({len(warning_sector)})</button></li>
+                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-danger" id="dang-tab" data-bs-toggle="tab" data-bs-target="#dang" type="button" role="tab">🔴 경고 ({len(danger_sector)})</button></li>
+                    </ul>
+
+                    <div class="tab-content" id="coinTabContent">
 """
 
-    def make_table_html(sector_list, tab_id, is_active=""):
+    def make_table_html(sector_list, tab_id, is_active=False):
         active_cls = "show active" if is_active else ""
         t_html = f'<div class="tab-pane fade {active_cls}" id="{tab_id}" role="tabpanel">'
         t_html += '<div class="table-responsive" style="overflow: visible;">'
@@ -861,7 +880,8 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                 </tr>"""
         t_html += '</tbody></table></div></div>'
         return t_html.replace('_TABLE_HEADER_', '<thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>등급</th></tr></thead>')
-    html_content += make_table_html(recommended_sector, "rec", "active")
+
+    html_content += make_table_html(recommended_sector, "rec", True)
     html_content += make_table_html(interested_sector, "int")
     html_content += make_table_html(normal_sector, "norm")
     html_content += make_table_html(warning_sector, "warn")
