@@ -4,35 +4,62 @@
     "symbol": "ANKR",
     "count": 1,
     "entry_price": 4.92,
-    "current_price": 4.92,
+    "current_price": 4.91,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 16:12:26"
   },
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
-    "count": 1,
+    "count": 2,
     "entry_price": 1423.0,
     "current_price": 1423.0,
     "first_recommended_at": "2026-08-05 16:12:26",
-    "last_recommended_at": "2026-08-05 16:12:26"
+    "last_recommended_at": "2026-08-05 16:22:25"
   },
   "MMT": {
     "name": "모멘텀",
     "symbol": "MMT",
     "count": 1,
     "entry_price": 224.0,
-    "current_price": 224.0,
+    "current_price": 229.0,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 16:12:26"
   },
   "SUPER": {
     "name": "슈퍼버스",
     "symbol": "SUPER",
-    "count": 1,
+    "count": 2,
     "entry_price": 119.0,
     "current_price": 119.0,
     "first_recommended_at": "2026-08-05 16:12:26",
-    "last_recommended_at": "2026-08-05 16:12:26"
+    "last_recommended_at": "2026-08-05 16:22:25"
+  },
+  "PUNDIX": {
+    "name": "펀디엑스",
+    "symbol": "PUNDIX",
+    "count": 1,
+    "entry_price": 108.0,
+    "current_price": 108.0,
+    "first_recommended_at": "2026-08-05 16:22:25",
+    "last_recommended_at": "2026-08-05 16:22:25"
+  },
+  "LPT": {
+    "name": "라이브피어",
+    "symbol": "LPT",
+    "count": 1,
+    "entry_price": 1844.0,
+    "current_price": 1844.0,
+    "first_recommended_at": "2026-08-05 16:22:25",
+    "last_recommended_at": "2026-08-05 16:22:25"
+  },
+  "HIVE": {
+    "name": "하이브",
+    "symbol": "HIVE",
+    "count": 1,
+    "entry_price": 59.9,
+    "current_price": 59.9,
+    "first_recommended_at": "2026-08-05 16:22:25",
+    "last_recommended_at": "2026-08-05 16:22:25"
   }
 }
