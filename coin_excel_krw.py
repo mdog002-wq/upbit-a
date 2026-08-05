@@ -542,15 +542,29 @@ def update_redis_for_dashboard(df_result, ai_report):
 # ==============================================================================
 # [리포트 생성 및 이메일 발송]
 # ==============================================================================
-def generate_dashboard_html(coins_data, recommended_sector, interested_sector, normal_sector, warning_sector, danger_sector, tracking_list, alerts, news_data, ai_report, updated_time):
-    # 각 섹션별 테이블 행 생성 헬퍼 함수
-    def create_table_rows(sector_coins):
-        rows = ""
+def create_table_rows(sector_coins):
         if not sector_coins:
             return '<tr><td colspan="4" class="text-center text-muted py-3">해당하는 종목이 없습니다.</td></tr>'
+        
+        rows_list = []
         for coin in sector_coins:
-            rows += f"""
-                <tr>
+            name = coin.get('name', 'N/A')
+            price = coin.get('price', 'N/A')
+            score = coin.get('score', 0)
+            badge_class = coin.get('badge_class', 'bg-secondary')
+            grade = coin.get('grade', '⚪ 보통')
+            
+            row_html = (
+                f"<tr>"
+                f'<td class="fw-bold">{name}</td>'
+                f"<td>{price}</td>"
+                f'<td class="text-primary">{score:.1f}점</td>'
+                f'<td><span class="badge {badge_class}">{grade}</span></td>'
+                f"</tr>"
+            )
+            rows_list.append(row_html)
+        
+        return "".join(rows_list)
                     <td class="fw-bold">{coin.get('name', 'N/A')}</td>
                     <td>{coin.get('price', 'N/A')}</td>
                     <td class="text-primary">{coin.get('score', 0):.1f}점</td>
