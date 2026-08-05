@@ -13,7 +13,7 @@
     "symbol": "WAXP",
     "count": 7,
     "entry_price": 5.4,
-    "current_price": 5.45,
+    "current_price": 5.41,
     "first_recommended_at": "2026-08-05 21:12:28",
     "last_recommended_at": "2026-08-05 23:22:11"
   },
@@ -31,36 +31,36 @@
     "symbol": "IOTA",
     "count": 5,
     "entry_price": 48.2,
-    "current_price": 48.0,
+    "current_price": 48.1,
     "first_recommended_at": "2026-08-05 21:32:23",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
   "SUN": {
     "name": "썬",
     "symbol": "SUN",
-    "count": 5,
+    "count": 6,
     "entry_price": 25.5,
     "current_price": 25.6,
     "first_recommended_at": "2026-08-05 21:52:17",
-    "last_recommended_at": "2026-08-05 22:42:16"
+    "last_recommended_at": "2026-08-05 23:32:23"
   },
   "JTO": {
     "name": "지토",
     "symbol": "JTO",
     "count": 2,
     "entry_price": 739.0,
-    "current_price": 736.0,
+    "current_price": 733.0,
     "first_recommended_at": "2026-08-05 22:12:20",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
   "SUPER": {
     "name": "슈퍼버스",
     "symbol": "SUPER",
-    "count": 6,
+    "count": 7,
     "entry_price": 120.0,
     "current_price": 121.0,
     "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 23:22:11"
+    "last_recommended_at": "2026-08-05 23:32:23"
   },
   "SOON": {
     "name": "쑨",
@@ -74,19 +74,28 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 2,
+    "count": 3,
     "entry_price": 8.11,
     "current_price": 8.11,
     "first_recommended_at": "2026-08-05 23:02:42",
-    "last_recommended_at": "2026-08-05 23:12:16"
+    "last_recommended_at": "2026-08-05 23:32:23"
   },
   "BONK": {
     "name": "봉크",
     "symbol": "BONK",
-    "count": 1,
+    "count": 2,
     "entry_price": 0.00424,
-    "current_price": 0.00424,
+    "current_price": 0.00423,
     "first_recommended_at": "2026-08-05 23:22:11",
-    "last_recommended_at": "2026-08-05 23:22:11"
+    "last_recommended_at": "2026-08-05 23:32:23"
+  },
+  "MNT": {
+    "name": "맨틀",
+    "symbol": "MNT",
+    "count": 1,
+    "entry_price": 576.0,
+    "current_price": 576.0,
+    "first_recommended_at": "2026-08-05 23:32:23",
+    "last_recommended_at": "2026-08-05 23:32:23"
   }
 }
