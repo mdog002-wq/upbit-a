@@ -2,18 +2,18 @@
   "ANKR": {
     "name": "앵커",
     "symbol": "ANKR",
-    "count": 3,
+    "count": 4,
     "entry_price": 4.92,
     "current_price": 4.93,
     "first_recommended_at": "2026-08-05 16:12:26",
-    "last_recommended_at": "2026-08-05 18:12:29"
+    "last_recommended_at": "2026-08-05 18:22:23"
   },
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 6,
     "entry_price": 1423.0,
-    "current_price": 1423.0,
+    "current_price": 1418.0,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 17:12:17"
   },
@@ -22,7 +22,7 @@
     "symbol": "MMT",
     "count": 1,
     "entry_price": 224.0,
-    "current_price": 229.0,
+    "current_price": 226.0,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 16:12:26"
   },
@@ -58,7 +58,7 @@
     "symbol": "HIVE",
     "count": 1,
     "entry_price": 59.9,
-    "current_price": 59.2,
+    "current_price": 59.4,
     "first_recommended_at": "2026-08-05 16:22:25",
     "last_recommended_at": "2026-08-05 16:22:25"
   },
@@ -74,11 +74,11 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 8,
+    "count": 9,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 16:42:32",
-    "last_recommended_at": "2026-08-05 18:12:29"
+    "last_recommended_at": "2026-08-05 18:22:23"
   },
   "IQ": {
     "name": "아이큐",
@@ -128,28 +128,37 @@
   "MVL": {
     "name": "엠블",
     "symbol": "MVL",
-    "count": 3,
+    "count": 4,
     "entry_price": 1.11,
     "current_price": 1.11,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 18:12:29"
+    "last_recommended_at": "2026-08-05 18:22:23"
   },
   "STRAX": {
     "name": "저트라",
     "symbol": "STRAX",
-    "count": 3,
+    "count": 4,
     "entry_price": 12.3,
     "current_price": 12.3,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 18:12:29"
+    "last_recommended_at": "2026-08-05 18:22:23"
   },
   "JTO": {
     "name": "지토",
     "symbol": "JTO",
     "count": 2,
     "entry_price": 738.0,
-    "current_price": 737.0,
+    "current_price": 738.0,
     "first_recommended_at": "2026-08-05 17:52:22",
     "last_recommended_at": "2026-08-05 18:02:33"
+  },
+  "AUCTION": {
+    "name": "바운스토큰",
+    "symbol": "AUCTION",
+    "count": 1,
+    "entry_price": 4226.0,
+    "current_price": 4226.0,
+    "first_recommended_at": "2026-08-05 18:22:23",
+    "last_recommended_at": "2026-08-05 18:22:23"
   }
 }
