@@ -40,7 +40,7 @@
     "symbol": "LPT",
     "count": 2,
     "entry_price": 1845.0,
-    "current_price": 1826.0,
+    "current_price": 1822.0,
     "first_recommended_at": "2026-08-05 19:12:30",
     "last_recommended_at": "2026-08-05 19:21:58"
   },
@@ -49,7 +49,7 @@
     "symbol": "BLEND",
     "count": 1,
     "entry_price": 91.8,
-    "current_price": 89.5,
+    "current_price": 89.8,
     "first_recommended_at": "2026-08-05 19:32:39",
     "last_recommended_at": "2026-08-05 19:32:39"
   },
@@ -65,18 +65,18 @@
   "ERA": {
     "name": "칼데라",
     "symbol": "ERA",
-    "count": 3,
+    "count": 4,
     "entry_price": 95.3,
-    "current_price": 96.2,
+    "current_price": 97.5,
     "first_recommended_at": "2026-08-05 21:02:30",
-    "last_recommended_at": "2026-08-05 21:22:16"
+    "last_recommended_at": "2026-08-05 21:32:23"
   },
   "WAXP": {
     "name": "왁스",
     "symbol": "WAXP",
     "count": 1,
     "entry_price": 5.4,
-    "current_price": 5.39,
+    "current_price": 5.4,
     "first_recommended_at": "2026-08-05 21:12:28",
     "last_recommended_at": "2026-08-05 21:12:28"
   },
@@ -103,8 +103,35 @@
     "symbol": "MOVE",
     "count": 1,
     "entry_price": 10.8,
-    "current_price": 10.8,
+    "current_price": 10.7,
     "first_recommended_at": "2026-08-05 21:22:16",
     "last_recommended_at": "2026-08-05 21:22:16"
+  },
+  "DKA": {
+    "name": "디카르고",
+    "symbol": "DKA",
+    "count": 1,
+    "entry_price": 4.72,
+    "current_price": 4.72,
+    "first_recommended_at": "2026-08-05 21:32:23",
+    "last_recommended_at": "2026-08-05 21:32:23"
+  },
+  "GRT": {
+    "name": "더그래프",
+    "symbol": "GRT",
+    "count": 1,
+    "entry_price": 21.2,
+    "current_price": 21.2,
+    "first_recommended_at": "2026-08-05 21:32:23",
+    "last_recommended_at": "2026-08-05 21:32:23"
+  },
+  "IOTA": {
+    "name": "아이오타",
+    "symbol": "IOTA",
+    "count": 1,
+    "entry_price": 48.2,
+    "current_price": 48.2,
+    "first_recommended_at": "2026-08-05 21:32:23",
+    "last_recommended_at": "2026-08-05 21:32:23"
   }
 }
