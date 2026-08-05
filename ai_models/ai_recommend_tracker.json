@@ -13,7 +13,7 @@
     "symbol": "WAXP",
     "count": 6,
     "entry_price": 5.4,
-    "current_price": 5.42,
+    "current_price": 5.44,
     "first_recommended_at": "2026-08-05 21:12:28",
     "last_recommended_at": "2026-08-05 22:42:16"
   },
@@ -31,7 +31,7 @@
     "symbol": "IOTA",
     "count": 5,
     "entry_price": 48.2,
-    "current_price": 48.2,
+    "current_price": 48.0,
     "first_recommended_at": "2026-08-05 21:32:23",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
@@ -49,26 +49,44 @@
     "symbol": "JTO",
     "count": 2,
     "entry_price": 739.0,
-    "current_price": 740.0,
+    "current_price": 739.0,
     "first_recommended_at": "2026-08-05 22:12:20",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
   "SUPER": {
     "name": "슈퍼버스",
     "symbol": "SUPER",
-    "count": 3,
+    "count": 4,
     "entry_price": 120.0,
     "current_price": 120.0,
     "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 22:52:34"
+    "last_recommended_at": "2026-08-05 23:02:42"
   },
   "SOON": {
     "name": "쑨",
     "symbol": "SOON",
-    "count": 2,
+    "count": 3,
     "entry_price": 322.0,
-    "current_price": 324.0,
+    "current_price": 323.0,
     "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 22:52:34"
+    "last_recommended_at": "2026-08-05 23:02:42"
+  },
+  "CBK": {
+    "name": "코박토큰",
+    "symbol": "CBK",
+    "count": 1,
+    "entry_price": 233.0,
+    "current_price": 233.0,
+    "first_recommended_at": "2026-08-05 23:02:42",
+    "last_recommended_at": "2026-08-05 23:02:42"
+  },
+  "ALT": {
+    "name": "알트레이어",
+    "symbol": "ALT",
+    "count": 1,
+    "entry_price": 8.11,
+    "current_price": 8.11,
+    "first_recommended_at": "2026-08-05 23:02:42",
+    "last_recommended_at": "2026-08-05 23:02:42"
   }
 }
