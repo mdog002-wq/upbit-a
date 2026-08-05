@@ -4,7 +4,7 @@
     "symbol": "CVC",
     "count": 10,
     "entry_price": 25.2,
-    "current_price": 25.1,
+    "current_price": 24.9,
     "first_recommended_at": "2026-08-05 19:02:46",
     "last_recommended_at": "2026-08-05 21:12:28"
   },
@@ -49,44 +49,44 @@
     "symbol": "JTO",
     "count": 2,
     "entry_price": 739.0,
-    "current_price": 739.0,
+    "current_price": 738.0,
     "first_recommended_at": "2026-08-05 22:12:20",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
   "SUPER": {
     "name": "슈퍼버스",
     "symbol": "SUPER",
-    "count": 4,
+    "count": 5,
     "entry_price": 120.0,
     "current_price": 120.0,
     "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 23:02:42"
+    "last_recommended_at": "2026-08-05 23:12:16"
   },
   "SOON": {
     "name": "쑨",
     "symbol": "SOON",
-    "count": 3,
+    "count": 4,
     "entry_price": 322.0,
     "current_price": 323.0,
     "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 23:02:42"
+    "last_recommended_at": "2026-08-05 23:12:16"
   },
   "CBK": {
     "name": "코박토큰",
     "symbol": "CBK",
-    "count": 1,
+    "count": 2,
     "entry_price": 233.0,
     "current_price": 233.0,
     "first_recommended_at": "2026-08-05 23:02:42",
-    "last_recommended_at": "2026-08-05 23:02:42"
+    "last_recommended_at": "2026-08-05 23:12:16"
   },
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 1,
+    "count": 2,
     "entry_price": 8.11,
     "current_price": 8.11,
     "first_recommended_at": "2026-08-05 23:02:42",
-    "last_recommended_at": "2026-08-05 23:02:42"
+    "last_recommended_at": "2026-08-05 23:12:16"
   }
 }
