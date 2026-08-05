@@ -804,8 +804,10 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
             <!-- [좌측 컬럼] 실시간 급락/위험 경고, 실시간 속보, Gemini AI 분석 리포트 -->
             <div class="col-lg-3 mb-4 d-flex flex-column gap-3">
                 <div class="card p-3 shadow-sm">
-                    <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>
-                    <div class="alert-box d-flex flex-column gap-2">
+                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-robot me-1"></i> AI 분석 리포트</h6>
+                    <!-- 높이를 중앙/우측과 유사하게 맞추기 위해 max-height를 450px 등으로 확장 -->
+                    <div class="text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.4; white-space: pre-line;">{ai_report}</div>
+                </div>
 """
 
     for alert in alerts[:15]:
