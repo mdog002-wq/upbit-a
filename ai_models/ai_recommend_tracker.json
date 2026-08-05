@@ -49,7 +49,7 @@
     "symbol": "BLEND",
     "count": 1,
     "entry_price": 91.8,
-    "current_price": 91.1,
+    "current_price": 90.8,
     "first_recommended_at": "2026-08-05 19:32:39",
     "last_recommended_at": "2026-08-05 19:32:39"
   },
@@ -67,27 +67,27 @@
     "symbol": "ERA",
     "count": 4,
     "entry_price": 95.3,
-    "current_price": 96.8,
+    "current_price": 95.2,
     "first_recommended_at": "2026-08-05 21:02:30",
     "last_recommended_at": "2026-08-05 21:32:23"
   },
   "WAXP": {
     "name": "왁스",
     "symbol": "WAXP",
-    "count": 2,
+    "count": 3,
     "entry_price": 5.4,
     "current_price": 5.41,
     "first_recommended_at": "2026-08-05 21:12:28",
-    "last_recommended_at": "2026-08-05 21:42:19"
+    "last_recommended_at": "2026-08-05 21:52:17"
   },
   "TFUEL": {
     "name": "쎄타퓨엘",
     "symbol": "TFUEL",
-    "count": 2,
+    "count": 3,
     "entry_price": 10.5,
     "current_price": 10.5,
     "first_recommended_at": "2026-08-05 21:12:28",
-    "last_recommended_at": "2026-08-05 21:22:16"
+    "last_recommended_at": "2026-08-05 21:52:17"
   },
   "ONT": {
     "name": "온톨로지",
@@ -103,18 +103,18 @@
     "symbol": "MOVE",
     "count": 2,
     "entry_price": 10.8,
-    "current_price": 10.8,
+    "current_price": 10.6,
     "first_recommended_at": "2026-08-05 21:22:16",
     "last_recommended_at": "2026-08-05 21:42:19"
   },
   "DKA": {
     "name": "디카르고",
     "symbol": "DKA",
-    "count": 2,
+    "count": 3,
     "entry_price": 4.72,
-    "current_price": 4.78,
+    "current_price": 4.84,
     "first_recommended_at": "2026-08-05 21:32:23",
-    "last_recommended_at": "2026-08-05 21:42:19"
+    "last_recommended_at": "2026-08-05 21:52:17"
   },
   "GRT": {
     "name": "더그래프",
@@ -133,5 +133,14 @@
     "current_price": 48.0,
     "first_recommended_at": "2026-08-05 21:32:23",
     "last_recommended_at": "2026-08-05 21:32:23"
+  },
+  "SUN": {
+    "name": "썬",
+    "symbol": "SUN",
+    "count": 1,
+    "entry_price": 25.5,
+    "current_price": 25.5,
+    "first_recommended_at": "2026-08-05 21:52:17",
+    "last_recommended_at": "2026-08-05 21:52:17"
   }
 }
