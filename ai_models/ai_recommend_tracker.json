@@ -1,1 +1,38 @@
-{}
+{
+  "ANKR": {
+    "name": "앵커",
+    "symbol": "ANKR",
+    "count": 1,
+    "entry_price": 4.92,
+    "current_price": 4.92,
+    "first_recommended_at": "2026-08-05 16:12:26",
+    "last_recommended_at": "2026-08-05 16:12:26"
+  },
+  "USDS": {
+    "name": "유에스디에스",
+    "symbol": "USDS",
+    "count": 1,
+    "entry_price": 1423.0,
+    "current_price": 1423.0,
+    "first_recommended_at": "2026-08-05 16:12:26",
+    "last_recommended_at": "2026-08-05 16:12:26"
+  },
+  "MMT": {
+    "name": "모멘텀",
+    "symbol": "MMT",
+    "count": 1,
+    "entry_price": 224.0,
+    "current_price": 224.0,
+    "first_recommended_at": "2026-08-05 16:12:26",
+    "last_recommended_at": "2026-08-05 16:12:26"
+  },
+  "SUPER": {
+    "name": "슈퍼버스",
+    "symbol": "SUPER",
+    "count": 1,
+    "entry_price": 119.0,
+    "current_price": 119.0,
+    "first_recommended_at": "2026-08-05 16:12:26",
+    "last_recommended_at": "2026-08-05 16:12:26"
+  }
+}
