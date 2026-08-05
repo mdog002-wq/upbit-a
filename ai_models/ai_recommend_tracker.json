@@ -11,18 +11,18 @@
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
-    "count": 4,
+    "count": 5,
     "entry_price": 1423.0,
     "current_price": 1423.0,
     "first_recommended_at": "2026-08-05 16:12:26",
-    "last_recommended_at": "2026-08-05 16:42:32"
+    "last_recommended_at": "2026-08-05 16:52:22"
   },
   "MMT": {
     "name": "모멘텀",
     "symbol": "MMT",
     "count": 1,
     "entry_price": 224.0,
-    "current_price": 233.0,
+    "current_price": 229.0,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 16:12:26"
   },
@@ -47,38 +47,38 @@
   "LPT": {
     "name": "라이브피어",
     "symbol": "LPT",
-    "count": 3,
+    "count": 4,
     "entry_price": 1844.0,
     "current_price": 1844.0,
     "first_recommended_at": "2026-08-05 16:22:25",
-    "last_recommended_at": "2026-08-05 16:42:32"
+    "last_recommended_at": "2026-08-05 16:52:22"
   },
   "HIVE": {
     "name": "하이브",
     "symbol": "HIVE",
     "count": 1,
     "entry_price": 59.9,
-    "current_price": 59.6,
+    "current_price": 59.5,
     "first_recommended_at": "2026-08-05 16:22:25",
     "last_recommended_at": "2026-08-05 16:22:25"
   },
   "WAL": {
     "name": "월러스",
     "symbol": "WAL",
-    "count": 2,
+    "count": 3,
     "entry_price": 35.4,
     "current_price": 35.4,
     "first_recommended_at": "2026-08-05 16:32:36",
-    "last_recommended_at": "2026-08-05 16:42:32"
+    "last_recommended_at": "2026-08-05 16:52:22"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 1,
+    "count": 2,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 16:42:32",
-    "last_recommended_at": "2026-08-05 16:42:32"
+    "last_recommended_at": "2026-08-05 16:52:22"
   },
   "IQ": {
     "name": "아이큐",
