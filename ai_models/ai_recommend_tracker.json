@@ -22,7 +22,7 @@
     "symbol": "MMT",
     "count": 1,
     "entry_price": 224.0,
-    "current_price": 236.0,
+    "current_price": 232.0,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 16:12:26"
   },
@@ -49,7 +49,7 @@
     "symbol": "LPT",
     "count": 4,
     "entry_price": 1844.0,
-    "current_price": 1834.0,
+    "current_price": 1832.0,
     "first_recommended_at": "2026-08-05 16:22:25",
     "last_recommended_at": "2026-08-05 16:52:22"
   },
@@ -101,18 +101,18 @@
   "ZKP": {
     "name": "지케이패스",
     "symbol": "ZKP",
-    "count": 3,
+    "count": 4,
     "entry_price": 64.8,
     "current_price": 64.8,
     "first_recommended_at": "2026-08-05 17:22:27",
-    "last_recommended_at": "2026-08-05 17:42:22"
+    "last_recommended_at": "2026-08-05 17:52:22"
   },
   "MOVE": {
     "name": "무브먼트",
     "symbol": "MOVE",
     "count": 1,
     "entry_price": 10.8,
-    "current_price": 10.7,
+    "current_price": 10.8,
     "first_recommended_at": "2026-08-05 17:22:27",
     "last_recommended_at": "2026-08-05 17:22:27"
   },
@@ -124,5 +124,32 @@
     "current_price": 119.0,
     "first_recommended_at": "2026-08-05 17:32:38",
     "last_recommended_at": "2026-08-05 17:32:38"
+  },
+  "MVL": {
+    "name": "엠블",
+    "symbol": "MVL",
+    "count": 1,
+    "entry_price": 1.11,
+    "current_price": 1.11,
+    "first_recommended_at": "2026-08-05 17:52:22",
+    "last_recommended_at": "2026-08-05 17:52:22"
+  },
+  "STRAX": {
+    "name": "저트라",
+    "symbol": "STRAX",
+    "count": 1,
+    "entry_price": 12.3,
+    "current_price": 12.3,
+    "first_recommended_at": "2026-08-05 17:52:22",
+    "last_recommended_at": "2026-08-05 17:52:22"
+  },
+  "JTO": {
+    "name": "지토",
+    "symbol": "JTO",
+    "count": 1,
+    "entry_price": 738.0,
+    "current_price": 738.0,
+    "first_recommended_at": "2026-08-05 17:52:22",
+    "last_recommended_at": "2026-08-05 17:52:22"
   }
 }
