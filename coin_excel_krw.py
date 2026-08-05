@@ -545,23 +545,22 @@ def calculate_ai_grade(score, dump_risk):
         return "⚪ 보통"
 
 def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_status_map):
-    """
-    AI 분석 리포트에 언급된 추천 종목들만 등록/갱신하며,
-    1) 추천 후 20% 이상 상승 시 (익절/목표 달성)
-    2) AI 분석상 가치를 상실한 경우 (경고/주의 등급, 덤핑 위험 >= 70%, 또는 손실 -10% 이하)
-    목록에서 자동 제거하는 트래킹 시스템
-    """
     history = {}
+    
+    # 파일이 존재하고 내용이 비어있지 않은 경우에만 안전하게 로드
     if os.path.exists(AI_TRACKER_HISTORY_FILE):
         try:
             with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
-                history = json.load(f)
-        except Exception:
+                content = f.read().strip()
+                if content:
+                    history = json.loads(content)
+        except Exception as e:
+            print(f"⚠️ 기존 트래킹 파일 로드 실패 (초기화 후 진행): {e}")
             history = {}
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # 1. AI 분석 리포트에 언급된 종목들을 신규 등록 및 추천 횟수 증가
+    # AI 분석 리포트에 언급된 종목들을 신규 등록 및 추천 횟수 증가
     for coin in ai_report_coins:
         symbol = coin['symbol']
         name = coin['name']
@@ -581,7 +580,7 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
                 "first_recommended_at": now_str,
                 "last_recommended_at": now_str
             }
-
+    
     # 2. 현재 가격 갱신 및 자동 제거 조건 검증
     to_remove = []
     for symbol, item in history.items():
