@@ -1126,6 +1126,28 @@ if __name__ == "__main__":
         all_target_coins = [item['name'] for item in ai_report_coins]
         news_data = fetch_news_for_recommended_coins(all_target_coins)
 
+        # [추가] Gemini가 추천한 종목들을 FastAPI 서버(대시보드)로 전송하여 태그 반영
+        try:
+            fastapi_payload = {
+                "generation": 1,  # 필요에 따라 세대 번호 관리 가능
+                "recommendations": [
+                    {
+                        "market": f"KRW-{coin['symbol']}", 
+                        "ai_grade": "추천", 
+                        "score": float(df_result[df_result['심볼'] == coin['symbol']]['종합예측점수'].values[0]) if not df_result[df_result['심볼'] == coin['symbol']].empty else 95.0
+                    }
+                    for coin in ai_report_coins
+                ]
+            }
+            # FastAPI 서버 주소 (로컬 또는 오라클 서버 주소로 변경)
+            response = requests.post("http://localhost:8000/api/ai-recommendations", json=fastapi_payload, timeout=5)
+            if response.status_code == 200:
+                print("🔥 [연동 성공] Gemini AI 추천 종목이 FastAPI 대시보드 서버로 성공적으로 전송되었습니다!")
+            else:
+                print(f"⚠️ FastAPI 서버 전송 응답 오류: {response.status_code}")
+        except Exception as e:
+            print(f"⚠️ FastAPI 서버로 AI 추천 종목 전송 실패 (서버가 켜져 있는지 확인하세요): {e}")
+            
         # 7. Redis 연동 (전체 종목 페이로드 및 AI 추천종목 모니터 반영)
         update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data)
 
