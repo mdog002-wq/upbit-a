@@ -1,1 +1,47 @@
-{}
+{
+  "CKB": {
+    "name": "너보스",
+    "symbol": "CKB",
+    "count": 1,
+    "entry_price": 1.18,
+    "current_price": 1.18,
+    "first_recommended_at": "2026-08-05 15:02:37",
+    "last_recommended_at": "2026-08-05 15:02:37"
+  },
+  "BOUNTY": {
+    "name": "체인바운티",
+    "symbol": "BOUNTY",
+    "count": 1,
+    "entry_price": 18.7,
+    "current_price": 18.7,
+    "first_recommended_at": "2026-08-05 15:02:37",
+    "last_recommended_at": "2026-08-05 15:02:37"
+  },
+  "1INCH": {
+    "name": "1인치네트워크",
+    "symbol": "1INCH",
+    "count": 1,
+    "entry_price": 118.0,
+    "current_price": 118.0,
+    "first_recommended_at": "2026-08-05 15:02:37",
+    "last_recommended_at": "2026-08-05 15:02:37"
+  },
+  "WIF": {
+    "name": "도그위프햇",
+    "symbol": "WIF",
+    "count": 1,
+    "entry_price": 201.0,
+    "current_price": 201.0,
+    "first_recommended_at": "2026-08-05 15:02:37",
+    "last_recommended_at": "2026-08-05 15:02:37"
+  },
+  "AUCTION": {
+    "name": "바운스토큰",
+    "symbol": "AUCTION",
+    "count": 1,
+    "entry_price": 4192.0,
+    "current_price": 4192.0,
+    "first_recommended_at": "2026-08-05 15:02:37",
+    "last_recommended_at": "2026-08-05 15:02:37"
+  }
+}
