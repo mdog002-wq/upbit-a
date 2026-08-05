@@ -35,21 +35,12 @@
     "first_recommended_at": "2026-08-05 19:02:46",
     "last_recommended_at": "2026-08-05 21:12:28"
   },
-  "LPT": {
-    "name": "라이브피어",
-    "symbol": "LPT",
-    "count": 2,
-    "entry_price": 1845.0,
-    "current_price": 1821.0,
-    "first_recommended_at": "2026-08-05 19:12:30",
-    "last_recommended_at": "2026-08-05 19:21:58"
-  },
   "BLEND": {
     "name": "플루언트",
     "symbol": "BLEND",
     "count": 1,
     "entry_price": 91.8,
-    "current_price": 89.9,
+    "current_price": 88.5,
     "first_recommended_at": "2026-08-05 19:32:39",
     "last_recommended_at": "2026-08-05 19:32:39"
   },
@@ -58,7 +49,7 @@
     "symbol": "MET2",
     "count": 2,
     "entry_price": 242.0,
-    "current_price": 240.0,
+    "current_price": 239.0,
     "first_recommended_at": "2026-08-05 20:52:33",
     "last_recommended_at": "2026-08-05 21:02:30"
   },
@@ -67,18 +58,18 @@
     "symbol": "ERA",
     "count": 4,
     "entry_price": 95.3,
-    "current_price": 94.6,
+    "current_price": 94.4,
     "first_recommended_at": "2026-08-05 21:02:30",
     "last_recommended_at": "2026-08-05 21:32:23"
   },
   "WAXP": {
     "name": "왁스",
     "symbol": "WAXP",
-    "count": 4,
+    "count": 5,
     "entry_price": 5.4,
-    "current_price": 5.41,
+    "current_price": 5.43,
     "first_recommended_at": "2026-08-05 21:12:28",
-    "last_recommended_at": "2026-08-05 22:22:24"
+    "last_recommended_at": "2026-08-05 22:32:27"
   },
   "TFUEL": {
     "name": "쎄타퓨엘",
@@ -121,18 +112,18 @@
     "symbol": "GRT",
     "count": 5,
     "entry_price": 21.2,
-    "current_price": 21.3,
+    "current_price": 21.2,
     "first_recommended_at": "2026-08-05 21:32:23",
     "last_recommended_at": "2026-08-05 22:22:24"
   },
   "IOTA": {
     "name": "아이오타",
     "symbol": "IOTA",
-    "count": 2,
+    "count": 3,
     "entry_price": 48.2,
-    "current_price": 48.1,
+    "current_price": 48.2,
     "first_recommended_at": "2026-08-05 21:32:23",
-    "last_recommended_at": "2026-08-05 22:02:38"
+    "last_recommended_at": "2026-08-05 22:32:27"
   },
   "SUN": {
     "name": "썬",
@@ -157,8 +148,26 @@
     "symbol": "JTO",
     "count": 1,
     "entry_price": 739.0,
-    "current_price": 737.0,
+    "current_price": 738.0,
     "first_recommended_at": "2026-08-05 22:12:20",
     "last_recommended_at": "2026-08-05 22:12:20"
+  },
+  "SUPER": {
+    "name": "슈퍼버스",
+    "symbol": "SUPER",
+    "count": 1,
+    "entry_price": 120.0,
+    "current_price": 120.0,
+    "first_recommended_at": "2026-08-05 22:32:27",
+    "last_recommended_at": "2026-08-05 22:32:27"
+  },
+  "SOON": {
+    "name": "쑨",
+    "symbol": "SOON",
+    "count": 1,
+    "entry_price": 322.0,
+    "current_price": 322.0,
+    "first_recommended_at": "2026-08-05 22:32:27",
+    "last_recommended_at": "2026-08-05 22:32:27"
   }
 }
