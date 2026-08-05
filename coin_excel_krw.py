@@ -1140,7 +1140,7 @@ if __name__ == "__main__":
                 ]
             }
             # FastAPI 서버 주소 (로컬 또는 오라클 서버 주소로 변경)
-            response = requests.post("http://localhost:8000/api/ai-recommendations", json=fastapi_payload, timeout=5)
+            response = requests.post("http://140.245.99.254:8000/api/ai-recommendations", json=fastapi_payload, timeout=5)
             if response.status_code == 200:
                 print("🔥 [연동 성공] Gemini AI 추천 종목이 FastAPI 대시보드 서버로 성공적으로 전송되었습니다!")
             else:
