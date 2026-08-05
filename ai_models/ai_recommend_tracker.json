@@ -2,20 +2,20 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 4,
+    "count": 5,
     "entry_price": 1.18,
     "current_price": 1.18,
     "first_recommended_at": "2026-08-05 13:22:33",
-    "last_recommended_at": "2026-08-05 14:22:26"
+    "last_recommended_at": "2026-08-05 14:32:23"
   },
   "BOUNTY": {
     "name": "체인바운티",
     "symbol": "BOUNTY",
-    "count": 8,
+    "count": 9,
     "entry_price": 18.6,
     "current_price": 18.7,
     "first_recommended_at": "2026-08-05 13:22:33",
-    "last_recommended_at": "2026-08-05 14:22:26"
+    "last_recommended_at": "2026-08-05 14:32:23"
   },
   "1INCH": {
     "name": "1인치네트워크",
@@ -83,10 +83,19 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 2,
+    "count": 3,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 14:12:28",
-    "last_recommended_at": "2026-08-05 14:22:26"
+    "last_recommended_at": "2026-08-05 14:32:23"
+  },
+  "BABY": {
+    "name": "바빌론",
+    "symbol": "BABY",
+    "count": 1,
+    "entry_price": 15.5,
+    "current_price": 15.5,
+    "first_recommended_at": "2026-08-05 14:32:23",
+    "last_recommended_at": "2026-08-05 14:32:23"
   }
 }
