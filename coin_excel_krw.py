@@ -953,7 +953,8 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                 secondsVisible: false,
             }
         });
-        candleSeries = chart.addCandlestickSeries({
+        // v4+ 방식에 맞게 addSeries와 CandlestickSeries 적용
+        candleSeries = chart.addSeries(LightweightCharts.CandlestickSeries, {
             upColor: '#ef4444',
             downColor: '#3b82f6',
             borderVisible: false,
@@ -1010,8 +1011,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("🎨 [대시보드] 상단 차트 + 하단 등급표 레이아웃 및 10분봉 연동 HTML 생성 완료!")
-
+    print("🎨 [대시보드] 차트 오류 수정 완료!")
 
 # ==============================================================================
 # [메인 실행부]
