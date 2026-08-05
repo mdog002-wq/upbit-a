@@ -1,4 +1,4 @@
-import os
+Import os
 import io
 import time
 import datetime
@@ -774,9 +774,9 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
         .badge-normal {{ background-color: #64748b; color: white; }}
         .badge-warning {{ background-color: #f97316; color: white; }}
         .badge-danger {{ background-color: #ef4444; color: white; }}
-        .alert-box {{ max-height: 220px; overflow-y: auto; }}
+        .alert-box {{ max-height: 140px; overflow-y: auto; }}
+        .news-box {{ max-height: 140px; overflow-y: auto; }}
         .tracking-box {{ max-height: 600px; overflow-y: auto; }}
-        .news-box {{ max-height: 250px; overflow-y: auto; }}
         .search-input {{ max-width: 250px; }}
         @media (max-width: 768px) {{ .table-responsive {{ padding-right: 1px; }} }}
     </style>
@@ -799,7 +799,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
 
         <!-- 3단 레이아웃 메인 영역 -->
         <div class="row">
-            <!-- [좌측 컬럼] 실시간 급락/위험 경고, 실시간 속보, Gemini AI 분석 리포트 -->
+            <!-- [좌측 컬럼] 실시간 급락/위험 경고, 실시간 속보, Gemini AI 분석 리포트 (높이 최적화 적용) -->
             <div class="col-lg-3 mb-4 d-flex flex-column gap-3">
                 <div class="card p-3 shadow-sm">
                     <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>
@@ -831,9 +831,9 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     html_content += f"""                    </div>
                 </div>
 
-                <div class="card p-3 shadow-sm flex-grow-1">
+                <div class="card p-3 shadow-sm">
                     <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-robot me-1"></i> AI 분석 리포트</h6>
-                    <div class="text-secondary small bg-light p-3 rounded" style="white-space: pre-line; max-height: 300px; overflow-y: auto; line-height: 1.5;">{ai_report}</div>
+                    <div class="text-secondary small bg-light p-3 rounded" style="max-height: 180px; overflow-y: auto; line-height: 1.4; white-space: pre-line;">{ai_report}</div>
                 </div>
             </div>
 
