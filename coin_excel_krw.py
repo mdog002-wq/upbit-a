@@ -133,7 +133,6 @@ def send_telegram_alert(message):
 # [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (Google RSS 기반)
 # ==============================================================================
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
-    """추천 종목 리스트를 받아 종목별 최신 뉴스/이슈 수집"""
     coin_news_dict = {}
     for coin in target_coins:
         query = urllib.parse.quote(f"{coin} 코인 이슈")
@@ -327,7 +326,7 @@ class AIEvolutionEngine:
 ai_engine = AIEvolutionEngine()
 
 # ==============================================================================
-# [스캔 분석 유틸]
+# [스캔 분석 유틸] (모든 코인 누락 방지를 위해 거래대금 최소 필터 제거 또는 최소화)
 # ==============================================================================
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
@@ -378,7 +377,7 @@ def process_single_coin(item, current_price_map):
         time.sleep(0.04)
         df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=60)
         metrics = calculate_t1_advanced_metrics(df_daily)
-        if not metrics or (metrics['last_value'] / 100_000_000) < 5.0: return None
+        if not metrics: return None
 
         iceberg_metrics = get_highfreq_iceberg_metrics(ticker)
         stgt_feats = [0.8, 0.7, metrics['cmf'], metrics['rsi']/100.0, 0.1, 0.5, metrics['vol_dry_ratio'], 0.2, 0.5]
@@ -617,7 +616,7 @@ def export_to_excel_and_email(df_result, ai_report):
         print(f"❌ 이메일 발송 실패: {e}")
 
 # ==============================================================================
-# [웹 대시보드 HTML 자동 생성 (속보 기능 및 이력 관리 포함)]
+# [웹 대시보드 HTML 자동 생성 (전체 코인 누락 방지 수정 완료)]
 # ==============================================================================
 def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data=None):
     if gemini_symbols is None:
@@ -670,6 +669,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
         if entry_val > 0 and curr_val > 0:
             price_change_rate = (curr_val - entry_val) / entry_val * 100
 
+        # 트래킹 유효성 체크만 분리하고, 전체 코인 리스트에는 누락 없이 온전히 포함시킴
         if price_change_rate >= 20.0 or grade in ["🟠 주의", "🔴 경고"]:
             is_valuable = False
 
@@ -953,7 +953,6 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                 secondsVisible: false,
             }
         });
-        // v4+ 방식에 맞게 addSeries와 CandlestickSeries 적용
         candleSeries = chart.addSeries(LightweightCharts.CandlestickSeries, {
             upColor: '#ef4444',
             downColor: '#3b82f6',
@@ -1011,7 +1010,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("🎨 [대시보드] 차트 오류 수정 완료!")
+    print("🎨 [대시보드] 전체 코인 등급 분류 누락 수정 완료!")
 
 # ==============================================================================
 # [메인 실행부]
