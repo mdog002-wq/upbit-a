@@ -2,36 +2,36 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 3,
+    "count": 4,
     "entry_price": 1.18,
     "current_price": 1.18,
     "first_recommended_at": "2026-08-05 13:22:33",
-    "last_recommended_at": "2026-08-05 14:12:28"
+    "last_recommended_at": "2026-08-05 14:22:26"
   },
   "BOUNTY": {
     "name": "체인바운티",
     "symbol": "BOUNTY",
-    "count": 7,
+    "count": 8,
     "entry_price": 18.6,
     "current_price": 18.7,
     "first_recommended_at": "2026-08-05 13:22:33",
-    "last_recommended_at": "2026-08-05 14:12:28"
+    "last_recommended_at": "2026-08-05 14:22:26"
   },
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 2,
+    "count": 3,
     "entry_price": 118.0,
     "current_price": 118.0,
     "first_recommended_at": "2026-08-05 13:22:33",
-    "last_recommended_at": "2026-08-05 13:32:31"
+    "last_recommended_at": "2026-08-05 14:22:26"
   },
   "SUPER": {
     "name": "슈퍼버스",
     "symbol": "SUPER",
     "count": 2,
     "entry_price": 119.0,
-    "current_price": 119.0,
+    "current_price": 118.0,
     "first_recommended_at": "2026-08-05 13:22:33",
     "last_recommended_at": "2026-08-05 13:32:31"
   },
@@ -40,7 +40,7 @@
     "symbol": "CBK",
     "count": 3,
     "entry_price": 233.0,
-    "current_price": 233.0,
+    "current_price": 232.0,
     "first_recommended_at": "2026-08-05 13:32:31",
     "last_recommended_at": "2026-08-05 14:12:28"
   },
@@ -67,7 +67,7 @@
     "symbol": "STORJ",
     "count": 3,
     "entry_price": 66.1,
-    "current_price": 65.6,
+    "current_price": 65.5,
     "first_recommended_at": "2026-08-05 13:45:31",
     "last_recommended_at": "2026-08-05 14:02:57"
   },
@@ -83,10 +83,10 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 1,
+    "count": 2,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 14:12:28",
-    "last_recommended_at": "2026-08-05 14:12:28"
+    "last_recommended_at": "2026-08-05 14:22:26"
   }
 }
