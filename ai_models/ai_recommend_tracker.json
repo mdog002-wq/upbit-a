@@ -2,11 +2,11 @@
   "ANKR": {
     "name": "앵커",
     "symbol": "ANKR",
-    "count": 2,
+    "count": 3,
     "entry_price": 4.92,
     "current_price": 4.93,
     "first_recommended_at": "2026-08-05 16:12:26",
-    "last_recommended_at": "2026-08-05 17:42:22"
+    "last_recommended_at": "2026-08-05 18:12:29"
   },
   "USDS": {
     "name": "유에스디에스",
@@ -22,7 +22,7 @@
     "symbol": "MMT",
     "count": 1,
     "entry_price": 224.0,
-    "current_price": 232.0,
+    "current_price": 229.0,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 16:12:26"
   },
@@ -74,11 +74,11 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 7,
+    "count": 8,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 16:42:32",
-    "last_recommended_at": "2026-08-05 17:42:22"
+    "last_recommended_at": "2026-08-05 18:12:29"
   },
   "IQ": {
     "name": "아이큐",
@@ -103,7 +103,7 @@
     "symbol": "ZKP",
     "count": 5,
     "entry_price": 64.8,
-    "current_price": 64.8,
+    "current_price": 64.5,
     "first_recommended_at": "2026-08-05 17:22:27",
     "last_recommended_at": "2026-08-05 18:02:33"
   },
@@ -128,27 +128,27 @@
   "MVL": {
     "name": "엠블",
     "symbol": "MVL",
-    "count": 2,
+    "count": 3,
     "entry_price": 1.11,
     "current_price": 1.11,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 18:02:33"
+    "last_recommended_at": "2026-08-05 18:12:29"
   },
   "STRAX": {
     "name": "저트라",
     "symbol": "STRAX",
-    "count": 2,
+    "count": 3,
     "entry_price": 12.3,
     "current_price": 12.3,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 18:02:33"
+    "last_recommended_at": "2026-08-05 18:12:29"
   },
   "JTO": {
     "name": "지토",
     "symbol": "JTO",
     "count": 2,
     "entry_price": 738.0,
-    "current_price": 738.0,
+    "current_price": 737.0,
     "first_recommended_at": "2026-08-05 17:52:22",
     "last_recommended_at": "2026-08-05 18:02:33"
   }
