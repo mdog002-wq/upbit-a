@@ -67,18 +67,18 @@
     "symbol": "WAL",
     "count": 8,
     "entry_price": 35.4,
-    "current_price": 35.4,
+    "current_price": 35.1,
     "first_recommended_at": "2026-08-05 16:32:36",
     "last_recommended_at": "2026-08-05 17:42:22"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 10,
+    "count": 11,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 16:42:32",
-    "last_recommended_at": "2026-08-05 18:32:28"
+    "last_recommended_at": "2026-08-05 18:42:31"
   },
   "IQ": {
     "name": "아이큐",
@@ -128,27 +128,27 @@
   "MVL": {
     "name": "엠블",
     "symbol": "MVL",
-    "count": 5,
+    "count": 6,
     "entry_price": 1.11,
     "current_price": 1.11,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 18:32:28"
+    "last_recommended_at": "2026-08-05 18:42:31"
   },
   "STRAX": {
     "name": "저트라",
     "symbol": "STRAX",
-    "count": 5,
+    "count": 6,
     "entry_price": 12.3,
     "current_price": 12.3,
     "first_recommended_at": "2026-08-05 17:52:22",
-    "last_recommended_at": "2026-08-05 18:32:28"
+    "last_recommended_at": "2026-08-05 18:42:31"
   },
   "JTO": {
     "name": "지토",
     "symbol": "JTO",
     "count": 2,
     "entry_price": 738.0,
-    "current_price": 732.0,
+    "current_price": 736.0,
     "first_recommended_at": "2026-08-05 17:52:22",
     "last_recommended_at": "2026-08-05 18:02:33"
   },
@@ -157,17 +157,17 @@
     "symbol": "AUCTION",
     "count": 1,
     "entry_price": 4226.0,
-    "current_price": 4226.0,
+    "current_price": 4243.0,
     "first_recommended_at": "2026-08-05 18:22:23",
     "last_recommended_at": "2026-08-05 18:22:23"
   },
   "QKC": {
     "name": "쿼크체인",
     "symbol": "QKC",
-    "count": 1,
+    "count": 2,
     "entry_price": 2.75,
     "current_price": 2.75,
     "first_recommended_at": "2026-08-05 18:32:28",
-    "last_recommended_at": "2026-08-05 18:32:28"
+    "last_recommended_at": "2026-08-05 18:42:31"
   }
 }
