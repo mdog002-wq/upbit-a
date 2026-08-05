@@ -741,7 +741,6 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     <title>Upbit AI Quantitative Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- TradingView Lightweight Charts 스크립트 추가 -->
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
         body {{ background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }}
@@ -776,7 +775,6 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
         </div>
 
         <div class="row">
-            <!-- 좌측 컬럼: 경고 및 뉴스 -->
             <div class="col-lg-3 mb-4 d-flex flex-column gap-3">
                 <div class="card p-3 shadow-sm">
                     <h5 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h5>
@@ -814,9 +812,7 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                 </div>
             </div>
 
-            <!-- 중앙 컬럼: 상단 차트 공간 배치 후, 하단에 전체 코인 등급 분류 배치 -->
             <div class="col-lg-6 mb-4 d-flex flex-column gap-3">
-                <!-- 1. 상단 10분봉 트레이딩뷰 차트 영역 (기본: 비트코인 BTC) -->
                 <div class="card p-3 shadow-sm">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h5 class="fw-bold text-dark mb-0 fs-6" id="chartTitle"><i class="fa-solid fa-chart-candlestick text-primary me-1"></i> 비트코인 (BTC) 실시간 10분봉 차트</h5>
@@ -825,7 +821,6 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                     <div id="tradingview-chart" style="width: 100%; height: 350px;"></div>
                 </div>
 
-                <!-- 2. 하단 전체 코인 등급 분류 표 -->
                 <div class="card p-3 p-md-4 shadow-sm">
                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                         <h4 class="fw-bold mb-0 text-dark fs-5 fs-md-5"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류 <small class="text-muted" style="font-size: 0.75rem; font-weight:normal;">(종목 클릭시 위 차트 연동)</small></h4>
@@ -879,7 +874,6 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
                 </div>
             </div>
 
-            <!-- 우측 컬럼: 추천 트래킹 -->
             <div class="col-lg-3 mb-4">
                 <div class="card p-3 shadow-sm">
                     <h5 class="fw-bold text-success mb-2"><i class="fa-solid fa-robot me-1"></i> Gemini 추천 종목 트래킹</h5>
@@ -915,101 +909,100 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     if not active_recommended_tracking:
         html_content += """                        <div class="text-muted small text-center py-4">Gemini가 추천한 종목이 없습니다.</div>\n"""
 
-    html_content += f"""                    </div>
+    html_content += """                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    function filterCoins() {{
+    function filterCoins() {
         let input = document.getElementById('coinSearchInput').value.toLowerCase();
         let rows = document.querySelectorAll('.coin-row');
         
-        rows.forEach(row => {{
+        rows.forEach(row => {
             let name = row.getAttribute('data-name');
             let symbol = row.getAttribute('data-symbol');
-            if ((name && name.toLowerCase().includes(input)) || (symbol && symbol.toLowerCase().includes(input))) {{
+            if ((name && name.toLowerCase().includes(input)) || (symbol && symbol.toLowerCase().includes(input))) {
                 row.style.display = "";
-            }} else if(name || symbol) {{
+            } else if(name || symbol) {
                 row.style.display = "none";
-            }}
-        }});
-    }}
+            }
+        });
+    }
 
     let chart, candleSeries;
 
-    function initChart() {{
+    function initChart() {
         const container = document.getElementById('tradingview-chart');
         container.innerHTML = '';
-        chart = LightweightCharts.createChart(container, {{
+        chart = LightweightCharts.createChart(container, {
             width: container.clientWidth,
             height: 350,
-            layout: {{
-                background: {{ color: '#ffffff' }},
+            layout: {
+                background: { color: '#ffffff' },
                 textColor: '#1e293b',
-            }},
-            grid: {{
-                vertLines: {{ color: '#f1f5f9' }},
-                horzLines: {{ color: '#f1f5f9' }},
-            }},
-            timeScale: {{
+            },
+            grid: {
+                vertLines: { color: '#f1f5f9' },
+                horzLines: { color: '#f1f5f9' },
+            },
+            timeScale: {
                 timeVisible: true,
                 secondsVisible: false,
-            }}
-        }});
-        candleSeries = chart.addCandlestickSeries({{
+            }
+        });
+        candleSeries = chart.addCandlestickSeries({
             upColor: '#ef4444',
             downColor: '#3b82f6',
             borderVisible: false,
             wickUpColor: '#ef4444',
             wickDownColor: '#3b82f6',
-        }});
+        });
 
-        window.addEventListener('resize', () => {{
+        window.addEventListener('resize', () => {
             chart.resize(container.clientWidth, 350);
-        }});
-    }}
+        });
+    }
 
-    async function loadCoinChart(market, koreanName) {{
-        document.getElementById('chartTitle').innerHTML = `<i class="fa-solid fa-chart-candlestick text-primary me-1"></i> ${{koreanName}} (${{market}}) 실시간 10분봉 차트`;
+    async function loadCoinChart(market, koreanName) {
+        document.getElementById('chartTitle').innerHTML = `<i class="fa-solid fa-chart-candlestick text-primary me-1"></i> ${koreanName} (${market}) 실시간 10분봉 차트`;
         document.getElementById('chartStatus').innerText = '불러오는 중...';
         
-        try {{
-            let res = await fetch(`https://api.upbit.com/v1/candles/minutes/10?market=${{market}}&count=200`);
+        try {
+            let res = await fetch(`https://api.upbit.com/v1/candles/minutes/10?market=${market}&count=200`);
             let data = await res.json();
             data.reverse();
             
-            let formattedData = data.map(item => {{
+            let formattedData = data.map(item => {
                 let utcTime = new Date(item.timestamp).getTime() / 1000;
-                return {{
+                return {
                     time: utcTime,
                     open: item.opening_price,
                     high: item.high_price,
                     low: item.low_price,
                     close: item.trade_price
-                }};
-            }});
+                };
+            });
 
             candleSeries.setData(formattedData);
             chart.timeScale().fitContent();
             document.getElementById('chartStatus').innerText = '연동 완료';
-        } catch (e) {{
+        } catch (e) {
             console.error(e);
             document.getElementById('chartStatus').innerText = '데이터 로드 실패';
-        }}
-    }}
+        }
+    }
 
-    document.addEventListener("DOMContentLoaded", function() {{
+    document.addEventListener("DOMContentLoaded", function() {
         initChart();
         loadCoinChart('KRW-BTC', '비트코인');
-    }});
+    });
 
-    setTimeout(function() {{
+    setTimeout(function() {
         location.reload();
-    }}, 300000);
+    }, 300000);
     </script>
 </body>
 </html>
