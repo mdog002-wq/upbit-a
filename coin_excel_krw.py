@@ -862,8 +862,9 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     def make_table_html(sector_list, tab_id, is_active=""):
         active_cls = "show active" if is_active else ""
         t_html = f'<div class="tab-pane fade {active_cls}" id="{tab_id}" role="tabpanel">'
-        t_html += '<div class="table-responsive" style="max-height: 520px; overflow-y: auto;">'
-        t_html += '<table class="table table-hover align-middle small search-table text-nowrap">_TABLE_HEADER_<tbody>'
+        # max-height를 제거하거나 내용에 맞게 최적화하여 여백 제거
+        t_html += '<div class="table-responsive" style="max-height: 480px; overflow-y: auto; height: auto;">'
+        t_html += '<table class="table table-hover align-middle small search-table text-nowrap mb-0">_TABLE_HEADER_<tbody>'
         
         sorted_sector = sorted(sector_list, key=lambda x: x['score'], reverse=True)
         if not sorted_sector:
