@@ -766,21 +766,24 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {{ background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }}
-        .card {{ background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }}
-        .table {{ color: #1e293b; }}
-        .badge-recommend {{ background-color: #22c55e; color: white; }}
-        .badge-interest {{ background-color: #3b82f6; color: white; }}
-        .badge-normal {{ background-color: #64748b; color: white; }}
-        .badge-warning {{ background-color: #f97316; color: white; }}
-        .badge-danger {{ background-color: #ef4444; color: white; }}
-        .alert-box {{ max-height: 140px; overflow-y: auto; }}
-        .news-box {{ max-height: 140px; overflow-y: auto; }}
-        .tracking-box {{ max-height: 600px; overflow-y: auto; }}
-        .search-input {{ max-width: 250px; }}
-        @media (max-width: 768px) {{ .table-responsive {{ padding-right: 1px; }} }}
-    </style>
-</head>
+    body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+    .table { color: #1e293b; }
+    .badge-recommend { background-color: #22c55e; color: white; }
+    .badge-interest { background-color: #3b82f6; color: white; }
+    .badge-normal { background-color: #64748b; color: white; }
+    .badge-warning { background-color: #f97316; color: white; }
+    .badge-danger { background-color: #ef4444; color: white; }
+    .alert-box { max-height: 140px; overflow-y: auto; }
+    .news-box { max-height: 140px; overflow-y: auto; }
+    .tracking-box { max-height: 600px; overflow-y: auto; }
+    .search-input { max-width: 250px; }
+    
+    /* [추가] 전체 코인 등급 분류 영역 고정 높이 및 스크롤 부여 */
+    .table-scroll-box { max-height: 550px; overflow-y: auto; overflow-x: auto; }
+
+    @media (max-width: 768px) { .table-responsive { padding-right: 1px; } }
+</style></head>
 <body>
     <div class="container-fluid my-4 px-4" style="max-width: 1700px;">
         <!-- 상단 헤더 영역 -->
@@ -860,27 +863,26 @@ def generate_dashboard_html(df_result, ai_report, gemini_symbols=None, news_data
 """
 
     def make_table_html(sector_list, tab_id, is_active=False):
-        active_cls = "show active" if is_active else ""
-        t_html = f'<div class="tab-pane fade {active_cls}" id="{tab_id}" role="tabpanel">'
-        t_html += '<div class="table-responsive" style="overflow: visible;">'
-        t_html += '<table class="table table-hover align-middle small search-table text-nowrap mb-0">_TABLE_HEADER_<tbody>'
-        
-        sorted_sector = sorted(sector_list, key=lambda x: x['score'], reverse=True)
-        if not sorted_sector:
-            t_html += '<tr><td colspan="5" class="text-center text-muted py-4">해당 등급의 종목이 없습니다.</td></tr>'
-        else:
-            for c in sorted_sector:
-                badge_class = "badge-recommend" if c['grade']=="🟢 추천" else ("badge-interest" if c['grade']=="🔵 관심" else ("badge-normal" if c['grade']=="⚪ 보통" else ("badge-warning" if c['grade']=="🟠 주의" else "badge-danger")))
-                t_html += f"""<tr class="coin-row" data-name="{c['name']}" data-symbol="{c['symbol']}">
-                    <td class="fw-bold">{c['name']} <small class="text-muted">({c['symbol']})</small></td>
-                    <td>{c['price']}원</td>
-                    <td class="text-primary fw-bold">{c['score']}점</td>
-                    <td class="text-danger">{c['dump_risk']}%</td>
-                    <td><span class="badge {badge_class}">{c['grade']}</span></td>
-                </tr>"""
-        t_html += '</tbody></table></div></div>'
-        return t_html.replace('_TABLE_HEADER_', '<thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>등급</th></tr></thead>')
-
+    active_cls = "show active" if is_active else ""
+    t_html = f'<div class="tab-pane fade {active_cls}" id="{tab_id}" role="tabpanel">'
+    t_html += '<div class="table-responsive table-scroll-box">'  # ⬅️ table-scroll-box 클래스 적용
+    t_html += '<table class="table table-hover align-middle small search-table text-nowrap mb-0">_TABLE_HEADER_<tbody>'
+    
+    sorted_sector = sorted(sector_list, key=lambda x: x['score'], reverse=True)
+    if not sorted_sector:
+        t_html += '<tr><td colspan="5" class="text-center text-muted py-4">해당 등급의 종목이 없습니다.</td></tr>'
+    else:
+        for c in sorted_sector:
+            badge_class = "badge-recommend" if c['grade']=="🟢 추천" else ("badge-interest" if c['grade']=="🔵 관심" else ("badge-normal" if c['grade']=="⚪ 보통" else ("badge-warning" if c['grade']=="🟠 주의" else "badge-danger")))
+            t_html += f"""<tr class="coin-row" data-name="{c['name']}" data-symbol="{c['symbol']}">
+                <td class="fw-bold">{c['name']} <small class="text-muted">({c['symbol']})</small></td>
+                <td>{c['price']}원</td>
+                <td class="text-primary fw-bold">{c['score']}점</td>
+                <td class="text-danger">{c['dump_risk']}%</td>
+                <td><span class="badge {badge_class}">{c['grade']}</span></td>
+            </tr>"""
+    t_html += '</tbody></table></div></div>'
+    return t_html.replace('_TABLE_HEADER_', '<thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>덤핑위험</th><th>등급</th></tr></thead>')
     html_content += make_table_html(recommended_sector, "rec", True)
     html_content += make_table_html(interested_sector, "int")
     html_content += make_table_html(normal_sector, "norm")
