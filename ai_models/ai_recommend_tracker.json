@@ -13,7 +13,7 @@
     "symbol": "WAXP",
     "count": 7,
     "entry_price": 5.4,
-    "current_price": 5.36,
+    "current_price": 5.39,
     "first_recommended_at": "2026-08-05 21:12:28",
     "last_recommended_at": "2026-08-05 23:22:11"
   },
@@ -31,18 +31,18 @@
     "symbol": "IOTA",
     "count": 5,
     "entry_price": 48.2,
-    "current_price": 48.1,
+    "current_price": 47.7,
     "first_recommended_at": "2026-08-05 21:32:23",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
   "SUN": {
     "name": "썬",
     "symbol": "SUN",
-    "count": 7,
+    "count": 8,
     "entry_price": 25.5,
     "current_price": 25.6,
     "first_recommended_at": "2026-08-05 21:52:17",
-    "last_recommended_at": "2026-08-05 23:42:17"
+    "last_recommended_at": "2026-08-05 23:52:19"
   },
   "JTO": {
     "name": "지토",
@@ -56,11 +56,11 @@
   "SUPER": {
     "name": "슈퍼버스",
     "symbol": "SUPER",
-    "count": 8,
+    "count": 9,
     "entry_price": 120.0,
     "current_price": 121.0,
     "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 23:42:17"
+    "last_recommended_at": "2026-08-05 23:52:19"
   },
   "SOON": {
     "name": "쑨",
@@ -83,11 +83,11 @@
   "BONK": {
     "name": "봉크",
     "symbol": "BONK",
-    "count": 2,
+    "count": 3,
     "entry_price": 0.00424,
     "current_price": 0.00423,
     "first_recommended_at": "2026-08-05 23:22:11",
-    "last_recommended_at": "2026-08-05 23:32:23"
+    "last_recommended_at": "2026-08-05 23:52:19"
   },
   "MNT": {
     "name": "맨틀",
@@ -101,18 +101,18 @@
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 1,
+    "count": 2,
     "entry_price": 117.0,
-    "current_price": 117.0,
+    "current_price": 119.0,
     "first_recommended_at": "2026-08-05 23:42:17",
-    "last_recommended_at": "2026-08-05 23:42:17"
+    "last_recommended_at": "2026-08-05 23:52:19"
   },
   "PRL": {
     "name": "펄",
     "symbol": "PRL",
     "count": 1,
     "entry_price": 385.0,
-    "current_price": 385.0,
+    "current_price": 387.0,
     "first_recommended_at": "2026-08-05 23:42:17",
     "last_recommended_at": "2026-08-05 23:42:17"
   }
