@@ -22,7 +22,7 @@
     "symbol": "MMT",
     "count": 1,
     "entry_price": 224.0,
-    "current_price": 233.0,
+    "current_price": 236.0,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 16:12:26"
   },
@@ -31,7 +31,7 @@
     "symbol": "SUPER",
     "count": 2,
     "entry_price": 119.0,
-    "current_price": 118.0,
+    "current_price": 119.0,
     "first_recommended_at": "2026-08-05 16:12:26",
     "last_recommended_at": "2026-08-05 16:22:25"
   },
@@ -65,20 +65,20 @@
   "WAL": {
     "name": "월러스",
     "symbol": "WAL",
-    "count": 6,
+    "count": 7,
     "entry_price": 35.4,
     "current_price": 35.4,
     "first_recommended_at": "2026-08-05 16:32:36",
-    "last_recommended_at": "2026-08-05 17:22:27"
+    "last_recommended_at": "2026-08-05 17:32:38"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 5,
+    "count": 6,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-05 16:42:32",
-    "last_recommended_at": "2026-08-05 17:22:27"
+    "last_recommended_at": "2026-08-05 17:32:38"
   },
   "IQ": {
     "name": "아이큐",
@@ -88,15 +88,6 @@
     "current_price": 0.926,
     "first_recommended_at": "2026-08-05 16:42:32",
     "last_recommended_at": "2026-08-05 16:42:32"
-  },
-  "ETH": {
-    "name": "이더리움",
-    "symbol": "ETH",
-    "count": 1,
-    "entry_price": 2692000.0,
-    "current_price": 2682000.0,
-    "first_recommended_at": "2026-08-05 17:02:39",
-    "last_recommended_at": "2026-08-05 17:02:39"
   },
   "SUN": {
     "name": "썬",
@@ -110,11 +101,11 @@
   "ZKP": {
     "name": "지케이패스",
     "symbol": "ZKP",
-    "count": 1,
+    "count": 2,
     "entry_price": 64.8,
     "current_price": 64.8,
     "first_recommended_at": "2026-08-05 17:22:27",
-    "last_recommended_at": "2026-08-05 17:22:27"
+    "last_recommended_at": "2026-08-05 17:32:38"
   },
   "MOVE": {
     "name": "무브먼트",
@@ -124,5 +115,14 @@
     "current_price": 10.8,
     "first_recommended_at": "2026-08-05 17:22:27",
     "last_recommended_at": "2026-08-05 17:22:27"
+  },
+  "1INCH": {
+    "name": "1인치네트워크",
+    "symbol": "1INCH",
+    "count": 1,
+    "entry_price": 118.0,
+    "current_price": 118.0,
+    "first_recommended_at": "2026-08-05 17:32:38",
+    "last_recommended_at": "2026-08-05 17:32:38"
   }
 }
