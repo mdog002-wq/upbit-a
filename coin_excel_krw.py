@@ -472,7 +472,6 @@ def analyze_and_scan_market():
 # [신규 모듈] 5단계 AI 등급 부여 및 Redis 대시보드 연동
 # ==============================================================================
 def calculate_ai_grade(score, dump_risk):
-    # 덤핑 위험도가 일괄적으로 높게 잡히는 현상을 방지하기 위해 기준선을 상향 조정하고 점수 비중을 높임
     if dump_risk >= 85.0:
         return "🔴 경고"
     elif dump_risk >= 70.0 and score < 50.0:
@@ -540,9 +539,101 @@ def update_redis_for_dashboard(df_result, ai_report):
         print(f"❌ [Redis] 데이터 업로드 실패: {e}")
 
 # ==============================================================================
-# [리포트 생성 및 이메일 발송]
+# [Gemini 리포트 생성 및 엑셀/이메일 백업]
 # ==============================================================================
-def generate_dashboard_html(coins_data, recommended_sector, interested_sector, normal_sector, warning_sector, danger_sector, tracking_list, alerts, news_data, ai_report, updated_time):
+def generate_gemini_analysis(df_result):
+    if df_result.empty:
+        return "분석할 종목 데이터가 없습니다.", []
+    
+    top_coins = df_result.head(5)['코인명'].tolist()
+    top_symbols = df_result.head(5)['심볼'].tolist()
+    
+    if not GEMINI_API_KEY:
+        report = f"AI 리포트: 현재 상위 모니터링 종목은 {', '.join(top_coins)} 입니다."
+        return report, top_symbols
+
+    try:
+        client = genai.Client(api_key=GEMINI_API_KEY)
+        prompt = f"다음 코인 퀀트 분석 데이터 상위 10개 종목을 분석하여 핵심 요약 리포트를 작성해줘:\n{df_result.head(10).to_string()}"
+        response = client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
+        ai_report = response.text if response.text else f"상위 모니터링 종목: {', '.join(top_coins)}"
+        return ai_report, top_symbols
+    except Exception as e:
+        print(f"⚠️ Gemini 리포트 생성 실패: {e}")
+        return f"AI 분석 리포트 생성 실패 (상위 종목: {', '.join(top_coins)})", top_symbols
+
+def export_to_excel_and_email(df_result, ai_report):
+    try:
+        df_result.to_excel(EXCEL_FILE_PATH, index=False)
+        print(f"📊 엑셀 리포트 저장 완료: {EXCEL_FILE_PATH}")
+        
+        if SENDER_EMAIL and EMAIL_PASSWORD and RECEIVER_EMAILS:
+            msg = MIMEMultipart()
+            msg['From'] = SENDER_EMAIL
+            msg['To'] = ", ".join(RECEIVER_EMAILS)
+            msg['Subject'] = f"[업비트 AI Quant] 시장 분석 리포트 ({datetime.datetime.now().strftime('%Y-%m-%d %H:%M')})"
+            msg.attach(MIMEText(ai_report, 'plain', 'utf-8'))
+            
+            if os.path.exists(EXCEL_FILE_PATH):
+                with open(EXCEL_FILE_PATH, "rb") as f:
+                    part = MIMEApplication(f.read(), Name=os.path.basename(EXCEL_FILE_PATH))
+                    part['Content-Disposition'] = f'attachment; filename="{os.path.basename(EXCEL_FILE_PATH)}"'
+                    msg.attach(part)
+            
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+                server.login(SENDER_EMAIL, EMAIL_PASSWORD)
+                server.send_message(msg)
+            print("📧 이메일 리포트 발송 완료!")
+    except Exception as e:
+        print(f"❌ 엑셀/이메일 발송 작업 중 오류: {e}")
+
+# ==============================================================================
+# [리포트 생성 및 대시보드 HTML 출력]
+# ==============================================================================
+def generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, html_path="docs/index.html"):
+    os.makedirs(os.path.dirname(html_path), exist_ok=True)
+    
+    coin_grades = []
+    alerts = []
+    tracking_list = []
+    
+    if not df_result.empty:
+        for _, row in df_result.iterrows():
+            score = float(row['종합예측점수'])
+            dump_risk = float(row['STGT_그래프덤핑위험(%)'])
+            grade = calculate_ai_grade(score, dump_risk)
+            
+            badge_class = 'bg-secondary'
+            if grade == "🟢 추천": badge_class = "bg-success"
+            elif grade == "🔵 관심": badge_class = "bg-primary"
+            elif grade == "⚪ 보통": badge_class = "bg-secondary"
+            elif grade == "🟠 주의": badge_class = "bg-warning text-dark"
+            elif grade == "🔴 경고": badge_class = "bg-danger"
+            
+            item = {
+                "name": row['코인명'],
+                "symbol": row['심볼'],
+                "price": row['현재가(KRW)'],
+                "score": score,
+                "dump_risk": dump_risk,
+                "badge_class": badge_class,
+                "grade": grade
+            }
+            coin_grades.append(item)
+            
+            if grade in ["🟠 주의", "🔴 경고"]:
+                alerts.append({"text": f"⚠️ {row['코인명']}({row['심볼']}) - {row['아이스버그역산(고주파)']}"})
+            if grade in ["🟢 추천", "🔵 관심"]:
+                tracking_list.append({"name": row['코인명'], "status": f"점수 {score:.1f}점 / 위험도 {dump_risk:.1f}%"})
+    
+    recommended_sector = [c for c in coin_grades if c['grade'] == "🟢 추천"]
+    interested_sector = [c for c in coin_grades if c['grade'] == "🔵 관심"]
+    normal_sector = [c for c in coin_grades if c['grade'] == "⚪ 보통"]
+    warning_sector = [c for c in coin_grades if c['grade'] == "🟠 주의"]
+    danger_sector = [c for c in coin_grades if c['grade'] == "🔴 경고"]
+    
+    updated_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     # 1. 각 섹션별 테이블 행 생성 헬퍼 함수
     def create_table_rows(sector_coins):
         if not sector_coins:
@@ -600,148 +691,143 @@ def generate_dashboard_html(coins_data, recommended_sector, interested_sector, n
     warn_rows = create_table_rows(warning_sector)
     dang_rows = create_table_rows(danger_sector)
 
-    # 6. HTML 템플릿 정의 (일반 삼중 따옴표 사용으로 CSS, JS 내 중괄호 이스케이프 오류 방지)
-    html_template = """<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upbit AI Quantitative Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }
-        .alert-box { max-height: 140px; overflow-y: auto; }
-        .news-box { max-height: 140px; overflow-y: auto; }
-        .table-scroll-box { max-height: 500px; overflow-y: auto; }
-        .tracking-box { max-height: 600px; overflow-y: auto; }
-    </style>
-</head>
-<body>
-    <div class="container-fluid my-4 px-4" style="max-width: 1700px;">
-        <!-- 상단 헤더 -->
-        <div class="row mb-4 align-items-center">
-            <div class="col-md-3 text-start">
-                <a href="http://140.245.99.254:8000" class="btn btn-primary fw-bold px-3 py-2 shadow-sm">
-                    <i class="fa-solid fa-robot me-1"></i> AI 실시간
-                </a>
-            </div>
-            <div class="col-md-6 text-center">
-                <h2 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>
-                <small class="text-muted">최종 업데이트: __UPDATED_TIME__ (총 __TOTAL_COINS__개 종목 분석 완료)</small>
-            </div>
-            <div class="col-md-3"></div>
-        </div>
+    # 6. HTML 템플릿 생성 (삼중 따옴표 완전 제거 구문)
+    html_template = (
+        '<!DOCTYPE html>\n'
+        '<html lang="ko">\n'
+        '<head>\n'
+        '    <meta charset="UTF-8">\n'
+        '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
+        '    <title>Upbit AI Quantitative Dashboard</title>\n'
+        '    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">\n'
+        '    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">\n'
+        '    <style>\n'
+        '        body { background-color: #f8fafc; color: #1e293b; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; }\n'
+        '        .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }\n'
+        '        .alert-box { max-height: 140px; overflow-y: auto; }\n'
+        '        .news-box { max-height: 140px; overflow-y: auto; }\n'
+        '        .table-scroll-box { max-height: 500px; overflow-y: auto; }\n'
+        '        .tracking-box { max-height: 600px; overflow-y: auto; }\n'
+        '    </style>\n'
+        '</head>\n'
+        '<body>\n'
+        '    <div class="container-fluid my-4 px-4" style="max-width: 1700px;">\n'
+        '        <!-- 상단 헤더 -->\n'
+        '        <div class="row mb-4 align-items-center">\n'
+        '            <div class="col-md-3 text-start">\n'
+        '                <a href="http://140.245.99.254:8000" class="btn btn-primary fw-bold px-3 py-2 shadow-sm">\n'
+        '                    <i class="fa-solid fa-robot me-1"></i> AI 실시간\n'
+        '                </a>\n'
+        '            </div>\n'
+        '            <div class="col-md-6 text-center">\n'
+        '                <h2 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>\n'
+        '                <small class="text-muted">최종 업데이트: __UPDATED_TIME__ (총 __TOTAL_COINS__개 종목 분석 완료)</small>\n'
+        '            </div>\n'
+        '            <div class="col-md-3"></div>\n'
+        '        </div>\n'
+        '        <!-- 3단 레이아웃 메인 -->\n'
+        '        <div class="row g-4">\n'
+        '            <!-- [좌측 컬럼: 너비 3] -->\n'
+        '            <div class="col-lg-3">\n'
+        '                <div class="d-flex flex-column gap-3">\n'
+        '                    <div class="card p-3 shadow-sm">\n'
+        '                        <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>\n'
+        '                        <div class="alert-box d-flex flex-column gap-2">\n'
+        '                            __ALERTS_HTML__\n'
+        '                        </div>\n'
+        '                    </div>\n'
+        '                    <div class="card p-3 shadow-sm">\n'
+        '                        <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보</h6>\n'
+        '                        <div class="news-box d-flex flex-column gap-2">\n'
+        '                            __NEWS_HTML__\n'
+        '                        </div>\n'
+        '                    </div>\n'
+        '                    <div class="card p-3 shadow-sm">\n'
+        '                        <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-robot me-1"></i> AI 분석 리포트</h6>\n'
+        '                        <div class="text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.4; white-space: pre-line;">__AI_REPORT__</div>\n'
+        '                    </div>\n'
+        '                </div>\n'
+        '            </div>\n'
+        '            <!-- [중앙 컬럼: 너비 6] -->\n'
+        '            <div class="col-lg-6">\n'
+        '                <div class="card p-4 shadow-sm">\n'
+        '                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">\n'
+        '                        <h5 class="fw-bold mb-0 text-dark fs-5"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류</h5>\n'
+        '                        <div class="input-group" style="max-width: 220px;">\n'
+        '                            <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>\n'
+        '                            <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명 검색..." onkeyup="filterCoins()">\n'
+        '                        </div>\n'
+        '                    </div>\n'
+        '                    <ul class="nav nav-tabs mb-3 flex-nowrap overflow-auto" id="coinTab" role="tablist" style="white-space: nowrap;">\n'
+        '                        <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button" role="tab">🟢 추천 (__REC_COUNT__)</button></li>\n'
+        '                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button" role="tab">🔵 관심 (__INT_COUNT__)</button></li>\n'
+        '                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button" role="tab">⚪ 보통 (__NORM_COUNT__)</button></li>\n'
+        '                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-warning" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button" role="tab">🟠 주의 (__WARN_COUNT__)</button></li>\n'
+        '                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-danger" id="dang-tab" data-bs-toggle="tab" data-bs-target="#dang" type="button" role="tab">🔴 경고 (__DANG_COUNT__)</button></li>\n'
+        '                    </ul>\n'
+        '                    <div class="tab-content table-scroll-box" id="coinTabContent">\n'
+        '                        <div class="tab-pane fade show active" id="rec" role="tabpanel">\n'
+        '                            <table class="table table-hover align-middle mb-0">\n'
+        '                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        '                                <tbody>__REC_ROWS__</tbody>\n'
+        '                            </table>\n'
+        '                        </div>\n'
+        '                        <div class="tab-pane fade" id="int" role="tabpanel">\n'
+        '                            <table class="table table-hover align-middle mb-0">\n'
+        '                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        '                                <tbody>__INT_ROWS__</tbody>\n'
+        '                            </table>\n'
+        '                        </div>\n'
+        '                        <div class="tab-pane fade" id="norm" role="tabpanel">\n'
+        '                            <table class="table table-hover align-middle mb-0">\n'
+        '                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        '                                <tbody>__NORM_ROWS__</tbody>\n'
+        '                            </table>\n'
+        '                        </div>\n'
+        '                        <div class="tab-pane fade" id="warn" role="tabpanel">\n'
+        '                            <table class="table table-hover align-middle mb-0">\n'
+        '                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        '                                <tbody>__WARN_ROWS__</tbody>\n'
+        '                            </table>\n'
+        '                        </div>\n'
+        '                        <div class="tab-pane fade" id="dang" role="tabpanel">\n'
+        '                            <table class="table table-hover align-middle mb-0">\n'
+        '                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        '                                <tbody>__DANG_ROWS__</tbody>\n'
+        '                            </table>\n'
+        '                        </div>\n'
+        '                    </div>\n'
+        '                </div>\n'
+        '            </div>\n'
+        '            <!-- [우측 컬럼: 너비 3] -->\n'
+        '            <div class="col-lg-3">\n'
+        '                <div class="card p-3 shadow-sm tracking-box">\n'
+        '                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> 실시간 트래킹 모니터</h6>\n'
+        '                    <div class="d-flex flex-column gap-2">\n'
+        '                        __TRACKING_HTML__\n'
+        '                    </div>\n'
+        '                </div>\n'
+        '            </div>\n'
+        '        </div>\n'
+        '    </div>\n'
+        '    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>\n'
+        '    <script>\n'
+        '        function filterCoins() {\n'
+        '            let input = document.getElementById(\'coinSearchInput\').value.toLowerCase();\n'
+        '            let rows = document.querySelectorAll(\'.tab-pane.active tbody tr\');\n'
+        '            rows.forEach(row => {\n'
+        '                let name = row.cells[0]?.innerText.toLowerCase() || \'\';\n'
+        '                row.style.display = name.includes(input) ? \'\' : \'none\';\n'
+        '            });\n'
+        '        }\n'
+        '    </script>\n'
+        '</body>\n'
+        '</html>'
+    )
 
-        <!-- 3단 레이아웃 메인 -->
-        <div class="row g-4">
-            <!-- [좌측 컬럼: 너비 3] -->
-            <div class="col-lg-3">
-                <div class="d-flex flex-column gap-3">
-                    <div class="card p-3 shadow-sm">
-                        <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>
-                        <div class="alert-box d-flex flex-column gap-2">
-                            __ALERTS_HTML__
-                        </div>
-                    </div>
-
-                    <div class="card p-3 shadow-sm">
-                        <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보</h6>
-                        <div class="news-box d-flex flex-column gap-2">
-                            __NEWS_HTML__
-                        </div>
-                    </div>
-
-                    <div class="card p-3 shadow-sm">
-                        <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-robot me-1"></i> AI 분석 리포트</h6>
-                        <div class="text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.4; white-space: pre-line;">__AI_REPORT__</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- [중앙 컬럼: 너비 6] -->
-            <div class="col-lg-6">
-                <div class="card p-4 shadow-sm">
-                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                        <h5 class="fw-bold mb-0 text-dark fs-5"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류</h5>
-                        <div class="input-group" style="max-width: 220px;">
-                            <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>
-                            <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명 검색..." onkeyup="filterCoins()">
-                        </div>
-                    </div>
-
-                    <ul class="nav nav-tabs mb-3 flex-nowrap overflow-auto" id="coinTab" role="tablist" style="white-space: nowrap;">
-                        <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button" role="tab">🟢 추천 (__REC_COUNT__)</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button" role="tab">🔵 관심 (__INT_COUNT__)</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button" role="tab">⚪ 보통 (__NORM_COUNT__)</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-warning" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button" role="tab">🟠 주의 (__WARN_COUNT__)</button></li>
-                        <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-danger" id="dang-tab" data-bs-toggle="tab" data-bs-target="#dang" type="button" role="tab">🔴 경고 (__DANG_COUNT__)</button></li>
-                    </ul>
-
-                    <div class="tab-content table-scroll-box" id="coinTabContent">
-                        <div class="tab-pane fade show active" id="rec" role="tabpanel">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>__REC_ROWS__</tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="int" role="tabpanel">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>__INT_ROWS__</tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="norm" role="tabpanel">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>__NORM_ROWS__</tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="warn" role="tabpanel">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>__WARN_ROWS__</tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="dang" role="tabpanel">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
-                                <tbody>__DANG_ROWS__</tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- [우측 컬럼: 너비 3] -->
-            <div class="col-lg-3">
-                <div class="card p-3 shadow-sm tracking-box">
-                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> 실시간 트래킹 모니터</h6>
-                    <div class="d-flex flex-column gap-2">
-                        __TRACKING_HTML__
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function filterCoins() {
-            let input = document.getElementById('coinSearchInput').value.toLowerCase();
-            let rows = document.querySelectorAll('.tab-pane.active tbody tr');
-            rows.forEach(row => {
-                let name = row.cells[0]?.innerText.toLowerCase() || '';
-                row.style.display = name.includes(input) ? '' : 'none';
-            });
-        }
-    </script>
-</body>
-</html>"""
-
-    # 7. 안전한 치환 작업으로 최종 HTML 생성
+    # 7. 치환 작업 수행 후 저장
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
-                                .replace("__TOTAL_COINS__", str(len(coins_data)))\
+                                .replace("__TOTAL_COINS__", str(len(coin_grades)))\
                                 .replace("__ALERTS_HTML__", alerts_html)\
                                 .replace("__NEWS_HTML__", news_html)\
                                 .replace("__AI_REPORT__", str(ai_report))\
@@ -757,13 +843,10 @@ def generate_dashboard_html(coins_data, recommended_sector, interested_sector, n
                                 .replace("__DANG_ROWS__", dang_rows)\
                                 .replace("__TRACKING_HTML__", tracking_html)
 
-    return html_content
-    """
-
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("🎨 [대시보드] 차트 기능 완전 제거 및 3단 레이아웃(중앙 등급 분류 상단 배치) HTML 생성 완료 (`docs/index.html`)!")
-
+    print(f"🎨 [대시보드] HTML 생성 완료 (`{html_path}`)!")
+    return html_content
 
 # ==============================================================================
 # [메인 실행부]
@@ -801,13 +884,13 @@ if __name__ == "__main__":
         # 6. Redis 연동 (전체 종목 페이로드 반영)
         update_redis_for_dashboard(df_result, ai_report)
 
-        # 7. 대시보드 HTML 파일 생성 (3단 구조 및 차트 완전 제거 후 코인 등급 분류 상단 배치)
-        generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data)
+        # 7. 대시보드 HTML 파일 생성
+        generate_dashboard_html(df_result, ai_report, gemini_symbols, news_data, html_path="docs/index.html")
 
         # 8. 오라클 서버로 HTML 대시보드 전송
         upload_html_to_oracle_server("docs/index.html")
 
-        # 9. 엑셀 저장 및 이메일 발송
+        # 9. 엑셀 저장 및 이메일 발송 (지정 시간에만 발송)
         kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         current_hour = kst_now.hour
         target_hours = [9, 13, 17, 21] 
