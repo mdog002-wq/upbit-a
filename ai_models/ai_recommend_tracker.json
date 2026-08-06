@@ -2,11 +2,11 @@
   "MASK": {
     "name": "마스크네트워크",
     "symbol": "MASK",
-    "count": 4,
+    "count": 5,
     "entry_price": 510.0,
     "current_price": 511.0,
     "first_recommended_at": "2026-08-06 23:37:52",
-    "last_recommended_at": "2026-08-06 23:51:14"
+    "last_recommended_at": "2026-08-06 23:58:22"
   },
   "USDC": {
     "name": "유에스디코인",
@@ -38,11 +38,11 @@
   "ORBS": {
     "name": "오브스",
     "symbol": "ORBS",
-    "count": 4,
+    "count": 5,
     "entry_price": 7.76,
     "current_price": 7.76,
     "first_recommended_at": "2026-08-06 23:44:29",
-    "last_recommended_at": "2026-08-06 23:54:41"
+    "last_recommended_at": "2026-08-06 23:58:22"
   },
   "JST": {
     "name": "저스트",
@@ -58,7 +58,7 @@
     "symbol": "LA",
     "count": 2,
     "entry_price": 67.6,
-    "current_price": 67.3,
+    "current_price": 67.2,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:47:57"
   },
@@ -67,7 +67,7 @@
     "symbol": "IRYS",
     "count": 1,
     "entry_price": 22.4,
-    "current_price": 22.5,
+    "current_price": 22.4,
     "first_recommended_at": "2026-08-06 23:47:57",
     "last_recommended_at": "2026-08-06 23:47:57"
   },
@@ -83,19 +83,19 @@
   "USD1": {
     "name": "월드리버티파이낸셜유에스디",
     "symbol": "USD1",
-    "count": 1,
+    "count": 2,
     "entry_price": 1422.0,
     "current_price": 1422.0,
     "first_recommended_at": "2026-08-06 23:54:41",
-    "last_recommended_at": "2026-08-06 23:54:41"
+    "last_recommended_at": "2026-08-06 23:58:22"
   },
   "AI": {
     "name": "젠신",
     "symbol": "AI",
-    "count": 1,
+    "count": 2,
     "entry_price": 31.5,
     "current_price": 31.5,
     "first_recommended_at": "2026-08-06 23:54:41",
-    "last_recommended_at": "2026-08-06 23:54:41"
+    "last_recommended_at": "2026-08-06 23:58:22"
   }
 }
