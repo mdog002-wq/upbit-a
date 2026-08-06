@@ -4,7 +4,7 @@
     "symbol": "CELO",
     "count": 1,
     "entry_price": 85.6,
-    "current_price": 85.8,
+    "current_price": 86.0,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
   },
@@ -22,7 +22,7 @@
     "symbol": "PIEVERSE",
     "count": 1,
     "entry_price": 1168.0,
-    "current_price": 1158.0,
+    "current_price": 1138.0,
     "first_recommended_at": "2026-08-06 02:32:30",
     "last_recommended_at": "2026-08-06 02:32:30"
   },
@@ -31,25 +31,25 @@
     "symbol": "AWE",
     "count": 1,
     "entry_price": 80.7,
-    "current_price": 79.9,
+    "current_price": 80.1,
     "first_recommended_at": "2026-08-06 02:42:20",
     "last_recommended_at": "2026-08-06 02:42:20"
   },
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 7,
+    "count": 8,
     "entry_price": 1.17,
     "current_price": 1.18,
     "first_recommended_at": "2026-08-06 03:02:35",
-    "last_recommended_at": "2026-08-06 04:59:14"
+    "last_recommended_at": "2026-08-06 05:12:23"
   },
   "ORDER": {
     "name": "오덜리",
     "symbol": "ORDER",
     "count": 5,
     "entry_price": 39.4,
-    "current_price": 39.5,
+    "current_price": 39.7,
     "first_recommended_at": "2026-08-06 03:02:35",
     "last_recommended_at": "2026-08-06 04:12:16"
   },
@@ -58,7 +58,7 @@
     "symbol": "NEWT",
     "count": 2,
     "entry_price": 55.4,
-    "current_price": 55.8,
+    "current_price": 56.0,
     "first_recommended_at": "2026-08-06 03:12:21",
     "last_recommended_at": "2026-08-06 03:22:24"
   },
@@ -67,7 +67,7 @@
     "symbol": "WLFI",
     "count": 1,
     "entry_price": 75.8,
-    "current_price": 75.7,
+    "current_price": 75.9,
     "first_recommended_at": "2026-08-06 03:12:21",
     "last_recommended_at": "2026-08-06 03:12:21"
   },
@@ -76,7 +76,7 @@
     "symbol": "MANTRA",
     "count": 3,
     "entry_price": 7.72,
-    "current_price": 7.9,
+    "current_price": 7.8,
     "first_recommended_at": "2026-08-06 03:22:24",
     "last_recommended_at": "2026-08-06 03:52:21"
   },
@@ -92,47 +92,38 @@
   "SUN": {
     "name": "썬",
     "symbol": "SUN",
-    "count": 5,
+    "count": 6,
     "entry_price": 25.6,
     "current_price": 25.6,
     "first_recommended_at": "2026-08-06 03:32:35",
-    "last_recommended_at": "2026-08-06 04:59:14"
+    "last_recommended_at": "2026-08-06 05:12:23"
   },
   "ARK": {
     "name": "아크",
     "symbol": "ARK",
     "count": 3,
     "entry_price": 132.0,
-    "current_price": 133.0,
+    "current_price": 134.0,
     "first_recommended_at": "2026-08-06 03:32:35",
     "last_recommended_at": "2026-08-06 04:02:32"
-  },
-  "ESP": {
-    "name": "에스프레소",
-    "symbol": "ESP",
-    "count": 1,
-    "entry_price": 87.5,
-    "current_price": 85.6,
-    "first_recommended_at": "2026-08-06 03:52:21",
-    "last_recommended_at": "2026-08-06 03:52:21"
   },
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
     "count": 2,
     "entry_price": 31.0,
-    "current_price": 31.0,
+    "current_price": 31.1,
     "first_recommended_at": "2026-08-06 03:52:21",
     "last_recommended_at": "2026-08-06 04:02:32"
   },
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 5,
+    "count": 6,
     "entry_price": 123.0,
     "current_price": 123.0,
     "first_recommended_at": "2026-08-06 04:12:16",
-    "last_recommended_at": "2026-08-06 04:59:14"
+    "last_recommended_at": "2026-08-06 05:12:23"
   },
   "TAIKO": {
     "name": "타이코",
@@ -157,7 +148,7 @@
     "symbol": "OP",
     "count": 3,
     "entry_price": 125.0,
-    "current_price": 124.0,
+    "current_price": 125.0,
     "first_recommended_at": "2026-08-06 04:22:21",
     "last_recommended_at": "2026-08-06 04:42:17"
   },
@@ -169,5 +160,14 @@
     "current_price": 1.78,
     "first_recommended_at": "2026-08-06 04:59:14",
     "last_recommended_at": "2026-08-06 04:59:14"
+  },
+  "SAFE": {
+    "name": "세이프",
+    "symbol": "SAFE",
+    "count": 1,
+    "entry_price": 123.0,
+    "current_price": 123.0,
+    "first_recommended_at": "2026-08-06 05:12:23",
+    "last_recommended_at": "2026-08-06 05:12:23"
   }
 }
