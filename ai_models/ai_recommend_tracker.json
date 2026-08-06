@@ -8,15 +8,6 @@
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
   },
-  "CPOOL": {
-    "name": "클리어풀",
-    "symbol": "CPOOL",
-    "count": 1,
-    "entry_price": 25.8,
-    "current_price": 25.8,
-    "first_recommended_at": "2026-08-06 02:32:30",
-    "last_recommended_at": "2026-08-06 02:32:30"
-  },
   "JST": {
     "name": "저스트",
     "symbol": "JST",
@@ -31,7 +22,7 @@
     "symbol": "PIEVERSE",
     "count": 1,
     "entry_price": 1168.0,
-    "current_price": 1161.0,
+    "current_price": 1153.0,
     "first_recommended_at": "2026-08-06 02:32:30",
     "last_recommended_at": "2026-08-06 02:32:30"
   },
@@ -47,11 +38,11 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 4,
+    "count": 5,
     "entry_price": 1.17,
     "current_price": 1.17,
     "first_recommended_at": "2026-08-06 03:02:35",
-    "last_recommended_at": "2026-08-06 04:22:21"
+    "last_recommended_at": "2026-08-06 04:32:33"
   },
   "ORDER": {
     "name": "오덜리",
@@ -76,7 +67,7 @@
     "symbol": "WLFI",
     "count": 1,
     "entry_price": 75.8,
-    "current_price": 75.8,
+    "current_price": 75.7,
     "first_recommended_at": "2026-08-06 03:12:21",
     "last_recommended_at": "2026-08-06 03:12:21"
   },
@@ -85,18 +76,9 @@
     "symbol": "MANTRA",
     "count": 3,
     "entry_price": 7.72,
-    "current_price": 7.77,
+    "current_price": 7.71,
     "first_recommended_at": "2026-08-06 03:22:24",
     "last_recommended_at": "2026-08-06 03:52:21"
-  },
-  "KAITO": {
-    "name": "카이토",
-    "symbol": "KAITO",
-    "count": 1,
-    "entry_price": 1345.0,
-    "current_price": 1314.0,
-    "first_recommended_at": "2026-08-06 03:22:24",
-    "last_recommended_at": "2026-08-06 03:22:24"
   },
   "BABY": {
     "name": "바빌론",
@@ -130,7 +112,7 @@
     "symbol": "ESP",
     "count": 1,
     "entry_price": 87.5,
-    "current_price": 86.6,
+    "current_price": 86.0,
     "first_recommended_at": "2026-08-06 03:52:21",
     "last_recommended_at": "2026-08-06 03:52:21"
   },
@@ -139,44 +121,44 @@
     "symbol": "ICX",
     "count": 2,
     "entry_price": 31.0,
-    "current_price": 30.9,
+    "current_price": 31.0,
     "first_recommended_at": "2026-08-06 03:52:21",
     "last_recommended_at": "2026-08-06 04:02:32"
   },
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 2,
+    "count": 3,
     "entry_price": 123.0,
     "current_price": 123.0,
     "first_recommended_at": "2026-08-06 04:12:16",
-    "last_recommended_at": "2026-08-06 04:22:21"
+    "last_recommended_at": "2026-08-06 04:32:33"
   },
   "TAIKO": {
     "name": "타이코",
     "symbol": "TAIKO",
     "count": 1,
     "entry_price": 102.0,
-    "current_price": 102.0,
+    "current_price": 103.0,
     "first_recommended_at": "2026-08-06 04:12:16",
     "last_recommended_at": "2026-08-06 04:12:16"
   },
   "PROS": {
     "name": "파로스",
     "symbol": "PROS",
-    "count": 1,
+    "count": 2,
     "entry_price": 560.0,
-    "current_price": 560.0,
+    "current_price": 563.0,
     "first_recommended_at": "2026-08-06 04:22:21",
-    "last_recommended_at": "2026-08-06 04:22:21"
+    "last_recommended_at": "2026-08-06 04:32:33"
   },
   "OP": {
     "name": "옵티미즘",
     "symbol": "OP",
-    "count": 1,
+    "count": 2,
     "entry_price": 125.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-06 04:22:21",
-    "last_recommended_at": "2026-08-06 04:22:21"
+    "last_recommended_at": "2026-08-06 04:32:33"
   }
 }
