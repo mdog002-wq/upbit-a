@@ -1,38 +1,38 @@
 {
-  "LPT": {
-    "name": "라이브피어",
-    "symbol": "LPT",
-    "count": 1,
-    "entry_price": 1825.0,
-    "current_price": 1825.0,
-    "first_recommended_at": "2026-08-06 07:22:40",
-    "last_recommended_at": "2026-08-06 07:22:40"
-  },
-  "SUN": {
-    "name": "썬",
-    "symbol": "SUN",
-    "count": 1,
-    "entry_price": 25.6,
-    "current_price": 25.6,
-    "first_recommended_at": "2026-08-06 07:22:40",
-    "last_recommended_at": "2026-08-06 07:22:40"
-  },
-  "RED": {
-    "name": "레드스톤",
-    "symbol": "RED",
-    "count": 1,
-    "entry_price": 126.0,
-    "current_price": 126.0,
-    "first_recommended_at": "2026-08-06 07:22:40",
-    "last_recommended_at": "2026-08-06 07:22:40"
-  },
   "SAFE": {
     "name": "세이프",
     "symbol": "SAFE",
-    "count": 1,
+    "count": 2,
     "entry_price": 124.0,
-    "current_price": 124.0,
+    "current_price": 125.0,
     "first_recommended_at": "2026-08-06 07:22:40",
-    "last_recommended_at": "2026-08-06 07:22:40"
+    "last_recommended_at": "2026-08-06 07:32:28"
+  },
+  "AGLD": {
+    "name": "어드벤처골드",
+    "symbol": "AGLD",
+    "count": 1,
+    "entry_price": 217.0,
+    "current_price": 217.0,
+    "first_recommended_at": "2026-08-06 07:32:28",
+    "last_recommended_at": "2026-08-06 07:32:28"
+  },
+  "SENT": {
+    "name": "센티언트",
+    "symbol": "SENT",
+    "count": 1,
+    "entry_price": 19.4,
+    "current_price": 19.4,
+    "first_recommended_at": "2026-08-06 07:32:28",
+    "last_recommended_at": "2026-08-06 07:32:28"
+  },
+  "ANKR": {
+    "name": "앵커",
+    "symbol": "ANKR",
+    "count": 1,
+    "entry_price": 4.98,
+    "current_price": 4.98,
+    "first_recommended_at": "2026-08-06 07:32:28",
+    "last_recommended_at": "2026-08-06 07:32:28"
   }
 }
