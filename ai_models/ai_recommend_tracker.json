@@ -2,18 +2,18 @@
   "SAFE": {
     "name": "세이프",
     "symbol": "SAFE",
-    "count": 4,
+    "count": 5,
     "entry_price": 124.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-06 07:22:40",
-    "last_recommended_at": "2026-08-06 07:52:25"
+    "last_recommended_at": "2026-08-06 12:37:00"
   },
   "AGLD": {
     "name": "어드벤처골드",
     "symbol": "AGLD",
     "count": 1,
     "entry_price": 217.0,
-    "current_price": 215.0,
+    "current_price": 219.0,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 07:32:28"
   },
@@ -31,34 +31,16 @@
     "symbol": "ANKR",
     "count": 1,
     "entry_price": 4.98,
-    "current_price": 4.97,
+    "current_price": 4.92,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 07:32:28"
-  },
-  "SUN": {
-    "name": "썬",
-    "symbol": "SUN",
-    "count": 1,
-    "entry_price": 25.6,
-    "current_price": 25.6,
-    "first_recommended_at": "2026-08-06 07:42:25",
-    "last_recommended_at": "2026-08-06 07:42:25"
-  },
-  "OP": {
-    "name": "옵티미즘",
-    "symbol": "OP",
-    "count": 2,
-    "entry_price": 125.0,
-    "current_price": 125.0,
-    "first_recommended_at": "2026-08-06 07:42:25",
-    "last_recommended_at": "2026-08-06 07:52:25"
   },
   "LPT": {
     "name": "라이브피어",
     "symbol": "LPT",
     "count": 1,
     "entry_price": 1827.0,
-    "current_price": 1824.0,
+    "current_price": 1801.0,
     "first_recommended_at": "2026-08-06 07:42:25",
     "last_recommended_at": "2026-08-06 07:42:25"
   },
@@ -76,8 +58,44 @@
     "symbol": "SKY",
     "count": 1,
     "entry_price": 80.4,
-    "current_price": 80.4,
+    "current_price": 80.0,
     "first_recommended_at": "2026-08-06 07:52:25",
     "last_recommended_at": "2026-08-06 07:52:25"
+  },
+  "LA": {
+    "name": "라그랑주",
+    "symbol": "LA",
+    "count": 1,
+    "entry_price": 65.6,
+    "current_price": 65.6,
+    "first_recommended_at": "2026-08-06 12:37:00",
+    "last_recommended_at": "2026-08-06 12:37:00"
+  },
+  "OPG": {
+    "name": "오픈그라디언트",
+    "symbol": "OPG",
+    "count": 1,
+    "entry_price": 133.0,
+    "current_price": 133.0,
+    "first_recommended_at": "2026-08-06 12:37:00",
+    "last_recommended_at": "2026-08-06 12:37:00"
+  },
+  "API3": {
+    "name": "에이피아이쓰리",
+    "symbol": "API3",
+    "count": 1,
+    "entry_price": 269.0,
+    "current_price": 269.0,
+    "first_recommended_at": "2026-08-06 12:37:00",
+    "last_recommended_at": "2026-08-06 12:37:00"
+  },
+  "IOST": {
+    "name": "아이오에스티",
+    "symbol": "IOST",
+    "count": 1,
+    "entry_price": 0.864,
+    "current_price": 0.864,
+    "first_recommended_at": "2026-08-06 12:37:00",
+    "last_recommended_at": "2026-08-06 12:37:00"
   }
 }
