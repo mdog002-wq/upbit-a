@@ -40,18 +40,18 @@
     "symbol": "BABY",
     "count": 4,
     "entry_price": 15.4,
-    "current_price": 15.8,
+    "current_price": 15.7,
     "first_recommended_at": "2026-08-06 07:52:25",
     "last_recommended_at": "2026-08-06 14:42:28"
   },
   "SKY": {
     "name": "스카이프로토콜",
     "symbol": "SKY",
-    "count": 3,
+    "count": 4,
     "entry_price": 80.4,
     "current_price": 80.4,
     "first_recommended_at": "2026-08-06 07:52:25",
-    "last_recommended_at": "2026-08-06 14:42:28"
+    "last_recommended_at": "2026-08-06 14:52:33"
   },
   "LA": {
     "name": "라그랑주",
@@ -67,7 +67,7 @@
     "symbol": "OPG",
     "count": 1,
     "entry_price": 133.0,
-    "current_price": 133.0,
+    "current_price": 134.0,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:37:00"
   },
@@ -94,7 +94,7 @@
     "symbol": "ZKC",
     "count": 4,
     "entry_price": 54.1,
-    "current_price": 55.6,
+    "current_price": 55.2,
     "first_recommended_at": "2026-08-06 12:42:20",
     "last_recommended_at": "2026-08-06 13:52:22"
   },
@@ -103,7 +103,7 @@
     "symbol": "PRL",
     "count": 1,
     "entry_price": 395.0,
-    "current_price": 394.0,
+    "current_price": 392.0,
     "first_recommended_at": "2026-08-06 12:42:20",
     "last_recommended_at": "2026-08-06 12:42:20"
   },
@@ -112,18 +112,18 @@
     "symbol": "ERA",
     "count": 5,
     "entry_price": 97.2,
-    "current_price": 99.5,
+    "current_price": 99.3,
     "first_recommended_at": "2026-08-06 13:02:42",
     "last_recommended_at": "2026-08-06 14:42:28"
   },
   "WAL": {
     "name": "월러스",
     "symbol": "WAL",
-    "count": 3,
+    "count": 4,
     "entry_price": 36.0,
-    "current_price": 36.1,
+    "current_price": 36.3,
     "first_recommended_at": "2026-08-06 13:02:42",
-    "last_recommended_at": "2026-08-06 14:32:32"
+    "last_recommended_at": "2026-08-06 14:52:33"
   },
   "KERNEL": {
     "name": "커널다오",
@@ -155,11 +155,11 @@
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 1,
+    "count": 2,
     "entry_price": 127.0,
-    "current_price": 126.0,
+    "current_price": 127.0,
     "first_recommended_at": "2026-08-06 13:52:22",
-    "last_recommended_at": "2026-08-06 13:52:22"
+    "last_recommended_at": "2026-08-06 14:52:33"
   },
   "LAYER": {
     "name": "솔레이어",
@@ -175,7 +175,7 @@
     "symbol": "HYPER",
     "count": 1,
     "entry_price": 89.3,
-    "current_price": 87.6,
+    "current_price": 88.2,
     "first_recommended_at": "2026-08-06 14:12:28",
     "last_recommended_at": "2026-08-06 14:12:28"
   },
@@ -193,8 +193,17 @@
     "symbol": "ESP",
     "count": 1,
     "entry_price": 88.1,
-    "current_price": 88.1,
+    "current_price": 87.5,
     "first_recommended_at": "2026-08-06 14:42:28",
     "last_recommended_at": "2026-08-06 14:42:28"
+  },
+  "XTZ": {
+    "name": "테조스",
+    "symbol": "XTZ",
+    "count": 1,
+    "entry_price": 286.0,
+    "current_price": 286.0,
+    "first_recommended_at": "2026-08-06 14:52:33",
+    "last_recommended_at": "2026-08-06 14:52:33"
   }
 }
