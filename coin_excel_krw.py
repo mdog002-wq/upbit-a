@@ -1154,10 +1154,7 @@ if __name__ == "__main__":
         # 8. 대시보드 HTML 파일 생성 (Gemini 3.1 Flash-Lite 연동 & AI 추천종목 모니터 반영)
         generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
 
-        # 9. 오라클 서버로 HTML 대시보드 전송
-        upload_html_to_oracle_server("docs/index.html")
-
-        # 10. 엑셀 저장 및 이메일 발송
+        # 9. 엑셀 저장 및 이메일 발송
         kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         current_hour = kst_now.hour
         target_hours = [9, 13, 17, 21] 
