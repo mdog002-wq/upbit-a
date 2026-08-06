@@ -13,7 +13,7 @@
     "symbol": "KITE",
     "count": 1,
     "entry_price": 150.0,
-    "current_price": 147.0,
+    "current_price": 149.0,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
   },
@@ -31,7 +31,7 @@
     "symbol": "CPOOL",
     "count": 1,
     "entry_price": 25.8,
-    "current_price": 25.6,
+    "current_price": 25.7,
     "first_recommended_at": "2026-08-06 02:32:30",
     "last_recommended_at": "2026-08-06 02:32:30"
   },
@@ -49,7 +49,7 @@
     "symbol": "PIEVERSE",
     "count": 1,
     "entry_price": 1168.0,
-    "current_price": 1174.0,
+    "current_price": 1172.0,
     "first_recommended_at": "2026-08-06 02:32:30",
     "last_recommended_at": "2026-08-06 02:32:30"
   },
@@ -58,7 +58,7 @@
     "symbol": "CVC",
     "count": 2,
     "entry_price": 25.2,
-    "current_price": 25.2,
+    "current_price": 25.0,
     "first_recommended_at": "2026-08-06 02:42:20",
     "last_recommended_at": "2026-08-06 02:52:29"
   },
@@ -74,36 +74,36 @@
   "POL": {
     "name": "폴리곤에코시스템토큰",
     "symbol": "POL",
-    "count": 2,
+    "count": 3,
     "entry_price": 107.0,
     "current_price": 107.0,
     "first_recommended_at": "2026-08-06 02:52:29",
-    "last_recommended_at": "2026-08-06 03:02:35"
+    "last_recommended_at": "2026-08-06 03:12:21"
   },
   "VANA": {
     "name": "바나",
     "symbol": "VANA",
     "count": 1,
     "entry_price": 1203.0,
-    "current_price": 1209.0,
+    "current_price": 1203.0,
     "first_recommended_at": "2026-08-06 02:52:29",
     "last_recommended_at": "2026-08-06 02:52:29"
   },
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 1,
+    "count": 2,
     "entry_price": 1.17,
     "current_price": 1.17,
     "first_recommended_at": "2026-08-06 03:02:35",
-    "last_recommended_at": "2026-08-06 03:02:35"
+    "last_recommended_at": "2026-08-06 03:12:21"
   },
   "ORDER": {
     "name": "오덜리",
     "symbol": "ORDER",
     "count": 1,
     "entry_price": 39.4,
-    "current_price": 39.4,
+    "current_price": 39.1,
     "first_recommended_at": "2026-08-06 03:02:35",
     "last_recommended_at": "2026-08-06 03:02:35"
   },
@@ -112,8 +112,26 @@
     "symbol": "IN",
     "count": 1,
     "entry_price": 46.3,
-    "current_price": 46.3,
+    "current_price": 46.0,
     "first_recommended_at": "2026-08-06 03:02:35",
     "last_recommended_at": "2026-08-06 03:02:35"
+  },
+  "NEWT": {
+    "name": "뉴턴프로토콜",
+    "symbol": "NEWT",
+    "count": 1,
+    "entry_price": 55.4,
+    "current_price": 55.4,
+    "first_recommended_at": "2026-08-06 03:12:21",
+    "last_recommended_at": "2026-08-06 03:12:21"
+  },
+  "WLFI": {
+    "name": "월드리버티파이낸셜",
+    "symbol": "WLFI",
+    "count": 1,
+    "entry_price": 75.8,
+    "current_price": 75.8,
+    "first_recommended_at": "2026-08-06 03:12:21",
+    "last_recommended_at": "2026-08-06 03:12:21"
   }
 }
