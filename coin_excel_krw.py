@@ -877,7 +877,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     warn_rows = create_table_rows(warning_sector)
     dang_rows = create_table_rows(danger_sector)
 
-    # 6. HTML 템플릿 생성 (문자열 구분 기호 오류 수정 완료)
+    # 6. HTML 템플릿 생성 (파이썬 멀티라인 문법 완벽 수정)
     html_template = (
         '<!DOCTYPE html>\n'
         '<html lang="ko">\n'
