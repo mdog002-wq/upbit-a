@@ -1,1 +1,38 @@
-{}
+{
+  "ORBS": {
+    "name": "오브스",
+    "symbol": "ORBS",
+    "count": 1,
+    "entry_price": 7.76,
+    "current_price": 7.76,
+    "first_recommended_at": "2026-08-06 23:37:52",
+    "last_recommended_at": "2026-08-06 23:37:52"
+  },
+  "JST": {
+    "name": "저스트",
+    "symbol": "JST",
+    "count": 1,
+    "entry_price": 150.0,
+    "current_price": 150.0,
+    "first_recommended_at": "2026-08-06 23:37:52",
+    "last_recommended_at": "2026-08-06 23:37:52"
+  },
+  "IRYS": {
+    "name": "아이리스",
+    "symbol": "IRYS",
+    "count": 1,
+    "entry_price": 22.5,
+    "current_price": 22.5,
+    "first_recommended_at": "2026-08-06 23:37:52",
+    "last_recommended_at": "2026-08-06 23:37:52"
+  },
+  "MASK": {
+    "name": "마스크네트워크",
+    "symbol": "MASK",
+    "count": 1,
+    "entry_price": 510.0,
+    "current_price": 510.0,
+    "first_recommended_at": "2026-08-06 23:37:52",
+    "last_recommended_at": "2026-08-06 23:37:52"
+  }
+}
