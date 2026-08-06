@@ -4,7 +4,7 @@
     "symbol": "SAFE",
     "count": 9,
     "entry_price": 124.0,
-    "current_price": 125.0,
+    "current_price": 124.0,
     "first_recommended_at": "2026-08-06 07:22:40",
     "last_recommended_at": "2026-08-06 13:22:31"
   },
@@ -13,7 +13,7 @@
     "symbol": "AGLD",
     "count": 3,
     "entry_price": 217.0,
-    "current_price": 220.0,
+    "current_price": 219.0,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 13:22:31"
   },
@@ -38,11 +38,11 @@
   "BABY": {
     "name": "바빌론",
     "symbol": "BABY",
-    "count": 2,
+    "count": 3,
     "entry_price": 15.4,
-    "current_price": 15.6,
+    "current_price": 15.5,
     "first_recommended_at": "2026-08-06 07:52:25",
-    "last_recommended_at": "2026-08-06 13:22:31"
+    "last_recommended_at": "2026-08-06 13:32:31"
   },
   "SKY": {
     "name": "스카이프로토콜",
@@ -67,7 +67,7 @@
     "symbol": "OPG",
     "count": 1,
     "entry_price": 133.0,
-    "current_price": 132.0,
+    "current_price": 133.0,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:37:00"
   },
@@ -94,7 +94,7 @@
     "symbol": "ZKC",
     "count": 3,
     "entry_price": 54.1,
-    "current_price": 54.2,
+    "current_price": 54.6,
     "first_recommended_at": "2026-08-06 12:42:20",
     "last_recommended_at": "2026-08-06 13:02:42"
   },
@@ -103,27 +103,27 @@
     "symbol": "PRL",
     "count": 1,
     "entry_price": 395.0,
-    "current_price": 394.0,
+    "current_price": 393.0,
     "first_recommended_at": "2026-08-06 12:42:20",
     "last_recommended_at": "2026-08-06 12:42:20"
   },
   "USDE": {
     "name": "유에스디이",
     "symbol": "USDE",
-    "count": 4,
+    "count": 5,
     "entry_price": 1424.0,
     "current_price": 1424.0,
     "first_recommended_at": "2026-08-06 12:48:17",
-    "last_recommended_at": "2026-08-06 13:22:31"
+    "last_recommended_at": "2026-08-06 13:32:31"
   },
   "ERA": {
     "name": "칼데라",
     "symbol": "ERA",
-    "count": 2,
+    "count": 3,
     "entry_price": 97.2,
-    "current_price": 97.0,
+    "current_price": 96.8,
     "first_recommended_at": "2026-08-06 13:02:42",
-    "last_recommended_at": "2026-08-06 13:12:09"
+    "last_recommended_at": "2026-08-06 13:32:31"
   },
   "WAL": {
     "name": "월러스",
@@ -137,10 +137,19 @@
   "KERNEL": {
     "name": "커널다오",
     "symbol": "KERNEL",
-    "count": 2,
+    "count": 3,
     "entry_price": 46.0,
-    "current_price": 46.0,
+    "current_price": 45.9,
     "first_recommended_at": "2026-08-06 13:12:09",
-    "last_recommended_at": "2026-08-06 13:22:31"
+    "last_recommended_at": "2026-08-06 13:32:31"
+  },
+  "BARD": {
+    "name": "롬바드",
+    "symbol": "BARD",
+    "count": 1,
+    "entry_price": 166.0,
+    "current_price": 166.0,
+    "first_recommended_at": "2026-08-06 13:32:31",
+    "last_recommended_at": "2026-08-06 13:32:31"
   }
 }
