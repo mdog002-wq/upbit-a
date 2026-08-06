@@ -2,20 +2,20 @@
   "SAFE": {
     "name": "세이프",
     "symbol": "SAFE",
-    "count": 6,
+    "count": 7,
     "entry_price": 124.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-06 07:22:40",
-    "last_recommended_at": "2026-08-06 12:42:20"
+    "last_recommended_at": "2026-08-06 12:48:17"
   },
   "AGLD": {
     "name": "어드벤처골드",
     "symbol": "AGLD",
-    "count": 1,
+    "count": 2,
     "entry_price": 217.0,
     "current_price": 220.0,
     "first_recommended_at": "2026-08-06 07:32:28",
-    "last_recommended_at": "2026-08-06 07:32:28"
+    "last_recommended_at": "2026-08-06 12:48:17"
   },
   "SENT": {
     "name": "센티언트",
@@ -31,7 +31,7 @@
     "symbol": "ANKR",
     "count": 1,
     "entry_price": 4.98,
-    "current_price": 4.92,
+    "current_price": 4.96,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 07:32:28"
   },
@@ -40,7 +40,7 @@
     "symbol": "BABY",
     "count": 1,
     "entry_price": 15.4,
-    "current_price": 15.4,
+    "current_price": 15.5,
     "first_recommended_at": "2026-08-06 07:52:25",
     "last_recommended_at": "2026-08-06 07:52:25"
   },
@@ -76,7 +76,7 @@
     "symbol": "API3",
     "count": 2,
     "entry_price": 269.0,
-    "current_price": 269.0,
+    "current_price": 268.0,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:42:20"
   },
@@ -85,26 +85,35 @@
     "symbol": "IOST",
     "count": 1,
     "entry_price": 0.864,
-    "current_price": 0.866,
+    "current_price": 0.863,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:37:00"
   },
   "ZKC": {
     "name": "바운드리스",
     "symbol": "ZKC",
-    "count": 1,
+    "count": 2,
     "entry_price": 54.1,
-    "current_price": 54.1,
+    "current_price": 54.0,
     "first_recommended_at": "2026-08-06 12:42:20",
-    "last_recommended_at": "2026-08-06 12:42:20"
+    "last_recommended_at": "2026-08-06 12:48:17"
   },
   "PRL": {
     "name": "펄",
     "symbol": "PRL",
     "count": 1,
     "entry_price": 395.0,
-    "current_price": 395.0,
+    "current_price": 393.0,
     "first_recommended_at": "2026-08-06 12:42:20",
     "last_recommended_at": "2026-08-06 12:42:20"
+  },
+  "USDE": {
+    "name": "유에스디이",
+    "symbol": "USDE",
+    "count": 1,
+    "entry_price": 1424.0,
+    "current_price": 1424.0,
+    "first_recommended_at": "2026-08-06 12:48:17",
+    "last_recommended_at": "2026-08-06 12:48:17"
   }
 }
