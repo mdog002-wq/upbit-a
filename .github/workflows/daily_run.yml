@@ -2,18 +2,15 @@ name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   workflow_dispatch:
-    # 만약 일정 주기마다 자동으로 돌리고 싶다면 아래 주석을 해제하세요
-    # schedule:
-    #   - cron: '*/10 * * * *'
 
-# 1. concurrency 위치를 최상위 레벨로 이동 (문법 오류 수정)
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: true  # 새 작업 시작 시 밀려있던 이전 작업 자동 취소
 
 jobs:
   run-upbit-bot:
     runs-on: ubuntu-latest
+    timeout-minutes: 30  # 30분이 지나도 안 끝나면 강제 종료하여 러너 먹통 방지
 
     permissions:
       contents: write
