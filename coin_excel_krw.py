@@ -898,7 +898,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '<!DOCTYPE html>\n'
         '<html lang="ko">\n'
         '<head>\n'
-    )
         '    <meta charset="UTF-8">\n'
         '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
              <meta http-equiv="refresh" content="300">\n'
@@ -1031,8 +1030,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '        }\n'
         '    </script>\n'
         '</body>\n'
-        '</html>'
-    )
+        '</html>' )
 
     # 7. 치환 작업 수행 후 저장
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
