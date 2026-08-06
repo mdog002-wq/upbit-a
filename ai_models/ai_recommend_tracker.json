@@ -1,1 +1,38 @@
-{}
+{
+  "CPOOL": {
+    "name": "클리어풀",
+    "symbol": "CPOOL",
+    "count": 1,
+    "entry_price": 25.8,
+    "current_price": 25.8,
+    "first_recommended_at": "2026-08-06 02:12:38",
+    "last_recommended_at": "2026-08-06 02:12:38"
+  },
+  "WIF": {
+    "name": "도그위프햇",
+    "symbol": "WIF",
+    "count": 1,
+    "entry_price": 201.0,
+    "current_price": 201.0,
+    "first_recommended_at": "2026-08-06 02:12:38",
+    "last_recommended_at": "2026-08-06 02:12:38"
+  },
+  "APT": {
+    "name": "앱토스",
+    "symbol": "APT",
+    "count": 1,
+    "entry_price": 843.0,
+    "current_price": 843.0,
+    "first_recommended_at": "2026-08-06 02:12:38",
+    "last_recommended_at": "2026-08-06 02:12:38"
+  },
+  "JST": {
+    "name": "저스트",
+    "symbol": "JST",
+    "count": 1,
+    "entry_price": 150.0,
+    "current_price": 150.0,
+    "first_recommended_at": "2026-08-06 02:12:38",
+    "last_recommended_at": "2026-08-06 02:12:38"
+  }
+}
