@@ -68,15 +68,14 @@ jobs:
             echo "변경사항이 없어 커밋을 스킵합니다."
           fi
 
-      - name: Send HTML to Render
+      - name: Send HTML to Render 
         run: |
-          # docs/index.html 으로 경로를 맞춰주세요
-          curl -X POST -H "Content-Type: text/html" \
-               --data-binary "@docs/index.html" \
-               https://coinpickup.onrender.com/upload
-
-      - name: Commit and push updated AI models & tracker data
-        run: |
+        # docs/index.html 으로 경로를 맞춰주세요
+        curl -X POST -H "Content-Type: text/html" \
+         --data-binary "@docs/index.html" \ https://coinpickup.onrender.com/upload
+          
+       - name: Commit and push updated AI models & tracker data
+         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add ai_models/ai_recommend_tracker.json ai_models/ai_experience.json || true
