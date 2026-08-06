@@ -22,8 +22,44 @@
     "symbol": "SKR",
     "count": 1,
     "entry_price": 11.4,
-    "current_price": 11.4,
+    "current_price": 11.3,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
+  },
+  "CPOOL": {
+    "name": "클리어풀",
+    "symbol": "CPOOL",
+    "count": 1,
+    "entry_price": 25.8,
+    "current_price": 25.8,
+    "first_recommended_at": "2026-08-06 02:32:30",
+    "last_recommended_at": "2026-08-06 02:32:30"
+  },
+  "JST": {
+    "name": "저스트",
+    "symbol": "JST",
+    "count": 1,
+    "entry_price": 150.0,
+    "current_price": 150.0,
+    "first_recommended_at": "2026-08-06 02:32:30",
+    "last_recommended_at": "2026-08-06 02:32:30"
+  },
+  "PIEVERSE": {
+    "name": "파이버스",
+    "symbol": "PIEVERSE",
+    "count": 1,
+    "entry_price": 1168.0,
+    "current_price": 1168.0,
+    "first_recommended_at": "2026-08-06 02:32:30",
+    "last_recommended_at": "2026-08-06 02:32:30"
+  },
+  "ERA": {
+    "name": "칼데라",
+    "symbol": "ERA",
+    "count": 1,
+    "entry_price": 96.5,
+    "current_price": 96.5,
+    "first_recommended_at": "2026-08-06 02:32:30",
+    "last_recommended_at": "2026-08-06 02:32:30"
   }
 }
