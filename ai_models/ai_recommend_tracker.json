@@ -4,7 +4,7 @@
     "symbol": "CELO",
     "count": 1,
     "entry_price": 85.6,
-    "current_price": 85.6,
+    "current_price": 86.3,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
   },
@@ -22,7 +22,7 @@
     "symbol": "AWE",
     "count": 1,
     "entry_price": 80.7,
-    "current_price": 79.5,
+    "current_price": 79.6,
     "first_recommended_at": "2026-08-06 02:42:20",
     "last_recommended_at": "2026-08-06 02:42:20"
   },
@@ -31,7 +31,7 @@
     "symbol": "CKB",
     "count": 8,
     "entry_price": 1.17,
-    "current_price": 1.17,
+    "current_price": 1.19,
     "first_recommended_at": "2026-08-06 03:02:35",
     "last_recommended_at": "2026-08-06 05:12:23"
   },
@@ -40,7 +40,7 @@
     "symbol": "ORDER",
     "count": 5,
     "entry_price": 39.4,
-    "current_price": 40.0,
+    "current_price": 40.1,
     "first_recommended_at": "2026-08-06 03:02:35",
     "last_recommended_at": "2026-08-06 04:12:16"
   },
@@ -49,7 +49,7 @@
     "symbol": "NEWT",
     "count": 2,
     "entry_price": 55.4,
-    "current_price": 55.7,
+    "current_price": 56.4,
     "first_recommended_at": "2026-08-06 03:12:21",
     "last_recommended_at": "2026-08-06 03:22:24"
   },
@@ -67,7 +67,7 @@
     "symbol": "MANTRA",
     "count": 3,
     "entry_price": 7.72,
-    "current_price": 7.73,
+    "current_price": 7.66,
     "first_recommended_at": "2026-08-06 03:22:24",
     "last_recommended_at": "2026-08-06 03:52:21"
   },
@@ -76,7 +76,7 @@
     "symbol": "BABY",
     "count": 4,
     "entry_price": 15.4,
-    "current_price": 15.2,
+    "current_price": 15.1,
     "first_recommended_at": "2026-08-06 03:32:35",
     "last_recommended_at": "2026-08-06 04:42:17"
   },
@@ -85,7 +85,7 @@
     "symbol": "ARK",
     "count": 3,
     "entry_price": 132.0,
-    "current_price": 134.0,
+    "current_price": 136.0,
     "first_recommended_at": "2026-08-06 03:32:35",
     "last_recommended_at": "2026-08-06 04:02:32"
   },
@@ -94,36 +94,36 @@
     "symbol": "ICX",
     "count": 2,
     "entry_price": 31.0,
-    "current_price": 31.2,
+    "current_price": 31.4,
     "first_recommended_at": "2026-08-06 03:52:21",
     "last_recommended_at": "2026-08-06 04:02:32"
   },
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 8,
+    "count": 9,
     "entry_price": 123.0,
-    "current_price": 123.0,
+    "current_price": 124.0,
     "first_recommended_at": "2026-08-06 04:12:16",
-    "last_recommended_at": "2026-08-06 06:02:21"
+    "last_recommended_at": "2026-08-06 06:12:27"
   },
   "TAIKO": {
     "name": "타이코",
     "symbol": "TAIKO",
     "count": 1,
     "entry_price": 102.0,
-    "current_price": 105.0,
+    "current_price": 104.0,
     "first_recommended_at": "2026-08-06 04:12:16",
     "last_recommended_at": "2026-08-06 04:12:16"
   },
   "PROS": {
     "name": "파로스",
     "symbol": "PROS",
-    "count": 4,
+    "count": 5,
     "entry_price": 560.0,
     "current_price": 563.0,
     "first_recommended_at": "2026-08-06 04:22:21",
-    "last_recommended_at": "2026-08-06 06:02:21"
+    "last_recommended_at": "2026-08-06 06:12:27"
   },
   "OP": {
     "name": "옵티미즘",
@@ -137,27 +137,27 @@
   "DOOD": {
     "name": "두들즈",
     "symbol": "DOOD",
-    "count": 3,
+    "count": 4,
     "entry_price": 1.78,
     "current_price": 1.78,
     "first_recommended_at": "2026-08-06 04:59:14",
-    "last_recommended_at": "2026-08-06 06:02:21"
+    "last_recommended_at": "2026-08-06 06:12:27"
   },
   "SAFE": {
     "name": "세이프",
     "symbol": "SAFE",
-    "count": 2,
+    "count": 3,
     "entry_price": 123.0,
-    "current_price": 122.0,
+    "current_price": 123.0,
     "first_recommended_at": "2026-08-06 05:12:23",
-    "last_recommended_at": "2026-08-06 05:44:37"
+    "last_recommended_at": "2026-08-06 06:12:27"
   },
   "API3": {
     "name": "에이피아이쓰리",
     "symbol": "API3",
     "count": 2,
     "entry_price": 265.0,
-    "current_price": 265.0,
+    "current_price": 266.0,
     "first_recommended_at": "2026-08-06 05:44:37",
     "last_recommended_at": "2026-08-06 06:02:21"
   }
