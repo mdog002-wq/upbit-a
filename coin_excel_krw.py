@@ -65,6 +65,39 @@ class AIReportResponse(BaseModel):
     recommended_coins: List[RecommendedCoin] = Field(description="AI가 최우선 추천하는 코인 종목 리스트")
 
 
+def upload_html_to_oracle_server(local_file_path):
+    """
+    GitHub Secrets에 등록된 ORACLE_SSH_KEY(.key 내용)를 이용해 
+    오라클 서버로 대시보드 HTML 파일을 자동 전송하는 함수
+    """
+    hostname = os.environ.get("ORACLE_DSN")          
+    username = os.environ.get("ORACLE_USER", "ubuntu") 
+    ssh_key_content = os.environ.get("ORACLE_SSH_KEY") 
+
+    if not hostname or not ssh_key_content:
+        print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
+        return
+
+    remote_file_path = "templates/dashboard.html"
+
+    try:
+        key_file_like = io.StringIO(ssh_key_content)
+        pkey = paramiko.RSAKey.from_private_key(key_file_like)
+
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(hostname, port=22, username=username, pkey=pkey)
+
+        sftp = ssh.open_sftp()
+        sftp.put(local_file_path, remote_file_path)
+        print(f"🚀 오라클 서버로 HTML 대시보드 전송 완료! ({remote_file_path})")
+        
+        sftp.close()
+        ssh.close()
+        
+    except Exception as e:
+        print(f"❌ 오라클 서버 전송 실패: {e}")
+
 # ==============================================================================
 # [설정] 환경 변수 및 파일 경로
 # ==============================================================================
