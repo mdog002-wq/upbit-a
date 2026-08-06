@@ -8,15 +8,6 @@
     "first_recommended_at": "2026-08-05 19:02:46",
     "last_recommended_at": "2026-08-05 21:12:28"
   },
-  "WAXP": {
-    "name": "왁스",
-    "symbol": "WAXP",
-    "count": 7,
-    "entry_price": 5.4,
-    "current_price": 5.39,
-    "first_recommended_at": "2026-08-05 21:12:28",
-    "last_recommended_at": "2026-08-05 23:22:11"
-  },
   "TFUEL": {
     "name": "쎄타퓨엘",
     "symbol": "TFUEL",
@@ -49,7 +40,7 @@
     "symbol": "JTO",
     "count": 2,
     "entry_price": 739.0,
-    "current_price": 737.0,
+    "current_price": 741.0,
     "first_recommended_at": "2026-08-05 22:12:20",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
@@ -67,7 +58,7 @@
     "symbol": "SOON",
     "count": 4,
     "entry_price": 322.0,
-    "current_price": 319.0,
+    "current_price": 318.0,
     "first_recommended_at": "2026-08-05 22:32:27",
     "last_recommended_at": "2026-08-05 23:12:16"
   },
@@ -76,7 +67,7 @@
     "symbol": "ALT",
     "count": 3,
     "entry_price": 8.11,
-    "current_price": 8.18,
+    "current_price": 8.19,
     "first_recommended_at": "2026-08-05 23:02:42",
     "last_recommended_at": "2026-08-05 23:32:23"
   },
@@ -85,7 +76,7 @@
     "symbol": "BONK",
     "count": 3,
     "entry_price": 0.00424,
-    "current_price": 0.00421,
+    "current_price": 0.00416,
     "first_recommended_at": "2026-08-05 23:22:11",
     "last_recommended_at": "2026-08-05 23:52:19"
   },
@@ -103,7 +94,7 @@
     "symbol": "1INCH",
     "count": 2,
     "entry_price": 117.0,
-    "current_price": 118.0,
+    "current_price": 119.0,
     "first_recommended_at": "2026-08-05 23:42:17",
     "last_recommended_at": "2026-08-05 23:52:19"
   },
@@ -121,7 +112,7 @@
     "symbol": "MOODENG",
     "count": 1,
     "entry_price": 52.7,
-    "current_price": 52.7,
+    "current_price": 52.9,
     "first_recommended_at": "2026-08-06 00:02:51",
     "last_recommended_at": "2026-08-06 00:02:51"
   },
@@ -139,16 +130,7 @@
     "symbol": "UP2",
     "count": 1,
     "entry_price": 86.3,
-    "current_price": 86.3,
-    "first_recommended_at": "2026-08-06 00:02:51",
-    "last_recommended_at": "2026-08-06 00:02:51"
-  },
-  "VANA": {
-    "name": "바나",
-    "symbol": "VANA",
-    "count": 1,
-    "entry_price": 1198.0,
-    "current_price": 1198.0,
+    "current_price": 86.7,
     "first_recommended_at": "2026-08-06 00:02:51",
     "last_recommended_at": "2026-08-06 00:02:51"
   },
@@ -157,8 +139,44 @@
     "symbol": "MOCA",
     "count": 1,
     "entry_price": 10.6,
-    "current_price": 10.6,
+    "current_price": 10.7,
     "first_recommended_at": "2026-08-06 00:02:51",
     "last_recommended_at": "2026-08-06 00:02:51"
+  },
+  "STX": {
+    "name": "스택스",
+    "symbol": "STX",
+    "count": 1,
+    "entry_price": 190.0,
+    "current_price": 190.0,
+    "first_recommended_at": "2026-08-06 00:12:24",
+    "last_recommended_at": "2026-08-06 00:12:24"
+  },
+  "ZRO": {
+    "name": "레이어제로",
+    "symbol": "ZRO",
+    "count": 1,
+    "entry_price": 1103.0,
+    "current_price": 1103.0,
+    "first_recommended_at": "2026-08-06 00:12:24",
+    "last_recommended_at": "2026-08-06 00:12:24"
+  },
+  "LSK": {
+    "name": "리스크",
+    "symbol": "LSK",
+    "count": 1,
+    "entry_price": 105.0,
+    "current_price": 105.0,
+    "first_recommended_at": "2026-08-06 00:12:24",
+    "last_recommended_at": "2026-08-06 00:12:24"
+  },
+  "GMT": {
+    "name": "스테픈",
+    "symbol": "GMT",
+    "count": 1,
+    "entry_price": 9.36,
+    "current_price": 9.36,
+    "first_recommended_at": "2026-08-06 00:12:24",
+    "last_recommended_at": "2026-08-06 00:12:24"
   }
 }
