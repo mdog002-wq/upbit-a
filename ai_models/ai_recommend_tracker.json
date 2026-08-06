@@ -22,7 +22,7 @@
     "symbol": "SKR",
     "count": 1,
     "entry_price": 11.4,
-    "current_price": 11.8,
+    "current_price": 11.9,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
   },
@@ -49,7 +49,7 @@
     "symbol": "PIEVERSE",
     "count": 1,
     "entry_price": 1168.0,
-    "current_price": 1172.0,
+    "current_price": 1167.0,
     "first_recommended_at": "2026-08-06 02:32:30",
     "last_recommended_at": "2026-08-06 02:32:30"
   },
@@ -71,32 +71,23 @@
     "first_recommended_at": "2026-08-06 02:42:20",
     "last_recommended_at": "2026-08-06 02:42:20"
   },
-  "POL": {
-    "name": "폴리곤에코시스템토큰",
-    "symbol": "POL",
-    "count": 3,
-    "entry_price": 107.0,
-    "current_price": 107.0,
-    "first_recommended_at": "2026-08-06 02:52:29",
-    "last_recommended_at": "2026-08-06 03:12:21"
-  },
   "VANA": {
     "name": "바나",
     "symbol": "VANA",
     "count": 1,
     "entry_price": 1203.0,
-    "current_price": 1203.0,
+    "current_price": 1205.0,
     "first_recommended_at": "2026-08-06 02:52:29",
     "last_recommended_at": "2026-08-06 02:52:29"
   },
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 2,
+    "count": 3,
     "entry_price": 1.17,
     "current_price": 1.17,
     "first_recommended_at": "2026-08-06 03:02:35",
-    "last_recommended_at": "2026-08-06 03:12:21"
+    "last_recommended_at": "2026-08-06 03:22:24"
   },
   "ORDER": {
     "name": "오덜리",
@@ -119,11 +110,11 @@
   "NEWT": {
     "name": "뉴턴프로토콜",
     "symbol": "NEWT",
-    "count": 1,
+    "count": 2,
     "entry_price": 55.4,
     "current_price": 55.4,
     "first_recommended_at": "2026-08-06 03:12:21",
-    "last_recommended_at": "2026-08-06 03:12:21"
+    "last_recommended_at": "2026-08-06 03:22:24"
   },
   "WLFI": {
     "name": "월드리버티파이낸셜",
@@ -133,5 +124,23 @@
     "current_price": 75.8,
     "first_recommended_at": "2026-08-06 03:12:21",
     "last_recommended_at": "2026-08-06 03:12:21"
+  },
+  "MANTRA": {
+    "name": "만트라",
+    "symbol": "MANTRA",
+    "count": 1,
+    "entry_price": 7.72,
+    "current_price": 7.72,
+    "first_recommended_at": "2026-08-06 03:22:24",
+    "last_recommended_at": "2026-08-06 03:22:24"
+  },
+  "KAITO": {
+    "name": "카이토",
+    "symbol": "KAITO",
+    "count": 1,
+    "entry_price": 1345.0,
+    "current_price": 1345.0,
+    "first_recommended_at": "2026-08-06 03:22:24",
+    "last_recommended_at": "2026-08-06 03:22:24"
   }
 }
