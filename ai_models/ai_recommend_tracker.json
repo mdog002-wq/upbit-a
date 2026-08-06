@@ -8,21 +8,12 @@
     "first_recommended_at": "2026-08-05 21:32:23",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
-  "1INCH": {
-    "name": "1인치네트워크",
-    "symbol": "1INCH",
-    "count": 2,
-    "entry_price": 117.0,
-    "current_price": 120.0,
-    "first_recommended_at": "2026-08-05 23:42:17",
-    "last_recommended_at": "2026-08-05 23:52:19"
-  },
   "PRL": {
     "name": "펄",
     "symbol": "PRL",
     "count": 1,
     "entry_price": 385.0,
-    "current_price": 386.0,
+    "current_price": 387.0,
     "first_recommended_at": "2026-08-05 23:42:17",
     "last_recommended_at": "2026-08-05 23:42:17"
   },
@@ -49,7 +40,7 @@
     "symbol": "ZRO",
     "count": 1,
     "entry_price": 1103.0,
-    "current_price": 1109.0,
+    "current_price": 1101.0,
     "first_recommended_at": "2026-08-06 00:12:24",
     "last_recommended_at": "2026-08-06 00:12:24"
   },
@@ -74,18 +65,18 @@
   "WCT": {
     "name": "월렛커넥트",
     "symbol": "WCT",
-    "count": 5,
+    "count": 6,
     "entry_price": 50.3,
     "current_price": 50.3,
     "first_recommended_at": "2026-08-06 00:22:22",
-    "last_recommended_at": "2026-08-06 01:02:30"
+    "last_recommended_at": "2026-08-06 01:12:22"
   },
   "AXL": {
     "name": "엑셀라",
     "symbol": "AXL",
     "count": 3,
     "entry_price": 52.0,
-    "current_price": 52.0,
+    "current_price": 51.7,
     "first_recommended_at": "2026-08-06 00:22:22",
     "last_recommended_at": "2026-08-06 01:02:30"
   },
@@ -110,18 +101,18 @@
   "JUP": {
     "name": "주피터",
     "symbol": "JUP",
-    "count": 3,
+    "count": 4,
     "entry_price": 269.0,
     "current_price": 269.0,
     "first_recommended_at": "2026-08-06 00:32:29",
-    "last_recommended_at": "2026-08-06 00:52:29"
+    "last_recommended_at": "2026-08-06 01:12:22"
   },
   "SPX": {
     "name": "에스피엑스6900",
     "symbol": "SPX",
     "count": 1,
     "entry_price": 481.0,
-    "current_price": 480.0,
+    "current_price": 477.0,
     "first_recommended_at": "2026-08-06 00:32:29",
     "last_recommended_at": "2026-08-06 00:32:29"
   },
@@ -155,19 +146,37 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 1,
+    "count": 2,
     "entry_price": 1.17,
     "current_price": 1.17,
     "first_recommended_at": "2026-08-06 01:02:30",
-    "last_recommended_at": "2026-08-06 01:02:30"
+    "last_recommended_at": "2026-08-06 01:12:22"
   },
   "ORDER": {
     "name": "오덜리",
     "symbol": "ORDER",
     "count": 1,
     "entry_price": 38.9,
-    "current_price": 38.9,
+    "current_price": 39.4,
     "first_recommended_at": "2026-08-06 01:02:30",
     "last_recommended_at": "2026-08-06 01:02:30"
+  },
+  "BABY": {
+    "name": "바빌론",
+    "symbol": "BABY",
+    "count": 1,
+    "entry_price": 15.4,
+    "current_price": 15.4,
+    "first_recommended_at": "2026-08-06 01:12:22",
+    "last_recommended_at": "2026-08-06 01:12:22"
+  },
+  "JST": {
+    "name": "저스트",
+    "symbol": "JST",
+    "count": 1,
+    "entry_price": 150.0,
+    "current_price": 150.0,
+    "first_recommended_at": "2026-08-06 01:12:22",
+    "last_recommended_at": "2026-08-06 01:12:22"
   }
 }
