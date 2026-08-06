@@ -2,18 +2,18 @@
   "SAFE": {
     "name": "세이프",
     "symbol": "SAFE",
-    "count": 5,
+    "count": 6,
     "entry_price": 124.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-06 07:22:40",
-    "last_recommended_at": "2026-08-06 12:37:00"
+    "last_recommended_at": "2026-08-06 12:42:20"
   },
   "AGLD": {
     "name": "어드벤처골드",
     "symbol": "AGLD",
     "count": 1,
     "entry_price": 217.0,
-    "current_price": 219.0,
+    "current_price": 220.0,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 07:32:28"
   },
@@ -34,15 +34,6 @@
     "current_price": 4.92,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 07:32:28"
-  },
-  "LPT": {
-    "name": "라이브피어",
-    "symbol": "LPT",
-    "count": 1,
-    "entry_price": 1827.0,
-    "current_price": 1801.0,
-    "first_recommended_at": "2026-08-06 07:42:25",
-    "last_recommended_at": "2026-08-06 07:42:25"
   },
   "BABY": {
     "name": "바빌론",
@@ -67,7 +58,7 @@
     "symbol": "LA",
     "count": 1,
     "entry_price": 65.6,
-    "current_price": 65.6,
+    "current_price": 65.5,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:37:00"
   },
@@ -83,19 +74,37 @@
   "API3": {
     "name": "에이피아이쓰리",
     "symbol": "API3",
-    "count": 1,
+    "count": 2,
     "entry_price": 269.0,
     "current_price": 269.0,
     "first_recommended_at": "2026-08-06 12:37:00",
-    "last_recommended_at": "2026-08-06 12:37:00"
+    "last_recommended_at": "2026-08-06 12:42:20"
   },
   "IOST": {
     "name": "아이오에스티",
     "symbol": "IOST",
     "count": 1,
     "entry_price": 0.864,
-    "current_price": 0.864,
+    "current_price": 0.866,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:37:00"
+  },
+  "ZKC": {
+    "name": "바운드리스",
+    "symbol": "ZKC",
+    "count": 1,
+    "entry_price": 54.1,
+    "current_price": 54.1,
+    "first_recommended_at": "2026-08-06 12:42:20",
+    "last_recommended_at": "2026-08-06 12:42:20"
+  },
+  "PRL": {
+    "name": "펄",
+    "symbol": "PRL",
+    "count": 1,
+    "entry_price": 395.0,
+    "current_price": 395.0,
+    "first_recommended_at": "2026-08-06 12:42:20",
+    "last_recommended_at": "2026-08-06 12:42:20"
   }
 }
