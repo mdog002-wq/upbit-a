@@ -7,3 +7,5 @@ pytrends
 beautifulsoup4
 tqdm
 websockets
+fastapi
+uvicorn
