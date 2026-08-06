@@ -4,18 +4,9 @@
     "symbol": "IOTA",
     "count": 5,
     "entry_price": 48.2,
-    "current_price": 48.3,
+    "current_price": 48.2,
     "first_recommended_at": "2026-08-05 21:32:23",
     "last_recommended_at": "2026-08-05 22:52:34"
-  },
-  "MNT": {
-    "name": "맨틀",
-    "symbol": "MNT",
-    "count": 1,
-    "entry_price": 576.0,
-    "current_price": 578.0,
-    "first_recommended_at": "2026-08-05 23:32:23",
-    "last_recommended_at": "2026-08-05 23:32:23"
   },
   "1INCH": {
     "name": "1인치네트워크",
@@ -31,7 +22,7 @@
     "symbol": "PRL",
     "count": 1,
     "entry_price": 385.0,
-    "current_price": 390.0,
+    "current_price": 386.0,
     "first_recommended_at": "2026-08-05 23:42:17",
     "last_recommended_at": "2026-08-05 23:42:17"
   },
@@ -41,15 +32,6 @@
     "count": 1,
     "entry_price": 52.7,
     "current_price": 53.2,
-    "first_recommended_at": "2026-08-06 00:02:51",
-    "last_recommended_at": "2026-08-06 00:02:51"
-  },
-  "KAITO": {
-    "name": "카이토",
-    "symbol": "KAITO",
-    "count": 1,
-    "entry_price": 1332.0,
-    "current_price": 1331.0,
     "first_recommended_at": "2026-08-06 00:02:51",
     "last_recommended_at": "2026-08-06 00:02:51"
   },
@@ -67,7 +49,7 @@
     "symbol": "ZRO",
     "count": 1,
     "entry_price": 1103.0,
-    "current_price": 1099.0,
+    "current_price": 1109.0,
     "first_recommended_at": "2026-08-06 00:12:24",
     "last_recommended_at": "2026-08-06 00:12:24"
   },
@@ -76,7 +58,7 @@
     "symbol": "GMT",
     "count": 1,
     "entry_price": 9.36,
-    "current_price": 9.38,
+    "current_price": 9.37,
     "first_recommended_at": "2026-08-06 00:12:24",
     "last_recommended_at": "2026-08-06 00:12:24"
   },
@@ -85,43 +67,34 @@
     "symbol": "KAVA",
     "count": 1,
     "entry_price": 57.2,
-    "current_price": 57.2,
-    "first_recommended_at": "2026-08-06 00:22:22",
-    "last_recommended_at": "2026-08-06 00:22:22"
-  },
-  "QTUM": {
-    "name": "퀀텀",
-    "symbol": "QTUM",
-    "count": 1,
-    "entry_price": 915.0,
-    "current_price": 914.0,
+    "current_price": 57.1,
     "first_recommended_at": "2026-08-06 00:22:22",
     "last_recommended_at": "2026-08-06 00:22:22"
   },
   "WCT": {
     "name": "월렛커넥트",
     "symbol": "WCT",
-    "count": 4,
+    "count": 5,
     "entry_price": 50.3,
     "current_price": 50.3,
     "first_recommended_at": "2026-08-06 00:22:22",
-    "last_recommended_at": "2026-08-06 00:52:29"
+    "last_recommended_at": "2026-08-06 01:02:30"
   },
   "AXL": {
     "name": "엑셀라",
     "symbol": "AXL",
-    "count": 2,
+    "count": 3,
     "entry_price": 52.0,
     "current_price": 52.0,
     "first_recommended_at": "2026-08-06 00:22:22",
-    "last_recommended_at": "2026-08-06 00:42:16"
+    "last_recommended_at": "2026-08-06 01:02:30"
   },
   "BREV": {
     "name": "브레비스",
     "symbol": "BREV",
     "count": 3,
     "entry_price": 101.0,
-    "current_price": 101.0,
+    "current_price": 100.0,
     "first_recommended_at": "2026-08-06 00:32:29",
     "last_recommended_at": "2026-08-06 00:52:29"
   },
@@ -130,7 +103,7 @@
     "symbol": "GAS",
     "count": 1,
     "entry_price": 1319.0,
-    "current_price": 1317.0,
+    "current_price": 1319.0,
     "first_recommended_at": "2026-08-06 00:32:29",
     "last_recommended_at": "2026-08-06 00:32:29"
   },
@@ -157,7 +130,7 @@
     "symbol": "VTHO",
     "count": 2,
     "entry_price": 0.472,
-    "current_price": 0.472,
+    "current_price": 0.469,
     "first_recommended_at": "2026-08-06 00:42:16",
     "last_recommended_at": "2026-08-06 00:52:29"
   },
@@ -166,8 +139,35 @@
     "symbol": "RED",
     "count": 1,
     "entry_price": 123.0,
-    "current_price": 123.0,
+    "current_price": 122.0,
     "first_recommended_at": "2026-08-06 00:52:29",
     "last_recommended_at": "2026-08-06 00:52:29"
+  },
+  "ZETA": {
+    "name": "제타체인",
+    "symbol": "ZETA",
+    "count": 1,
+    "entry_price": 41.4,
+    "current_price": 41.4,
+    "first_recommended_at": "2026-08-06 01:02:30",
+    "last_recommended_at": "2026-08-06 01:02:30"
+  },
+  "CKB": {
+    "name": "너보스",
+    "symbol": "CKB",
+    "count": 1,
+    "entry_price": 1.17,
+    "current_price": 1.17,
+    "first_recommended_at": "2026-08-06 01:02:30",
+    "last_recommended_at": "2026-08-06 01:02:30"
+  },
+  "ORDER": {
+    "name": "오덜리",
+    "symbol": "ORDER",
+    "count": 1,
+    "entry_price": 38.9,
+    "current_price": 38.9,
+    "first_recommended_at": "2026-08-06 01:02:30",
+    "last_recommended_at": "2026-08-06 01:02:30"
   }
 }
