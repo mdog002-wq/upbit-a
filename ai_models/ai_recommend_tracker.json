@@ -4,7 +4,7 @@
     "symbol": "CELO",
     "count": 1,
     "entry_price": 85.6,
-    "current_price": 85.6,
+    "current_price": 85.2,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
   },
@@ -13,7 +13,7 @@
     "symbol": "KITE",
     "count": 1,
     "entry_price": 150.0,
-    "current_price": 148.0,
+    "current_price": 147.0,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
   },
@@ -22,7 +22,7 @@
     "symbol": "SKR",
     "count": 1,
     "entry_price": 11.4,
-    "current_price": 11.3,
+    "current_price": 11.8,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
   },
@@ -49,18 +49,9 @@
     "symbol": "PIEVERSE",
     "count": 1,
     "entry_price": 1168.0,
-    "current_price": 1169.0,
+    "current_price": 1174.0,
     "first_recommended_at": "2026-08-06 02:32:30",
     "last_recommended_at": "2026-08-06 02:32:30"
-  },
-  "ERA": {
-    "name": "칼데라",
-    "symbol": "ERA",
-    "count": 2,
-    "entry_price": 96.5,
-    "current_price": 96.5,
-    "first_recommended_at": "2026-08-06 02:32:30",
-    "last_recommended_at": "2026-08-06 02:42:20"
   },
   "CVC": {
     "name": "시빅",
@@ -80,31 +71,49 @@
     "first_recommended_at": "2026-08-06 02:42:20",
     "last_recommended_at": "2026-08-06 02:42:20"
   },
-  "BABY": {
-    "name": "바빌론",
-    "symbol": "BABY",
-    "count": 1,
-    "entry_price": 15.4,
-    "current_price": 15.4,
-    "first_recommended_at": "2026-08-06 02:52:29",
-    "last_recommended_at": "2026-08-06 02:52:29"
-  },
   "POL": {
     "name": "폴리곤에코시스템토큰",
     "symbol": "POL",
-    "count": 1,
+    "count": 2,
     "entry_price": 107.0,
     "current_price": 107.0,
     "first_recommended_at": "2026-08-06 02:52:29",
-    "last_recommended_at": "2026-08-06 02:52:29"
+    "last_recommended_at": "2026-08-06 03:02:35"
   },
   "VANA": {
     "name": "바나",
     "symbol": "VANA",
     "count": 1,
     "entry_price": 1203.0,
-    "current_price": 1203.0,
+    "current_price": 1209.0,
     "first_recommended_at": "2026-08-06 02:52:29",
     "last_recommended_at": "2026-08-06 02:52:29"
+  },
+  "CKB": {
+    "name": "너보스",
+    "symbol": "CKB",
+    "count": 1,
+    "entry_price": 1.17,
+    "current_price": 1.17,
+    "first_recommended_at": "2026-08-06 03:02:35",
+    "last_recommended_at": "2026-08-06 03:02:35"
+  },
+  "ORDER": {
+    "name": "오덜리",
+    "symbol": "ORDER",
+    "count": 1,
+    "entry_price": 39.4,
+    "current_price": 39.4,
+    "first_recommended_at": "2026-08-06 03:02:35",
+    "last_recommended_at": "2026-08-06 03:02:35"
+  },
+  "IN": {
+    "name": "인피닛",
+    "symbol": "IN",
+    "count": 1,
+    "entry_price": 46.3,
+    "current_price": 46.3,
+    "first_recommended_at": "2026-08-06 03:02:35",
+    "last_recommended_at": "2026-08-06 03:02:35"
   }
 }
