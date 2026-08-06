@@ -4,27 +4,9 @@
     "symbol": "CELO",
     "count": 1,
     "entry_price": 85.6,
-    "current_price": 86.5,
+    "current_price": 86.6,
     "first_recommended_at": "2026-08-06 02:22:24",
     "last_recommended_at": "2026-08-06 02:22:24"
-  },
-  "JST": {
-    "name": "저스트",
-    "symbol": "JST",
-    "count": 2,
-    "entry_price": 150.0,
-    "current_price": 150.0,
-    "first_recommended_at": "2026-08-06 02:32:30",
-    "last_recommended_at": "2026-08-06 02:42:20"
-  },
-  "AWE": {
-    "name": "에이더블유이",
-    "symbol": "AWE",
-    "count": 1,
-    "entry_price": 80.7,
-    "current_price": 79.7,
-    "first_recommended_at": "2026-08-06 02:42:20",
-    "last_recommended_at": "2026-08-06 02:42:20"
   },
   "CKB": {
     "name": "너보스",
@@ -49,36 +31,9 @@
     "symbol": "NEWT",
     "count": 2,
     "entry_price": 55.4,
-    "current_price": 56.4,
+    "current_price": 56.6,
     "first_recommended_at": "2026-08-06 03:12:21",
     "last_recommended_at": "2026-08-06 03:22:24"
-  },
-  "WLFI": {
-    "name": "월드리버티파이낸셜",
-    "symbol": "WLFI",
-    "count": 1,
-    "entry_price": 75.8,
-    "current_price": 75.5,
-    "first_recommended_at": "2026-08-06 03:12:21",
-    "last_recommended_at": "2026-08-06 03:12:21"
-  },
-  "MANTRA": {
-    "name": "만트라",
-    "symbol": "MANTRA",
-    "count": 3,
-    "entry_price": 7.72,
-    "current_price": 7.67,
-    "first_recommended_at": "2026-08-06 03:22:24",
-    "last_recommended_at": "2026-08-06 03:52:21"
-  },
-  "BABY": {
-    "name": "바빌론",
-    "symbol": "BABY",
-    "count": 4,
-    "entry_price": 15.4,
-    "current_price": 15.3,
-    "first_recommended_at": "2026-08-06 03:32:35",
-    "last_recommended_at": "2026-08-06 04:42:17"
   },
   "ARK": {
     "name": "아크",
@@ -101,29 +56,20 @@
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 10,
+    "count": 11,
     "entry_price": 123.0,
-    "current_price": 124.0,
+    "current_price": 125.0,
     "first_recommended_at": "2026-08-06 04:12:16",
-    "last_recommended_at": "2026-08-06 06:22:36"
-  },
-  "TAIKO": {
-    "name": "타이코",
-    "symbol": "TAIKO",
-    "count": 1,
-    "entry_price": 102.0,
-    "current_price": 104.0,
-    "first_recommended_at": "2026-08-06 04:12:16",
-    "last_recommended_at": "2026-08-06 04:12:16"
+    "last_recommended_at": "2026-08-06 06:32:31"
   },
   "PROS": {
     "name": "파로스",
     "symbol": "PROS",
-    "count": 6,
+    "count": 7,
     "entry_price": 560.0,
     "current_price": 563.0,
     "first_recommended_at": "2026-08-06 04:22:21",
-    "last_recommended_at": "2026-08-06 06:22:36"
+    "last_recommended_at": "2026-08-06 06:32:31"
   },
   "OP": {
     "name": "옵티미즘",
@@ -148,7 +94,7 @@
     "symbol": "SAFE",
     "count": 4,
     "entry_price": 123.0,
-    "current_price": 123.0,
+    "current_price": 124.0,
     "first_recommended_at": "2026-08-06 05:12:23",
     "last_recommended_at": "2026-08-06 06:22:36"
   },
@@ -160,5 +106,23 @@
     "current_price": 266.0,
     "first_recommended_at": "2026-08-06 05:44:37",
     "last_recommended_at": "2026-08-06 06:02:21"
+  },
+  "ZKC": {
+    "name": "바운드리스",
+    "symbol": "ZKC",
+    "count": 1,
+    "entry_price": 53.2,
+    "current_price": 53.2,
+    "first_recommended_at": "2026-08-06 06:32:31",
+    "last_recommended_at": "2026-08-06 06:32:31"
+  },
+  "LPT": {
+    "name": "라이브피어",
+    "symbol": "LPT",
+    "count": 1,
+    "entry_price": 1825.0,
+    "current_price": 1825.0,
+    "first_recommended_at": "2026-08-06 06:32:31",
+    "last_recommended_at": "2026-08-06 06:32:31"
   }
 }
