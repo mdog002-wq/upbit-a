@@ -2,11 +2,11 @@
   "SAFE": {
     "name": "세이프",
     "symbol": "SAFE",
-    "count": 3,
+    "count": 4,
     "entry_price": 124.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-06 07:22:40",
-    "last_recommended_at": "2026-08-06 07:42:25"
+    "last_recommended_at": "2026-08-06 07:52:25"
   },
   "AGLD": {
     "name": "어드벤처골드",
@@ -22,7 +22,7 @@
     "symbol": "SENT",
     "count": 1,
     "entry_price": 19.4,
-    "current_price": 19.3,
+    "current_price": 19.4,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 07:32:28"
   },
@@ -31,7 +31,7 @@
     "symbol": "ANKR",
     "count": 1,
     "entry_price": 4.98,
-    "current_price": 4.99,
+    "current_price": 4.97,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 07:32:28"
   },
@@ -47,19 +47,37 @@
   "OP": {
     "name": "옵티미즘",
     "symbol": "OP",
-    "count": 1,
+    "count": 2,
     "entry_price": 125.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-06 07:42:25",
-    "last_recommended_at": "2026-08-06 07:42:25"
+    "last_recommended_at": "2026-08-06 07:52:25"
   },
   "LPT": {
     "name": "라이브피어",
     "symbol": "LPT",
     "count": 1,
     "entry_price": 1827.0,
-    "current_price": 1827.0,
+    "current_price": 1824.0,
     "first_recommended_at": "2026-08-06 07:42:25",
     "last_recommended_at": "2026-08-06 07:42:25"
+  },
+  "BABY": {
+    "name": "바빌론",
+    "symbol": "BABY",
+    "count": 1,
+    "entry_price": 15.4,
+    "current_price": 15.4,
+    "first_recommended_at": "2026-08-06 07:52:25",
+    "last_recommended_at": "2026-08-06 07:52:25"
+  },
+  "SKY": {
+    "name": "스카이프로토콜",
+    "symbol": "SKY",
+    "count": 1,
+    "entry_price": 80.4,
+    "current_price": 80.4,
+    "first_recommended_at": "2026-08-06 07:52:25",
+    "last_recommended_at": "2026-08-06 07:52:25"
   }
 }
