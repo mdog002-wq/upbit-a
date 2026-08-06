@@ -4,7 +4,7 @@
     "symbol": "SAFE",
     "count": 7,
     "entry_price": 124.0,
-    "current_price": 125.0,
+    "current_price": 124.0,
     "first_recommended_at": "2026-08-06 07:22:40",
     "last_recommended_at": "2026-08-06 12:48:17"
   },
@@ -13,7 +13,7 @@
     "symbol": "AGLD",
     "count": 2,
     "entry_price": 217.0,
-    "current_price": 220.0,
+    "current_price": 219.0,
     "first_recommended_at": "2026-08-06 07:32:28",
     "last_recommended_at": "2026-08-06 12:48:17"
   },
@@ -40,7 +40,7 @@
     "symbol": "BABY",
     "count": 1,
     "entry_price": 15.4,
-    "current_price": 15.5,
+    "current_price": 15.4,
     "first_recommended_at": "2026-08-06 07:52:25",
     "last_recommended_at": "2026-08-06 07:52:25"
   },
@@ -58,7 +58,7 @@
     "symbol": "LA",
     "count": 1,
     "entry_price": 65.6,
-    "current_price": 65.5,
+    "current_price": 65.1,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:37:00"
   },
@@ -67,7 +67,7 @@
     "symbol": "OPG",
     "count": 1,
     "entry_price": 133.0,
-    "current_price": 133.0,
+    "current_price": 134.0,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:37:00"
   },
@@ -85,35 +85,53 @@
     "symbol": "IOST",
     "count": 1,
     "entry_price": 0.864,
-    "current_price": 0.863,
+    "current_price": 0.86,
     "first_recommended_at": "2026-08-06 12:37:00",
     "last_recommended_at": "2026-08-06 12:37:00"
   },
   "ZKC": {
     "name": "바운드리스",
     "symbol": "ZKC",
-    "count": 2,
+    "count": 3,
     "entry_price": 54.1,
-    "current_price": 54.0,
+    "current_price": 55.1,
     "first_recommended_at": "2026-08-06 12:42:20",
-    "last_recommended_at": "2026-08-06 12:48:17"
+    "last_recommended_at": "2026-08-06 13:02:42"
   },
   "PRL": {
     "name": "펄",
     "symbol": "PRL",
     "count": 1,
     "entry_price": 395.0,
-    "current_price": 393.0,
+    "current_price": 394.0,
     "first_recommended_at": "2026-08-06 12:42:20",
     "last_recommended_at": "2026-08-06 12:42:20"
   },
   "USDE": {
     "name": "유에스디이",
     "symbol": "USDE",
-    "count": 1,
+    "count": 2,
     "entry_price": 1424.0,
     "current_price": 1424.0,
     "first_recommended_at": "2026-08-06 12:48:17",
-    "last_recommended_at": "2026-08-06 12:48:17"
+    "last_recommended_at": "2026-08-06 13:02:42"
+  },
+  "ERA": {
+    "name": "칼데라",
+    "symbol": "ERA",
+    "count": 1,
+    "entry_price": 97.2,
+    "current_price": 97.2,
+    "first_recommended_at": "2026-08-06 13:02:42",
+    "last_recommended_at": "2026-08-06 13:02:42"
+  },
+  "WAL": {
+    "name": "월러스",
+    "symbol": "WAL",
+    "count": 1,
+    "entry_price": 36.0,
+    "current_price": 36.0,
+    "first_recommended_at": "2026-08-06 13:02:42",
+    "last_recommended_at": "2026-08-06 13:02:42"
   }
 }
