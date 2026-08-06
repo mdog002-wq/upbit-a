@@ -414,7 +414,6 @@ def process_single_coin(item, current_price_map):
         c_price = current_price_map.get(ticker, metrics['last_close'])
         ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
 
-        # [수정] 기본점수 50점 기준, CMF(-1~1) 및 거래량 변화율 조정을 적용하여 스펙트럼 확장
         acc_score = round(
             50.0 
             + (metrics['cmf'] * 25.0) 
@@ -497,10 +496,6 @@ def analyze_and_scan_market():
 # [백분위 기반 상대평가 및 AI 추천종목 모니터]
 # ==============================================================================
 def assign_relative_grades(df):
-    """
-    시장 전체 점수의 백분위(Quantile)를 기준으로 등급을 상대평가 부여하여
-    한쪽 쏠림 현상을 방지하는 함수
-    """
     if df.empty:
         return df
 
@@ -513,13 +508,11 @@ def assign_relative_grades(df):
         score = row['종합예측점수']
         dump_risk = row['STGT_그래프덤핑위험(%)']
 
-        # 1. 고위험 종목은 절대 기준 우선 적용
         if dump_risk >= 80.0:
             return "🔴 경고"
         elif dump_risk >= 65.0:
             return "🟠 주의"
 
-        # 2. 나머지는 백분위 기반 상대평가
         if score >= q80:
             return "🟢 추천"
         elif score >= q50:
@@ -547,7 +540,6 @@ def calculate_ai_grade(score, dump_risk):
 def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_status_map):
     history = {}
     
-    # 파일이 존재하고 내용이 비어있지 않은 경우에만 안전하게 로드
     if os.path.exists(AI_TRACKER_HISTORY_FILE):
         try:
             with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
@@ -560,7 +552,6 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
 
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # AI 분석 리포트에 언급된 종목들을 신규 등록 및 추천 횟수 증가
     for coin in ai_report_coins:
         symbol = coin['symbol']
         name = coin['name']
@@ -581,7 +572,6 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
                 "last_recommended_at": now_str
             }
     
-    # 2. 현재 가격 갱신 및 자동 제거 조건 검증
     to_remove = []
     for symbol, item in history.items():
         if symbol in current_price_map:
@@ -591,12 +581,10 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
         curr_p = item['current_price']
         profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
 
-        # AI 분석 상태 확인
         status = coin_status_map.get(symbol, {})
         grade = status.get('grade', '⚪ 보통')
         dump_risk = status.get('dump_risk', 0.0)
 
-        # [자동 제거 조건]
         is_target_reached = profit_rate >= 20.0
         is_value_lost = (grade in ["🔴 경고", "🟠 주의"]) or (dump_risk >= 70.0) or (profit_rate <= -10.0)
 
@@ -607,19 +595,16 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
             print(f"🗑️ [AI 추천 모니터 제거] {item['name']}({symbol}): AI 분석상 가치 상실 (수익률: {profit_rate:.2f}%, 등급: {grade})")
             to_remove.append(symbol)
 
-    # 히스토리에서 제거 대상 삭제
     for s in to_remove:
         if s in history:
             del history[s]
 
-    # 히스토리 파일 저장
     try:
         with open(AI_TRACKER_HISTORY_FILE, "w", encoding="utf-8") as f:
             json.dump(history, f, ensure_ascii=False, indent=2)
     except Exception as e:
         print(f"⚠️ 트래킹 데이터 저장 실패: {e}")
 
-    # 대시보드 출력용 리스트 반환
     tracker_list = []
     for symbol, item in history.items():
         entry_p = item['entry_price']
@@ -636,7 +621,6 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
             "recommend_time": item['last_recommended_at']
         })
 
-    # 추천 횟수 및 최근 추천시간 기준 내림차순 정렬
     tracker_list.sort(key=lambda x: (x['count'], x['recommend_time']), reverse=True)
     return tracker_list
 
@@ -862,7 +846,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     else:
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
 
-    # 4. 'AI 추천종목 모니터' HTML 생성 (추천 횟수, 추천진입가, 현재가, 수익률, 추천시간)
+    # 4. 'AI 추천종목 모니터' HTML 생성
     tracking_items = []
     for item in tracking_monitor_data:
         p_rate = item['profit_rate']
@@ -893,14 +877,14 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     warn_rows = create_table_rows(warning_sector)
     dang_rows = create_table_rows(danger_sector)
 
-    # 6. HTML 템플릿 생성
+    # 6. HTML 템플릿 생성 (문자열 구분 기호 오류 수정 완료)
     html_template = (
         '<!DOCTYPE html>\n'
         '<html lang="ko">\n'
         '<head>\n'
         '    <meta charset="UTF-8">\n'
         '    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-             <meta http-equiv="refresh" content="300">\n'
+        '    <meta http-equiv="refresh" content="300">\n'
         '    <title>Upbit AI Quantitative Dashboard</title>\n'
         '    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">\n'
         '    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">\n'
@@ -933,7 +917,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '        </div>\n'
         '        <!-- 3단 레이아웃 메인 -->\n'
         '        <div class="row g-4">\n'
-        '            <!-- [좌측 컬럼: AI 분석 리포트 (제미나이 3.1플래시라이트 연동)] -->\n'
+        '            <!-- [좌측 컬럼: AI 분석 리포트] -->\n'
         '            <div class="col-lg-3">\n'
         '                <div class="d-flex flex-column gap-3">\n'
         '                    <div class="card p-3 shadow-sm">\n'
@@ -954,8 +938,8 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '                    </div>\n'
         '                </div>\n'
         '            </div>\n'
-        <!-- [중앙 컬럼: 전체 코인 등급 분류] -->
-        <div class="col-lg-5">\n'
+        '            <!-- [중앙 컬럼: 전체 코인 등급 분류] -->\n'
+        '            <div class="col-lg-5">\n'
         '                <div class="card p-4 shadow-sm">\n'
         '                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">\n'
         '                        <h5 class="fw-bold mb-0 text-dark fs-5"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류</h5>\n'
@@ -1030,7 +1014,8 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '        }\n'
         '    </script>\n'
         '</body>\n'
-        '</html>' )
+        '</html>'
+    )
 
     # 7. 치환 작업 수행 후 저장
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
@@ -1068,7 +1053,7 @@ if __name__ == "__main__":
     df_result = analyze_and_scan_market()
     
     if not df_result.empty:
-        # 백분위 기반 상대평가 적용 (등급 쏠림 방지)
+        # 백분위 기반 상대평가 적용
         df_result = assign_relative_grades(df_result)
 
         print(f"\n=== 🎯 [자가학습 AI 적용] 전체 분석 종목 수: {len(df_result)}개 ===")
@@ -1106,7 +1091,7 @@ if __name__ == "__main__":
                     "raw_price": c_price
                 })
 
-        # 전 종목 AI 등급/위험도 맵 생성 (상대평가 등급 반영)
+        # 전 종목 AI 등급/위험도 맵 생성
         coin_status_map = {}
         for _, r in df_result.iterrows():
             coin_status_map[r['심볼']] = {
@@ -1115,7 +1100,7 @@ if __name__ == "__main__":
                 "grade": r['grade']
             }
 
-        # 트래킹 모니터 데이터 갱신 (리포트 언급 종목 추가, +20% 상승/가치 상실 종목 자동 제거)
+        # 트래킹 모니터 데이터 갱신
         tracking_monitor_data = update_ai_recommendation_tracker(
             ai_report_coins, 
             symbol_to_raw_price, 
@@ -1126,10 +1111,10 @@ if __name__ == "__main__":
         all_target_coins = [item['name'] for item in ai_report_coins]
         news_data = fetch_news_for_recommended_coins(all_target_coins)
 
-        # [추가] Gemini가 추천한 종목들을 FastAPI 서버(대시보드)로 전송하여 태그 반영
+        # FastAPI 서버(대시보드)로 추천 종목 전송
         try:
             fastapi_payload = {
-                "generation": 1,  # 필요에 따라 세대 번호 관리 가능
+                "generation": 1,
                 "recommendations": [
                     {
                         "market": f"KRW-{coin['symbol']}", 
@@ -1139,19 +1124,18 @@ if __name__ == "__main__":
                     for coin in ai_report_coins
                 ]
             }
-            # FastAPI 서버 주소 (로컬 또는 오라클 서버 주소로 변경)
             response = requests.post("http://140.245.99.254:8000/api/ai-recommendations", json=fastapi_payload, timeout=5)
             if response.status_code == 200:
                 print("🔥 [연동 성공] Gemini AI 추천 종목이 FastAPI 대시보드 서버로 성공적으로 전송되었습니다!")
             else:
                 print(f"⚠️ FastAPI 서버 전송 응답 오류: {response.status_code}")
         except Exception as e:
-            print(f"⚠️ FastAPI 서버로 AI 추천 종목 전송 실패 (서버가 켜져 있는지 확인하세요): {e}")
+            print(f"⚠️ FastAPI 서버로 AI 추천 종목 전송 실패: {e}")
             
-        # 7. Redis 연동 (전체 종목 페이로드 및 AI 추천종목 모니터 반영)
+        # 7. Redis 연동
         update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data)
 
-        # 8. 대시보드 HTML 파일 생성 (Gemini 3.1 Flash-Lite 연동 & AI 추천종목 모니터 반영)
+        # 8. 대시보드 HTML 파일 생성
         generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
 
         # 9. 엑셀 저장 및 이메일 발송
