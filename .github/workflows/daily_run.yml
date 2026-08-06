@@ -45,12 +45,6 @@ jobs:
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: python coin_excel_krw.py
 
-      - name: Send HTML to Render
-        run: |
-          curl -X POST -H "Content-Type: text/html" \
-            --data-binary "@docs/index.html" \
-            https://coinpickup.onrender.com/upload
-
       - name: 대시보드 및 AI 데이터 변경사항 통합 커밋 및 푸시
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
