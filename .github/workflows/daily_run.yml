@@ -62,3 +62,6 @@ jobs:
           else
             echo "변경사항이 없어 커밋을 스킵합니다."
           fi
+          concurrency:
+          group: ${{ github.workflow }}-${{ github.ref }}
+          cancel-in-progress: true
