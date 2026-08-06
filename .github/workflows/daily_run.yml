@@ -70,7 +70,7 @@ jobs:
 
       - name: Send HTML to Render
         run: |
-          # docs/ 폴더 안에 있는 메인 HTML 파일의 실제 이름(예: index.html 등)으로 경로를 맞춰주세요
+          # docs/index.html 으로 경로를 맞춰주세요
           curl -X POST -H "Content-Type: text/html" \
                --data-binary "@docs/index.html" \
                https://coinpickup.onrender.com/upload
