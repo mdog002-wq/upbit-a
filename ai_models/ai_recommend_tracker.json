@@ -22,7 +22,7 @@
     "symbol": "LSK",
     "count": 2,
     "entry_price": 107.0,
-    "current_price": 107.0,
+    "current_price": 106.0,
     "first_recommended_at": "2026-08-06 23:41:17",
     "last_recommended_at": "2026-08-06 23:44:29"
   },
@@ -38,28 +38,37 @@
   "ORBS": {
     "name": "오브스",
     "symbol": "ORBS",
-    "count": 1,
+    "count": 2,
     "entry_price": 7.76,
     "current_price": 7.76,
     "first_recommended_at": "2026-08-06 23:44:29",
-    "last_recommended_at": "2026-08-06 23:44:29"
+    "last_recommended_at": "2026-08-06 23:47:57"
   },
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 1,
+    "count": 2,
     "entry_price": 150.0,
     "current_price": 150.0,
     "first_recommended_at": "2026-08-06 23:44:29",
-    "last_recommended_at": "2026-08-06 23:44:29"
+    "last_recommended_at": "2026-08-06 23:47:57"
   },
   "LA": {
     "name": "라그랑주",
     "symbol": "LA",
-    "count": 1,
+    "count": 2,
     "entry_price": 67.6,
     "current_price": 67.6,
     "first_recommended_at": "2026-08-06 23:44:29",
-    "last_recommended_at": "2026-08-06 23:44:29"
+    "last_recommended_at": "2026-08-06 23:47:57"
+  },
+  "IRYS": {
+    "name": "아이리스",
+    "symbol": "IRYS",
+    "count": 1,
+    "entry_price": 22.4,
+    "current_price": 22.4,
+    "first_recommended_at": "2026-08-06 23:47:57",
+    "last_recommended_at": "2026-08-06 23:47:57"
   }
 }
