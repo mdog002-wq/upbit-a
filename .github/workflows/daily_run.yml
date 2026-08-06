@@ -9,7 +9,7 @@ concurrency:
 
 jobs:
   run-upbit-bot:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     timeout-minutes: 10  # 10분이 지나도 안 끝나면 강제 종료
 
     permissions:
