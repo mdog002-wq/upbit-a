@@ -1,10 +1,10 @@
-# Name: 업비트 코인 매집점수 분석 및 메일 발송
+name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   workflow_dispatch:
-  # 만약 일정 주기마다 자동으로 돌리고 싶다면 아래 주석을 해제하세요
-  # schedule:
-  #   - cron: '*/10 * * * *'
+    # 만약 일정 주기마다 자동으로 돌리고 싶다면 아래 주석을 해제하세요
+    # schedule:
+    #   - cron: '*/10 * * * *'
 
 jobs:
   run-upbit-bot:
@@ -44,8 +44,14 @@ jobs:
           REDIS_PORT: ${{ secrets.REDIS_PORT }}
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: python coin_excel_krw.py
- 
-      - name: 대시보드 HTML 및 누적 히스토리 자동 커밋
+
+      - name: Send HTML to Render
+        run: |
+          curl -X POST -H "Content-Type: text/html" \
+            --data-binary "@docs/index.html" \
+            https://coinpickup.onrender.com/upload
+
+      - name: 대시보드 및 AI 데이터 변경사항 통합 커밋 및 푸시
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -57,27 +63,13 @@ jobs:
           # 1. 원격 저장소의 최신 변경 사항을 먼저 반영 (충돌 방지)
           git pull origin main --rebase || echo "No rebase needed"
           
-          # 2. 변경된 파일 스테이징
+          # 2. 변경된 모든 파일 스테이징 (대시보드, 히스토리, 캐시, AI 모델 등)
           git add docs/ scan_history.csv cache/ ai_models/ 2>/dev/null || true
           
-          # 3. 변경사항이 있을 때만 커밋 및 푸시 수행
+          # 3. 변경사항이 있을 때만 커밋 및 푸시 수행 (강제 푸시 제거)
           if ! git diff --staged --quiet; then
-            git commit -m "Auto: Update dashboard and AI cache [skip ci]"
-            git push origin main --force
+            git commit -m "🤖 [Bot] Update dashboard, AI models, and tracker data [skip ci]"
+            git push origin main
           else
             echo "변경사항이 없어 커밋을 스킵합니다."
           fi
-
-      - name: Send HTML to Render 
-        run: |
-        # docs/index.html 으로 경로를 맞춰주세요
-        curl -X POST -H "Content-Type: text/html" \
-         --data-binary "@docs/index.html" \ https://coinpickup.onrender.com/upload
-          
-       - name: Commit and push updated AI models & tracker data
-         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add ai_models/ai_recommend_tracker.json ai_models/ai_experience.json || true
-          git commit -m "🤖 [Bot] Update AI tracker and experience data" || echo "No changes to commit"
-          git push || echo "No changes to push"
