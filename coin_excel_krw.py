@@ -978,10 +978,13 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '                                <tbody>__REC_ROWS__</tbody>\n'
         '                            </table>\n'
         '                        </div>\n'
+        '                        # 수정해야 할 올바른 예시
         '                        <div class="tab-pane fade" id="int" role="tabpanel">\n'
         '                            <table class="table table-hover align-middle mb-0">\n'
-        '                                <thead class
-        '                        </div>\n'="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        '                                <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        '                                <tbody>__INT_ROWS__</tbody>\n'
+        '                            </table>\n'
+        '                        </div>\n'
         '                                <tbody>__INT_ROWS__</tbody>\n'
         '                            </table>\n'
         '                        <div class="tab-pane fade" id="norm" role="tabpanel">\n'
