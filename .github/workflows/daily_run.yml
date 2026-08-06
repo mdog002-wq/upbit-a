@@ -6,6 +6,11 @@ on:
     # schedule:
     #   - cron: '*/10 * * * *'
 
+# 1. concurrency 위치를 최상위 레벨로 이동 (문법 오류 수정)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   run-upbit-bot:
     runs-on: ubuntu-latest
@@ -45,23 +50,16 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 0. 워크플로우 파일 변경 사항이 커밋에 포함되지 않도록 안전하게 제외
-          git checkout .github/workflows/daily_run.yml 2>/dev/null || true
-          git reset HEAD .github/workflows/daily_run.yml 2>/dev/null || true
-          
-          # 1. 원격 저장소의 최신 변경 사항을 먼저 반영 (충돌 방지)
+          # 1. 원격 저장소의 최신 변경 사항을 반영 (충돌 방지)
           git pull origin main --rebase || echo "No rebase needed"
           
-          # 2. 변경된 모든 파일 스테이징 (대시보드, 히스토리, 캐시, AI 모델 등)
+          # 2. 변경된 데이터 폴더/파일만 선택적으로 스테이징
           git add docs/ scan_history.csv cache/ ai_models/ 2>/dev/null || true
           
-          # 3. 변경사항이 있을 때만 커밋 및 푸시 수행 (강제 푸시 제거)
+          # 3. 변경사항이 있을 때만 커밋 및 푸시 수행
           if ! git diff --staged --quiet; then
             git commit -m "🤖 [Bot] Update dashboard, AI models, and tracker data [skip ci]"
             git push origin main
           else
             echo "변경사항이 없어 커밋을 스킵합니다."
           fi
-          concurrency:
-          group: ${{ github.workflow }}-${{ github.ref }}
-          cancel-in-progress: true
