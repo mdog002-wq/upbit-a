@@ -4,7 +4,7 @@
     "symbol": "IOTA",
     "count": 5,
     "entry_price": 48.2,
-    "current_price": 47.9,
+    "current_price": 48.0,
     "first_recommended_at": "2026-08-05 21:32:23",
     "last_recommended_at": "2026-08-05 22:52:34"
   },
@@ -13,7 +13,7 @@
     "symbol": "PRL",
     "count": 1,
     "entry_price": 385.0,
-    "current_price": 387.0,
+    "current_price": 386.0,
     "first_recommended_at": "2026-08-05 23:42:17",
     "last_recommended_at": "2026-08-05 23:42:17"
   },
@@ -29,11 +29,11 @@
   "MOCA": {
     "name": "모카네트워크",
     "symbol": "MOCA",
-    "count": 2,
+    "count": 3,
     "entry_price": 10.6,
     "current_price": 10.7,
     "first_recommended_at": "2026-08-06 00:02:51",
-    "last_recommended_at": "2026-08-06 01:42:20"
+    "last_recommended_at": "2026-08-06 01:52:18"
   },
   "ZRO": {
     "name": "레이어제로",
@@ -67,7 +67,7 @@
     "symbol": "AXL",
     "count": 3,
     "entry_price": 52.0,
-    "current_price": 51.6,
+    "current_price": 51.5,
     "first_recommended_at": "2026-08-06 00:22:22",
     "last_recommended_at": "2026-08-06 01:02:30"
   },
@@ -76,7 +76,7 @@
     "symbol": "BREV",
     "count": 3,
     "entry_price": 101.0,
-    "current_price": 99.9,
+    "current_price": 99.5,
     "first_recommended_at": "2026-08-06 00:32:29",
     "last_recommended_at": "2026-08-06 00:52:29"
   },
@@ -85,7 +85,7 @@
     "symbol": "GAS",
     "count": 1,
     "entry_price": 1319.0,
-    "current_price": 1317.0,
+    "current_price": 1315.0,
     "first_recommended_at": "2026-08-06 00:32:29",
     "last_recommended_at": "2026-08-06 00:32:29"
   },
@@ -137,11 +137,11 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 5,
+    "count": 6,
     "entry_price": 1.17,
     "current_price": 1.17,
     "first_recommended_at": "2026-08-06 01:02:30",
-    "last_recommended_at": "2026-08-06 01:42:20"
+    "last_recommended_at": "2026-08-06 01:52:18"
   },
   "ORDER": {
     "name": "오덜리",
@@ -166,7 +166,7 @@
     "symbol": "CELO",
     "count": 1,
     "entry_price": 85.5,
-    "current_price": 85.1,
+    "current_price": 85.4,
     "first_recommended_at": "2026-08-06 01:32:41",
     "last_recommended_at": "2026-08-06 01:32:41"
   },
@@ -184,7 +184,7 @@
     "symbol": "MMT",
     "count": 1,
     "entry_price": 229.0,
-    "current_price": 229.0,
+    "current_price": 230.0,
     "first_recommended_at": "2026-08-06 01:42:20",
     "last_recommended_at": "2026-08-06 01:42:20"
   },
@@ -196,5 +196,23 @@
     "current_price": 201.0,
     "first_recommended_at": "2026-08-06 01:42:20",
     "last_recommended_at": "2026-08-06 01:42:20"
+  },
+  "PROVE": {
+    "name": "서싱트",
+    "symbol": "PROVE",
+    "count": 1,
+    "entry_price": 226.0,
+    "current_price": 226.0,
+    "first_recommended_at": "2026-08-06 01:52:18",
+    "last_recommended_at": "2026-08-06 01:52:18"
+  },
+  "FLUID": {
+    "name": "플루이드",
+    "symbol": "FLUID",
+    "count": 1,
+    "entry_price": 1715.0,
+    "current_price": 1715.0,
+    "first_recommended_at": "2026-08-06 01:52:18",
+    "last_recommended_at": "2026-08-06 01:52:18"
   }
 }
