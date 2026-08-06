@@ -1,22 +1,4 @@
 {
-  "CVC": {
-    "name": "시빅",
-    "symbol": "CVC",
-    "count": 10,
-    "entry_price": 25.2,
-    "current_price": 25.1,
-    "first_recommended_at": "2026-08-05 19:02:46",
-    "last_recommended_at": "2026-08-05 21:12:28"
-  },
-  "TFUEL": {
-    "name": "쎄타퓨엘",
-    "symbol": "TFUEL",
-    "count": 6,
-    "entry_price": 10.5,
-    "current_price": 10.5,
-    "first_recommended_at": "2026-08-05 21:12:28",
-    "last_recommended_at": "2026-08-05 22:22:24"
-  },
   "IOTA": {
     "name": "아이오타",
     "symbol": "IOTA",
@@ -31,7 +13,7 @@
     "symbol": "SUN",
     "count": 8,
     "entry_price": 25.5,
-    "current_price": 25.6,
+    "current_price": 25.5,
     "first_recommended_at": "2026-08-05 21:52:17",
     "last_recommended_at": "2026-08-05 23:52:19"
   },
@@ -40,45 +22,9 @@
     "symbol": "JTO",
     "count": 2,
     "entry_price": 739.0,
-    "current_price": 741.0,
+    "current_price": 742.0,
     "first_recommended_at": "2026-08-05 22:12:20",
     "last_recommended_at": "2026-08-05 22:52:34"
-  },
-  "SUPER": {
-    "name": "슈퍼버스",
-    "symbol": "SUPER",
-    "count": 9,
-    "entry_price": 120.0,
-    "current_price": 121.0,
-    "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 23:52:19"
-  },
-  "SOON": {
-    "name": "쑨",
-    "symbol": "SOON",
-    "count": 4,
-    "entry_price": 322.0,
-    "current_price": 318.0,
-    "first_recommended_at": "2026-08-05 22:32:27",
-    "last_recommended_at": "2026-08-05 23:12:16"
-  },
-  "ALT": {
-    "name": "알트레이어",
-    "symbol": "ALT",
-    "count": 3,
-    "entry_price": 8.11,
-    "current_price": 8.19,
-    "first_recommended_at": "2026-08-05 23:02:42",
-    "last_recommended_at": "2026-08-05 23:32:23"
-  },
-  "BONK": {
-    "name": "봉크",
-    "symbol": "BONK",
-    "count": 3,
-    "entry_price": 0.00424,
-    "current_price": 0.00416,
-    "first_recommended_at": "2026-08-05 23:22:11",
-    "last_recommended_at": "2026-08-05 23:52:19"
   },
   "MNT": {
     "name": "맨틀",
@@ -94,7 +40,7 @@
     "symbol": "1INCH",
     "count": 2,
     "entry_price": 117.0,
-    "current_price": 119.0,
+    "current_price": 120.0,
     "first_recommended_at": "2026-08-05 23:42:17",
     "last_recommended_at": "2026-08-05 23:52:19"
   },
@@ -103,7 +49,7 @@
     "symbol": "PRL",
     "count": 1,
     "entry_price": 385.0,
-    "current_price": 385.0,
+    "current_price": 388.0,
     "first_recommended_at": "2026-08-05 23:42:17",
     "last_recommended_at": "2026-08-05 23:42:17"
   },
@@ -112,7 +58,7 @@
     "symbol": "MOODENG",
     "count": 1,
     "entry_price": 52.7,
-    "current_price": 52.9,
+    "current_price": 53.0,
     "first_recommended_at": "2026-08-06 00:02:51",
     "last_recommended_at": "2026-08-06 00:02:51"
   },
@@ -121,16 +67,7 @@
     "symbol": "KAITO",
     "count": 1,
     "entry_price": 1332.0,
-    "current_price": 1332.0,
-    "first_recommended_at": "2026-08-06 00:02:51",
-    "last_recommended_at": "2026-08-06 00:02:51"
-  },
-  "UP2": {
-    "name": "슈퍼폼",
-    "symbol": "UP2",
-    "count": 1,
-    "entry_price": 86.3,
-    "current_price": 86.7,
+    "current_price": 1335.0,
     "first_recommended_at": "2026-08-06 00:02:51",
     "last_recommended_at": "2026-08-06 00:02:51"
   },
@@ -143,21 +80,12 @@
     "first_recommended_at": "2026-08-06 00:02:51",
     "last_recommended_at": "2026-08-06 00:02:51"
   },
-  "STX": {
-    "name": "스택스",
-    "symbol": "STX",
-    "count": 1,
-    "entry_price": 190.0,
-    "current_price": 190.0,
-    "first_recommended_at": "2026-08-06 00:12:24",
-    "last_recommended_at": "2026-08-06 00:12:24"
-  },
   "ZRO": {
     "name": "레이어제로",
     "symbol": "ZRO",
     "count": 1,
     "entry_price": 1103.0,
-    "current_price": 1103.0,
+    "current_price": 1104.0,
     "first_recommended_at": "2026-08-06 00:12:24",
     "last_recommended_at": "2026-08-06 00:12:24"
   },
@@ -175,8 +103,44 @@
     "symbol": "GMT",
     "count": 1,
     "entry_price": 9.36,
-    "current_price": 9.36,
+    "current_price": 9.4,
     "first_recommended_at": "2026-08-06 00:12:24",
     "last_recommended_at": "2026-08-06 00:12:24"
+  },
+  "KAVA": {
+    "name": "카바",
+    "symbol": "KAVA",
+    "count": 1,
+    "entry_price": 57.2,
+    "current_price": 57.2,
+    "first_recommended_at": "2026-08-06 00:22:22",
+    "last_recommended_at": "2026-08-06 00:22:22"
+  },
+  "QTUM": {
+    "name": "퀀텀",
+    "symbol": "QTUM",
+    "count": 1,
+    "entry_price": 915.0,
+    "current_price": 915.0,
+    "first_recommended_at": "2026-08-06 00:22:22",
+    "last_recommended_at": "2026-08-06 00:22:22"
+  },
+  "WCT": {
+    "name": "월렛커넥트",
+    "symbol": "WCT",
+    "count": 1,
+    "entry_price": 50.3,
+    "current_price": 50.3,
+    "first_recommended_at": "2026-08-06 00:22:22",
+    "last_recommended_at": "2026-08-06 00:22:22"
+  },
+  "AXL": {
+    "name": "엑셀라",
+    "symbol": "AXL",
+    "count": 1,
+    "entry_price": 52.0,
+    "current_price": 52.0,
+    "first_recommended_at": "2026-08-06 00:22:22",
+    "last_recommended_at": "2026-08-06 00:22:22"
   }
 }
