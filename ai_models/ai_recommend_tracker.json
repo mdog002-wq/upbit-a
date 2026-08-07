@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90697000.0,
+    "current_price": 90706000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -39,23 +39,13 @@
     "first_recommended_at": "2026-08-07 13:32:34",
     "last_recommended_at": "2026-08-07 13:32:34"
   },
-  "DOGE": {
-    "name": "도지코인",
-    "symbol": "DOGE",
-    "count": 1,
-    "top10_count": 1,
-    "entry_price": 97.5,
-    "current_price": 97.4,
-    "first_recommended_at": "2026-08-07 13:42:24",
-    "last_recommended_at": "2026-08-07 13:42:24"
-  },
   "ENSO": {
     "name": "엔소",
     "symbol": "ENSO",
     "count": 1,
     "top10_count": 1,
     "entry_price": 1415.0,
-    "current_price": 1435.0,
+    "current_price": 1431.0,
     "first_recommended_at": "2026-08-07 13:42:24",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -69,23 +59,13 @@
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
-  "0G": {
-    "name": "제로지",
-    "symbol": "0G",
-    "count": 2,
-    "top10_count": 4,
-    "entry_price": 199.0,
-    "current_price": 200.0,
-    "first_recommended_at": "2026-08-07 13:47:38",
-    "last_recommended_at": "2026-08-07 13:52:24"
-  },
   "GEOD": {
     "name": "지오드넷",
     "symbol": "GEOD",
     "count": 2,
     "top10_count": 4,
     "entry_price": 251.0,
-    "current_price": 251.0,
+    "current_price": 253.0,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
@@ -132,41 +112,51 @@
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 32.2,
     "current_price": 32.2,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 14:06:49"
+    "last_recommended_at": "2026-08-07 14:12:17"
   },
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 149.0,
     "current_price": 149.0,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 14:06:49"
+    "last_recommended_at": "2026-08-07 14:12:17"
   },
   "MOCA": {
     "name": "모카네트워크",
     "symbol": "MOCA",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 10.8,
     "current_price": 10.8,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 14:06:49"
+    "last_recommended_at": "2026-08-07 14:12:17"
   },
   "MET2": {
     "name": "메테오라",
     "symbol": "MET2",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 231.0,
-    "current_price": 231.0,
+    "current_price": 232.0,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:06:49"
+  },
+  "KERNEL": {
+    "name": "커널다오",
+    "symbol": "KERNEL",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 47.1,
+    "current_price": 47.1,
+    "first_recommended_at": "2026-08-07 14:12:17",
+    "last_recommended_at": "2026-08-07 14:12:17"
   }
 }
