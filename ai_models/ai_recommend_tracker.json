@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 536.0,
+    "current_price": 535.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 5.07,
-    "current_price": 4.98,
+    "current_price": 4.97,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 305900.0,
-    "current_price": 303300.0,
+    "current_price": 302800.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -85,7 +85,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6097000.0,
-    "current_price": 6070000.0,
+    "current_price": 6067000.0,
     "first_recommended_at": "2026-08-07 21:33:10",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -95,7 +95,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 21.4,
-    "current_price": 21.3,
+    "current_price": 21.2,
     "first_recommended_at": "2026-08-07 21:41:14",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -105,7 +105,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 2.78,
-    "current_price": 2.79,
+    "current_price": 2.8,
     "first_recommended_at": "2026-08-07 21:41:14",
     "last_recommended_at": "2026-08-07 22:03:06"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 401.0,
-    "current_price": 406.0,
+    "current_price": 407.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -172,12 +172,12 @@
   "MOC": {
     "name": "모스코인",
     "symbol": "MOC",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 24.3,
     "current_price": 24.3,
     "first_recommended_at": "2026-08-07 23:03:18",
-    "last_recommended_at": "2026-08-07 23:33:24"
+    "last_recommended_at": "2026-08-07 23:42:59"
   },
   "DEEP": {
     "name": "딥북",
@@ -195,7 +195,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 2584.0,
-    "current_price": 2586.0,
+    "current_price": 2578.0,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
@@ -212,22 +212,22 @@
   "IN": {
     "name": "인피닛",
     "symbol": "IN",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 48.5,
-    "current_price": 48.5,
+    "current_price": 48.7,
     "first_recommended_at": "2026-08-07 23:33:24",
-    "last_recommended_at": "2026-08-07 23:33:24"
+    "last_recommended_at": "2026-08-07 23:42:59"
   },
   "IOST": {
     "name": "아이오에스티",
     "symbol": "IOST",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 0.849,
-    "current_price": 0.849,
+    "current_price": 0.845,
     "first_recommended_at": "2026-08-07 23:33:24",
-    "last_recommended_at": "2026-08-07 23:33:24"
+    "last_recommended_at": "2026-08-07 23:42:59"
   },
   "DOT": {
     "name": "폴카닷",
@@ -235,8 +235,18 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1141.0,
-    "current_price": 1141.0,
+    "current_price": 1139.0,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-07 23:33:24"
+  },
+  "VTHO": {
+    "name": "비토르토큰",
+    "symbol": "VTHO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.471,
+    "current_price": 0.471,
+    "first_recommended_at": "2026-08-07 23:42:59",
+    "last_recommended_at": "2026-08-07 23:42:59"
   }
 }
