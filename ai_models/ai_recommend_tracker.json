@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90922000.0,
+    "current_price": 90859000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2691000.0,
+    "current_price": 2688000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -45,7 +45,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 251.0,
-    "current_price": 253.0,
+    "current_price": 256.0,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
@@ -55,7 +55,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 5.32,
-    "current_price": 5.3,
+    "current_price": 5.29,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:57:15"
   },
@@ -82,12 +82,12 @@
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
-    "count": 7,
-    "top10_count": 7,
+    "count": 8,
+    "top10_count": 8,
     "entry_price": 32.2,
     "current_price": 32.4,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 15:43:10"
+    "last_recommended_at": "2026-08-07 15:52:44"
   },
   "JST": {
     "name": "저스트",
@@ -113,9 +113,9 @@
     "name": "메테오라",
     "symbol": "MET2",
     "count": 2,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 231.0,
-    "current_price": 241.0,
+    "current_price": 239.0,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 15:43:10"
   },
@@ -155,7 +155,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 51.1,
-    "current_price": 50.8,
+    "current_price": 50.6,
     "first_recommended_at": "2026-08-07 14:42:14",
     "last_recommended_at": "2026-08-07 14:52:17"
   },
@@ -165,7 +165,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 520.0,
-    "current_price": 518.0,
+    "current_price": 517.0,
     "first_recommended_at": "2026-08-07 15:14:33",
     "last_recommended_at": "2026-08-07 15:14:33"
   },
@@ -175,19 +175,19 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 304500.0,
-    "current_price": 303300.0,
+    "current_price": 303200.0,
     "first_recommended_at": "2026-08-07 15:22:58",
     "last_recommended_at": "2026-08-07 15:22:58"
   },
   "BAT": {
     "name": "베이직어텐션토큰",
     "symbol": "BAT",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 96.0,
     "current_price": 96.0,
     "first_recommended_at": "2026-08-07 15:43:10",
-    "last_recommended_at": "2026-08-07 15:43:10"
+    "last_recommended_at": "2026-08-07 15:52:44"
   },
   "MANTRA": {
     "name": "만트라",
@@ -195,8 +195,28 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 7.78,
-    "current_price": 7.78,
+    "current_price": 7.68,
     "first_recommended_at": "2026-08-07 15:43:10",
     "last_recommended_at": "2026-08-07 15:43:10"
+  },
+  "GMT": {
+    "name": "스테픈",
+    "symbol": "GMT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 9.81,
+    "current_price": 9.81,
+    "first_recommended_at": "2026-08-07 15:52:44",
+    "last_recommended_at": "2026-08-07 15:52:44"
+  },
+  "TOKAMAK": {
+    "name": "토카막네트워크",
+    "symbol": "TOKAMAK",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 458.0,
+    "current_price": 458.0,
+    "first_recommended_at": "2026-08-07 15:52:44",
+    "last_recommended_at": "2026-08-07 15:52:44"
   }
 }
