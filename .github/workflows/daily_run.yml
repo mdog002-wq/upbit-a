@@ -1,4 +1,4 @@
-name: 업비트 코인 매집점수 분석 및 메일 발송
+Name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   workflow_dispatch:
@@ -14,7 +14,6 @@ jobs:
 
     permissions:
       contents: write
-      actions: write  # Actions 트리거 권한 추가
 
     steps:
       - name: 저장소 코드 불러오기
@@ -61,19 +60,3 @@ jobs:
           else
             echo "변경사항이 없어 커밋을 스킵합니다."
           fi
-
-      # 💡 작업 성공 시 1분(60초) 휴식 후 다음 작업 트리거
-      - name: 1분 휴식 후 다음 작업 트리거
-        if: success()
-        env:
-          GH_TOKEN: ${{ secrets.PAT_TOKEN }}  # repo 및 actions 권한이 있는 Personal Access Token 필수
-        run: |
-          echo "작업 완료. 1분간 대기 후 다음 작업을 트리거합니다..."
-          sleep 60
-          
-          gh api \
-            --method POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${{ github.repository }}/actions/workflows/daily_run.yml/dispatches \
-            -f "ref=main"
