@@ -22,7 +22,7 @@
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.00909,
+    "current_price": 0.00918,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
@@ -31,7 +31,7 @@
     "symbol": "VANA",
     "count": 3,
     "entry_price": 1220.0,
-    "current_price": 1225.0,
+    "current_price": 1224.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 11:39:04"
   },
@@ -40,7 +40,7 @@
     "symbol": "AKT",
     "count": 1,
     "entry_price": 682.0,
-    "current_price": 682.0,
+    "current_price": 680.0,
     "first_recommended_at": "2026-08-07 11:02:23",
     "last_recommended_at": "2026-08-07 11:02:23"
   },
@@ -76,18 +76,18 @@
     "symbol": "QKC",
     "count": 1,
     "entry_price": 2.78,
-    "current_price": 2.8,
+    "current_price": 2.78,
     "first_recommended_at": "2026-08-07 11:39:04",
     "last_recommended_at": "2026-08-07 11:39:04"
   },
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 1,
+    "count": 2,
     "entry_price": 1.19,
-    "current_price": 1.18,
+    "current_price": 1.19,
     "first_recommended_at": "2026-08-07 11:42:22",
-    "last_recommended_at": "2026-08-07 11:42:22"
+    "last_recommended_at": "2026-08-07 12:12:22"
   },
   "YGG": {
     "name": "일드길드게임즈",
@@ -101,11 +101,11 @@
   "CELO": {
     "name": "셀로",
     "symbol": "CELO",
-    "count": 1,
+    "count": 2,
     "entry_price": 87.0,
-    "current_price": 86.7,
+    "current_price": 87.0,
     "first_recommended_at": "2026-08-07 11:52:12",
-    "last_recommended_at": "2026-08-07 11:52:12"
+    "last_recommended_at": "2026-08-07 12:12:22"
   },
   "KNC": {
     "name": "카이버네트워크",
@@ -113,15 +113,6 @@
     "count": 2,
     "entry_price": 145.0,
     "current_price": 145.0,
-    "first_recommended_at": "2026-08-07 11:52:12",
-    "last_recommended_at": "2026-08-07 12:02:32"
-  },
-  "WIF": {
-    "name": "도그위프햇",
-    "symbol": "WIF",
-    "count": 2,
-    "entry_price": 199.0,
-    "current_price": 199.0,
     "first_recommended_at": "2026-08-07 11:52:12",
     "last_recommended_at": "2026-08-07 12:02:32"
   },
@@ -133,5 +124,23 @@
     "current_price": 158.0,
     "first_recommended_at": "2026-08-07 12:02:32",
     "last_recommended_at": "2026-08-07 12:02:32"
+  },
+  "FCT2": {
+    "name": "피르마체인",
+    "symbol": "FCT2",
+    "count": 1,
+    "entry_price": 9.52,
+    "current_price": 9.52,
+    "first_recommended_at": "2026-08-07 12:12:22",
+    "last_recommended_at": "2026-08-07 12:12:22"
+  },
+  "USDE": {
+    "name": "유에스디이",
+    "symbol": "USDE",
+    "count": 1,
+    "entry_price": 1417.0,
+    "current_price": 1417.0,
+    "first_recommended_at": "2026-08-07 12:12:22",
+    "last_recommended_at": "2026-08-07 12:12:22"
   }
 }
