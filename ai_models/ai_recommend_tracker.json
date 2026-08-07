@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 537.0,
+    "current_price": 538.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 5.07,
-    "current_price": 4.99,
+    "current_price": 5.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -43,7 +43,7 @@
     "name": "맨틀",
     "symbol": "MNT",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 586.0,
     "current_price": 585.0,
     "first_recommended_at": "2026-08-07 21:03:17",
@@ -85,7 +85,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6097000.0,
-    "current_price": 6095000.0,
+    "current_price": 6085000.0,
     "first_recommended_at": "2026-08-07 21:33:10",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -95,7 +95,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 21.4,
-    "current_price": 21.3,
+    "current_price": 21.2,
     "first_recommended_at": "2026-08-07 21:41:14",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -125,7 +125,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 129.0,
-    "current_price": 129.0,
+    "current_price": 128.0,
     "first_recommended_at": "2026-08-07 22:03:06",
     "last_recommended_at": "2026-08-07 22:03:06"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 401.0,
-    "current_price": 401.0,
+    "current_price": 408.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -155,18 +155,58 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 119.0,
-    "current_price": 119.0,
+    "current_price": 117.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
   "FCT2": {
     "name": "피르마체인",
     "symbol": "FCT2",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 9.35,
+    "current_price": 9.43,
+    "first_recommended_at": "2026-08-07 22:33:08",
+    "last_recommended_at": "2026-08-07 23:03:18"
+  },
+  "MOC": {
+    "name": "모스코인",
+    "symbol": "MOC",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 9.35,
-    "current_price": 9.35,
-    "first_recommended_at": "2026-08-07 22:33:08",
-    "last_recommended_at": "2026-08-07 22:33:08"
+    "entry_price": 24.3,
+    "current_price": 24.3,
+    "first_recommended_at": "2026-08-07 23:03:18",
+    "last_recommended_at": "2026-08-07 23:03:18"
+  },
+  "DEEP": {
+    "name": "딥북",
+    "symbol": "DEEP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 21.4,
+    "current_price": 21.4,
+    "first_recommended_at": "2026-08-07 23:03:18",
+    "last_recommended_at": "2026-08-07 23:03:18"
+  },
+  "NEO": {
+    "name": "네오",
+    "symbol": "NEO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 2584.0,
+    "current_price": 2584.0,
+    "first_recommended_at": "2026-08-07 23:03:18",
+    "last_recommended_at": "2026-08-07 23:03:18"
+  },
+  "TOSHI": {
+    "name": "토시",
+    "symbol": "TOSHI",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.145,
+    "current_price": 0.145,
+    "first_recommended_at": "2026-08-07 23:03:18",
+    "last_recommended_at": "2026-08-07 23:03:18"
   }
 }
