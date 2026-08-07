@@ -960,7 +960,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' <div class="container-fluid my-4 px-4" style="max-width: 1700px;">\n'
         ' <div class="row mb-4 align-items-center">\n'
         ' <div class="col-md-3 text-start">\n'
-        ' <a href="https://nstz3yxnkqif9nmaa56jd2.streamlit.app/" class="btn btn-primary fw-bold px-3 py-2 shadow-sm">\n'
+        ' <a href="https://upbit-r.onrender.com" class="btn btn-primary fw-bold px-3 py-2 shadow-sm">\n'
         ' <i class="fa-solid fa-robot me-1"></i> AI 실시간\n'
         ' </a>\n'
         ' </div>\n'
