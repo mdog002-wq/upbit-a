@@ -8,24 +8,6 @@
     "first_recommended_at": "2026-08-06 23:37:52",
     "last_recommended_at": "2026-08-06 23:58:22"
   },
-  "USDC": {
-    "name": "유에스디코인",
-    "symbol": "USDC",
-    "count": 1,
-    "entry_price": 1422.0,
-    "current_price": 1421.0,
-    "first_recommended_at": "2026-08-06 23:41:17",
-    "last_recommended_at": "2026-08-06 23:41:17"
-  },
-  "LSK": {
-    "name": "리스크",
-    "symbol": "LSK",
-    "count": 2,
-    "entry_price": 107.0,
-    "current_price": 107.0,
-    "first_recommended_at": "2026-08-06 23:41:17",
-    "last_recommended_at": "2026-08-06 23:44:29"
-  },
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
@@ -40,7 +22,7 @@
     "symbol": "ORBS",
     "count": 5,
     "entry_price": 7.76,
-    "current_price": 7.7,
+    "current_price": 7.71,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:58:22"
   },
@@ -58,18 +40,9 @@
     "symbol": "LA",
     "count": 2,
     "entry_price": 67.6,
-    "current_price": 67.4,
+    "current_price": 67.1,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:47:57"
-  },
-  "TFUEL": {
-    "name": "쎄타퓨엘",
-    "symbol": "TFUEL",
-    "count": 1,
-    "entry_price": 10.6,
-    "current_price": 10.6,
-    "first_recommended_at": "2026-08-06 23:51:14",
-    "last_recommended_at": "2026-08-06 23:51:14"
   },
   "USD1": {
     "name": "월드리버티파이낸셜유에스디",
@@ -80,21 +53,12 @@
     "first_recommended_at": "2026-08-06 23:54:41",
     "last_recommended_at": "2026-08-06 23:58:22"
   },
-  "AI": {
-    "name": "젠신",
-    "symbol": "AI",
-    "count": 2,
-    "entry_price": 31.5,
-    "current_price": 31.5,
-    "first_recommended_at": "2026-08-06 23:54:41",
-    "last_recommended_at": "2026-08-06 23:58:22"
-  },
   "SUI": {
     "name": "수이",
     "symbol": "SUI",
     "count": 1,
     "entry_price": 954.0,
-    "current_price": 954.0,
+    "current_price": 955.0,
     "first_recommended_at": "2026-08-07 00:03:13",
     "last_recommended_at": "2026-08-07 00:03:13"
   },
@@ -121,8 +85,44 @@
     "symbol": "BABY",
     "count": 1,
     "entry_price": 16.1,
-    "current_price": 16.1,
+    "current_price": 16.2,
     "first_recommended_at": "2026-08-07 00:03:13",
     "last_recommended_at": "2026-08-07 00:03:13"
+  },
+  "ICX": {
+    "name": "아이콘",
+    "symbol": "ICX",
+    "count": 1,
+    "entry_price": 32.0,
+    "current_price": 32.0,
+    "first_recommended_at": "2026-08-07 00:06:38",
+    "last_recommended_at": "2026-08-07 00:06:38"
+  },
+  "2Z": {
+    "name": "더블제로",
+    "symbol": "2Z",
+    "count": 1,
+    "entry_price": 78.5,
+    "current_price": 78.5,
+    "first_recommended_at": "2026-08-07 00:06:38",
+    "last_recommended_at": "2026-08-07 00:06:38"
+  },
+  "MOVE": {
+    "name": "무브먼트",
+    "symbol": "MOVE",
+    "count": 1,
+    "entry_price": 10.6,
+    "current_price": 10.6,
+    "first_recommended_at": "2026-08-07 00:06:38",
+    "last_recommended_at": "2026-08-07 00:06:38"
+  },
+  "ANIME": {
+    "name": "애니메코인",
+    "symbol": "ANIME",
+    "count": 1,
+    "entry_price": 3.45,
+    "current_price": 3.45,
+    "first_recommended_at": "2026-08-07 00:06:38",
+    "last_recommended_at": "2026-08-07 00:06:38"
   }
 }
