@@ -15,19 +15,19 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 537.0,
+    "current_price": 538.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
   "OP": {
     "name": "옵티미즘",
     "symbol": "OP",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 125.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-07 20:33:00",
-    "last_recommended_at": "2026-08-07 20:33:00"
+    "last_recommended_at": "2026-08-07 21:03:17"
   },
   "T": {
     "name": "쓰레스홀드",
@@ -35,8 +35,28 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 5.07,
-    "current_price": 5.07,
+    "current_price": 5.03,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
+  },
+  "MNT": {
+    "name": "맨틀",
+    "symbol": "MNT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 586.0,
+    "current_price": 586.0,
+    "first_recommended_at": "2026-08-07 21:03:17",
+    "last_recommended_at": "2026-08-07 21:03:17"
+  },
+  "BCH": {
+    "name": "비트코인캐시",
+    "symbol": "BCH",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 305900.0,
+    "current_price": 305900.0,
+    "first_recommended_at": "2026-08-07 21:03:17",
+    "last_recommended_at": "2026-08-07 21:03:17"
   }
 }
