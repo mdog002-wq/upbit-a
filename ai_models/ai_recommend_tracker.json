@@ -3,9 +3,9 @@
     "name": "센티언트",
     "symbol": "SENT",
     "count": 13,
-    "top10_count": 14,
+    "top10_count": 15,
     "entry_price": 19.0,
-    "current_price": 19.1,
+    "current_price": 19.0,
     "first_recommended_at": "2026-08-08 05:03:21",
     "last_recommended_at": "2026-08-08 08:43:06"
   },
@@ -85,19 +85,19 @@
     "count": 4,
     "top10_count": 12,
     "entry_price": 18.1,
-    "current_price": 18.1,
+    "current_price": 18.2,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:23:02"
   },
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
-    "count": 10,
-    "top10_count": 10,
+    "count": 11,
+    "top10_count": 11,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 07:12:49",
-    "last_recommended_at": "2026-08-08 08:43:06"
+    "last_recommended_at": "2026-08-08 08:53:01"
   },
   "ICP": {
     "name": "인터넷컴퓨터",
@@ -105,25 +105,25 @@
     "count": 8,
     "top10_count": 8,
     "entry_price": 2952.0,
-    "current_price": 2951.0,
+    "current_price": 2952.0,
     "first_recommended_at": "2026-08-08 07:26:09",
     "last_recommended_at": "2026-08-08 08:32:48"
   },
   "GLM": {
     "name": "골렘",
     "symbol": "GLM",
-    "count": 2,
-    "top10_count": 5,
+    "count": 3,
+    "top10_count": 6,
     "entry_price": 127.0,
     "current_price": 128.0,
     "first_recommended_at": "2026-08-08 07:53:02",
-    "last_recommended_at": "2026-08-08 08:43:06"
+    "last_recommended_at": "2026-08-08 08:53:01"
   },
   "0G": {
     "name": "제로지",
     "symbol": "0G",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 203.0,
     "current_price": 203.0,
     "first_recommended_at": "2026-08-08 08:32:48",
@@ -132,11 +132,21 @@
   "POLYX": {
     "name": "폴리매쉬",
     "symbol": "POLYX",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 45.2,
+    "current_price": 45.3,
+    "first_recommended_at": "2026-08-08 08:43:06",
+    "last_recommended_at": "2026-08-08 08:53:01"
+  },
+  "BLAST": {
+    "name": "블라스트",
+    "symbol": "BLAST",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 45.2,
-    "current_price": 45.2,
-    "first_recommended_at": "2026-08-08 08:43:06",
-    "last_recommended_at": "2026-08-08 08:43:06"
+    "entry_price": 0.346,
+    "current_price": 0.346,
+    "first_recommended_at": "2026-08-08 08:53:01",
+    "last_recommended_at": "2026-08-08 08:53:01"
   }
 }
