@@ -22,7 +22,7 @@
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.00902,
+    "current_price": 0.009,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
@@ -40,7 +40,7 @@
     "symbol": "AKT",
     "count": 1,
     "entry_price": 682.0,
-    "current_price": 682.0,
+    "current_price": 680.0,
     "first_recommended_at": "2026-08-07 11:02:23",
     "last_recommended_at": "2026-08-07 11:02:23"
   },
@@ -65,11 +65,11 @@
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 2,
+    "count": 3,
     "entry_price": 23120.0,
     "current_price": 23120.0,
     "first_recommended_at": "2026-08-07 11:39:04",
-    "last_recommended_at": "2026-08-07 11:42:22"
+    "last_recommended_at": "2026-08-07 11:52:12"
   },
   "QKC": {
     "name": "쿼크체인",
@@ -94,8 +94,35 @@
     "symbol": "YGG",
     "count": 1,
     "entry_price": 26.7,
-    "current_price": 26.7,
+    "current_price": 26.6,
     "first_recommended_at": "2026-08-07 11:42:22",
     "last_recommended_at": "2026-08-07 11:42:22"
+  },
+  "CELO": {
+    "name": "셀로",
+    "symbol": "CELO",
+    "count": 1,
+    "entry_price": 87.0,
+    "current_price": 87.0,
+    "first_recommended_at": "2026-08-07 11:52:12",
+    "last_recommended_at": "2026-08-07 11:52:12"
+  },
+  "KNC": {
+    "name": "카이버네트워크",
+    "symbol": "KNC",
+    "count": 1,
+    "entry_price": 145.0,
+    "current_price": 145.0,
+    "first_recommended_at": "2026-08-07 11:52:12",
+    "last_recommended_at": "2026-08-07 11:52:12"
+  },
+  "WIF": {
+    "name": "도그위프햇",
+    "symbol": "WIF",
+    "count": 1,
+    "entry_price": 199.0,
+    "current_price": 199.0,
+    "first_recommended_at": "2026-08-07 11:52:12",
+    "last_recommended_at": "2026-08-07 11:52:12"
   }
 }
