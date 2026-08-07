@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90974000.0,
+    "current_price": 91017000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2691000.0,
+    "current_price": 2690000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 251.0,
-    "current_price": 252.0,
+    "current_price": 250.0,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
@@ -75,7 +75,7 @@
     "count": 11,
     "top10_count": 11,
     "entry_price": 32.2,
-    "current_price": 32.5,
+    "current_price": 32.7,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 16:22:40"
   },
@@ -102,12 +102,12 @@
   "MET2": {
     "name": "메테오라",
     "symbol": "MET2",
-    "count": 2,
-    "top10_count": 7,
+    "count": 3,
+    "top10_count": 8,
     "entry_price": 231.0,
-    "current_price": 239.0,
+    "current_price": 241.0,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 15:43:10"
+    "last_recommended_at": "2026-08-07 16:43:04"
   },
   "KERNEL": {
     "name": "커널다오",
@@ -125,7 +125,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 1816.0,
-    "current_price": 1820.0,
+    "current_price": 1818.0,
     "first_recommended_at": "2026-08-07 14:32:27",
     "last_recommended_at": "2026-08-07 14:32:27"
   },
@@ -135,7 +135,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 51.1,
-    "current_price": 50.5,
+    "current_price": 50.3,
     "first_recommended_at": "2026-08-07 14:42:14",
     "last_recommended_at": "2026-08-07 14:52:17"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 520.0,
-    "current_price": 514.0,
+    "current_price": 513.0,
     "first_recommended_at": "2026-08-07 15:14:33",
     "last_recommended_at": "2026-08-07 15:14:33"
   },
@@ -155,7 +155,7 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 304500.0,
-    "current_price": 304500.0,
+    "current_price": 304400.0,
     "first_recommended_at": "2026-08-07 15:22:58",
     "last_recommended_at": "2026-08-07 15:22:58"
   },
@@ -165,7 +165,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 96.0,
-    "current_price": 96.1,
+    "current_price": 96.0,
     "first_recommended_at": "2026-08-07 15:43:10",
     "last_recommended_at": "2026-08-07 16:03:09"
   },
@@ -202,12 +202,12 @@
   "YGG": {
     "name": "일드길드게임즈",
     "symbol": "YGG",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 27.5,
     "current_price": 27.5,
     "first_recommended_at": "2026-08-07 16:12:32",
-    "last_recommended_at": "2026-08-07 16:32:52"
+    "last_recommended_at": "2026-08-07 16:43:04"
   },
   "JUP": {
     "name": "주피터",
@@ -225,7 +225,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 0.00946,
-    "current_price": 0.00943,
+    "current_price": 0.00953,
     "first_recommended_at": "2026-08-07 16:12:32",
     "last_recommended_at": "2026-08-07 16:32:52"
   },
@@ -235,19 +235,19 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 2.82,
-    "current_price": 2.82,
+    "current_price": 2.81,
     "first_recommended_at": "2026-08-07 16:22:40",
     "last_recommended_at": "2026-08-07 16:22:40"
   },
   "AGLD": {
     "name": "어드벤처골드",
     "symbol": "AGLD",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 218.0,
     "current_price": 218.0,
     "first_recommended_at": "2026-08-07 16:32:52",
-    "last_recommended_at": "2026-08-07 16:32:52"
+    "last_recommended_at": "2026-08-07 16:43:04"
   },
   "ESP": {
     "name": "에스프레소",
@@ -255,8 +255,18 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 97.7,
-    "current_price": 97.7,
+    "current_price": 96.2,
     "first_recommended_at": "2026-08-07 16:32:52",
     "last_recommended_at": "2026-08-07 16:32:52"
+  },
+  "COW": {
+    "name": "카우프로토콜",
+    "symbol": "COW",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 152.0,
+    "current_price": 152.0,
+    "first_recommended_at": "2026-08-07 16:43:04",
+    "last_recommended_at": "2026-08-07 16:43:04"
   }
 }
