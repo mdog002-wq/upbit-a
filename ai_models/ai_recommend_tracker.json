@@ -4,7 +4,7 @@
     "symbol": "ORBS",
     "count": 3,
     "entry_price": 7.75,
-    "current_price": 7.72,
+    "current_price": 7.73,
     "first_recommended_at": "2026-08-07 00:35:51",
     "last_recommended_at": "2026-08-07 00:42:36"
   },
@@ -13,7 +13,7 @@
     "symbol": "SPX",
     "count": 3,
     "entry_price": 468.0,
-    "current_price": 472.0,
+    "current_price": 470.0,
     "first_recommended_at": "2026-08-07 01:09:44",
     "last_recommended_at": "2026-08-07 11:15:05"
   },
@@ -22,7 +22,7 @@
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.009,
+    "current_price": 0.00909,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
@@ -31,7 +31,7 @@
     "symbol": "VANA",
     "count": 3,
     "entry_price": 1220.0,
-    "current_price": 1226.0,
+    "current_price": 1225.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 11:39:04"
   },
@@ -40,7 +40,7 @@
     "symbol": "AKT",
     "count": 1,
     "entry_price": 682.0,
-    "current_price": 680.0,
+    "current_price": 682.0,
     "first_recommended_at": "2026-08-07 11:02:23",
     "last_recommended_at": "2026-08-07 11:02:23"
   },
@@ -56,18 +56,18 @@
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
-    "count": 3,
+    "count": 4,
     "entry_price": 1418.0,
     "current_price": 1418.0,
     "first_recommended_at": "2026-08-07 11:15:05",
-    "last_recommended_at": "2026-08-07 11:42:22"
+    "last_recommended_at": "2026-08-07 12:02:32"
   },
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
     "count": 3,
     "entry_price": 23120.0,
-    "current_price": 23120.0,
+    "current_price": 23110.0,
     "first_recommended_at": "2026-08-07 11:39:04",
     "last_recommended_at": "2026-08-07 11:52:12"
   },
@@ -76,7 +76,7 @@
     "symbol": "QKC",
     "count": 1,
     "entry_price": 2.78,
-    "current_price": 2.79,
+    "current_price": 2.8,
     "first_recommended_at": "2026-08-07 11:39:04",
     "last_recommended_at": "2026-08-07 11:39:04"
   },
@@ -85,7 +85,7 @@
     "symbol": "CKB",
     "count": 1,
     "entry_price": 1.19,
-    "current_price": 1.19,
+    "current_price": 1.18,
     "first_recommended_at": "2026-08-07 11:42:22",
     "last_recommended_at": "2026-08-07 11:42:22"
   },
@@ -103,26 +103,35 @@
     "symbol": "CELO",
     "count": 1,
     "entry_price": 87.0,
-    "current_price": 87.0,
+    "current_price": 86.7,
     "first_recommended_at": "2026-08-07 11:52:12",
     "last_recommended_at": "2026-08-07 11:52:12"
   },
   "KNC": {
     "name": "카이버네트워크",
     "symbol": "KNC",
-    "count": 1,
+    "count": 2,
     "entry_price": 145.0,
     "current_price": 145.0,
     "first_recommended_at": "2026-08-07 11:52:12",
-    "last_recommended_at": "2026-08-07 11:52:12"
+    "last_recommended_at": "2026-08-07 12:02:32"
   },
   "WIF": {
     "name": "도그위프햇",
     "symbol": "WIF",
-    "count": 1,
+    "count": 2,
     "entry_price": 199.0,
     "current_price": 199.0,
     "first_recommended_at": "2026-08-07 11:52:12",
-    "last_recommended_at": "2026-08-07 11:52:12"
+    "last_recommended_at": "2026-08-07 12:02:32"
+  },
+  "IMX": {
+    "name": "이뮤터블엑스",
+    "symbol": "IMX",
+    "count": 1,
+    "entry_price": 158.0,
+    "current_price": 158.0,
+    "first_recommended_at": "2026-08-07 12:02:32",
+    "last_recommended_at": "2026-08-07 12:02:32"
   }
 }
