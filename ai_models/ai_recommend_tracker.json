@@ -2,11 +2,11 @@
   "ORCA": {
     "name": "오르카",
     "symbol": "ORCA",
-    "count": 14,
+    "count": 15,
     "entry_price": 1529.0,
     "current_price": 1535.0,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 01:22:18"
+    "last_recommended_at": "2026-08-07 11:02:23"
   },
   "ICX": {
     "name": "아이콘",
@@ -31,7 +31,7 @@
     "symbol": "ORBS",
     "count": 3,
     "entry_price": 7.75,
-    "current_price": 7.67,
+    "current_price": 7.7,
     "first_recommended_at": "2026-08-07 00:35:51",
     "last_recommended_at": "2026-08-07 00:42:36"
   },
@@ -58,7 +58,7 @@
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.00885,
+    "current_price": 0.00886,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
@@ -67,7 +67,7 @@
     "symbol": "ZIL",
     "count": 3,
     "entry_price": 3.09,
-    "current_price": 3.09,
+    "current_price": 3.11,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:52:17"
   },
@@ -85,35 +85,35 @@
     "symbol": "VANA",
     "count": 2,
     "entry_price": 1220.0,
-    "current_price": 1220.0,
+    "current_price": 1221.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 10:52:17"
-  },
-  "AZTEC": {
-    "name": "아즈텍",
-    "symbol": "AZTEC",
-    "count": 1,
-    "entry_price": 19.9,
-    "current_price": 19.7,
-    "first_recommended_at": "2026-08-07 10:42:08",
-    "last_recommended_at": "2026-08-07 10:42:08"
   },
   "XCN": {
     "name": "오닉스코인",
     "symbol": "XCN",
-    "count": 1,
+    "count": 2,
     "entry_price": 4.36,
     "current_price": 4.36,
     "first_recommended_at": "2026-08-07 10:52:17",
-    "last_recommended_at": "2026-08-07 10:52:17"
+    "last_recommended_at": "2026-08-07 11:02:23"
   },
   "TOSHI": {
     "name": "토시",
     "symbol": "TOSHI",
-    "count": 1,
+    "count": 2,
     "entry_price": 0.147,
     "current_price": 0.147,
     "first_recommended_at": "2026-08-07 10:52:17",
-    "last_recommended_at": "2026-08-07 10:52:17"
+    "last_recommended_at": "2026-08-07 11:02:23"
+  },
+  "AKT": {
+    "name": "아카시네트워크",
+    "symbol": "AKT",
+    "count": 1,
+    "entry_price": 682.0,
+    "current_price": 682.0,
+    "first_recommended_at": "2026-08-07 11:02:23",
+    "last_recommended_at": "2026-08-07 11:02:23"
   }
 }
