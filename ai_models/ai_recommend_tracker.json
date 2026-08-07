@@ -2,41 +2,51 @@
   "2Z": {
     "name": "더블제로",
     "symbol": "2Z",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 80.1,
-    "current_price": 80.1,
+    "current_price": 80.2,
     "first_recommended_at": "2026-08-08 02:33:04",
-    "last_recommended_at": "2026-08-08 02:33:04"
+    "last_recommended_at": "2026-08-08 02:43:04"
   },
   "MNT": {
     "name": "맨틀",
     "symbol": "MNT",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 586.0,
-    "current_price": 586.0,
+    "current_price": 584.0,
     "first_recommended_at": "2026-08-08 02:33:04",
-    "last_recommended_at": "2026-08-08 02:33:04"
+    "last_recommended_at": "2026-08-08 02:43:04"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
     "symbol": "AERO",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 621.0,
-    "current_price": 621.0,
+    "current_price": 625.0,
     "first_recommended_at": "2026-08-08 02:33:04",
-    "last_recommended_at": "2026-08-08 02:33:04"
+    "last_recommended_at": "2026-08-08 02:43:04"
   },
   "CYBER": {
     "name": "사이버",
     "symbol": "CYBER",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 437.0,
     "current_price": 437.0,
     "first_recommended_at": "2026-08-08 02:33:04",
     "last_recommended_at": "2026-08-08 02:33:04"
+  },
+  "IOTA": {
+    "name": "아이오타",
+    "symbol": "IOTA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 47.5,
+    "current_price": 47.5,
+    "first_recommended_at": "2026-08-08 02:43:04",
+    "last_recommended_at": "2026-08-08 02:43:04"
   }
 }
