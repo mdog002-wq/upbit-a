@@ -38,18 +38,18 @@
   "SPX": {
     "name": "에스피엑스6900",
     "symbol": "SPX",
-    "count": 2,
+    "count": 3,
     "entry_price": 468.0,
     "current_price": 468.0,
     "first_recommended_at": "2026-08-07 01:09:44",
-    "last_recommended_at": "2026-08-07 11:12:14"
+    "last_recommended_at": "2026-08-07 11:15:05"
   },
   "XEC": {
     "name": "이캐시",
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.00884,
+    "current_price": 0.00886,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
@@ -76,34 +76,34 @@
     "symbol": "VANA",
     "count": 2,
     "entry_price": 1220.0,
-    "current_price": 1224.0,
+    "current_price": 1222.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 10:52:17"
   },
   "XCN": {
     "name": "오닉스코인",
     "symbol": "XCN",
-    "count": 3,
+    "count": 4,
     "entry_price": 4.36,
     "current_price": 4.36,
     "first_recommended_at": "2026-08-07 10:52:17",
-    "last_recommended_at": "2026-08-07 11:12:14"
+    "last_recommended_at": "2026-08-07 11:15:05"
   },
   "TOSHI": {
     "name": "토시",
     "symbol": "TOSHI",
-    "count": 2,
+    "count": 3,
     "entry_price": 0.147,
     "current_price": 0.147,
     "first_recommended_at": "2026-08-07 10:52:17",
-    "last_recommended_at": "2026-08-07 11:02:23"
+    "last_recommended_at": "2026-08-07 11:15:05"
   },
   "AKT": {
     "name": "아카시네트워크",
     "symbol": "AKT",
     "count": 1,
     "entry_price": 682.0,
-    "current_price": 679.0,
+    "current_price": 680.0,
     "first_recommended_at": "2026-08-07 11:02:23",
     "last_recommended_at": "2026-08-07 11:02:23"
   },
@@ -124,5 +124,14 @@
     "current_price": 126.0,
     "first_recommended_at": "2026-08-07 11:12:14",
     "last_recommended_at": "2026-08-07 11:12:14"
+  },
+  "USDS": {
+    "name": "유에스디에스",
+    "symbol": "USDS",
+    "count": 1,
+    "entry_price": 1418.0,
+    "current_price": 1418.0,
+    "first_recommended_at": "2026-08-07 11:15:05",
+    "last_recommended_at": "2026-08-07 11:15:05"
   }
 }
