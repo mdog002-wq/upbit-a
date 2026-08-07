@@ -16,7 +16,7 @@ import asyncio
 import pickle
 import redis
 import paramiko
-from typing import List
+from typing import List, Dict, Any
 from pydantic import BaseModel, Field
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
@@ -86,7 +86,7 @@ def upload_html_to_oracle_server(local_file_path):
 
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(hostname, port=22, username=username, pkey=pkey)
+        ssh.connect(hostname, port=22, username=username, pkey=pkey, timeout=10)
 
         sftp = ssh.open_sftp()
         sftp.put(local_file_path, remote_file_path)
@@ -123,7 +123,8 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
 
 try:
-    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True)
+    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True, socket_timeout=3)
+    redis_client.ping()
 except Exception as e:
     redis_client = None
     print(f"⚠️ Redis 연결 설정 실패: {e}")
@@ -135,14 +136,16 @@ def format_price(x):
     try:
         val = float(x)
         return f"{int(val):,}" if val >= 100 else (f"{val:,.2f}" if val >= 1 else f"{val:,.5f}")
-    except Exception: return x
+    except Exception: return str(x)
 
 def send_telegram_alert(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_IDS: return
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     for chat_id in TELEGRAM_CHAT_IDS:
-        try: requests.post(url, json={"chat_id": chat_id, "text": message, "parse_mode": "Markdown"}, timeout=5)
-        except Exception: pass
+        try: 
+            requests.post(url, json={"chat_id": chat_id, "text": message, "parse_mode": "Markdown"}, timeout=5)
+        except Exception: 
+            pass
 
 # ==============================================================================
 # [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (Google RSS 기반)
@@ -197,10 +200,13 @@ class LSTMIcebergPredictor:
 
     def train_step(self, x_data, y_labels):
         if not TF_AVAILABLE or self.model is None or not x_data: return
-        x_arr = np.array(x_data)
-        y_arr = np.array(y_labels)
-        self.model.fit(x_arr, y_arr, epochs=3, verbose=0)
-        self.model.save(self.model_path)
+        try:
+            x_arr = np.array(x_data)
+            y_arr = np.array(y_labels)
+            self.model.fit(x_arr, y_arr, epochs=3, verbose=0)
+            self.model.save(self.model_path)
+        except Exception as e:
+            print(f"⚠️ LSTM 학습 스킵: {e}")
 
 lstm_dumping_predictor = LSTMIcebergPredictor()
 
@@ -239,8 +245,10 @@ class STGTManager:
         self.model = STGTModel() if TORCH_AVAILABLE else None
         if TORCH_AVAILABLE:
             if os.path.exists(self.model_path):
-                try: self.model.load_state_dict(torch.load(self.model_path, weights_only=True))
-                except Exception: print("⚠️ STGT 가중치 로드 실패. 초기화합니다.")
+                try: 
+                    self.model.load_state_dict(torch.load(self.model_path, weights_only=True))
+                except Exception: 
+                    print("⚠️ STGT 가중치 로드 실패. 초기화합니다.")
             self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
             self.criterion = nn.BCELoss()
 
@@ -248,17 +256,21 @@ class STGTManager:
         if not TORCH_AVAILABLE or self.model is None: return None
         self.model.eval()
         with torch.no_grad():
-            return self.model(x_tensor, edge_index).squeeze().tolist()
+            res = self.model(x_tensor, edge_index).squeeze()
+            return res.tolist() if res.dim() > 0 else [res.item()]
 
     def train_step(self, x_tensor, edge_index, labels_tensor):
         if not TORCH_AVAILABLE or self.model is None: return
-        self.model.train()
-        self.optimizer.zero_grad()
-        outputs = self.model(x_tensor, edge_index).squeeze()
-        loss = self.criterion(outputs, labels_tensor)
-        loss.backward()
-        self.optimizer.step()
-        torch.save(self.model.state_dict(), self.model_path)
+        try:
+            self.model.train()
+            self.optimizer.zero_grad()
+            outputs = self.model(x_tensor, edge_index).squeeze()
+            loss = self.criterion(outputs, labels_tensor)
+            loss.backward()
+            self.optimizer.step()
+            torch.save(self.model.state_dict(), self.model_path)
+        except Exception as e:
+            print(f"⚠️ STGT 학습 스킵: {e}")
 
 stgt_manager = STGTManager()
 
@@ -296,7 +308,7 @@ class AIEvolutionEngine:
         stgt_x_train, stgt_y_train = [], []
         keys_to_delete = []
 
-        expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d["timestamp"] > 14400]
+        expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d.get("timestamp", 0) > 14400]
         if not expired_tickers: return
 
         print("🤖 [AI 진화 시스템] 과거 데이터 기반 자가학습 진행 중...")
@@ -306,9 +318,9 @@ class AIEvolutionEngine:
         except Exception: prices_now = {}
 
         for ticker, data in list(exps.items()):
-            if current_time - data["timestamp"] > 14400:
+            if current_time - data.get("timestamp", 0) > 14400:
                 market_symbol = f"KRW-{ticker}"
-                current_price = prices_now.get(market_symbol)
+                current_price = prices_now.get(market_symbol) if prices_now else None
                 
                 if current_price and data.get("price"):
                     return_rate = (current_price - data["price"]) / data["price"] * 100
@@ -354,58 +366,60 @@ def get_krw_upbit_tickers():
     return []
 
 def calculate_t1_advanced_metrics(ticker):
-    try:
-        df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
-        df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=30)
-        
-        if df_1h is None or len(df_1h) < 30 or df_daily is None or len(df_daily) < 10:
-            return None
+    for attempt in range(2):
+        try:
+            df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
+            df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=30)
+            
+            if df_1h is None or len(df_1h) < 30 or df_daily is None or len(df_daily) < 10:
+                return None
 
-        close_1h = df_1h['close']
-        vol_1h = df_1h['volume']
-        
-        vol_mean_24h = vol_1h.iloc[-25:-1].mean() + 1e-8
-        vol_spike_ratio = float(vol_1h.iloc[-1] / vol_mean_24h)
-        
-        ma20_1h = close_1h.rolling(20).mean()
-        std20_1h = close_1h.rolling(20).std()
-        upper_band = ma20_1h + (std20_1h * 2)
-        lower_band = ma20_1h - (std20_1h * 2)
-        bb_width = float((upper_band.iloc[-1] - lower_band.iloc[-1]) / (ma20_1h.iloc[-1] + 1e-8))
-        
-        bb_breakout = float((close_1h.iloc[-1] - lower_band.iloc[-1]) / (upper_band.iloc[-1] - lower_band.iloc[-1] + 1e-8))
+            close_1h = df_1h['close']
+            vol_1h = df_1h['volume']
+            
+            vol_mean_24h = vol_1h.iloc[-25:-1].mean() + 1e-8
+            vol_spike_ratio = float(vol_1h.iloc[-1] / vol_mean_24h)
+            
+            ma20_1h = close_1h.rolling(20).mean()
+            std20_1h = close_1h.rolling(20).std()
+            upper_band = ma20_1h + (std20_1h * 2)
+            lower_band = ma20_1h - (std20_1h * 2)
+            bb_width = float((upper_band.iloc[-1] - lower_band.iloc[-1]) / (ma20_1h.iloc[-1] + 1e-8))
+            
+            bb_breakout = float((close_1h.iloc[-1] - lower_band.iloc[-1]) / (upper_band.iloc[-1] - lower_band.iloc[-1] + 1e-8))
 
-        mfv = ((close_1h - df_1h['low']) - (df_1h['high'] - close_1h)) / (df_1h['high'] - df_1h['low'] + 1e-8) * vol_1h
-        cmf_1h = float(mfv.iloc[-20:].sum() / (vol_1h.iloc[-20:].sum() + 1e-8))
+            mfv = ((close_1h - df_1h['low']) - (df_1h['high'] - close_1h)) / (df_1h['high'] - df_1h['low'] + 1e-8) * vol_1h
+            cmf_1h = float(mfv.iloc[-20:].sum() / (vol_1h.iloc[-20:].sum() + 1e-8))
 
-        delta = close_1h.diff()
-        gain = (delta.where(delta > 0, 0)).rolling(14).mean()
-        loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
-        rs = gain / (loss + 1e-8)
-        rsi_1h = float(100 - (100 / (1 + rs.iloc[-1])))
+            delta = close_1h.diff()
+            gain = (delta.where(delta > 0, 0)).rolling(14).mean()
+            loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
+            rs = gain / (loss + 1e-8)
+            rsi_1h = float(100 - (100 / (1 + rs.iloc[-1])))
 
-        vol_pct = df_1h['volume'].pct_change().fillna(0)
-        price_pct = df_1h['close'].pct_change().fillna(0)
-        
-        lstm_sequence = []
-        for i in range(-15, 0):
-            lstm_sequence.append([
-                float(vol_pct.iloc[i]),
-                float(price_pct.iloc[i]),
-                float(cmf_1h)
-            ])
+            vol_pct = df_1h['volume'].pct_change().fillna(0)
+            price_pct = df_1h['close'].pct_change().fillna(0)
+            
+            lstm_sequence = []
+            for i in range(-15, 0):
+                lstm_sequence.append([
+                    float(vol_pct.iloc[i]),
+                    float(price_pct.iloc[i]),
+                    float(cmf_1h)
+                ])
 
-        return {
-            "last_close": float(close_1h.iloc[-1]),
-            "vol_spike_ratio": round(vol_spike_ratio, 2),
-            "bb_width": round(bb_width, 4),
-            "bb_breakout": round(bb_breakout, 2),
-            "cmf_1h": round(cmf_1h, 2),
-            "rsi_1h": round(rsi_1h, 1),
-            "lstm_sequence": lstm_sequence
-        }
-    except Exception:
-        return None
+            return {
+                "last_close": float(close_1h.iloc[-1]),
+                "vol_spike_ratio": round(vol_spike_ratio, 2),
+                "bb_width": round(bb_width, 4),
+                "bb_breakout": round(bb_breakout, 2),
+                "cmf_1h": round(cmf_1h, 2),
+                "rsi_1h": round(rsi_1h, 1),
+                "lstm_sequence": lstm_sequence
+            }
+        except Exception:
+            time.sleep(0.1)
+    return None
 
 def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
     if real_lstm_sequence and len(real_lstm_sequence) == 15:
@@ -425,7 +439,7 @@ def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
 def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
-        time.sleep(0.15)
+        time.sleep(0.1)
         metrics = calculate_t1_advanced_metrics(ticker)
         
         if not metrics: 
@@ -521,7 +535,7 @@ def analyze_and_scan_market():
                 e_src, e_dst = np.where(~np.eye(n, dtype=bool))
                 edge_idx = torch.tensor([e_src, e_dst], dtype=torch.long)
                 preds = stgt_manager.predict(x_t, edge_idx)
-                if isinstance(preds, float): preds = [preds]
+                if isinstance(preds, (float, int)): preds = [preds]
                 df['STGT_그래프덤핑위험(%)'] = [round(p * 100, 1) for p in preds]
         except Exception as e:
             print(f"⚠️ STGT 분석 스킵: {e}")
@@ -688,7 +702,7 @@ def generate_gemini_analysis(df_result):
         )
 
         response = client.models.generate_content(
-            model='gemini-3.1-flash-lite',
+            model='gemini-2.5-flash',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
@@ -793,10 +807,8 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
                 "is_monitored": symbol in monitored_symbols
             }
             
-            # AI 추천 모니터에 존재하는 종목일 경우 🎯 스티커 표시
             sticker = ' <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7rem;">🎯 AI추천</span>' if symbol in monitored_symbols else ''
             
-            # 클릭 시 openModal('KRW-심볼')을 실행하는 tr 생성
             row_html = (
                 f'<tr onclick="openModal(\'{market_code}\')" style="cursor: pointer;">\n'
                 f' <td class="text-center fw-bold text-muted">{rank}</td>\n'
@@ -874,9 +886,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' .report-body ul { padding-left: 1.2rem; margin-bottom: 0.5rem; }\n'
         ' #allCoinsTable tbody tr:hover { background-color: #f1f5f9 !important; transition: background-color 0.15s ease-in-out; }\n'
         '\n'
-        ' /* ========================================================================= */\n'
-        ' /* [상세 종목 메모장 팝업 모달 UI/CSS] */\n'
-        ' /* ========================================================================= */\n'
         ' .modal-overlay {\n'
         ' display: none;\n'
         ' position: fixed;\n'
@@ -888,8 +897,8 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' justify-content: center;\n'
         ' }\n'
         ' .modal-memo {\n'
-        ' width: 350px;\n'
-        ' height: 450px;\n'
+        ' width: 380px;\n'
+        ' height: 480px;\n'
         ' background-color: #ffffff;\n'
         ' border-radius: 16px;\n'
         ' box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08);\n'
@@ -898,7 +907,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' flex-direction: column;\n'
         ' overflow: hidden;\n'
         ' position: relative;\n'
-        ' font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;\n'
         ' animation: modalPop 0.2s ease-out;\n'
         ' }\n'
         ' @keyframes modalPop {\n'
@@ -907,27 +915,23 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' }\n'
         ' .modal-header-memo {\n'
         ' background-color: #f8fafc;\n'
-        ' padding: 14px 18px;\n'
+        ' padding: 12px 16px;\n'
         ' border-bottom: 1px solid #e2e8f0;\n'
         ' display: flex;\n'
         ' justify-content: space-between;\n'
         ' align-items: center;\n'
         ' }\n'
         ' .modal-body-memo {\n'
-        ' padding: 18px;\n'
+        ' padding: 0;\n'
         ' flex: 1;\n'
-        ' overflow-y: auto;\n'
-        ' font-size: 0.875rem;\n'
-        ' color: #334155;\n'
+        ' width: 100%;\n'
+        ' height: 100%;\n'
         ' }\n'
-        ' .memo-item {\n'
-        ' display: flex;\n'
-        ' justify-content: space-between;\n'
-        ' align-items: center;\n'
-        ' padding: 8px 0;\n'
-        ' border-bottom: 1px dashed #f1f5f9;\n'
+        ' .modal-body-memo iframe {\n'
+        ' width: 100%;\n'
+        ' height: 100%;\n'
+        ' border: none;\n'
         ' }\n'
-        ' .memo-item:last-child { border-bottom: none; }\n'
         ' .close-memo-btn {\n'
         ' border: none;\n'
         ' background: transparent;\n'
@@ -938,15 +942,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' transition: color 0.15s;\n'
         ' }\n'
         ' .close-memo-btn:hover { color: #0f172a; }\n'
-        ' /* 단독 URL 메모장 뷰 스타일 */\n'
-        ' .compact-view-container {\n'
-        ' display: flex;\n'
-        ' justify-content: center;\n'
-        ' align-items: center;\n'
-        ' min-height: 100vh;\n'
-        ' background-color: #f1f5f9;\n'
-        ' margin: 0; padding: 20px;\n'
-        ' }\n'
         ' </style>\n'
         '</head>\n'
         '<body>\n'
@@ -1012,18 +1007,16 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </div>\n'
         ' </div>\n'
         '\n'
-        ' <!-- 상세 종목 팝업 모달 (배경 클릭 시 closeModal(), 창 클릭 시 stopPropagation()) -->\n'
         ' <div id="coinDetailModal" class="modal-overlay" onclick="closeModal()">\n'
         ' <div class="modal-memo" onclick="event.stopPropagation()">\n'
         ' <div class="modal-header-memo">\n'
         ' <div>\n'
-        ' <h6 class="fw-bold mb-0 text-dark" id="modalCoinTitle">비트코인 (BTC)</h6>\n'
-        ' <small class="text-muted" id="modalCoinSub" style="font-size: 0.75rem;">KRW-BTC</small>\n'
+        ' <h6 class="fw-bold mb-0 text-dark" id="modalCoinTitle">종목 상세 정보</h6>\n'
+        ' <small class="text-muted" id="modalCoinSub" style="font-size: 0.75rem;">upbit-r.onrender.com</small>\n'
         ' </div>\n'
         ' <button type="button" class="close-memo-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>\n'
         ' </div>\n'
         ' <div class="modal-body-memo" id="modalCoinBody">\n'
-        ' <!-- 내용 동적 로드 -->\n'
         ' </div>\n'
         ' </div>\n'
         ' </div>\n'
@@ -1049,142 +1042,37 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' }\n'
         '\n'
         ' function openModal(marketCode) {\n'
-        ' const coinData = allCoinsMap[marketCode];\n'
         ' const modalTitle = document.getElementById(\'modalCoinTitle\');\n'
         ' const modalSub = document.getElementById(\'modalCoinSub\');\n'
         ' const modalBody = document.getElementById(\'modalCoinBody\');\n'
         '\n'
-        ' if (!coinData) {\n'
-        ' modalTitle.innerText = "종목 정보를 찾을 수 없습니다.";\n'
-        ' modalSub.innerText = marketCode;\n'
-        ' modalBody.innerHTML = \'<div class="text-center text-muted py-4">해당 코인의 데이터를 불러올 수 없습니다.</div>\';\n'
-        ' } else {\n'
+        ' const coinData = allCoinsMap[marketCode];\n'
+        ' if (coinData) {\n'
         ' modalTitle.innerText = `${coinData.name} (${coinData.symbol})`;\n'
-        ' modalSub.innerText = coinData.market;\n'
-        ' \n'
-        ' const dumpRiskColor = coinData.dump_risk >= 70 ? "text-danger" : (coinData.dump_risk >= 40 ? "text-warning" : "text-success");\n'
-        ' const stickerBadge = coinData.is_monitored ? \'<span class="badge bg-warning text-dark ms-1">🎯 AI 추천종목</span>\' : \'\';\n'
-        '\n'
-        ' modalBody.innerHTML = `\n'
-        ' <div class="mb-3 text-center bg-light p-2 rounded">\n'
-        ' <div class="text-muted small">현재가</div>\n'
-        ' <div class="fs-4 fw-bold text-dark">${coinData.price} KRW</div>\n'
-        ' <div>${stickerBadge}</div>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-trophy me-1"></i> AI 예측 순위</span>\n'
-        ' <span class="fw-bold text-dark">${coinData.rank}위</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-star me-1"></i> 종합 예측 점수</span>\n'
-        ' <span class="fw-bold text-primary">${coinData.score.toFixed(1)}점</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-chart-simple me-1"></i> 거래량 폭발 비율</span>\n'
-        ' <span class="fw-bold">${coinData.vol_ratio}배</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-water me-1"></i> CMF 자금유입지표</span>\n'
-        ' <span class="fw-bold">${coinData.cmf}</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-gauge-high me-1"></i> RSI 상대강도</span>\n'
-        ' <span class="fw-bold">${coinData.rsi}</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-triangle-exclamation me-1"></i> STGT 덤핑 위험도</span>\n'
-        ' <span class="fw-bold ${dumpRiskColor}">${coinData.dump_risk}%</span>\n'
-        ' </div>\n'
-        ' <div class="mt-3 p-2 border rounded bg-white text-center small">\n'
-        ' <span class="text-muted d-block mb-1">고주파 아이스버그 감지</span>\n'
-        ' <span class="fw-bold">${coinData.iceberg}</span>\n'
-        ' </div>\n'
-        ' `;\n'
+        ' modalSub.innerText = marketCode;\n'
+        ' } else {\n'
+        ' modalTitle.innerText = "종목 정보";\n'
+        ' modalSub.innerText = marketCode;\n'
         ' }\n'
+        '\n'
+        ' const targetUrl = `https://upbit-r.onrender.com/?symbol=${marketCode}`;\n'
+        ' modalBody.innerHTML = `<iframe src="${targetUrl}" title="종목 상세 정보"></iframe>`;\n'
+        '\n'
         ' document.getElementById(\'coinDetailModal\').style.display = \'flex\';\n'
         ' }\n'
         '\n'
         ' function closeModal() {\n'
         ' document.getElementById(\'coinDetailModal\').style.display = \'none\';\n'
+        ' document.getElementById(\'modalCoinBody\').innerHTML = \'\';\n'
         ' }\n'
         '\n'
-        ' // URL 파라미터 감지 및 조건부 컴팩트 메모장 뷰 렌더링 (?symbol=KRW-BTC)\n'
         ' window.addEventListener(\'DOMContentLoaded\', () => {\n'
         ' const urlParams = new URLSearchParams(window.location.search);\n'
         ' const symbolParam = urlParams.get(\'symbol\');\n'
         '\n'
         ' if (symbolParam) {\n'
         ' const targetMarket = symbolParam.toUpperCase().startsWith(\'KRW-\') ? symbolParam.toUpperCase() : `KRW-${symbolParam.toUpperCase()}`;\n'
-        ' const mainApp = document.getElementById(\'mainDashboardApp\');\n'
-        ' \n'
-        ' // 대시보드 전체 UI를 가리고 메모장 크기(350px x 450px) 뷰만 컴팩트하게 노출\n'
-        ' mainApp.style.display = \'none\';\n'
-        ' document.body.classList.add(\'compact-view-container\');\n'
-        '\n'
-        ' const compactWrapper = document.createElement(\'div\');\n'
-        ' compactWrapper.className = \'modal-memo\';\n'
-        ' compactWrapper.style.boxShadow = \'0 10px 25px -5px rgba(0, 0, 0, 0.1)\';\n'
-        ' \n'
-        ' const coinData = allCoinsMap[targetMarket];\n'
-        ' if (coinData) {\n'
-        ' const dumpRiskColor = coinData.dump_risk >= 70 ? "text-danger" : (coinData.dump_risk >= 40 ? "text-warning" : "text-success");\n'
-        ' const stickerBadge = coinData.is_monitored ? \'<span class="badge bg-warning text-dark ms-1">🎯 AI 추천종목</span>\' : \'\';\n'
-        ' compactWrapper.innerHTML = `\n'
-        ' <div class="modal-header-memo">\n'
-        ' <div>\n'
-        ' <h6 class="fw-bold mb-0 text-dark">${coinData.name} (${coinData.symbol})</h6>\n'
-        ' <small class="text-muted" style="font-size: 0.75rem;">${coinData.market}</small>\n'
-        ' </div>\n'
-        ' <a href="?" class="close-memo-btn" title="전체 대시보드로 이동"><i class="fa-solid fa-house"></i></a>\n'
-        ' </div>\n'
-        ' <div class="modal-body-memo">\n'
-        ' <div class="mb-3 text-center bg-light p-2 rounded">\n'
-        ' <div class="text-muted small">현재가</div>\n'
-        ' <div class="fs-4 fw-bold text-dark">${coinData.price} KRW</div>\n'
-        ' <div>${stickerBadge}</div>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-trophy me-1"></i> AI 예측 순위</span>\n'
-        ' <span class="fw-bold text-dark">${coinData.rank}위</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-star me-1"></i> 종합 예측 점수</span>\n'
-        ' <span class="fw-bold text-primary">${coinData.score.toFixed(1)}점</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-chart-simple me-1"></i> 거래량 폭발 비율</span>\n'
-        ' <span class="fw-bold">${coinData.vol_ratio}배</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-water me-1"></i> CMF 자금유입지표</span>\n'
-        ' <span class="fw-bold">${coinData.cmf}</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-gauge-high me-1"></i> RSI 상대강도</span>\n'
-        ' <span class="fw-bold">${coinData.rsi}</span>\n'
-        ' </div>\n'
-        ' <div class="memo-item">\n'
-        ' <span class="text-secondary"><i class="fa-solid fa-triangle-exclamation me-1"></i> STGT 덤핑 위험도</span>\n'
-        ' <span class="fw-bold ${dumpRiskColor}">${coinData.dump_risk}%</span>\n'
-        ' </div>\n'
-        ' <div class="mt-3 p-2 border rounded bg-white text-center small">\n'
-        ' <span class="text-muted d-block mb-1">고주파 아이스버그 감지</span>\n'
-        ' <span class="fw-bold">${coinData.iceberg}</span>\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' `;\n'
-        ' } else {\n'
-        ' compactWrapper.innerHTML = `\n'
-        ' <div class="modal-header-memo">\n'
-        ' <h6 class="fw-bold mb-0 text-dark">종목 찾을 수 없음</h6>\n'
-        ' <a href="?" class="close-memo-btn"><i class="fa-solid fa-house"></i></a>\n'
-        ' </div>\n'
-        ' <div class="modal-body-memo text-center py-5 text-muted">\n'
-        ' 요청하신 종목(<b>${targetMarket}</b>) 데이터를 찾을 수 없습니다.\n'
-        ' </div>\n'
-        ' `;\n'
-        ' }\n'
-        ' document.body.appendChild(compactWrapper);\n'
+        ' openModal(targetMarket);\n'
         ' }\n'
         ' });\n'
         ' </script>\n'
