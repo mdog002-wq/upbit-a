@@ -1,34 +1,4 @@
 {
-  "DEEP": {
-    "name": "딥북",
-    "symbol": "DEEP",
-    "count": 1,
-    "top10_count": 2,
-    "entry_price": 22.2,
-    "current_price": 22.0,
-    "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 05:03:21"
-  },
-  "ICX": {
-    "name": "아이콘",
-    "symbol": "ICX",
-    "count": 1,
-    "top10_count": 1,
-    "entry_price": 32.2,
-    "current_price": 32.2,
-    "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 05:03:21"
-  },
-  "MOC": {
-    "name": "모스코인",
-    "symbol": "MOC",
-    "count": 8,
-    "top10_count": 9,
-    "entry_price": 24.1,
-    "current_price": 24.1,
-    "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 06:13:04"
-  },
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
@@ -45,87 +15,27 @@
     "count": 4,
     "top10_count": 8,
     "entry_price": 625.0,
-    "current_price": 622.0,
+    "current_price": 620.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 06:33:11"
-  },
-  "PUMP": {
-    "name": "펌프펀",
-    "symbol": "PUMP",
-    "count": 1,
-    "top10_count": 1,
-    "entry_price": 3.29,
-    "current_price": 3.17,
-    "first_recommended_at": "2026-08-08 05:12:51",
-    "last_recommended_at": "2026-08-08 05:12:51"
-  },
-  "CRO": {
-    "name": "크로노스",
-    "symbol": "CRO",
-    "count": 2,
-    "top10_count": 6,
-    "entry_price": 70.6,
-    "current_price": 72.1,
-    "first_recommended_at": "2026-08-08 05:12:51",
-    "last_recommended_at": "2026-08-08 05:33:04"
-  },
-  "QKC": {
-    "name": "쿼크체인",
-    "symbol": "QKC",
-    "count": 2,
-    "top10_count": 3,
-    "entry_price": 2.79,
-    "current_price": 2.79,
-    "first_recommended_at": "2026-08-08 05:23:06",
-    "last_recommended_at": "2026-08-08 05:33:04"
-  },
-  "CYBER": {
-    "name": "사이버",
-    "symbol": "CYBER",
-    "count": 1,
-    "top10_count": 10,
-    "entry_price": 438.0,
-    "current_price": 436.0,
-    "first_recommended_at": "2026-08-08 05:23:06",
-    "last_recommended_at": "2026-08-08 05:23:06"
-  },
-  "XTZ": {
-    "name": "테조스",
-    "symbol": "XTZ",
-    "count": 1,
-    "top10_count": 8,
-    "entry_price": 283.0,
-    "current_price": 283.0,
-    "first_recommended_at": "2026-08-08 05:42:39",
-    "last_recommended_at": "2026-08-08 05:42:39"
-  },
-  "SAHARA": {
-    "name": "사하라에이아이",
-    "symbol": "SAHARA",
-    "count": 1,
-    "top10_count": 4,
-    "entry_price": 11.7,
-    "current_price": 11.7,
-    "first_recommended_at": "2026-08-08 05:42:39",
-    "last_recommended_at": "2026-08-08 05:42:39"
   },
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 7,
-    "top10_count": 7,
+    "count": 8,
+    "top10_count": 8,
     "entry_price": 23730.0,
     "current_price": 23730.0,
     "first_recommended_at": "2026-08-08 05:53:05",
-    "last_recommended_at": "2026-08-08 06:52:53"
+    "last_recommended_at": "2026-08-08 07:03:23"
   },
   "DATA": {
     "name": "데이터네트워크",
     "symbol": "DATA",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 301.0,
-    "current_price": 298.0,
+    "current_price": 300.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -145,25 +55,15 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 112.0,
-    "current_price": 112.0,
+    "current_price": 111.0,
     "first_recommended_at": "2026-08-08 06:13:04",
     "last_recommended_at": "2026-08-08 06:43:09"
-  },
-  "USDS": {
-    "name": "유에스디에스",
-    "symbol": "USDS",
-    "count": 1,
-    "top10_count": 4,
-    "entry_price": 1407.0,
-    "current_price": 1407.0,
-    "first_recommended_at": "2026-08-08 06:22:58",
-    "last_recommended_at": "2026-08-08 06:22:58"
   },
   "FLUID": {
     "name": "플루이드",
     "symbol": "FLUID",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 1717.0,
     "current_price": 1699.0,
     "first_recommended_at": "2026-08-08 06:33:11",
@@ -172,21 +72,21 @@
   "AVNT": {
     "name": "아반티스",
     "symbol": "AVNT",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 123.0,
-    "current_price": 123.0,
+    "current_price": 124.0,
     "first_recommended_at": "2026-08-08 06:43:09",
-    "last_recommended_at": "2026-08-08 06:52:53"
+    "last_recommended_at": "2026-08-08 07:03:23"
   },
   "CHZ": {
     "name": "칠리즈",
     "symbol": "CHZ",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 18.1,
     "current_price": 18.1,
     "first_recommended_at": "2026-08-08 06:43:09",
-    "last_recommended_at": "2026-08-08 06:52:53"
+    "last_recommended_at": "2026-08-08 07:03:23"
   }
 }
