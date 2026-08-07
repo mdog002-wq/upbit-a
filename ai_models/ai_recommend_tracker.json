@@ -4,7 +4,7 @@
     "symbol": "ORBS",
     "count": 5,
     "entry_price": 7.76,
-    "current_price": 7.72,
+    "current_price": 7.75,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:58:22"
   },
@@ -22,7 +22,7 @@
     "symbol": "LA",
     "count": 2,
     "entry_price": 67.6,
-    "current_price": 67.8,
+    "current_price": 67.4,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:47:57"
   },
@@ -35,13 +35,49 @@
     "first_recommended_at": "2026-08-06 23:54:41",
     "last_recommended_at": "2026-08-06 23:58:22"
   },
-  "SUI": {
-    "name": "수이",
-    "symbol": "SUI",
+  "GAS": {
+    "name": "가스",
+    "symbol": "GAS",
     "count": 1,
-    "entry_price": 954.0,
-    "current_price": 955.0,
-    "first_recommended_at": "2026-08-07 00:03:13",
-    "last_recommended_at": "2026-08-07 00:03:13"
+    "entry_price": 1331.0,
+    "current_price": 1331.0,
+    "first_recommended_at": "2026-08-07 00:16:59",
+    "last_recommended_at": "2026-08-07 00:16:59"
+  },
+  "AI": {
+    "name": "젠신",
+    "symbol": "AI",
+    "count": 1,
+    "entry_price": 31.6,
+    "current_price": 31.6,
+    "first_recommended_at": "2026-08-07 00:16:59",
+    "last_recommended_at": "2026-08-07 00:16:59"
+  },
+  "LSK": {
+    "name": "리스크",
+    "symbol": "LSK",
+    "count": 1,
+    "entry_price": 107.0,
+    "current_price": 107.0,
+    "first_recommended_at": "2026-08-07 00:16:59",
+    "last_recommended_at": "2026-08-07 00:16:59"
+  },
+  "BABY": {
+    "name": "바빌론",
+    "symbol": "BABY",
+    "count": 1,
+    "entry_price": 16.2,
+    "current_price": 16.2,
+    "first_recommended_at": "2026-08-07 00:16:59",
+    "last_recommended_at": "2026-08-07 00:16:59"
+  },
+  "UNI": {
+    "name": "유니스왑",
+    "symbol": "UNI",
+    "count": 1,
+    "entry_price": 5710.0,
+    "current_price": 5710.0,
+    "first_recommended_at": "2026-08-07 00:16:59",
+    "last_recommended_at": "2026-08-07 00:16:59"
   }
 }
