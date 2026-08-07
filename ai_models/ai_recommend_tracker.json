@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 538.0,
+    "current_price": 536.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 5.07,
-    "current_price": 5.0,
+    "current_price": 4.98,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 305900.0,
-    "current_price": 303200.0,
+    "current_price": 303300.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -65,7 +65,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 134.0,
-    "current_price": 134.0,
+    "current_price": 135.0,
     "first_recommended_at": "2026-08-07 21:33:10",
     "last_recommended_at": "2026-08-07 21:33:10"
   },
@@ -85,7 +85,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6097000.0,
-    "current_price": 6085000.0,
+    "current_price": 6070000.0,
     "first_recommended_at": "2026-08-07 21:33:10",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -95,7 +95,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 21.4,
-    "current_price": 21.2,
+    "current_price": 21.3,
     "first_recommended_at": "2026-08-07 21:41:14",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -115,7 +115,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 478.0,
-    "current_price": 475.0,
+    "current_price": 468.0,
     "first_recommended_at": "2026-08-07 22:03:06",
     "last_recommended_at": "2026-08-07 22:03:06"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 401.0,
-    "current_price": 408.0,
+    "current_price": 406.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -155,7 +155,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 119.0,
-    "current_price": 117.0,
+    "current_price": 118.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -165,19 +165,19 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 9.35,
-    "current_price": 9.43,
+    "current_price": 9.36,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
   "MOC": {
     "name": "모스코인",
     "symbol": "MOC",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 24.3,
     "current_price": 24.3,
     "first_recommended_at": "2026-08-07 23:03:18",
-    "last_recommended_at": "2026-08-07 23:03:18"
+    "last_recommended_at": "2026-08-07 23:33:24"
   },
   "DEEP": {
     "name": "딥북",
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 21.4,
-    "current_price": 21.4,
+    "current_price": 21.3,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
@@ -195,7 +195,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 2584.0,
-    "current_price": 2584.0,
+    "current_price": 2586.0,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
@@ -203,10 +203,40 @@
     "name": "토시",
     "symbol": "TOSHI",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 0.145,
     "current_price": 0.145,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:03:18"
+  },
+  "IN": {
+    "name": "인피닛",
+    "symbol": "IN",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 48.5,
+    "current_price": 48.5,
+    "first_recommended_at": "2026-08-07 23:33:24",
+    "last_recommended_at": "2026-08-07 23:33:24"
+  },
+  "IOST": {
+    "name": "아이오에스티",
+    "symbol": "IOST",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.849,
+    "current_price": 0.849,
+    "first_recommended_at": "2026-08-07 23:33:24",
+    "last_recommended_at": "2026-08-07 23:33:24"
+  },
+  "DOT": {
+    "name": "폴카닷",
+    "symbol": "DOT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1141.0,
+    "current_price": 1141.0,
+    "first_recommended_at": "2026-08-07 23:33:24",
+    "last_recommended_at": "2026-08-07 23:33:24"
   }
 }
