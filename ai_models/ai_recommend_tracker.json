@@ -1,1 +1,42 @@
-{}
+{
+  "SC": {
+    "name": "시아코인",
+    "symbol": "SC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.712,
+    "current_price": 0.712,
+    "first_recommended_at": "2026-08-07 17:02:52",
+    "last_recommended_at": "2026-08-07 17:02:52"
+  },
+  "MED": {
+    "name": "메디블록",
+    "symbol": "MED",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1.83,
+    "current_price": 1.83,
+    "first_recommended_at": "2026-08-07 17:02:52",
+    "last_recommended_at": "2026-08-07 17:02:52"
+  },
+  "PUNDIX": {
+    "name": "펀디엑스",
+    "symbol": "PUNDIX",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 110.0,
+    "current_price": 110.0,
+    "first_recommended_at": "2026-08-07 17:02:52",
+    "last_recommended_at": "2026-08-07 17:02:52"
+  },
+  "KAVA": {
+    "name": "카바",
+    "symbol": "KAVA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 57.2,
+    "current_price": 57.2,
+    "first_recommended_at": "2026-08-07 17:02:52",
+    "last_recommended_at": "2026-08-07 17:02:52"
+  }
+}
