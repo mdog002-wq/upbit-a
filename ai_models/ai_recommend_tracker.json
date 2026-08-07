@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90762000.0,
+    "current_price": 90798000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2687000.0,
+    "current_price": 2690000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -25,7 +25,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 1412.0,
-    "current_price": 1412.0,
+    "current_price": 1411.0,
     "first_recommended_at": "2026-08-07 13:32:34",
     "last_recommended_at": "2026-08-07 13:32:34"
   },
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 251.0,
-    "current_price": 256.0,
+    "current_price": 251.0,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
@@ -45,7 +45,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 5.32,
-    "current_price": 5.28,
+    "current_price": 5.29,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:57:15"
   },
@@ -72,12 +72,12 @@
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
-    "count": 9,
-    "top10_count": 9,
+    "count": 10,
+    "top10_count": 10,
     "entry_price": 32.2,
     "current_price": 32.4,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 16:03:09"
+    "last_recommended_at": "2026-08-07 16:12:32"
   },
   "JST": {
     "name": "저스트",
@@ -95,7 +95,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 10.8,
-    "current_price": 10.9,
+    "current_price": 10.8,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:22:14"
   },
@@ -105,7 +105,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 231.0,
-    "current_price": 240.0,
+    "current_price": 238.0,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 15:43:10"
   },
@@ -117,16 +117,6 @@
     "entry_price": 47.1,
     "current_price": 46.8,
     "first_recommended_at": "2026-08-07 14:12:17",
-    "last_recommended_at": "2026-08-07 14:52:17"
-  },
-  "MTL": {
-    "name": "메탈",
-    "symbol": "MTL",
-    "count": 3,
-    "top10_count": 3,
-    "entry_price": 291.0,
-    "current_price": 292.0,
-    "first_recommended_at": "2026-08-07 14:32:27",
     "last_recommended_at": "2026-08-07 14:52:17"
   },
   "LPT": {
@@ -145,7 +135,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 51.1,
-    "current_price": 50.3,
+    "current_price": 50.5,
     "first_recommended_at": "2026-08-07 14:42:14",
     "last_recommended_at": "2026-08-07 14:52:17"
   },
@@ -165,7 +155,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 304500.0,
-    "current_price": 303100.0,
+    "current_price": 304300.0,
     "first_recommended_at": "2026-08-07 15:22:58",
     "last_recommended_at": "2026-08-07 15:22:58"
   },
@@ -185,7 +175,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 9.81,
-    "current_price": 9.79,
+    "current_price": 9.73,
     "first_recommended_at": "2026-08-07 15:52:44",
     "last_recommended_at": "2026-08-07 15:52:44"
   },
@@ -195,7 +185,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 458.0,
-    "current_price": 458.0,
+    "current_price": 453.0,
     "first_recommended_at": "2026-08-07 15:52:44",
     "last_recommended_at": "2026-08-07 16:03:09"
   },
@@ -208,5 +198,35 @@
     "current_price": 24.3,
     "first_recommended_at": "2026-08-07 16:03:09",
     "last_recommended_at": "2026-08-07 16:03:09"
+  },
+  "YGG": {
+    "name": "일드길드게임즈",
+    "symbol": "YGG",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 27.5,
+    "current_price": 27.5,
+    "first_recommended_at": "2026-08-07 16:12:32",
+    "last_recommended_at": "2026-08-07 16:12:32"
+  },
+  "JUP": {
+    "name": "주피터",
+    "symbol": "JUP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 262.0,
+    "current_price": 262.0,
+    "first_recommended_at": "2026-08-07 16:12:32",
+    "last_recommended_at": "2026-08-07 16:12:32"
+  },
+  "XEC": {
+    "name": "이캐시",
+    "symbol": "XEC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.00946,
+    "current_price": 0.00946,
+    "first_recommended_at": "2026-08-07 16:12:32",
+    "last_recommended_at": "2026-08-07 16:12:32"
   }
 }
