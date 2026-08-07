@@ -880,7 +880,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
             f' <strong class="text-dark fs-6">{item["name"]} <span class="text-muted small">({item["symbol"]})</span></strong>\n'
             f' <div class="d-flex gap-1 align-items-center">\n'
             f' <span class="badge bg-primary rounded-pill">추천 {item["count"]}회</span>\n'
-            f' <span class="badge bg-info text-dark rounded-pill">TOP10 {top10_cnt}회</span>\n'
+            f' <span class="badge bg-primary rounded-pill">TOP10 {top10_cnt}회</span>\n'
             f' </div>\n'
             f' </div>\n'
             f' <div class="row g-1 small text-secondary mt-1">\n'
