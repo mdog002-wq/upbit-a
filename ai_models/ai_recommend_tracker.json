@@ -22,7 +22,7 @@
     "symbol": "ORBS",
     "count": 5,
     "entry_price": 7.76,
-    "current_price": 7.71,
+    "current_price": 7.75,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:58:22"
   },
@@ -40,7 +40,7 @@
     "symbol": "LA",
     "count": 2,
     "entry_price": 67.6,
-    "current_price": 67.1,
+    "current_price": 67.9,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:47:57"
   },
@@ -83,11 +83,11 @@
   "BABY": {
     "name": "바빌론",
     "symbol": "BABY",
-    "count": 1,
+    "count": 2,
     "entry_price": 16.1,
     "current_price": 16.2,
     "first_recommended_at": "2026-08-07 00:03:13",
-    "last_recommended_at": "2026-08-07 00:03:13"
+    "last_recommended_at": "2026-08-07 00:10:10"
   },
   "ICX": {
     "name": "아이콘",
@@ -107,15 +107,6 @@
     "first_recommended_at": "2026-08-07 00:06:38",
     "last_recommended_at": "2026-08-07 00:06:38"
   },
-  "MOVE": {
-    "name": "무브먼트",
-    "symbol": "MOVE",
-    "count": 1,
-    "entry_price": 10.6,
-    "current_price": 10.6,
-    "first_recommended_at": "2026-08-07 00:06:38",
-    "last_recommended_at": "2026-08-07 00:06:38"
-  },
   "ANIME": {
     "name": "애니메코인",
     "symbol": "ANIME",
@@ -124,5 +115,32 @@
     "current_price": 3.45,
     "first_recommended_at": "2026-08-07 00:06:38",
     "last_recommended_at": "2026-08-07 00:06:38"
+  },
+  "LSK": {
+    "name": "리스크",
+    "symbol": "LSK",
+    "count": 1,
+    "entry_price": 107.0,
+    "current_price": 107.0,
+    "first_recommended_at": "2026-08-07 00:10:10",
+    "last_recommended_at": "2026-08-07 00:10:10"
+  },
+  "CRO": {
+    "name": "크로노스",
+    "symbol": "CRO",
+    "count": 1,
+    "entry_price": 75.9,
+    "current_price": 75.9,
+    "first_recommended_at": "2026-08-07 00:10:10",
+    "last_recommended_at": "2026-08-07 00:10:10"
+  },
+  "BLAST": {
+    "name": "블라스트",
+    "symbol": "BLAST",
+    "count": 1,
+    "entry_price": 0.344,
+    "current_price": 0.344,
+    "first_recommended_at": "2026-08-07 00:10:10",
+    "last_recommended_at": "2026-08-07 00:10:10"
   }
 }
