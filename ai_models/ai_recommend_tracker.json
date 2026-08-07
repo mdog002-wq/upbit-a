@@ -15,37 +15,37 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 32.2,
-    "current_price": 32.2,
+    "current_price": 32.1,
     "first_recommended_at": "2026-08-08 05:03:21",
     "last_recommended_at": "2026-08-08 05:03:21"
   },
   "MOC": {
     "name": "모스코인",
     "symbol": "MOC",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 24.1,
     "current_price": 24.0,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 05:33:04"
+    "last_recommended_at": "2026-08-08 05:42:39"
   },
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
-    "count": 3,
-    "top10_count": 4,
+    "count": 4,
+    "top10_count": 5,
     "entry_price": 19.0,
     "current_price": 18.9,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 05:33:04"
+    "last_recommended_at": "2026-08-08 05:42:39"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
     "symbol": "AERO",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 625.0,
-    "current_price": 622.0,
+    "current_price": 625.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 05:12:51"
   },
@@ -63,9 +63,9 @@
     "name": "크로노스",
     "symbol": "CRO",
     "count": 2,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 70.6,
-    "current_price": 71.8,
+    "current_price": 72.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 05:33:04"
   },
@@ -73,7 +73,7 @@
     "name": "쿼크체인",
     "symbol": "QKC",
     "count": 2,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 2.79,
     "current_price": 2.79,
     "first_recommended_at": "2026-08-08 05:23:06",
@@ -83,10 +83,30 @@
     "name": "사이버",
     "symbol": "CYBER",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 438.0,
-    "current_price": 437.0,
+    "current_price": 435.0,
     "first_recommended_at": "2026-08-08 05:23:06",
     "last_recommended_at": "2026-08-08 05:23:06"
+  },
+  "XTZ": {
+    "name": "테조스",
+    "symbol": "XTZ",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 283.0,
+    "current_price": 283.0,
+    "first_recommended_at": "2026-08-08 05:42:39",
+    "last_recommended_at": "2026-08-08 05:42:39"
+  },
+  "SAHARA": {
+    "name": "사하라에이아이",
+    "symbol": "SAHARA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 11.7,
+    "current_price": 11.7,
+    "first_recommended_at": "2026-08-08 05:42:39",
+    "last_recommended_at": "2026-08-08 05:42:39"
   }
 }
