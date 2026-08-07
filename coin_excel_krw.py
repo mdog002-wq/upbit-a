@@ -551,32 +551,34 @@ def assign_relative_grades(df):
     if df.empty:
         return df
 
+    # 1. 종합예측점수 기반 백분위 상한/하한 산출
     scores = df['종합예측점수']
-    q80 = scores.quantile(0.80) 
-    q50 = scores.quantile(0.50) 
-    q20 = scores.quantile(0.20) 
+    q80 = scores.quantile(0.80)  # 상위 20%
+    q50 = scores.quantile(0.50)  # 상위 50% (중위값)
+    q20 = scores.quantile(0.20)  # 상위 80% (하위 20%)
 
     def determine_grade(row):
         score = row['종합예측점수']
         dump_risk = row['STGT_그래프덤핑위험(%)']
 
-        if dump_risk >= 80.0:
+        # [하드 컷오프] 치명적 덤핑 위험 종목 우선 격리
+        if dump_risk >= 85.0:
             return "🔴 경고"
-        elif dump_risk >= 65.0:
-            return "🟠 주의"
-
-        if score >= q80:
+       
+        # [상대 평가] 덤핑 위험이 극단적이지 않은 경우 백분위 순위 적용
+        if score >= q80 and dump_risk < 60.0:
             return "🟢 추천"
-        elif score >= q50:
+        elif score >= q50 and dump_risk < 70.0:
             return "🔵 관심"
         elif score >= q20:
             return "⚪ 보통"
+        elif dump_risk >= 65.0:
+            return "🟠 주의"
         else:
             return "🟠 주의"
 
     df['grade'] = df.apply(determine_grade, axis=1)
     return df
-
 def calculate_ai_grade(score, dump_risk):
     if dump_risk >= 80.0:
         return "🔴 경고"
