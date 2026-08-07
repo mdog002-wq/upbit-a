@@ -4,7 +4,7 @@
     "symbol": "MASK",
     "count": 5,
     "entry_price": 510.0,
-    "current_price": 511.0,
+    "current_price": 512.0,
     "first_recommended_at": "2026-08-06 23:37:52",
     "last_recommended_at": "2026-08-06 23:58:22"
   },
@@ -13,7 +13,7 @@
     "symbol": "USDC",
     "count": 1,
     "entry_price": 1422.0,
-    "current_price": 1420.0,
+    "current_price": 1421.0,
     "first_recommended_at": "2026-08-06 23:41:17",
     "last_recommended_at": "2026-08-06 23:41:17"
   },
@@ -22,7 +22,7 @@
     "symbol": "LSK",
     "count": 2,
     "entry_price": 107.0,
-    "current_price": 106.0,
+    "current_price": 107.0,
     "first_recommended_at": "2026-08-06 23:41:17",
     "last_recommended_at": "2026-08-06 23:44:29"
   },
@@ -40,7 +40,7 @@
     "symbol": "ORBS",
     "count": 5,
     "entry_price": 7.76,
-    "current_price": 7.76,
+    "current_price": 7.7,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:58:22"
   },
@@ -49,7 +49,7 @@
     "symbol": "JST",
     "count": 4,
     "entry_price": 150.0,
-    "current_price": 150.0,
+    "current_price": 149.0,
     "first_recommended_at": "2026-08-06 23:44:29",
     "last_recommended_at": "2026-08-06 23:54:41"
   },
@@ -58,17 +58,8 @@
     "symbol": "LA",
     "count": 2,
     "entry_price": 67.6,
-    "current_price": 67.2,
+    "current_price": 67.4,
     "first_recommended_at": "2026-08-06 23:44:29",
-    "last_recommended_at": "2026-08-06 23:47:57"
-  },
-  "IRYS": {
-    "name": "아이리스",
-    "symbol": "IRYS",
-    "count": 1,
-    "entry_price": 22.4,
-    "current_price": 22.4,
-    "first_recommended_at": "2026-08-06 23:47:57",
     "last_recommended_at": "2026-08-06 23:47:57"
   },
   "TFUEL": {
@@ -97,5 +88,41 @@
     "current_price": 31.5,
     "first_recommended_at": "2026-08-06 23:54:41",
     "last_recommended_at": "2026-08-06 23:58:22"
+  },
+  "SUI": {
+    "name": "수이",
+    "symbol": "SUI",
+    "count": 1,
+    "entry_price": 954.0,
+    "current_price": 954.0,
+    "first_recommended_at": "2026-08-07 00:03:13",
+    "last_recommended_at": "2026-08-07 00:03:13"
+  },
+  "BIO": {
+    "name": "바이오프로토콜",
+    "symbol": "BIO",
+    "count": 1,
+    "entry_price": 33.4,
+    "current_price": 33.4,
+    "first_recommended_at": "2026-08-07 00:03:13",
+    "last_recommended_at": "2026-08-07 00:03:13"
+  },
+  "CHIP": {
+    "name": "유에스디에이아이",
+    "symbol": "CHIP",
+    "count": 1,
+    "entry_price": 37.2,
+    "current_price": 37.2,
+    "first_recommended_at": "2026-08-07 00:03:13",
+    "last_recommended_at": "2026-08-07 00:03:13"
+  },
+  "BABY": {
+    "name": "바빌론",
+    "symbol": "BABY",
+    "count": 1,
+    "entry_price": 16.1,
+    "current_price": 16.1,
+    "first_recommended_at": "2026-08-07 00:03:13",
+    "last_recommended_at": "2026-08-07 00:03:13"
   }
 }
