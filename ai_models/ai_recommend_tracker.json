@@ -12,12 +12,12 @@
   "MNT": {
     "name": "맨틀",
     "symbol": "MNT",
-    "count": 10,
-    "top10_count": 10,
+    "count": 11,
+    "top10_count": 11,
     "entry_price": 586.0,
     "current_price": 584.0,
     "first_recommended_at": "2026-08-08 02:33:04",
-    "last_recommended_at": "2026-08-08 04:03:00"
+    "last_recommended_at": "2026-08-08 04:12:58"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
@@ -52,12 +52,12 @@
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 6,
-    "top10_count": 7,
+    "count": 7,
+    "top10_count": 8,
     "entry_price": 23870.0,
-    "current_price": 23960.0,
+    "current_price": 23860.0,
     "first_recommended_at": "2026-08-08 02:53:09",
-    "last_recommended_at": "2026-08-08 04:03:00"
+    "last_recommended_at": "2026-08-08 04:12:58"
   },
   "XTZ": {
     "name": "테조스",
@@ -73,7 +73,7 @@
     "name": "센티언트",
     "symbol": "SENT",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 19.0,
     "current_price": 19.0,
     "first_recommended_at": "2026-08-08 03:02:58",
@@ -82,12 +82,12 @@
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 3,
-    "top10_count": 7,
+    "count": 4,
+    "top10_count": 8,
     "entry_price": 119.0,
     "current_price": 120.0,
     "first_recommended_at": "2026-08-08 03:02:58",
-    "last_recommended_at": "2026-08-08 04:03:00"
+    "last_recommended_at": "2026-08-08 04:12:58"
   },
   "IOST": {
     "name": "아이오에스티",
@@ -95,7 +95,7 @@
     "count": 4,
     "top10_count": 5,
     "entry_price": 0.846,
-    "current_price": 0.845,
+    "current_price": 0.844,
     "first_recommended_at": "2026-08-08 03:12:55",
     "last_recommended_at": "2026-08-08 03:52:58"
   },
@@ -103,7 +103,7 @@
     "name": "세이프",
     "symbol": "SAFE",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 127.0,
     "current_price": 126.0,
     "first_recommended_at": "2026-08-08 03:22:25",
@@ -112,11 +112,11 @@
   "MOC": {
     "name": "모스코인",
     "symbol": "MOC",
-    "count": 1,
-    "top10_count": 4,
+    "count": 2,
+    "top10_count": 5,
     "entry_price": 24.2,
-    "current_price": 24.2,
+    "current_price": 24.1,
     "first_recommended_at": "2026-08-08 03:32:57",
-    "last_recommended_at": "2026-08-08 03:32:57"
+    "last_recommended_at": "2026-08-08 04:12:58"
   }
 }
