@@ -2,20 +2,20 @@
   "ORCA": {
     "name": "오르카",
     "symbol": "ORCA",
-    "count": 9,
+    "count": 10,
     "entry_price": 1529.0,
     "current_price": 1529.0,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:59:06"
+    "last_recommended_at": "2026-08-07 01:02:36"
   },
   "CHZ": {
     "name": "칠리즈",
     "symbol": "CHZ",
-    "count": 1,
+    "count": 2,
     "entry_price": 18.3,
-    "current_price": 18.2,
+    "current_price": 18.3,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:32:40"
+    "last_recommended_at": "2026-08-07 01:02:36"
   },
   "ICX": {
     "name": "아이콘",
@@ -29,11 +29,11 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 7,
+    "count": 8,
     "entry_price": 84.4,
     "current_price": 84.4,
     "first_recommended_at": "2026-08-07 00:35:51",
-    "last_recommended_at": "2026-08-07 00:59:06"
+    "last_recommended_at": "2026-08-07 01:02:36"
   },
   "ORBS": {
     "name": "오브스",
@@ -44,21 +44,12 @@
     "first_recommended_at": "2026-08-07 00:35:51",
     "last_recommended_at": "2026-08-07 00:42:36"
   },
-  "CYBER": {
-    "name": "사이버",
-    "symbol": "CYBER",
-    "count": 1,
-    "entry_price": 448.0,
-    "current_price": 448.0,
-    "first_recommended_at": "2026-08-07 00:39:24",
-    "last_recommended_at": "2026-08-07 00:39:24"
-  },
   "UNI": {
     "name": "유니스왑",
     "symbol": "UNI",
     "count": 1,
     "entry_price": 5725.0,
-    "current_price": 5770.0,
+    "current_price": 5800.0,
     "first_recommended_at": "2026-08-07 00:42:36",
     "last_recommended_at": "2026-08-07 00:42:36"
   },
@@ -74,11 +65,11 @@
   "IOST": {
     "name": "아이오에스티",
     "symbol": "IOST",
-    "count": 4,
+    "count": 5,
     "entry_price": 0.862,
     "current_price": 0.862,
     "first_recommended_at": "2026-08-07 00:49:31",
-    "last_recommended_at": "2026-08-07 00:59:06"
+    "last_recommended_at": "2026-08-07 01:02:36"
   },
   "CKB": {
     "name": "너보스",
@@ -88,5 +79,14 @@
     "current_price": 1.19,
     "first_recommended_at": "2026-08-07 00:59:06",
     "last_recommended_at": "2026-08-07 00:59:06"
+  },
+  "FCT2": {
+    "name": "피르마체인",
+    "symbol": "FCT2",
+    "count": 1,
+    "entry_price": 9.52,
+    "current_price": 9.52,
+    "first_recommended_at": "2026-08-07 01:02:36",
+    "last_recommended_at": "2026-08-07 01:02:36"
   }
 }
