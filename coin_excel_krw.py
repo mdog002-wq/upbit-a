@@ -867,7 +867,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
 
     # 4. 'AI 추천종목 모니터' HTML 생성 (상위10위 횟수 표시 추가)
-     tracking_items = []
+    tracking_items = []
     for item in tracking_monitor_data:
         p_rate = item['profit_rate']
         rate_color = "text-danger" if p_rate > 0 else ("text-primary" if p_rate < 0 else "text-dark")
