@@ -353,100 +353,91 @@ def get_krw_upbit_tickers():
     except Exception: pass
     return []
 
-def get_highfreq_iceberg_metrics(ticker):
-    lstm_feats = [[np.random.rand(), np.random.rand(), np.random.rand()] for _ in range(15)]
+def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
+    if real_lstm_sequence and len(real_lstm_sequence) == 15:
+        lstm_feats = real_lstm_sequence
+    else:
+        lstm_feats = [[0.0, 0.0, 0.0] for _ in range(15)]
+       
     dump_prob = lstm_dumping_predictor.predict(lstm_feats) if (lstm_dumping_predictor and lstm_dumping_predictor.model) else 0.3
     if dump_prob is None: dump_prob = 0.3
-    
+   
     return {
-        "status": f"💎 정상 수급 (덤핑확률 {round(dump_prob*100,1)}%)" if dump_prob < 0.7 else f"🚨 덤핑 위험 (덤핑확률 {round(dump_prob*100,1)}%)",
-        "score_modifier": -30 if dump_prob >= 0.7 else 5,
+        "status": f"💎 정상 수급 (덤핑확률 {round(dump_prob*100,1)}%)" if dump_prob < 0.6 else f"🚨 덤핑 위험 (덤핑확률 {round(dump_prob*100,1)}%)",
+        "score_modifier": -30 if dump_prob >= 0.6 else 5,
         "raw_lstm_feats": lstm_feats
     }
 
-def calculate_t1_advanced_metrics(df_daily):
-    if df_daily is None or len(df_daily) < 30: return None
-    close = df_daily['close']
-    vol = df_daily['volume']
-    
-    vol_dry_ratio = float(vol.iloc[-1] / (vol.iloc[-10:-1].mean() + 1e-8))
-    cmf = float(((close.iloc[-1] - df_daily['low'].iloc[-1]) - (df_daily['high'].iloc[-1] - close.iloc[-1])) / (df_daily['high'].iloc[-1] - df_daily['low'].iloc[-1] + 1e-8))
-    
-    delta = close.diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
-    rs = gain / (loss + 1e-8)
-    rsi = float(100 - (100 / (1 + rs.iloc[-1])))
 
-    return {
-        "last_close": float(close.iloc[-1]),
-        "vol_dry_ratio": round(vol_dry_ratio, 2),
-        "cmf": round(cmf, 2),
-        "rsi": round(rsi, 1),
-        "last_value": float(df_daily['value'].iloc[-1])
-    }
+calculate_t1_advanced_metrics
 
 def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
         time.sleep(0.04)
-        df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=60)
-        metrics = calculate_t1_advanced_metrics(df_daily)
+        # 1. 1시간 봉 기반 단기 수급 지표 계산 (ticker 전달)
+        metrics = calculate_t1_advanced_metrics(ticker)
         
         if not metrics: 
             c_price = current_price_map.get(ticker, 0)
             return {
-                "코인명": korean_name,
-                "심볼": symbol,
-                "현재가(KRW)": format_price(c_price),
-                "raw_price": float(c_price),
-                "종합예측점수": 50.0,
-                "거래량절벽(배)": 1.0,
-                "CMF지표": 0.0,
-                "RSI": 50.0,
-                "아이스버그역산(고주파)": "💎 정상 수급",
-                "_stgt_feats": [0.5, 0.5, 0.0, 0.5, 0.1, 0.5, 1.0, 0.2, 0.5]
+                "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
+                "raw_price": float(c_price), "종합예측점수": 50.0, "거래량절벽(배)": 1.0,
+                "CMF지표": 0.0, "RSI": 50.0, "아이스버그역산(고주파)": "💎 정상 수급",
+                "_stgt_feats": [0.5]*9
             }
 
-        iceberg_metrics = get_highfreq_iceberg_metrics(ticker)
-        stgt_feats = [0.8, 0.7, metrics['cmf'], metrics['rsi']/100.0, 0.1, 0.5, metrics['vol_dry_ratio'], 0.2, 0.5]
+        # 2. 고주파 시퀀스 주입
+        iceberg_metrics = get_highfreq_iceberg_metrics(ticker, metrics.get("lstm_sequence"))
         
-        c_price = current_price_map.get(ticker, metrics['last_close'])
-        ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
+        # 3. 단기 급등 스코어링 공식
+        score = 40.0
+        vol_score = min(25.0, (metrics['vol_spike_ratio'] - 1.0) * 10.0) if metrics['vol_spike_ratio'] > 1.0 else 0
+        
+        squeeze_bonus = 0
+        if metrics['bb_width'] < 0.08:
+            squeeze_bonus += 10.0
+            if metrics['bb_breakout'] >= 0.8:
+                squeeze_bonus += 10.0
+                
+        cmf_score = max(-10.0, min(15.0, metrics['cmf_1h'] * 20.0))
+        rsi_penalty = -10.0 if metrics['rsi_1h'] >= 75.0 else 0.0
 
-        acc_score = round(
-            50.0 
-            + (metrics['cmf'] * 25.0) 
-            - ((metrics['vol_dry_ratio'] - 1.0) * 10.0) 
-            + iceberg_metrics['score_modifier'], 
-            1
-        )
+        total_score = score + vol_score + squeeze_bonus + cmf_score + rsi_penalty + iceberg_metrics['score_modifier']
+        acc_score = round(max(0.0, min(100.0, total_score)), 1)
+
+        c_price = current_price_map.get(ticker, metrics['last_close'])
+        
+        stgt_feats = [
+            metrics['vol_spike_ratio'] / 10.0, 
+            metrics['bb_width'], 
+            metrics['cmf_1h'], 
+            metrics['rsi_1h'] / 100.0, 
+            metrics['bb_breakout'], 
+            0.5, 1.0, 0.2, 0.5
+        ]
+        
+        ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
 
         return {
             "코인명": korean_name,
             "심볼": symbol,
             "현재가(KRW)": format_price(c_price),
             "raw_price": float(c_price),
-            "종합예측점수": max(0.0, min(100.0, acc_score)),
-            "거래량절벽(배)": metrics['vol_dry_ratio'],
-            "CMF지표": metrics['cmf'],
-            "RSI": metrics['rsi'],
+            "종합예측점수": acc_score,
+            "거래량절벽(배)": metrics['vol_spike_ratio'],
+            "CMF지표": metrics['cmf_1h'],
+            "RSI": metrics['rsi_1h'],
             "아이스버그역산(고주파)": iceberg_metrics['status'],
             "_stgt_feats": stgt_feats
         }
-    except Exception as e: 
+    except Exception: 
         c_price = current_price_map.get(ticker, 0)
         return {
-            "코인명": korean_name,
-            "심볼": symbol,
-            "현재가(KRW)": format_price(c_price),
-            "raw_price": float(c_price),
-            "종합예측점수": 50.0,
-            "거래량절벽(배)": 1.0,
-            "CMF지표": 0.0,
-            "RSI": 50.0,
-            "아이스버그역산(고주파)": "💎 정상 수급",
-            "_stgt_feats": [0.5, 0.5, 0.0, 0.5, 0.1, 0.5, 1.0, 0.2, 0.5]
+            "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
+            "raw_price": float(c_price), "종합예측점수": 50.0, "거래량절벽(배)": 1.0,
+            "CMF지표": 0.0, "RSI": 50.0, "아이스버그역산(고주파)": "💎 정상 수급",
+            "_stgt_feats": [0.5]*9
         }
 
 def analyze_and_scan_market():
