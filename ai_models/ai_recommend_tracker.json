@@ -2,12 +2,12 @@
   "SC": {
     "name": "시아코인",
     "symbol": "SC",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 0.712,
     "current_price": 0.712,
     "first_recommended_at": "2026-08-07 17:02:52",
-    "last_recommended_at": "2026-08-07 17:06:27"
+    "last_recommended_at": "2026-08-07 17:33:13"
   },
   "MED": {
     "name": "메디블록",
@@ -15,7 +15,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 1.83,
-    "current_price": 1.83,
+    "current_price": 1.81,
     "first_recommended_at": "2026-08-07 17:02:52",
     "last_recommended_at": "2026-08-07 17:06:27"
   },
@@ -25,7 +25,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 110.0,
-    "current_price": 111.0,
+    "current_price": 110.0,
     "first_recommended_at": "2026-08-07 17:02:52",
     "last_recommended_at": "2026-08-07 17:02:52"
   },
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 57.2,
-    "current_price": 57.2,
+    "current_price": 57.0,
     "first_recommended_at": "2026-08-07 17:02:52",
     "last_recommended_at": "2026-08-07 17:06:27"
   },
@@ -45,8 +45,38 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 47.2,
-    "current_price": 47.2,
+    "current_price": 47.0,
     "first_recommended_at": "2026-08-07 17:06:27",
     "last_recommended_at": "2026-08-07 17:06:27"
+  },
+  "YGG": {
+    "name": "일드길드게임즈",
+    "symbol": "YGG",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 27.5,
+    "current_price": 27.5,
+    "first_recommended_at": "2026-08-07 17:33:13",
+    "last_recommended_at": "2026-08-07 17:33:13"
+  },
+  "SENT": {
+    "name": "센티언트",
+    "symbol": "SENT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 18.5,
+    "current_price": 18.5,
+    "first_recommended_at": "2026-08-07 17:33:13",
+    "last_recommended_at": "2026-08-07 17:33:13"
+  },
+  "ICX": {
+    "name": "아이콘",
+    "symbol": "ICX",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 32.9,
+    "current_price": 32.9,
+    "first_recommended_at": "2026-08-07 17:33:13",
+    "last_recommended_at": "2026-08-07 17:33:13"
   }
 }
