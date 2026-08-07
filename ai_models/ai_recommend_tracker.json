@@ -5,7 +5,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 0.712,
-    "current_price": 0.707,
+    "current_price": 0.708,
     "first_recommended_at": "2026-08-07 17:02:52",
     "last_recommended_at": "2026-08-07 17:33:13"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 27.5,
-    "current_price": 27.3,
+    "current_price": 27.2,
     "first_recommended_at": "2026-08-07 17:33:13",
     "last_recommended_at": "2026-08-07 17:33:13"
   },
@@ -65,7 +65,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 18.5,
-    "current_price": 18.5,
+    "current_price": 18.4,
     "first_recommended_at": "2026-08-07 17:33:13",
     "last_recommended_at": "2026-08-07 18:03:06"
   },
@@ -75,7 +75,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 32.9,
-    "current_price": 32.8,
+    "current_price": 32.9,
     "first_recommended_at": "2026-08-07 17:33:13",
     "last_recommended_at": "2026-08-07 18:03:06"
   },
@@ -92,12 +92,12 @@
   "MORPHO": {
     "name": "모포",
     "symbol": "MORPHO",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 2650.0,
-    "current_price": 2650.0,
+    "current_price": 2654.0,
     "first_recommended_at": "2026-08-07 18:33:03",
-    "last_recommended_at": "2026-08-07 18:33:03"
+    "last_recommended_at": "2026-08-07 19:03:11"
   },
   "AAVE": {
     "name": "에이브",
@@ -105,7 +105,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 128100.0,
-    "current_price": 128100.0,
+    "current_price": 128000.0,
     "first_recommended_at": "2026-08-07 18:33:03",
     "last_recommended_at": "2026-08-07 18:33:03"
   },
@@ -115,7 +115,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 4.96,
-    "current_price": 4.96,
+    "current_price": 4.93,
     "first_recommended_at": "2026-08-07 18:33:03",
     "last_recommended_at": "2026-08-07 18:33:03"
   },
@@ -125,8 +125,38 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 264.0,
-    "current_price": 264.0,
+    "current_price": 261.0,
     "first_recommended_at": "2026-08-07 18:33:03",
     "last_recommended_at": "2026-08-07 18:33:03"
+  },
+  "RAY": {
+    "name": "레이디움",
+    "symbol": "RAY",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 880.0,
+    "current_price": 880.0,
+    "first_recommended_at": "2026-08-07 19:03:11",
+    "last_recommended_at": "2026-08-07 19:03:11"
+  },
+  "BEAM": {
+    "name": "빔",
+    "symbol": "BEAM",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1.96,
+    "current_price": 1.96,
+    "first_recommended_at": "2026-08-07 19:03:11",
+    "last_recommended_at": "2026-08-07 19:03:11"
+  },
+  "DKA": {
+    "name": "디카르고",
+    "symbol": "DKA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 4.66,
+    "current_price": 4.66,
+    "first_recommended_at": "2026-08-07 19:03:11",
+    "last_recommended_at": "2026-08-07 19:03:11"
   }
 }
