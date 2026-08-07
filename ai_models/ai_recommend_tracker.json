@@ -4,7 +4,7 @@
     "symbol": "ORBS",
     "count": 3,
     "entry_price": 7.75,
-    "current_price": 7.72,
+    "current_price": 7.71,
     "first_recommended_at": "2026-08-07 00:35:51",
     "last_recommended_at": "2026-08-07 00:42:36",
     "top10_count": 0
@@ -24,7 +24,7 @@
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.00934,
+    "current_price": 0.00926,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08",
     "top10_count": 0
@@ -34,7 +34,7 @@
     "symbol": "VANA",
     "count": 3,
     "entry_price": 1220.0,
-    "current_price": 1228.0,
+    "current_price": 1229.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 11:39:04",
     "top10_count": 0
@@ -44,7 +44,7 @@
     "symbol": "AKT",
     "count": 1,
     "entry_price": 682.0,
-    "current_price": 673.0,
+    "current_price": 670.0,
     "first_recommended_at": "2026-08-07 11:02:23",
     "last_recommended_at": "2026-08-07 11:02:23",
     "top10_count": 0
@@ -104,7 +104,7 @@
     "symbol": "CELO",
     "count": 6,
     "entry_price": 87.0,
-    "current_price": 87.0,
+    "current_price": 86.5,
     "first_recommended_at": "2026-08-07 11:52:12",
     "last_recommended_at": "2026-08-07 12:45:14",
     "top10_count": 3
@@ -122,12 +122,12 @@
   "IMX": {
     "name": "이뮤터블엑스",
     "symbol": "IMX",
-    "count": 3,
+    "count": 4,
     "entry_price": 158.0,
     "current_price": 158.0,
     "first_recommended_at": "2026-08-07 12:02:32",
-    "last_recommended_at": "2026-08-07 12:45:14",
-    "top10_count": 3
+    "last_recommended_at": "2026-08-07 12:52:07",
+    "top10_count": 4
   },
   "FCT2": {
     "name": "피르마체인",
@@ -142,28 +142,28 @@
   "USDE": {
     "name": "유에스디이",
     "symbol": "USDE",
-    "count": 5,
+    "count": 6,
     "entry_price": 1417.0,
     "current_price": 1417.0,
     "first_recommended_at": "2026-08-07 12:12:22",
-    "last_recommended_at": "2026-08-07 12:45:14",
-    "top10_count": 3
+    "last_recommended_at": "2026-08-07 12:52:07",
+    "top10_count": 4
   },
   "AZTEC": {
     "name": "아즈텍",
     "symbol": "AZTEC",
-    "count": 1,
-    "top10_count": 2,
+    "count": 2,
+    "top10_count": 3,
     "entry_price": 19.9,
-    "current_price": 19.8,
+    "current_price": 19.9,
     "first_recommended_at": "2026-08-07 12:26:02",
-    "last_recommended_at": "2026-08-07 12:26:02"
+    "last_recommended_at": "2026-08-07 12:52:07"
   },
   "ORCA": {
     "name": "오르카",
     "symbol": "ORCA",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 1535.0,
     "current_price": 1535.0,
     "first_recommended_at": "2026-08-07 12:32:28",
@@ -173,10 +173,20 @@
     "name": "트리하우스",
     "symbol": "TREE",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 50.8,
     "current_price": 50.8,
     "first_recommended_at": "2026-08-07 12:45:14",
     "last_recommended_at": "2026-08-07 12:45:14"
+  },
+  "HOLO": {
+    "name": "홀로월드에이아이",
+    "symbol": "HOLO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 98.1,
+    "current_price": 98.1,
+    "first_recommended_at": "2026-08-07 12:52:07",
+    "last_recommended_at": "2026-08-07 12:52:07"
   }
 }
