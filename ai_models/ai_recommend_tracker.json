@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 22.2,
-    "current_price": 22.2,
+    "current_price": 22.1,
     "first_recommended_at": "2026-08-08 05:03:21",
     "last_recommended_at": "2026-08-08 05:03:21"
   },
@@ -22,22 +22,22 @@
   "MOC": {
     "name": "모스코인",
     "symbol": "MOC",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 24.1,
-    "current_price": 24.1,
+    "current_price": 24.0,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 05:12:51"
+    "last_recommended_at": "2026-08-08 05:23:06"
   },
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
-    "count": 1,
-    "top10_count": 2,
+    "count": 2,
+    "top10_count": 3,
     "entry_price": 19.0,
     "current_price": 18.9,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 05:03:21"
+    "last_recommended_at": "2026-08-08 05:23:06"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 625.0,
-    "current_price": 625.0,
+    "current_price": 622.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 05:12:51"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 3.29,
-    "current_price": 3.29,
+    "current_price": 3.25,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 05:12:51"
   },
@@ -63,10 +63,30 @@
     "name": "크로노스",
     "symbol": "CRO",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 70.6,
-    "current_price": 70.6,
+    "current_price": 72.9,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 05:12:51"
+  },
+  "QKC": {
+    "name": "쿼크체인",
+    "symbol": "QKC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 2.79,
+    "current_price": 2.79,
+    "first_recommended_at": "2026-08-08 05:23:06",
+    "last_recommended_at": "2026-08-08 05:23:06"
+  },
+  "CYBER": {
+    "name": "사이버",
+    "symbol": "CYBER",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 438.0,
+    "current_price": 438.0,
+    "first_recommended_at": "2026-08-08 05:23:06",
+    "last_recommended_at": "2026-08-08 05:23:06"
   }
 }
