@@ -1294,7 +1294,8 @@ if __name__ == "__main__":
 
         upload_html_to_oracle_server("docs/index.html")
 
-        kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+        kst_tz = datetime.timezone(datetime.timedelta(hours=9))
+        kst_now = datetime.datetime.now(kst_tz)
         current_hour = kst_now.hour
         target_hours = [9, 13, 17, 21] 
 
