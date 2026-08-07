@@ -1006,19 +1006,24 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '    <script>\n'
         '        const rawReportText = __AI_REPORT_JSON__;\n'
         '        document.getElementById("reportMarkdownContainer").innerHTML = marked.parse(rawReportText);\n'
+        '\n'
         '        function filterCoins() {\n'
-        '            let input = document.getElementById(\'coinSearchInput\').value.toLowerCase();\n'
-        '            let rows = document.querySelectorAll(\'.tab-pane.active tbody tr\');\n'
-        '            rows.forEach(row => {\n'
-        '                let name = row.cells[0]?.innerText.toLowerCase() || \'\';\n'
-        '                row.style.display = name.includes(input) ? \'\' : \'none\';\n'
+        '            let input = document.getElementById(\'coinSearchInput\').value.toLowerCase().trim();\n'
+        '            let allRows = document.querySelectorAll(\'#coinTabContent .tab-pane tbody tr\');\n'
+        '\n'
+        '            allRows.forEach(row => {\n'
+        '                let coinText = row.cells[0]?.innerText.toLowerCase() || \'\';\n'
+        '                if (input === \'\') {\n'
+        '                    row.style.display = \'\';\n'
+        '                } else {\n'
+        '                    row.style.display = coinText.includes(input) ? \'\' : \'none\';\n'
+        '                }\n'
         '            });\n'
         '        }\n'
         '    </script>\n'
         '</body>\n'
         '</html>'
     )
-
     # 7. 치환 작업 수행 후 저장
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
                                 .replace("__TOTAL_COINS__", str(len(coin_grades)))\
