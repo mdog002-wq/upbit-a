@@ -353,9 +353,6 @@ def get_krw_upbit_tickers():
     except Exception: pass
     return []
 
-# ==============================================================================
-# 1. calculate_t1_advanced_metrics 함수
-# ==============================================================================
 def calculate_t1_advanced_metrics(ticker):
     try:
         df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
@@ -410,9 +407,6 @@ def calculate_t1_advanced_metrics(ticker):
     except Exception:
         return None
 
-# ==============================================================================
-# 2. get_highfreq_iceberg_metrics 함수
-# ==============================================================================
 def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
     if real_lstm_sequence and len(real_lstm_sequence) == 15:
         lstm_feats = real_lstm_sequence
@@ -428,9 +422,6 @@ def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
         "raw_lstm_feats": lstm_feats
     }
 
-# ==============================================================================
-# 3. process_single_coin 함수 (API 과부하 방지를 위한 딜레이 0.15초 적용)
-# ==============================================================================
 def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
@@ -540,52 +531,6 @@ def analyze_and_scan_market():
 
     return df.sort_values(by="종합예측점수", ascending=False)
 
-# ==============================================================================
-# [백분위 기반 상대평가 및 쏠림 방지 로직 적용]
-# ==============================================================================
-def assign_relative_grades(df):
-    if df.empty:
-        return df
-
-    # 동점자/동일구간 쏠림 방지를 위해 순위 기반 백분위 사용
-    df['score_rank_pct'] = df['종합예측점수'].rank(method='max', pct=True)
-
-    def determine_grade(row):
-        score = row['종합예측점수']
-        dump_risk = row['STGT_그래프덤핑위험(%)']
-        pct = row['score_rank_pct']
-
-        # 1. STGT 덤핑 위험 필터 완화 (기준선 85% 이상만 경고/주의 처리)
-        if dump_risk >= 85.0:
-            return "🔴 경고"
-        elif dump_risk >= 75.0:
-            return "🟠 주의"
-
-        # 2. 백분위 및 점수 기반 등급 분류
-        if pct >= 0.85 and score >= 60.0:
-            return "🟢 추천"
-        elif pct >= 0.60 and score >= 50.0:
-            return "🔵 관심"
-        elif pct >= 0.20:
-            return "⚪ 보통"
-        else:
-            return "🟠 주의" if score < 35.0 else "⚪ 보통"
-
-    df['grade'] = df.apply(determine_grade, axis=1)
-    return df
-
-def calculate_ai_grade(score, dump_risk):
-    if dump_risk >= 85.0:
-        return "🔴 경고"
-    elif dump_risk >= 75.0:
-        return "🟠 주의"
-    elif score >= 65.0 and dump_risk < 50.0:
-        return "🟢 추천"
-    elif score >= 50.0 and dump_risk < 65.0:
-        return "🔵 관심"
-    else:
-        return "⚪ 보통"
-
 def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_status_map, top10_symbols=set()):
     history = {}
     
@@ -640,15 +585,12 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
         profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
 
         status = coin_status_map.get(symbol, {})
-        grade = status.get('grade', '⚪ 보통')
         dump_risk = status.get('dump_risk', 0.0)
 
         is_target_reached = profit_rate >= 20.0
-        is_value_lost = (grade in ["🔴 경고", "🟠 주의"]) or (dump_risk >= 70.0) or (profit_rate <= -10.0)
+        is_value_lost = (dump_risk >= 70.0) or (profit_rate <= -10.0)
 
-        if is_target_reached:
-            to_remove.append(symbol)
-        elif is_value_lost:
+        if is_target_reached or is_value_lost:
             to_remove.append(symbol)
 
     for s in to_remove:
@@ -686,44 +628,25 @@ def update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data):
 
     try:
         coin_grades = []
-        for _, row in df_result.iterrows():
+        for rank, (_, row) in enumerate(df_result.iterrows(), start=1):
             score = row['종합예측점수']
             dump_risk = row['STGT_그래프덤핑위험(%)']
-            grade = row.get('grade', calculate_ai_grade(score, dump_risk))
 
             coin_grades.append({
+                "rank": rank,
                 "name": row['코인명'],
                 "symbol": row['심볼'],
                 "price": row['현재가(KRW)'],
                 "score": score,
                 "dump_risk": dump_risk,
-                "iceberg": row['아이스버그역산(고주파)'],
-                "grade": grade
+                "iceberg": row['아이스버그역산(고주파)']
             })
-
-        recommended_coins = [c for c in coin_grades if c['grade'] == "🟢 추천"]
-        interest_coins = [c for c in coin_grades if c['grade'] == "🔵 관심"]
-        normal_coins = [c for c in coin_grades if c['grade'] == "⚪ 보통"]
-        warning_coins = [c for c in coin_grades if c['grade'] == "🟠 주의"]
-        danger_coins = [c for c in coin_grades if c['grade'] == "🔴 경고"]
 
         dashboard_payload = {
             "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "ai_report": ai_report,
             "summary": {
-                "total_scanned": len(coin_grades),
-                "recommended_count": len(recommended_coins),
-                "interest_count": len(interest_coins),
-                "normal_count": len(normal_coins),
-                "warning_count": len(warning_coins),
-                "danger_count": len(danger_coins)
-            },
-            "classified_sectors": {
-                "recommend": recommended_coins,
-                "interest": interest_coins,
-                "normal": normal_coins,
-                "warning": warning_coins,
-                "danger": danger_coins
+                "total_scanned": len(coin_grades)
             },
             "ai_recommended_monitor": tracking_monitor_data,
             "all_coins": coin_grades
@@ -823,68 +746,43 @@ def export_to_excel_and_email(df_result, ai_report):
 def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
     
-    coin_grades = []
+    # AI 모니터링 종목 심볼 집합
+    monitored_symbols = {item['symbol'] for item in tracking_monitor_data}
+    
     alerts = []
     
     if not df_result.empty:
         for _, row in df_result.iterrows():
-            score = float(row['종합예측점수'])
             dump_risk = float(row['STGT_그래프덤핑위험(%)'])
-            grade = row.get('grade', calculate_ai_grade(score, dump_risk))
-            
-            badge_class = 'bg-secondary'
-            if grade == "🟢 추천": badge_class = "bg-success"
-            elif grade == "🔵 관심": badge_class = "bg-primary"
-            elif grade == "⚪ 보통": badge_class = "bg-secondary"
-            elif grade == "🟠 주의": badge_class = "bg-warning text-dark"
-            elif grade == "🔴 경고": badge_class = "bg-danger"
-            
-            item = {
-                "name": row['코인명'],
-                "symbol": row['심볼'],
-                "price": row['현재가(KRW)'],
-                "score": score,
-                "dump_risk": dump_risk,
-                "badge_class": badge_class,
-                "grade": grade
-            }
-            coin_grades.append(item)
-            
-            if grade in ["🟠 주의", "🔴 경고"]:
+            if dump_risk >= 75.0:
                 alerts.append({"text": f"⚠️ {row['코인명']}({row['심볼']}) - {row['아이스버그역산(고주파)']}"})
-    
-    recommended_sector = [c for c in coin_grades if c['grade'] == "🟢 추천"]
-    interested_sector = [c for c in coin_grades if c['grade'] == "🔵 관심"]
-    normal_sector = [c for c in coin_grades if c['grade'] == "⚪ 보통"]
-    warning_sector = [c for c in coin_grades if c['grade'] == "🟠 주의"]
-    danger_sector = [c for c in coin_grades if c['grade'] == "🔴 경고"]
 
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
     updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
-    def create_table_rows(sector_coins):
-        if not sector_coins:
-            return '<tr><td colspan="4" class="text-center text-muted py-3">해당하는 종목이 없습니다.</td></tr>'
-        
-        rows_list = []
-        for coin in sector_coins:
-            name = coin.get('name', 'N/A')
-            price = coin.get('price', 'N/A')
-            score = coin.get('score', 0)
-            badge_class = coin.get('badge_class', 'bg-secondary')
-            grade = coin.get('grade', '⚪ 보통')
+    # 순위별 전체 종목 테이블 행 생성
+    table_rows_list = []
+    if not df_result.empty:
+        for rank, (_, row) in enumerate(df_result.iterrows(), start=1):
+            symbol = row['심볼']
+            name = row['코인명']
+            price = row['현재가(KRW)']
+            score = float(row['종합예측점수'])
+            
+            # AI 추천 모니터에 존재하는 종목일 경우 🎯 스티커 표시
+            sticker = ' <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7rem;">🎯 AI추천</span>' if symbol in monitored_symbols else ''
             
             row_html = (
                 f"<tr>\n"
-                f' <td class="fw-bold">{name}</td>\n'
+                f' <td class="text-center fw-bold text-muted">{rank}</td>\n'
+                f' <td class="fw-bold">{name} <span class="text-secondary small">({symbol})</span>{sticker}</td>\n'
                 f' <td>{price}</td>\n'
-                f' <td class="text-primary">{score:.1f}점</td>\n'
-                f' <td><span class="badge {badge_class}">{grade}</span></td>\n'
+                f' <td class="text-primary fw-bold">{score:.1f}점</td>\n'
                 f"</tr>\n"
             )
-            rows_list.append(row_html)
-        
-        return "".join(rows_list)
+            table_rows_list.append(row_html)
+    
+    all_coins_table_rows = "".join(table_rows_list) if table_rows_list else '<tr><td colspan="4" class="text-center text-muted py-3">분석된 종목이 없습니다.</td></tr>'
 
     alert_items = []
     for alert in alerts[:15]:
@@ -911,7 +809,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         card_html = (
             f'<div class="p-3 border rounded bg-white shadow-sm mb-2">\n'
             f' <div class="d-flex justify-content-between align-items-center mb-1">\n'
-            f' <strong class="text-dark fs-6">{item["name"]} <span class="text-muted small">({item["symbol"]})</span></strong>\n'
+            f' <strong class="text-dark fs-6">🎯 {item["name"]} <span class="text-muted small">({item["symbol"]})</span></strong>\n'
             f' <div class="d-flex gap-1 align-items-center">\n'
             f' <span class="badge bg-primary rounded-pill">추천 {item["count"]}회</span>\n'
             f' <span class="badge bg-primary rounded-pill">TOP10 {top10_cnt}회</span>\n'
@@ -927,12 +825,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         )
         tracking_items.append(card_html)
     tracking_html = "\n".join(tracking_items) if tracking_items else '<div class="text-muted small text-center py-3">현재 모니터링 중인 AI 추천 종목이 없습니다.</div>'
-
-    rec_rows = create_table_rows(recommended_sector)
-    int_rows = create_table_rows(interested_sector)
-    norm_rows = create_table_rows(normal_sector)
-    warn_rows = create_table_rows(warning_sector)
-    dang_rows = create_table_rows(danger_sector)
 
     html_template = (
         '<!DOCTYPE html>\n'
@@ -950,7 +842,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }\n'
         ' .alert-box { max-height: 140px; overflow-y: auto; }\n'
         ' .news-box { max-height: 140px; overflow-y: auto; }\n'
-        ' .table-scroll-box { max-height: 500px; overflow-y: auto; }\n'
+        ' .table-scroll-box { max-height: 650px; overflow-y: auto; }\n'
         ' .tracking-box { max-height: 750px; overflow-y: auto; }\n'
         ' .report-body h1, .report-body h2, .report-body h3 { font-size: 1rem; font-weight: bold; margin-top: 0.5rem; color: #0f172a; }\n'
         ' .report-body ul { padding-left: 1.2rem; margin-bottom: 0.5rem; }\n'
@@ -994,56 +886,23 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' <div class="col-lg-5">\n'
         ' <div class="card p-4 shadow-sm">\n'
         ' <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">\n'
-        ' <h5 class="fw-bold mb-0 text-dark fs-5"><i class="fa-solid fa-list-check me-1"></i> 전체 코인 등급 분류</h5>\n'
+        ' <h5 class="fw-bold mb-0 text-dark fs-5"><i class="fa-solid fa-trophy text-warning me-1"></i> 전체 코인 AI 예측 순위</h5>\n'
         ' <div class="input-group" style="max-width: 200px;">\n'
         ' <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>\n'
-        ' <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명 검색..." onkeyup="filterCoins()">\n'
+        ' <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명/심볼 검색..." onkeyup="filterCoins()">\n'
         ' </div>\n'
         ' </div>\n'
-        ' <ul class="nav nav-tabs mb-3 flex-nowrap overflow-auto" id="coinTab" role="tablist" style="white-space: nowrap;">\n'
-        ' <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button" role="tab">🟢 추천 (__REC_COUNT__)</button></li>\n'
-        ' <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button" role="tab">🔵 관심 (__INT_COUNT__)</button></li>\n'
-        ' <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button" role="tab">⚪ 보통 (__NORM_COUNT__)</button></li>\n'
-        ' <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-warning" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button" role="tab">🟠 주의 (__WARN_COUNT__)</button></li>\n'
-        ' <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-danger" id="dang-tab" data-bs-toggle="tab" data-bs-target="#dang" type="button" role="tab">🔴 경고 (__DANG_COUNT__)</button></li>\n'
-        ' </ul>\n'
-        ' <div class="tab-content table-scroll-box" id="coinTabContent">\n'
-        ' <div class="tab-pane fade show active" id="rec" role="tabpanel">\n'
-        ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
-        ' <tbody>__REC_ROWS__</tbody>\n'
+        ' <div class="table-scroll-box">\n'
+        ' <table class="table table-hover align-middle mb-0" id="allCoinsTable">\n'
+        ' <thead class="table-light sticky-top"><tr><th class="text-center" style="width: 10%;">순위</th><th style="width: 40%;">코인명</th><th style="width: 25%;">현재가</th><th style="width: 25%;">예측점수</th></tr></thead>\n'
+        ' <tbody>__ALL_COINS_TABLE_ROWS__</tbody>\n'
         ' </table>\n'
-        ' </div>\n'
-        ' <div class="tab-pane fade" id="int" role="tabpanel">\n'
-        ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
-        ' <tbody>__INT_ROWS__</tbody>\n'
-        ' </table>\n'
-        ' </div>\n'
-        ' <div class="tab-pane fade" id="norm" role="tabpanel">\n'
-        ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
-        ' <tbody>__NORM_ROWS__</tbody>\n'
-        ' </table>\n'
-        ' </div>\n'
-        ' <div class="tab-pane fade" id="warn" role="tabpanel">\n'
-        ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
-        ' <tbody>__WARN_ROWS__</tbody>\n'
-        ' </table>\n'
-        ' </div>\n'
-        ' <div class="tab-pane fade" id="dang" role="tabpanel">\n'
-        ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
-        ' <tbody>__DANG_ROWS__</tbody>\n'
-        ' </table>\n'
-        ' </div>\n'
         ' </div>\n'
         ' </div>\n'
         ' </div>\n'       
         ' <div class="col-lg-4">\n'
         ' <div class="card p-3 shadow-sm tracking-box">\n'
-        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> AI 추천종목 모니터</h6>\n'
+        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> AI 추천종목 모니터 (🎯 표시 종목)</h6>\n'
         ' <div class="d-flex flex-column gap-2">\n'
         ' __TRACKING_HTML__\n'
         ' </div>\n'
@@ -1058,43 +917,16 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '\n'
         ' function filterCoins() {\n'
         ' let input = document.getElementById(\'coinSearchInput\').value.toLowerCase().trim();\n'
-        ' let allRows = document.querySelectorAll(\'#coinTabContent .tab-pane tbody tr\');\n'
-        ' let tabPanes = document.querySelectorAll(\'#coinTabContent .tab-pane\');\n'
-        ' let tabButtons = document.querySelectorAll(\'#coinTab button\');\n'
+        ' let allRows = document.querySelectorAll(\'#allCoinsTable tbody tr\');\n'
         '\n'
         ' allRows.forEach(row => {\n'
-        ' let coinText = row.cells[0]?.innerText.toLowerCase() || \'\';\n'
+        ' let coinText = row.cells[1]?.innerText.toLowerCase() || \'\';\n'
         ' if (input === \'\') {\n'
         ' row.style.display = \'\';\n'
         ' } else {\n'
         ' row.style.display = coinText.includes(input) ? \'\' : \'none\';\n'
         ' }\n'
         ' });\n'
-        '\n'
-        ' if (input !== \'\') {\n'
-        ' let firstMatchFound = false;\n'
-        ' tabPanes.forEach((pane, idx) => {\n'
-        ' let visibleRows = pane.querySelectorAll(\'tbody tr:not([style*="display: none"])\');\n'
-        ' if (visibleRows.length > 0) {\n'
-        ' pane.classList.add(\'show\', \'active\');\n'
-        ' if (tabButtons[idx]) tabButtons[idx].classList.add(\'active\');\n'
-        ' firstMatchFound = true;\n'
-        ' } else {\n'
-        ' pane.classList.remove(\'show\', \'active\');\n'
-        ' if (tabButtons[idx]) tabButtons[idx].classList.remove(\'active\');\n'
-        ' }\n'
-        ' });\n'
-        ' } else {\n'
-        ' tabPanes.forEach((pane, idx) => {\n'
-        ' if (idx === 0) {\n'
-        ' pane.classList.add(\'show\', \'active\');\n'
-        ' if (tabButtons[idx]) tabButtons[idx].classList.add(\'active\');\n'
-        ' } else {\n'
-        ' pane.classList.remove(\'show\', \'active\');\n'
-        ' if (tabButtons[idx]) tabButtons[idx].classList.remove(\'active\');\n'
-        ' }\n'
-        ' });\n'
-        ' }\n'
         ' }\n'
         ' </script>\n'
         '</body>\n'
@@ -1102,20 +934,11 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     )
 
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
-                                .replace("__TOTAL_COINS__", str(len(coin_grades)))\
+                                .replace("__TOTAL_COINS__", str(len(df_result)))\
                                 .replace("__ALERTS_HTML__", alerts_html)\
                                 .replace("__NEWS_HTML__", news_html)\
                                 .replace("__AI_REPORT_JSON__", json.dumps(str(ai_report), ensure_ascii=False))\
-                                .replace("__REC_COUNT__", str(len(recommended_sector)))\
-                                .replace("__INT_COUNT__", str(len(interested_sector)))\
-                                .replace("__NORM_COUNT__", str(len(normal_sector)))\
-                                .replace("__WARN_COUNT__", str(len(warning_sector)))\
-                                .replace("__DANG_COUNT__", str(len(danger_sector)))\
-                                .replace("__REC_ROWS__", rec_rows)\
-                                .replace("__INT_ROWS__", int_rows)\
-                                .replace("__NORM_ROWS__", norm_rows)\
-                                .replace("__WARN_ROWS__", warn_rows)\
-                                .replace("__DANG_ROWS__", dang_rows)\
+                                .replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)\
                                 .replace("__TRACKING_HTML__", tracking_html)
 
     with open(html_path, "w", encoding="utf-8") as f:
@@ -1134,10 +957,8 @@ if __name__ == "__main__":
     df_result = analyze_and_scan_market()
     
     if not df_result.empty:
-        df_result = assign_relative_grades(df_result)
-
         print(f"\n=== 🎯 [자가학습 AI 적용] 전체 분석 종목 수: {len(df_result)}개 ===")
-        print(df_result[["코인명", "종합예측점수", "STGT_그래프덤핑위험(%)", "grade", "아이스버그역산(고주파)"]].head(5))
+        print(df_result[["코인명", "종합예측점수", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(5))
         
         top10_symbols = set(df_result.head(10)['심볼'].tolist())
 
@@ -1174,8 +995,7 @@ if __name__ == "__main__":
         for _, r in df_result.iterrows():
             coin_status_map[r['심볼']] = {
                 "score": float(r['종합예측점수']),
-                "dump_risk": float(r['STGT_그래프덤핑위험(%)']),
-                "grade": r['grade']
+                "dump_risk": float(r['STGT_그래프덤핑위험(%)'])
             }
 
         tracking_monitor_data = update_ai_recommendation_tracker(
