@@ -1,4 +1,4 @@
-Name: 업비트 코인 매집점수 분석 및 메일 발송
+name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   workflow_dispatch:
