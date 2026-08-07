@@ -23,7 +23,7 @@
     "name": "모스코인",
     "symbol": "MOC",
     "count": 8,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 24.1,
     "current_price": 24.0,
     "first_recommended_at": "2026-08-08 05:03:21",
@@ -42,12 +42,12 @@
   "AERO": {
     "name": "에어로드롬파이낸스",
     "symbol": "AERO",
-    "count": 2,
-    "top10_count": 6,
+    "count": 3,
+    "top10_count": 7,
     "entry_price": 625.0,
     "current_price": 625.0,
     "first_recommended_at": "2026-08-08 05:12:51",
-    "last_recommended_at": "2026-08-08 06:13:04"
+    "last_recommended_at": "2026-08-08 06:22:58"
   },
   "PUMP": {
     "name": "펌프펀",
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 3.29,
-    "current_price": 3.23,
+    "current_price": 3.22,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 05:12:51"
   },
@@ -83,7 +83,7 @@
     "name": "사이버",
     "symbol": "CYBER",
     "count": 1,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 438.0,
     "current_price": 436.0,
     "first_recommended_at": "2026-08-08 05:23:06",
@@ -93,7 +93,7 @@
     "name": "테조스",
     "symbol": "XTZ",
     "count": 1,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 283.0,
     "current_price": 283.0,
     "first_recommended_at": "2026-08-08 05:42:39",
@@ -112,12 +112,12 @@
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 23730.0,
     "current_price": 23730.0,
     "first_recommended_at": "2026-08-08 05:53:05",
-    "last_recommended_at": "2026-08-08 06:13:04"
+    "last_recommended_at": "2026-08-08 06:22:58"
   },
   "DATA": {
     "name": "데이터네트워크",
@@ -132,12 +132,12 @@
   "MNT": {
     "name": "맨틀",
     "symbol": "MNT",
-    "count": 2,
-    "top10_count": 3,
+    "count": 3,
+    "top10_count": 4,
     "entry_price": 586.0,
     "current_price": 586.0,
     "first_recommended_at": "2026-08-08 05:53:05",
-    "last_recommended_at": "2026-08-08 06:03:16"
+    "last_recommended_at": "2026-08-08 06:22:58"
   },
   "ARB": {
     "name": "아비트럼",
@@ -145,8 +145,18 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 112.0,
-    "current_price": 112.0,
+    "current_price": 111.0,
     "first_recommended_at": "2026-08-08 06:13:04",
     "last_recommended_at": "2026-08-08 06:13:04"
+  },
+  "USDS": {
+    "name": "유에스디에스",
+    "symbol": "USDS",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1407.0,
+    "current_price": 1407.0,
+    "first_recommended_at": "2026-08-08 06:22:58",
+    "last_recommended_at": "2026-08-08 06:22:58"
   }
 }
