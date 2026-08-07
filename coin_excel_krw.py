@@ -150,7 +150,7 @@ def send_telegram_alert(message):
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
     coin_news_dict = {}
     for coin in target_coins:
-        query = urllib.parse.quote(f"{coin} 코인 이슈 when:30d")
+        query = urllib.parse.quote(f"{coin} 코인 이슈 when:7d")
         rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
         try:
             feed = feedparser.parse(rss_url)
