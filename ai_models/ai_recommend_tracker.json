@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90798000.0,
+    "current_price": 90850000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2690000.0,
+    "current_price": 2688000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -25,7 +25,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 1412.0,
-    "current_price": 1411.0,
+    "current_price": 1413.0,
     "first_recommended_at": "2026-08-07 13:32:34",
     "last_recommended_at": "2026-08-07 13:32:34"
   },
@@ -72,12 +72,12 @@
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
-    "count": 10,
-    "top10_count": 10,
+    "count": 11,
+    "top10_count": 11,
     "entry_price": 32.2,
     "current_price": 32.4,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 16:12:32"
+    "last_recommended_at": "2026-08-07 16:22:40"
   },
   "JST": {
     "name": "저스트",
@@ -95,7 +95,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 10.8,
-    "current_price": 10.8,
+    "current_price": 10.9,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:22:14"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 520.0,
-    "current_price": 517.0,
+    "current_price": 514.0,
     "first_recommended_at": "2026-08-07 15:14:33",
     "last_recommended_at": "2026-08-07 15:14:33"
   },
@@ -153,9 +153,9 @@
     "name": "비트코인캐시",
     "symbol": "BCH",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 304500.0,
-    "current_price": 304300.0,
+    "current_price": 304500.0,
     "first_recommended_at": "2026-08-07 15:22:58",
     "last_recommended_at": "2026-08-07 15:22:58"
   },
@@ -165,7 +165,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 96.0,
-    "current_price": 96.0,
+    "current_price": 96.1,
     "first_recommended_at": "2026-08-07 15:43:10",
     "last_recommended_at": "2026-08-07 16:03:09"
   },
@@ -175,7 +175,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 9.81,
-    "current_price": 9.73,
+    "current_price": 9.74,
     "first_recommended_at": "2026-08-07 15:52:44",
     "last_recommended_at": "2026-08-07 15:52:44"
   },
@@ -202,31 +202,41 @@
   "YGG": {
     "name": "일드길드게임즈",
     "symbol": "YGG",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 27.5,
-    "current_price": 27.5,
+    "current_price": 27.3,
     "first_recommended_at": "2026-08-07 16:12:32",
-    "last_recommended_at": "2026-08-07 16:12:32"
+    "last_recommended_at": "2026-08-07 16:22:40"
   },
   "JUP": {
     "name": "주피터",
     "symbol": "JUP",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 262.0,
     "current_price": 262.0,
     "first_recommended_at": "2026-08-07 16:12:32",
-    "last_recommended_at": "2026-08-07 16:12:32"
+    "last_recommended_at": "2026-08-07 16:22:40"
   },
   "XEC": {
     "name": "이캐시",
     "symbol": "XEC",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 0.00946,
+    "current_price": 0.00936,
+    "first_recommended_at": "2026-08-07 16:12:32",
+    "last_recommended_at": "2026-08-07 16:22:40"
+  },
+  "QKC": {
+    "name": "쿼크체인",
+    "symbol": "QKC",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 0.00946,
-    "current_price": 0.00946,
-    "first_recommended_at": "2026-08-07 16:12:32",
-    "last_recommended_at": "2026-08-07 16:12:32"
+    "entry_price": 2.82,
+    "current_price": 2.82,
+    "first_recommended_at": "2026-08-07 16:22:40",
+    "last_recommended_at": "2026-08-07 16:22:40"
   }
 }
