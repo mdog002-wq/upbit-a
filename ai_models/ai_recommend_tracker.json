@@ -22,21 +22,51 @@
   "MOC": {
     "name": "모스코인",
     "symbol": "MOC",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 24.1,
     "current_price": 24.1,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 05:03:21"
+    "last_recommended_at": "2026-08-08 05:12:51"
   },
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 19.0,
-    "current_price": 19.0,
+    "current_price": 18.9,
     "first_recommended_at": "2026-08-08 05:03:21",
     "last_recommended_at": "2026-08-08 05:03:21"
+  },
+  "AERO": {
+    "name": "에어로드롬파이낸스",
+    "symbol": "AERO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 625.0,
+    "current_price": 625.0,
+    "first_recommended_at": "2026-08-08 05:12:51",
+    "last_recommended_at": "2026-08-08 05:12:51"
+  },
+  "PUMP": {
+    "name": "펌프펀",
+    "symbol": "PUMP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 3.29,
+    "current_price": 3.29,
+    "first_recommended_at": "2026-08-08 05:12:51",
+    "last_recommended_at": "2026-08-08 05:12:51"
+  },
+  "CRO": {
+    "name": "크로노스",
+    "symbol": "CRO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 70.6,
+    "current_price": 70.6,
+    "first_recommended_at": "2026-08-08 05:12:51",
+    "last_recommended_at": "2026-08-08 05:12:51"
   }
 }
