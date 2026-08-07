@@ -2,12 +2,12 @@
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
-    "count": 10,
-    "top10_count": 11,
+    "count": 11,
+    "top10_count": 12,
     "entry_price": 19.0,
-    "current_price": 19.0,
+    "current_price": 19.1,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 08:13:00"
+    "last_recommended_at": "2026-08-08 08:23:02"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
@@ -33,9 +33,9 @@
     "name": "데이터네트워크",
     "symbol": "DATA",
     "count": 1,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 301.0,
-    "current_price": 300.0,
+    "current_price": 299.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -53,9 +53,9 @@
     "name": "아비트럼",
     "symbol": "ARB",
     "count": 2,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 112.0,
-    "current_price": 111.0,
+    "current_price": 112.0,
     "first_recommended_at": "2026-08-08 06:13:04",
     "last_recommended_at": "2026-08-08 06:43:09"
   },
@@ -65,7 +65,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 1717.0,
-    "current_price": 1712.0,
+    "current_price": 1716.0,
     "first_recommended_at": "2026-08-08 06:33:11",
     "last_recommended_at": "2026-08-08 07:12:49"
   },
@@ -73,41 +73,41 @@
     "name": "아반티스",
     "symbol": "AVNT",
     "count": 7,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 123.0,
-    "current_price": 123.0,
+    "current_price": 124.0,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:03:11"
   },
   "CHZ": {
     "name": "칠리즈",
     "symbol": "CHZ",
-    "count": 3,
-    "top10_count": 10,
+    "count": 4,
+    "top10_count": 11,
     "entry_price": 18.1,
     "current_price": 18.1,
     "first_recommended_at": "2026-08-08 06:43:09",
-    "last_recommended_at": "2026-08-08 07:03:23"
+    "last_recommended_at": "2026-08-08 08:23:02"
   },
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
-    "count": 7,
-    "top10_count": 7,
+    "count": 8,
+    "top10_count": 8,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 07:12:49",
-    "last_recommended_at": "2026-08-08 08:13:00"
+    "last_recommended_at": "2026-08-08 08:23:02"
   },
   "ICP": {
     "name": "인터넷컴퓨터",
     "symbol": "ICP",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 2952.0,
     "current_price": 2951.0,
     "first_recommended_at": "2026-08-08 07:26:09",
-    "last_recommended_at": "2026-08-08 08:13:00"
+    "last_recommended_at": "2026-08-08 08:23:02"
   },
   "GLM": {
     "name": "골렘",
