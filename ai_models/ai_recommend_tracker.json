@@ -2,20 +2,11 @@
   "ORCA": {
     "name": "오르카",
     "symbol": "ORCA",
-    "count": 5,
+    "count": 6,
     "entry_price": 1529.0,
     "current_price": 1529.0,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:46:07"
-  },
-  "RED": {
-    "name": "레드스톤",
-    "symbol": "RED",
-    "count": 1,
-    "entry_price": 126.0,
-    "current_price": 126.0,
-    "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:32:40"
+    "last_recommended_at": "2026-08-07 00:49:31"
   },
   "CHZ": {
     "name": "칠리즈",
@@ -38,11 +29,11 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 2,
+    "count": 3,
     "entry_price": 8.24,
     "current_price": 8.24,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:39:24"
+    "last_recommended_at": "2026-08-07 00:49:31"
   },
   "ELF": {
     "name": "엘프",
@@ -76,17 +67,26 @@
     "symbol": "UNI",
     "count": 1,
     "entry_price": 5725.0,
-    "current_price": 5740.0,
+    "current_price": 5765.0,
     "first_recommended_at": "2026-08-07 00:42:36",
     "last_recommended_at": "2026-08-07 00:42:36"
   },
   "ANKR": {
     "name": "앵커",
     "symbol": "ANKR",
-    "count": 1,
+    "count": 2,
     "entry_price": 4.96,
     "current_price": 4.96,
     "first_recommended_at": "2026-08-07 00:46:07",
-    "last_recommended_at": "2026-08-07 00:46:07"
+    "last_recommended_at": "2026-08-07 00:49:31"
+  },
+  "IOST": {
+    "name": "아이오에스티",
+    "symbol": "IOST",
+    "count": 1,
+    "entry_price": 0.862,
+    "current_price": 0.862,
+    "first_recommended_at": "2026-08-07 00:49:31",
+    "last_recommended_at": "2026-08-07 00:49:31"
   }
 }
