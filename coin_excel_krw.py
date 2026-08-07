@@ -150,7 +150,7 @@ def send_telegram_alert(message):
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
     coin_news_dict = {}
     for coin in target_coins:
-        query = urllib.parse.quote(f"{coin} 코인 이슈")
+        query = urllib.parse.quote(f"{coin} 코인 이슈 when:7d")
         rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
         try:
             feed = feedparser.parse(rss_url)
@@ -550,7 +550,8 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
             print(f"⚠️ 기존 트래킹 파일 로드 실패 (초기화 후 진행): {e}")
             history = {}
 
-    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    kst_tz = datetime.timezone(datetime.timedelta(hours=9))
+    now_str = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
     for coin in ai_report_coins:
         symbol = coin['symbol']
@@ -801,8 +802,9 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     normal_sector = [c for c in coin_grades if c['grade'] == "⚪ 보통"]
     warning_sector = [c for c in coin_grades if c['grade'] == "🟠 주의"]
     danger_sector = [c for c in coin_grades if c['grade'] == "🔴 경고"]
-    
-    updated_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    kst_tz = datetime.timezone(datetime.timedelta(hours=9))
+    updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
     # 1. 각 섹션별 테이블 행 생성 헬퍼 함수
     def create_table_rows(sector_coins):
