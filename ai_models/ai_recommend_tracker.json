@@ -1,1 +1,42 @@
-{}
+{
+  "DEEP": {
+    "name": "딥북",
+    "symbol": "DEEP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 22.2,
+    "current_price": 22.2,
+    "first_recommended_at": "2026-08-08 05:03:21",
+    "last_recommended_at": "2026-08-08 05:03:21"
+  },
+  "ICX": {
+    "name": "아이콘",
+    "symbol": "ICX",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 32.2,
+    "current_price": 32.2,
+    "first_recommended_at": "2026-08-08 05:03:21",
+    "last_recommended_at": "2026-08-08 05:03:21"
+  },
+  "MOC": {
+    "name": "모스코인",
+    "symbol": "MOC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 24.1,
+    "current_price": 24.1,
+    "first_recommended_at": "2026-08-08 05:03:21",
+    "last_recommended_at": "2026-08-08 05:03:21"
+  },
+  "SENT": {
+    "name": "센티언트",
+    "symbol": "SENT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 19.0,
+    "current_price": 19.0,
+    "first_recommended_at": "2026-08-08 05:03:21",
+    "last_recommended_at": "2026-08-08 05:03:21"
+  }
+}
