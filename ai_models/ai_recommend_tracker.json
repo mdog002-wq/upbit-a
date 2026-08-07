@@ -2,11 +2,11 @@
   "ORCA": {
     "name": "오르카",
     "symbol": "ORCA",
-    "count": 2,
+    "count": 3,
     "entry_price": 1529.0,
     "current_price": 1529.0,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:35:51"
+    "last_recommended_at": "2026-08-07 00:39:24"
   },
   "RED": {
     "name": "레드스톤",
@@ -38,28 +38,37 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 1,
+    "count": 2,
     "entry_price": 8.24,
     "current_price": 8.24,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:32:40"
+    "last_recommended_at": "2026-08-07 00:39:24"
   },
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 1,
+    "count": 2,
     "entry_price": 84.4,
     "current_price": 84.4,
     "first_recommended_at": "2026-08-07 00:35:51",
-    "last_recommended_at": "2026-08-07 00:35:51"
+    "last_recommended_at": "2026-08-07 00:39:24"
   },
   "ORBS": {
     "name": "오브스",
     "symbol": "ORBS",
-    "count": 1,
+    "count": 2,
     "entry_price": 7.75,
     "current_price": 7.75,
     "first_recommended_at": "2026-08-07 00:35:51",
-    "last_recommended_at": "2026-08-07 00:35:51"
+    "last_recommended_at": "2026-08-07 00:39:24"
+  },
+  "CYBER": {
+    "name": "사이버",
+    "symbol": "CYBER",
+    "count": 1,
+    "entry_price": 448.0,
+    "current_price": 448.0,
+    "first_recommended_at": "2026-08-07 00:39:24",
+    "last_recommended_at": "2026-08-07 00:39:24"
   }
 }
