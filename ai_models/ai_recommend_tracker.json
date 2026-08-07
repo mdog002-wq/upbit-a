@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90706000.0,
+    "current_price": 90720000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,19 +15,9 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2679000.0,
+    "current_price": 2680000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
-  },
-  "ONDO": {
-    "name": "온도파이낸스",
-    "symbol": "ONDO",
-    "count": 2,
-    "top10_count": 4,
-    "entry_price": 499.0,
-    "current_price": 497.0,
-    "first_recommended_at": "2026-08-07 13:27:48",
-    "last_recommended_at": "2026-08-07 13:37:17"
   },
   "USDT": {
     "name": "테더",
@@ -35,7 +25,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 1412.0,
-    "current_price": 1413.0,
+    "current_price": 1414.0,
     "first_recommended_at": "2026-08-07 13:32:34",
     "last_recommended_at": "2026-08-07 13:32:34"
   },
@@ -45,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1415.0,
-    "current_price": 1431.0,
+    "current_price": 1449.0,
     "first_recommended_at": "2026-08-07 13:42:24",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -95,7 +85,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 40.7,
-    "current_price": 40.7,
+    "current_price": 40.6,
     "first_recommended_at": "2026-08-07 13:57:15",
     "last_recommended_at": "2026-08-07 13:57:15"
   },
@@ -115,35 +105,35 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 32.2,
-    "current_price": 32.2,
+    "current_price": 32.1,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:12:17"
   },
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 149.0,
     "current_price": 149.0,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 14:12:17"
+    "last_recommended_at": "2026-08-07 14:22:14"
   },
   "MOCA": {
     "name": "모카네트워크",
     "symbol": "MOCA",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 10.8,
     "current_price": 10.8,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 14:12:17"
+    "last_recommended_at": "2026-08-07 14:22:14"
   },
   "MET2": {
     "name": "메테오라",
     "symbol": "MET2",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 231.0,
     "current_price": 232.0,
     "first_recommended_at": "2026-08-07 14:06:49",
@@ -152,11 +142,21 @@
   "KERNEL": {
     "name": "커널다오",
     "symbol": "KERNEL",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 47.1,
     "current_price": 47.1,
     "first_recommended_at": "2026-08-07 14:12:17",
-    "last_recommended_at": "2026-08-07 14:12:17"
+    "last_recommended_at": "2026-08-07 14:22:14"
+  },
+  "YGG": {
+    "name": "일드길드게임즈",
+    "symbol": "YGG",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 26.8,
+    "current_price": 26.8,
+    "first_recommended_at": "2026-08-07 14:22:14",
+    "last_recommended_at": "2026-08-07 14:22:14"
   }
 }
