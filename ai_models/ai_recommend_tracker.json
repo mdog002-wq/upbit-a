@@ -49,7 +49,7 @@
     "symbol": "UNI",
     "count": 1,
     "entry_price": 5725.0,
-    "current_price": 5785.0,
+    "current_price": 5740.0,
     "first_recommended_at": "2026-08-07 00:42:36",
     "last_recommended_at": "2026-08-07 00:42:36"
   },
@@ -71,31 +71,49 @@
     "first_recommended_at": "2026-08-07 01:09:44",
     "last_recommended_at": "2026-08-07 01:09:44"
   },
-  "TOSHI": {
-    "name": "토시",
-    "symbol": "TOSHI",
-    "count": 1,
-    "entry_price": 0.147,
-    "current_price": 0.147,
-    "first_recommended_at": "2026-08-07 10:35:10",
-    "last_recommended_at": "2026-08-07 10:35:10"
-  },
   "XEC": {
     "name": "이캐시",
     "symbol": "XEC",
-    "count": 1,
+    "count": 2,
     "entry_price": 0.00889,
     "current_price": 0.00889,
     "first_recommended_at": "2026-08-07 10:35:10",
-    "last_recommended_at": "2026-08-07 10:35:10"
+    "last_recommended_at": "2026-08-07 10:42:08"
   },
   "ZIL": {
     "name": "질리카",
     "symbol": "ZIL",
-    "count": 1,
+    "count": 2,
     "entry_price": 3.09,
     "current_price": 3.09,
     "first_recommended_at": "2026-08-07 10:35:10",
-    "last_recommended_at": "2026-08-07 10:35:10"
+    "last_recommended_at": "2026-08-07 10:42:08"
+  },
+  "NXPC": {
+    "name": "넥스페이스",
+    "symbol": "NXPC",
+    "count": 1,
+    "entry_price": 340.0,
+    "current_price": 340.0,
+    "first_recommended_at": "2026-08-07 10:42:08",
+    "last_recommended_at": "2026-08-07 10:42:08"
+  },
+  "VANA": {
+    "name": "바나",
+    "symbol": "VANA",
+    "count": 1,
+    "entry_price": 1220.0,
+    "current_price": 1220.0,
+    "first_recommended_at": "2026-08-07 10:42:08",
+    "last_recommended_at": "2026-08-07 10:42:08"
+  },
+  "AZTEC": {
+    "name": "아즈텍",
+    "symbol": "AZTEC",
+    "count": 1,
+    "entry_price": 19.9,
+    "current_price": 19.9,
+    "first_recommended_at": "2026-08-07 10:42:08",
+    "last_recommended_at": "2026-08-07 10:42:08"
   }
 }
