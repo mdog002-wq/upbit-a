@@ -46,17 +46,17 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # 1. 원격 저장소의 최신 변경 사항 반영
-          git pull origin main --rebase || echo "No rebase needed"
-          
-          # 2. 변경된 데이터 스테이징
-          git add docs/ scan_history.csv cache/ ai_models/ 2>/dev/null || true
-          
-          # 3. 변경사항이 있을 때만 커밋 및 푸시
+    
+          # 1. 파일 변경사항 스테이징
+          git add docs/ scan_history.csv cache/ ai_models/ 2>/dev/null || git add .
+    
+          # 2. 커밋 처리 (변경사항이 있으면 커밋)
           if ! git diff --staged --quiet; then
-            git commit -m "🤖 [Bot] Update dashboard, AI models, and tracker data [skip ci]"
-            git push origin main
-          else
-            echo "변경사항이 없어 커밋을 스킵합니다."
+          git commit -m "🤖 [Bot] Update dashboard, AI models, and tracker data [skip ci]"
           fi
+    
+          # 3. 원격 저장소 최신 내역을 가져와 커밋 재정렬 (rebase)
+          git pull origin main --rebase || echo "No rebase needed"
+    
+          # 4. 푸시
+          git push origin main
