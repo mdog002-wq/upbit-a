@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 544.0,
+    "current_price": 540.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 586.0,
-    "current_price": 587.0,
+    "current_price": 583.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 305900.0,
-    "current_price": 306800.0,
+    "current_price": 305600.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -63,7 +63,7 @@
     "name": "아크",
     "symbol": "ARK",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 134.0,
     "current_price": 134.0,
     "first_recommended_at": "2026-08-07 21:33:10",
@@ -72,21 +72,41 @@
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 150.0,
     "current_price": 150.0,
     "first_recommended_at": "2026-08-07 21:33:10",
-    "last_recommended_at": "2026-08-07 21:33:10"
+    "last_recommended_at": "2026-08-07 21:41:14"
   },
   "XAUT": {
     "name": "테더골드",
     "symbol": "XAUT",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 6097000.0,
+    "current_price": 6105000.0,
+    "first_recommended_at": "2026-08-07 21:33:10",
+    "last_recommended_at": "2026-08-07 21:41:14"
+  },
+  "SPK": {
+    "name": "스파크",
+    "symbol": "SPK",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 6097000.0,
-    "current_price": 6097000.0,
-    "first_recommended_at": "2026-08-07 21:33:10",
-    "last_recommended_at": "2026-08-07 21:33:10"
+    "entry_price": 21.4,
+    "current_price": 21.4,
+    "first_recommended_at": "2026-08-07 21:41:14",
+    "last_recommended_at": "2026-08-07 21:41:14"
+  },
+  "QKC": {
+    "name": "쿼크체인",
+    "symbol": "QKC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 2.78,
+    "current_price": 2.78,
+    "first_recommended_at": "2026-08-07 21:41:14",
+    "last_recommended_at": "2026-08-07 21:41:14"
   }
 }
