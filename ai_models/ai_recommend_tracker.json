@@ -1,1 +1,47 @@
-{}
+{
+  "ORCA": {
+    "name": "오르카",
+    "symbol": "ORCA",
+    "count": 1,
+    "entry_price": 1529.0,
+    "current_price": 1529.0,
+    "first_recommended_at": "2026-08-07 00:32:40",
+    "last_recommended_at": "2026-08-07 00:32:40"
+  },
+  "RED": {
+    "name": "레드스톤",
+    "symbol": "RED",
+    "count": 1,
+    "entry_price": 126.0,
+    "current_price": 126.0,
+    "first_recommended_at": "2026-08-07 00:32:40",
+    "last_recommended_at": "2026-08-07 00:32:40"
+  },
+  "CHZ": {
+    "name": "칠리즈",
+    "symbol": "CHZ",
+    "count": 1,
+    "entry_price": 18.3,
+    "current_price": 18.3,
+    "first_recommended_at": "2026-08-07 00:32:40",
+    "last_recommended_at": "2026-08-07 00:32:40"
+  },
+  "ICX": {
+    "name": "아이콘",
+    "symbol": "ICX",
+    "count": 1,
+    "entry_price": 32.0,
+    "current_price": 32.0,
+    "first_recommended_at": "2026-08-07 00:32:40",
+    "last_recommended_at": "2026-08-07 00:32:40"
+  },
+  "ALT": {
+    "name": "알트레이어",
+    "symbol": "ALT",
+    "count": 1,
+    "entry_price": 8.24,
+    "current_price": 8.24,
+    "first_recommended_at": "2026-08-07 00:32:40",
+    "last_recommended_at": "2026-08-07 00:32:40"
+  }
+}
