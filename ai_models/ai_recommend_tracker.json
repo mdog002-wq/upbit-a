@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90720000.0,
+    "current_price": 90686000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2680000.0,
+    "current_price": 2678000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -25,7 +25,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 1412.0,
-    "current_price": 1414.0,
+    "current_price": 1413.0,
     "first_recommended_at": "2026-08-07 13:32:34",
     "last_recommended_at": "2026-08-07 13:32:34"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1415.0,
-    "current_price": 1449.0,
+    "current_price": 1447.0,
     "first_recommended_at": "2026-08-07 13:42:24",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -65,7 +65,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 5.32,
-    "current_price": 5.3,
+    "current_price": 5.26,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:57:15"
   },
@@ -85,7 +85,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 40.7,
-    "current_price": 40.6,
+    "current_price": 40.9,
     "first_recommended_at": "2026-08-07 13:57:15",
     "last_recommended_at": "2026-08-07 13:57:15"
   },
@@ -102,18 +102,18 @@
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 32.2,
-    "current_price": 32.1,
+    "current_price": 32.3,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 14:12:17"
+    "last_recommended_at": "2026-08-07 14:32:27"
   },
   "JST": {
     "name": "저스트",
     "symbol": "JST",
     "count": 3,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 149.0,
     "current_price": 149.0,
     "first_recommended_at": "2026-08-07 14:06:49",
@@ -133,9 +133,9 @@
     "name": "메테오라",
     "symbol": "MET2",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 231.0,
-    "current_price": 232.0,
+    "current_price": 236.0,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:06:49"
   },
@@ -145,7 +145,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 47.1,
-    "current_price": 47.1,
+    "current_price": 47.0,
     "first_recommended_at": "2026-08-07 14:12:17",
     "last_recommended_at": "2026-08-07 14:22:14"
   },
@@ -155,8 +155,38 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 26.8,
-    "current_price": 26.8,
+    "current_price": 27.1,
     "first_recommended_at": "2026-08-07 14:22:14",
     "last_recommended_at": "2026-08-07 14:22:14"
+  },
+  "MTL": {
+    "name": "메탈",
+    "symbol": "MTL",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 291.0,
+    "current_price": 291.0,
+    "first_recommended_at": "2026-08-07 14:32:27",
+    "last_recommended_at": "2026-08-07 14:32:27"
+  },
+  "LPT": {
+    "name": "라이브피어",
+    "symbol": "LPT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1816.0,
+    "current_price": 1816.0,
+    "first_recommended_at": "2026-08-07 14:32:27",
+    "last_recommended_at": "2026-08-07 14:32:27"
+  },
+  "ANKR": {
+    "name": "앵커",
+    "symbol": "ANKR",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 4.97,
+    "current_price": 4.97,
+    "first_recommended_at": "2026-08-07 14:32:27",
+    "last_recommended_at": "2026-08-07 14:32:27"
   }
 }
