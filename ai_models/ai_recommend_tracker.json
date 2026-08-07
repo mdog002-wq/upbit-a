@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 538.0,
+    "current_price": 544.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 5.07,
-    "current_price": 5.03,
+    "current_price": 4.97,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 586.0,
-    "current_price": 586.0,
+    "current_price": 587.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -55,8 +55,38 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 305900.0,
-    "current_price": 305900.0,
+    "current_price": 306800.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
+  },
+  "ARK": {
+    "name": "아크",
+    "symbol": "ARK",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 134.0,
+    "current_price": 134.0,
+    "first_recommended_at": "2026-08-07 21:33:10",
+    "last_recommended_at": "2026-08-07 21:33:10"
+  },
+  "JST": {
+    "name": "저스트",
+    "symbol": "JST",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 150.0,
+    "current_price": 150.0,
+    "first_recommended_at": "2026-08-07 21:33:10",
+    "last_recommended_at": "2026-08-07 21:33:10"
+  },
+  "XAUT": {
+    "name": "테더골드",
+    "symbol": "XAUT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 6097000.0,
+    "current_price": 6097000.0,
+    "first_recommended_at": "2026-08-07 21:33:10",
+    "last_recommended_at": "2026-08-07 21:33:10"
   }
 }
