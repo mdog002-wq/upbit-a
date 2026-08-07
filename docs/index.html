@@ -21,7 +21,6 @@
 </head>
 <body>
  <div class="container-fluid my-4 px-4" style="max-width: 1700px;">
- <!-- 상단 헤더 -->
  <div class="row mb-4 align-items-center">
  <div class="col-md-3 text-start">
  <a href="https://nstz3yxnkqif9nmaa56jd2.streamlit.app/" class="btn btn-primary fw-bold px-3 py-2 shadow-sm">
@@ -30,33 +29,17 @@
  </div>
  <div class="col-md-6 text-center">
  <h2 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>
- <small class="text-muted">최종 업데이트: 2026-08-07 17:03:02 (총 281개 종목 분석 완료)</small>
+ <small class="text-muted">최종 업데이트: 2026-08-07 17:06:37 (총 281개 종목 분석 완료)</small>
  </div>
  <div class="col-md-3"></div>
  </div>
- <!-- 3단 레이아웃 메인 -->
  <div class="row g-4">
- <!-- [좌측 컬럼: AI 분석 리포트] -->
  <div class="col-lg-3">
  <div class="d-flex flex-column gap-3">
  <div class="card p-3 shadow-sm">
  <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>
  <div class="alert-box d-flex flex-column gap-2">
- <div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 솔스티스(SLX) - 💎 정상 수급 (덤핑확률 50.0%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 바이오프로토콜(BIO) - 💎 정상 수급 (덤핑확률 49.5%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 보라(BORA) - 💎 정상 수급 (덤핑확률 49.7%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 하이퍼레인(HYPER) - 💎 정상 수급 (덤핑확률 48.5%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 인젝티브(INJ) - 💎 정상 수급 (덤핑확률 49.7%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 메탈(MTL) - 💎 정상 수급 (덤핑확률 48.4%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 질리카(ZIL) - 💎 정상 수급 (덤핑확률 48.8%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 에이셔(ATH) - 💎 정상 수급 (덤핑확률 49.4%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 스페이스아이디(ID) - 💎 정상 수급 (덤핑확률 49.6%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 오픈렛저(OPEN) - 💎 정상 수급 (덤핑확률 49.8%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 비체인(VET) - 💎 정상 수급 (덤핑확률 49.7%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 도그위프햇(WIF) - 💎 정상 수급 (덤핑확률 48.8%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 크로노스(CRO) - 💎 정상 수급 (덤핑확률 49.7%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 에스프레소(ESP) - 💎 정상 수급 (덤핑확률 48.8%)</div>
-<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">⚠️ 블러(BLUR) - 💎 정상 수급 (덤핑확률 49.6%)</div>
+ <div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>
  </div>
  </div>
  <div class="card p-3 shadow-sm">
@@ -71,7 +54,6 @@
  </div>
  </div>
  </div>
- <!-- [중앙 컬럼: 전체 코인 등급 분류] -->
  <div class="col-lg-5">
  <div class="card p-4 shadow-sm">
  <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
@@ -82,10 +64,10 @@
  </div>
  </div>
  <ul class="nav nav-tabs mb-3 flex-nowrap overflow-auto" id="coinTab" role="tablist" style="white-space: nowrap;">
- <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button" role="tab">🟢 추천 (57)</button></li>
- <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button" role="tab">🔵 관심 (90)</button></li>
- <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button" role="tab">⚪ 보통 (79)</button></li>
- <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-warning" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button" role="tab">🟠 주의 (55)</button></li>
+ <li class="nav-item" role="presentation"><button class="nav-link active fw-bold text-success" id="rec-tab" data-bs-toggle="tab" data-bs-target="#rec" type="button" role="tab">🟢 추천 (43)</button></li>
+ <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-primary" id="int-tab" data-bs-toggle="tab" data-bs-target="#int" type="button" role="tab">🔵 관심 (73)</button></li>
+ <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-secondary" id="norm-tab" data-bs-toggle="tab" data-bs-target="#norm" type="button" role="tab">⚪ 보통 (165)</button></li>
+ <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-warning" id="warn-tab" data-bs-toggle="tab" data-bs-target="#warn" type="button" role="tab">🟠 주의 (0)</button></li>
  <li class="nav-item" role="presentation"><button class="nav-link fw-bold text-danger" id="dang-tab" data-bs-toggle="tab" data-bs-target="#dang" type="button" role="tab">🔴 경고 (0)</button></li>
  </ul>
  <div class="tab-content table-scroll-box" id="coinTabContent">
@@ -105,12 +87,6 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">펀디엑스</td>
- <td>110</td>
- <td class="text-primary">83.9점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
  <td class="fw-bold">카바</td>
  <td>57.20</td>
  <td class="text-primary">81.6점</td>
@@ -120,12 +96,6 @@
  <td class="fw-bold">지케이싱크</td>
  <td>11.20</td>
  <td class="text-primary">80.4점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">유에스디이</td>
- <td>1,412</td>
- <td class="text-primary">79.0점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
@@ -141,45 +111,21 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">더블제로</td>
- <td>78.00</td>
- <td class="text-primary">76.4점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
  <td class="fw-bold">모포</td>
  <td>2,645</td>
  <td class="text-primary">75.8점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">스파크</td>
- <td>21.70</td>
- <td class="text-primary">75.5점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">아스타</td>
- <td>6.95</td>
- <td class="text-primary">74.9점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">옵티미즘</td>
- <td>127</td>
- <td class="text-primary">73.2점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">이더리움네임서비스</td>
- <td>5,985</td>
- <td class="text-primary">73.1점</td>
+ <td class="fw-bold">커널다오</td>
+ <td>47.20</td>
+ <td class="text-primary">73.6점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
  <td class="fw-bold">쿼크체인</td>
- <td>2.81</td>
- <td class="text-primary">72.2점</td>
+ <td>2.82</td>
+ <td class="text-primary">72.8점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
@@ -189,27 +135,9 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">오원익스체인지</td>
- <td>674</td>
- <td class="text-primary">71.5점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
  <td class="fw-bold">넥스페이스</td>
  <td>337</td>
  <td class="text-primary">71.3점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">엑셀라</td>
- <td>52.50</td>
- <td class="text-primary">71.3점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">아이리스</td>
- <td>22.60</td>
- <td class="text-primary">71.1점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
@@ -225,12 +153,6 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">아이콘</td>
- <td>32.70</td>
- <td class="text-primary">70.1점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
  <td class="fw-bold">라이브피어</td>
  <td>1,816</td>
  <td class="text-primary">69.7점</td>
@@ -243,15 +165,51 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
+ <td class="fw-bold">어드벤처골드</td>
+ <td>220</td>
+ <td class="text-primary">69.2점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">셀로</td>
+ <td>87.10</td>
+ <td class="text-primary">69.0점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아이콘</td>
+ <td>32.80</td>
+ <td class="text-primary">69.0점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">이더리움네임서비스</td>
+ <td>6,000</td>
+ <td class="text-primary">68.8점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
  <td class="fw-bold">리스크</td>
  <td>105</td>
  <td class="text-primary">68.8점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">비트코인캐시</td>
- <td>304,400</td>
+ <td class="fw-bold">엑셀라</td>
+ <td>52.50</td>
  <td class="text-primary">68.6점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">비트코인캐시</td>
+ <td>304,800</td>
+ <td class="text-primary">68.6점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아이리스</td>
+ <td>22.60</td>
+ <td class="text-primary">68.0점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
@@ -267,20 +225,14 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">온톨로지가스</td>
- <td>60.90</td>
- <td class="text-primary">67.6점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">테더골드</td>
- <td>6,023,000</td>
+ <td class="fw-bold">베이직어텐션토큰</td>
+ <td>96.00</td>
  <td class="text-primary">66.8점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">베이직어텐션토큰</td>
- <td>96.00</td>
+ <td class="fw-bold">테더골드</td>
+ <td>6,043,000</td>
  <td class="text-primary">66.8점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
@@ -291,26 +243,14 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">메테오라</td>
- <td>241</td>
- <td class="text-primary">66.6점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
  <td class="fw-bold">샌드박스</td>
  <td>59.30</td>
  <td class="text-primary">66.6점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">아르키움</td>
- <td>216</td>
- <td class="text-primary">66.6점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">베니스토큰</td>
- <td>16,350</td>
+ <td class="fw-bold">메테오라</td>
+ <td>241</td>
  <td class="text-primary">66.6점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
@@ -321,21 +261,15 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">비트코인에스브이</td>
- <td>19,190</td>
+ <td class="fw-bold">온톨로지가스</td>
+ <td>60.70</td>
  <td class="text-primary">66.4점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">휴미디파이</td>
- <td>96.60</td>
- <td class="text-primary">65.8점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">오덜리</td>
- <td>41.20</td>
- <td class="text-primary">65.7점</td>
+ <td class="fw-bold">비트텐서</td>
+ <td>270,300</td>
+ <td class="text-primary">65.9점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
@@ -345,9 +279,33 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
+ <td class="fw-bold">비트코인에스브이</td>
+ <td>19,250</td>
+ <td class="text-primary">65.4점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">베니스토큰</td>
+ <td>16,350</td>
+ <td class="text-primary">65.2점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">옵티미즘</td>
+ <td>125</td>
+ <td class="text-primary">65.2점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
  <td class="fw-bold">모스코인</td>
- <td>24.30</td>
+ <td>24.20</td>
  <td class="text-primary">65.0점</td>
+ <td><span class="badge bg-success">🟢 추천</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">일드길드게임즈</td>
+ <td>27.20</td>
+ <td class="text-primary">64.7점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
@@ -357,14 +315,8 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">셀로</td>
- <td>86.70</td>
- <td class="text-primary">64.5점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
  <td class="fw-bold">주피터</td>
- <td>264</td>
+ <td>265</td>
  <td class="text-primary">64.4점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
@@ -375,63 +327,9 @@
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 <tr>
- <td class="fw-bold">일드길드게임즈</td>
- <td>27.40</td>
- <td class="text-primary">64.2점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
  <td class="fw-bold">맨틀</td>
  <td>577</td>
  <td class="text-primary">64.0점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">에이브</td>
- <td>127,700</td>
- <td class="text-primary">63.8점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">골렘</td>
- <td>129</td>
- <td class="text-primary">63.8점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">커널다오</td>
- <td>46.80</td>
- <td class="text-primary">63.2점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">아비트럼</td>
- <td>110</td>
- <td class="text-primary">63.0점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">메이플파이낸스</td>
- <td>214</td>
- <td class="text-primary">62.8점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">사하라에이아이</td>
- <td>11.90</td>
- <td class="text-primary">62.2점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">월드리버티파이낸셜유에스디</td>
- <td>1,413</td>
- <td class="text-primary">62.2점</td>
- <td><span class="badge bg-success">🟢 추천</span></td>
-</tr>
-<tr>
- <td class="fw-bold">아이오타</td>
- <td>47.80</td>
- <td class="text-primary">62.1점</td>
  <td><span class="badge bg-success">🟢 추천</span></td>
 </tr>
 </tbody>
@@ -441,6 +339,54 @@
  <table class="table table-hover align-middle mb-0">
  <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
  <tbody><tr>
+ <td class="fw-bold">에이브</td>
+ <td>127,600</td>
+ <td class="text-primary">63.8점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">골렘</td>
+ <td>128</td>
+ <td class="text-primary">63.6점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아비트럼</td>
+ <td>110</td>
+ <td class="text-primary">63.0점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">메이플파이낸스</td>
+ <td>214</td>
+ <td class="text-primary">62.8점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">스파크</td>
+ <td>21.70</td>
+ <td class="text-primary">62.2점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">사하라에이아이</td>
+ <td>11.90</td>
+ <td class="text-primary">62.2점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">월드리버티파이낸셜유에스디</td>
+ <td>1,413</td>
+ <td class="text-primary">62.2점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">카타나</td>
+ <td>6.41</td>
+ <td class="text-primary">62.1점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
  <td class="fw-bold">빔</td>
  <td>1.96</td>
  <td class="text-primary">62.0점</td>
@@ -454,8 +400,14 @@
 </tr>
 <tr>
  <td class="fw-bold">크레딧코인</td>
- <td>97.90</td>
- <td class="text-primary">61.0점</td>
+ <td>98.00</td>
+ <td class="text-primary">61.2점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오덜리</td>
+ <td>41.50</td>
+ <td class="text-primary">61.2점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -471,33 +423,21 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">오브스</td>
- <td>7.69</td>
- <td class="text-primary">60.8점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">펜들</td>
- <td>1,919</td>
- <td class="text-primary">60.8점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
  <td class="fw-bold">뉴턴프로토콜</td>
  <td>56.40</td>
  <td class="text-primary">60.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">사이버</td>
- <td>444</td>
- <td class="text-primary">60.4점</td>
+ <td class="fw-bold">오브스</td>
+ <td>7.69</td>
+ <td class="text-primary">60.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">아더</td>
- <td>24.90</td>
- <td class="text-primary">60.2점</td>
+ <td class="fw-bold">스팀</td>
+ <td>50.70</td>
+ <td class="text-primary">60.4점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -507,9 +447,9 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">가스</td>
- <td>1,328</td>
- <td class="text-primary">59.8점</td>
+ <td class="fw-bold">사이버</td>
+ <td>444</td>
+ <td class="text-primary">60.0점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -519,33 +459,45 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">슈퍼버스</td>
- <td>120</td>
+ <td class="fw-bold">가스</td>
+ <td>1,331</td>
+ <td class="text-primary">59.8점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아더</td>
+ <td>24.80</td>
  <td class="text-primary">59.6점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
+ <td class="fw-bold">펜들</td>
+ <td>1,919</td>
+ <td class="text-primary">59.2점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
  <td class="fw-bold">데이터네트워크</td>
- <td>295</td>
+ <td>296</td>
  <td class="text-primary">59.2점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">어드벤처골드</td>
- <td>219</td>
- <td class="text-primary">59.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">만트라</td>
- <td>7.73</td>
+ <td class="fw-bold">이더리움클래식</td>
+ <td>9,235</td>
  <td class="text-primary">59.0점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">썬</td>
- <td>25.30</td>
- <td class="text-primary">58.8점</td>
+ <td class="fw-bold">이캐시</td>
+ <td>0.00940</td>
+ <td class="text-primary">59.0점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">펀디엑스</td>
+ <td>111</td>
+ <td class="text-primary">59.0점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -555,9 +507,9 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">이더리움클래식</td>
- <td>9,230</td>
- <td class="text-primary">58.6점</td>
+ <td class="fw-bold">썬</td>
+ <td>25.30</td>
+ <td class="text-primary">58.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -567,21 +519,9 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">스팀</td>
- <td>50.80</td>
- <td class="text-primary">58.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
  <td class="fw-bold">지오드넷</td>
  <td>250</td>
  <td class="text-primary">58.4점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">파로스</td>
- <td>563</td>
- <td class="text-primary">58.2점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -597,20 +537,20 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
+ <td class="fw-bold">펏지펭귄</td>
+ <td>8.56</td>
+ <td class="text-primary">58.0점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
  <td class="fw-bold">아즈텍</td>
  <td>19.90</td>
  <td class="text-primary">58.0점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">렌더토큰</td>
- <td>1,875</td>
- <td class="text-primary">58.0점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">월러스</td>
- <td>35.70</td>
+ <td class="fw-bold">플라즈마</td>
+ <td>110</td>
  <td class="text-primary">57.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
@@ -621,9 +561,15 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">플라즈마</td>
- <td>110</td>
+ <td class="fw-bold">월러스</td>
+ <td>35.70</td>
  <td class="text-primary">57.8점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">엠블</td>
+ <td>1.08</td>
+ <td class="text-primary">57.6점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -633,26 +579,14 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">엑시인피니티</td>
- <td>1,268</td>
- <td class="text-primary">57.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">펏지펭귄</td>
- <td>8.55</td>
- <td class="text-primary">57.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">센티언트</td>
- <td>18.50</td>
+ <td class="fw-bold">솔라나</td>
+ <td>103,000</td>
  <td class="text-primary">57.4점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">엠블</td>
- <td>1.07</td>
+ <td class="fw-bold">스택스</td>
+ <td>185</td>
  <td class="text-primary">57.4점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
@@ -663,9 +597,27 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">카타나</td>
- <td>6.39</td>
+ <td class="fw-bold">센티언트</td>
+ <td>18.40</td>
  <td class="text-primary">57.4점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">엑시인피니티</td>
+ <td>1,265</td>
+ <td class="text-primary">57.4점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">렌더토큰</td>
+ <td>1,875</td>
+ <td class="text-primary">57.4점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">휴미디파이</td>
+ <td>97.10</td>
+ <td class="text-primary">57.2점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -675,33 +627,9 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">세이</td>
- <td>58.20</td>
- <td class="text-primary">57.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">솔라나</td>
- <td>103,000</td>
- <td class="text-primary">57.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
  <td class="fw-bold">유에스디코인</td>
- <td>1,415</td>
+ <td>1,416</td>
  <td class="text-primary">57.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">아크</td>
- <td>133</td>
- <td class="text-primary">57.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">스테픈</td>
- <td>9.76</td>
- <td class="text-primary">57.1점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -711,15 +639,27 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">제로지</td>
- <td>201</td>
- <td class="text-primary">57.0점</td>
+ <td class="fw-bold">도지코인</td>
+ <td>98.00</td>
+ <td class="text-primary">56.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">인튜이션</td>
- <td>72.60</td>
- <td class="text-primary">57.0점</td>
+ <td class="fw-bold">슈퍼버스</td>
+ <td>121</td>
+ <td class="text-primary">56.8점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">세이</td>
+ <td>58.10</td>
+ <td class="text-primary">56.8점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">제로지</td>
+ <td>200</td>
+ <td class="text-primary">56.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -735,8 +675,8 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">폴리곤에코시스템토큰</td>
- <td>106</td>
+ <td class="fw-bold">아르키움</td>
+ <td>215</td>
  <td class="text-primary">56.6점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
@@ -747,15 +687,15 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">도지코인</td>
- <td>97.80</td>
- <td class="text-primary">56.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
  <td class="fw-bold">클리어풀</td>
  <td>25.40</td>
  <td class="text-primary">56.5점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아크</td>
+ <td>134</td>
+ <td class="text-primary">56.4점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
@@ -765,14 +705,8 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">네오</td>
- <td>2,607</td>
- <td class="text-primary">56.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">에이다</td>
- <td>285</td>
+ <td class="fw-bold">폴리곤에코시스템토큰</td>
+ <td>105</td>
  <td class="text-primary">56.2점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
@@ -783,8 +717,26 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">모나드</td>
- <td>28.90</td>
+ <td class="fw-bold">에이다</td>
+ <td>286</td>
+ <td class="text-primary">56.2점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">네오</td>
+ <td>2,607</td>
+ <td class="text-primary">56.2점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">에스피엑스6900</td>
+ <td>469</td>
+ <td class="text-primary">56.0점</td>
+ <td><span class="badge bg-primary">🔵 관심</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아발란체</td>
+ <td>9,060</td>
  <td class="text-primary">56.0점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
@@ -795,14 +747,14 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">에스피엑스6900</td>
- <td>469</td>
+ <td class="fw-bold">모나드</td>
+ <td>28.80</td>
  <td class="text-primary">56.0점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">사인</td>
- <td>9.13</td>
+ <td class="fw-bold">스테픈</td>
+ <td>9.76</td>
  <td class="text-primary">55.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
@@ -813,171 +765,15 @@
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">아발란체</td>
- <td>9,075</td>
+ <td class="fw-bold">사인</td>
+ <td>9.13</td>
  <td class="text-primary">55.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 <tr>
- <td class="fw-bold">스택스</td>
- <td>185</td>
- <td class="text-primary">55.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">애니메코인</td>
- <td>3.48</td>
- <td class="text-primary">55.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">블라스트</td>
- <td>0.34200</td>
- <td class="text-primary">55.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
  <td class="fw-bold">지토</td>
- <td>702</td>
- <td class="text-primary">55.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">시빅</td>
- <td>25.60</td>
- <td class="text-primary">55.4점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">하이브</td>
- <td>58.40</td>
- <td class="text-primary">55.4점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">오픈그라디언트</td>
- <td>132</td>
- <td class="text-primary">55.4점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">코박토큰</td>
- <td>235</td>
- <td class="text-primary">55.4점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">젠신</td>
- <td>30.80</td>
- <td class="text-primary">55.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">제타체인</td>
- <td>41.30</td>
- <td class="text-primary">55.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">유니스왑</td>
- <td>5,605</td>
- <td class="text-primary">55.2점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">바빌론</td>
- <td>15.70</td>
- <td class="text-primary">55.0점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">오리진트레일</td>
- <td>386</td>
- <td class="text-primary">55.0점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">에테나</td>
- <td>131</td>
- <td class="text-primary">55.0점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">토시</td>
- <td>0.14800</td>
- <td class="text-primary">55.0점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">시바이누</td>
- <td>0.00651</td>
- <td class="text-primary">54.8점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">쓰레스홀드</td>
- <td>4.97</td>
- <td class="text-primary">54.8점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">리플유에스디</td>
- <td>1,413</td>
- <td class="text-primary">54.8점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">트론</td>
- <td>462</td>
- <td class="text-primary">54.8점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">웜홀</td>
- <td>11.90</td>
- <td class="text-primary">54.8점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">비트텐서</td>
- <td>270,900</td>
- <td class="text-primary">54.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">메타디움</td>
- <td>9.37</td>
- <td class="text-primary">54.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">솜니아</td>
- <td>124</td>
- <td class="text-primary">54.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">디피니티브</td>
- <td>87.80</td>
- <td class="text-primary">54.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">셀레스티아</td>
- <td>471</td>
- <td class="text-primary">54.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">월드코인</td>
- <td>422</td>
- <td class="text-primary">54.6점</td>
- <td><span class="badge bg-primary">🔵 관심</span></td>
-</tr>
-<tr>
- <td class="fw-bold">히포프로토콜</td>
- <td>9.62</td>
- <td class="text-primary">54.6점</td>
+ <td>704</td>
+ <td class="text-primary">55.8점</td>
  <td><span class="badge bg-primary">🔵 관심</span></td>
 </tr>
 </tbody>
@@ -987,8 +783,146 @@
  <table class="table table-hover align-middle mb-0">
  <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
  <tbody><tr>
- <td class="fw-bold">칠리즈</td>
- <td>18.00</td>
+ <td class="fw-bold">시빅</td>
+ <td>25.40</td>
+ <td class="text-primary">55.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">블라스트</td>
+ <td>0.34200</td>
+ <td class="text-primary">55.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">유니스왑</td>
+ <td>5,635</td>
+ <td class="text-primary">55.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">하이브</td>
+ <td>58.40</td>
+ <td class="text-primary">55.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">젠신</td>
+ <td>30.80</td>
+ <td class="text-primary">55.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오픈그라디언트</td>
+ <td>133</td>
+ <td class="text-primary">55.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">제타체인</td>
+ <td>41.30</td>
+ <td class="text-primary">55.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">바빌론</td>
+ <td>15.70</td>
+ <td class="text-primary">55.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오리진트레일</td>
+ <td>386</td>
+ <td class="text-primary">55.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">에테나</td>
+ <td>132</td>
+ <td class="text-primary">55.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">토시</td>
+ <td>0.14800</td>
+ <td class="text-primary">55.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">레이디움</td>
+ <td>876</td>
+ <td class="text-primary">55.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">리플유에스디</td>
+ <td>1,413</td>
+ <td class="text-primary">54.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">트론</td>
+ <td>461</td>
+ <td class="text-primary">54.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">쓰레스홀드</td>
+ <td>4.97</td>
+ <td class="text-primary">54.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">웜홀</td>
+ <td>11.90</td>
+ <td class="text-primary">54.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">시바이누</td>
+ <td>0.00653</td>
+ <td class="text-primary">54.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">월드코인</td>
+ <td>424</td>
+ <td class="text-primary">54.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">디피니티브</td>
+ <td>87.80</td>
+ <td class="text-primary">54.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">메타디움</td>
+ <td>9.37</td>
+ <td class="text-primary">54.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">셀레스티아</td>
+ <td>471</td>
+ <td class="text-primary">54.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">히포프로토콜</td>
+ <td>9.62</td>
+ <td class="text-primary">54.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">솜니아</td>
+ <td>124</td>
+ <td class="text-primary">54.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">스카이프로토콜</td>
+ <td>77.50</td>
  <td class="text-primary">54.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -999,21 +933,27 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">스카이프로토콜</td>
- <td>77.50</td>
- <td class="text-primary">54.4점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">알고랜드</td>
- <td>127</td>
- <td class="text-primary">54.2점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
  <td class="fw-bold">센트리퓨즈</td>
  <td>225</td>
  <td class="text-primary">54.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">이더리움</td>
+ <td>2,690,000</td>
+ <td class="text-primary">54.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">헤데라</td>
+ <td>97.00</td>
+ <td class="text-primary">54.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아스타</td>
+ <td>6.95</td>
+ <td class="text-primary">54.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
@@ -1029,45 +969,27 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
+ <td class="fw-bold">유에스디이</td>
+ <td>1,412</td>
+ <td class="text-primary">54.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">알고랜드</td>
+ <td>127</td>
+ <td class="text-primary">54.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
  <td class="fw-bold">베라체인</td>
  <td>227</td>
  <td class="text-primary">54.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">이더리움</td>
- <td>2,688,000</td>
- <td class="text-primary">53.8점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">플루이드</td>
- <td>1,690</td>
- <td class="text-primary">53.8점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
  <td class="fw-bold">소닉SVM</td>
- <td>25.90</td>
+ <td>26.10</td>
  <td class="text-primary">53.8점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">체인링크</td>
- <td>11,580</td>
- <td class="text-primary">53.6점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">헤데라</td>
- <td>96.90</td>
- <td class="text-primary">53.6점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">그래비티</td>
- <td>5.06</td>
- <td class="text-primary">53.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
@@ -1078,7 +1000,25 @@
 </tr>
 <tr>
  <td class="fw-bold">비트코인</td>
- <td>90,917,000</td>
+ <td>90,900,000</td>
+ <td class="text-primary">53.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">그래비티</td>
+ <td>5.06</td>
+ <td class="text-primary">53.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">플루이드</td>
+ <td>1,690</td>
+ <td class="text-primary">53.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">체인링크</td>
+ <td>11,580</td>
  <td class="text-primary">53.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1089,8 +1029,14 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">플루언트</td>
- <td>89.60</td>
+ <td class="fw-bold">바운스토큰</td>
+ <td>4,260</td>
+ <td class="text-primary">53.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">카이버네트워크</td>
+ <td>145</td>
  <td class="text-primary">53.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1101,14 +1047,14 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">카이버네트워크</td>
- <td>145</td>
+ <td class="fw-bold">펄</td>
+ <td>380</td>
  <td class="text-primary">53.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">펄</td>
- <td>381</td>
+ <td class="fw-bold">플루언트</td>
+ <td>89.60</td>
  <td class="text-primary">53.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1119,26 +1065,14 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">피스네트워크</td>
- <td>54.80</td>
- <td class="text-primary">53.2점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">바운스토큰</td>
- <td>4,251</td>
+ <td class="fw-bold">앵커</td>
+ <td>4.96</td>
  <td class="text-primary">53.2점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
  <td class="fw-bold">엑스알피(리플)</td>
- <td>1,452</td>
- <td class="text-primary">53.2점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">테조스</td>
- <td>284</td>
+ <td>1,454</td>
  <td class="text-primary">53.2점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1149,26 +1083,32 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">앵커</td>
- <td>4.96</td>
+ <td class="fw-bold">테조스</td>
+ <td>284</td>
  <td class="text-primary">53.2점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">헤이엘사</td>
- <td>74.90</td>
+ <td class="fw-bold">피스네트워크</td>
+ <td>54.80</td>
+ <td class="text-primary">53.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오르카</td>
+ <td>1,528</td>
  <td class="text-primary">53.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
  <td class="fw-bold">페페</td>
- <td>0.00396</td>
+ <td>0.00397</td>
  <td class="text-primary">53.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">오르카</td>
- <td>1,525</td>
+ <td class="fw-bold">헤이엘사</td>
+ <td>75.00</td>
  <td class="text-primary">53.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1185,26 +1125,32 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
+ <td class="fw-bold">인튜이션</td>
+ <td>72.90</td>
+ <td class="text-primary">52.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
  <td class="fw-bold">바운드리스</td>
  <td>54.40</td>
  <td class="text-primary">52.8점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">인피닛</td>
- <td>46.60</td>
- <td class="text-primary">52.8점</td>
+ <td class="fw-bold">미나</td>
+ <td>58.20</td>
+ <td class="text-primary">52.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오피셜트럼프</td>
+ <td>2,080</td>
+ <td class="text-primary">52.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
  <td class="fw-bold">인터넷컴퓨터</td>
  <td>2,925</td>
- <td class="text-primary">52.6점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">미나</td>
- <td>58.10</td>
  <td class="text-primary">52.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1227,15 +1173,27 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">볼타</td>
- <td>91.70</td>
+ <td class="fw-bold">인피닛</td>
+ <td>46.80</td>
  <td class="text-primary">52.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">레드스톤</td>
- <td>125</td>
- <td class="text-primary">52.2점</td>
+ <td class="fw-bold">플록</td>
+ <td>39.80</td>
+ <td class="text-primary">52.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">코박토큰</td>
+ <td>235</td>
+ <td class="text-primary">52.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">볼타</td>
+ <td>91.70</td>
+ <td class="text-primary">52.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
@@ -1251,9 +1209,9 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">플록</td>
- <td>39.80</td>
- <td class="text-primary">52.0점</td>
+ <td class="fw-bold">레드스톤</td>
+ <td>124</td>
+ <td class="text-primary">51.8점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
@@ -1263,26 +1221,20 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">모카네트워크</td>
- <td>10.70</td>
- <td class="text-primary">51.6점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
  <td class="fw-bold">포켓네트워크</td>
  <td>9.80</td>
  <td class="text-primary">51.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">앱토스</td>
- <td>831</td>
- <td class="text-primary">51.4점</td>
+ <td class="fw-bold">모카네트워크</td>
+ <td>10.70</td>
+ <td class="text-primary">51.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">오피셜트럼프</td>
- <td>2,079</td>
+ <td class="fw-bold">더블제로</td>
+ <td>78.00</td>
  <td class="text-primary">51.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1293,8 +1245,8 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">헌트</td>
- <td>110</td>
+ <td class="fw-bold">앱토스</td>
+ <td>831</td>
  <td class="text-primary">51.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1305,20 +1257,32 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">무비블록</td>
- <td>0.88200</td>
- <td class="text-primary">51.2점</td>
+ <td class="fw-bold">헌트</td>
+ <td>110</td>
+ <td class="text-primary">51.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">무브먼트</td>
- <td>10.20</td>
+ <td class="fw-bold">니어프로토콜</td>
+ <td>2,327</td>
  <td class="text-primary">51.2점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
  <td class="fw-bold">더그래프</td>
  <td>20.60</td>
+ <td class="text-primary">51.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">무비블록</td>
+ <td>0.88500</td>
+ <td class="text-primary">51.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">무브먼트</td>
+ <td>10.10</td>
  <td class="text-primary">51.2점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1335,9 +1299,27 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">니어프로토콜</td>
- <td>2,325</td>
- <td class="text-primary">51.0점</td>
+ <td class="fw-bold">쎄타토큰</td>
+ <td>194</td>
+ <td class="text-primary">50.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아이오타</td>
+ <td>47.60</td>
+ <td class="text-primary">50.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아카시네트워크</td>
+ <td>673</td>
+ <td class="text-primary">50.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">테더</td>
+ <td>1,413</td>
+ <td class="text-primary">50.8점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
@@ -1347,33 +1329,15 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">쎄타토큰</td>
- <td>194</td>
- <td class="text-primary">50.8점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">테더</td>
- <td>1,414</td>
- <td class="text-primary">50.8점</td>
+ <td class="fw-bold">월드리버티파이낸셜</td>
+ <td>73.40</td>
+ <td class="text-primary">50.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
  <td class="fw-bold">레이어제로</td>
- <td>1,158</td>
- <td class="text-primary">50.8점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">아카시네트워크</td>
- <td>671</td>
- <td class="text-primary">50.8점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">스테이터스네트워크토큰</td>
- <td>7.88</td>
- <td class="text-primary">50.4점</td>
+ <td>1,155</td>
+ <td class="text-primary">50.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
@@ -1383,14 +1347,44 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">카이토</td>
- <td>1,259</td>
+ <td class="fw-bold">스테이터스네트워크토큰</td>
+ <td>7.90</td>
  <td class="text-primary">50.4점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">블록스트리트</td>
- <td>220</td>
+ <td class="fw-bold">카이토</td>
+ <td>1,253</td>
+ <td class="text-primary">50.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오원익스체인지</td>
+ <td>673</td>
+ <td class="text-primary">50.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">파로스</td>
+ <td>565</td>
+ <td class="text-primary">50.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">카미노파이낸스</td>
+ <td>0.00000</td>
+ <td class="text-primary">50.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">캡</td>
+ <td>44.70</td>
+ <td class="text-primary">50.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">그래비티토큰</td>
+ <td>415</td>
  <td class="text-primary">50.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1401,8 +1395,8 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">스퀴드</td>
- <td>129</td>
+ <td class="fw-bold">콘플럭스</td>
+ <td>56.80</td>
  <td class="text-primary">50.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1413,32 +1407,14 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">캡</td>
- <td>44.60</td>
+ <td class="fw-bold">블록스트리트</td>
+ <td>221</td>
  <td class="text-primary">50.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">월드리버티파이낸셜</td>
- <td>73.20</td>
- <td class="text-primary">50.0점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">그래비티토큰</td>
- <td>417</td>
- <td class="text-primary">50.0점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">콘플럭스</td>
- <td>56.80</td>
- <td class="text-primary">50.0점</td>
- <td><span class="badge bg-secondary">⚪ 보통</span></td>
-</tr>
-<tr>
- <td class="fw-bold">카미노파이낸스</td>
- <td>0.00000</td>
+ <td class="fw-bold">스퀴드</td>
+ <td>128</td>
  <td class="text-primary">50.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
@@ -1449,15 +1425,351 @@
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
+ <td class="fw-bold">팔콘파이낸스</td>
+ <td>91.40</td>
+ <td class="text-primary">49.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">보라</td>
+ <td>27.70</td>
+ <td class="text-primary">49.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
  <td class="fw-bold">폴카닷</td>
  <td>1,154</td>
  <td class="text-primary">49.6점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 <tr>
- <td class="fw-bold">팔콘파이낸스</td>
- <td>91.40</td>
- <td class="text-primary">49.6점</td>
+ <td class="fw-bold">칠리즈</td>
+ <td>17.90</td>
+ <td class="text-primary">49.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">하이퍼레인</td>
+ <td>87.60</td>
+ <td class="text-primary">49.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">솔스티스</td>
+ <td>106</td>
+ <td class="text-primary">49.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">바이오프로토콜</td>
+ <td>33.40</td>
+ <td class="text-primary">49.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">메탈</td>
+ <td>290</td>
+ <td class="text-primary">49.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">인젝티브</td>
+ <td>6,365</td>
+ <td class="text-primary">49.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">스페이스아이디</td>
+ <td>38.10</td>
+ <td class="text-primary">48.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">에이셔</td>
+ <td>5.74</td>
+ <td class="text-primary">48.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">만트라</td>
+ <td>7.73</td>
+ <td class="text-primary">48.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">질리카</td>
+ <td>3.06</td>
+ <td class="text-primary">48.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오픈렛저</td>
+ <td>300</td>
+ <td class="text-primary">48.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">비체인</td>
+ <td>6.54</td>
+ <td class="text-primary">47.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">크로노스</td>
+ <td>75.20</td>
+ <td class="text-primary">47.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">에스프레소</td>
+ <td>98.00</td>
+ <td class="text-primary">47.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">도그위프햇</td>
+ <td>196</td>
+ <td class="text-primary">47.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">비트토렌트</td>
+ <td>0.00037</td>
+ <td class="text-primary">46.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">메가이더</td>
+ <td>49.90</td>
+ <td class="text-primary">46.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">컴파운드</td>
+ <td>22,910</td>
+ <td class="text-primary">46.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">디라이브</td>
+ <td>134</td>
+ <td class="text-primary">46.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">월렛커넥트</td>
+ <td>51.40</td>
+ <td class="text-primary">46.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">체인바운티</td>
+ <td>18.70</td>
+ <td class="text-primary">46.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">봉크</td>
+ <td>0.00373</td>
+ <td class="text-primary">46.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">브레비스</td>
+ <td>100</td>
+ <td class="text-primary">45.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아캄</td>
+ <td>136</td>
+ <td class="text-primary">45.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오닉스코인</td>
+ <td>4.28</td>
+ <td class="text-primary">45.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">미라네트워크</td>
+ <td>59.70</td>
+ <td class="text-primary">45.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">애니메코인</td>
+ <td>3.46</td>
+ <td class="text-primary">45.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">시커</td>
+ <td>10.20</td>
+ <td class="text-primary">45.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">알트레이어</td>
+ <td>8.26</td>
+ <td class="text-primary">45.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">아이큐</td>
+ <td>0.92100</td>
+ <td class="text-primary">45.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">블러</td>
+ <td>19.20</td>
+ <td class="text-primary">45.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">조라</td>
+ <td>7.30</td>
+ <td class="text-primary">45.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">쎄타퓨엘</td>
+ <td>10.40</td>
+ <td class="text-primary">45.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">저트라</td>
+ <td>12.10</td>
+ <td class="text-primary">45.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">리네아</td>
+ <td>3.15</td>
+ <td class="text-primary">45.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">디센트럴랜드</td>
+ <td>93.50</td>
+ <td class="text-primary">45.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">리</td>
+ <td>543</td>
+ <td class="text-primary">44.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">모멘텀</td>
+ <td>230</td>
+ <td class="text-primary">44.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">지케이패스</td>
+ <td>59.90</td>
+ <td class="text-primary">44.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">카브</td>
+ <td>40.20</td>
+ <td class="text-primary">43.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">제로베이스</td>
+ <td>187</td>
+ <td class="text-primary">42.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">자마</td>
+ <td>71.80</td>
+ <td class="text-primary">42.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">캔톤</td>
+ <td>124</td>
+ <td class="text-primary">42.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">엔소</td>
+ <td>1,434</td>
+ <td class="text-primary">41.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">플룸</td>
+ <td>16.90</td>
+ <td class="text-primary">41.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">온도파이낸스</td>
+ <td>496</td>
+ <td class="text-primary">40.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">라그랑주</td>
+ <td>68.10</td>
+ <td class="text-primary">40.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">칼데라</td>
+ <td>96.70</td>
+ <td class="text-primary">39.6점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">메타다오</td>
+ <td>7,005</td>
+ <td class="text-primary">39.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">오일러</td>
+ <td>1,760</td>
+ <td class="text-primary">39.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">멀티버스엑스</td>
+ <td>3,821</td>
+ <td class="text-primary">38.2점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">파워렛저</td>
+ <td>56.00</td>
+ <td class="text-primary">38.0점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">게임빌드</td>
+ <td>1.10</td>
+ <td class="text-primary">37.8점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">문버드</td>
+ <td>66.40</td>
+ <td class="text-primary">37.4점</td>
+ <td><span class="badge bg-secondary">⚪ 보통</span></td>
+</tr>
+<tr>
+ <td class="fw-bold">파이버스</td>
+ <td>1,029</td>
+ <td class="text-primary">35.0점</td>
  <td><span class="badge bg-secondary">⚪ 보통</span></td>
 </tr>
 </tbody>
@@ -1466,337 +1778,7 @@
  <div class="tab-pane fade" id="warn" role="tabpanel">
  <table class="table table-hover align-middle mb-0">
  <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>
- <tbody><tr>
- <td class="fw-bold">솔스티스</td>
- <td>107</td>
- <td class="text-primary">49.4점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">바이오프로토콜</td>
- <td>33.40</td>
- <td class="text-primary">49.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">보라</td>
- <td>27.70</td>
- <td class="text-primary">49.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">하이퍼레인</td>
- <td>87.60</td>
- <td class="text-primary">49.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">인젝티브</td>
- <td>6,365</td>
- <td class="text-primary">49.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">메탈</td>
- <td>290</td>
- <td class="text-primary">49.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">질리카</td>
- <td>3.06</td>
- <td class="text-primary">48.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">에이셔</td>
- <td>5.72</td>
- <td class="text-primary">48.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">스페이스아이디</td>
- <td>38.10</td>
- <td class="text-primary">48.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">오픈렛저</td>
- <td>300</td>
- <td class="text-primary">48.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">비체인</td>
- <td>6.54</td>
- <td class="text-primary">47.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">도그위프햇</td>
- <td>196</td>
- <td class="text-primary">47.6점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">크로노스</td>
- <td>75.00</td>
- <td class="text-primary">47.6점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">에스프레소</td>
- <td>97.30</td>
- <td class="text-primary">47.4점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">블러</td>
- <td>19.20</td>
- <td class="text-primary">47.4점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">컴파운드</td>
- <td>22,920</td>
- <td class="text-primary">47.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">비트토렌트</td>
- <td>0.00037</td>
- <td class="text-primary">46.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">메가이더</td>
- <td>49.90</td>
- <td class="text-primary">46.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">월렛커넥트</td>
- <td>51.40</td>
- <td class="text-primary">46.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">디라이브</td>
- <td>134</td>
- <td class="text-primary">46.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">봉크</td>
- <td>0.00377</td>
- <td class="text-primary">46.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">체인바운티</td>
- <td>18.70</td>
- <td class="text-primary">46.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">오닉스코인</td>
- <td>4.29</td>
- <td class="text-primary">45.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">아캄</td>
- <td>136</td>
- <td class="text-primary">45.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">브레비스</td>
- <td>100</td>
- <td class="text-primary">45.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">시커</td>
- <td>10.20</td>
- <td class="text-primary">45.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">미라네트워크</td>
- <td>60.00</td>
- <td class="text-primary">45.6점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">쎄타퓨엘</td>
- <td>10.40</td>
- <td class="text-primary">45.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">조라</td>
- <td>7.30</td>
- <td class="text-primary">45.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">디센트럴랜드</td>
- <td>93.40</td>
- <td class="text-primary">45.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">레이디움</td>
- <td>870</td>
- <td class="text-primary">45.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">저트라</td>
- <td>12.10</td>
- <td class="text-primary">45.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">아이큐</td>
- <td>0.92100</td>
- <td class="text-primary">45.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">리네아</td>
- <td>3.15</td>
- <td class="text-primary">45.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">알트레이어</td>
- <td>8.26</td>
- <td class="text-primary">45.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">카브</td>
- <td>40.30</td>
- <td class="text-primary">44.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">리</td>
- <td>542</td>
- <td class="text-primary">44.6점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">모멘텀</td>
- <td>228</td>
- <td class="text-primary">44.4점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">지케이패스</td>
- <td>59.90</td>
- <td class="text-primary">44.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">플룸</td>
- <td>16.80</td>
- <td class="text-primary">44.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">캔톤</td>
- <td>125</td>
- <td class="text-primary">42.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">제로베이스</td>
- <td>188</td>
- <td class="text-primary">42.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">자마</td>
- <td>71.80</td>
- <td class="text-primary">42.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">엔소</td>
- <td>1,435</td>
- <td class="text-primary">41.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">온도파이낸스</td>
- <td>494</td>
- <td class="text-primary">40.4점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">라그랑주</td>
- <td>68.20</td>
- <td class="text-primary">40.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">칼데라</td>
- <td>97.50</td>
- <td class="text-primary">39.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">오일러</td>
- <td>1,765</td>
- <td class="text-primary">39.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">이캐시</td>
- <td>0.00949</td>
- <td class="text-primary">39.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">메타다오</td>
- <td>7,005</td>
- <td class="text-primary">38.8점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">멀티버스엑스</td>
- <td>3,821</td>
- <td class="text-primary">38.2점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">게임빌드</td>
- <td>1.11</td>
- <td class="text-primary">38.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">파워렛저</td>
- <td>56.10</td>
- <td class="text-primary">38.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">문버드</td>
- <td>66.50</td>
- <td class="text-primary">37.4점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-<tr>
- <td class="fw-bold">파이버스</td>
- <td>1,030</td>
- <td class="text-primary">35.0점</td>
- <td><span class="badge bg-warning text-dark">🟠 주의</span></td>
-</tr>
-</tbody>
+ <tbody><tr><td colspan="4" class="text-center text-muted py-3">해당하는 종목이 없습니다.</td></tr></tbody>
  </table>
  </div>
  <div class="tab-pane fade" id="dang" role="tabpanel">
@@ -1808,7 +1790,6 @@
  </div>
  </div>
  </div>
- <!-- [우측 컬럼: AI 추천종목 모니터] -->
  <div class="col-lg-4">
  <div class="card p-3 shadow-sm tracking-box">
  <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> AI 추천종목 모니터</h6>
@@ -1817,15 +1798,15 @@
  <div class="d-flex justify-content-between align-items-center mb-1">
  <strong class="text-dark fs-6">시아코인 <span class="text-muted small">(SC)</span></strong>
  <div class="d-flex gap-1 align-items-center">
- <span class="badge bg-primary rounded-pill">추천 1회</span>
- <span class="badge bg-primary rounded-pill">TOP10 1회</span>
+ <span class="badge bg-primary rounded-pill">추천 2회</span>
+ <span class="badge bg-primary rounded-pill">TOP10 2회</span>
  </div>
  </div>
  <div class="row g-1 small text-secondary mt-1">
  <div class="col-6">추천진입가: <b>0.71200</b></div>
  <div class="col-6 text-end">현재가: <b>0.71200</b></div>
  <div class="col-6">수익률: <b class="text-dark">0.0%</b></div>
- <div class="col-6 text-end text-muted" style="font-size:0.75rem;">2026-08-07 17:02:52</div>
+ <div class="col-6 text-end text-muted" style="font-size:0.75rem;">2026-08-07 17:06:27</div>
  </div>
 </div>
 
@@ -1833,15 +1814,47 @@
  <div class="d-flex justify-content-between align-items-center mb-1">
  <strong class="text-dark fs-6">메디블록 <span class="text-muted small">(MED)</span></strong>
  <div class="d-flex gap-1 align-items-center">
- <span class="badge bg-primary rounded-pill">추천 1회</span>
- <span class="badge bg-primary rounded-pill">TOP10 1회</span>
+ <span class="badge bg-primary rounded-pill">추천 2회</span>
+ <span class="badge bg-primary rounded-pill">TOP10 2회</span>
  </div>
  </div>
  <div class="row g-1 small text-secondary mt-1">
  <div class="col-6">추천진입가: <b>1.83</b></div>
  <div class="col-6 text-end">현재가: <b>1.83</b></div>
  <div class="col-6">수익률: <b class="text-dark">0.0%</b></div>
- <div class="col-6 text-end text-muted" style="font-size:0.75rem;">2026-08-07 17:02:52</div>
+ <div class="col-6 text-end text-muted" style="font-size:0.75rem;">2026-08-07 17:06:27</div>
+ </div>
+</div>
+
+<div class="p-3 border rounded bg-white shadow-sm mb-2">
+ <div class="d-flex justify-content-between align-items-center mb-1">
+ <strong class="text-dark fs-6">카바 <span class="text-muted small">(KAVA)</span></strong>
+ <div class="d-flex gap-1 align-items-center">
+ <span class="badge bg-primary rounded-pill">추천 2회</span>
+ <span class="badge bg-primary rounded-pill">TOP10 2회</span>
+ </div>
+ </div>
+ <div class="row g-1 small text-secondary mt-1">
+ <div class="col-6">추천진입가: <b>57.20</b></div>
+ <div class="col-6 text-end">현재가: <b>57.20</b></div>
+ <div class="col-6">수익률: <b class="text-dark">0.0%</b></div>
+ <div class="col-6 text-end text-muted" style="font-size:0.75rem;">2026-08-07 17:06:27</div>
+ </div>
+</div>
+
+<div class="p-3 border rounded bg-white shadow-sm mb-2">
+ <div class="d-flex justify-content-between align-items-center mb-1">
+ <strong class="text-dark fs-6">커널다오 <span class="text-muted small">(KERNEL)</span></strong>
+ <div class="d-flex gap-1 align-items-center">
+ <span class="badge bg-primary rounded-pill">추천 1회</span>
+ <span class="badge bg-primary rounded-pill">TOP10 1회</span>
+ </div>
+ </div>
+ <div class="row g-1 small text-secondary mt-1">
+ <div class="col-6">추천진입가: <b>47.20</b></div>
+ <div class="col-6 text-end">현재가: <b>47.20</b></div>
+ <div class="col-6">수익률: <b class="text-dark">0.0%</b></div>
+ <div class="col-6 text-end text-muted" style="font-size:0.75rem;">2026-08-07 17:06:27</div>
  </div>
 </div>
 
@@ -1855,24 +1868,8 @@
  </div>
  <div class="row g-1 small text-secondary mt-1">
  <div class="col-6">추천진입가: <b>110</b></div>
- <div class="col-6 text-end">현재가: <b>110</b></div>
- <div class="col-6">수익률: <b class="text-dark">0.0%</b></div>
- <div class="col-6 text-end text-muted" style="font-size:0.75rem;">2026-08-07 17:02:52</div>
- </div>
-</div>
-
-<div class="p-3 border rounded bg-white shadow-sm mb-2">
- <div class="d-flex justify-content-between align-items-center mb-1">
- <strong class="text-dark fs-6">카바 <span class="text-muted small">(KAVA)</span></strong>
- <div class="d-flex gap-1 align-items-center">
- <span class="badge bg-primary rounded-pill">추천 1회</span>
- <span class="badge bg-primary rounded-pill">TOP10 1회</span>
- </div>
- </div>
- <div class="row g-1 small text-secondary mt-1">
- <div class="col-6">추천진입가: <b>57.20</b></div>
- <div class="col-6 text-end">현재가: <b>57.20</b></div>
- <div class="col-6">수익률: <b class="text-dark">0.0%</b></div>
+ <div class="col-6 text-end">현재가: <b>111</b></div>
+ <div class="col-6">수익률: <b class="text-danger">+0.91%</b></div>
  <div class="col-6 text-end text-muted" style="font-size:0.75rem;">2026-08-07 17:02:52</div>
  </div>
 </div>
@@ -1884,7 +1881,7 @@
  </div>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
  <script>
- const rawReportText = "# 퀀트 투자 시장 분석 리포트 (업비트 원화마켓)\n\n## 1. 시장 요약\n현재 업비트 원화마켓은 전반적으로 안정적인 수급 흐름을 보이고 있습니다. 분석 대상 상위 종목들의 덤핑 위험도는 48~50% 수준으로, 급격한 매도 압력보다는 기술적 반등이나 완만한 추세 형성을 기대할 수 있는 구간입니다. 특히 종합예측점수 80점 이상의 종목들이 다수 포진해 있어 단기 트레이딩 기회가 유효합니다.\n\n## 2. 주요 지표 분석\n- **수급 안정성:** 모든 추천 종목이 '정상 수급' 상태를 유지하고 있으며, 아이스버그 역산 지표상 고주파 매집 흔적이 관찰됩니다.\n- **기술적 지표:** RSI가 30~60 구간에 분포하여 과매수보다는 중립 혹은 과매도 구간에서 반등을 노리는 종목들이 우세합니다.\n- **거래량:** 거래량 절벽 배수가 2~10배 수준으로, 유동성이 확보된 종목 위주로 포트폴리오를 구성하는 것이 유리합니다.\n\n## 3. 투자 전략 제언\n- **시아코인(SC):** 가장 높은 예측 점수(90.6)와 안정적인 CMF 지표를 바탕으로 단기 상승 탄력이 가장 클 것으로 예상됩니다.\n- **메디블록(MED):** 거래량 절벽 배수가 10.81로 매우 높아, 거래량 급증 시 강한 변동성을 동반한 상승이 기대됩니다.\n- **펀디엑스(PUNDIX):** RSI 62.5로 상승 추세가 견고하며, 기술적 지표상 우상향 흐름이 가장 뚜렷합니다.";
+ const rawReportText = "# 업비트 원화마켓 퀀트 분석 리포트\n\n## 1. 시장 요약\n현재 시장은 전반적으로 안정적인 수급 흐름을 보이고 있습니다. 분석된 상위 10개 종목 모두 '정상 수급' 상태를 유지하고 있으며, 덤핑 위험 확률 또한 51~59% 수준으로 관리되고 있어 단기적인 급락 리스크는 제한적인 것으로 판단됩니다.\n\n## 2. 주요 지표 분석\n- **종합예측점수**: 시아코인(SC)이 90.6점으로 가장 높은 점수를 기록하며 시장 주도력을 보이고 있습니다.\n- **거래량 및 수급**: 메디블록(MED)은 거래량 절벽 지표가 10.81배로 매우 높게 나타나, 향후 거래량 유입 시 강한 변동성을 보일 가능성이 큽니다.\n- **기술적 지표**: 커널다오(KERNEL)와 쿼크체인(QKC)은 CMF(자금흐름지표)와 RSI가 모두 긍정적인 영역에 위치하여 매수세가 우위에 있음을 시사합니다.\n\n## 3. 투자 전략 제언\n현재 시장은 기술적 반등을 노리는 종목과 수급이 탄탄한 종목으로 양분되어 있습니다. 안정적인 수익을 추구한다면 시아코인과 같은 고점수 종목을, 거래량 폭발을 통한 단기 차익을 노린다면 메디블록을 주목할 필요가 있습니다.";
  document.getElementById("reportMarkdownContainer").innerHTML = marked.parse(rawReportText);
 
  function filterCoins() {
@@ -1893,7 +1890,6 @@
  let tabPanes = document.querySelectorAll('#coinTabContent .tab-pane');
  let tabButtons = document.querySelectorAll('#coinTab button');
 
- // 1. 전체 행 필터링
  allRows.forEach(row => {
  let coinText = row.cells[0]?.innerText.toLowerCase() || '';
  if (input === '') {
@@ -1903,7 +1899,6 @@
  }
  });
 
- // 2. 검색 중일 때 결과가 있는 탭 자동 활성화
  if (input !== '') {
  let firstMatchFound = false;
  tabPanes.forEach((pane, idx) => {
@@ -1918,7 +1913,6 @@
  }
  });
  } else {
- // 검색어가 지워지면 첫 번째(추천) 탭만 기본 활성화 상태로 복원
  tabPanes.forEach((pane, idx) => {
  if (idx === 0) {
  pane.classList.add('show', 'active');
