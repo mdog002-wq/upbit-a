@@ -658,7 +658,7 @@ def update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data):
         print(f"❌ [Redis] 데이터 업로드 실패: {e}")
 
 # ==============================================================================
-# [Gemini 3.1 Flash-Lite Structured Output 기반 분석 리포트]
+# [Gemini Structured Output 기반 분석 리포트]
 # ==============================================================================
 def generate_gemini_analysis(df_result):
     if df_result.empty:
@@ -673,7 +673,7 @@ def generate_gemini_analysis(df_result):
     ]
 
     if not GEMINI_API_KEY:
-        report = f"AI 리포트 (제미나이 3.1플래시라이트): 현재 상위 모니터링 종목은 {', '.join(top_coins)} 입니다."
+        report = f"AI 리포트: 현재 상위 모니터링 종목은 {', '.join(top_coins)} 입니다."
         return report, default_recommended
 
     try:
@@ -688,7 +688,7 @@ def generate_gemini_analysis(df_result):
         )
 
         response = client.models.generate_content(
-            model='gemini-3.1-flash-lite',
+            model='gemini-2.5-flash',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
@@ -712,7 +712,7 @@ def generate_gemini_analysis(df_result):
         return ai_report, recommended_list
 
     except Exception as e:
-        print(f"⚠️ Gemini 3.1 Flash-Lite Structured Output 생성 스킵 (대체 로직): {e}")
+        print(f"⚠️ Gemini Structured Output 생성 스킵 (대체 로직): {e}")
         return f"AI 분석 리포트 (상위 추천 종목: {', '.join(top_coins)})", default_recommended
 
 def export_to_excel_and_email(df_result, ai_report):
@@ -878,7 +878,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </div>\n'
         ' </div>\n'
         ' <div class="card p-3 shadow-sm">\n'
-        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트 (Gemini 3.1 Flash-Lite)</h6>\n'
+        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트</h6>\n'
         ' <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.5;"></div>\n'
         ' </div>\n'
         ' </div>\n'
@@ -1031,6 +1031,8 @@ if __name__ == "__main__":
         update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data)
 
         generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
+
+        upload_html_to_oracle_server("docs/index.html")
 
         kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         current_hour = kst_now.hour
