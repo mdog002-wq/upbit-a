@@ -425,8 +425,15 @@ def calculate_t1_advanced_metrics(df_daily):
 def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
-        time.sleep(0.04)
+        # 업비트 API 요청 제한(초당 10회)을 회피하기 위해 대기 시간 보장
+        time.sleep(0.12)
+        
+        # OHLCV 데이터 수집 (실패 시 1회 재시도)
         df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=60)
+        if df_daily is None or df_daily.empty:
+            time.sleep(0.2)
+            df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=60)
+
         metrics = calculate_t1_advanced_metrics(df_daily)
        
         if not metrics:
@@ -582,6 +589,13 @@ def assign_relative_grades(df):
         return df
 
     scores = df['종합예측점수']
+    
+    # 만약 모든 점수가 동일하거나 데이터 오류로 25점 이하인 경우 예외 처리
+    if scores.nunique() <= 1 or scores.max() <= 25.0:
+        df['grade'] = "⚪ 보통"
+        return df
+
+    # 유효 점수 기반 백분위 계산
     q80 = scores.quantile(0.80)
     q50 = scores.quantile(0.50)
     q20 = scores.quantile(0.20)
@@ -590,12 +604,17 @@ def assign_relative_grades(df):
         score = row['종합예측점수']
         dump_risk = row['STGT_그래프덤핑위험(%)']
 
+        # 데이터 수집 실패 기본값(25.0)은 절대 추천하지 않음
+        if score <= 25.0:
+            return "⚪ 보통"
+
         if dump_risk >= 85.0:
             return "🔴 경고"
        
-        if score >= q80 and dump_risk < 60.0:
+        # 백분위 상위 20% 이면서 점수가 의미있게 높을 때만 추천
+        if score >= q80 and score > 40.0 and dump_risk < 60.0:
             return "🟢 추천"
-        elif score >= q50 and dump_risk < 70.0:
+        elif score >= q50 and score > 30.0 and dump_risk < 70.0:
             return "🔵 관심"
         elif score >= q20:
             return "⚪ 보통"
