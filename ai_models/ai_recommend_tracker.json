@@ -2,12 +2,12 @@
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
-    "count": 4,
-    "top10_count": 5,
+    "count": 5,
+    "top10_count": 6,
     "entry_price": 19.0,
     "current_price": 18.8,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 05:42:39"
+    "last_recommended_at": "2026-08-08 07:12:49"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
@@ -15,27 +15,27 @@
     "count": 4,
     "top10_count": 8,
     "entry_price": 625.0,
-    "current_price": 620.0,
+    "current_price": 617.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 06:33:11"
   },
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 8,
-    "top10_count": 8,
+    "count": 9,
+    "top10_count": 9,
     "entry_price": 23730.0,
     "current_price": 23730.0,
     "first_recommended_at": "2026-08-08 05:53:05",
-    "last_recommended_at": "2026-08-08 07:03:23"
+    "last_recommended_at": "2026-08-08 07:12:49"
   },
   "DATA": {
     "name": "데이터네트워크",
     "symbol": "DATA",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 301.0,
-    "current_price": 300.0,
+    "current_price": 299.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -62,20 +62,20 @@
   "FLUID": {
     "name": "플루이드",
     "symbol": "FLUID",
-    "count": 1,
-    "top10_count": 4,
+    "count": 2,
+    "top10_count": 5,
     "entry_price": 1717.0,
     "current_price": 1699.0,
     "first_recommended_at": "2026-08-08 06:33:11",
-    "last_recommended_at": "2026-08-08 06:33:11"
+    "last_recommended_at": "2026-08-08 07:12:49"
   },
   "AVNT": {
     "name": "아반티스",
     "symbol": "AVNT",
     "count": 3,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 123.0,
-    "current_price": 124.0,
+    "current_price": 123.0,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 07:03:23"
   },
@@ -83,10 +83,20 @@
     "name": "칠리즈",
     "symbol": "CHZ",
     "count": 3,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 18.1,
     "current_price": 18.1,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 07:03:23"
+  },
+  "USDS": {
+    "name": "유에스디에스",
+    "symbol": "USDS",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1407.0,
+    "current_price": 1407.0,
+    "first_recommended_at": "2026-08-08 07:12:49",
+    "last_recommended_at": "2026-08-08 07:12:49"
   }
 }
