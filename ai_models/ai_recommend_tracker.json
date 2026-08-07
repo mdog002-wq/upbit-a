@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 537.0,
+    "current_price": 536.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -85,7 +85,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 6097000.0,
-    "current_price": 6087000.0,
+    "current_price": 6075000.0,
     "first_recommended_at": "2026-08-07 21:33:10",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -95,7 +95,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 21.4,
-    "current_price": 21.1,
+    "current_price": 21.2,
     "first_recommended_at": "2026-08-07 21:41:14",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -115,7 +115,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 478.0,
-    "current_price": 473.0,
+    "current_price": 472.0,
     "first_recommended_at": "2026-08-07 22:03:06",
     "last_recommended_at": "2026-08-07 22:03:06"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 401.0,
-    "current_price": 402.0,
+    "current_price": 401.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -172,22 +172,22 @@
   "MOC": {
     "name": "모스코인",
     "symbol": "MOC",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 24.3,
     "current_price": 24.2,
     "first_recommended_at": "2026-08-07 23:03:18",
-    "last_recommended_at": "2026-08-07 23:53:08"
+    "last_recommended_at": "2026-08-08 01:22:47"
   },
   "DEEP": {
     "name": "딥북",
     "symbol": "DEEP",
-    "count": 3,
-    "top10_count": 7,
+    "count": 4,
+    "top10_count": 8,
     "entry_price": 21.4,
-    "current_price": 21.7,
+    "current_price": 21.9,
     "first_recommended_at": "2026-08-07 23:03:18",
-    "last_recommended_at": "2026-08-08 01:03:07"
+    "last_recommended_at": "2026-08-08 01:22:47"
   },
   "NEO": {
     "name": "네오",
@@ -213,9 +213,9 @@
     "name": "인피닛",
     "symbol": "IN",
     "count": 8,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 48.5,
-    "current_price": 49.3,
+    "current_price": 49.0,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-08 00:52:59"
   },
@@ -303,9 +303,9 @@
     "name": "사이버",
     "symbol": "CYBER",
     "count": 6,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 432.0,
-    "current_price": 437.0,
+    "current_price": 438.0,
     "first_recommended_at": "2026-08-08 00:23:13",
     "last_recommended_at": "2026-08-08 01:13:06"
   },
@@ -325,7 +325,7 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 86.2,
-    "current_price": 85.6,
+    "current_price": 85.5,
     "first_recommended_at": "2026-08-08 00:33:50",
     "last_recommended_at": "2026-08-08 00:33:50"
   },
@@ -335,7 +335,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 1294.0,
-    "current_price": 1298.0,
+    "current_price": 1302.0,
     "first_recommended_at": "2026-08-08 00:33:50",
     "last_recommended_at": "2026-08-08 00:42:44"
   },
@@ -345,29 +345,29 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 16590.0,
-    "current_price": 16510.0,
+    "current_price": 16530.0,
     "first_recommended_at": "2026-08-08 00:52:59",
     "last_recommended_at": "2026-08-08 00:52:59"
   },
   "WCT": {
     "name": "월렛커넥트",
     "symbol": "WCT",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 50.5,
     "current_price": 50.5,
     "first_recommended_at": "2026-08-08 00:52:59",
-    "last_recommended_at": "2026-08-08 01:13:06"
+    "last_recommended_at": "2026-08-08 01:22:47"
   },
   "RAY": {
     "name": "레이디움",
     "symbol": "RAY",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 871.0,
     "current_price": 871.0,
     "first_recommended_at": "2026-08-08 01:13:06",
-    "last_recommended_at": "2026-08-08 01:13:06"
+    "last_recommended_at": "2026-08-08 01:22:47"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
