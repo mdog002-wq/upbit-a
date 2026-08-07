@@ -4,18 +4,9 @@
     "symbol": "ORCA",
     "count": 14,
     "entry_price": 1529.0,
-    "current_price": 1532.0,
+    "current_price": 1535.0,
     "first_recommended_at": "2026-08-07 00:32:40",
     "last_recommended_at": "2026-08-07 01:22:18"
-  },
-  "CHZ": {
-    "name": "칠리즈",
-    "symbol": "CHZ",
-    "count": 2,
-    "entry_price": 18.3,
-    "current_price": 18.3,
-    "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 01:02:36"
   },
   "ICX": {
     "name": "아이콘",
@@ -31,7 +22,7 @@
     "symbol": "ELF",
     "count": 12,
     "entry_price": 84.4,
-    "current_price": 83.7,
+    "current_price": 84.2,
     "first_recommended_at": "2026-08-07 00:35:51",
     "last_recommended_at": "2026-08-07 01:22:18"
   },
@@ -40,7 +31,7 @@
     "symbol": "ORBS",
     "count": 3,
     "entry_price": 7.75,
-    "current_price": 7.72,
+    "current_price": 7.67,
     "first_recommended_at": "2026-08-07 00:35:51",
     "last_recommended_at": "2026-08-07 00:42:36"
   },
@@ -49,18 +40,9 @@
     "symbol": "UNI",
     "count": 1,
     "entry_price": 5725.0,
-    "current_price": 5740.0,
+    "current_price": 5725.0,
     "first_recommended_at": "2026-08-07 00:42:36",
     "last_recommended_at": "2026-08-07 00:42:36"
-  },
-  "ANKR": {
-    "name": "앵커",
-    "symbol": "ANKR",
-    "count": 6,
-    "entry_price": 4.96,
-    "current_price": 4.96,
-    "first_recommended_at": "2026-08-07 00:46:07",
-    "last_recommended_at": "2026-08-07 10:35:10"
   },
   "SPX": {
     "name": "에스피엑스6900",
@@ -76,44 +58,62 @@
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.00889,
+    "current_price": 0.00885,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
   "ZIL": {
     "name": "질리카",
     "symbol": "ZIL",
-    "count": 2,
+    "count": 3,
     "entry_price": 3.09,
     "current_price": 3.09,
     "first_recommended_at": "2026-08-07 10:35:10",
-    "last_recommended_at": "2026-08-07 10:42:08"
+    "last_recommended_at": "2026-08-07 10:52:17"
   },
   "NXPC": {
     "name": "넥스페이스",
     "symbol": "NXPC",
     "count": 1,
     "entry_price": 340.0,
-    "current_price": 340.0,
+    "current_price": 339.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
   "VANA": {
     "name": "바나",
     "symbol": "VANA",
-    "count": 1,
+    "count": 2,
     "entry_price": 1220.0,
     "current_price": 1220.0,
     "first_recommended_at": "2026-08-07 10:42:08",
-    "last_recommended_at": "2026-08-07 10:42:08"
+    "last_recommended_at": "2026-08-07 10:52:17"
   },
   "AZTEC": {
     "name": "아즈텍",
     "symbol": "AZTEC",
     "count": 1,
     "entry_price": 19.9,
-    "current_price": 19.9,
+    "current_price": 19.7,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 10:42:08"
+  },
+  "XCN": {
+    "name": "오닉스코인",
+    "symbol": "XCN",
+    "count": 1,
+    "entry_price": 4.36,
+    "current_price": 4.36,
+    "first_recommended_at": "2026-08-07 10:52:17",
+    "last_recommended_at": "2026-08-07 10:52:17"
+  },
+  "TOSHI": {
+    "name": "토시",
+    "symbol": "TOSHI",
+    "count": 1,
+    "entry_price": 0.147,
+    "current_price": 0.147,
+    "first_recommended_at": "2026-08-07 10:52:17",
+    "last_recommended_at": "2026-08-07 10:52:17"
   }
 }
