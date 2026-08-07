@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90807000.0,
+    "current_price": 90726000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2680000.0,
+    "current_price": 2677000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 499.0,
-    "current_price": 499.0,
+    "current_price": 498.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:37:17"
   },
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 1412.0,
-    "current_price": 1414.0,
+    "current_price": 1413.0,
     "first_recommended_at": "2026-08-07 13:32:34",
     "last_recommended_at": "2026-08-07 13:32:34"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 97.5,
-    "current_price": 97.5,
+    "current_price": 97.6,
     "first_recommended_at": "2026-08-07 13:42:24",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -65,8 +65,58 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1415.0,
-    "current_price": 1415.0,
+    "current_price": 1425.0,
     "first_recommended_at": "2026-08-07 13:42:24",
     "last_recommended_at": "2026-08-07 13:42:24"
+  },
+  "POLYX": {
+    "name": "폴리매쉬",
+    "symbol": "POLYX",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 45.4,
+    "current_price": 45.4,
+    "first_recommended_at": "2026-08-07 13:47:38",
+    "last_recommended_at": "2026-08-07 13:47:38"
+  },
+  "0G": {
+    "name": "제로지",
+    "symbol": "0G",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 199.0,
+    "current_price": 199.0,
+    "first_recommended_at": "2026-08-07 13:47:38",
+    "last_recommended_at": "2026-08-07 13:47:38"
+  },
+  "GEOD": {
+    "name": "지오드넷",
+    "symbol": "GEOD",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 251.0,
+    "current_price": 251.0,
+    "first_recommended_at": "2026-08-07 13:47:38",
+    "last_recommended_at": "2026-08-07 13:47:38"
+  },
+  "WAXP": {
+    "name": "왁스",
+    "symbol": "WAXP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 5.32,
+    "current_price": 5.32,
+    "first_recommended_at": "2026-08-07 13:47:38",
+    "last_recommended_at": "2026-08-07 13:47:38"
+  },
+  "MIRA": {
+    "name": "미라네트워크",
+    "symbol": "MIRA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 58.7,
+    "current_price": 58.7,
+    "first_recommended_at": "2026-08-07 13:47:38",
+    "last_recommended_at": "2026-08-07 13:47:38"
   }
 }
