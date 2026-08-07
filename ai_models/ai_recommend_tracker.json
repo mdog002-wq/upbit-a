@@ -2,11 +2,11 @@
   "ORCA": {
     "name": "오르카",
     "symbol": "ORCA",
-    "count": 10,
+    "count": 11,
     "entry_price": 1529.0,
     "current_price": 1529.0,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 01:02:36"
+    "last_recommended_at": "2026-08-07 01:06:09"
   },
   "CHZ": {
     "name": "칠리즈",
@@ -29,11 +29,11 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 8,
+    "count": 9,
     "entry_price": 84.4,
     "current_price": 84.4,
     "first_recommended_at": "2026-08-07 00:35:51",
-    "last_recommended_at": "2026-08-07 01:02:36"
+    "last_recommended_at": "2026-08-07 01:06:09"
   },
   "ORBS": {
     "name": "오브스",
@@ -65,11 +65,11 @@
   "IOST": {
     "name": "아이오에스티",
     "symbol": "IOST",
-    "count": 5,
+    "count": 6,
     "entry_price": 0.862,
     "current_price": 0.862,
     "first_recommended_at": "2026-08-07 00:49:31",
-    "last_recommended_at": "2026-08-07 01:02:36"
+    "last_recommended_at": "2026-08-07 01:06:09"
   },
   "CKB": {
     "name": "너보스",
@@ -83,10 +83,10 @@
   "FCT2": {
     "name": "피르마체인",
     "symbol": "FCT2",
-    "count": 1,
+    "count": 2,
     "entry_price": 9.52,
     "current_price": 9.52,
     "first_recommended_at": "2026-08-07 01:02:36",
-    "last_recommended_at": "2026-08-07 01:02:36"
+    "last_recommended_at": "2026-08-07 01:06:09"
   }
 }
