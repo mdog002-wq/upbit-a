@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 538.0,
+    "current_price": 540.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -25,7 +25,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 125.0,
-    "current_price": 122.0,
+    "current_price": 121.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -42,12 +42,12 @@
   "MNT": {
     "name": "맨틀",
     "symbol": "MNT",
-    "count": 4,
-    "top10_count": 7,
+    "count": 5,
+    "top10_count": 8,
     "entry_price": 586.0,
     "current_price": 586.0,
     "first_recommended_at": "2026-08-07 21:03:17",
-    "last_recommended_at": "2026-08-08 02:03:15"
+    "last_recommended_at": "2026-08-08 02:12:54"
   },
   "BCH": {
     "name": "비트코인캐시",
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 305900.0,
-    "current_price": 303600.0,
+    "current_price": 303000.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -65,7 +65,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 134.0,
-    "current_price": 135.0,
+    "current_price": 134.0,
     "first_recommended_at": "2026-08-07 21:33:10",
     "last_recommended_at": "2026-08-07 21:33:10"
   },
@@ -83,7 +83,7 @@
     "name": "테더골드",
     "symbol": "XAUT",
     "count": 2,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 6097000.0,
     "current_price": 6067000.0,
     "first_recommended_at": "2026-08-07 21:33:10",
@@ -115,7 +115,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 478.0,
-    "current_price": 469.0,
+    "current_price": 467.0,
     "first_recommended_at": "2026-08-07 22:03:06",
     "last_recommended_at": "2026-08-07 22:03:06"
   },
@@ -215,7 +215,7 @@
     "count": 9,
     "top10_count": 12,
     "entry_price": 48.5,
-    "current_price": 48.6,
+    "current_price": 48.7,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-08 01:32:56"
   },
@@ -235,7 +235,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1141.0,
-    "current_price": 1135.0,
+    "current_price": 1132.0,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-07 23:33:24"
   },
@@ -253,7 +253,7 @@
     "name": "플루이드",
     "symbol": "FLUID",
     "count": 2,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 1705.0,
     "current_price": 1711.0,
     "first_recommended_at": "2026-08-07 23:53:08",
@@ -302,12 +302,12 @@
   "CYBER": {
     "name": "사이버",
     "symbol": "CYBER",
-    "count": 8,
-    "top10_count": 9,
+    "count": 9,
+    "top10_count": 10,
     "entry_price": 432.0,
     "current_price": 437.0,
     "first_recommended_at": "2026-08-08 00:23:13",
-    "last_recommended_at": "2026-08-08 02:03:15"
+    "last_recommended_at": "2026-08-08 02:12:54"
   },
   "CPOOL": {
     "name": "클리어풀",
@@ -335,7 +335,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 1294.0,
-    "current_price": 1235.0,
+    "current_price": 1230.0,
     "first_recommended_at": "2026-08-08 00:33:50",
     "last_recommended_at": "2026-08-08 00:42:44"
   },
@@ -365,19 +365,19 @@
     "count": 4,
     "top10_count": 5,
     "entry_price": 871.0,
-    "current_price": 869.0,
+    "current_price": 868.0,
     "first_recommended_at": "2026-08-08 01:13:06",
     "last_recommended_at": "2026-08-08 01:42:43"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
     "symbol": "AERO",
-    "count": 2,
-    "top10_count": 5,
+    "count": 3,
+    "top10_count": 6,
     "entry_price": 622.0,
-    "current_price": 622.0,
+    "current_price": 621.0,
     "first_recommended_at": "2026-08-08 01:13:06",
-    "last_recommended_at": "2026-08-08 01:42:43"
+    "last_recommended_at": "2026-08-08 02:12:54"
   },
   "SLX": {
     "name": "솔스티스",
@@ -395,7 +395,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 9.36,
-    "current_price": 9.33,
+    "current_price": 9.23,
     "first_recommended_at": "2026-08-08 01:32:56",
     "last_recommended_at": "2026-08-08 01:52:56"
   },
@@ -403,7 +403,7 @@
     "name": "커널다오",
     "symbol": "KERNEL",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 46.1,
     "current_price": 46.1,
     "first_recommended_at": "2026-08-08 02:03:15",
@@ -413,10 +413,20 @@
     "name": "테조스",
     "symbol": "XTZ",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 282.0,
     "current_price": 282.0,
     "first_recommended_at": "2026-08-08 02:03:15",
     "last_recommended_at": "2026-08-08 02:03:15"
+  },
+  "IOTA": {
+    "name": "아이오타",
+    "symbol": "IOTA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 47.3,
+    "current_price": 47.3,
+    "first_recommended_at": "2026-08-08 02:12:54",
+    "last_recommended_at": "2026-08-08 02:12:54"
   }
 }
