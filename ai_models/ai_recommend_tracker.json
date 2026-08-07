@@ -1,1 +1,42 @@
-{}
+{
+  "BTC": {
+    "name": "비트코인",
+    "symbol": "BTC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 90828000.0,
+    "current_price": 90828000.0,
+    "first_recommended_at": "2026-08-07 13:27:48",
+    "last_recommended_at": "2026-08-07 13:27:48"
+  },
+  "ETH": {
+    "name": "이더리움",
+    "symbol": "ETH",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 2683000.0,
+    "current_price": 2683000.0,
+    "first_recommended_at": "2026-08-07 13:27:48",
+    "last_recommended_at": "2026-08-07 13:27:48"
+  },
+  "XRP": {
+    "name": "엑스알피(리플)",
+    "symbol": "XRP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1441.0,
+    "current_price": 1441.0,
+    "first_recommended_at": "2026-08-07 13:27:48",
+    "last_recommended_at": "2026-08-07 13:27:48"
+  },
+  "ONDO": {
+    "name": "온도파이낸스",
+    "symbol": "ONDO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 499.0,
+    "current_price": 499.0,
+    "first_recommended_at": "2026-08-07 13:27:48",
+    "last_recommended_at": "2026-08-07 13:27:48"
+  }
+}
