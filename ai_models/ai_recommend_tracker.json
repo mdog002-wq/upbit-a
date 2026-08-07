@@ -1,1 +1,42 @@
-{}
+{
+  "SENT": {
+    "name": "센티언트",
+    "symbol": "SENT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 18.5,
+    "current_price": 18.5,
+    "first_recommended_at": "2026-08-07 20:33:00",
+    "last_recommended_at": "2026-08-07 20:33:00"
+  },
+  "ETHFI": {
+    "name": "이더파이",
+    "symbol": "ETHFI",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 537.0,
+    "current_price": 537.0,
+    "first_recommended_at": "2026-08-07 20:33:00",
+    "last_recommended_at": "2026-08-07 20:33:00"
+  },
+  "OP": {
+    "name": "옵티미즘",
+    "symbol": "OP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 125.0,
+    "current_price": 125.0,
+    "first_recommended_at": "2026-08-07 20:33:00",
+    "last_recommended_at": "2026-08-07 20:33:00"
+  },
+  "T": {
+    "name": "쓰레스홀드",
+    "symbol": "T",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 5.07,
+    "current_price": 5.07,
+    "first_recommended_at": "2026-08-07 20:33:00",
+    "last_recommended_at": "2026-08-07 20:33:00"
+  }
+}
