@@ -2,11 +2,11 @@
   "ORCA": {
     "name": "오르카",
     "symbol": "ORCA",
-    "count": 3,
+    "count": 4,
     "entry_price": 1529.0,
     "current_price": 1529.0,
     "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:39:24"
+    "last_recommended_at": "2026-08-07 00:42:36"
   },
   "RED": {
     "name": "레드스톤",
@@ -47,20 +47,20 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 2,
+    "count": 3,
     "entry_price": 84.4,
     "current_price": 84.4,
     "first_recommended_at": "2026-08-07 00:35:51",
-    "last_recommended_at": "2026-08-07 00:39:24"
+    "last_recommended_at": "2026-08-07 00:42:36"
   },
   "ORBS": {
     "name": "오브스",
     "symbol": "ORBS",
-    "count": 2,
+    "count": 3,
     "entry_price": 7.75,
     "current_price": 7.75,
     "first_recommended_at": "2026-08-07 00:35:51",
-    "last_recommended_at": "2026-08-07 00:39:24"
+    "last_recommended_at": "2026-08-07 00:42:36"
   },
   "CYBER": {
     "name": "사이버",
@@ -70,5 +70,14 @@
     "current_price": 448.0,
     "first_recommended_at": "2026-08-07 00:39:24",
     "last_recommended_at": "2026-08-07 00:39:24"
+  },
+  "UNI": {
+    "name": "유니스왑",
+    "symbol": "UNI",
+    "count": 1,
+    "entry_price": 5725.0,
+    "current_price": 5725.0,
+    "first_recommended_at": "2026-08-07 00:42:36",
+    "last_recommended_at": "2026-08-07 00:42:36"
   }
 }
