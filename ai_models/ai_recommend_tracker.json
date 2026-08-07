@@ -2,12 +2,12 @@
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
-    "count": 12,
-    "top10_count": 13,
+    "count": 13,
+    "top10_count": 14,
     "entry_price": 19.0,
     "current_price": 19.1,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 08:32:48"
+    "last_recommended_at": "2026-08-08 08:43:06"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 7,
     "entry_price": 301.0,
-    "current_price": 299.0,
+    "current_price": 297.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -53,7 +53,7 @@
     "name": "아비트럼",
     "symbol": "ARB",
     "count": 2,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 112.0,
     "current_price": 112.0,
     "first_recommended_at": "2026-08-08 06:13:04",
@@ -75,7 +75,7 @@
     "count": 7,
     "top10_count": 9,
     "entry_price": 123.0,
-    "current_price": 122.0,
+    "current_price": 123.0,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:03:11"
   },
@@ -83,21 +83,21 @@
     "name": "칠리즈",
     "symbol": "CHZ",
     "count": 4,
-    "top10_count": 11,
+    "top10_count": 12,
     "entry_price": 18.1,
-    "current_price": 18.0,
+    "current_price": 18.1,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:23:02"
   },
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
-    "count": 9,
-    "top10_count": 9,
+    "count": 10,
+    "top10_count": 10,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 07:12:49",
-    "last_recommended_at": "2026-08-08 08:32:48"
+    "last_recommended_at": "2026-08-08 08:43:06"
   },
   "ICP": {
     "name": "인터넷컴퓨터",
@@ -112,21 +112,31 @@
   "GLM": {
     "name": "골렘",
     "symbol": "GLM",
-    "count": 1,
-    "top10_count": 4,
+    "count": 2,
+    "top10_count": 5,
     "entry_price": 127.0,
     "current_price": 128.0,
     "first_recommended_at": "2026-08-08 07:53:02",
-    "last_recommended_at": "2026-08-08 07:53:02"
+    "last_recommended_at": "2026-08-08 08:43:06"
   },
   "0G": {
     "name": "제로지",
     "symbol": "0G",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 203.0,
     "current_price": 203.0,
     "first_recommended_at": "2026-08-08 08:32:48",
     "last_recommended_at": "2026-08-08 08:32:48"
+  },
+  "POLYX": {
+    "name": "폴리매쉬",
+    "symbol": "POLYX",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 45.2,
+    "current_price": 45.2,
+    "first_recommended_at": "2026-08-08 08:43:06",
+    "last_recommended_at": "2026-08-08 08:43:06"
   }
 }
