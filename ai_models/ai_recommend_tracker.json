@@ -13,7 +13,7 @@
     "symbol": "SPX",
     "count": 3,
     "entry_price": 468.0,
-    "current_price": 470.0,
+    "current_price": 468.0,
     "first_recommended_at": "2026-08-07 01:09:44",
     "last_recommended_at": "2026-08-07 11:15:05"
   },
@@ -22,7 +22,7 @@
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.00918,
+    "current_price": 0.00936,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
@@ -31,7 +31,7 @@
     "symbol": "VANA",
     "count": 3,
     "entry_price": 1220.0,
-    "current_price": 1224.0,
+    "current_price": 1228.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 11:39:04"
   },
@@ -40,7 +40,7 @@
     "symbol": "AKT",
     "count": 1,
     "entry_price": 682.0,
-    "current_price": 680.0,
+    "current_price": 676.0,
     "first_recommended_at": "2026-08-07 11:02:23",
     "last_recommended_at": "2026-08-07 11:02:23"
   },
@@ -49,7 +49,7 @@
     "symbol": "RED",
     "count": 1,
     "entry_price": 126.0,
-    "current_price": 126.0,
+    "current_price": 127.0,
     "first_recommended_at": "2026-08-07 11:12:14",
     "last_recommended_at": "2026-08-07 11:12:14"
   },
@@ -58,7 +58,7 @@
     "symbol": "USDS",
     "count": 4,
     "entry_price": 1418.0,
-    "current_price": 1418.0,
+    "current_price": 1419.0,
     "first_recommended_at": "2026-08-07 11:15:05",
     "last_recommended_at": "2026-08-07 12:02:32"
   },
@@ -83,38 +83,38 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 2,
+    "count": 3,
     "entry_price": 1.19,
     "current_price": 1.19,
     "first_recommended_at": "2026-08-07 11:42:22",
-    "last_recommended_at": "2026-08-07 12:12:22"
+    "last_recommended_at": "2026-08-07 12:22:17"
   },
   "YGG": {
     "name": "일드길드게임즈",
     "symbol": "YGG",
     "count": 1,
     "entry_price": 26.7,
-    "current_price": 26.6,
+    "current_price": 26.5,
     "first_recommended_at": "2026-08-07 11:42:22",
     "last_recommended_at": "2026-08-07 11:42:22"
   },
   "CELO": {
     "name": "셀로",
     "symbol": "CELO",
-    "count": 2,
+    "count": 3,
     "entry_price": 87.0,
     "current_price": 87.0,
     "first_recommended_at": "2026-08-07 11:52:12",
-    "last_recommended_at": "2026-08-07 12:12:22"
+    "last_recommended_at": "2026-08-07 12:22:17"
   },
   "KNC": {
     "name": "카이버네트워크",
     "symbol": "KNC",
-    "count": 2,
+    "count": 3,
     "entry_price": 145.0,
     "current_price": 145.0,
     "first_recommended_at": "2026-08-07 11:52:12",
-    "last_recommended_at": "2026-08-07 12:02:32"
+    "last_recommended_at": "2026-08-07 12:22:17"
   },
   "IMX": {
     "name": "이뮤터블엑스",
@@ -130,17 +130,17 @@
     "symbol": "FCT2",
     "count": 1,
     "entry_price": 9.52,
-    "current_price": 9.52,
+    "current_price": 9.47,
     "first_recommended_at": "2026-08-07 12:12:22",
     "last_recommended_at": "2026-08-07 12:12:22"
   },
   "USDE": {
     "name": "유에스디이",
     "symbol": "USDE",
-    "count": 1,
+    "count": 2,
     "entry_price": 1417.0,
     "current_price": 1417.0,
     "first_recommended_at": "2026-08-07 12:12:22",
-    "last_recommended_at": "2026-08-07 12:12:22"
+    "last_recommended_at": "2026-08-07 12:22:17"
   }
 }
