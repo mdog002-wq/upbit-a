@@ -867,7 +867,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
 
     # 4. 'AI 추천종목 모니터' HTML 생성 (상위10위 횟수 표시 추가)
-    tracking_items = []
+     tracking_items = []
     for item in tracking_monitor_data:
         p_rate = item['profit_rate']
         rate_color = "text-danger" if p_rate > 0 else ("text-primary" if p_rate < 0 else "text-dark")
@@ -878,7 +878,10 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
             f'<div class="p-3 border rounded bg-white shadow-sm mb-2">\n'
             f' <div class="d-flex justify-content-between align-items-center mb-1">\n'
             f' <strong class="text-dark fs-6">{item["name"]} <span class="text-muted small">({item["symbol"]})</span></strong>\n'
-            f' <span class="badge bg-primary rounded-pill">추천 {item["count"]}회 <small class="fw-light">(상위10위: {top10_cnt}회)</small></span>\n'
+            f' <div class="d-flex gap-1 align-items-center">\n'
+            f' <span class="badge bg-primary rounded-pill">추천 {item["count"]}회</span>\n'
+            f' <span class="badge bg-info text-dark rounded-pill">TOP10 {top10_cnt}회</span>\n'
+            f' </div>\n'
             f' </div>\n'
             f' <div class="row g-1 small text-secondary mt-1">\n'
             f' <div class="col-6">추천진입가: <b>{item["entry_price"]}</b></div>\n'
@@ -890,7 +893,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         )
         tracking_items.append(card_html)
     tracking_html = "\n".join(tracking_items) if tracking_items else '<div class="text-muted small text-center py-3">현재 모니터링 중인 AI 추천 종목이 없습니다.</div>'
-
     # 5. 각 섹션별 코인 테이블 데이터 생성
     rec_rows = create_table_rows(recommended_sector)
     int_rows = create_table_rows(interested_sector)
