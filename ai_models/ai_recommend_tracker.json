@@ -4,19 +4,9 @@
     "symbol": "ORBS",
     "count": 3,
     "entry_price": 7.75,
-    "current_price": 7.71,
+    "current_price": 7.72,
     "first_recommended_at": "2026-08-07 00:35:51",
     "last_recommended_at": "2026-08-07 00:42:36",
-    "top10_count": 0
-  },
-  "SPX": {
-    "name": "에스피엑스6900",
-    "symbol": "SPX",
-    "count": 3,
-    "entry_price": 468.0,
-    "current_price": 466.0,
-    "first_recommended_at": "2026-08-07 01:09:44",
-    "last_recommended_at": "2026-08-07 11:15:05",
     "top10_count": 0
   },
   "XEC": {
@@ -24,7 +14,7 @@
     "symbol": "XEC",
     "count": 2,
     "entry_price": 0.00889,
-    "current_price": 0.00933,
+    "current_price": 0.00929,
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08",
     "top10_count": 0
@@ -34,17 +24,17 @@
     "symbol": "VANA",
     "count": 3,
     "entry_price": 1220.0,
-    "current_price": 1226.0,
+    "current_price": 1245.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 11:39:04",
-    "top10_count": 0
+    "top10_count": 1
   },
   "AKT": {
     "name": "아카시네트워크",
     "symbol": "AKT",
     "count": 1,
     "entry_price": 682.0,
-    "current_price": 668.0,
+    "current_price": 666.0,
     "first_recommended_at": "2026-08-07 11:02:23",
     "last_recommended_at": "2026-08-07 11:02:23",
     "top10_count": 0
@@ -52,12 +42,12 @@
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 2,
+    "count": 3,
     "entry_price": 126.0,
     "current_price": 127.0,
     "first_recommended_at": "2026-08-07 11:12:14",
-    "last_recommended_at": "2026-08-07 13:02:36",
-    "top10_count": 1
+    "last_recommended_at": "2026-08-07 13:12:07",
+    "top10_count": 2
   },
   "USDS": {
     "name": "유에스디에스",
@@ -84,10 +74,10 @@
     "symbol": "QKC",
     "count": 1,
     "entry_price": 2.78,
-    "current_price": 2.78,
+    "current_price": 2.79,
     "first_recommended_at": "2026-08-07 11:39:04",
     "last_recommended_at": "2026-08-07 11:39:04",
-    "top10_count": 0
+    "top10_count": 1
   },
   "CKB": {
     "name": "너보스",
@@ -124,7 +114,7 @@
     "symbol": "IMX",
     "count": 6,
     "entry_price": 158.0,
-    "current_price": 158.0,
+    "current_price": 157.0,
     "first_recommended_at": "2026-08-07 12:02:32",
     "last_recommended_at": "2026-08-07 13:02:36",
     "top10_count": 6
@@ -139,16 +129,6 @@
     "last_recommended_at": "2026-08-07 12:12:22",
     "top10_count": 0
   },
-  "USDE": {
-    "name": "유에스디이",
-    "symbol": "USDE",
-    "count": 7,
-    "entry_price": 1417.0,
-    "current_price": 1413.0,
-    "first_recommended_at": "2026-08-07 12:12:22",
-    "last_recommended_at": "2026-08-07 12:55:29",
-    "top10_count": 5
-  },
   "AZTEC": {
     "name": "아즈텍",
     "symbol": "AZTEC",
@@ -159,23 +139,13 @@
     "first_recommended_at": "2026-08-07 12:26:02",
     "last_recommended_at": "2026-08-07 12:55:29"
   },
-  "ORCA": {
-    "name": "오르카",
-    "symbol": "ORCA",
-    "count": 1,
-    "top10_count": 3,
-    "entry_price": 1535.0,
-    "current_price": 1527.0,
-    "first_recommended_at": "2026-08-07 12:32:28",
-    "last_recommended_at": "2026-08-07 12:32:28"
-  },
   "TREE": {
     "name": "트리하우스",
     "symbol": "TREE",
     "count": 2,
     "top10_count": 3,
     "entry_price": 50.8,
-    "current_price": 51.0,
+    "current_price": 50.6,
     "first_recommended_at": "2026-08-07 12:45:14",
     "last_recommended_at": "2026-08-07 13:02:36"
   },
@@ -185,18 +155,38 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 98.1,
-    "current_price": 98.8,
+    "current_price": 98.6,
     "first_recommended_at": "2026-08-07 12:52:07",
     "last_recommended_at": "2026-08-07 12:55:29"
   },
   "NEWT": {
     "name": "뉴턴프로토콜",
     "symbol": "NEWT",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 56.5,
     "current_price": 56.5,
     "first_recommended_at": "2026-08-07 13:02:36",
-    "last_recommended_at": "2026-08-07 13:02:36"
+    "last_recommended_at": "2026-08-07 13:12:07"
+  },
+  "SYRUP": {
+    "name": "메이플파이낸스",
+    "symbol": "SYRUP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 217.0,
+    "current_price": 217.0,
+    "first_recommended_at": "2026-08-07 13:12:07",
+    "last_recommended_at": "2026-08-07 13:12:07"
+  },
+  "WAVES": {
+    "name": "웨이브",
+    "symbol": "WAVES",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 298.0,
+    "current_price": 298.0,
+    "first_recommended_at": "2026-08-07 13:12:07",
+    "last_recommended_at": "2026-08-07 13:12:07"
   }
 }
