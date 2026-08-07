@@ -25,7 +25,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 125.0,
-    "current_price": 121.0,
+    "current_price": 122.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -42,12 +42,12 @@
   "MNT": {
     "name": "맨틀",
     "symbol": "MNT",
-    "count": 1,
-    "top10_count": 4,
+    "count": 2,
+    "top10_count": 5,
     "entry_price": 586.0,
     "current_price": 585.0,
     "first_recommended_at": "2026-08-07 21:03:17",
-    "last_recommended_at": "2026-08-07 21:03:17"
+    "last_recommended_at": "2026-08-08 00:13:00"
   },
   "BCH": {
     "name": "비트코인캐시",
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 305900.0,
-    "current_price": 302400.0,
+    "current_price": 302500.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -85,7 +85,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6097000.0,
-    "current_price": 6070000.0,
+    "current_price": 6073000.0,
     "first_recommended_at": "2026-08-07 21:33:10",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -135,7 +135,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 5.22,
-    "current_price": 5.2,
+    "current_price": 5.21,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 401.0,
-    "current_price": 407.0,
+    "current_price": 405.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -175,7 +175,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 24.3,
-    "current_price": 24.3,
+    "current_price": 24.0,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:53:08"
   },
@@ -183,9 +183,9 @@
     "name": "딥북",
     "symbol": "DEEP",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 21.4,
-    "current_price": 21.3,
+    "current_price": 21.8,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
@@ -205,19 +205,19 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 0.145,
-    "current_price": 0.146,
+    "current_price": 0.145,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
   "IN": {
     "name": "인피닛",
     "symbol": "IN",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 48.5,
-    "current_price": 48.8,
+    "current_price": 49.2,
     "first_recommended_at": "2026-08-07 23:33:24",
-    "last_recommended_at": "2026-08-07 23:53:08"
+    "last_recommended_at": "2026-08-08 00:13:00"
   },
   "IOST": {
     "name": "아이오에스티",
@@ -225,7 +225,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 0.849,
-    "current_price": 0.843,
+    "current_price": 0.845,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-07 23:42:59"
   },
@@ -235,7 +235,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1141.0,
-    "current_price": 1135.0,
+    "current_price": 1141.0,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-07 23:33:24"
   },
@@ -243,7 +243,7 @@
     "name": "비토르토큰",
     "symbol": "VTHO",
     "count": 2,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 0.471,
     "current_price": 0.468,
     "first_recommended_at": "2026-08-07 23:42:59",
@@ -255,7 +255,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1705.0,
-    "current_price": 1703.0,
+    "current_price": 1708.0,
     "first_recommended_at": "2026-08-07 23:53:08",
     "last_recommended_at": "2026-08-07 23:53:08"
   },
@@ -265,19 +265,19 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 78.4,
-    "current_price": 79.0,
+    "current_price": 78.5,
     "first_recommended_at": "2026-08-07 23:53:08",
     "last_recommended_at": "2026-08-07 23:53:08"
   },
   "ZK": {
     "name": "지케이싱크",
     "symbol": "ZK",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 10.9,
     "current_price": 10.9,
     "first_recommended_at": "2026-08-08 00:03:07",
-    "last_recommended_at": "2026-08-08 00:03:07"
+    "last_recommended_at": "2026-08-08 00:13:00"
   },
   "F": {
     "name": "신퓨처스",
@@ -285,18 +285,18 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 4.03,
-    "current_price": 4.03,
+    "current_price": 4.04,
     "first_recommended_at": "2026-08-08 00:03:07",
     "last_recommended_at": "2026-08-08 00:03:07"
   },
   "AUCTION": {
     "name": "바운스토큰",
     "symbol": "AUCTION",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 4208.0,
     "current_price": 4208.0,
     "first_recommended_at": "2026-08-08 00:03:07",
-    "last_recommended_at": "2026-08-08 00:03:07"
+    "last_recommended_at": "2026-08-08 00:13:00"
   }
 }
