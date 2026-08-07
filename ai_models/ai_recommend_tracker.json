@@ -1,1 +1,42 @@
-{}
+{
+  "2Z": {
+    "name": "더블제로",
+    "symbol": "2Z",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 80.1,
+    "current_price": 80.1,
+    "first_recommended_at": "2026-08-08 02:33:04",
+    "last_recommended_at": "2026-08-08 02:33:04"
+  },
+  "MNT": {
+    "name": "맨틀",
+    "symbol": "MNT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 586.0,
+    "current_price": 586.0,
+    "first_recommended_at": "2026-08-08 02:33:04",
+    "last_recommended_at": "2026-08-08 02:33:04"
+  },
+  "AERO": {
+    "name": "에어로드롬파이낸스",
+    "symbol": "AERO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 621.0,
+    "current_price": 621.0,
+    "first_recommended_at": "2026-08-08 02:33:04",
+    "last_recommended_at": "2026-08-08 02:33:04"
+  },
+  "CYBER": {
+    "name": "사이버",
+    "symbol": "CYBER",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 437.0,
+    "current_price": 437.0,
+    "first_recommended_at": "2026-08-08 02:33:04",
+    "last_recommended_at": "2026-08-08 02:33:04"
+  }
+}
