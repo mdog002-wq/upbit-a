@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90850000.0,
+    "current_price": 90974000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2688000.0,
+    "current_price": 2691000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 251.0,
-    "current_price": 251.0,
+    "current_price": 252.0,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
@@ -45,7 +45,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 5.32,
-    "current_price": 5.29,
+    "current_price": 5.26,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:57:15"
   },
@@ -75,7 +75,7 @@
     "count": 11,
     "top10_count": 11,
     "entry_price": 32.2,
-    "current_price": 32.4,
+    "current_price": 32.5,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 16:22:40"
   },
@@ -95,7 +95,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 10.8,
-    "current_price": 10.9,
+    "current_price": 10.8,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:22:14"
   },
@@ -103,9 +103,9 @@
     "name": "메테오라",
     "symbol": "MET2",
     "count": 2,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 231.0,
-    "current_price": 238.0,
+    "current_price": 239.0,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 15:43:10"
   },
@@ -125,7 +125,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 1816.0,
-    "current_price": 1819.0,
+    "current_price": 1820.0,
     "first_recommended_at": "2026-08-07 14:32:27",
     "last_recommended_at": "2026-08-07 14:32:27"
   },
@@ -185,7 +185,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 458.0,
-    "current_price": 453.0,
+    "current_price": 456.0,
     "first_recommended_at": "2026-08-07 15:52:44",
     "last_recommended_at": "2026-08-07 16:03:09"
   },
@@ -202,12 +202,12 @@
   "YGG": {
     "name": "일드길드게임즈",
     "symbol": "YGG",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 27.5,
-    "current_price": 27.3,
+    "current_price": 27.5,
     "first_recommended_at": "2026-08-07 16:12:32",
-    "last_recommended_at": "2026-08-07 16:22:40"
+    "last_recommended_at": "2026-08-07 16:32:52"
   },
   "JUP": {
     "name": "주피터",
@@ -215,19 +215,19 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 262.0,
-    "current_price": 262.0,
+    "current_price": 263.0,
     "first_recommended_at": "2026-08-07 16:12:32",
     "last_recommended_at": "2026-08-07 16:22:40"
   },
   "XEC": {
     "name": "이캐시",
     "symbol": "XEC",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 0.00946,
-    "current_price": 0.00936,
+    "current_price": 0.00943,
     "first_recommended_at": "2026-08-07 16:12:32",
-    "last_recommended_at": "2026-08-07 16:22:40"
+    "last_recommended_at": "2026-08-07 16:32:52"
   },
   "QKC": {
     "name": "쿼크체인",
@@ -238,5 +238,25 @@
     "current_price": 2.82,
     "first_recommended_at": "2026-08-07 16:22:40",
     "last_recommended_at": "2026-08-07 16:22:40"
+  },
+  "AGLD": {
+    "name": "어드벤처골드",
+    "symbol": "AGLD",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 218.0,
+    "current_price": 218.0,
+    "first_recommended_at": "2026-08-07 16:32:52",
+    "last_recommended_at": "2026-08-07 16:32:52"
+  },
+  "ESP": {
+    "name": "에스프레소",
+    "symbol": "ESP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 97.7,
+    "current_price": 97.7,
+    "first_recommended_at": "2026-08-07 16:32:52",
+    "last_recommended_at": "2026-08-07 16:32:52"
   }
 }
