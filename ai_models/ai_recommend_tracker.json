@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 537.0,
+    "current_price": 538.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 5.07,
-    "current_price": 5.0,
+    "current_price": 5.02,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 305900.0,
-    "current_price": 304100.0,
+    "current_price": 303900.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -83,7 +83,7 @@
     "name": "테더골드",
     "symbol": "XAUT",
     "count": 2,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 6097000.0,
     "current_price": 6087000.0,
     "first_recommended_at": "2026-08-07 21:33:10",
@@ -125,7 +125,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 129.0,
-    "current_price": 128.0,
+    "current_price": 127.0,
     "first_recommended_at": "2026-08-07 22:03:06",
     "last_recommended_at": "2026-08-07 22:03:06"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 401.0,
-    "current_price": 402.0,
+    "current_price": 403.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -175,19 +175,19 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 24.3,
-    "current_price": 24.0,
+    "current_price": 24.2,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:53:08"
   },
   "DEEP": {
     "name": "딥북",
     "symbol": "DEEP",
-    "count": 2,
-    "top10_count": 6,
+    "count": 3,
+    "top10_count": 7,
     "entry_price": 21.4,
-    "current_price": 21.4,
+    "current_price": 21.5,
     "first_recommended_at": "2026-08-07 23:03:18",
-    "last_recommended_at": "2026-08-08 00:23:13"
+    "last_recommended_at": "2026-08-08 01:03:07"
   },
   "NEO": {
     "name": "네오",
@@ -215,7 +215,7 @@
     "count": 8,
     "top10_count": 8,
     "entry_price": 48.5,
-    "current_price": 48.9,
+    "current_price": 48.8,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-08 00:52:59"
   },
@@ -235,7 +235,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1141.0,
-    "current_price": 1137.0,
+    "current_price": 1140.0,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-07 23:33:24"
   },
@@ -245,7 +245,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 0.471,
-    "current_price": 0.471,
+    "current_price": 0.47,
     "first_recommended_at": "2026-08-07 23:42:59",
     "last_recommended_at": "2026-08-08 00:03:07"
   },
@@ -253,9 +253,9 @@
     "name": "플루이드",
     "symbol": "FLUID",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 1705.0,
-    "current_price": 1715.0,
+    "current_price": 1711.0,
     "first_recommended_at": "2026-08-07 23:53:08",
     "last_recommended_at": "2026-08-07 23:53:08"
   },
@@ -265,7 +265,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 78.4,
-    "current_price": 78.8,
+    "current_price": 78.6,
     "first_recommended_at": "2026-08-07 23:53:08",
     "last_recommended_at": "2026-08-07 23:53:08"
   },
@@ -285,7 +285,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 4.03,
-    "current_price": 4.06,
+    "current_price": 4.05,
     "first_recommended_at": "2026-08-08 00:03:07",
     "last_recommended_at": "2026-08-08 00:03:07"
   },
@@ -302,28 +302,28 @@
   "CYBER": {
     "name": "사이버",
     "symbol": "CYBER",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 432.0,
-    "current_price": 434.0,
+    "current_price": 437.0,
     "first_recommended_at": "2026-08-08 00:23:13",
-    "last_recommended_at": "2026-08-08 00:52:59"
+    "last_recommended_at": "2026-08-08 01:03:07"
   },
   "CPOOL": {
     "name": "클리어풀",
     "symbol": "CPOOL",
-    "count": 2,
-    "top10_count": 3,
+    "count": 3,
+    "top10_count": 4,
     "entry_price": 25.1,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-08 00:33:50",
-    "last_recommended_at": "2026-08-08 00:42:44"
+    "last_recommended_at": "2026-08-08 01:03:07"
   },
   "ME": {
     "name": "매직에덴",
     "symbol": "ME",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 86.2,
     "current_price": 86.1,
     "first_recommended_at": "2026-08-08 00:33:50",
@@ -335,7 +335,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 1294.0,
-    "current_price": 1304.0,
+    "current_price": 1307.0,
     "first_recommended_at": "2026-08-08 00:33:50",
     "last_recommended_at": "2026-08-08 00:42:44"
   },
@@ -345,18 +345,18 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 16590.0,
-    "current_price": 16590.0,
+    "current_price": 16520.0,
     "first_recommended_at": "2026-08-08 00:52:59",
     "last_recommended_at": "2026-08-08 00:52:59"
   },
   "WCT": {
     "name": "월렛커넥트",
     "symbol": "WCT",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 50.5,
     "current_price": 50.5,
     "first_recommended_at": "2026-08-08 00:52:59",
-    "last_recommended_at": "2026-08-08 00:52:59"
+    "last_recommended_at": "2026-08-08 01:03:07"
   }
 }
