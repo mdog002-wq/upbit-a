@@ -353,15 +353,87 @@ def get_krw_upbit_tickers():
     except Exception: pass
     return []
 
+# ==============================================================================
+# 1. calculate_t1_advanced_metrics 함수 (반드시 process_single_coin보다 위에 위치)
+# ==============================================================================
+def calculate_t1_advanced_metrics(ticker):
+    """
+    1시간 봉과 일봉 데이터를 조합하여 단기 급등(Squeeze 돌파 및 수급 폭발) 신호를 포착합니다.
+    """
+    try:
+        # 1시간 봉 100개 및 일봉 30개 수집
+        df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
+        df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=30)
+        
+        if df_1h is None or len(df_1h) < 30 or df_daily is None or len(df_daily) < 10:
+            return None
+
+        # --- [1시간 봉 기준 단기 폭발 지표] ---
+        close_1h = df_1h['close']
+        vol_1h = df_1h['volume']
+        
+        # 1. 거래량 급증 비율 (최근 1시간 거래량 / 지난 24시간 평균 거래량)
+        vol_mean_24h = vol_1h.iloc[-25:-1].mean() + 1e-8
+        vol_spike_ratio = float(vol_1h.iloc[-1] / vol_mean_24h)
+        
+        # 2. 볼린저 밴드 스퀴즈 (변동성 응축도)
+        ma20_1h = close_1h.rolling(20).mean()
+        std20_1h = close_1h.rolling(20).std()
+        upper_band = ma20_1h + (std20_1h * 2)
+        lower_band = ma20_1h - (std20_1h * 2)
+        bb_width = float((upper_band.iloc[-1] - lower_band.iloc[-1]) / (ma20_1h.iloc[-1] + 1e-8))
+        
+        # 상단 돌파 여부
+        bb_breakout = float((close_1h.iloc[-1] - lower_band.iloc[-1]) / (upper_band.iloc[-1] - lower_band.iloc[-1] + 1e-8))
+
+        # 3. CMF (Chaikin Money Flow)
+        mfv = ((close_1h - df_1h['low']) - (df_1h['high'] - close_1h)) / (df_1h['high'] - df_1h['low'] + 1e-8) * vol_1h
+        cmf_1h = float(mfv.iloc[-20:].sum() / (vol_1h.iloc[-20:].sum() + 1e-8))
+
+        # 4. RSI (14)
+        delta = close_1h.diff()
+        gain = (delta.where(delta > 0, 0)).rolling(14).mean()
+        loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
+        rs = gain / (loss + 1e-8)
+        rsi_1h = float(100 - (100 / (1 + rs.iloc[-1])))
+
+        # --- [LSTM 시계열용 입력 시퀀스 생성 (최근 15시간 동향)] ---
+        vol_pct = df_1h['volume'].pct_change().fillna(0)
+        price_pct = df_1h['close'].pct_change().fillna(0)
+        
+        lstm_sequence = []
+        for i in range(-15, 0):
+            lstm_sequence.append([
+                float(vol_pct.iloc[i]),
+                float(price_pct.iloc[i]),
+                float(cmf_1h)
+            ])
+
+        return {
+            "last_close": float(close_1h.iloc[-1]),
+            "vol_spike_ratio": round(vol_spike_ratio, 2),
+            "bb_width": round(bb_width, 4),
+            "bb_breakout": round(bb_breakout, 2),
+            "cmf_1h": round(cmf_1h, 2),
+            "rsi_1h": round(rsi_1h, 1),
+            "lstm_sequence": lstm_sequence
+        }
+    except Exception:
+        return None
+
+
+# ==============================================================================
+# 2. get_highfreq_iceberg_metrics 함수
+# ==============================================================================
 def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
     if real_lstm_sequence and len(real_lstm_sequence) == 15:
         lstm_feats = real_lstm_sequence
     else:
         lstm_feats = [[0.0, 0.0, 0.0] for _ in range(15)]
-       
+        
     dump_prob = lstm_dumping_predictor.predict(lstm_feats) if (lstm_dumping_predictor and lstm_dumping_predictor.model) else 0.3
     if dump_prob is None: dump_prob = 0.3
-   
+    
     return {
         "status": f"💎 정상 수급 (덤핑확률 {round(dump_prob*100,1)}%)" if dump_prob < 0.6 else f"🚨 덤핑 위험 (덤핑확률 {round(dump_prob*100,1)}%)",
         "score_modifier": -30 if dump_prob >= 0.6 else 5,
@@ -369,13 +441,13 @@ def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
     }
 
 
-calculate_t1_advanced_metrics
-
+# ==============================================================================
+# 3. process_single_coin 함수 (위 두 함수를 내부에서 호출)
+# ==============================================================================
 def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
         time.sleep(0.04)
-        # 1. 1시간 봉 기반 단기 수급 지표 계산 (ticker 전달)
         metrics = calculate_t1_advanced_metrics(ticker)
         
         if not metrics: 
@@ -387,10 +459,8 @@ def process_single_coin(item, current_price_map):
                 "_stgt_feats": [0.5]*9
             }
 
-        # 2. 고주파 시퀀스 주입
         iceberg_metrics = get_highfreq_iceberg_metrics(ticker, metrics.get("lstm_sequence"))
         
-        # 3. 단기 급등 스코어링 공식
         score = 40.0
         vol_score = min(25.0, (metrics['vol_spike_ratio'] - 1.0) * 10.0) if metrics['vol_spike_ratio'] > 1.0 else 0
         
