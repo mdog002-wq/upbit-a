@@ -5,7 +5,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 0.712,
-    "current_price": 0.712,
+    "current_price": 0.711,
     "first_recommended_at": "2026-08-07 17:02:52",
     "last_recommended_at": "2026-08-07 17:33:13"
   },
@@ -55,28 +55,38 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 27.5,
-    "current_price": 27.5,
+    "current_price": 27.4,
     "first_recommended_at": "2026-08-07 17:33:13",
     "last_recommended_at": "2026-08-07 17:33:13"
   },
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 18.5,
-    "current_price": 18.5,
+    "current_price": 18.6,
     "first_recommended_at": "2026-08-07 17:33:13",
-    "last_recommended_at": "2026-08-07 17:33:13"
+    "last_recommended_at": "2026-08-07 18:03:06"
   },
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 32.9,
+    "current_price": 32.7,
+    "first_recommended_at": "2026-08-07 17:33:13",
+    "last_recommended_at": "2026-08-07 18:03:06"
+  },
+  "ARK": {
+    "name": "아크",
+    "symbol": "ARK",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 32.9,
-    "current_price": 32.9,
-    "first_recommended_at": "2026-08-07 17:33:13",
-    "last_recommended_at": "2026-08-07 17:33:13"
+    "entry_price": 135.0,
+    "current_price": 135.0,
+    "first_recommended_at": "2026-08-07 18:03:06",
+    "last_recommended_at": "2026-08-07 18:03:06"
   }
 }
