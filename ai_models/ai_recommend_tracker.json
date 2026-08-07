@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90867000.0,
+    "current_price": 90888000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2685000.0,
+    "current_price": 2687000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -25,19 +25,9 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 1412.0,
-    "current_price": 1412.0,
+    "current_price": 1413.0,
     "first_recommended_at": "2026-08-07 13:32:34",
     "last_recommended_at": "2026-08-07 13:32:34"
-  },
-  "ENSO": {
-    "name": "엔소",
-    "symbol": "ENSO",
-    "count": 1,
-    "top10_count": 2,
-    "entry_price": 1415.0,
-    "current_price": 1444.0,
-    "first_recommended_at": "2026-08-07 13:42:24",
-    "last_recommended_at": "2026-08-07 13:42:24"
   },
   "POLYX": {
     "name": "폴리매쉬",
@@ -45,7 +35,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 45.4,
-    "current_price": 45.4,
+    "current_price": 45.8,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
@@ -55,7 +45,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 251.0,
-    "current_price": 251.0,
+    "current_price": 253.0,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
@@ -63,9 +53,9 @@
     "name": "왁스",
     "symbol": "WAXP",
     "count": 2,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 5.32,
-    "current_price": 5.28,
+    "current_price": 5.29,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:57:15"
   },
@@ -75,19 +65,9 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 384.0,
-    "current_price": 384.0,
+    "current_price": 386.0,
     "first_recommended_at": "2026-08-07 13:52:24",
     "last_recommended_at": "2026-08-07 14:02:39"
-  },
-  "CARV": {
-    "name": "카브",
-    "symbol": "CARV",
-    "count": 1,
-    "top10_count": 2,
-    "entry_price": 40.7,
-    "current_price": 40.7,
-    "first_recommended_at": "2026-08-07 13:57:15",
-    "last_recommended_at": "2026-08-07 13:57:15"
   },
   "LSK": {
     "name": "리스크",
@@ -105,7 +85,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 32.2,
-    "current_price": 32.2,
+    "current_price": 32.5,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:42:14"
   },
@@ -115,7 +95,7 @@
     "count": 3,
     "top10_count": 6,
     "entry_price": 149.0,
-    "current_price": 149.0,
+    "current_price": 148.0,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:22:14"
   },
@@ -125,7 +105,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 10.8,
-    "current_price": 10.8,
+    "current_price": 10.9,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:22:14"
   },
@@ -135,7 +115,7 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 231.0,
-    "current_price": 239.0,
+    "current_price": 238.0,
     "first_recommended_at": "2026-08-07 14:06:49",
     "last_recommended_at": "2026-08-07 14:06:49"
   },
@@ -143,7 +123,7 @@
     "name": "커널다오",
     "symbol": "KERNEL",
     "count": 4,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 47.1,
     "current_price": 47.1,
     "first_recommended_at": "2026-08-07 14:12:17",
@@ -152,12 +132,12 @@
   "YGG": {
     "name": "일드길드게임즈",
     "symbol": "YGG",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 26.8,
-    "current_price": 27.3,
+    "current_price": 27.4,
     "first_recommended_at": "2026-08-07 14:22:14",
-    "last_recommended_at": "2026-08-07 14:22:14"
+    "last_recommended_at": "2026-08-07 15:14:33"
   },
   "MTL": {
     "name": "메탈",
@@ -165,7 +145,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 291.0,
-    "current_price": 292.0,
+    "current_price": 293.0,
     "first_recommended_at": "2026-08-07 14:32:27",
     "last_recommended_at": "2026-08-07 14:52:17"
   },
@@ -175,7 +155,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 1816.0,
-    "current_price": 1815.0,
+    "current_price": 1824.0,
     "first_recommended_at": "2026-08-07 14:32:27",
     "last_recommended_at": "2026-08-07 14:32:27"
   },
@@ -185,7 +165,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 4.97,
-    "current_price": 4.99,
+    "current_price": 4.96,
     "first_recommended_at": "2026-08-07 14:32:27",
     "last_recommended_at": "2026-08-07 14:32:27"
   },
@@ -195,7 +175,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 51.1,
-    "current_price": 51.1,
+    "current_price": 51.2,
     "first_recommended_at": "2026-08-07 14:42:14",
     "last_recommended_at": "2026-08-07 14:52:17"
   },
@@ -205,8 +185,38 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 127.0,
-    "current_price": 127.0,
+    "current_price": 128.0,
     "first_recommended_at": "2026-08-07 14:52:17",
     "last_recommended_at": "2026-08-07 14:52:17"
+  },
+  "MASK": {
+    "name": "마스크네트워크",
+    "symbol": "MASK",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 520.0,
+    "current_price": 520.0,
+    "first_recommended_at": "2026-08-07 15:14:33",
+    "last_recommended_at": "2026-08-07 15:14:33"
+  },
+  "TOKAMAK": {
+    "name": "토카막네트워크",
+    "symbol": "TOKAMAK",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 458.0,
+    "current_price": 458.0,
+    "first_recommended_at": "2026-08-07 15:14:33",
+    "last_recommended_at": "2026-08-07 15:14:33"
+  },
+  "GMT": {
+    "name": "스테픈",
+    "symbol": "GMT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 9.9,
+    "current_price": 9.9,
+    "first_recommended_at": "2026-08-07 15:14:33",
+    "last_recommended_at": "2026-08-07 15:14:33"
   }
 }
