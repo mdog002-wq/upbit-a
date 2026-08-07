@@ -1,22 +1,4 @@
 {
-  "ICX": {
-    "name": "아이콘",
-    "symbol": "ICX",
-    "count": 3,
-    "entry_price": 32.0,
-    "current_price": 31.9,
-    "first_recommended_at": "2026-08-07 00:32:40",
-    "last_recommended_at": "2026-08-07 00:46:07"
-  },
-  "ELF": {
-    "name": "엘프",
-    "symbol": "ELF",
-    "count": 12,
-    "entry_price": 84.4,
-    "current_price": 83.1,
-    "first_recommended_at": "2026-08-07 00:35:51",
-    "last_recommended_at": "2026-08-07 01:22:18"
-  },
   "ORBS": {
     "name": "오브스",
     "symbol": "ORBS",
@@ -24,15 +6,6 @@
     "entry_price": 7.75,
     "current_price": 7.72,
     "first_recommended_at": "2026-08-07 00:35:51",
-    "last_recommended_at": "2026-08-07 00:42:36"
-  },
-  "UNI": {
-    "name": "유니스왑",
-    "symbol": "UNI",
-    "count": 1,
-    "entry_price": 5725.0,
-    "current_price": 5735.0,
-    "first_recommended_at": "2026-08-07 00:42:36",
     "last_recommended_at": "2026-08-07 00:42:36"
   },
   "SPX": {
@@ -53,48 +26,21 @@
     "first_recommended_at": "2026-08-07 10:35:10",
     "last_recommended_at": "2026-08-07 10:42:08"
   },
-  "ZIL": {
-    "name": "질리카",
-    "symbol": "ZIL",
-    "count": 3,
-    "entry_price": 3.09,
-    "current_price": 3.21,
-    "first_recommended_at": "2026-08-07 10:35:10",
-    "last_recommended_at": "2026-08-07 10:52:17"
-  },
   "VANA": {
     "name": "바나",
     "symbol": "VANA",
     "count": 3,
     "entry_price": 1220.0,
-    "current_price": 1230.0,
+    "current_price": 1226.0,
     "first_recommended_at": "2026-08-07 10:42:08",
     "last_recommended_at": "2026-08-07 11:39:04"
-  },
-  "XCN": {
-    "name": "오닉스코인",
-    "symbol": "XCN",
-    "count": 4,
-    "entry_price": 4.36,
-    "current_price": 4.33,
-    "first_recommended_at": "2026-08-07 10:52:17",
-    "last_recommended_at": "2026-08-07 11:15:05"
-  },
-  "TOSHI": {
-    "name": "토시",
-    "symbol": "TOSHI",
-    "count": 3,
-    "entry_price": 0.147,
-    "current_price": 0.148,
-    "first_recommended_at": "2026-08-07 10:52:17",
-    "last_recommended_at": "2026-08-07 11:15:05"
   },
   "AKT": {
     "name": "아카시네트워크",
     "symbol": "AKT",
     "count": 1,
     "entry_price": 682.0,
-    "current_price": 679.0,
+    "current_price": 682.0,
     "first_recommended_at": "2026-08-07 11:02:23",
     "last_recommended_at": "2026-08-07 11:02:23"
   },
@@ -110,28 +56,46 @@
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
-    "count": 2,
+    "count": 3,
     "entry_price": 1418.0,
     "current_price": 1418.0,
     "first_recommended_at": "2026-08-07 11:15:05",
-    "last_recommended_at": "2026-08-07 11:39:04"
+    "last_recommended_at": "2026-08-07 11:42:22"
   },
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 1,
+    "count": 2,
     "entry_price": 23120.0,
     "current_price": 23120.0,
     "first_recommended_at": "2026-08-07 11:39:04",
-    "last_recommended_at": "2026-08-07 11:39:04"
+    "last_recommended_at": "2026-08-07 11:42:22"
   },
   "QKC": {
     "name": "쿼크체인",
     "symbol": "QKC",
     "count": 1,
     "entry_price": 2.78,
-    "current_price": 2.78,
+    "current_price": 2.79,
     "first_recommended_at": "2026-08-07 11:39:04",
     "last_recommended_at": "2026-08-07 11:39:04"
+  },
+  "CKB": {
+    "name": "너보스",
+    "symbol": "CKB",
+    "count": 1,
+    "entry_price": 1.19,
+    "current_price": 1.19,
+    "first_recommended_at": "2026-08-07 11:42:22",
+    "last_recommended_at": "2026-08-07 11:42:22"
+  },
+  "YGG": {
+    "name": "일드길드게임즈",
+    "symbol": "YGG",
+    "count": 1,
+    "entry_price": 26.7,
+    "current_price": 26.7,
+    "first_recommended_at": "2026-08-07 11:42:22",
+    "last_recommended_at": "2026-08-07 11:42:22"
   }
 }
