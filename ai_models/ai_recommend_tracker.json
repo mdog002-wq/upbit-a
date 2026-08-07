@@ -5,19 +5,19 @@
     "count": 3,
     "top10_count": 4,
     "entry_price": 80.1,
-    "current_price": 78.3,
+    "current_price": 78.4,
     "first_recommended_at": "2026-08-08 02:33:04",
     "last_recommended_at": "2026-08-08 02:53:09"
   },
   "MNT": {
     "name": "맨틀",
     "symbol": "MNT",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 586.0,
     "current_price": 584.0,
     "first_recommended_at": "2026-08-08 02:33:04",
-    "last_recommended_at": "2026-08-08 03:22:25"
+    "last_recommended_at": "2026-08-08 03:32:57"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
@@ -25,7 +25,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 621.0,
-    "current_price": 625.0,
+    "current_price": 623.0,
     "first_recommended_at": "2026-08-08 02:33:04",
     "last_recommended_at": "2026-08-08 02:43:04"
   },
@@ -73,7 +73,7 @@
     "name": "센티언트",
     "symbol": "SENT",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 19.0,
     "current_price": 18.9,
     "first_recommended_at": "2026-08-08 03:02:58",
@@ -82,22 +82,22 @@
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 1,
-    "top10_count": 3,
+    "count": 2,
+    "top10_count": 4,
     "entry_price": 119.0,
     "current_price": 120.0,
     "first_recommended_at": "2026-08-08 03:02:58",
-    "last_recommended_at": "2026-08-08 03:02:58"
+    "last_recommended_at": "2026-08-08 03:32:57"
   },
   "IOST": {
     "name": "아이오에스티",
     "symbol": "IOST",
-    "count": 1,
-    "top10_count": 2,
+    "count": 2,
+    "top10_count": 3,
     "entry_price": 0.846,
-    "current_price": 0.844,
+    "current_price": 0.846,
     "first_recommended_at": "2026-08-08 03:12:55",
-    "last_recommended_at": "2026-08-08 03:12:55"
+    "last_recommended_at": "2026-08-08 03:32:57"
   },
   "SAFE": {
     "name": "세이프",
@@ -105,8 +105,18 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 127.0,
-    "current_price": 127.0,
+    "current_price": 128.0,
     "first_recommended_at": "2026-08-08 03:22:25",
     "last_recommended_at": "2026-08-08 03:22:25"
+  },
+  "MOC": {
+    "name": "모스코인",
+    "symbol": "MOC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 24.2,
+    "current_price": 24.2,
+    "first_recommended_at": "2026-08-08 03:32:57",
+    "last_recommended_at": "2026-08-08 03:32:57"
   }
 }
