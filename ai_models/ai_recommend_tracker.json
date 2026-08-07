@@ -15,7 +15,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 537.0,
-    "current_price": 535.0,
+    "current_price": 533.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -25,7 +25,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 125.0,
-    "current_price": 123.0,
+    "current_price": 121.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 5.07,
-    "current_price": 4.97,
+    "current_price": 5.0,
     "first_recommended_at": "2026-08-07 20:33:00",
     "last_recommended_at": "2026-08-07 20:33:00"
   },
@@ -43,7 +43,7 @@
     "name": "맨틀",
     "symbol": "MNT",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 586.0,
     "current_price": 585.0,
     "first_recommended_at": "2026-08-07 21:03:17",
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 305900.0,
-    "current_price": 302800.0,
+    "current_price": 302400.0,
     "first_recommended_at": "2026-08-07 21:03:17",
     "last_recommended_at": "2026-08-07 21:03:17"
   },
@@ -95,7 +95,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 21.4,
-    "current_price": 21.3,
+    "current_price": 21.2,
     "first_recommended_at": "2026-08-07 21:41:14",
     "last_recommended_at": "2026-08-07 21:41:14"
   },
@@ -115,7 +115,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 478.0,
-    "current_price": 468.0,
+    "current_price": 470.0,
     "first_recommended_at": "2026-08-07 22:03:06",
     "last_recommended_at": "2026-08-07 22:03:06"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 401.0,
-    "current_price": 404.0,
+    "current_price": 407.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -155,7 +155,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 119.0,
-    "current_price": 119.0,
+    "current_price": 118.0,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 22:33:08"
   },
@@ -165,7 +165,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 9.35,
-    "current_price": 9.36,
+    "current_price": 9.43,
     "first_recommended_at": "2026-08-07 22:33:08",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
@@ -195,7 +195,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 2584.0,
-    "current_price": 2579.0,
+    "current_price": 2567.0,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
@@ -205,7 +205,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 0.145,
-    "current_price": 0.145,
+    "current_price": 0.146,
     "first_recommended_at": "2026-08-07 23:03:18",
     "last_recommended_at": "2026-08-07 23:03:18"
   },
@@ -215,7 +215,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 48.5,
-    "current_price": 48.7,
+    "current_price": 48.8,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-07 23:53:08"
   },
@@ -225,7 +225,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 0.849,
-    "current_price": 0.845,
+    "current_price": 0.843,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-07 23:42:59"
   },
@@ -235,19 +235,19 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1141.0,
-    "current_price": 1139.0,
+    "current_price": 1135.0,
     "first_recommended_at": "2026-08-07 23:33:24",
     "last_recommended_at": "2026-08-07 23:33:24"
   },
   "VTHO": {
     "name": "비토르토큰",
     "symbol": "VTHO",
-    "count": 1,
-    "top10_count": 2,
+    "count": 2,
+    "top10_count": 3,
     "entry_price": 0.471,
-    "current_price": 0.471,
+    "current_price": 0.468,
     "first_recommended_at": "2026-08-07 23:42:59",
-    "last_recommended_at": "2026-08-07 23:42:59"
+    "last_recommended_at": "2026-08-08 00:03:07"
   },
   "FLUID": {
     "name": "플루이드",
@@ -255,7 +255,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1705.0,
-    "current_price": 1705.0,
+    "current_price": 1703.0,
     "first_recommended_at": "2026-08-07 23:53:08",
     "last_recommended_at": "2026-08-07 23:53:08"
   },
@@ -265,8 +265,38 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 78.4,
-    "current_price": 78.4,
+    "current_price": 79.0,
     "first_recommended_at": "2026-08-07 23:53:08",
     "last_recommended_at": "2026-08-07 23:53:08"
+  },
+  "ZK": {
+    "name": "지케이싱크",
+    "symbol": "ZK",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 10.9,
+    "current_price": 10.9,
+    "first_recommended_at": "2026-08-08 00:03:07",
+    "last_recommended_at": "2026-08-08 00:03:07"
+  },
+  "F": {
+    "name": "신퓨처스",
+    "symbol": "F",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 4.03,
+    "current_price": 4.03,
+    "first_recommended_at": "2026-08-08 00:03:07",
+    "last_recommended_at": "2026-08-08 00:03:07"
+  },
+  "AUCTION": {
+    "name": "바운스토큰",
+    "symbol": "AUCTION",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 4208.0,
+    "current_price": 4208.0,
+    "first_recommended_at": "2026-08-08 00:03:07",
+    "last_recommended_at": "2026-08-08 00:03:07"
   }
 }
