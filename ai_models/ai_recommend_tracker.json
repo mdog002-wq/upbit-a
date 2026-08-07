@@ -5,7 +5,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 90828000.0,
-    "current_price": 90910000.0,
+    "current_price": 90922000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -15,7 +15,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 2683000.0,
-    "current_price": 2688000.0,
+    "current_price": 2691000.0,
     "first_recommended_at": "2026-08-07 13:27:48",
     "last_recommended_at": "2026-08-07 13:42:24"
   },
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 45.4,
-    "current_price": 45.8,
+    "current_price": 45.7,
     "first_recommended_at": "2026-08-07 13:47:38",
     "last_recommended_at": "2026-08-07 13:52:24"
   },
@@ -82,12 +82,12 @@
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 32.2,
     "current_price": 32.4,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 15:33:07"
+    "last_recommended_at": "2026-08-07 15:43:10"
   },
   "JST": {
     "name": "저스트",
@@ -112,12 +112,12 @@
   "MET2": {
     "name": "메테오라",
     "symbol": "MET2",
-    "count": 1,
-    "top10_count": 4,
+    "count": 2,
+    "top10_count": 5,
     "entry_price": 231.0,
-    "current_price": 236.0,
+    "current_price": 241.0,
     "first_recommended_at": "2026-08-07 14:06:49",
-    "last_recommended_at": "2026-08-07 14:06:49"
+    "last_recommended_at": "2026-08-07 15:43:10"
   },
   "KERNEL": {
     "name": "커널다오",
@@ -125,19 +125,9 @@
     "count": 4,
     "top10_count": 5,
     "entry_price": 47.1,
-    "current_price": 47.1,
+    "current_price": 46.8,
     "first_recommended_at": "2026-08-07 14:12:17",
     "last_recommended_at": "2026-08-07 14:52:17"
-  },
-  "YGG": {
-    "name": "일드길드게임즈",
-    "symbol": "YGG",
-    "count": 4,
-    "top10_count": 4,
-    "entry_price": 26.8,
-    "current_price": 27.5,
-    "first_recommended_at": "2026-08-07 14:22:14",
-    "last_recommended_at": "2026-08-07 15:33:07"
   },
   "MTL": {
     "name": "메탈",
@@ -159,34 +149,14 @@
     "first_recommended_at": "2026-08-07 14:32:27",
     "last_recommended_at": "2026-08-07 14:32:27"
   },
-  "ANKR": {
-    "name": "앵커",
-    "symbol": "ANKR",
-    "count": 1,
-    "top10_count": 2,
-    "entry_price": 4.97,
-    "current_price": 4.96,
-    "first_recommended_at": "2026-08-07 14:32:27",
-    "last_recommended_at": "2026-08-07 14:32:27"
-  },
   "TREE": {
     "name": "트리하우스",
     "symbol": "TREE",
     "count": 2,
     "top10_count": 2,
     "entry_price": 51.1,
-    "current_price": 51.2,
+    "current_price": 50.8,
     "first_recommended_at": "2026-08-07 14:42:14",
-    "last_recommended_at": "2026-08-07 14:52:17"
-  },
-  "RED": {
-    "name": "레드스톤",
-    "symbol": "RED",
-    "count": 1,
-    "top10_count": 1,
-    "entry_price": 127.0,
-    "current_price": 127.0,
-    "first_recommended_at": "2026-08-07 14:52:17",
     "last_recommended_at": "2026-08-07 14:52:17"
   },
   "MASK": {
@@ -199,54 +169,34 @@
     "first_recommended_at": "2026-08-07 15:14:33",
     "last_recommended_at": "2026-08-07 15:14:33"
   },
-  "TOKAMAK": {
-    "name": "토카막네트워크",
-    "symbol": "TOKAMAK",
-    "count": 1,
-    "top10_count": 2,
-    "entry_price": 458.0,
-    "current_price": 456.0,
-    "first_recommended_at": "2026-08-07 15:14:33",
-    "last_recommended_at": "2026-08-07 15:14:33"
-  },
-  "GMT": {
-    "name": "스테픈",
-    "symbol": "GMT",
-    "count": 2,
-    "top10_count": 3,
-    "entry_price": 9.9,
-    "current_price": 9.91,
-    "first_recommended_at": "2026-08-07 15:14:33",
-    "last_recommended_at": "2026-08-07 15:33:07"
-  },
   "BCH": {
     "name": "비트코인캐시",
     "symbol": "BCH",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 304500.0,
-    "current_price": 303600.0,
+    "current_price": 303300.0,
     "first_recommended_at": "2026-08-07 15:22:58",
     "last_recommended_at": "2026-08-07 15:22:58"
   },
-  "MOC": {
-    "name": "모스코인",
-    "symbol": "MOC",
-    "count": 1,
-    "top10_count": 2,
-    "entry_price": 24.3,
-    "current_price": 24.3,
-    "first_recommended_at": "2026-08-07 15:22:58",
-    "last_recommended_at": "2026-08-07 15:22:58"
-  },
-  "USD1": {
-    "name": "월드리버티파이낸셜유에스디",
-    "symbol": "USD1",
+  "BAT": {
+    "name": "베이직어텐션토큰",
+    "symbol": "BAT",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 1416.0,
-    "current_price": 1416.0,
-    "first_recommended_at": "2026-08-07 15:33:07",
-    "last_recommended_at": "2026-08-07 15:33:07"
+    "entry_price": 96.0,
+    "current_price": 96.0,
+    "first_recommended_at": "2026-08-07 15:43:10",
+    "last_recommended_at": "2026-08-07 15:43:10"
+  },
+  "MANTRA": {
+    "name": "만트라",
+    "symbol": "MANTRA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 7.78,
+    "current_price": 7.78,
+    "first_recommended_at": "2026-08-07 15:43:10",
+    "last_recommended_at": "2026-08-07 15:43:10"
   }
 }
