@@ -123,10 +123,11 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
 
 try:
-    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True)
+    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True, socket_timeout=2)
+    redis_client.ping()
 except Exception as e:
     redis_client = None
-    print(f"⚠️ Redis 연결 설정 실패: {e}")
+    print(f"⚠️ Redis 연결 설정 실패 (비활성화 상태로 진행): {e}")
 
 # ==============================================================================
 # [유틸] 데이터 포맷팅 및 캐싱
@@ -296,7 +297,7 @@ class AIEvolutionEngine:
         stgt_x_train, stgt_y_train = [], []
         keys_to_delete = []
 
-        expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d["timestamp"] > 14400]
+        expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d.get("timestamp", 0) > 14400]
         if not expired_tickers: return
 
         print("🤖 [AI 진화 시스템] 과거 데이터 기반 자가학습 진행 중...")
@@ -306,9 +307,9 @@ class AIEvolutionEngine:
         except Exception: prices_now = {}
 
         for ticker, data in list(exps.items()):
-            if current_time - data["timestamp"] > 14400:
+            if current_time - data.get("timestamp", 0) > 14400:
                 market_symbol = f"KRW-{ticker}"
-                current_price = prices_now.get(market_symbol)
+                current_price = prices_now.get(market_symbol) if isinstance(prices_now, dict) else None
                 
                 if current_price and data.get("price"):
                     return_rate = (current_price - data["price"]) / data["price"] * 100
@@ -346,10 +347,6 @@ ai_engine = AIEvolutionEngine()
 def calculate_liquidity_factor(daily_value):
     """
     거래대금(원)에 따른 0.5 ~ 1.0 범위의 연속 로그 가중치 산출
-    - 100억 이상: 1.0 (페널티 없음)
-    - 10억: ~0.85
-    - 1억: ~0.70
-    - 1,000만 원 이하: 0.50 (최대 50% 감점)
     """
     if daily_value <= 0:
         return 0.5
@@ -368,7 +365,7 @@ def calculate_illiquidity_risk(df_daily):
     avg_value_7d = value.tail(7).mean()
     
     if avg_value_7d < 100_000_000 and atr_pct.iloc[-1] > 10.0:
-        return -15.0 # 초저수급 급변동 노이즈 페널티
+        return -15.0 
     return 0.0
 
 def get_krw_upbit_tickers():
@@ -402,7 +399,6 @@ def calculate_t1_advanced_metrics(df_daily):
     
     vol_dry_ratio = float(vol.iloc[-1] / (vol.iloc[-10:-1].mean() + 1e-8))
     
-    # 💡 정석 20일 거래량 가중 CMF (Chaikin Money Flow) 계산
     clv = ((close - low) - (high - close)) / ((high - low) + 1e-8)
     mf_volume = clv * vol
     cmf = float(mf_volume.rolling(20).sum().iloc[-1] / (vol.rolling(20).sum().iloc[-1] + 1e-8))
@@ -429,7 +425,7 @@ def process_single_coin(item, current_price_map):
         metrics = calculate_t1_advanced_metrics(df_daily)
         
         if not metrics: 
-            c_price = current_price_map.get(ticker, 0)
+            c_price = current_price_map.get(ticker, 0) if isinstance(current_price_map, dict) else 0
             return {
                 "코인명": korean_name,
                 "심볼": symbol,
@@ -437,7 +433,7 @@ def process_single_coin(item, current_price_map):
                 "raw_price": float(c_price),
                 "24h거래대금": "0백만",
                 "수급등급": "⚠️ 초저수급",
-                "종합예측점수": 25.0, # 데이터 미비 시 감점
+                "종합예측점수": 25.0,
                 "거래량절벽(배)": 1.0,
                 "CMF지표": 0.0,
                 "RSI": 50.0,
@@ -448,15 +444,13 @@ def process_single_coin(item, current_price_map):
         iceberg_metrics = get_highfreq_iceberg_metrics(ticker)
         stgt_feats = [0.8, 0.7, metrics['cmf'], metrics['rsi']/100.0, 0.1, 0.5, metrics['vol_dry_ratio'], 0.2, 0.5]
         
-        c_price = current_price_map.get(ticker, metrics['last_close'])
+        c_price = current_price_map.get(ticker, metrics['last_close']) if isinstance(current_price_map, dict) else metrics['last_close']
         ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
 
-        # 유동성 가중치 및 노이즈 페널티 산출
         last_val = metrics['last_value']
         liq_factor = calculate_liquidity_factor(last_val)
         illid_penalty = calculate_illiquidity_risk(df_daily)
 
-        # 기술적 원시 점수
         raw_score = (
             50.0 
             + (metrics['cmf'] * 30.0) 
@@ -465,10 +459,8 @@ def process_single_coin(item, current_price_map):
             + illid_penalty
         )
         
-        # 💡 [핵심] 유동성 가중치 곱적용으로 저거래량 잡코인 점수 억제
         final_score = round(max(0.0, min(100.0, raw_score * liq_factor)), 1)
 
-        # 수급 등급 분류
         if last_val >= 10_000_000_000:
             liq_grade = "🔥 고유동성"
         elif last_val >= 1_000_000_000:
@@ -493,7 +485,7 @@ def process_single_coin(item, current_price_map):
             "_stgt_feats": stgt_feats
         }
     except Exception as e: 
-        c_price = current_price_map.get(ticker, 0)
+        c_price = current_price_map.get(ticker, 0) if isinstance(current_price_map, dict) else 0
         return {
             "코인명": korean_name,
             "심볼": symbol,
@@ -560,9 +552,9 @@ def assign_relative_grades(df):
         return df
 
     scores = df['종합예측점수']
-    q80 = scores.quantile(0.80) # 상위 20%
-    q50 = scores.quantile(0.50) # 상위 50%
-    q20 = scores.quantile(0.20) # 상위 80% (하위 20%)
+    q80 = scores.quantile(0.80) 
+    q50 = scores.quantile(0.50) 
+    q20 = scores.quantile(0.20) 
 
     def determine_grade(row):
         score = row['종합예측점수']
@@ -879,7 +871,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
     updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
-    # 테이블 행 생성 헬퍼 함수 (수급등급 표기 반영)
     def create_table_rows(sector_coins):
         if not sector_coins:
             return '<tr><td colspan="5" class="text-center text-muted py-3">해당하는 종목이 없습니다.</td></tr>'
@@ -1010,7 +1001,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </div>\n'
         ' </div>\n'
         ' <div class="card p-3 shadow-sm">\n'
-        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트 (Gemini 3.1 Flash-Lite)</h6>\n'
+        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트</h6>\n'
         ' <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.5;"></div>\n'
         ' </div>\n'
         ' </div>\n'
@@ -1250,7 +1241,7 @@ if __name__ == "__main__":
         generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
 
         # 9. 엑셀 저장 및 이메일 발송
-        kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+        kst_now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9)
         current_hour = kst_now.hour
         target_hours = [9, 13, 17, 21] 
 
