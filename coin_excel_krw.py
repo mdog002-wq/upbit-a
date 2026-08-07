@@ -58,7 +58,7 @@ except ImportError:
 class RecommendedCoin(BaseModel):
     coin_name: str = Field(description="코인 한글명 (예: 바빌론, 너보스, 스파크, 바운드리스, 시빅)")
     symbol: str = Field(description="티커 심볼 (예: BABY, CKB, SPK, ZKC, CVC)")
-    reason: str = Field(description="추천 핵심 사유 요약 (매집 패턴, 거래량 절벽, 자금유입 등)")
+    reason: str = Field(description="추천 핵심 사유 요약")
 
 class AIReportResponse(BaseModel):
     report_markdown: str = Field(description="좌측 패널용 종합 퀀트 분석 리포트 전문 (마크다운 형식)")
@@ -67,12 +67,12 @@ class AIReportResponse(BaseModel):
 
 def upload_html_to_oracle_server(local_file_path):
     """
-    GitHub Secrets에 등록된 ORACLE_SSH_KEY(.key 내용)를 이용해
+    GitHub Secrets에 등록된 ORACLE_SSH_KEY(.key 내용)를 이용해 
     오라클 서버로 대시보드 HTML 파일을 자동 전송하는 함수
     """
     hostname = os.environ.get("ORACLE_DSN")          
-    username = os.environ.get("ORACLE_USER", "ubuntu")
-    ssh_key_content = os.environ.get("ORACLE_SSH_KEY")
+    username = os.environ.get("ORACLE_USER", "ubuntu") 
+    ssh_key_content = os.environ.get("ORACLE_SSH_KEY") 
 
     if not hostname or not ssh_key_content:
         print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
@@ -91,10 +91,10 @@ def upload_html_to_oracle_server(local_file_path):
         sftp = ssh.open_sftp()
         sftp.put(local_file_path, remote_file_path)
         print(f"🚀 오라클 서버로 HTML 대시보드 전송 완료! ({remote_file_path})")
-       
+        
         sftp.close()
         ssh.close()
-       
+        
     except Exception as e:
         print(f"❌ 오라클 서버 전송 실패: {e}")
 
@@ -123,14 +123,13 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
 
 try:
-    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True, socket_timeout=2)
-    redis_client.ping()
+    redis_client = redis.Redis(host=REDIS_HOST, port=REDIS_PORT, db=0, decode_responses=True)
 except Exception as e:
     redis_client = None
-    print(f"⚠️ Redis 연결 설정 실패 (비활성화 상태로 진행): {e}")
+    print(f"⚠️ Redis 연결 설정 실패: {e}")
 
 # ==============================================================================
-# [유틸] 데이터 포맷팅 및 알림
+# [유틸] 데이터 포맷팅 및 캐싱
 # ==============================================================================
 def format_price(x):
     try:
@@ -178,7 +177,7 @@ class LSTMIcebergPredictor:
         if os.path.exists(self.model_path):
             try: return load_model(self.model_path)
             except Exception: print("⚠️ 기존 LSTM 로드 실패, 새로 생성합니다.")
-       
+        
         model = Sequential([
             LSTM(32, return_sequences=True, input_shape=(self.seq_len, self.feats)),
             Dropout(0.2),
@@ -264,7 +263,7 @@ class STGTManager:
 stgt_manager = STGTManager()
 
 # ==============================================================================
-# [자가학습 엔진] 과거 경험 검증 및 모델 자동 업데이트 (20% 급등 패턴 집중 학습)
+# [자가학습 엔진] 과거 경험 검증 및 모델 자동 업데이트
 # ==============================================================================
 class AIEvolutionEngine:
     def __init__(self):
@@ -275,7 +274,7 @@ class AIEvolutionEngine:
             exps = {}
             if os.path.exists(self.exp_file):
                 with open(self.exp_file, "r", encoding="utf-8") as f: exps = json.load(f)
-           
+            
             exps[ticker] = {
                 "timestamp": time.time(),
                 "lstm_feats": lstm_feats,
@@ -287,7 +286,7 @@ class AIEvolutionEngine:
 
     def evolve_models(self):
         if not os.path.exists(self.exp_file): return
-       
+        
         try:
             with open(self.exp_file, "r", encoding="utf-8") as f: exps = json.load(f)
         except Exception: return
@@ -297,47 +296,44 @@ class AIEvolutionEngine:
         stgt_x_train, stgt_y_train = [], []
         keys_to_delete = []
 
-        # 4시간 경과 경험 검증
-        expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d.get("timestamp", 0) > 14400]
+        expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d["timestamp"] > 14400]
         if not expired_tickers: return
 
-        print("🤖 [AI 진화 시스템] 20% 이상 폭발적 급등(매집 성공) 패턴 자가학습 진행 중...")
+        print("🤖 [AI 진화 시스템] 과거 데이터 기반 자가학습 진행 중...")
         try:
             prices_now = pyupbit.get_current_price(expired_tickers)
             if isinstance(prices_now, float): prices_now = {expired_tickers[0]: prices_now}
         except Exception: prices_now = {}
 
         for ticker, data in list(exps.items()):
-            if current_time - data.get("timestamp", 0) > 14400:
+            if current_time - data["timestamp"] > 14400:
                 market_symbol = f"KRW-{ticker}"
-                current_price = prices_now.get(market_symbol) if isinstance(prices_now, dict) else None
-               
+                current_price = prices_now.get(market_symbol)
+                
                 if current_price and data.get("price"):
                     return_rate = (current_price - data["price"]) / data["price"] * 100
-                   
-                    # 덤핑 조건: -3% 이하
+                    
                     is_dumped = 1.0 if return_rate <= -3.0 else 0.0
                     if data.get("lstm_feats"):
                         lstm_x_train.append(data["lstm_feats"])
                         lstm_y_train.append(is_dumped)
-                   
-                    # [핵심 수정] 단타/매집 성공 타겟: 기존 5% -> 15~20% 이상 폭발적 상승
-                    is_pumped = 1.0 if return_rate >= 15.0 else 0.0
+                    
+                    is_pumped = 1.0 if return_rate >= 5.0 else 0.0
                     if data.get("stgt_feats"):
                         stgt_x_train.append(data["stgt_feats"])
                         stgt_y_train.append(is_pumped)
-               
+                
                 keys_to_delete.append(ticker)
 
         if lstm_x_train:
             lstm_dumping_predictor.train_step(lstm_x_train, lstm_y_train)
-       
+        
         if stgt_x_train and TORCH_AVAILABLE:
             x_t = torch.tensor(stgt_x_train, dtype=torch.float32)
             y_t = torch.tensor(stgt_y_train, dtype=torch.float32)
             dummy_edge = torch.tensor([[i for i in range(len(stgt_x_train))], [i for i in range(len(stgt_x_train))]], dtype=torch.long)
             stgt_manager.train_step(x_t, dummy_edge, y_t)
-           
+            
         for k in keys_to_delete:
             if k in exps: del exps[k]
         with open(self.exp_file, "w", encoding="utf-8") as f: json.dump(exps, f, ensure_ascii=False)
@@ -345,24 +341,14 @@ class AIEvolutionEngine:
 ai_engine = AIEvolutionEngine()
 
 # ==============================================================================
-# [개선된 유동성/매집 패턴 스코어링 함수]
+# [스캔 분석 유틸 및 점수 보정 함수]
 # ==============================================================================
-def calculate_liquidity_factor(daily_value):
-    """
-    [핵심 수정] 유동성 배율 징벌 전면 폐지
-    거래대금이 3억 미만인 유령 코인만 가점 대상에서 제외(0.6배),
-    3억 이상인 중소형 알트코인은 대형주와 동일하게 매집 지표로 평가함.
-    """
-    if daily_value < 300_000_000:
-        return 0.6
-    return 1.0
-
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
     try:
         res = requests.get(url, timeout=5)
         if res.status_code == 200:
-            return [{'ticker': c['market'], 'korean_name': c['korean_name'], 'symbol': c['market'].replace("KRW-", "")}
+            return [{'ticker': c['market'], 'korean_name': c['korean_name'], 'symbol': c['market'].replace("KRW-", "")} 
                     for c in res.json() if c['market'].startswith("KRW-")]
     except Exception: pass
     return []
@@ -371,7 +357,7 @@ def get_highfreq_iceberg_metrics(ticker):
     lstm_feats = [[np.random.rand(), np.random.rand(), np.random.rand()] for _ in range(15)]
     dump_prob = lstm_dumping_predictor.predict(lstm_feats) if (lstm_dumping_predictor and lstm_dumping_predictor.model) else 0.3
     if dump_prob is None: dump_prob = 0.3
-   
+    
     return {
         "status": f"💎 정상 수급 (덤핑확률 {round(dump_prob*100,1)}%)" if dump_prob < 0.7 else f"🚨 덤핑 위험 (덤핑확률 {round(dump_prob*100,1)}%)",
         "score_modifier": -30 if dump_prob >= 0.7 else 5,
@@ -379,34 +365,13 @@ def get_highfreq_iceberg_metrics(ticker):
     }
 
 def calculate_t1_advanced_metrics(df_daily):
-    """
-    [핵심 수정] 매집 극초기 / 거래량 절벽 / 변동성 수축(볼린저 밴드) 중심 지표 추출
-    """
     if df_daily is None or len(df_daily) < 30: return None
     close = df_daily['close']
     vol = df_daily['volume']
-    high = df_daily['high']
-    low = df_daily['low']
-    value = df_daily['value']
-   
-    # 1. 거래량 절벽 비율 (최근 3일 평균 / 과거 20일 평균) -> 낮을수록 매집 침묵 구간
-    vol_20_avg = vol.iloc[-23:-3].mean() + 1e-8
-    vol_recent_avg = vol.iloc[-3:].mean()
-    vol_squeeze_ratio = float(vol_recent_avg / vol_20_avg)
-
-    # 2. CMF (Chaikin Money Flow) -> 세력 매집 자금 유입 지표 (-1.0 ~ +1.0)
-    clv = ((close - low) - (high - close)) / ((high - low) + 1e-8)
-    mf_volume = clv * vol
-    cmf = float(mf_volume.rolling(20).sum().iloc[-1] / (vol.rolling(20).sum().iloc[-1] + 1e-8))
-   
-    # 3. 볼린저 밴드 폭 (Bandwidth) -> 변동성 수축(스퀴즈) 지표
-    ma20 = close.rolling(20).mean()
-    std20 = close.rolling(20).std()
-    bb_upper = ma20 + (2 * std20)
-    bb_lower = ma20 - (2 * std20)
-    bb_width = float((bb_upper - bb_lower) / (ma20 + 1e-8)).iloc[-1]
-
-    # 4. RSI
+    
+    vol_dry_ratio = float(vol.iloc[-1] / (vol.iloc[-10:-1].mean() + 1e-8))
+    cmf = float(((close.iloc[-1] - df_daily['low'].iloc[-1]) - (df_daily['high'].iloc[-1] - close.iloc[-1])) / (df_daily['high'].iloc[-1] - df_daily['low'].iloc[-1] + 1e-8))
+    
     delta = close.diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
@@ -415,37 +380,27 @@ def calculate_t1_advanced_metrics(df_daily):
 
     return {
         "last_close": float(close.iloc[-1]),
-        "vol_squeeze_ratio": round(vol_squeeze_ratio, 2),
+        "vol_dry_ratio": round(vol_dry_ratio, 2),
         "cmf": round(cmf, 2),
-        "bb_width": round(bb_width, 3),
         "rsi": round(rsi, 1),
-        "last_value": float(value.iloc[-1])
+        "last_value": float(df_daily['value'].iloc[-1])
     }
 
 def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
-        # 업비트 API 요청 제한(초당 10회)을 회피하기 위해 대기 시간 보장
-        time.sleep(0.12)
-        
-        # OHLCV 데이터 수집 (실패 시 1회 재시도)
+        time.sleep(0.04)
         df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=60)
-        if df_daily is None or df_daily.empty:
-            time.sleep(0.2)
-            df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=60)
-
         metrics = calculate_t1_advanced_metrics(df_daily)
-       
-        if not metrics:
-            c_price = current_price_map.get(ticker, 0) if isinstance(current_price_map, dict) else 0
+        
+        if not metrics: 
+            c_price = current_price_map.get(ticker, 0)
             return {
                 "코인명": korean_name,
                 "심볼": symbol,
                 "현재가(KRW)": format_price(c_price),
                 "raw_price": float(c_price),
-                "24h거래대금": "0백만",
-                "수급등급": "⚠️ 초저수급",
-                "종합예측점수": 25.0,
+                "종합예측점수": 50.0,
                 "거래량절벽(배)": 1.0,
                 "CMF지표": 0.0,
                 "RSI": 50.0,
@@ -454,83 +409,39 @@ def process_single_coin(item, current_price_map):
             }
 
         iceberg_metrics = get_highfreq_iceberg_metrics(ticker)
-        stgt_feats = [0.8, 0.7, metrics['cmf'], metrics['rsi']/100.0, metrics['bb_width'], 0.5, metrics['vol_squeeze_ratio'], 0.2, 0.5]
-       
-        c_price = current_price_map.get(ticker, metrics['last_close']) if isinstance(current_price_map, dict) else metrics['last_close']
+        stgt_feats = [0.8, 0.7, metrics['cmf'], metrics['rsi']/100.0, 0.1, 0.5, metrics['vol_dry_ratio'], 0.2, 0.5]
+        
+        c_price = current_price_map.get(ticker, metrics['last_close'])
         ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
 
-        last_val = metrics['last_value']
-        liq_factor = calculate_liquidity_factor(last_val)
-
-        # ======================================================================
-        # [핵심 수정] 단타 및 매집 패턴 중심 정밀 산출 공식
-        # ======================================================================
-        # 1. CMF (자금 유입) : 양수일 때 최고 +40점 부여
-        cmf_score = max(0.0, metrics['cmf']) * 40.0
-       
-        # 2. 거래량 절벽 (Volume Squeeze) : 거래량이 평소 대비 급감했을 때 최고 +30점
-        vol_ratio = metrics['vol_squeeze_ratio']
-        if vol_ratio <= 0.4:
-            vol_score = 30.0
-        elif vol_ratio <= 0.7:
-            vol_score = 15.0
-        else:
-            vol_score = 0.0
-           
-        # 3. 볼린저 밴드 스퀴즈 (변동성 수축) : 폭발 직전 수축 상태일 때 최고 +20점
-        bb_w = metrics['bb_width']
-        if bb_w <= 0.10:
-            bb_score = 20.0
-        elif bb_w <= 0.18:
-            bb_score = 10.0
-        else:
-            bb_score = 0.0
-
-        # 4. RSI 매집 구간 (35~55 사이) : 과매도 탈출 극초기 가점 (+10점), 과매수(70 이상) 감점
-        rsi_val = metrics['rsi']
-        if 35 <= rsi_val <= 55:
-            rsi_score = 10.0
-        elif rsi_val >= 70:
-            rsi_score = -15.0
-        else:
-            rsi_score = 0.0
-
-        raw_score = cmf_score + vol_score + bb_score + rsi_score + iceberg_metrics['score_modifier']
-        final_score = round(max(0.0, min(100.0, raw_score * liq_factor)), 1)
-
-        if last_val >= 10_000_000_000:
-            liq_grade = "🔥 고유동성"
-        elif last_val >= 1_000_000_000:
-            liq_grade = "🟢 보통수급"
-        elif last_val >= 300_000_000:
-            liq_grade = "🟡 저유동성"
-        else:
-            liq_grade = "⚠️ 초저수급"
+        acc_score = round(
+            50.0 
+            + (metrics['cmf'] * 25.0) 
+            - ((metrics['vol_dry_ratio'] - 1.0) * 10.0) 
+            + iceberg_metrics['score_modifier'], 
+            1
+        )
 
         return {
             "코인명": korean_name,
             "심볼": symbol,
             "현재가(KRW)": format_price(c_price),
             "raw_price": float(c_price),
-            "24h거래대금": f"{int(last_val / 1_000_000):,}백만",
-            "수급등급": liq_grade,
-            "종합예측점수": final_score,
-            "거래량절벽(배)": metrics['vol_squeeze_ratio'],
+            "종합예측점수": max(0.0, min(100.0, acc_score)),
+            "거래량절벽(배)": metrics['vol_dry_ratio'],
             "CMF지표": metrics['cmf'],
             "RSI": metrics['rsi'],
             "아이스버그역산(고주파)": iceberg_metrics['status'],
             "_stgt_feats": stgt_feats
         }
-    except Exception as e:
-        c_price = current_price_map.get(ticker, 0) if isinstance(current_price_map, dict) else 0
+    except Exception as e: 
+        c_price = current_price_map.get(ticker, 0)
         return {
             "코인명": korean_name,
             "심볼": symbol,
             "현재가(KRW)": format_price(c_price),
             "raw_price": float(c_price),
-            "24h거래대금": "0백만",
-            "수급등급": "⚠️ 초저수급",
-            "종합예측점수": 25.0,
+            "종합예측점수": 50.0,
             "거래량절벽(배)": 1.0,
             "CMF지표": 0.0,
             "RSI": 50.0,
@@ -550,7 +461,7 @@ def analyze_and_scan_market():
     except Exception: current_price_map = {}
 
     results = []
-    print(f"\n🚀 [멀티스레딩] 전체 원화마켓 코인({len(krw_coins)}개) 매집 패턴 스캔 시작...")
+    print(f"\n🚀 [멀티스레딩] 전체 원화마켓 코인({len(krw_coins)}개) 병렬 스캔 및 AI 예측 시작...")
     with ThreadPoolExecutor(max_workers=5) as executor:
         futures = {executor.submit(process_single_coin, item, current_price_map): item for item in krw_coins}
         for future in tqdm(as_completed(futures), total=len(futures), ncols=80):
@@ -589,32 +500,22 @@ def assign_relative_grades(df):
         return df
 
     scores = df['종합예측점수']
-    
-    # 만약 모든 점수가 동일하거나 데이터 오류로 25점 이하인 경우 예외 처리
-    if scores.nunique() <= 1 or scores.max() <= 25.0:
-        df['grade'] = "⚪ 보통"
-        return df
-
-    # 유효 점수 기반 백분위 계산
-    q80 = scores.quantile(0.80)
-    q50 = scores.quantile(0.50)
-    q20 = scores.quantile(0.20)
+    q80 = scores.quantile(0.80) # 상위 20%
+    q50 = scores.quantile(0.50) # 상위 50%
+    q20 = scores.quantile(0.20) # 상위 80% (하위 20%)
 
     def determine_grade(row):
         score = row['종합예측점수']
         dump_risk = row['STGT_그래프덤핑위험(%)']
 
-        # 데이터 수집 실패 기본값(25.0)은 절대 추천하지 않음
-        if score <= 25.0:
-            return "⚪ 보통"
-
-        if dump_risk >= 85.0:
+        if dump_risk >= 80.0:
             return "🔴 경고"
-       
-        # 백분위 상위 20% 이면서 점수가 의미있게 높을 때만 추천
-        if score >= q80 and score > 40.0 and dump_risk < 60.0:
+        elif dump_risk >= 65.0:
+            return "🟠 주의"
+
+        if score >= q80:
             return "🟢 추천"
-        elif score >= q50 and score > 30.0 and dump_risk < 70.0:
+        elif score >= q50:
             return "🔵 관심"
         elif score >= q20:
             return "⚪ 보통"
@@ -637,8 +538,14 @@ def calculate_ai_grade(score, dump_risk):
         return "⚪ 보통"
 
 def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_status_map, top10_symbols=set()):
+    """
+    ai_report_coins: 현재 Gemini AI가 추천한 종목 리스트
+    current_price_map: 실시간 가격 맵
+    coin_status_map: 전 종목 등급 및 위험도 맵
+    top10_symbols: 이번 스캔 시 점수 상위 10위 안에 포함된 코인 심볼 set
+    """
     history = {}
-   
+    
     if os.path.exists(AI_TRACKER_HISTORY_FILE):
         try:
             with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
@@ -652,6 +559,7 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
     now_str = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
+    # 1. 신규/기존 추천 종목 추천 카운트 갱신
     for coin in ai_report_coins:
         symbol = coin['symbol']
         name = coin['name']
@@ -666,25 +574,27 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
                 "name": name,
                 "symbol": symbol,
                 "count": 1,
-                "top10_count": 0,
+                "top10_count": 0, # 최초 추천 이후 상위 10위 진입 횟수
                 "entry_price": c_price,
                 "current_price": c_price,
                 "first_recommended_at": now_str,
                 "last_recommended_at": now_str
             }
 
+    # 2. 이번 스캔 시점에서 상위 10위 안에 포함된 모니터링 종목의 top10_count 카운트 증가
     for symbol, item in history.items():
         if 'top10_count' not in item:
             item['top10_count'] = 0
-           
+            
         if symbol in top10_symbols:
             item['top10_count'] += 1
-   
+    
+    # 3. 목표 달성 및 가치 상실 종목 제거 로직
     to_remove = []
     for symbol, item in history.items():
         if symbol in current_price_map:
             item['current_price'] = current_price_map[symbol]
-       
+        
         entry_p = item['entry_price']
         curr_p = item['current_price']
         profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
@@ -718,7 +628,7 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
         entry_p = item['entry_price']
         curr_p = item['current_price']
         profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
-       
+        
         tracker_list.append({
             "name": item['name'],
             "symbol": item['symbol'],
@@ -747,8 +657,6 @@ def update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data):
                 "name": row['코인명'],
                 "symbol": row['심볼'],
                 "price": row['현재가(KRW)'],
-                "trade_value": row.get('24h거래대금', '0백만'),
-                "liq_grade": row.get('수급등급', '⚠️ 초저수급'),
                 "score": score,
                 "dump_risk": dump_risk,
                 "iceberg": row['아이스버그역산(고주파)'],
@@ -789,32 +697,32 @@ def update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data):
         print(f"❌ [Redis] 데이터 업로드 실패: {e}")
 
 # ==============================================================================
-# [Gemini Structured Output 기반 분석 리포트 및 추천 종목 동적 추출]
+# [Gemini 3.1 Flash-Lite Structured Output 기반 분석 리포트 및 추천 종목 동적 추출]
 # ==============================================================================
 def generate_gemini_analysis(df_result):
     if df_result.empty:
         return "분석할 종목 데이터가 없습니다.", []
-   
+    
     top_coins = df_result.head(5)['코인명'].tolist()
     top_symbols = df_result.head(5)['심볼'].tolist()
-   
+    
     default_recommended = [
-        {"symbol": sym, "name": name, "reason": "매집 신호 및 자금유입 상위 종목"}
+        {"symbol": sym, "name": name, "reason": "퀀트 예측 점수 상위 종목"} 
         for sym, name in zip(top_symbols, top_coins)
     ]
 
     if not GEMINI_API_KEY:
-        report = f"AI 리포트: 현재 상위 매집 포착 종목은 {', '.join(top_coins)} 입니다."
+        report = f"AI 리포트 (제미나이 3.1플래시라이트): 현재 상위 모니터링 종목은 {', '.join(top_coins)} 입니다."
         return report, default_recommended
 
     try:
         client = genai.Client(api_key=GEMINI_API_KEY)
         prompt = (
-            "당신은 암호화폐 단타 및 세력 매집 패턴 전문 퀀트 분석가입니다. 아래 데이터를 바탕으로 분석 리포트를 작성하세요.\n\n"
+            "당신은 암호화폐 퀀트 투자 전문가입니다. 아래 업비트 원화마켓 AI 퀀트 분석 상위 종목 데이터를 바탕으로 "
+            "작성 원칙에 맞춰 종합 시장 분석 리포트를 작성하세요.\n\n"
             "작성 원칙:\n"
-            "1. 대형주 추종이 아닌, 거래량 절벽, CMF 자금유입, 변동성 수축을 통해 급등 임박 종목을 중심으로 분석하세요.\n"
-            "2. report_markdown 필드에는 마크다운 형식 리포트 전문을 넣으세요.\n"
-            "3. 가장 강력하게 추천하는 매집 코인 3~5개를 선정하여 recommended_coins 배열에 명시하세요.\n\n"
+            "1. report_markdown 필드에는 마크다운 형식으로 작성된 종합 퀀트 분석 리포트 전문을 넣으세요.\n"
+            "2. 가장 강력하게 추천하는 코인 3~5개를 선정하여 recommended_coins 배열에 한글 코인명, 심볼, 핵심 추천 사유를 명시하세요.\n\n"
             f"분석 데이터:\n{df_result.head(10).to_string()}"
         )
 
@@ -843,27 +751,27 @@ def generate_gemini_analysis(df_result):
         return ai_report, recommended_list
 
     except Exception as e:
-        print(f"⚠️ Gemini AI 분석 리포트 생성 스킵 (대체 로직): {e}")
-        return f"AI 분석 리포트 (상위 매집 추천 종목: {', '.join(top_coins)})", default_recommended
+        print(f"⚠️ Gemini 3.1 Flash-Lite Structured Output 생성 스킵 (대체 로직): {e}")
+        return f"AI 분석 리포트 (상위 추천 종목: {', '.join(top_coins)})", default_recommended
 
 def export_to_excel_and_email(df_result, ai_report):
     try:
         df_result.to_excel(EXCEL_FILE_PATH, index=False)
         print(f"📊 엑셀 리포트 저장 완료: {EXCEL_FILE_PATH}")
-       
+        
         if SENDER_EMAIL and EMAIL_PASSWORD and RECEIVER_EMAILS:
             msg = MIMEMultipart()
             msg['From'] = SENDER_EMAIL
             msg['To'] = ", ".join(RECEIVER_EMAILS)
-            msg['Subject'] = f"[업비트 매집 스캐너] AI 단타 분석 리포트 ({datetime.datetime.now().strftime('%Y-%m-%d %H:%M')})"
+            msg['Subject'] = f"[업비트 AI Quant] 시장 분석 리포트 ({datetime.datetime.now().strftime('%Y-%m-%d %H:%M')})"
             msg.attach(MIMEText(ai_report, 'plain', 'utf-8'))
-           
+            
             if os.path.exists(EXCEL_FILE_PATH):
                 with open(EXCEL_FILE_PATH, "rb") as f:
                     part = MIMEApplication(f.read(), Name=os.path.basename(EXCEL_FILE_PATH))
                     part['Content-Disposition'] = f'attachment; filename="{os.path.basename(EXCEL_FILE_PATH)}"'
                     msg.attach(part)
-           
+            
             with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
                 server.login(SENDER_EMAIL, EMAIL_PASSWORD)
                 server.send_message(msg)
@@ -876,39 +784,37 @@ def export_to_excel_and_email(df_result, ai_report):
 # ==============================================================================
 def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
-   
+    
     coin_grades = []
     alerts = []
-   
+    
     if not df_result.empty:
         for _, row in df_result.iterrows():
             score = float(row['종합예측점수'])
             dump_risk = float(row['STGT_그래프덤핑위험(%)'])
             grade = row.get('grade', calculate_ai_grade(score, dump_risk))
-           
+            
             badge_class = 'bg-secondary'
             if grade == "🟢 추천": badge_class = "bg-success"
             elif grade == "🔵 관심": badge_class = "bg-primary"
             elif grade == "⚪ 보통": badge_class = "bg-secondary"
             elif grade == "🟠 주의": badge_class = "bg-warning text-dark"
             elif grade == "🔴 경고": badge_class = "bg-danger"
-           
+            
             item = {
                 "name": row['코인명'],
                 "symbol": row['심볼'],
                 "price": row['현재가(KRW)'],
-                "trade_value": row.get('24h거래대금', '0백만'),
-                "liq_grade": row.get('수급등급', '⚠️ 초저수급'),
                 "score": score,
                 "dump_risk": dump_risk,
                 "badge_class": badge_class,
                 "grade": grade
             }
             coin_grades.append(item)
-           
+            
             if grade in ["🟠 주의", "🔴 경고"]:
                 alerts.append({"text": f"⚠️ {row['코인명']}({row['심볼']}) - {row['아이스버그역산(고주파)']}"})
-   
+    
     recommended_sector = [c for c in coin_grades if c['grade'] == "🟢 추천"]
     interested_sector = [c for c in coin_grades if c['grade'] == "🔵 관심"]
     normal_sector = [c for c in coin_grades if c['grade'] == "⚪ 보통"]
@@ -918,39 +824,39 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
     updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
+    # 1. 각 섹션별 테이블 행 생성 헬퍼 함수
     def create_table_rows(sector_coins):
         if not sector_coins:
-            return '<tr><td colspan="5" class="text-center text-muted py-3">해당하는 종목이 없습니다.</td></tr>'
-       
+            return '<tr><td colspan="4" class="text-center text-muted py-3">해당하는 종목이 없습니다.</td></tr>'
+        
         rows_list = []
         for coin in sector_coins:
             name = coin.get('name', 'N/A')
             price = coin.get('price', 'N/A')
-            t_val = coin.get('trade_value', '0백만')
-            l_grade = coin.get('liq_grade', '⚠️ 초저수급')
             score = coin.get('score', 0)
             badge_class = coin.get('badge_class', 'bg-secondary')
             grade = coin.get('grade', '⚪ 보통')
-           
+            
             row_html = (
                 f"<tr>\n"
-                f' <td class="fw-bold">{name} <br><small class="text-muted">{l_grade}</small></td>\n'
+                f' <td class="fw-bold">{name}</td>\n'
                 f' <td>{price}</td>\n'
-                f' <td class="small text-muted">{t_val}</td>\n'
-                f' <td class="text-primary fw-bold">{score:.1f}점</td>\n'
+                f' <td class="text-primary">{score:.1f}점</td>\n'
                 f' <td><span class="badge {badge_class}">{grade}</span></td>\n'
                 f"</tr>\n"
             )
             rows_list.append(row_html)
-       
+        
         return "".join(rows_list)
 
+    # 2. 경고 리스트 HTML 생성
     alert_items = []
     for alert in alerts[:15]:
         alert_text = alert.get('text', '')
         alert_items.append(f'<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert_text}</div>')
     alerts_html = "\n".join(alert_items) if alert_items else '<div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>'
 
+    # 3. 속보 리스트 HTML 생성
     news_items = []
     if news_data:
         for coin, items in news_data.items():
@@ -960,6 +866,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     else:
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
 
+    # 4. 'AI 추천종목 모니터' HTML 생성 (추천 횟수 & 상위 10위 횟수 뱃지 분리)
     tracking_items = []
     for item in tracking_monitor_data:
         p_rate = item['profit_rate']
@@ -987,12 +894,14 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         tracking_items.append(card_html)
     tracking_html = "\n".join(tracking_items) if tracking_items else '<div class="text-muted small text-center py-3">현재 모니터링 중인 AI 추천 종목이 없습니다.</div>'
 
+    # 5. 각 섹션별 코인 테이블 데이터 생성
     rec_rows = create_table_rows(recommended_sector)
     int_rows = create_table_rows(interested_sector)
     norm_rows = create_table_rows(normal_sector)
     warn_rows = create_table_rows(warning_sector)
     dang_rows = create_table_rows(danger_sector)
 
+    # 6. HTML 템플릿 생성
     html_template = (
         '<!DOCTYPE html>\n'
         '<html lang="ko">\n'
@@ -1025,7 +934,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </a>\n'
         ' </div>\n'
         ' <div class="col-md-6 text-center">\n'
-        ' <h2 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 매집 스캐너 대시보드</h2>\n'
+        ' <h2 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>\n'
         ' <small class="text-muted">최종 업데이트: __UPDATED_TIME__ (총 __TOTAL_COINS__개 종목 분석 완료)</small>\n'
         ' </div>\n'
         ' <div class="col-md-3"></div>\n'
@@ -1048,7 +957,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </div>\n'
         ' </div>\n'
         ' <div class="card p-3 shadow-sm">\n'
-        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 매집 분석 리포트</h6>\n'
+        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트 (Gemini 3.1 Flash-Lite)</h6>\n'
         ' <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.5;"></div>\n'
         ' </div>\n'
         ' </div>\n'
@@ -1073,37 +982,37 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' <div class="tab-content table-scroll-box" id="coinTabContent">\n'
         ' <div class="tab-pane fade show active" id="rec" role="tabpanel">\n'
         ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명/수급</th><th>현재가</th><th>거래대금</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
         ' <tbody>__REC_ROWS__</tbody>\n'
         ' </table>\n'
         ' </div>\n'
         ' <div class="tab-pane fade" id="int" role="tabpanel">\n'
         ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명/수급</th><th>현재가</th><th>거래대금</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
         ' <tbody>__INT_ROWS__</tbody>\n'
         ' </table>\n'
         ' </div>\n'
         ' <div class="tab-pane fade" id="norm" role="tabpanel">\n'
         ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명/수급</th><th>현재가</th><th>거래대금</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
         ' <tbody>__NORM_ROWS__</tbody>\n'
         ' </table>\n'
         ' </div>\n'
         ' <div class="tab-pane fade" id="warn" role="tabpanel">\n'
         ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명/수급</th><th>현재가</th><th>거래대금</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
         ' <tbody>__WARN_ROWS__</tbody>\n'
         ' </table>\n'
         ' </div>\n'
         ' <div class="tab-pane fade" id="dang" role="tabpanel">\n'
         ' <table class="table table-hover align-middle mb-0">\n'
-        ' <thead class="table-light sticky-top"><tr><th>코인명/수급</th><th>현재가</th><th>거래대금</th><th>예측점수</th><th>등급</th></tr></thead>\n'
+        ' <thead class="table-light sticky-top"><tr><th>코인명</th><th>현재가</th><th>예측점수</th><th>등급</th></tr></thead>\n'
         ' <tbody>__DANG_ROWS__</tbody>\n'
         ' </table>\n'
         ' </div>\n'
         ' </div>\n'
         ' </div>\n'
-        ' </div>\n'      
+        ' </div>\n'       
         ' <!-- [우측 컬럼: AI 추천종목 모니터] -->\n'
         ' <div class="col-lg-4">\n'
         ' <div class="card p-3 shadow-sm tracking-box">\n'
@@ -1126,6 +1035,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' let tabPanes = document.querySelectorAll(\'#coinTabContent .tab-pane\');\n'
         ' let tabButtons = document.querySelectorAll(\'#coinTab button\');\n'
         '\n'
+        ' // 1. 전체 행 필터링\n'
         ' allRows.forEach(row => {\n'
         ' let coinText = row.cells[0]?.innerText.toLowerCase() || \'\';\n'
         ' if (input === \'\') {\n'
@@ -1135,18 +1045,22 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' }\n'
         ' });\n'
         '\n'
+        ' // 2. 검색 중일 때 결과가 있는 탭 자동 활성화\n'
         ' if (input !== \'\') {\n'
+        ' let firstMatchFound = false;\n'
         ' tabPanes.forEach((pane, idx) => {\n'
         ' let visibleRows = pane.querySelectorAll(\'tbody tr:not([style*="display: none"])\');\n'
         ' if (visibleRows.length > 0) {\n'
         ' pane.classList.add(\'show\', \'active\');\n'
         ' if (tabButtons[idx]) tabButtons[idx].classList.add(\'active\');\n'
+        ' firstMatchFound = true;\n'
         ' } else {\n'
         ' pane.classList.remove(\'show\', \'active\');\n'
         ' if (tabButtons[idx]) tabButtons[idx].classList.remove(\'active\');\n'
         ' }\n'
         ' });\n'
         ' } else {\n'
+        ' // 검색어가 지워지면 첫 번째(추천) 탭만 기본 활성화 상태로 복원\n'
         ' tabPanes.forEach((pane, idx) => {\n'
         ' if (idx === 0) {\n'
         ' pane.classList.add(\'show\', \'active\');\n'
@@ -1162,7 +1076,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         '</body>\n'
         '</html>'
     )
-
+    # 7. 치환 작업 수행 후 저장
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
                                 .replace("__TOTAL_COINS__", str(len(coin_grades)))\
                                 .replace("__ALERTS_HTML__", alerts_html)\
@@ -1190,20 +1104,20 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
 # ==============================================================================
 if __name__ == "__main__":
     start_time = time.time()
-   
-    # 1. AI 자가학습 진행 (20% 급등 성공 경험 기반)
+    
+    # 1. AI 자가학습 진행
     ai_engine.evolve_models()
-   
-    # 2. 시장 스캔 및 데이터 분석 (매집 패턴 포착)
+    
+    # 2. 시장 스캔 및 데이터 분석 (전체 원화마켓 대상)
     df_result = analyze_and_scan_market()
-   
+    
     if not df_result.empty:
         # 백분위 기반 상대평가 적용
         df_result = assign_relative_grades(df_result)
 
         print(f"\n=== 🎯 [자가학습 AI 적용] 전체 분석 종목 수: {len(df_result)}개 ===")
-        print(df_result[["코인명", "24h거래대금", "수급등급", "종합예측점수", "STGT_그래프덤핑위험(%)", "grade"]].head(5))
-       
+        print(df_result[["코인명", "종합예측점수", "STGT_그래프덤핑위험(%)", "grade", "아이스버그역산(고주파)"]].head(5))
+        
         # 예측점수 기준 상위 10위 종목 심볼 추출
         top10_symbols = set(df_result.head(10)['심볼'].tolist())
 
@@ -1213,12 +1127,12 @@ if __name__ == "__main__":
             print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
             send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
 
-        # 4. Gemini AI 분석 리포트 생성 및 Structured Output 동적 연동
+        # 4. Gemini 3.1 Flash-Lite AI 분석 리포트 생성 및 Structured Output 동적 연동
         ai_report, recommended_coins_ai = generate_gemini_analysis(df_result)
 
-        # 5. Gemini 추천 종목 바인딩
+        # 5. Gemini가 동적 선정/분석한 추천 종목만 추출하여 'AI 추천종목 모니터'에 바인딩
         symbol_to_raw_price = dict(zip(df_result['심볼'], df_result['raw_price']))
-       
+        
         ai_report_coins = []
         for coin_info in recommended_coins_ai:
             sym = coin_info['symbol']
@@ -1248,15 +1162,15 @@ if __name__ == "__main__":
                 "grade": r['grade']
             }
 
-        # 트래킹 모니터 데이터 갱신
+        # 트래킹 모니터 데이터 갱신 (상위 10위 진입 정보 포함)
         tracking_monitor_data = update_ai_recommendation_tracker(
-            ai_report_coins,
-            symbol_to_raw_price,
+            ai_report_coins, 
+            symbol_to_raw_price, 
             coin_status_map,
             top10_symbols=top10_symbols
         )
 
-        # 6. 추천 종목 실시간 속보 수집
+        # 6. 추천 종목 실시간 속보 수집 대상 추출
         all_target_coins = [item['name'] for item in ai_report_coins]
         news_data = fetch_news_for_recommended_coins(all_target_coins)
 
@@ -1266,8 +1180,8 @@ if __name__ == "__main__":
                 "generation": 1,
                 "recommendations": [
                     {
-                        "market": f"KRW-{coin['symbol']}",
-                        "ai_grade": "추천",
+                        "market": f"KRW-{coin['symbol']}", 
+                        "ai_grade": "추천", 
                         "score": float(df_result[df_result['심볼'] == coin['symbol']]['종합예측점수'].values[0]) if not df_result[df_result['심볼'] == coin['symbol']].empty else 95.0
                     }
                     for coin in ai_report_coins
@@ -1280,7 +1194,7 @@ if __name__ == "__main__":
                 print(f"⚠️ FastAPI 서버 전송 응답 오류: {response.status_code}")
         except Exception as e:
             print(f"⚠️ FastAPI 서버로 AI 추천 종목 전송 실패: {e}")
-           
+            
         # 7. Redis 연동
         update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data)
 
@@ -1288,9 +1202,9 @@ if __name__ == "__main__":
         generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
 
         # 9. 엑셀 저장 및 이메일 발송
-        kst_now = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9)
+        kst_now = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         current_hour = kst_now.hour
-        target_hours = [9, 13, 17, 21]
+        target_hours = [9, 13, 17, 21] 
 
         if current_hour in target_hours:
             export_to_excel_and_email(df_result, ai_report)
