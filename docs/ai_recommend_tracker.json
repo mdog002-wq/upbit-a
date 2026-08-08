@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 16.7,
-    "current_price": 16.8,
+    "current_price": 17.0,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 19:59:59"
   },
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 31.5,
-    "current_price": 31.2,
+    "current_price": 31.1,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -75,7 +75,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 0.479,
-    "current_price": 0.479,
+    "current_price": 0.48,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 20:12:40"
   },
@@ -92,12 +92,12 @@
   "STX": {
     "name": "스택스",
     "symbol": "STX",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 186.0,
-    "current_price": 187.0,
+    "current_price": 185.0,
     "first_recommended_at": "2026-08-08 20:22:47",
-    "last_recommended_at": "2026-08-08 20:52:49"
+    "last_recommended_at": "2026-08-08 21:22:34"
   },
   "SYRUP": {
     "name": "메이플파이낸스",
@@ -135,7 +135,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 35.5,
-    "current_price": 35.3,
+    "current_price": 35.4,
     "first_recommended_at": "2026-08-08 20:42:43",
     "last_recommended_at": "2026-08-08 20:42:43"
   },
@@ -145,7 +145,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 25.6,
-    "current_price": 25.5,
+    "current_price": 25.6,
     "first_recommended_at": "2026-08-08 20:52:49",
     "last_recommended_at": "2026-08-08 21:12:55"
   },
@@ -155,18 +155,38 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 7.46,
-    "current_price": 7.46,
+    "current_price": 7.45,
     "first_recommended_at": "2026-08-08 21:12:55",
     "last_recommended_at": "2026-08-08 21:12:55"
   },
   "OP": {
     "name": "옵티미즘",
     "symbol": "OP",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 124.0,
     "current_price": 124.0,
     "first_recommended_at": "2026-08-08 21:12:55",
-    "last_recommended_at": "2026-08-08 21:12:55"
+    "last_recommended_at": "2026-08-08 21:22:34"
+  },
+  "CHZ": {
+    "name": "칠리즈",
+    "symbol": "CHZ",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 18.3,
+    "current_price": 18.3,
+    "first_recommended_at": "2026-08-08 21:22:34",
+    "last_recommended_at": "2026-08-08 21:22:34"
+  },
+  "XLM": {
+    "name": "스텔라루멘",
+    "symbol": "XLM",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 230.0,
+    "current_price": 230.0,
+    "first_recommended_at": "2026-08-08 21:22:34",
+    "last_recommended_at": "2026-08-08 21:22:34"
   }
 }
