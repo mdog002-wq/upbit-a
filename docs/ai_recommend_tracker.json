@@ -13,7 +13,7 @@
     "name": "모카네트워크",
     "symbol": "MOCA",
     "count": 3,
-    "top10_count": 12,
+    "top10_count": 13,
     "entry_price": 10.6,
     "current_price": 11.0,
     "first_recommended_at": "2026-08-08 19:59:59",
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 16.7,
-    "current_price": 17.7,
+    "current_price": 17.6,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 21:52:53"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 933.0,
-    "current_price": 927.0,
+    "current_price": 929.0,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -122,12 +122,12 @@
   "BLUR": {
     "name": "블러",
     "symbol": "BLUR",
-    "count": 23,
-    "top10_count": 30,
+    "count": 24,
+    "top10_count": 31,
     "entry_price": 19.2,
     "current_price": 19.4,
     "first_recommended_at": "2026-08-08 20:32:50",
-    "last_recommended_at": "2026-08-09 01:07:52"
+    "last_recommended_at": "2026-08-09 01:17:49"
   },
   "WAL": {
     "name": "월러스",
@@ -162,12 +162,12 @@
   "OP": {
     "name": "옵티미즘",
     "symbol": "OP",
-    "count": 5,
-    "top10_count": 9,
+    "count": 6,
+    "top10_count": 10,
     "entry_price": 124.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-08 21:12:55",
-    "last_recommended_at": "2026-08-09 01:12:45"
+    "last_recommended_at": "2026-08-09 01:17:49"
   },
   "CHZ": {
     "name": "칠리즈",
@@ -265,7 +265,7 @@
     "count": 5,
     "top10_count": 16,
     "entry_price": 137.0,
-    "current_price": 136.0,
+    "current_price": 137.0,
     "first_recommended_at": "2026-08-08 22:07:40",
     "last_recommended_at": "2026-08-08 23:07:40"
   },
@@ -295,7 +295,7 @@
     "count": 12,
     "top10_count": 15,
     "entry_price": 304500.0,
-    "current_price": 305600.0,
+    "current_price": 305500.0,
     "first_recommended_at": "2026-08-08 22:22:59",
     "last_recommended_at": "2026-08-09 01:07:52"
   },
@@ -303,7 +303,7 @@
     "name": "메탈",
     "symbol": "MTL",
     "count": 2,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 291.0,
     "current_price": 293.0,
     "first_recommended_at": "2026-08-08 22:22:59",
@@ -315,7 +315,7 @@
     "count": 5,
     "top10_count": 14,
     "entry_price": 99.1,
-    "current_price": 101.0,
+    "current_price": 100.0,
     "first_recommended_at": "2026-08-08 22:27:46",
     "last_recommended_at": "2026-08-09 00:48:09"
   },
@@ -335,7 +335,7 @@
     "count": 5,
     "top10_count": 9,
     "entry_price": 9.42,
-    "current_price": 9.43,
+    "current_price": 9.41,
     "first_recommended_at": "2026-08-08 23:03:04",
     "last_recommended_at": "2026-08-08 23:22:55"
   },
@@ -365,7 +365,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 58.5,
-    "current_price": 58.6,
+    "current_price": 58.7,
     "first_recommended_at": "2026-08-08 23:07:40",
     "last_recommended_at": "2026-08-08 23:07:40"
   },
@@ -373,9 +373,9 @@
     "name": "솔레이어",
     "symbol": "LAYER",
     "count": 2,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 85.6,
-    "current_price": 87.2,
+    "current_price": 86.9,
     "first_recommended_at": "2026-08-08 23:12:48",
     "last_recommended_at": "2026-08-08 23:17:51"
   },
@@ -425,7 +425,7 @@
     "count": 6,
     "top10_count": 6,
     "entry_price": 1978.0,
-    "current_price": 1982.0,
+    "current_price": 1977.0,
     "first_recommended_at": "2026-08-08 23:47:52",
     "last_recommended_at": "2026-08-09 00:13:04"
   },
@@ -435,7 +435,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 107500.0,
-    "current_price": 107400.0,
+    "current_price": 107200.0,
     "first_recommended_at": "2026-08-08 23:57:23",
     "last_recommended_at": "2026-08-08 23:57:23"
   },
@@ -455,7 +455,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 97.2,
-    "current_price": 97.6,
+    "current_price": 97.8,
     "first_recommended_at": "2026-08-09 00:02:45",
     "last_recommended_at": "2026-08-09 00:02:45"
   },
@@ -465,19 +465,19 @@
     "count": 6,
     "top10_count": 7,
     "entry_price": 217.0,
-    "current_price": 218.0,
+    "current_price": 221.0,
     "first_recommended_at": "2026-08-09 00:13:04",
     "last_recommended_at": "2026-08-09 00:42:45"
   },
   "RAY": {
     "name": "레이디움",
     "symbol": "RAY",
-    "count": 9,
-    "top10_count": 9,
+    "count": 10,
+    "top10_count": 10,
     "entry_price": 904.0,
     "current_price": 902.0,
     "first_recommended_at": "2026-08-09 00:32:58",
-    "last_recommended_at": "2026-08-09 01:12:45"
+    "last_recommended_at": "2026-08-09 01:17:49"
   },
   "TAO": {
     "name": "비트텐서",
@@ -492,11 +492,11 @@
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 23480.0,
     "current_price": 23480.0,
     "first_recommended_at": "2026-08-09 01:12:45",
-    "last_recommended_at": "2026-08-09 01:12:45"
+    "last_recommended_at": "2026-08-09 01:17:49"
   }
 }
