@@ -12,22 +12,22 @@
   "MOCA": {
     "name": "모카네트워크",
     "symbol": "MOCA",
-    "count": 2,
-    "top10_count": 6,
+    "count": 3,
+    "top10_count": 7,
     "entry_price": 10.6,
     "current_price": 10.8,
     "first_recommended_at": "2026-08-08 19:59:59",
-    "last_recommended_at": "2026-08-08 22:03:08"
+    "last_recommended_at": "2026-08-08 22:07:40"
   },
   "W": {
     "name": "웜홀",
     "symbol": "W",
-    "count": 11,
-    "top10_count": 16,
+    "count": 12,
+    "top10_count": 17,
     "entry_price": 11.7,
     "current_price": 12.0,
     "first_recommended_at": "2026-08-08 19:59:59",
-    "last_recommended_at": "2026-08-08 22:03:08"
+    "last_recommended_at": "2026-08-08 22:07:40"
   },
   "BABY": {
     "name": "바빌론",
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 16.7,
-    "current_price": 17.1,
+    "current_price": 17.3,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 21:52:53"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 933.0,
-    "current_price": 924.0,
+    "current_price": 927.0,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 6,
     "entry_price": 51.4,
-    "current_price": 51.8,
+    "current_price": 51.7,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 22:03:08"
   },
@@ -95,7 +95,7 @@
     "count": 5,
     "top10_count": 10,
     "entry_price": 186.0,
-    "current_price": 186.0,
+    "current_price": 187.0,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -125,7 +125,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 19.2,
-    "current_price": 19.2,
+    "current_price": 19.3,
     "first_recommended_at": "2026-08-08 20:32:50",
     "last_recommended_at": "2026-08-08 21:02:54"
   },
@@ -155,7 +155,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 7.46,
-    "current_price": 7.43,
+    "current_price": 7.44,
     "first_recommended_at": "2026-08-08 21:12:55",
     "last_recommended_at": "2026-08-08 21:12:55"
   },
@@ -185,19 +185,19 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 230.0,
-    "current_price": 231.0,
+    "current_price": 232.0,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
   "CTC": {
     "name": "크레딧코인",
     "symbol": "CTC",
-    "count": 7,
-    "top10_count": 7,
+    "count": 8,
+    "top10_count": 8,
     "entry_price": 97.3,
     "current_price": 97.7,
     "first_recommended_at": "2026-08-08 21:32:59",
-    "last_recommended_at": "2026-08-08 22:03:08"
+    "last_recommended_at": "2026-08-08 22:07:40"
   },
   "RVN": {
     "name": "레이븐코인",
@@ -258,5 +258,15 @@
     "current_price": 5.62,
     "first_recommended_at": "2026-08-08 21:52:53",
     "last_recommended_at": "2026-08-08 21:57:40"
+  },
+  "ARKM": {
+    "name": "아캄",
+    "symbol": "ARKM",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 137.0,
+    "current_price": 137.0,
+    "first_recommended_at": "2026-08-08 22:07:40",
+    "last_recommended_at": "2026-08-08 22:07:40"
   }
 }
