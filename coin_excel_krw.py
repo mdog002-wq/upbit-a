@@ -1005,7 +1005,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' <div style="display: flex; gap: 15px; height: calc(100% - 45px);">\n'
         ' <!-- 좌측: AI 리포트-->\n'
         ' <div style="flex: 1; background: #f8f9fa; border-radius: 8px; padding: 15px; overflow-y: auto;">\n'
-        ' <h6 class="fw-bold text-primary mb-3">🤖 AI리포트)</h6>\n'
+        ' <h6 class="fw-bold text-primary mb-3">🤖 AI리포트 </h6>\n'
         ' <div id="modalContentA"></div>\n'
         ' </div>\n'
         ' \n'
