@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 7,
     "entry_price": 301.0,
-    "current_price": 296.0,
+    "current_price": 295.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -75,7 +75,7 @@
     "count": 7,
     "top10_count": 9,
     "entry_price": 123.0,
-    "current_price": 124.0,
+    "current_price": 125.0,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:03:11"
   },
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 18,
     "entry_price": 18.1,
-    "current_price": 18.1,
+    "current_price": 18.2,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:23:02"
   },
@@ -105,7 +105,7 @@
     "count": 8,
     "top10_count": 8,
     "entry_price": 2952.0,
-    "current_price": 2951.0,
+    "current_price": 2944.0,
     "first_recommended_at": "2026-08-08 07:26:09",
     "last_recommended_at": "2026-08-08 08:32:48"
   },
@@ -125,7 +125,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 45.2,
-    "current_price": 45.4,
+    "current_price": 45.1,
     "first_recommended_at": "2026-08-08 08:43:06",
     "last_recommended_at": "2026-08-08 09:03:07"
   },
@@ -135,7 +135,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6.66,
-    "current_price": 6.5,
+    "current_price": 6.49,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -155,7 +155,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 80.6,
-    "current_price": 80.1,
+    "current_price": 80.2,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
@@ -255,7 +255,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 83.9,
-    "current_price": 83.9,
+    "current_price": 83.4,
     "first_recommended_at": "2026-08-08 11:22:51",
     "last_recommended_at": "2026-08-08 11:22:51"
   },
@@ -302,31 +302,41 @@
   "ID": {
     "name": "스페이스아이디",
     "symbol": "ID",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 39.1,
     "current_price": 39.1,
     "first_recommended_at": "2026-08-08 12:43:04",
-    "last_recommended_at": "2026-08-08 12:43:04"
+    "last_recommended_at": "2026-08-08 12:52:48"
   },
   "MEW": {
     "name": "캣인어독스월드",
     "symbol": "MEW",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 0.47,
-    "current_price": 0.47,
+    "current_price": 0.469,
     "first_recommended_at": "2026-08-08 12:43:04",
-    "last_recommended_at": "2026-08-08 12:43:04"
+    "last_recommended_at": "2026-08-08 12:52:48"
   },
   "MOCA": {
     "name": "모카네트워크",
     "symbol": "MOCA",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 10.6,
     "current_price": 10.6,
     "first_recommended_at": "2026-08-08 12:43:04",
-    "last_recommended_at": "2026-08-08 12:43:04"
+    "last_recommended_at": "2026-08-08 12:52:48"
+  },
+  "BSV": {
+    "name": "비트코인에스브이",
+    "symbol": "BSV",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 20030.0,
+    "current_price": 20030.0,
+    "first_recommended_at": "2026-08-08 12:52:48",
+    "last_recommended_at": "2026-08-08 12:52:48"
   }
 }
