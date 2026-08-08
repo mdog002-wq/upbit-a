@@ -2,12 +2,12 @@
   "WAL": {
     "name": "월러스",
     "symbol": "WAL",
-    "count": 13,
-    "top10_count": 13,
+    "count": 14,
+    "top10_count": 14,
     "entry_price": 35.7,
     "current_price": 35.7,
     "first_recommended_at": "2026-08-09 07:12:58",
-    "last_recommended_at": "2026-08-09 08:22:41"
+    "last_recommended_at": "2026-08-09 08:27:55"
   },
   "ICX": {
     "name": "아이콘",
@@ -55,7 +55,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 5.07,
-    "current_price": 5.08,
+    "current_price": 5.07,
     "first_recommended_at": "2026-08-09 07:42:47",
     "last_recommended_at": "2026-08-09 08:18:09"
   },
@@ -65,7 +65,7 @@
     "count": 3,
     "top10_count": 5,
     "entry_price": 0.881,
-    "current_price": 0.881,
+    "current_price": 0.88,
     "first_recommended_at": "2026-08-09 07:42:47",
     "last_recommended_at": "2026-08-09 07:53:07"
   },
@@ -82,18 +82,18 @@
   "KAVA": {
     "name": "카바",
     "symbol": "KAVA",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 57.3,
     "current_price": 57.3,
     "first_recommended_at": "2026-08-09 08:03:04",
-    "last_recommended_at": "2026-08-09 08:22:41"
+    "last_recommended_at": "2026-08-09 08:27:55"
   },
   "USDS": {
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 1408.0,
     "current_price": 1408.0,
     "first_recommended_at": "2026-08-09 08:13:01",
@@ -103,7 +103,7 @@
     "name": "제로엑스",
     "symbol": "ZRX",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 117.0,
     "current_price": 117.0,
     "first_recommended_at": "2026-08-09 08:13:01",
@@ -113,7 +113,7 @@
     "name": "베이직어텐션토큰",
     "symbol": "BAT",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 94.8,
     "current_price": 94.8,
     "first_recommended_at": "2026-08-09 08:22:41",
@@ -128,5 +128,25 @@
     "current_price": 272.0,
     "first_recommended_at": "2026-08-09 08:22:41",
     "last_recommended_at": "2026-08-09 08:22:41"
+  },
+  "GMT": {
+    "name": "스테픈",
+    "symbol": "GMT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 9.62,
+    "current_price": 9.62,
+    "first_recommended_at": "2026-08-09 08:27:55",
+    "last_recommended_at": "2026-08-09 08:27:55"
+  },
+  "SOMI": {
+    "name": "솜니아",
+    "symbol": "SOMI",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 126.0,
+    "current_price": 126.0,
+    "first_recommended_at": "2026-08-09 08:27:55",
+    "last_recommended_at": "2026-08-09 08:27:55"
   }
 }
