@@ -5,7 +5,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 90.7,
-    "current_price": 89.9,
+    "current_price": 89.7,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -23,7 +23,7 @@
     "name": "웜홀",
     "symbol": "W",
     "count": 3,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 11.7,
     "current_price": 11.7,
     "first_recommended_at": "2026-08-08 19:59:59",
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 31.5,
-    "current_price": 31.3,
+    "current_price": 31.2,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 933.0,
-    "current_price": 931.0,
+    "current_price": 933.0,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -92,12 +92,12 @@
   "STX": {
     "name": "스택스",
     "symbol": "STX",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 186.0,
-    "current_price": 186.0,
+    "current_price": 187.0,
     "first_recommended_at": "2026-08-08 20:22:47",
-    "last_recommended_at": "2026-08-08 20:42:43"
+    "last_recommended_at": "2026-08-08 20:52:49"
   },
   "SYRUP": {
     "name": "메이플파이낸스",
@@ -112,31 +112,41 @@
   "WCT": {
     "name": "월렛커넥트",
     "symbol": "WCT",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 50.6,
     "current_price": 50.8,
     "first_recommended_at": "2026-08-08 20:22:47",
-    "last_recommended_at": "2026-08-08 20:32:50"
+    "last_recommended_at": "2026-08-08 20:52:49"
   },
   "BLUR": {
     "name": "블러",
     "symbol": "BLUR",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 19.2,
     "current_price": 19.2,
     "first_recommended_at": "2026-08-08 20:32:50",
-    "last_recommended_at": "2026-08-08 20:32:50"
+    "last_recommended_at": "2026-08-08 20:52:49"
   },
   "WAL": {
     "name": "월러스",
     "symbol": "WAL",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 35.5,
-    "current_price": 35.5,
+    "current_price": 35.4,
     "first_recommended_at": "2026-08-08 20:42:43",
     "last_recommended_at": "2026-08-08 20:42:43"
+  },
+  "CVC": {
+    "name": "시빅",
+    "symbol": "CVC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 25.6,
+    "current_price": 25.6,
+    "first_recommended_at": "2026-08-08 20:52:49",
+    "last_recommended_at": "2026-08-08 20:52:49"
   }
 }
