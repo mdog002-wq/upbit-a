@@ -2,12 +2,12 @@
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
-    "count": 15,
-    "top10_count": 19,
+    "count": 16,
+    "top10_count": 20,
     "entry_price": 19.0,
     "current_price": 18.9,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 10:03:18"
+    "last_recommended_at": "2026-08-08 10:13:03"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
@@ -15,7 +15,7 @@
     "count": 5,
     "top10_count": 11,
     "entry_price": 625.0,
-    "current_price": 620.0,
+    "current_price": 621.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 07:42:56"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 7,
     "entry_price": 301.0,
-    "current_price": 299.0,
+    "current_price": 300.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 13,
     "entry_price": 18.1,
-    "current_price": 18.2,
+    "current_price": 18.3,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:23:02"
   },
@@ -93,7 +93,7 @@
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 11,
-    "top10_count": 18,
+    "top10_count": 19,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 07:12:49",
@@ -122,12 +122,12 @@
   "0G": {
     "name": "제로지",
     "symbol": "0G",
-    "count": 2,
-    "top10_count": 5,
+    "count": 3,
+    "top10_count": 6,
     "entry_price": 203.0,
-    "current_price": 210.0,
+    "current_price": 211.0,
     "first_recommended_at": "2026-08-08 08:32:48",
-    "last_recommended_at": "2026-08-08 09:42:37"
+    "last_recommended_at": "2026-08-08 10:13:03"
   },
   "POLYX": {
     "name": "폴리매쉬",
@@ -155,7 +155,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6.66,
-    "current_price": 6.48,
+    "current_price": 6.44,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -165,7 +165,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 0.845,
-    "current_price": 0.845,
+    "current_price": 0.842,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:03:07"
   },
@@ -175,7 +175,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 80.6,
-    "current_price": 79.6,
+    "current_price": 79.4,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 62.3,
-    "current_price": 59.8,
+    "current_price": 59.1,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -195,7 +195,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 28.6,
-    "current_price": 30.0,
+    "current_price": 30.7,
     "first_recommended_at": "2026-08-08 09:22:55",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
@@ -205,7 +205,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 19370.0,
-    "current_price": 19540.0,
+    "current_price": 19530.0,
     "first_recommended_at": "2026-08-08 09:22:55",
     "last_recommended_at": "2026-08-08 09:53:05"
   },
@@ -225,19 +225,19 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 46.9,
-    "current_price": 45.6,
+    "current_price": 46.0,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:42:37"
   },
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 50.9,
     "current_price": 50.9,
     "first_recommended_at": "2026-08-08 09:42:37",
-    "last_recommended_at": "2026-08-08 10:03:18"
+    "last_recommended_at": "2026-08-08 10:13:03"
   },
   "IRYS": {
     "name": "아이리스",
@@ -252,12 +252,12 @@
   "TAIKO": {
     "name": "타이코",
     "symbol": "TAIKO",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 101.0,
     "current_price": 101.0,
     "first_recommended_at": "2026-08-08 09:53:05",
-    "last_recommended_at": "2026-08-08 10:03:18"
+    "last_recommended_at": "2026-08-08 10:13:03"
   },
   "CKB": {
     "name": "너보스",
