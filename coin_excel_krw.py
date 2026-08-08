@@ -989,4 +989,3 @@ if __name__ == "__main__":
             export_to_excel_and_email(df_result, ai_report)
         else:
             print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
-```[cite: 1]
