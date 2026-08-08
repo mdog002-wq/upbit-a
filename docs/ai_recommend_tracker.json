@@ -15,7 +15,7 @@
     "count": 2,
     "top10_count": 13,
     "entry_price": 72.0,
-    "current_price": 72.2,
+    "current_price": 72.3,
     "first_recommended_at": "2026-08-08 21:43:07",
     "last_recommended_at": "2026-08-08 22:37:32"
   },
@@ -25,29 +25,29 @@
     "count": 1,
     "top10_count": 5,
     "entry_price": 3110.0,
-    "current_price": 3115.0,
+    "current_price": 3111.0,
     "first_recommended_at": "2026-08-09 02:52:59",
     "last_recommended_at": "2026-08-09 02:52:59"
   },
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 5,
-    "top10_count": 5,
+    "count": 6,
+    "top10_count": 6,
     "entry_price": 8.34,
-    "current_price": 8.34,
+    "current_price": 8.36,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 04:37:42"
+    "last_recommended_at": "2026-08-09 05:03:02"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 5,
-    "top10_count": 5,
+    "count": 6,
+    "top10_count": 6,
     "entry_price": 25.8,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 04:37:42"
+    "last_recommended_at": "2026-08-09 05:03:02"
   },
   "BLUR": {
     "name": "블러",
@@ -68,5 +68,15 @@
     "current_price": 125.0,
     "first_recommended_at": "2026-08-09 04:18:00",
     "last_recommended_at": "2026-08-09 04:37:42"
+  },
+  "MOCA": {
+    "name": "모카네트워크",
+    "symbol": "MOCA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 11.0,
+    "current_price": 11.0,
+    "first_recommended_at": "2026-08-09 05:03:02",
+    "last_recommended_at": "2026-08-09 05:03:02"
   }
 }
