@@ -25,7 +25,7 @@
     "count": 22,
     "top10_count": 27,
     "entry_price": 11.7,
-    "current_price": 12.0,
+    "current_price": 11.9,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 22:57:41"
   },
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 16.7,
-    "current_price": 17.7,
+    "current_price": 17.6,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 21:52:53"
   },
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 7,
     "entry_price": 51.4,
-    "current_price": 51.6,
+    "current_price": 51.7,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 22:03:08"
   },
@@ -122,12 +122,12 @@
   "BLUR": {
     "name": "블러",
     "symbol": "BLUR",
-    "count": 10,
-    "top10_count": 16,
+    "count": 11,
+    "top10_count": 17,
     "entry_price": 19.2,
     "current_price": 19.3,
     "first_recommended_at": "2026-08-08 20:32:50",
-    "last_recommended_at": "2026-08-08 23:12:48"
+    "last_recommended_at": "2026-08-08 23:17:51"
   },
   "WAL": {
     "name": "월러스",
@@ -155,7 +155,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 7.46,
-    "current_price": 7.45,
+    "current_price": 7.44,
     "first_recommended_at": "2026-08-08 21:12:55",
     "last_recommended_at": "2026-08-08 21:12:55"
   },
@@ -225,7 +225,7 @@
     "count": 2,
     "top10_count": 10,
     "entry_price": 72.0,
-    "current_price": 72.0,
+    "current_price": 71.9,
     "first_recommended_at": "2026-08-08 21:43:07",
     "last_recommended_at": "2026-08-08 22:37:32"
   },
@@ -245,7 +245,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 39.4,
-    "current_price": 39.6,
+    "current_price": 39.5,
     "first_recommended_at": "2026-08-08 21:47:47",
     "last_recommended_at": "2026-08-08 21:47:47"
   },
@@ -263,7 +263,7 @@
     "name": "아캄",
     "symbol": "ARKM",
     "count": 5,
-    "top10_count": 13,
+    "top10_count": 14,
     "entry_price": 137.0,
     "current_price": 136.0,
     "first_recommended_at": "2026-08-08 22:07:40",
@@ -273,7 +273,7 @@
     "name": "쿼크체인",
     "symbol": "QKC",
     "count": 2,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 2.83,
     "current_price": 2.83,
     "first_recommended_at": "2026-08-08 22:12:43",
@@ -282,12 +282,12 @@
   "IQ": {
     "name": "아이큐",
     "symbol": "IQ",
-    "count": 4,
-    "top10_count": 6,
+    "count": 5,
+    "top10_count": 7,
     "entry_price": 0.919,
     "current_price": 0.918,
     "first_recommended_at": "2026-08-08 22:17:31",
-    "last_recommended_at": "2026-08-08 23:12:48"
+    "last_recommended_at": "2026-08-08 23:17:51"
   },
   "BCH": {
     "name": "비트코인캐시",
@@ -303,7 +303,7 @@
     "name": "메탈",
     "symbol": "MTL",
     "count": 2,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 291.0,
     "current_price": 291.0,
     "first_recommended_at": "2026-08-08 22:22:59",
@@ -332,12 +332,12 @@
   "FCT2": {
     "name": "피르마체인",
     "symbol": "FCT2",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 9.42,
     "current_price": 9.42,
     "first_recommended_at": "2026-08-08 23:03:04",
-    "last_recommended_at": "2026-08-08 23:12:48"
+    "last_recommended_at": "2026-08-08 23:17:51"
   },
   "BOUNTY": {
     "name": "체인바운티",
@@ -355,7 +355,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 8.21,
-    "current_price": 8.21,
+    "current_price": 8.25,
     "first_recommended_at": "2026-08-08 23:07:40",
     "last_recommended_at": "2026-08-08 23:07:40"
   },
@@ -363,7 +363,7 @@
     "name": "하이브",
     "symbol": "HIVE",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 58.5,
     "current_price": 58.5,
     "first_recommended_at": "2026-08-08 23:07:40",
@@ -372,11 +372,11 @@
   "LAYER": {
     "name": "솔레이어",
     "symbol": "LAYER",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 85.6,
     "current_price": 85.6,
     "first_recommended_at": "2026-08-08 23:12:48",
-    "last_recommended_at": "2026-08-08 23:12:48"
+    "last_recommended_at": "2026-08-08 23:17:51"
   }
 }
