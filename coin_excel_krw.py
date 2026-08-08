@@ -143,30 +143,93 @@ def send_telegram_alert(message):
 # ==============================================================================
 # [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (토큰포스트 RSS 기반)
 # ==============================================================================
+import json
+import os
+import urllib.parse
+import feedparser
+
+
+# 1. JSON 파일에서 추천 코인 목록 읽어오는 함수
+def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
+    if not os.path.exists(filepath):
+        print(f"⚠️ 파일이 존재하지 않습니다: {filepath}")
+        return []
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        coins = []
+
+        # JSON 구조가 리스트 형태인 경우 e.g. [{"coin": "젠신", "symbol": "AI"}, ...]
+        if isinstance(data, list):
+            for item in data:
+                if isinstance(item, dict):
+                    # 'coin_name', 'name', 'symbol', 'coin' 등 JSON 키값에 맞게 추출
+                    name = item.get("name") or item.get("coin") or item.get("coin_name")
+                    symbol = item.get("symbol") or item.get("ticker")
+
+                    if name:
+                        coins.append(name)
+                    if symbol and symbol != name:
+                        coins.append(symbol)
+                elif isinstance(item, str):
+                    coins.append(item)
+
+        # JSON 구조가 딕셔너리 형태인 경우 e.g. {"recommended": [...]} 또는 {"젠신": {...}}
+        elif isinstance(data, dict):
+            # 딕셔너리의 키 자체가 코인 이름인 경우
+            coins = list(data.keys())
+
+        # 중복 제거 및 빈 값 제거
+        coins = list(set([c.strip() for c in coins if c]))
+        return coins
+
+    except Exception as e:
+        print(f"⚠️ JSON 읽기 오류: {e}")
+        return []
+
+
+# 2. 토큰포스트 뉴스 수집 함수
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
     coin_news_dict = {}
-    for coin in target_coins:
-        # 1. 토큰포스트용 검색어 (when:7d 제거)
-        query = urllib.parse.quote(f"{coin} 코인 이슈")
 
-        # 2. 올바른 RSS URL 지정
+    for coin in target_coins:
+        # 검색어 생성 (코인 명칭만 깔끔하게 전달)
+        query = urllib.parse.quote(str(coin).strip())
         rss_url = f"https://www.tokenpost.kr/rss/search?q={query}"
 
         try:
-            # 3. RSS 파싱
             feed = feedparser.parse(rss_url)
-            # ... 후속 처리 코드 ...
-
             news_items = []
+
             for entry in feed.entries[:max_news_per_coin]:
                 news_items.append({"title": entry.title, "link": entry.link})
+
             if news_items:
                 coin_news_dict[coin] = news_items
+
         except Exception as e:
             print(f"⚠️ {coin} 속보 수집 스킵: {e}")
+
     return coin_news_dict
 
-# ==============================================================================
+
+# 3. 실제 실행 부분
+if __name__ == "__main__":
+    # JSON 파일 경로 지정
+    json_path = "docs/ai_recommend_tracker.json"
+
+    # JSON에서 추천 종목 추출
+    target_coins = get_target_coins_from_json(json_path)
+    print(f"📌 추적할 종목 목록: {target_coins}")
+
+    # 속보/이슈 뉴스 수집
+    news_result = fetch_news_for_recommended_coins(
+        target_coins, max_news_per_coin=2
+    )
+    print(f"📰 수집된 뉴스 결과: {news_result}")
+ ==============================================================================
 # [AI 모듈 1] 시계열 딥러닝(LSTM) 자가학습 덤핑 예측
 # ==============================================================================
 class LSTMIcebergPredictor:
