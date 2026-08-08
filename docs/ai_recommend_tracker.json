@@ -5,7 +5,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 90.7,
-    "current_price": 89.7,
+    "current_price": 89.6,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -13,27 +13,27 @@
     "name": "모카네트워크",
     "symbol": "MOCA",
     "count": 1,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 10.6,
-    "current_price": 10.7,
+    "current_price": 10.8,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 19:59:59"
   },
   "W": {
     "name": "웜홀",
     "symbol": "W",
-    "count": 7,
-    "top10_count": 12,
+    "count": 8,
+    "top10_count": 13,
     "entry_price": 11.7,
     "current_price": 11.9,
     "first_recommended_at": "2026-08-08 19:59:59",
-    "last_recommended_at": "2026-08-08 21:43:07"
+    "last_recommended_at": "2026-08-08 21:47:47"
   },
   "BABY": {
     "name": "바빌론",
     "symbol": "BABY",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 16.7,
     "current_price": 17.2,
     "first_recommended_at": "2026-08-08 19:59:59",
@@ -75,7 +75,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 0.479,
-    "current_price": 0.478,
+    "current_price": 0.479,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 20:12:40"
   },
@@ -83,7 +83,7 @@
     "name": "엑셀라",
     "symbol": "AXL",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 51.4,
     "current_price": 51.5,
     "first_recommended_at": "2026-08-08 20:12:40",
@@ -93,7 +93,7 @@
     "name": "스택스",
     "symbol": "STX",
     "count": 5,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 186.0,
     "current_price": 187.0,
     "first_recommended_at": "2026-08-08 20:22:47",
@@ -105,7 +105,7 @@
     "count": 5,
     "top10_count": 7,
     "entry_price": 212.0,
-    "current_price": 212.0,
+    "current_price": 211.0,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 21:37:51"
   },
@@ -185,25 +185,25 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 230.0,
-    "current_price": 230.0,
+    "current_price": 231.0,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
   "CTC": {
     "name": "크레딧코인",
     "symbol": "CTC",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 97.3,
     "current_price": 97.3,
     "first_recommended_at": "2026-08-08 21:32:59",
-    "last_recommended_at": "2026-08-08 21:43:07"
+    "last_recommended_at": "2026-08-08 21:47:47"
   },
   "RVN": {
     "name": "레이븐코인",
     "symbol": "RVN",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 5.04,
     "current_price": 5.04,
     "first_recommended_at": "2026-08-08 21:32:59",
@@ -232,11 +232,21 @@
   "DRV": {
     "name": "디라이브",
     "symbol": "DRV",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 136.0,
+    "current_price": 137.0,
+    "first_recommended_at": "2026-08-08 21:43:07",
+    "last_recommended_at": "2026-08-08 21:47:47"
+  },
+  "ID": {
+    "name": "스페이스아이디",
+    "symbol": "ID",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 136.0,
-    "current_price": 136.0,
-    "first_recommended_at": "2026-08-08 21:43:07",
-    "last_recommended_at": "2026-08-08 21:43:07"
+    "entry_price": 39.4,
+    "current_price": 39.4,
+    "first_recommended_at": "2026-08-08 21:47:47",
+    "last_recommended_at": "2026-08-08 21:47:47"
   }
 }
