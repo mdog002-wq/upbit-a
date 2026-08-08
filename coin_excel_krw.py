@@ -1190,4 +1190,4 @@ if __name__ == "__main__":
         if current_hour in target_hours:
             export_to_excel_and_email(df_result, ai_report)
         else:
-            print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.") 이건 a사이트코드, 다음은 r사이트코드 import os
+            print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
