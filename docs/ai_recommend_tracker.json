@@ -2,12 +2,12 @@
   "BLEND": {
     "name": "플루언트",
     "symbol": "BLEND",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 90.7,
     "current_price": 90.7,
     "first_recommended_at": "2026-08-08 19:59:59",
-    "last_recommended_at": "2026-08-08 19:59:59"
+    "last_recommended_at": "2026-08-08 20:03:03"
   },
   "MOCA": {
     "name": "모카네트워크",
@@ -22,12 +22,12 @@
   "W": {
     "name": "웜홀",
     "symbol": "W",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 11.7,
-    "current_price": 11.7,
+    "current_price": 11.8,
     "first_recommended_at": "2026-08-08 19:59:59",
-    "last_recommended_at": "2026-08-08 19:59:59"
+    "last_recommended_at": "2026-08-08 20:03:03"
   },
   "BABY": {
     "name": "바빌론",
@@ -38,5 +38,25 @@
     "current_price": 16.7,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 19:59:59"
+  },
+  "AI": {
+    "name": "젠신",
+    "symbol": "AI",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 31.5,
+    "current_price": 31.5,
+    "first_recommended_at": "2026-08-08 20:03:03",
+    "last_recommended_at": "2026-08-08 20:03:03"
+  },
+  "QTUM": {
+    "name": "퀀텀",
+    "symbol": "QTUM",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 933.0,
+    "current_price": 933.0,
+    "first_recommended_at": "2026-08-08 20:03:03",
+    "last_recommended_at": "2026-08-08 20:03:03"
   }
 }
