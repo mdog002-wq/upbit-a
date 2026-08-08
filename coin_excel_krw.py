@@ -67,12 +67,12 @@ class AIReportResponse(BaseModel):
 
 def upload_html_to_oracle_server(local_file_path):
     """
-    GitHub Secrets에 등록된 ORACLE_SSH_KEY(.key 내용)를 이용해 
+    GitHub Secrets에 등록된 ORACLE_SSH_KEY(.key 내용)를 이용해
     오라클 서버로 대시보드 HTML 파일을 자동 전송하는 함수
     """
     hostname = os.environ.get("ORACLE_DSN")          
-    username = os.environ.get("ORACLE_USER", "ubuntu") 
-    ssh_key_content = os.environ.get("ORACLE_SSH_KEY") 
+    username = os.environ.get("ORACLE_USER", "ubuntu")
+    ssh_key_content = os.environ.get("ORACLE_SSH_KEY")
 
     if not hostname or not ssh_key_content:
         print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
@@ -91,10 +91,10 @@ def upload_html_to_oracle_server(local_file_path):
         sftp = ssh.open_sftp()
         sftp.put(local_file_path, remote_file_path)
         print(f"🚀 오라클 서버로 HTML 대시보드 전송 완료! ({remote_file_path})")
-        
+       
         sftp.close()
         ssh.close()
-        
+       
     except Exception as e:
         print(f"❌ 오라클 서버 전송 실패: {e}")
 
@@ -142,9 +142,9 @@ def send_telegram_alert(message):
     if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_IDS: return
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     for chat_id in TELEGRAM_CHAT_IDS:
-        try: 
+        try:
             requests.post(url, json={"chat_id": chat_id, "text": message, "parse_mode": "Markdown"}, timeout=5)
-        except Exception: 
+        except Exception:
             pass
 
 # ==============================================================================
@@ -180,7 +180,7 @@ class LSTMIcebergPredictor:
         if os.path.exists(self.model_path):
             try: return load_model(self.model_path)
             except Exception: print("⚠️ 기존 LSTM 로드 실패, 새로 생성합니다.")
-        
+       
         model = Sequential([
             LSTM(32, return_sequences=True, input_shape=(self.seq_len, self.feats)),
             Dropout(0.2),
@@ -245,9 +245,9 @@ class STGTManager:
         self.model = STGTModel() if TORCH_AVAILABLE else None
         if TORCH_AVAILABLE:
             if os.path.exists(self.model_path):
-                try: 
+                try:
                     self.model.load_state_dict(torch.load(self.model_path, weights_only=True))
-                except Exception: 
+                except Exception:
                     print("⚠️ STGT 가중치 로드 실패. 초기화합니다.")
             self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
             self.criterion = nn.BCELoss()
@@ -286,7 +286,7 @@ class AIEvolutionEngine:
             exps = {}
             if os.path.exists(self.exp_file):
                 with open(self.exp_file, "r", encoding="utf-8") as f: exps = json.load(f)
-            
+           
             exps[ticker] = {
                 "timestamp": time.time(),
                 "lstm_feats": lstm_feats,
@@ -298,7 +298,7 @@ class AIEvolutionEngine:
 
     def evolve_models(self):
         if not os.path.exists(self.exp_file): return
-        
+       
         try:
             with open(self.exp_file, "r", encoding="utf-8") as f: exps = json.load(f)
         except Exception: return
@@ -321,31 +321,31 @@ class AIEvolutionEngine:
             if current_time - data.get("timestamp", 0) > 14400:
                 market_symbol = f"KRW-{ticker}"
                 current_price = prices_now.get(market_symbol) if prices_now else None
-                
+               
                 if current_price and data.get("price"):
                     return_rate = (current_price - data["price"]) / data["price"] * 100
-                    
+                   
                     is_dumped = 1.0 if return_rate <= -3.0 else 0.0
                     if data.get("lstm_feats"):
                         lstm_x_train.append(data["lstm_feats"])
                         lstm_y_train.append(is_dumped)
-                    
+                   
                     is_pumped = 1.0 if return_rate >= 5.0 else 0.0
                     if data.get("stgt_feats"):
                         stgt_x_train.append(data["stgt_feats"])
                         stgt_y_train.append(is_pumped)
-                
+               
                 keys_to_delete.append(ticker)
 
         if lstm_x_train:
             lstm_dumping_predictor.train_step(lstm_x_train, lstm_y_train)
-        
+       
         if stgt_x_train and TORCH_AVAILABLE:
             x_t = torch.tensor(stgt_x_train, dtype=torch.float32)
             y_t = torch.tensor(stgt_y_train, dtype=torch.float32)
             dummy_edge = torch.tensor([[i for i in range(len(stgt_x_train))], [i for i in range(len(stgt_x_train))]], dtype=torch.long)
             stgt_manager.train_step(x_t, dummy_edge, y_t)
-            
+           
         for k in keys_to_delete:
             if k in exps: del exps[k]
         with open(self.exp_file, "w", encoding="utf-8") as f: json.dump(exps, f, ensure_ascii=False)
@@ -360,7 +360,7 @@ def get_krw_upbit_tickers():
     try:
         res = requests.get(url, timeout=5)
         if res.status_code == 200:
-            return [{'ticker': c['market'], 'korean_name': c['korean_name'], 'symbol': c['market'].replace("KRW-", "")} 
+            return [{'ticker': c['market'], 'korean_name': c['korean_name'], 'symbol': c['market'].replace("KRW-", "")}
                     for c in res.json() if c['market'].startswith("KRW-")]
     except Exception: pass
     return []
@@ -370,22 +370,22 @@ def calculate_t1_advanced_metrics(ticker):
         try:
             df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
             df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=30)
-            
+           
             if df_1h is None or len(df_1h) < 30 or df_daily is None or len(df_daily) < 10:
                 return None
 
             close_1h = df_1h['close']
             vol_1h = df_1h['volume']
-            
+           
             vol_mean_24h = vol_1h.iloc[-25:-1].mean() + 1e-8
             vol_spike_ratio = float(vol_1h.iloc[-1] / vol_mean_24h)
-            
+           
             ma20_1h = close_1h.rolling(20).mean()
             std20_1h = close_1h.rolling(20).std()
             upper_band = ma20_1h + (std20_1h * 2)
             lower_band = ma20_1h - (std20_1h * 2)
             bb_width = float((upper_band.iloc[-1] - lower_band.iloc[-1]) / (ma20_1h.iloc[-1] + 1e-8))
-            
+           
             bb_breakout = float((close_1h.iloc[-1] - lower_band.iloc[-1]) / (upper_band.iloc[-1] - lower_band.iloc[-1] + 1e-8))
 
             mfv = ((close_1h - df_1h['low']) - (df_1h['high'] - close_1h)) / (df_1h['high'] - df_1h['low'] + 1e-8) * vol_1h
@@ -399,7 +399,7 @@ def calculate_t1_advanced_metrics(ticker):
 
             vol_pct = df_1h['volume'].pct_change().fillna(0)
             price_pct = df_1h['close'].pct_change().fillna(0)
-            
+           
             lstm_sequence = []
             for i in range(-15, 0):
                 lstm_sequence.append([
@@ -426,10 +426,10 @@ def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
         lstm_feats = real_lstm_sequence
     else:
         lstm_feats = [[0.0, 0.0, 0.0] for _ in range(15)]
-        
+       
     dump_prob = lstm_dumping_predictor.predict(lstm_feats) if (lstm_dumping_predictor and lstm_dumping_predictor.model) else 0.3
     if dump_prob is None: dump_prob = 0.3
-    
+   
     return {
         "status": f"💎 정상 수급 (덤핑확률 {round(dump_prob*100,1)}%)" if dump_prob < 0.6 else f"🚨 덤핑 위험 (덤핑확률 {round(dump_prob*100,1)}%)",
         "score_modifier": -30 if dump_prob >= 0.6 else 5,
@@ -441,8 +441,8 @@ def process_single_coin(item, current_price_map):
     try:
         time.sleep(0.1)
         metrics = calculate_t1_advanced_metrics(ticker)
-        
-        if not metrics: 
+       
+        if not metrics:
             c_price = current_price_map.get(ticker, 0)
             return {
                 "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
@@ -452,16 +452,16 @@ def process_single_coin(item, current_price_map):
             }
 
         iceberg_metrics = get_highfreq_iceberg_metrics(ticker, metrics.get("lstm_sequence"))
-        
+       
         score = 40.0
         vol_score = min(25.0, (metrics['vol_spike_ratio'] - 1.0) * 10.0) if metrics['vol_spike_ratio'] > 1.0 else 0
-        
+       
         squeeze_bonus = 0
         if metrics['bb_width'] < 0.08:
             squeeze_bonus += 10.0
             if metrics['bb_breakout'] >= 0.8:
                 squeeze_bonus += 10.0
-                
+               
         cmf_score = max(-10.0, min(15.0, metrics['cmf_1h'] * 20.0))
         rsi_penalty = -10.0 if metrics['rsi_1h'] >= 75.0 else 0.0
 
@@ -469,16 +469,16 @@ def process_single_coin(item, current_price_map):
         acc_score = round(max(0.0, min(100.0, total_score)), 1)
 
         c_price = current_price_map.get(ticker, metrics['last_close'])
-        
+       
         stgt_feats = [
-            metrics['vol_spike_ratio'] / 10.0, 
-            metrics['bb_width'], 
-            metrics['cmf_1h'], 
-            metrics['rsi_1h'] / 100.0, 
-            metrics['bb_breakout'], 
+            metrics['vol_spike_ratio'] / 10.0,
+            metrics['bb_width'],
+            metrics['cmf_1h'],
+            metrics['rsi_1h'] / 100.0,
+            metrics['bb_breakout'],
             0.5, 1.0, 0.2, 0.5
         ]
-        
+       
         ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
 
         return {
@@ -493,7 +493,7 @@ def process_single_coin(item, current_price_map):
             "아이스버그역산(고주파)": iceberg_metrics['status'],
             "_stgt_feats": stgt_feats
         }
-    except Exception: 
+    except Exception:
         c_price = current_price_map.get(ticker, 0)
         return {
             "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
@@ -547,7 +547,7 @@ def analyze_and_scan_market():
 
 def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_status_map, top10_symbols=set()):
     history = {}
-    
+   
     if os.path.exists(AI_TRACKER_HISTORY_FILE):
         try:
             with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
@@ -585,15 +585,15 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
     for symbol, item in history.items():
         if 'top10_count' not in item:
             item['top10_count'] = 0
-            
+           
         if symbol in top10_symbols:
             item['top10_count'] += 1
-    
+   
     to_remove = []
     for symbol, item in history.items():
         if symbol in current_price_map:
             item['current_price'] = current_price_map[symbol]
-        
+       
         entry_p = item['entry_price']
         curr_p = item['current_price']
         profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
@@ -622,7 +622,7 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
         entry_p = item['entry_price']
         curr_p = item['current_price']
         profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
-        
+       
         tracker_list.append({
             "name": item['name'],
             "symbol": item['symbol'],
@@ -677,12 +677,12 @@ def update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data):
 def generate_gemini_analysis(df_result):
     if df_result.empty:
         return "분석할 종목 데이터가 없습니다.", []
-    
+   
     top_coins = df_result.head(5)['코인명'].tolist()
     top_symbols = df_result.head(5)['심볼'].tolist()
-    
+   
     default_recommended = [
-        {"symbol": sym, "name": name, "reason": "퀀트 예측 점수 상위 종목"} 
+        {"symbol": sym, "name": name, "reason": "퀀트 예측 점수 상위 종목"}
         for sym, name in zip(top_symbols, top_coins)
     ]
 
@@ -733,20 +733,20 @@ def export_to_excel_and_email(df_result, ai_report):
     try:
         df_result.to_excel(EXCEL_FILE_PATH, index=False)
         print(f"📊 엑셀 리포트 저장 완료: {EXCEL_FILE_PATH}")
-        
+       
         if SENDER_EMAIL and EMAIL_PASSWORD and RECEIVER_EMAILS:
             msg = MIMEMultipart()
             msg['From'] = SENDER_EMAIL
             msg['To'] = ", ".join(RECEIVER_EMAILS)
             msg['Subject'] = f"[업비트 AI Quant] 시장 분석 리포트 ({datetime.datetime.now().strftime('%Y-%m-%d %H:%M')})"
             msg.attach(MIMEText(ai_report, 'plain', 'utf-8'))
-            
+           
             if os.path.exists(EXCEL_FILE_PATH):
                 with open(EXCEL_FILE_PATH, "rb") as f:
                     part = MIMEApplication(f.read(), Name=os.path.basename(EXCEL_FILE_PATH))
                     part['Content-Disposition'] = f'attachment; filename="{os.path.basename(EXCEL_FILE_PATH)}"'
                     msg.attach(part)
-            
+           
             with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
                 server.login(SENDER_EMAIL, EMAIL_PASSWORD)
                 server.send_message(msg)
@@ -759,12 +759,12 @@ def export_to_excel_and_email(df_result, ai_report):
 # ==============================================================================
 def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
-    
+   
     # AI 모니터링 종목 심볼 집합
     monitored_symbols = {item['symbol'] for item in tracking_monitor_data}
-    
+   
     alerts = []
-    
+   
     if not df_result.empty:
         for _, row in df_result.iterrows():
             dump_risk = float(row['STGT_그래프덤핑위험(%)'])
@@ -806,9 +806,9 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
                 "iceberg": iceberg_status,
                 "is_monitored": symbol in monitored_symbols
             }
-            
+           
             sticker = ' <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7rem;">🎯 AI추천</span>' if symbol in monitored_symbols else ''
-            
+           
             row_html = (
                 f'<tr onclick="openModal(\'{market_code}\')" style="cursor: pointer;">\n'
                 f' <td class="text-center fw-bold text-muted">{rank}</td>\n'
@@ -818,7 +818,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
                 f"</tr>\n"
             )
             table_rows_list.append(row_html)
-    
+   
     all_coins_table_rows = "".join(table_rows_list) if table_rows_list else '<tr><td colspan="4" class="text-center text-muted py-3">분석된 종목이 없습니다.</td></tr>'
 
     alert_items = []
@@ -925,6 +925,9 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' transition: color 0.15s;\n'
         ' }\n'
         ' .close-memo-btn:hover { color: #0f172a; }\n'
+        ' .detail-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-size: 13px; }\n'
+        ' .detail-label { color: #64748b; font-weight: 500; }\n'
+        ' .detail-value { font-weight: bold; color: #0f172a; }\n'
         ' </style>\n'
         '</head>\n'
         '<body>\n'
@@ -979,11 +982,10 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </div>\n'
         ' </div>\n'
         ' </div>\n'
-        ' \n'
         ' <div class="col-lg-4">\n'
-        ' <div class="card p-3 shadow-sm tracking-box">\n'
-        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> AI 추천종목 모니터 (🎯 표시 종목)</h6>\n'
-        ' <div class="d-flex flex-column gap-2">\n'
+        ' <div class="card p-4 shadow-sm">\n'
+        ' <h5 class="fw-bold mb-3 text-dark fs-5"><i class="fa-solid fa-crosshairs text-primary me-1"></i> AI 추천 모니터링 현황</h5>\n'
+        ' <div class="tracking-box d-flex flex-column gap-2">\n'
         ' __TRACKING_HTML__\n'
         ' </div>\n'
         ' </div>\n'
@@ -991,217 +993,219 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </div>\n'
         ' </div>\n'
         '\n'
-        ' <!-- 모달 HTML 영역 수정 -->\n'
+        ' <!-- 상호 연동 양방향 상세 모달 -->\n'
         ' <div id="coinDetailModal" class="modal-overlay" onclick="closeModal()">\n'
-        ' <div class="modal-memo" onclick="event.stopPropagation()">\n'
-        ' \n'
-        ' <!-- Header -->\n'
-        ' <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">\n'
-        ' <h5 class="fw-bold mb-0 text-dark" id="modalCoinTitle">종목 상세 정보</h5>\n'
-        ' <button type="button" class="close-memo-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>\n'
+        ' <div class="modal-memo" onclick="event.stopPropagation();">\n'
+        ' <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; margin-bottom: 15px; border-bottom: 1px solid #e2e8f0;">\n'
+        ' <h4 id="rModalTitle" style="margin: 0; font-size: 18px; font-weight: bold; color: #0f172a;">종목 상세 정보</h4>\n'
+        ' <button onclick="closeModal()" class="close-memo-btn">✕</button>\n'
         ' </div>\n'
-        ' \n'
-        ' <!-- 2열 분할 컨테이너 -->\n'
-        ' <div style="display: flex; gap: 15px; height: calc(100% - 45px);">\n'
-        ' <!-- 좌측: AI 리포트-->\n'
-        ' <div style="flex: 1; background: #f8f9fa; border-radius: 8px; padding: 15px; overflow-y: auto;">\n'
-        ' <h6 class="fw-bold text-primary mb-3">🤖 AI리포트 </h6>\n'
-        ' <div id="modalContentA"></div>\n'
+        ' <div style="display: flex; gap: 15px; flex: 1; min-height: 0;">\n'
+        ' <!-- 좌측: A 사이트 퀀트 상세 분석 정보 -->\n'
+        ' <div style="flex: 1; background: #f8fafc; border-radius: 8px; padding: 15px; overflow-y: auto; border: 1px solid #f1f5f9;">\n'
+        ' <h5 style="margin-top:0; margin-bottom: 12px; font-size: 14px; color: #0d6efd; font-weight: bold;">⚡ AI 퀀트 리포트</h5>\n'
+        ' <div id="rModalContentR"></div>\n'
         ' </div>\n'
-        ' \n'
-        ' <!-- 우측: AI실시간 (실시간 분석 iframe) -->\n'
-        ' <div style="flex: 1; border: 1px solid #e9ecef; border-radius: 8px; overflow: hidden;">\n'
-        ' <iframe id="iframeR" src="" style="width: 100%; height: 100%; border: none;"></iframe>\n'
+        ' <!-- 우측: R 사이트 iframe 및 추천종목 순위 정렬 -->\n'
+        ' <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">\n'
+        ' <div style="flex: 1; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; min-height: 180px;">\n'
+        ' <iframe id="modalIframeA" src="" style="width: 100%; height: 100%; border: none;"></iframe>\n'
+        ' </div>\n'
+        ' <div style="height: 190px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; background: #ffffff; overflow-y: auto;">\n'
+        ' <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">\n'
+        ' <span style="font-size: 13px; font-weight: bold; color: #212529;">🎯 R 사이트 실시간 순위</span>\n'
+        ' <span style="font-size: 11px; color: #6c757d;">상위 오름차순 정렬</span>\n'
+        ' </div>\n'
+        ' <div id="modalRecommendList" style="font-size: 12px;">\n'
+        ' <div style="text-align: center; color: #6c757d; padding: 15px 0;">데이터 연동 중...</div>\n'
+        ' </div>\n'
+        ' </div>\n'
+        ' </div>\n'
+        ' </div>\n'
         ' </div>\n'
         ' </div>\n'
         '\n'
-        ' </div>\n'
-        ' </div>\n'
-        '\n'
-        ' <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>\n'
         ' <script>\n'
-        ' const rawReportText = __AI_REPORT_JSON__;\n'
-        ' const allCoinsMap = __ALL_COINS_MAP_JSON__;\n'
-        ' document.getElementById("reportMarkdownContainer").innerHTML = marked.parse(rawReportText);\n'
+        ' const rawReportMarkdown = __RAW_REPORT_MARKDOWN__;\n'
+        ' const coinsData = __COINS_DATA_JSON__;\n'
+        '\n'
+        ' document.addEventListener("DOMContentLoaded", function() {\n'
+        ' if (window.marked && rawReportMarkdown) {\n'
+        ' document.getElementById("reportMarkdownContainer").innerHTML = marked.parse(rawReportMarkdown);\n'
+        ' }\n'
+        ' const urlParams = new URLSearchParams(window.location.search);\n'
+        ' const symbol = urlParams.get("symbol");\n'
+        ' if (symbol) {\n'
+        ' openModal(symbol);\n'
+        ' }\n'
+        ' });\n'
         '\n'
         ' function filterCoins() {\n'
-        ' let input = document.getElementById(\'coinSearchInput\').value.toLowerCase().trim();\n'
-        ' let allRows = document.querySelectorAll(\'#allCoinsTable tbody tr\');\n'
-        '\n'
-        ' allRows.forEach(row => {\n'
-        ' let coinText = row.cells[1]?.innerText.toLowerCase() || \'\';\n'
-        ' if (input === \'\') {\n'
-        ' row.style.display = \'\';\n'
-        ' } else {\n'
-        ' row.style.display = coinText.includes(input) ? \'\' : \'none\';\n'
-        ' }\n'
+        ' const input = document.getElementById("coinSearchInput").value.toLowerCase();\n'
+        ' const rows = document.querySelectorAll("#allCoinsTable tbody tr");\n'
+        ' rows.forEach(row => {\n'
+        ' const text = row.innerText.toLowerCase();\n'
+        ' row.style.display = text.includes(input) ? "" : "none";\n'
         ' });\n'
         ' }\n'
         '\n'
-        ' function openModal(marketCode) {\n'
-        ' const coinData = allCoinsMap[marketCode];\n'
-        ' const modalTitle = document.getElementById(\'modalCoinTitle\');\n'
-        ' const contentA = document.getElementById(\'modalContentA\');\n'
-        ' const iframeR = document.getElementById(\'iframeR\');\n'
-        '\n'
-        ' if (coinData) {\n'
-        ' modalTitle.innerText = `${coinData.name} (${coinData.symbol})`;\n'
-        ' contentA.innerHTML = \n'
-        ' `<div class="d-flex justify-content-between py-2 border-bottom"><span>현재가</span><b>${coinData.price} KRW</b></div>` +\n'
-        ' `<div class="d-flex justify-content-between py-2 border-bottom"><span>예측점수</span><b class="text-primary">${coinData.score}점 (${coinData.rank}위)</b></div>` +\n'
-        ' `<div class="d-flex justify-content-between py-2 border-bottom"><span>거래량 절벽</span><b>${coinData.vol_ratio}배</b></div>` +\n'
-        ' `<div class="d-flex justify-content-between py-2 border-bottom"><span>CMF 지표</span><b>${coinData.cmf}</b></div>` +\n'
-        ' `<div class="d-flex justify-content-between py-2 border-bottom"><span>RSI 지표</span><b>${coinData.rsi}</b></div>` +\n'
-        ' `<div class="d-flex justify-content-between py-2 border-bottom"><span>덤핑 위험도</span><b class="text-danger">${coinData.dump_risk}%</b></div>` +\n'
-        ' `<div class="d-flex justify-content-between py-2"><span>수급 상태</span><b>${coinData.iceberg}</b></div>`;\n'
-        ' } else {\n'
-        ' modalTitle.innerText = marketCode;\n'
-        ' contentA.innerHTML = `<div class="text-center py-4 text-muted">상세 정보가 없습니다.</div>`;\n'
+        ' async function fetchRRankings() {\n'
+        ' try {\n'
+        ' const response = await fetch("https://upbit-r.onrender.com/api/rankings");\n'
+        ' if (!response.ok) throw new Error("R 사이트 연동 실패");\n'
+        ' return await response.json();\n'
+        ' } catch (e) {\n'
+        ' console.warn("R 사이트 연동 실패 데이터 대체", e);\n'
+        ' return [];\n'
+        ' }\n'
         ' }\n'
         '\n'
-        ' iframeR.src = `https://upbit-r.onrender.com/?symbol=${marketCode}`;\n'
-        ' document.getElementById(\'coinDetailModal\').style.display = \'flex\';\n'
+        ' async function renderRecommendedListSortedByR() {\n'
+        ' const container = document.getElementById("modalRecommendList");\n'
+        ' const rItems = await fetchRRankings();\n'
+        ' if (!rItems || rItems.length === 0) {\n'
+        ' container.innerHTML = \'<div style="text-align: center; color: #6c757d; padding: 10px;">순위 정보를 불러올 수 없습니다.</div>\';\n'
+        ' return;\n'
+        ' }\n'
+        ' const mappedList = rItems.map(item => {\n'
+        ' const marketKey = item.market || (item.symbol ? `KRW-${item.symbol}` : "");\n'
+        ' const tickerKey = item.ticker || item.symbol;\n'
+        ' const localMatch = coinsData[marketKey] || Object.values(coinsData).find(c => c.symbol === tickerKey);\n'
+        ' return {\n'
+        ' name: item.name || (localMatch ? localMatch.name : tickerKey),\n'
+        ' ticker: tickerKey,\n'
+        ' market: marketKey,\n'
+        ' score: localMatch ? localMatch.score : (item.score || 0),\n'
+        ' r_rank: item.rank ? parseInt(item.rank, 10) : 9999\n'
+        ' };\n'
+        ' });\n'
+        ' mappedList.sort((a, b) => a.r_rank - b.r_rank);\n'
+        ' let html = \'<table style="width: 100%; border-collapse: collapse; text-align: center;">\';\n'
+        ' html += \'<thead style="background: #f8f9fa; border-bottom: 1px solid #dee2e6;"><tr><th style="padding: 4px;">순위</th><th style="padding: 4px; text-align: left;">종목명</th><th style="padding: 4px; text-align: right;">점수</th></tr></thead><tbody>\';\n'
+        ' mappedList.forEach(coin => {\n'
+        ' const rankDisplay = coin.r_rank !== 9999 ? `<b style="color: #0d6efd;">${coin.r_rank}위</b>` : \'<span style="color: #adb5bd;">-</span>\';\n'
+        ' html += `\n'
+        ' <tr onclick="openModal(\'${coin.market}\')" style="cursor: pointer; border-bottom: 1px solid #f1f3f5;">\n'
+        ' <td style="padding: 5px;">${rankDisplay}</td>\n'
+        ' <td style="padding: 5px; text-align: left;">\n'
+        ' <b>${coin.name}</b> <span style="font-size: 10px; color: #868e96;">(${coin.ticker})</span>\n'
+        ' </td>\n'
+        ' <td style="padding: 5px; text-align: right; font-weight: bold; color: #198754;">\n'
+        ' ${coin.score}점\n'
+        ' </td>\n'
+        ' </tr>\n'
+        ' `;\n'
+        ' });\n'
+        ' html += \'</tbody></table>\';\n'
+        ' container.innerHTML = html;\n'
+        ' }\n'
+        '\n'
+        ' function openModal(symbol) {\n'
+        ' const targetMarket = symbol.toUpperCase().startsWith("KRW-") ? symbol.toUpperCase() : `KRW-${symbol.toUpperCase()}`;\n'
+        ' const item = coinsData[targetMarket] || Object.values(coinsData).find(d => d.symbol === symbol.toUpperCase());\n'
+        ' const titleEl = document.getElementById("rModalTitle");\n'
+        ' const contentR = document.getElementById("rModalContentR");\n'
+        ' const iframeA = document.getElementById("modalIframeA");\n'
+        ' if (item) {\n'
+        ' titleEl.innerText = `${item.name} (${item.symbol})`;\n'
+        ' contentR.innerHTML = `\n'
+        ' <div class="detail-row"><span class="detail-label">현재 가격</span><span class="detail-value">${item.price} KRW</span></div>\n'
+        ' <div class="detail-row"><span class="detail-label">예측 점수</span><span class="detail-value" style="color:#0d6efd;">${item.score}점 (${item.rank}위)</span></div>\n'
+        ' <div class="detail-row"><span class="detail-label">거래량절벽</span><span class="detail-value">${item.vol_ratio}배</span></div>\n'
+        ' <div class="detail-row"><span class="detail-label">CMF 지표</span><span class="detail-value">${item.cmf}</span></div>\n'
+        ' <div class="detail-row"><span class="detail-label">RSI 지표</span><span class="detail-value">${item.rsi}</span></div>\n'
+        ' <div class="detail-row"><span class="detail-label">덤핑 위험도</span><span class="detail-value text-danger">${item.dump_risk}%</span></div>\n'
+        ' <div class="detail-row"><span class="detail-label">수급 상태</span><span class="detail-value">${item.iceberg}</span></div>\n'
+        ' `;\n'
+        ' iframeA.src = `https://upbit-r.onrender.com/?symbol=${item.market}`;\n'
+        ' }\n'
+        ' renderRecommendedListSortedByR();\n'
+        ' document.getElementById("coinDetailModal").style.display = "flex";\n'
         ' }\n'
         '\n'
         ' function closeModal() {\n'
-        ' document.getElementById(\'coinDetailModal\').style.display = \'none\';\n'
-        ' document.getElementById(\'iframeR\').src = \'\';\n'
+        ' document.getElementById("coinDetailModal").style.display = "none";\n'
+        ' document.getElementById("modalIframeA").src = "";\n'
         ' }\n'
-        '\n'
-        ' window.addEventListener(\'DOMContentLoaded\', () => {\n'
-        ' const urlParams = new URLSearchParams(window.location.search);\n'
-        ' const symbolParam = urlParams.get(\'symbol\');\n'
-        '\n'
-        ' if (symbolParam) {\n'
-        ' const targetMarket = symbolParam.toUpperCase().startsWith(\'KRW-\') ? symbolParam.toUpperCase() : `KRW-${symbolParam.toUpperCase()}`;\n'
-        ' const coinData = allCoinsMap[targetMarket];\n'
-        '\n'
-        ' if (coinData) {\n'
-        ' document.body.innerHTML = \n'
-        ' `<div style="padding: 15px; font-family: sans-serif; background: #fff; height: 100%; box-sizing: border-box;">` +\n'
-        ' `<h6 style="margin-bottom: 12px; font-weight: bold; color: #0d6efd;">🤖 AI리포트</h6>` +\n'
-        ' `<div style="display:flex; justify-content:space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 13px;"><span>현재가</span><b>${coinData.price} KRW</b></div>` +\n'
-        ' `<div style="display:flex; justify-content:space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 13px;"><span>예측점수</span><b style="color:#0d6efd;">${coinData.score}점 (${coinData.rank}위)</b></div>` +\n'
-        ' `<div style="display:flex; justify-content:space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 13px;"><span>거래량 절벽</span><b>${coinData.vol_ratio}배</b></div>` +\n'
-        ' `<div style="display:flex; justify-content:space-between; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 13px;"><span>덤핑 위험도</span><b style="color:#dc3545;">${coinData.dump_risk}%</b></div>` +\n'
-        ' `<div style="display:flex; justify-content:space-between; padding: 6px 0; font-size: 13px;"><span>수급 상태</span><b>${coinData.iceberg}</b></div>` +\n'
-        ' `</div>`;\n'
-        ' }\n'
-        ' }\n'
-        ' });\n'
         ' </script>\n'
         '</body>\n'
         '</html>'
     )
 
-    html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
-                                .replace("__TOTAL_COINS__", str(len(df_result)))\
-                                .replace("__ALERTS_HTML__", alerts_html)\
-                                .replace("__NEWS_HTML__", news_html)\
-                                .replace("__AI_REPORT_JSON__", json.dumps(str(ai_report), ensure_ascii=False))\
-                                .replace("__ALL_COINS_MAP_JSON__", json.dumps(coins_dict, ensure_ascii=False))\
-                                .replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)\
-                                .replace("__TRACKING_HTML__", tracking_html)
+    total_coins_count = len(df_result) if not df_result.empty else 0
+
+    html_content = html_template.replace("__UPDATED_TIME__", updated_time)
+    html_content = html_content.replace("__TOTAL_COINS__", str(total_coins_count))
+    html_content = html_content.replace("__ALERTS_HTML__", alerts_html)
+    html_content = html_content.replace("__NEWS_HTML__", news_html)
+    html_content = html_content.replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)
+    html_content = html_content.replace("__TRACKING_HTML__", tracking_html)
+    html_content = html_content.replace("__RAW_REPORT_MARKDOWN__", json.dumps(ai_report, ensure_ascii=False))
+    html_content = html_content.replace("__COINS_DATA_JSON__", json.dumps(coins_dict, ensure_ascii=False))
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print(f"🎨 [대시보드] HTML 생성 완료 (`{html_path}`)!")
-    return html_content
+   
+    print(f"📄 대시보드 HTML 저장 완료: {html_path}")
 
 # ==============================================================================
-# [메인 실행부]
+# [메인 실행 루틴]
 # ==============================================================================
-if __name__ == "__main__":
-    start_time = time.time()
-    
+def main():
+    print("="*80)
+    print("🚀 [Upbit AI Quantitative Scanner] 실행 시작")
+    print("="*80)
+
     ai_engine.evolve_models()
-    
+
     df_result = analyze_and_scan_market()
-    
-    if not df_result.empty:
-        print(f"\n=== 🎯 [자가학습 AI 적용] 전체 분석 종목 수: {len(df_result)}개 ===")
-        print(df_result[["코인명", "종합예측점수", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(5))
-        
-        top10_symbols = set(df_result.head(10)['심볼'].tolist())
 
-        danger_coins = df_result[df_result['STGT_그래프덤핑위험(%)'] >= 85.0]
-        if not danger_coins.empty:
-            print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
-            send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
+    if df_result.empty:
+        print("❌ 분석된 데이터가 없어 스캔 프로세스를 종료합니다.")
+        return
 
-        ai_report, recommended_coins_ai = generate_gemini_analysis(df_result)
+    print("\n🧠 [Gemini 3.1 Flash Lite] 퀀트 분석 및 자동 종목 추천 생성 중...")
+    ai_report, recommended_coins = generate_gemini_analysis(df_result)
 
-        symbol_to_raw_price = dict(zip(df_result['심볼'], df_result['raw_price']))
-        
-        ai_report_coins = []
-        for coin_info in recommended_coins_ai:
-            sym = coin_info['symbol']
-            name = coin_info['name']
-            matching_rows = df_result[df_result['심볼'] == sym]
-            if not matching_rows.empty:
-                row = matching_rows.iloc[0]
-                ai_report_coins.append({
-                    "symbol": sym,
-                    "name": row['코인명'],
-                    "raw_price": row['raw_price']
-                })
-            else:
-                c_price = symbol_to_raw_price.get(sym, 0.0)
-                ai_report_coins.append({
-                    "symbol": sym,
-                    "name": name if name else sym,
-                    "raw_price": c_price
-                })
+    print(f"\n🎯 [AI 추천 종목] 총 {len(recommended_coins)}개 선정 완료:")
+    rec_target_symbols = []
+    for rc in recommended_coins:
+        print(f" - {rc['name']} ({rc['symbol']}): {rc['reason']}")
+        rec_target_symbols.append(rc['name'])
 
-        coin_status_map = {}
-        for _, r in df_result.iterrows():
-            coin_status_map[r['심볼']] = {
-                "score": float(r['종합예측점수']),
-                "dump_risk": float(r['STGT_그래프덤핑위험(%)'])
-            }
+    print("\n📰 [속보 수집기] AI 추천 종목 뉴스 수집 중...")
+    news_data = fetch_news_for_recommended_coins(rec_target_symbols)
 
-        tracking_monitor_data = update_ai_recommendation_tracker(
-            ai_report_coins, 
-            symbol_to_raw_price, 
-            coin_status_map,
-            top10_symbols=top10_symbols
-        )
+    current_price_map = dict(zip(df_result['심볼'], df_result['raw_price']))
+   
+    status_map = {}
+    for _, row in df_result.iterrows():
+        status_map[row['심볼']] = {
+            "dump_risk": float(row.get('STGT_그래프덤핑위험(%)', 0.0))
+        }
 
-        all_target_coins = [item['name'] for item in ai_report_coins]
-        news_data = fetch_news_for_recommended_coins(all_target_coins)
+    top10_symbols = set(df_result.head(10)['심볼'].tolist())
 
-        try:
-            fastapi_payload = {
-                "generation": 1,
-                "recommendations": [
-                    {
-                        "market": f"KRW-{coin['symbol']}", 
-                        "ai_grade": "추천", 
-                        "score": float(df_result[df_result['심볼'] == coin['symbol']]['종합예측점수'].values[0]) if not df_result[df_result['심볼'] == coin['symbol']].empty else 95.0
-                    }
-                    for coin in ai_report_coins
-                ]
-            }
-            response = requests.post("http://140.245.99.254:8000/api/ai-recommendations", json=fastapi_payload, timeout=5)
-            if response.status_code == 200:
-                print("🔥 [연동 성공] Gemini AI 추천 종목이 FastAPI 대시보드 서버로 성공적으로 전송되었습니다!")
-            else:
-                print(f"⚠️ FastAPI 서버 전송 응답 오류: {response.status_code}")
-        except Exception as e:
-            print(f"⚠️ FastAPI 서버로 AI 추천 종목 전송 실패: {e}")
-            
-        update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data)
+    print("\n📊 [트래커] 모니터링 히스토리 및 수익률 업데이트...")
+    tracking_monitor_data = update_ai_recommendation_tracker(
+        recommended_coins, current_price_map, status_map, top10_symbols
+    )
 
-        generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
+    print("\n⚡ [Redis] 대시보드 데이터 캐싱...")
+    update_redis_for_dashboard(df_result, ai_report, tracking_monitor_data)
 
-        upload_html_to_oracle_server("docs/index.html")
+    dashboard_html_path = "docs/index.html"
+    print("\n🖥️ [대시보드] HTML 생성 완료...")
+    generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path=dashboard_html_path)
 
-        kst_tz = datetime.timezone(datetime.timedelta(hours=9))
-        kst_now = datetime.datetime.now(kst_tz)
-        current_hour = kst_now.hour
-        target_hours = [9, 13, 17, 21] 
+    upload_html_to_oracle_server(dashboard_html_path)
 
-        if current_hour in target_hours:
-            export_to_excel_and_email(df_result, ai_report)
-        else:
-            print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
+    print("\n📧 [리포트] 엑셀 내보내기 및 메일 발송...")
+    export_to_excel_and_email(df_result, ai_report)
+
+    print("\n" + "="*80)
+    print("🎉 [Upbit AI Quantitative Scanner] 모든 과정 완료!")
+    print("="*80)
+
+if __name__ == "__main__":
+    main()
