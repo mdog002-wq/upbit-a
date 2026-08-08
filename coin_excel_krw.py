@@ -1003,7 +1003,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' \n'
         ' <!-- 2열 분할 컨테이너 -->\n'
         ' <div style="display: flex; gap: 15px; height: calc(100% - 45px);">\n'
-        ' <!-- 좌측: A사이트 (AI Quant 분석) -->\n'
+        ' <!-- 좌측: AI 리포트-->\n'
         ' <div style="flex: 1; background: #f8f9fa; border-radius: 8px; padding: 15px; overflow-y: auto;">\n'
         ' <h6 class="fw-bold text-primary mb-3">🤖 A사이트 (AI Quant)</h6>\n'
         ' <div id="modalContentA"></div>\n'
