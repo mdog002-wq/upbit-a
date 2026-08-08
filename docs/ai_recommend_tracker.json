@@ -2,12 +2,12 @@
   "WAL": {
     "name": "월러스",
     "symbol": "WAL",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 35.7,
     "current_price": 35.7,
     "first_recommended_at": "2026-08-09 07:12:58",
-    "last_recommended_at": "2026-08-09 07:42:47"
+    "last_recommended_at": "2026-08-09 07:47:42"
   },
   "ICX": {
     "name": "아이콘",
@@ -42,31 +42,31 @@
   "AHT": {
     "name": "아하토큰",
     "symbol": "AHT",
-    "count": 3,
-    "top10_count": 4,
+    "count": 4,
+    "top10_count": 5,
     "entry_price": 1.3,
     "current_price": 1.31,
     "first_recommended_at": "2026-08-09 07:28:12",
-    "last_recommended_at": "2026-08-09 07:42:47"
+    "last_recommended_at": "2026-08-09 07:47:42"
   },
   "RVN": {
     "name": "레이븐코인",
     "symbol": "RVN",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 5.07,
-    "current_price": 5.07,
+    "current_price": 5.08,
     "first_recommended_at": "2026-08-09 07:42:47",
-    "last_recommended_at": "2026-08-09 07:42:47"
+    "last_recommended_at": "2026-08-09 07:47:42"
   },
   "MBL": {
     "name": "무비블록",
     "symbol": "MBL",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 0.881,
     "current_price": 0.881,
     "first_recommended_at": "2026-08-09 07:42:47",
-    "last_recommended_at": "2026-08-09 07:42:47"
+    "last_recommended_at": "2026-08-09 07:47:42"
   }
 }
