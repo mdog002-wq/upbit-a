@@ -5,7 +5,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 90.7,
-    "current_price": 90.3,
+    "current_price": 90.2,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 7,
     "entry_price": 51.4,
-    "current_price": 51.7,
+    "current_price": 51.6,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 22:03:08"
   },
@@ -125,7 +125,7 @@
     "count": 11,
     "top10_count": 18,
     "entry_price": 19.2,
-    "current_price": 19.4,
+    "current_price": 19.3,
     "first_recommended_at": "2026-08-08 20:32:50",
     "last_recommended_at": "2026-08-08 23:17:51"
   },
@@ -133,7 +133,7 @@
     "name": "월러스",
     "symbol": "WAL",
     "count": 1,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 35.5,
     "current_price": 35.8,
     "first_recommended_at": "2026-08-08 20:42:43",
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 230.0,
-    "current_price": 234.0,
+    "current_price": 233.0,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -205,7 +205,7 @@
     "count": 1,
     "top10_count": 9,
     "entry_price": 5.04,
-    "current_price": 5.07,
+    "current_price": 5.05,
     "first_recommended_at": "2026-08-08 21:32:59",
     "last_recommended_at": "2026-08-08 21:32:59"
   },
@@ -245,7 +245,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 39.4,
-    "current_price": 39.6,
+    "current_price": 39.7,
     "first_recommended_at": "2026-08-08 21:47:47",
     "last_recommended_at": "2026-08-08 21:47:47"
   },
@@ -285,7 +285,7 @@
     "count": 5,
     "top10_count": 8,
     "entry_price": 0.919,
-    "current_price": 0.919,
+    "current_price": 0.916,
     "first_recommended_at": "2026-08-08 22:17:31",
     "last_recommended_at": "2026-08-08 23:17:51"
   },
@@ -295,7 +295,7 @@
     "count": 8,
     "top10_count": 9,
     "entry_price": 304500.0,
-    "current_price": 305600.0,
+    "current_price": 306000.0,
     "first_recommended_at": "2026-08-08 22:22:59",
     "last_recommended_at": "2026-08-08 23:03:04"
   },
@@ -325,7 +325,7 @@
     "count": 3,
     "top10_count": 4,
     "entry_price": 1968.0,
-    "current_price": 1949.0,
+    "current_price": 1951.0,
     "first_recommended_at": "2026-08-08 22:42:52",
     "last_recommended_at": "2026-08-08 22:52:59"
   },
@@ -352,12 +352,12 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 4,
-    "top10_count": 9,
+    "count": 5,
+    "top10_count": 10,
     "entry_price": 8.21,
     "current_price": 8.28,
     "first_recommended_at": "2026-08-08 23:07:40",
-    "last_recommended_at": "2026-08-08 23:37:52"
+    "last_recommended_at": "2026-08-09 00:02:45"
   },
   "HIVE": {
     "name": "하이브",
@@ -375,7 +375,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 85.6,
-    "current_price": 86.0,
+    "current_price": 86.1,
     "first_recommended_at": "2026-08-08 23:12:48",
     "last_recommended_at": "2026-08-08 23:17:51"
   },
@@ -383,7 +383,7 @@
     "name": "애니메코인",
     "symbol": "ANIME",
     "count": 7,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 3.45,
     "current_price": 3.45,
     "first_recommended_at": "2026-08-08 23:22:55",
@@ -402,18 +402,18 @@
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 8,
-    "top10_count": 8,
+    "count": 9,
+    "top10_count": 9,
     "entry_price": 50.8,
     "current_price": 51.1,
     "first_recommended_at": "2026-08-08 23:22:55",
-    "last_recommended_at": "2026-08-08 23:57:23"
+    "last_recommended_at": "2026-08-09 00:02:45"
   },
   "IMX": {
     "name": "이뮤터블엑스",
     "symbol": "IMX",
     "count": 3,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 157.0,
     "current_price": 158.0,
     "first_recommended_at": "2026-08-08 23:42:58",
@@ -422,12 +422,12 @@
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 1978.0,
     "current_price": 1982.0,
     "first_recommended_at": "2026-08-08 23:47:52",
-    "last_recommended_at": "2026-08-08 23:57:23"
+    "last_recommended_at": "2026-08-09 00:02:45"
   },
   "SOL": {
     "name": "솔라나",
@@ -435,7 +435,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 107500.0,
-    "current_price": 107500.0,
+    "current_price": 107600.0,
     "first_recommended_at": "2026-08-08 23:57:23",
     "last_recommended_at": "2026-08-08 23:57:23"
   },
@@ -443,10 +443,20 @@
     "name": "이더리움클래식",
     "symbol": "ETC",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 9195.0,
-    "current_price": 9195.0,
+    "current_price": 9190.0,
     "first_recommended_at": "2026-08-08 23:57:23",
     "last_recommended_at": "2026-08-08 23:57:23"
+  },
+  "HBAR": {
+    "name": "헤데라",
+    "symbol": "HBAR",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 97.2,
+    "current_price": 97.2,
+    "first_recommended_at": "2026-08-09 00:02:45",
+    "last_recommended_at": "2026-08-09 00:02:45"
   }
 }
