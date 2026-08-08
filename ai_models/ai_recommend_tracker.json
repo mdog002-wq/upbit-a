@@ -2,12 +2,12 @@
   "SENT": {
     "name": "센티언트",
     "symbol": "SENT",
-    "count": 13,
-    "top10_count": 15,
+    "count": 14,
+    "top10_count": 16,
     "entry_price": 19.0,
     "current_price": 19.0,
     "first_recommended_at": "2026-08-08 05:03:21",
-    "last_recommended_at": "2026-08-08 08:43:06"
+    "last_recommended_at": "2026-08-08 09:03:07"
   },
   "AERO": {
     "name": "에어로드롬파이낸스",
@@ -15,7 +15,7 @@
     "count": 5,
     "top10_count": 11,
     "entry_price": 625.0,
-    "current_price": 617.0,
+    "current_price": 621.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 07:42:56"
   },
@@ -25,7 +25,7 @@
     "count": 9,
     "top10_count": 9,
     "entry_price": 23730.0,
-    "current_price": 23480.0,
+    "current_price": 23580.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 07:12:49"
   },
@@ -65,7 +65,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 1717.0,
-    "current_price": 1715.0,
+    "current_price": 1725.0,
     "first_recommended_at": "2026-08-08 06:33:11",
     "last_recommended_at": "2026-08-08 07:12:49"
   },
@@ -83,7 +83,7 @@
     "name": "칠리즈",
     "symbol": "CHZ",
     "count": 4,
-    "top10_count": 12,
+    "top10_count": 13,
     "entry_price": 18.1,
     "current_price": 18.2,
     "first_recommended_at": "2026-08-08 06:43:09",
@@ -93,7 +93,7 @@
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 11,
-    "top10_count": 11,
+    "top10_count": 12,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 07:12:49",
@@ -125,28 +125,48 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 203.0,
-    "current_price": 203.0,
+    "current_price": 204.0,
     "first_recommended_at": "2026-08-08 08:32:48",
     "last_recommended_at": "2026-08-08 08:32:48"
   },
   "POLYX": {
     "name": "폴리매쉬",
     "symbol": "POLYX",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 45.2,
     "current_price": 45.3,
     "first_recommended_at": "2026-08-08 08:43:06",
-    "last_recommended_at": "2026-08-08 08:53:01"
+    "last_recommended_at": "2026-08-08 09:03:07"
   },
   "BLAST": {
     "name": "블라스트",
     "symbol": "BLAST",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 0.346,
     "current_price": 0.346,
     "first_recommended_at": "2026-08-08 08:53:01",
     "last_recommended_at": "2026-08-08 08:53:01"
+  },
+  "KAT": {
+    "name": "카타나",
+    "symbol": "KAT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 6.66,
+    "current_price": 6.66,
+    "first_recommended_at": "2026-08-08 09:03:07",
+    "last_recommended_at": "2026-08-08 09:03:07"
+  },
+  "IOST": {
+    "name": "아이오에스티",
+    "symbol": "IOST",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.845,
+    "current_price": 0.845,
+    "first_recommended_at": "2026-08-08 09:03:07",
+    "last_recommended_at": "2026-08-08 09:03:07"
   }
 }
