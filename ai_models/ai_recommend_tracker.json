@@ -3,7 +3,7 @@
     "name": "센티언트",
     "symbol": "SENT",
     "count": 14,
-    "top10_count": 17,
+    "top10_count": 18,
     "entry_price": 19.0,
     "current_price": 18.9,
     "first_recommended_at": "2026-08-08 05:03:21",
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 13,
     "entry_price": 18.1,
-    "current_price": 18.1,
+    "current_price": 18.2,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:23:02"
   },
@@ -93,7 +93,7 @@
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 11,
-    "top10_count": 16,
+    "top10_count": 17,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 07:12:49",
@@ -105,7 +105,7 @@
     "count": 8,
     "top10_count": 8,
     "entry_price": 2952.0,
-    "current_price": 2952.0,
+    "current_price": 2947.0,
     "first_recommended_at": "2026-08-08 07:26:09",
     "last_recommended_at": "2026-08-08 08:32:48"
   },
@@ -123,9 +123,9 @@
     "name": "제로지",
     "symbol": "0G",
     "count": 2,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 203.0,
-    "current_price": 206.0,
+    "current_price": 208.0,
     "first_recommended_at": "2026-08-08 08:32:48",
     "last_recommended_at": "2026-08-08 09:42:37"
   },
@@ -155,7 +155,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6.66,
-    "current_price": 6.44,
+    "current_price": 6.45,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -175,7 +175,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 80.6,
-    "current_price": 80.4,
+    "current_price": 78.8,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 62.3,
-    "current_price": 60.4,
+    "current_price": 59.9,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -195,27 +195,27 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 28.6,
-    "current_price": 30.3,
+    "current_price": 30.2,
     "first_recommended_at": "2026-08-08 09:22:55",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
   "BSV": {
     "name": "비트코인에스브이",
     "symbol": "BSV",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 19370.0,
-    "current_price": 19430.0,
+    "current_price": 19450.0,
     "first_recommended_at": "2026-08-08 09:22:55",
-    "last_recommended_at": "2026-08-08 09:42:37"
+    "last_recommended_at": "2026-08-08 09:53:05"
   },
   "DKA": {
     "name": "디카르고",
     "symbol": "DKA",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 4.82,
-    "current_price": 4.71,
+    "current_price": 4.73,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:32:54"
   },
@@ -223,20 +223,40 @@
     "name": "밀크",
     "symbol": "MLK",
     "count": 2,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 46.9,
-    "current_price": 46.0,
+    "current_price": 45.8,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:42:37"
   },
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 50.9,
     "current_price": 50.9,
     "first_recommended_at": "2026-08-08 09:42:37",
-    "last_recommended_at": "2026-08-08 09:42:37"
+    "last_recommended_at": "2026-08-08 09:53:05"
+  },
+  "IRYS": {
+    "name": "아이리스",
+    "symbol": "IRYS",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 23.2,
+    "current_price": 23.2,
+    "first_recommended_at": "2026-08-08 09:53:05",
+    "last_recommended_at": "2026-08-08 09:53:05"
+  },
+  "TAIKO": {
+    "name": "타이코",
+    "symbol": "TAIKO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 101.0,
+    "current_price": 101.0,
+    "first_recommended_at": "2026-08-08 09:53:05",
+    "last_recommended_at": "2026-08-08 09:53:05"
   }
 }
