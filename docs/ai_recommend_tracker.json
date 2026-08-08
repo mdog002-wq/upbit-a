@@ -5,7 +5,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 90.7,
-    "current_price": 89.5,
+    "current_price": 89.1,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -23,7 +23,7 @@
     "name": "웜홀",
     "symbol": "W",
     "count": 4,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 11.7,
     "current_price": 11.8,
     "first_recommended_at": "2026-08-08 19:59:59",
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 16.7,
-    "current_price": 16.9,
+    "current_price": 16.8,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 19:59:59"
   },
@@ -85,7 +85,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 51.4,
-    "current_price": 51.3,
+    "current_price": 51.4,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 20:12:40"
   },
@@ -95,19 +95,19 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 186.0,
-    "current_price": 186.0,
+    "current_price": 187.0,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 20:52:49"
   },
   "SYRUP": {
     "name": "메이플파이낸스",
     "symbol": "SYRUP",
-    "count": 2,
-    "top10_count": 4,
+    "count": 3,
+    "top10_count": 5,
     "entry_price": 212.0,
     "current_price": 212.0,
     "first_recommended_at": "2026-08-08 20:22:47",
-    "last_recommended_at": "2026-08-08 20:42:43"
+    "last_recommended_at": "2026-08-08 21:12:55"
   },
   "WCT": {
     "name": "월렛커넥트",
@@ -115,7 +115,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 50.6,
-    "current_price": 50.8,
+    "current_price": 50.5,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 21:02:54"
   },
@@ -142,11 +142,31 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 25.6,
     "current_price": 25.5,
     "first_recommended_at": "2026-08-08 20:52:49",
-    "last_recommended_at": "2026-08-08 21:02:54"
+    "last_recommended_at": "2026-08-08 21:12:55"
+  },
+  "ZORA": {
+    "name": "조라",
+    "symbol": "ZORA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 7.46,
+    "current_price": 7.46,
+    "first_recommended_at": "2026-08-08 21:12:55",
+    "last_recommended_at": "2026-08-08 21:12:55"
+  },
+  "OP": {
+    "name": "옵티미즘",
+    "symbol": "OP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 124.0,
+    "current_price": 124.0,
+    "first_recommended_at": "2026-08-08 21:12:55",
+    "last_recommended_at": "2026-08-08 21:12:55"
   }
 }
