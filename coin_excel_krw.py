@@ -141,15 +141,22 @@ def send_telegram_alert(message):
             pass
 
 # ==============================================================================
-# [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (Google RSS 기반)
+# [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (토큰포스트 RSS 기반)
 # ==============================================================================
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
     coin_news_dict = {}
     for coin in target_coins:
-        query = urllib.parse.quote(f"{coin} 코인 이슈 when:7d")
-        rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
+        # 1. 토큰포스트용 검색어 (when:7d 제거)
+        query = urllib.parse.quote(f"{coin} 코인 이슈")
+
+        # 2. 올바른 RSS URL 지정
+        rss_url = f"https://www.tokenpost.kr/rss/search?q={query}"
+
         try:
+            # 3. RSS 파싱
             feed = feedparser.parse(rss_url)
+            # ... 후속 처리 코드 ...
+
             news_items = []
             for entry in feed.entries[:max_news_per_coin]:
                 news_items.append({"title": entry.title, "link": entry.link})
