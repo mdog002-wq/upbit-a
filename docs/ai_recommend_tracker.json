@@ -13,7 +13,7 @@
     "name": "모카네트워크",
     "symbol": "MOCA",
     "count": 3,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 10.6,
     "current_price": 10.8,
     "first_recommended_at": "2026-08-08 19:59:59",
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 31.5,
-    "current_price": 31.2,
+    "current_price": 31.1,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 7,
     "entry_price": 51.4,
-    "current_price": 51.9,
+    "current_price": 51.7,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 22:03:08"
   },
@@ -133,9 +133,9 @@
     "name": "월러스",
     "symbol": "WAL",
     "count": 1,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 35.5,
-    "current_price": 35.7,
+    "current_price": 35.9,
     "first_recommended_at": "2026-08-08 20:42:43",
     "last_recommended_at": "2026-08-08 20:42:43"
   },
@@ -195,7 +195,7 @@
     "count": 10,
     "top10_count": 10,
     "entry_price": 97.3,
-    "current_price": 97.2,
+    "current_price": 97.6,
     "first_recommended_at": "2026-08-08 21:32:59",
     "last_recommended_at": "2026-08-08 22:17:31"
   },
@@ -255,7 +255,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 5.63,
-    "current_price": 5.58,
+    "current_price": 5.55,
     "first_recommended_at": "2026-08-08 21:52:53",
     "last_recommended_at": "2026-08-08 21:57:40"
   },
@@ -353,9 +353,9 @@
     "name": "알트레이어",
     "symbol": "ALT",
     "count": 4,
-    "top10_count": 7,
+    "top10_count": 8,
     "entry_price": 8.21,
-    "current_price": 8.3,
+    "current_price": 8.28,
     "first_recommended_at": "2026-08-08 23:07:40",
     "last_recommended_at": "2026-08-08 23:37:52"
   },
@@ -382,18 +382,18 @@
   "ANIME": {
     "name": "애니메코인",
     "symbol": "ANIME",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 3.45,
     "current_price": 3.46,
     "first_recommended_at": "2026-08-08 23:22:55",
-    "last_recommended_at": "2026-08-08 23:47:52"
+    "last_recommended_at": "2026-08-08 23:52:53"
   },
   "THETA": {
     "name": "쎄타토큰",
     "symbol": "THETA",
     "count": 5,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 189.0,
     "current_price": 189.0,
     "first_recommended_at": "2026-08-08 23:22:55",
@@ -402,31 +402,31 @@
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 50.8,
     "current_price": 51.1,
     "first_recommended_at": "2026-08-08 23:22:55",
-    "last_recommended_at": "2026-08-08 23:47:52"
+    "last_recommended_at": "2026-08-08 23:52:53"
   },
   "IMX": {
     "name": "이뮤터블엑스",
     "symbol": "IMX",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 157.0,
     "current_price": 159.0,
     "first_recommended_at": "2026-08-08 23:42:58",
-    "last_recommended_at": "2026-08-08 23:47:52"
+    "last_recommended_at": "2026-08-08 23:52:53"
   },
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 1978.0,
-    "current_price": 1978.0,
+    "current_price": 1977.0,
     "first_recommended_at": "2026-08-08 23:47:52",
-    "last_recommended_at": "2026-08-08 23:47:52"
+    "last_recommended_at": "2026-08-08 23:52:53"
   }
 }
