@@ -3,9 +3,9 @@
     "name": "센티언트",
     "symbol": "SENT",
     "count": 14,
-    "top10_count": 16,
+    "top10_count": 17,
     "entry_price": 19.0,
-    "current_price": 19.0,
+    "current_price": 18.9,
     "first_recommended_at": "2026-08-08 05:03:21",
     "last_recommended_at": "2026-08-08 09:03:07"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 7,
     "entry_price": 301.0,
-    "current_price": 298.0,
+    "current_price": 299.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -75,7 +75,7 @@
     "count": 7,
     "top10_count": 9,
     "entry_price": 123.0,
-    "current_price": 122.0,
+    "current_price": 123.0,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:03:11"
   },
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 13,
     "entry_price": 18.1,
-    "current_price": 18.2,
+    "current_price": 18.1,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:23:02"
   },
@@ -93,7 +93,7 @@
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 11,
-    "top10_count": 15,
+    "top10_count": 16,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 07:12:49",
@@ -122,12 +122,12 @@
   "0G": {
     "name": "제로지",
     "symbol": "0G",
-    "count": 1,
-    "top10_count": 3,
+    "count": 2,
+    "top10_count": 4,
     "entry_price": 203.0,
-    "current_price": 205.0,
+    "current_price": 206.0,
     "first_recommended_at": "2026-08-08 08:32:48",
-    "last_recommended_at": "2026-08-08 08:32:48"
+    "last_recommended_at": "2026-08-08 09:42:37"
   },
   "POLYX": {
     "name": "폴리매쉬",
@@ -143,9 +143,9 @@
     "name": "블라스트",
     "symbol": "BLAST",
     "count": 4,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 0.346,
-    "current_price": 0.347,
+    "current_price": 0.343,
     "first_recommended_at": "2026-08-08 08:53:01",
     "last_recommended_at": "2026-08-08 09:32:54"
   },
@@ -155,7 +155,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6.66,
-    "current_price": 6.41,
+    "current_price": 6.44,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -175,7 +175,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 80.6,
-    "current_price": 80.3,
+    "current_price": 80.4,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 62.3,
-    "current_price": 59.9,
+    "current_price": 60.4,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -195,19 +195,19 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 28.6,
-    "current_price": 30.8,
+    "current_price": 30.3,
     "first_recommended_at": "2026-08-08 09:22:55",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
   "BSV": {
     "name": "비트코인에스브이",
     "symbol": "BSV",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 19370.0,
-    "current_price": 19340.0,
+    "current_price": 19430.0,
     "first_recommended_at": "2026-08-08 09:22:55",
-    "last_recommended_at": "2026-08-08 09:32:54"
+    "last_recommended_at": "2026-08-08 09:42:37"
   },
   "DKA": {
     "name": "디카르고",
@@ -215,18 +215,28 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 4.82,
-    "current_price": 4.82,
+    "current_price": 4.71,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:32:54"
   },
   "MLK": {
     "name": "밀크",
     "symbol": "MLK",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 46.9,
+    "current_price": 46.0,
+    "first_recommended_at": "2026-08-08 09:32:54",
+    "last_recommended_at": "2026-08-08 09:42:37"
+  },
+  "STEEM": {
+    "name": "스팀",
+    "symbol": "STEEM",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 46.9,
-    "current_price": 46.9,
-    "first_recommended_at": "2026-08-08 09:32:54",
-    "last_recommended_at": "2026-08-08 09:32:54"
+    "entry_price": 50.9,
+    "current_price": 50.9,
+    "first_recommended_at": "2026-08-08 09:42:37",
+    "last_recommended_at": "2026-08-08 09:42:37"
   }
 }
