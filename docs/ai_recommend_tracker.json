@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 16.7,
-    "current_price": 17.6,
+    "current_price": 17.8,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 21:52:53"
   },
@@ -45,7 +45,7 @@
     "count": 10,
     "top10_count": 14,
     "entry_price": 31.5,
-    "current_price": 31.2,
+    "current_price": 31.1,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-09 02:37:51"
   },
@@ -95,7 +95,7 @@
     "count": 5,
     "top10_count": 10,
     "entry_price": 186.0,
-    "current_price": 188.0,
+    "current_price": 187.0,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -115,7 +115,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 50.6,
-    "current_price": 51.0,
+    "current_price": 50.9,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 21:02:54"
   },
@@ -142,12 +142,12 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 16,
-    "top10_count": 20,
+    "count": 17,
+    "top10_count": 21,
     "entry_price": 25.6,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-08 20:52:49",
-    "last_recommended_at": "2026-08-09 02:52:59"
+    "last_recommended_at": "2026-08-09 02:57:40"
   },
   "ZORA": {
     "name": "조라",
@@ -175,7 +175,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 18.3,
-    "current_price": 19.0,
+    "current_price": 19.2,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -333,9 +333,9 @@
     "name": "피르마체인",
     "symbol": "FCT2",
     "count": 6,
-    "top10_count": 14,
+    "top10_count": 15,
     "entry_price": 9.42,
-    "current_price": 9.39,
+    "current_price": 9.43,
     "first_recommended_at": "2026-08-08 23:03:04",
     "last_recommended_at": "2026-08-09 02:37:51"
   },
@@ -372,12 +372,12 @@
   "LAYER": {
     "name": "솔레이어",
     "symbol": "LAYER",
-    "count": 6,
-    "top10_count": 12,
+    "count": 7,
+    "top10_count": 13,
     "entry_price": 85.6,
     "current_price": 87.4,
     "first_recommended_at": "2026-08-08 23:12:48",
-    "last_recommended_at": "2026-08-09 02:52:59"
+    "last_recommended_at": "2026-08-09 02:57:40"
   },
   "ANIME": {
     "name": "애니메코인",
@@ -385,7 +385,7 @@
     "count": 12,
     "top10_count": 16,
     "entry_price": 3.45,
-    "current_price": 3.47,
+    "current_price": 3.46,
     "first_recommended_at": "2026-08-08 23:22:55",
     "last_recommended_at": "2026-08-09 00:37:36"
   },
@@ -403,7 +403,7 @@
     "name": "스팀",
     "symbol": "STEEM",
     "count": 14,
-    "top10_count": 23,
+    "top10_count": 24,
     "entry_price": 50.8,
     "current_price": 51.3,
     "first_recommended_at": "2026-08-08 23:22:55",
@@ -435,7 +435,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 107500.0,
-    "current_price": 107400.0,
+    "current_price": 107300.0,
     "first_recommended_at": "2026-08-08 23:57:23",
     "last_recommended_at": "2026-08-08 23:57:23"
   },
@@ -445,7 +445,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 9195.0,
-    "current_price": 9210.0,
+    "current_price": 9230.0,
     "first_recommended_at": "2026-08-08 23:57:23",
     "last_recommended_at": "2026-08-08 23:57:23"
   },
@@ -492,12 +492,12 @@
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 7,
-    "top10_count": 16,
+    "count": 8,
+    "top10_count": 17,
     "entry_price": 23480.0,
     "current_price": 23500.0,
     "first_recommended_at": "2026-08-09 01:12:45",
-    "last_recommended_at": "2026-08-09 02:48:02"
+    "last_recommended_at": "2026-08-09 02:57:40"
   },
   "SOMI": {
     "name": "솜니아",
@@ -515,7 +515,7 @@
     "count": 8,
     "top10_count": 9,
     "entry_price": 52.0,
-    "current_price": 51.7,
+    "current_price": 51.8,
     "first_recommended_at": "2026-08-09 01:32:51",
     "last_recommended_at": "2026-08-09 02:12:46"
   },
@@ -533,7 +533,7 @@
     "name": "레드스톤",
     "symbol": "RED",
     "count": 11,
-    "top10_count": 15,
+    "top10_count": 16,
     "entry_price": 125.0,
     "current_price": 124.0,
     "first_recommended_at": "2026-08-09 01:42:47",
@@ -542,18 +542,18 @@
   "KNC": {
     "name": "카이버네트워크",
     "symbol": "KNC",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 145.0,
     "current_price": 145.0,
     "first_recommended_at": "2026-08-09 02:28:01",
-    "last_recommended_at": "2026-08-09 02:52:59"
+    "last_recommended_at": "2026-08-09 02:57:40"
   },
   "ICP": {
     "name": "인터넷컴퓨터",
     "symbol": "ICP",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 3110.0,
     "current_price": 3110.0,
     "first_recommended_at": "2026-08-09 02:52:59",
