@@ -12,12 +12,12 @@
   "ICX": {
     "name": "아이콘",
     "symbol": "ICX",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 32.4,
     "current_price": 32.4,
     "first_recommended_at": "2026-08-09 07:12:58",
-    "last_recommended_at": "2026-08-09 08:07:54"
+    "last_recommended_at": "2026-08-09 08:13:01"
   },
   "TOKAMAK": {
     "name": "토카막네트워크",
@@ -25,7 +25,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 457.0,
-    "current_price": 457.0,
+    "current_price": 453.0,
     "first_recommended_at": "2026-08-09 07:12:58",
     "last_recommended_at": "2026-08-09 07:33:10"
   },
@@ -52,12 +52,12 @@
   "RVN": {
     "name": "레이븐코인",
     "symbol": "RVN",
-    "count": 5,
-    "top10_count": 6,
+    "count": 6,
+    "top10_count": 7,
     "entry_price": 5.07,
     "current_price": 5.08,
     "first_recommended_at": "2026-08-09 07:42:47",
-    "last_recommended_at": "2026-08-09 08:07:54"
+    "last_recommended_at": "2026-08-09 08:13:01"
   },
   "MBL": {
     "name": "무비블록",
@@ -88,5 +88,25 @@
     "current_price": 57.3,
     "first_recommended_at": "2026-08-09 08:03:04",
     "last_recommended_at": "2026-08-09 08:03:04"
+  },
+  "USDS": {
+    "name": "유에스디에스",
+    "symbol": "USDS",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1408.0,
+    "current_price": 1408.0,
+    "first_recommended_at": "2026-08-09 08:13:01",
+    "last_recommended_at": "2026-08-09 08:13:01"
+  },
+  "ZRX": {
+    "name": "제로엑스",
+    "symbol": "ZRX",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 117.0,
+    "current_price": 117.0,
+    "first_recommended_at": "2026-08-09 08:13:01",
+    "last_recommended_at": "2026-08-09 08:13:01"
   }
 }
