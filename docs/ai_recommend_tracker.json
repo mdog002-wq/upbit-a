@@ -32,28 +32,28 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 21,
-    "top10_count": 21,
+    "count": 22,
+    "top10_count": 22,
     "entry_price": 8.34,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 06:18:04"
+    "last_recommended_at": "2026-08-09 06:23:01"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 21,
-    "top10_count": 21,
+    "count": 22,
+    "top10_count": 22,
     "entry_price": 25.8,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 06:18:04"
+    "last_recommended_at": "2026-08-09 06:23:01"
   },
   "BLUR": {
     "name": "블러",
     "symbol": "BLUR",
     "count": 5,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 19.5,
     "current_price": 19.4,
     "first_recommended_at": "2026-08-09 04:18:00",
@@ -95,7 +95,7 @@
     "count": 12,
     "top10_count": 13,
     "entry_price": 57.3,
-    "current_price": 56.9,
+    "current_price": 57.1,
     "first_recommended_at": "2026-08-09 05:17:54",
     "last_recommended_at": "2026-08-09 06:18:04"
   },
@@ -103,7 +103,7 @@
     "name": "코박토큰",
     "symbol": "CBK",
     "count": 10,
-    "top10_count": 13,
+    "top10_count": 14,
     "entry_price": 238.0,
     "current_price": 236.0,
     "first_recommended_at": "2026-08-09 05:17:54",
@@ -132,12 +132,12 @@
   "WAL": {
     "name": "월러스",
     "symbol": "WAL",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 35.7,
-    "current_price": 35.9,
+    "current_price": 35.7,
     "first_recommended_at": "2026-08-09 05:58:01",
-    "last_recommended_at": "2026-08-09 05:58:01"
+    "last_recommended_at": "2026-08-09 06:23:01"
   },
   "WAVES": {
     "name": "웨이브",
