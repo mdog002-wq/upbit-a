@@ -5,7 +5,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 90.7,
-    "current_price": 90.7,
+    "current_price": 90.3,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -13,9 +13,9 @@
     "name": "모카네트워크",
     "symbol": "MOCA",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 10.6,
-    "current_price": 10.6,
+    "current_price": 10.7,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 19:59:59"
   },
@@ -23,7 +23,7 @@
     "name": "웜홀",
     "symbol": "W",
     "count": 2,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 11.7,
     "current_price": 11.8,
     "first_recommended_at": "2026-08-08 19:59:59",
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 31.5,
-    "current_price": 31.5,
+    "current_price": 31.2,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -55,8 +55,48 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 933.0,
-    "current_price": 933.0,
+    "current_price": 931.0,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
+  },
+  "IOST": {
+    "name": "아이오에스티",
+    "symbol": "IOST",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.847,
+    "current_price": 0.847,
+    "first_recommended_at": "2026-08-08 20:12:40",
+    "last_recommended_at": "2026-08-08 20:12:40"
+  },
+  "VTHO": {
+    "name": "비토르토큰",
+    "symbol": "VTHO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.479,
+    "current_price": 0.479,
+    "first_recommended_at": "2026-08-08 20:12:40",
+    "last_recommended_at": "2026-08-08 20:12:40"
+  },
+  "CVC": {
+    "name": "시빅",
+    "symbol": "CVC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 25.6,
+    "current_price": 25.6,
+    "first_recommended_at": "2026-08-08 20:12:40",
+    "last_recommended_at": "2026-08-08 20:12:40"
+  },
+  "AXL": {
+    "name": "엑셀라",
+    "symbol": "AXL",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 51.4,
+    "current_price": 51.4,
+    "first_recommended_at": "2026-08-08 20:12:40",
+    "last_recommended_at": "2026-08-08 20:12:40"
   }
 }
