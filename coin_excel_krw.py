@@ -756,7 +756,7 @@ def export_to_excel_and_email(df_result, ai_report):
 
 # ==============================================================================
 # [리포트 생성 및 대시보드 HTML 출력]
-# ==============================================================================
+# ==============================================================================import os
 def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
     
@@ -818,7 +818,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
                 f"</tr>\n"
             )
             table_rows_list.append(row_html)
-    
+   
     all_coins_table_rows = "".join(table_rows_list) if table_rows_list else '<tr><td colspan="4" class="text-center text-muted py-3">분석된 종목이 없습니다.</td></tr>'
 
     alert_items = []
@@ -897,8 +897,8 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' justify-content: center;\n'
         ' }\n'
         ' .modal-memo {\n'
-        ' width: 380px;\n'
-        ' height: 480px;\n'
+        ' width: 950px;\n'
+        ' height: 650px;\n'
         ' background-color: #ffffff;\n'
         ' border-radius: 16px;\n'
         ' box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.08);\n'
@@ -921,16 +921,19 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' justify-content: space-between;\n'
         ' align-items: center;\n'
         ' }\n'
-        ' .modal-body-memo {\n'
-        ' padding: 0;\n'
-        ' flex: 1;\n'
+        ' .modal-frames-container {\n'
+        ' display: flex;\n'
         ' width: 100%;\n'
         ' height: 100%;\n'
+        ' flex: 1;\n'
         ' }\n'
-        ' .modal-body-memo iframe {\n'
-        ' width: 100%;\n'
+        ' .modal-frame-pane {\n'
+        ' width: 50%;\n'
         ' height: 100%;\n'
         ' border: none;\n'
+        ' }\n'
+        ' .modal-frame-pane:first-child {\n'
+        ' border-right: 1px solid #e2e8f0;\n'
         ' }\n'
         ' .close-memo-btn {\n'
         ' border: none;\n'
@@ -995,7 +998,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </table>\n'
         ' </div>\n'
         ' </div>\n'
-        ' </div>\n'       
+        ' </div>\n'      
         ' <div class="col-lg-4">\n'
         ' <div class="card p-3 shadow-sm tracking-box">\n'
         ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> AI 추천종목 모니터 (🎯 표시 종목)</h6>\n'
@@ -1011,12 +1014,14 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' <div class="modal-memo" onclick="event.stopPropagation()">\n'
         ' <div class="modal-header-memo">\n'
         ' <div>\n'
-        ' <h6 class="fw-bold mb-0 text-dark" id="modalCoinTitle">종목 상세 정보</h6>\n'
-        ' <small class="text-muted" id="modalCoinSub" style="font-size: 0.75rem;">upbit-r.onrender.com</small>\n'
+        ' <h6 class="fw-bold mb-0 text-dark" id="modalCoinTitle">종목 상세 정보 (1번 & 2번 비교)</h6>\n'
+        ' <small class="text-muted" id="modalCoinSub" style="font-size: 0.75rem;">upbit-r & upbit-a 양방향 비교</small>\n'
         ' </div>\n'
         ' <button type="button" class="close-memo-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>\n'
         ' </div>\n'
-        ' <div class="modal-body-memo" id="modalCoinBody">\n'
+        ' <div class="modal-frames-container">\n'
+        ' <iframe id="modalIframeLeft" class="modal-frame-pane" title="1번 사이트 상세"></iframe>\n'
+        ' <iframe id="modalIframeRight" class="modal-frame-pane" title="2번 사이트 상세"></iframe>\n'
         ' </div>\n'
         ' </div>\n'
         ' </div>\n'
@@ -1044,26 +1049,29 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' function openModal(marketCode) {\n'
         ' const modalTitle = document.getElementById(\'modalCoinTitle\');\n'
         ' const modalSub = document.getElementById(\'modalCoinSub\');\n'
-        ' const modalBody = document.getElementById(\'modalCoinBody\');\n'
         '\n'
         ' const coinData = allCoinsMap[marketCode];\n'
         ' if (coinData) {\n'
-        ' modalTitle.innerText = `${coinData.name} (${coinData.symbol})`;\n'
-        ' modalSub.innerText = marketCode;\n'
+        ' modalTitle.innerText = `${coinData.name} (${coinData.symbol}) - 양방향 상세 비교`;\n'
+        ' modalSub.innerText = `Market: ${marketCode}`;\n'
         ' } else {\n'
-        ' modalTitle.innerText = "종목 정보";\n'
+        ' modalTitle.innerText = "종목 상세 비교";\n'
         ' modalSub.innerText = marketCode;\n'
         ' }\n'
         '\n'
-        ' const targetUrl = `https://upbit-r.onrender.com/?symbol=${marketCode}`;\n'
-        ' modalBody.innerHTML = `<iframe src="${targetUrl}" title="종목 상세 정보"></iframe>`;\n'
+        ' const leftUrl = `https://upbit-r.onrender.com/?symbol=${marketCode}`;\n'
+        ' const rightUrl = `https://upbit-a.onrender.com/?symbol=${marketCode}`;\n'
+        '\n'
+        ' document.getElementById(\'modalIframeLeft\').src = leftUrl;\n'
+        ' document.getElementById(\'modalIframeRight\').src = rightUrl;\n'
         '\n'
         ' document.getElementById(\'coinDetailModal\').style.display = \'flex\';\n'
         ' }\n'
         '\n'
         ' function closeModal() {\n'
         ' document.getElementById(\'coinDetailModal\').style.display = \'none\';\n'
-        ' document.getElementById(\'modalCoinBody\').innerHTML = \'\';\n'
+        ' document.getElementById(\'modalIframeLeft\').src = \'\';\n'
+        ' document.getElementById(\'modalIframeRight\').src = \'\';\n'
         ' }\n'
         '\n'
         ' window.addEventListener(\'DOMContentLoaded\', () => {\n'
@@ -1081,13 +1089,13 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     )
 
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
-                                .replace("__TOTAL_COINS__", str(len(df_result)))\
-                                .replace("__ALERTS_HTML__", alerts_html)\
-                                .replace("__NEWS_HTML__", news_html)\
-                                .replace("__AI_REPORT_JSON__", json.dumps(str(ai_report), ensure_ascii=False))\
-                                .replace("__ALL_COINS_MAP_JSON__", json.dumps(coins_dict, ensure_ascii=False))\
-                                .replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)\
-                                .replace("__TRACKING_HTML__", tracking_html)
+                        .replace("__TOTAL_COINS__", str(len(df_result)))\
+                        .replace("__ALERTS_HTML__", alerts_html)\
+                        .replace("__NEWS_HTML__", news_html)\
+                        .replace("__AI_REPORT_JSON__", json.dumps(str(ai_report), ensure_ascii=False))\
+                        .replace("__ALL_COINS_MAP_JSON__", json.dumps(coins_dict, ensure_ascii=False))\
+                        .replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)\
+                        .replace("__TRACKING_HTML__", tracking_html)
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
