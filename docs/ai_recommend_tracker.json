@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 16.7,
-    "current_price": 17.8,
+    "current_price": 17.9,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 21:52:53"
   },
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 31.5,
-    "current_price": 31.4,
+    "current_price": 31.3,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -95,7 +95,7 @@
     "count": 5,
     "top10_count": 10,
     "entry_price": 186.0,
-    "current_price": 186.0,
+    "current_price": 187.0,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -125,7 +125,7 @@
     "count": 11,
     "top10_count": 18,
     "entry_price": 19.2,
-    "current_price": 19.3,
+    "current_price": 19.4,
     "first_recommended_at": "2026-08-08 20:32:50",
     "last_recommended_at": "2026-08-08 23:17:51"
   },
@@ -145,7 +145,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 25.6,
-    "current_price": 25.7,
+    "current_price": 25.6,
     "first_recommended_at": "2026-08-08 20:52:49",
     "last_recommended_at": "2026-08-08 21:12:55"
   },
@@ -175,7 +175,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 18.3,
-    "current_price": 18.5,
+    "current_price": 18.4,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 230.0,
-    "current_price": 234.0,
+    "current_price": 233.0,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -203,7 +203,7 @@
     "name": "레이븐코인",
     "symbol": "RVN",
     "count": 1,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 5.04,
     "current_price": 5.07,
     "first_recommended_at": "2026-08-08 21:32:59",
@@ -225,7 +225,7 @@
     "count": 2,
     "top10_count": 10,
     "entry_price": 72.0,
-    "current_price": 71.9,
+    "current_price": 72.2,
     "first_recommended_at": "2026-08-08 21:43:07",
     "last_recommended_at": "2026-08-08 22:37:32"
   },
@@ -295,7 +295,7 @@
     "count": 8,
     "top10_count": 9,
     "entry_price": 304500.0,
-    "current_price": 305100.0,
+    "current_price": 305800.0,
     "first_recommended_at": "2026-08-08 22:22:59",
     "last_recommended_at": "2026-08-08 23:03:04"
   },
@@ -313,9 +313,9 @@
     "name": "도지코인",
     "symbol": "DOGE",
     "count": 4,
-    "top10_count": 7,
+    "top10_count": 8,
     "entry_price": 99.1,
-    "current_price": 99.8,
+    "current_price": 99.9,
     "first_recommended_at": "2026-08-08 22:27:46",
     "last_recommended_at": "2026-08-08 22:57:41"
   },
@@ -325,7 +325,7 @@
     "count": 3,
     "top10_count": 4,
     "entry_price": 1968.0,
-    "current_price": 1953.0,
+    "current_price": 1950.0,
     "first_recommended_at": "2026-08-08 22:42:52",
     "last_recommended_at": "2026-08-08 22:52:59"
   },
@@ -353,9 +353,9 @@
     "name": "알트레이어",
     "symbol": "ALT",
     "count": 4,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 8.21,
-    "current_price": 8.32,
+    "current_price": 8.3,
     "first_recommended_at": "2026-08-08 23:07:40",
     "last_recommended_at": "2026-08-08 23:37:52"
   },
@@ -375,38 +375,48 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 85.6,
-    "current_price": 86.0,
+    "current_price": 85.9,
     "first_recommended_at": "2026-08-08 23:12:48",
     "last_recommended_at": "2026-08-08 23:17:51"
   },
   "ANIME": {
     "name": "애니메코인",
     "symbol": "ANIME",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 3.45,
     "current_price": 3.46,
     "first_recommended_at": "2026-08-08 23:22:55",
-    "last_recommended_at": "2026-08-08 23:37:52"
+    "last_recommended_at": "2026-08-08 23:42:58"
   },
   "THETA": {
     "name": "쎄타토큰",
     "symbol": "THETA",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 189.0,
     "current_price": 189.0,
     "first_recommended_at": "2026-08-08 23:22:55",
-    "last_recommended_at": "2026-08-08 23:37:52"
+    "last_recommended_at": "2026-08-08 23:42:58"
   },
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 50.8,
     "current_price": 51.1,
     "first_recommended_at": "2026-08-08 23:22:55",
-    "last_recommended_at": "2026-08-08 23:37:52"
+    "last_recommended_at": "2026-08-08 23:42:58"
+  },
+  "IMX": {
+    "name": "이뮤터블엑스",
+    "symbol": "IMX",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 157.0,
+    "current_price": 157.0,
+    "first_recommended_at": "2026-08-08 23:42:58",
+    "last_recommended_at": "2026-08-08 23:42:58"
   }
 }
