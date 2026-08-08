@@ -112,11 +112,15 @@ EXCEL_FILE_PATH = "업비트_원화마켓_매집_패턴분석_리포트.xlsx"
 HISTORY_CSV_PATH = "scan_history.csv"
 CACHE_DIR = "./cache"
 AI_MODELS_DIR = "./ai_models"
+DOCS_DIR = "./docs"
 EXPERIENCE_FILE = os.path.join(AI_MODELS_DIR, "ai_experience.json")
-AI_TRACKER_HISTORY_FILE = os.path.join(AI_MODELS_DIR, "ai_recommend_tracker.json")
+
+# docs/ 경로 내 JSON 저장 설정
+AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
+os.makedirs(DOCS_DIR, exist_ok=True)
 
 # ==============================================================================
 # [유틸] 데이터 포맷팅 및 캐싱
@@ -535,6 +539,7 @@ def analyze_and_scan_market():
     return df.sort_values(by="종합예측점수", ascending=False)
 
 def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_status_map, top10_symbols=set()):
+    """docs/ai_recommend_tracker.json 파일에 추천 트래킹 데이터를 저장하고 불러옵니다."""
     history = {}
    
     if os.path.exists(AI_TRACKER_HISTORY_FILE):
@@ -544,7 +549,7 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
                 if content:
                     history = json.loads(content)
         except Exception as e:
-            print(f"⚠️ 기존 트래킹 파일 로드 실패 (초기화 후 진행): {e}")
+            print(f"⚠️ docs/ 내 트래킹 파일 로드 실패 (초기화 후 진행): {e}")
             history = {}
 
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
@@ -603,6 +608,7 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
     try:
         with open(AI_TRACKER_HISTORY_FILE, "w", encoding="utf-8") as f:
             json.dump(history, f, ensure_ascii=False, indent=2)
+        print(f"💾 docs/ 폴더 내 AI 추천 트래킹 데이터 저장 완료: {AI_TRACKER_HISTORY_FILE}")
     except Exception as e:
         print(f"⚠️ 트래킹 데이터 저장 실패: {e}")
 
@@ -966,6 +972,7 @@ if __name__ == "__main__":
                 "dump_risk": float(r['STGT_그래프덤핑위험(%)'])
             }
 
+        # docs/ai_recommend_tracker.json을 생성/읽기하도록 호출
         tracking_monitor_data = update_ai_recommendation_tracker(
             ai_report_coins,
             symbol_to_raw_price,
