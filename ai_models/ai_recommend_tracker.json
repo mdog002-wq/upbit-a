@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 7,
     "entry_price": 301.0,
-    "current_price": 299.0,
+    "current_price": 294.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -55,7 +55,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 112.0,
-    "current_price": 110.0,
+    "current_price": 111.0,
     "first_recommended_at": "2026-08-08 06:13:04",
     "last_recommended_at": "2026-08-08 06:43:09"
   },
@@ -83,9 +83,9 @@
     "name": "칠리즈",
     "symbol": "CHZ",
     "count": 4,
-    "top10_count": 14,
+    "top10_count": 15,
     "entry_price": 18.1,
-    "current_price": 18.2,
+    "current_price": 18.3,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:23:02"
   },
@@ -113,7 +113,7 @@
     "name": "골렘",
     "symbol": "GLM",
     "count": 3,
-    "top10_count": 7,
+    "top10_count": 8,
     "entry_price": 127.0,
     "current_price": 127.0,
     "first_recommended_at": "2026-08-08 07:53:02",
@@ -145,7 +145,7 @@
     "count": 4,
     "top10_count": 7,
     "entry_price": 0.346,
-    "current_price": 0.342,
+    "current_price": 0.344,
     "first_recommended_at": "2026-08-08 08:53:01",
     "last_recommended_at": "2026-08-08 09:32:54"
   },
@@ -155,7 +155,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6.66,
-    "current_price": 6.47,
+    "current_price": 6.5,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -165,7 +165,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 0.845,
-    "current_price": 0.844,
+    "current_price": 0.843,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:03:07"
   },
@@ -175,7 +175,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 80.6,
-    "current_price": 79.8,
+    "current_price": 81.2,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 62.3,
-    "current_price": 59.6,
+    "current_price": 59.7,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -195,19 +195,19 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 28.6,
-    "current_price": 30.3,
+    "current_price": 29.5,
     "first_recommended_at": "2026-08-08 09:22:55",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
   "BSV": {
     "name": "비트코인에스브이",
     "symbol": "BSV",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 19370.0,
-    "current_price": 19550.0,
+    "current_price": 19740.0,
     "first_recommended_at": "2026-08-08 09:22:55",
-    "last_recommended_at": "2026-08-08 10:53:25"
+    "last_recommended_at": "2026-08-08 11:22:51"
   },
   "DKA": {
     "name": "디카르고",
@@ -215,7 +215,7 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 4.82,
-    "current_price": 4.75,
+    "current_price": 4.73,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:32:54"
   },
@@ -225,7 +225,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 46.9,
-    "current_price": 45.6,
+    "current_price": 45.5,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:42:37"
   },
@@ -235,7 +235,7 @@
     "count": 5,
     "top10_count": 5,
     "entry_price": 50.9,
-    "current_price": 51.2,
+    "current_price": 51.0,
     "first_recommended_at": "2026-08-08 09:42:37",
     "last_recommended_at": "2026-08-08 11:07:45"
   },
@@ -245,19 +245,19 @@
     "count": 3,
     "top10_count": 4,
     "entry_price": 23.2,
-    "current_price": 23.3,
+    "current_price": 23.0,
     "first_recommended_at": "2026-08-08 09:53:05",
     "last_recommended_at": "2026-08-08 10:53:25"
   },
   "TAIKO": {
     "name": "타이코",
     "symbol": "TAIKO",
-    "count": 5,
-    "top10_count": 5,
+    "count": 6,
+    "top10_count": 6,
     "entry_price": 101.0,
     "current_price": 101.0,
     "first_recommended_at": "2026-08-08 09:53:05",
-    "last_recommended_at": "2026-08-08 10:34:09"
+    "last_recommended_at": "2026-08-08 11:22:51"
   },
   "CKB": {
     "name": "너보스",
@@ -275,7 +275,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 5.87,
-    "current_price": 5.85,
+    "current_price": 5.88,
     "first_recommended_at": "2026-08-08 10:22:43",
     "last_recommended_at": "2026-08-08 10:53:25"
   },
@@ -285,7 +285,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 5.31,
-    "current_price": 5.25,
+    "current_price": 5.26,
     "first_recommended_at": "2026-08-08 10:22:43",
     "last_recommended_at": "2026-08-08 10:22:43"
   },
@@ -295,19 +295,19 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 112.0,
-    "current_price": 112.0,
+    "current_price": 111.0,
     "first_recommended_at": "2026-08-08 11:07:45",
     "last_recommended_at": "2026-08-08 11:07:45"
   },
   "RLUSD": {
     "name": "리플유에스디",
     "symbol": "RLUSD",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 11:07:45",
-    "last_recommended_at": "2026-08-08 11:07:45"
+    "last_recommended_at": "2026-08-08 11:22:51"
   },
   "TOKAMAK": {
     "name": "토카막네트워크",
@@ -318,5 +318,15 @@
     "current_price": 460.0,
     "first_recommended_at": "2026-08-08 11:07:45",
     "last_recommended_at": "2026-08-08 11:07:45"
+  },
+  "ELF": {
+    "name": "엘프",
+    "symbol": "ELF",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 83.9,
+    "current_price": 83.9,
+    "first_recommended_at": "2026-08-08 11:22:51",
+    "last_recommended_at": "2026-08-08 11:22:51"
   }
 }
