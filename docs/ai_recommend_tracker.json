@@ -1,0 +1,42 @@
+{
+  "BLEND": {
+    "name": "플루언트",
+    "symbol": "BLEND",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 90.7,
+    "current_price": 90.7,
+    "first_recommended_at": "2026-08-08 19:59:59",
+    "last_recommended_at": "2026-08-08 19:59:59"
+  },
+  "MOCA": {
+    "name": "모카네트워크",
+    "symbol": "MOCA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 10.6,
+    "current_price": 10.6,
+    "first_recommended_at": "2026-08-08 19:59:59",
+    "last_recommended_at": "2026-08-08 19:59:59"
+  },
+  "W": {
+    "name": "웜홀",
+    "symbol": "W",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 11.7,
+    "current_price": 11.7,
+    "first_recommended_at": "2026-08-08 19:59:59",
+    "last_recommended_at": "2026-08-08 19:59:59"
+  },
+  "BABY": {
+    "name": "바빌론",
+    "symbol": "BABY",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 16.7,
+    "current_price": 16.7,
+    "first_recommended_at": "2026-08-08 19:59:59",
+    "last_recommended_at": "2026-08-08 19:59:59"
+  }
+}
