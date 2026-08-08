@@ -175,7 +175,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 18.3,
-    "current_price": 18.9,
+    "current_price": 19.0,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -225,7 +225,7 @@
     "count": 2,
     "top10_count": 10,
     "entry_price": 72.0,
-    "current_price": 72.3,
+    "current_price": 72.2,
     "first_recommended_at": "2026-08-08 21:43:07",
     "last_recommended_at": "2026-08-08 22:37:32"
   },
@@ -305,7 +305,7 @@
     "count": 2,
     "top10_count": 11,
     "entry_price": 291.0,
-    "current_price": 293.0,
+    "current_price": 291.0,
     "first_recommended_at": "2026-08-08 22:22:59",
     "last_recommended_at": "2026-08-08 22:27:46"
   },
@@ -372,12 +372,12 @@
   "LAYER": {
     "name": "솔레이어",
     "symbol": "LAYER",
-    "count": 3,
-    "top10_count": 8,
+    "count": 4,
+    "top10_count": 9,
     "entry_price": 85.6,
     "current_price": 86.8,
     "first_recommended_at": "2026-08-08 23:12:48",
-    "last_recommended_at": "2026-08-09 01:22:52"
+    "last_recommended_at": "2026-08-09 01:27:52"
   },
   "ANIME": {
     "name": "애니메코인",
@@ -405,7 +405,7 @@
     "count": 13,
     "top10_count": 13,
     "entry_price": 50.8,
-    "current_price": 50.9,
+    "current_price": 51.0,
     "first_recommended_at": "2026-08-08 23:22:55",
     "last_recommended_at": "2026-08-09 00:22:18"
   },
@@ -455,7 +455,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 97.2,
-    "current_price": 98.1,
+    "current_price": 98.3,
     "first_recommended_at": "2026-08-09 00:02:45",
     "last_recommended_at": "2026-08-09 00:02:45"
   },
@@ -472,12 +472,12 @@
   "RAY": {
     "name": "레이디움",
     "symbol": "RAY",
-    "count": 11,
-    "top10_count": 11,
+    "count": 12,
+    "top10_count": 12,
     "entry_price": 904.0,
     "current_price": 902.0,
     "first_recommended_at": "2026-08-09 00:32:58",
-    "last_recommended_at": "2026-08-09 01:22:52"
+    "last_recommended_at": "2026-08-09 01:27:52"
   },
   "TAO": {
     "name": "비트텐서",
@@ -492,21 +492,21 @@
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 23480.0,
     "current_price": 23480.0,
     "first_recommended_at": "2026-08-09 01:12:45",
-    "last_recommended_at": "2026-08-09 01:22:52"
+    "last_recommended_at": "2026-08-09 01:27:52"
   },
   "SOMI": {
     "name": "솜니아",
     "symbol": "SOMI",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 127.0,
     "current_price": 127.0,
     "first_recommended_at": "2026-08-09 01:22:52",
-    "last_recommended_at": "2026-08-09 01:22:52"
+    "last_recommended_at": "2026-08-09 01:27:52"
   }
 }
