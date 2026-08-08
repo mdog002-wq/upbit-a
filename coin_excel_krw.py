@@ -143,46 +143,69 @@ def send_telegram_alert(message):
 # ==============================================================================
 # [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (토큰포스트 RSS 기반)
 # ==============================================================================
-import json
-import os
-import urllib.parse
-import feedparser
-
-
 # 1. JSON 파일에서 추천 코인 목록 읽어오는 함수
 def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
-    if not os.path.exists(filepath):
-        print(f"⚠️ 파일이 존재하지 않습니다: {filepath}")
+    # 실행 위치(CWD) 차이로 인한 경로 오류 방지를 위해 absolute path 변환 권장
+    abs_path = os.path.abspath(filepath)
+
+    if not os.path.exists(abs_path):
+        print(f"⚠️ 파일이 존재하지 않습니다: {abs_path}")
         return []
 
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with open(abs_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         coins = []
 
-        # JSON 구조가 리스트 형태인 경우 e.g. [{"coin": "젠신", "symbol": "AI"}, ...]
+        # JSON 구조가 리스트 형태인 경우
         if isinstance(data, list):
             for item in data:
                 if isinstance(item, dict):
-                    # 'coin_name', 'name', 'symbol', 'coin' 등 JSON 키값에 맞게 추출
-                    name = item.get("name") or item.get("coin") or item.get("coin_name")
+                    name = (
+                        item.get("name")
+                        or item.get("coin")
+                        or item.get("coin_name")
+                    )
                     symbol = item.get("symbol") or item.get("ticker")
 
                     if name:
-                        coins.append(name)
+                        coins.append(str(name))
                     if symbol and symbol != name:
-                        coins.append(symbol)
+                        coins.append(str(symbol))
                 elif isinstance(item, str):
                     coins.append(item)
 
-        # JSON 구조가 딕셔너리 형태인 경우 e.g. {"recommended": [...]} 또는 {"젠신": {...}}
+        # JSON 구조가 딕셔너리 형태인 경우
         elif isinstance(data, dict):
-            # 딕셔너리의 키 자체가 코인 이름인 경우
-            coins = list(data.keys())
+            # 딕셔너리 내부 'recommended', 'coins', 'data' 등의 키에 리스트가 들어있는 경우 대응
+            target_list = None
+            for key in ["recommended", "coins", "data", "items"]:
+                if key in data and isinstance(data[key], list):
+                    target_list = data[key]
+                    break
 
-        # 중복 제거 및 빈 값 제거
-        coins = list(set([c.strip() for c in coins if c]))
+            if target_list:
+                for item in target_list:
+                    if isinstance(item, dict):
+                        name = (
+                            item.get("name")
+                            or item.get("coin")
+                            or item.get("coin_name")
+                        )
+                        symbol = item.get("symbol") or item.get("ticker")
+                        if name:
+                            coins.append(str(name))
+                        if symbol and symbol != name:
+                            coins.append(str(symbol))
+                    elif isinstance(item, str):
+                        coins.append(item)
+            else:
+                # 딕셔너리의 Key 자체가 종목명인 경우 (e.g., {"젠신": {...}, "알트레이어": {...}})
+                coins = [str(k) for k in data.keys()]
+
+        # 중복 제거 및 공백 제거
+        coins = list(set([c.strip() for c in coins if str(c).strip()]))
         return coins
 
     except Exception as e:
@@ -195,7 +218,6 @@ def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
     coin_news_dict = {}
 
     for coin in target_coins:
-        # 검색어 생성 (코인 명칭만 깔끔하게 전달)
         query = urllib.parse.quote(str(coin).strip())
         rss_url = f"https://www.tokenpost.kr/rss/search?q={query}"
 
@@ -204,7 +226,10 @@ def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
             news_items = []
 
             for entry in feed.entries[:max_news_per_coin]:
-                news_items.append({"title": entry.title, "link": entry.link})
+                # entry.title, entry.link 존재 여부 안전하게 체크
+                title = getattr(entry, "title", "제목 없음")
+                link = getattr(entry, "link", "")
+                news_items.append({"title": title, "link": link})
 
             if news_items:
                 coin_news_dict[coin] = news_items
@@ -217,14 +242,11 @@ def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
 
 # 3. 실제 실행 부분
 if __name__ == "__main__":
-    # JSON 파일 경로 지정
     json_path = "docs/ai_recommend_tracker.json"
 
-    # JSON에서 추천 종목 추출
     target_coins = get_target_coins_from_json(json_path)
     print(f"📌 추적할 종목 목록: {target_coins}")
 
-    # 속보/이슈 뉴스 수집
     news_result = fetch_news_for_recommended_coins(
         target_coins, max_news_per_coin=2
     )
