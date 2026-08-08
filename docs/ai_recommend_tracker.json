@@ -5,7 +5,7 @@
     "count": 10,
     "top10_count": 14,
     "entry_price": 31.5,
-    "current_price": 31.0,
+    "current_price": 31.1,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-09 02:37:51"
   },
@@ -15,7 +15,7 @@
     "count": 2,
     "top10_count": 13,
     "entry_price": 72.0,
-    "current_price": 72.1,
+    "current_price": 72.0,
     "first_recommended_at": "2026-08-08 21:43:07",
     "last_recommended_at": "2026-08-08 22:37:32"
   },
@@ -25,19 +25,19 @@
     "count": 1,
     "top10_count": 5,
     "entry_price": 3110.0,
-    "current_price": 3067.0,
+    "current_price": 3085.0,
     "first_recommended_at": "2026-08-09 02:52:59",
     "last_recommended_at": "2026-08-09 02:52:59"
   },
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 28,
-    "top10_count": 28,
+    "count": 29,
+    "top10_count": 29,
     "entry_price": 8.34,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 06:57:49"
+    "last_recommended_at": "2026-08-09 07:03:15"
   },
   "CVC": {
     "name": "시빅",
@@ -52,12 +52,12 @@
   "BLUR": {
     "name": "블러",
     "symbol": "BLUR",
-    "count": 5,
-    "top10_count": 15,
+    "count": 6,
+    "top10_count": 16,
     "entry_price": 19.5,
-    "current_price": 19.4,
+    "current_price": 19.5,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 04:37:42"
+    "last_recommended_at": "2026-08-09 07:03:15"
   },
   "OP": {
     "name": "옵티미즘",
@@ -95,7 +95,7 @@
     "count": 12,
     "top10_count": 13,
     "entry_price": 57.3,
-    "current_price": 56.6,
+    "current_price": 56.8,
     "first_recommended_at": "2026-08-09 05:17:54",
     "last_recommended_at": "2026-08-09 06:18:04"
   },
@@ -103,7 +103,7 @@
     "name": "코박토큰",
     "symbol": "CBK",
     "count": 10,
-    "top10_count": 20,
+    "top10_count": 21,
     "entry_price": 238.0,
     "current_price": 236.0,
     "first_recommended_at": "2026-08-09 05:17:54",
@@ -125,19 +125,19 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 5.3,
-    "current_price": 5.22,
+    "current_price": 5.23,
     "first_recommended_at": "2026-08-09 05:53:04",
     "last_recommended_at": "2026-08-09 05:53:04"
   },
   "WAL": {
     "name": "월러스",
     "symbol": "WAL",
-    "count": 8,
-    "top10_count": 8,
+    "count": 9,
+    "top10_count": 9,
     "entry_price": 35.7,
     "current_price": 35.7,
     "first_recommended_at": "2026-08-09 05:58:01",
-    "last_recommended_at": "2026-08-09 06:57:49"
+    "last_recommended_at": "2026-08-09 07:03:15"
   },
   "WAVES": {
     "name": "웨이브",
@@ -153,7 +153,7 @@
     "name": "스팀",
     "symbol": "STEEM",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 51.0,
     "current_price": 51.4,
     "first_recommended_at": "2026-08-09 06:27:57",
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 552.0,
-    "current_price": 552.0,
+    "current_price": 551.0,
     "first_recommended_at": "2026-08-09 06:43:09",
     "last_recommended_at": "2026-08-09 06:43:09"
   },
@@ -218,5 +218,15 @@
     "current_price": 457.0,
     "first_recommended_at": "2026-08-09 06:57:49",
     "last_recommended_at": "2026-08-09 06:57:49"
+  },
+  "MBL": {
+    "name": "무비블록",
+    "symbol": "MBL",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 0.883,
+    "current_price": 0.883,
+    "first_recommended_at": "2026-08-09 07:03:15",
+    "last_recommended_at": "2026-08-09 07:03:15"
   }
 }
