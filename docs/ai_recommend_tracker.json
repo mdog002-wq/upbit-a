@@ -5,7 +5,7 @@
     "count": 10,
     "top10_count": 14,
     "entry_price": 31.5,
-    "current_price": 31.1,
+    "current_price": 31.0,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-09 02:37:51"
   },
@@ -15,7 +15,7 @@
     "count": 2,
     "top10_count": 13,
     "entry_price": 72.0,
-    "current_price": 72.3,
+    "current_price": 72.4,
     "first_recommended_at": "2026-08-08 21:43:07",
     "last_recommended_at": "2026-08-08 22:37:32"
   },
@@ -32,22 +32,22 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 8.34,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 05:03:02"
+    "last_recommended_at": "2026-08-09 05:08:07"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 25.8,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 05:03:02"
+    "last_recommended_at": "2026-08-09 05:08:07"
   },
   "BLUR": {
     "name": "블러",
@@ -72,11 +72,21 @@
   "MOCA": {
     "name": "모카네트워크",
     "symbol": "MOCA",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 11.0,
     "current_price": 11.0,
     "first_recommended_at": "2026-08-09 05:03:02",
-    "last_recommended_at": "2026-08-09 05:03:02"
+    "last_recommended_at": "2026-08-09 05:08:07"
+  },
+  "LAYER": {
+    "name": "솔레이어",
+    "symbol": "LAYER",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 86.7,
+    "current_price": 86.7,
+    "first_recommended_at": "2026-08-09 05:08:07",
+    "last_recommended_at": "2026-08-09 05:08:07"
   }
 }
