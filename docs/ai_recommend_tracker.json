@@ -45,7 +45,7 @@
     "count": 10,
     "top10_count": 14,
     "entry_price": 31.5,
-    "current_price": 31.0,
+    "current_price": 31.2,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-09 02:37:51"
   },
@@ -95,7 +95,7 @@
     "count": 5,
     "top10_count": 10,
     "entry_price": 186.0,
-    "current_price": 188.0,
+    "current_price": 187.0,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -142,12 +142,12 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 13,
-    "top10_count": 17,
+    "count": 14,
+    "top10_count": 18,
     "entry_price": 25.6,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-08 20:52:49",
-    "last_recommended_at": "2026-08-09 02:37:51"
+    "last_recommended_at": "2026-08-09 02:42:43"
   },
   "ZORA": {
     "name": "조라",
@@ -195,7 +195,7 @@
     "count": 10,
     "top10_count": 10,
     "entry_price": 97.3,
-    "current_price": 97.9,
+    "current_price": 97.8,
     "first_recommended_at": "2026-08-08 21:32:59",
     "last_recommended_at": "2026-08-08 22:17:31"
   },
@@ -223,7 +223,7 @@
     "name": "월드리버티파이낸셜",
     "symbol": "WLFI",
     "count": 2,
-    "top10_count": 11,
+    "top10_count": 12,
     "entry_price": 72.0,
     "current_price": 72.4,
     "first_recommended_at": "2026-08-08 21:43:07",
@@ -295,7 +295,7 @@
     "count": 12,
     "top10_count": 15,
     "entry_price": 304500.0,
-    "current_price": 305600.0,
+    "current_price": 305100.0,
     "first_recommended_at": "2026-08-08 22:22:59",
     "last_recommended_at": "2026-08-09 01:07:52"
   },
@@ -333,7 +333,7 @@
     "name": "피르마체인",
     "symbol": "FCT2",
     "count": 6,
-    "top10_count": 12,
+    "top10_count": 13,
     "entry_price": 9.42,
     "current_price": 9.44,
     "first_recommended_at": "2026-08-08 23:03:04",
@@ -353,7 +353,7 @@
     "name": "알트레이어",
     "symbol": "ALT",
     "count": 10,
-    "top10_count": 22,
+    "top10_count": 23,
     "entry_price": 8.21,
     "current_price": 8.35,
     "first_recommended_at": "2026-08-08 23:07:40",
@@ -402,12 +402,12 @@
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 13,
-    "top10_count": 20,
+    "count": 14,
+    "top10_count": 21,
     "entry_price": 50.8,
     "current_price": 51.3,
     "first_recommended_at": "2026-08-08 23:22:55",
-    "last_recommended_at": "2026-08-09 00:22:18"
+    "last_recommended_at": "2026-08-09 02:42:43"
   },
   "IMX": {
     "name": "이뮤터블엑스",
@@ -435,7 +435,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 107500.0,
-    "current_price": 107500.0,
+    "current_price": 107400.0,
     "first_recommended_at": "2026-08-08 23:57:23",
     "last_recommended_at": "2026-08-08 23:57:23"
   },
@@ -455,7 +455,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 97.2,
-    "current_price": 97.9,
+    "current_price": 97.6,
     "first_recommended_at": "2026-08-09 00:02:45",
     "last_recommended_at": "2026-08-09 00:02:45"
   },
@@ -485,7 +485,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 278600.0,
-    "current_price": 279000.0,
+    "current_price": 279100.0,
     "first_recommended_at": "2026-08-09 00:52:54",
     "last_recommended_at": "2026-08-09 00:52:54"
   },
@@ -532,21 +532,21 @@
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 10,
-    "top10_count": 12,
+    "count": 11,
+    "top10_count": 13,
     "entry_price": 125.0,
     "current_price": 124.0,
     "first_recommended_at": "2026-08-09 01:42:47",
-    "last_recommended_at": "2026-08-09 02:37:51"
+    "last_recommended_at": "2026-08-09 02:42:43"
   },
   "KNC": {
     "name": "카이버네트워크",
     "symbol": "KNC",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 145.0,
     "current_price": 145.0,
     "first_recommended_at": "2026-08-09 02:28:01",
-    "last_recommended_at": "2026-08-09 02:37:51"
+    "last_recommended_at": "2026-08-09 02:42:43"
   }
 }
