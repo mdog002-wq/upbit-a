@@ -5,7 +5,7 @@
     "count": 17,
     "top10_count": 19,
     "entry_price": 35.7,
-    "current_price": 35.7,
+    "current_price": 35.5,
     "first_recommended_at": "2026-08-09 07:12:58",
     "last_recommended_at": "2026-08-09 08:53:09"
   },
@@ -15,7 +15,7 @@
     "count": 7,
     "top10_count": 7,
     "entry_price": 32.4,
-    "current_price": 32.5,
+    "current_price": 32.3,
     "first_recommended_at": "2026-08-09 07:12:58",
     "last_recommended_at": "2026-08-09 08:13:01"
   },
@@ -53,9 +53,9 @@
     "name": "레이븐코인",
     "symbol": "RVN",
     "count": 7,
-    "top10_count": 8,
+    "top10_count": 9,
     "entry_price": 5.07,
-    "current_price": 5.08,
+    "current_price": 5.09,
     "first_recommended_at": "2026-08-09 07:42:47",
     "last_recommended_at": "2026-08-09 08:18:09"
   },
@@ -65,7 +65,7 @@
     "count": 3,
     "top10_count": 5,
     "entry_price": 0.881,
-    "current_price": 0.88,
+    "current_price": 0.879,
     "first_recommended_at": "2026-08-09 07:42:47",
     "last_recommended_at": "2026-08-09 07:53:07"
   },
@@ -85,7 +85,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 57.3,
-    "current_price": 57.3,
+    "current_price": 57.1,
     "first_recommended_at": "2026-08-09 08:03:04",
     "last_recommended_at": "2026-08-09 08:42:58"
   },
@@ -93,7 +93,7 @@
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 1,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 1408.0,
     "current_price": 1408.0,
     "first_recommended_at": "2026-08-09 08:13:01",
@@ -133,7 +133,7 @@
     "name": "스테픈",
     "symbol": "GMT",
     "count": 5,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 9.62,
     "current_price": 9.58,
     "first_recommended_at": "2026-08-09 08:27:55",
@@ -153,7 +153,7 @@
     "name": "펜들",
     "symbol": "PENDLE",
     "count": 1,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 1969.0,
     "current_price": 1975.0,
     "first_recommended_at": "2026-08-09 08:33:07",
@@ -172,12 +172,12 @@
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 125.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-09 08:42:58",
-    "last_recommended_at": "2026-08-09 08:53:09"
+    "last_recommended_at": "2026-08-09 08:57:47"
   },
   "CTC": {
     "name": "크레딧코인",
@@ -192,21 +192,31 @@
   "AWE": {
     "name": "에이더블유이",
     "symbol": "AWE",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 82.7,
-    "current_price": 82.9,
+    "current_price": 83.0,
     "first_recommended_at": "2026-08-09 08:48:07",
-    "last_recommended_at": "2026-08-09 08:53:09"
+    "last_recommended_at": "2026-08-09 08:57:47"
   },
   "TAO": {
     "name": "비트텐서",
     "symbol": "TAO",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 283300.0,
-    "current_price": 285600.0,
+    "current_price": 286800.0,
     "first_recommended_at": "2026-08-09 08:48:07",
-    "last_recommended_at": "2026-08-09 08:53:09"
+    "last_recommended_at": "2026-08-09 08:57:47"
+  },
+  "ANIME": {
+    "name": "애니메코인",
+    "symbol": "ANIME",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 3.5,
+    "current_price": 3.5,
+    "first_recommended_at": "2026-08-09 08:57:47",
+    "last_recommended_at": "2026-08-09 08:57:47"
   }
 }
