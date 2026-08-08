@@ -15,7 +15,7 @@
     "count": 5,
     "top10_count": 11,
     "entry_price": 625.0,
-    "current_price": 621.0,
+    "current_price": 620.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 07:42:56"
   },
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 7,
     "entry_price": 301.0,
-    "current_price": 296.0,
+    "current_price": 297.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 05:53:05"
   },
@@ -55,7 +55,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 112.0,
-    "current_price": 110.0,
+    "current_price": 111.0,
     "first_recommended_at": "2026-08-08 06:13:04",
     "last_recommended_at": "2026-08-08 06:43:09"
   },
@@ -75,7 +75,7 @@
     "count": 7,
     "top10_count": 9,
     "entry_price": 123.0,
-    "current_price": 122.0,
+    "current_price": 123.0,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:03:11"
   },
@@ -93,7 +93,7 @@
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 11,
-    "top10_count": 13,
+    "top10_count": 14,
     "entry_price": 1407.0,
     "current_price": 1407.0,
     "first_recommended_at": "2026-08-08 07:12:49",
@@ -115,7 +115,7 @@
     "count": 3,
     "top10_count": 6,
     "entry_price": 127.0,
-    "current_price": 128.0,
+    "current_price": 127.0,
     "first_recommended_at": "2026-08-08 07:53:02",
     "last_recommended_at": "2026-08-08 08:53:01"
   },
@@ -142,20 +142,20 @@
   "BLAST": {
     "name": "블라스트",
     "symbol": "BLAST",
-    "count": 2,
-    "top10_count": 3,
+    "count": 3,
+    "top10_count": 4,
     "entry_price": 0.346,
-    "current_price": 0.348,
+    "current_price": 0.347,
     "first_recommended_at": "2026-08-08 08:53:01",
-    "last_recommended_at": "2026-08-08 09:13:05"
+    "last_recommended_at": "2026-08-08 09:22:55"
   },
   "KAT": {
     "name": "카타나",
     "symbol": "KAT",
     "count": 2,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 6.66,
-    "current_price": 6.79,
+    "current_price": 6.85,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -172,21 +172,41 @@
   "ELSA": {
     "name": "헤이엘사",
     "symbol": "ELSA",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 80.6,
-    "current_price": 80.6,
+    "current_price": 79.9,
     "first_recommended_at": "2026-08-08 09:13:05",
-    "last_recommended_at": "2026-08-08 09:13:05"
+    "last_recommended_at": "2026-08-08 09:22:55"
   },
   "MIRA": {
     "name": "미라네트워크",
     "symbol": "MIRA",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 62.3,
-    "current_price": 62.3,
+    "current_price": 60.8,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:13:05"
+  },
+  "BORA": {
+    "name": "보라",
+    "symbol": "BORA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 28.6,
+    "current_price": 28.6,
+    "first_recommended_at": "2026-08-08 09:22:55",
+    "last_recommended_at": "2026-08-08 09:22:55"
+  },
+  "BSV": {
+    "name": "비트코인에스브이",
+    "symbol": "BSV",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 19370.0,
+    "current_price": 19370.0,
+    "first_recommended_at": "2026-08-08 09:22:55",
+    "last_recommended_at": "2026-08-08 09:22:55"
   }
 }
