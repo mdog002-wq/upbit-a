@@ -25,29 +25,29 @@
     "count": 1,
     "top10_count": 5,
     "entry_price": 3110.0,
-    "current_price": 3079.0,
+    "current_price": 3063.0,
     "first_recommended_at": "2026-08-09 02:52:59",
     "last_recommended_at": "2026-08-09 02:52:59"
   },
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 17,
-    "top10_count": 17,
+    "count": 18,
+    "top10_count": 18,
     "entry_price": 8.34,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 05:58:01"
+    "last_recommended_at": "2026-08-09 06:03:04"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 17,
-    "top10_count": 17,
+    "count": 18,
+    "top10_count": 18,
     "entry_price": 25.8,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 05:58:01"
+    "last_recommended_at": "2026-08-09 06:03:04"
   },
   "BLUR": {
     "name": "블러",
@@ -83,7 +83,7 @@
     "name": "솔레이어",
     "symbol": "LAYER",
     "count": 1,
-    "top10_count": 10,
+    "top10_count": 11,
     "entry_price": 86.7,
     "current_price": 86.8,
     "first_recommended_at": "2026-08-09 05:08:07",
@@ -93,7 +93,7 @@
     "name": "피스네트워크",
     "symbol": "PYTH",
     "count": 9,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 57.3,
     "current_price": 56.9,
     "first_recommended_at": "2026-08-09 05:17:54",
@@ -102,12 +102,12 @@
   "CBK": {
     "name": "코박토큰",
     "symbol": "CBK",
-    "count": 6,
-    "top10_count": 9,
+    "count": 7,
+    "top10_count": 10,
     "entry_price": 238.0,
     "current_price": 236.0,
     "first_recommended_at": "2026-08-09 05:17:54",
-    "last_recommended_at": "2026-08-09 05:47:42"
+    "last_recommended_at": "2026-08-09 06:03:04"
   },
   "AXL": {
     "name": "엑셀라",
@@ -115,7 +115,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 51.9,
-    "current_price": 52.0,
+    "current_price": 51.9,
     "first_recommended_at": "2026-08-09 05:17:54",
     "last_recommended_at": "2026-08-09 05:43:15"
   },
@@ -123,9 +123,9 @@
     "name": "쓰레스홀드",
     "symbol": "T",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 5.3,
-    "current_price": 5.3,
+    "current_price": 5.27,
     "first_recommended_at": "2026-08-09 05:53:04",
     "last_recommended_at": "2026-08-09 05:53:04"
   },
@@ -135,8 +135,18 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 35.7,
-    "current_price": 35.7,
+    "current_price": 35.8,
     "first_recommended_at": "2026-08-09 05:58:01",
     "last_recommended_at": "2026-08-09 05:58:01"
+  },
+  "WAVES": {
+    "name": "웨이브",
+    "symbol": "WAVES",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 295.0,
+    "current_price": 295.0,
+    "first_recommended_at": "2026-08-09 06:03:04",
+    "last_recommended_at": "2026-08-09 06:03:04"
   }
 }
