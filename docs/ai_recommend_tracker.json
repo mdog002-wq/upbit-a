@@ -42,12 +42,12 @@
   "AI": {
     "name": "젠신",
     "symbol": "AI",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 31.5,
-    "current_price": 31.1,
+    "current_price": 31.0,
     "first_recommended_at": "2026-08-08 20:03:03",
-    "last_recommended_at": "2026-08-08 20:03:03"
+    "last_recommended_at": "2026-08-09 01:37:56"
   },
   "QTUM": {
     "name": "퀀텀",
@@ -75,7 +75,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 0.479,
-    "current_price": 0.476,
+    "current_price": 0.478,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 20:12:40"
   },
@@ -142,12 +142,12 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 25.6,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-08 20:52:49",
-    "last_recommended_at": "2026-08-09 01:32:51"
+    "last_recommended_at": "2026-08-09 01:37:56"
   },
   "ZORA": {
     "name": "조라",
@@ -155,7 +155,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 7.46,
-    "current_price": 7.53,
+    "current_price": 7.54,
     "first_recommended_at": "2026-08-08 21:12:55",
     "last_recommended_at": "2026-08-08 21:12:55"
   },
@@ -175,7 +175,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 18.3,
-    "current_price": 19.0,
+    "current_price": 18.9,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -225,7 +225,7 @@
     "count": 2,
     "top10_count": 10,
     "entry_price": 72.0,
-    "current_price": 72.4,
+    "current_price": 72.2,
     "first_recommended_at": "2026-08-08 21:43:07",
     "last_recommended_at": "2026-08-08 22:37:32"
   },
@@ -245,7 +245,7 @@
     "count": 3,
     "top10_count": 8,
     "entry_price": 39.4,
-    "current_price": 40.1,
+    "current_price": 40.2,
     "first_recommended_at": "2026-08-08 21:47:47",
     "last_recommended_at": "2026-08-09 00:52:54"
   },
@@ -285,7 +285,7 @@
     "count": 5,
     "top10_count": 9,
     "entry_price": 0.919,
-    "current_price": 0.919,
+    "current_price": 0.914,
     "first_recommended_at": "2026-08-08 22:17:31",
     "last_recommended_at": "2026-08-08 23:17:51"
   },
@@ -325,7 +325,7 @@
     "count": 3,
     "top10_count": 4,
     "entry_price": 1968.0,
-    "current_price": 1950.0,
+    "current_price": 1948.0,
     "first_recommended_at": "2026-08-08 22:42:52",
     "last_recommended_at": "2026-08-08 22:52:59"
   },
@@ -355,7 +355,7 @@
     "count": 10,
     "top10_count": 17,
     "entry_price": 8.21,
-    "current_price": 8.34,
+    "current_price": 8.35,
     "first_recommended_at": "2026-08-08 23:07:40",
     "last_recommended_at": "2026-08-09 01:03:32"
   },
@@ -365,7 +365,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 58.5,
-    "current_price": 58.9,
+    "current_price": 59.0,
     "first_recommended_at": "2026-08-08 23:07:40",
     "last_recommended_at": "2026-08-08 23:07:40"
   },
@@ -405,7 +405,7 @@
     "count": 13,
     "top10_count": 13,
     "entry_price": 50.8,
-    "current_price": 51.0,
+    "current_price": 51.3,
     "first_recommended_at": "2026-08-08 23:22:55",
     "last_recommended_at": "2026-08-09 00:22:18"
   },
@@ -425,7 +425,7 @@
     "count": 6,
     "top10_count": 6,
     "entry_price": 1978.0,
-    "current_price": 1975.0,
+    "current_price": 1967.0,
     "first_recommended_at": "2026-08-08 23:47:52",
     "last_recommended_at": "2026-08-09 00:13:04"
   },
@@ -455,7 +455,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 97.2,
-    "current_price": 98.1,
+    "current_price": 97.7,
     "first_recommended_at": "2026-08-09 00:02:45",
     "last_recommended_at": "2026-08-09 00:02:45"
   },
@@ -465,7 +465,7 @@
     "count": 6,
     "top10_count": 7,
     "entry_price": 217.0,
-    "current_price": 220.0,
+    "current_price": 221.0,
     "first_recommended_at": "2026-08-09 00:13:04",
     "last_recommended_at": "2026-08-09 00:42:45"
   },
@@ -485,7 +485,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 278600.0,
-    "current_price": 276800.0,
+    "current_price": 277400.0,
     "first_recommended_at": "2026-08-09 00:52:54",
     "last_recommended_at": "2026-08-09 00:52:54"
   },
@@ -493,7 +493,7 @@
     "name": "컴파운드",
     "symbol": "COMP",
     "count": 5,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 23480.0,
     "current_price": 23480.0,
     "first_recommended_at": "2026-08-09 01:12:45",
@@ -502,21 +502,31 @@
   "SOMI": {
     "name": "솜니아",
     "symbol": "SOMI",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 127.0,
-    "current_price": 127.0,
+    "current_price": 128.0,
     "first_recommended_at": "2026-08-09 01:22:52",
-    "last_recommended_at": "2026-08-09 01:32:51"
+    "last_recommended_at": "2026-08-09 01:37:56"
   },
   "TREE": {
     "name": "트리하우스",
     "symbol": "TREE",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 52.0,
     "current_price": 52.0,
     "first_recommended_at": "2026-08-09 01:32:51",
     "last_recommended_at": "2026-08-09 01:32:51"
+  },
+  "MEGA": {
+    "name": "메가이더",
+    "symbol": "MEGA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 50.0,
+    "current_price": 50.0,
+    "first_recommended_at": "2026-08-09 01:37:56",
+    "last_recommended_at": "2026-08-09 01:37:56"
   }
 }
