@@ -15,7 +15,7 @@
     "count": 5,
     "top10_count": 12,
     "entry_price": 625.0,
-    "current_price": 612.0,
+    "current_price": 614.0,
     "first_recommended_at": "2026-08-08 05:12:51",
     "last_recommended_at": "2026-08-08 07:42:56"
   },
@@ -43,9 +43,9 @@
     "name": "맨틀",
     "symbol": "MNT",
     "count": 7,
-    "top10_count": 10,
+    "top10_count": 11,
     "entry_price": 586.0,
-    "current_price": 601.0,
+    "current_price": 602.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 18:55:13"
   },
@@ -65,7 +65,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 1717.0,
-    "current_price": 1724.0,
+    "current_price": 1732.0,
     "first_recommended_at": "2026-08-08 06:33:11",
     "last_recommended_at": "2026-08-08 07:12:49"
   },
@@ -75,7 +75,7 @@
     "count": 7,
     "top10_count": 11,
     "entry_price": 123.0,
-    "current_price": 126.0,
+    "current_price": 127.0,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:03:11"
   },
@@ -85,7 +85,7 @@
     "count": 4,
     "top10_count": 18,
     "entry_price": 18.1,
-    "current_price": 18.3,
+    "current_price": 18.4,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:23:02"
   },
@@ -102,12 +102,12 @@
   "ICP": {
     "name": "인터넷컴퓨터",
     "symbol": "ICP",
-    "count": 8,
-    "top10_count": 8,
+    "count": 9,
+    "top10_count": 9,
     "entry_price": 2952.0,
-    "current_price": 2952.0,
+    "current_price": 2964.0,
     "first_recommended_at": "2026-08-08 07:26:09",
-    "last_recommended_at": "2026-08-08 08:32:48"
+    "last_recommended_at": "2026-08-08 19:12:48"
   },
   "0G": {
     "name": "제로지",
@@ -125,7 +125,7 @@
     "count": 5,
     "top10_count": 6,
     "entry_price": 45.2,
-    "current_price": 45.2,
+    "current_price": 45.4,
     "first_recommended_at": "2026-08-08 08:43:06",
     "last_recommended_at": "2026-08-08 19:03:06"
   },
@@ -135,7 +135,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6.66,
-    "current_price": 6.45,
+    "current_price": 6.43,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -155,7 +155,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 80.6,
-    "current_price": 78.5,
+    "current_price": 78.6,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
@@ -165,7 +165,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 62.3,
-    "current_price": 59.5,
+    "current_price": 59.6,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -195,7 +195,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 46.9,
-    "current_price": 45.0,
+    "current_price": 44.9,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:42:37"
   },
@@ -235,7 +235,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 5.31,
-    "current_price": 5.28,
+    "current_price": 5.31,
     "first_recommended_at": "2026-08-08 10:22:43",
     "last_recommended_at": "2026-08-08 10:22:43"
   },
@@ -265,7 +265,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 9.79,
-    "current_price": 9.68,
+    "current_price": 9.66,
     "first_recommended_at": "2026-08-08 11:33:09",
     "last_recommended_at": "2026-08-08 11:33:09"
   },
@@ -293,7 +293,7 @@
     "name": "쿼크체인",
     "symbol": "QKC",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 2.82,
     "current_price": 2.83,
     "first_recommended_at": "2026-08-08 12:02:50",
@@ -322,12 +322,12 @@
   "MOCA": {
     "name": "모카네트워크",
     "symbol": "MOCA",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 10.6,
     "current_price": 10.7,
     "first_recommended_at": "2026-08-08 12:43:04",
-    "last_recommended_at": "2026-08-08 19:03:06"
+    "last_recommended_at": "2026-08-08 19:12:48"
   },
   "BSV": {
     "name": "비트코인에스브이",
@@ -335,7 +335,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 20030.0,
-    "current_price": 19760.0,
+    "current_price": 19740.0,
     "first_recommended_at": "2026-08-08 12:52:48",
     "last_recommended_at": "2026-08-08 13:03:02"
   },
@@ -345,7 +345,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 83.1,
-    "current_price": 82.1,
+    "current_price": 82.0,
     "first_recommended_at": "2026-08-08 13:03:02",
     "last_recommended_at": "2026-08-08 13:03:02"
   },
@@ -405,7 +405,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 52.6,
-    "current_price": 52.5,
+    "current_price": 52.2,
     "first_recommended_at": "2026-08-08 15:35:37",
     "last_recommended_at": "2026-08-08 17:00:27"
   },
@@ -415,7 +415,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 130.0,
-    "current_price": 132.0,
+    "current_price": 134.0,
     "first_recommended_at": "2026-08-08 15:35:37",
     "last_recommended_at": "2026-08-08 15:35:37"
   },
@@ -425,7 +425,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 331.0,
-    "current_price": 321.0,
+    "current_price": 324.0,
     "first_recommended_at": "2026-08-08 15:35:37",
     "last_recommended_at": "2026-08-08 15:35:37"
   },
@@ -455,7 +455,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 0.477,
-    "current_price": 0.488,
+    "current_price": 0.486,
     "first_recommended_at": "2026-08-08 16:46:31",
     "last_recommended_at": "2026-08-08 17:00:27"
   },
@@ -465,7 +465,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 835.0,
-    "current_price": 845.0,
+    "current_price": 843.0,
     "first_recommended_at": "2026-08-08 16:46:31",
     "last_recommended_at": "2026-08-08 16:46:31"
   },
@@ -473,7 +473,7 @@
     "name": "옵티미즘",
     "symbol": "OP",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 122.0,
     "current_price": 123.0,
     "first_recommended_at": "2026-08-08 18:01:35",
@@ -485,7 +485,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 930.0,
-    "current_price": 933.0,
+    "current_price": 934.0,
     "first_recommended_at": "2026-08-08 18:55:13",
     "last_recommended_at": "2026-08-08 18:55:13"
   },
@@ -495,28 +495,28 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 101.0,
-    "current_price": 101.0,
+    "current_price": 100.0,
     "first_recommended_at": "2026-08-08 18:55:13",
     "last_recommended_at": "2026-08-08 18:55:13"
   },
   "BREV": {
     "name": "브레비스",
     "symbol": "BREV",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 101.0,
     "current_price": 101.0,
     "first_recommended_at": "2026-08-08 19:03:06",
-    "last_recommended_at": "2026-08-08 19:03:06"
+    "last_recommended_at": "2026-08-08 19:12:48"
   },
   "W": {
     "name": "웜홀",
     "symbol": "W",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 11.6,
     "current_price": 11.6,
     "first_recommended_at": "2026-08-08 19:03:06",
-    "last_recommended_at": "2026-08-08 19:03:06"
+    "last_recommended_at": "2026-08-08 19:12:48"
   }
 }
