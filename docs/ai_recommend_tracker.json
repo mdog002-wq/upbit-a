@@ -25,45 +25,45 @@
     "count": 1,
     "top10_count": 5,
     "entry_price": 3110.0,
-    "current_price": 3130.0,
+    "current_price": 3121.0,
     "first_recommended_at": "2026-08-09 02:52:59",
     "last_recommended_at": "2026-08-09 02:52:59"
   },
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 8.34,
     "current_price": 8.34,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 04:18:00"
+    "last_recommended_at": "2026-08-09 04:22:55"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 25.8,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 04:18:00"
+    "last_recommended_at": "2026-08-09 04:22:55"
   },
   "BLUR": {
     "name": "블러",
     "symbol": "BLUR",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 19.5,
     "current_price": 19.5,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 04:18:00"
+    "last_recommended_at": "2026-08-09 04:22:55"
   },
   "OP": {
     "name": "옵티미즘",
     "symbol": "OP",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 125.0,
     "current_price": 125.0,
     "first_recommended_at": "2026-08-09 04:18:00",
