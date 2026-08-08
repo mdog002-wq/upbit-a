@@ -25,7 +25,7 @@
     "count": 9,
     "top10_count": 9,
     "entry_price": 23730.0,
-    "current_price": 23530.0,
+    "current_price": 23620.0,
     "first_recommended_at": "2026-08-08 05:53:05",
     "last_recommended_at": "2026-08-08 07:12:49"
   },
@@ -55,7 +55,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 112.0,
-    "current_price": 110.0,
+    "current_price": 111.0,
     "first_recommended_at": "2026-08-08 06:13:04",
     "last_recommended_at": "2026-08-08 06:43:09"
   },
@@ -75,7 +75,7 @@
     "count": 7,
     "top10_count": 9,
     "entry_price": 123.0,
-    "current_price": 122.0,
+    "current_price": 123.0,
     "first_recommended_at": "2026-08-08 06:43:09",
     "last_recommended_at": "2026-08-08 08:03:11"
   },
@@ -105,7 +105,7 @@
     "count": 8,
     "top10_count": 8,
     "entry_price": 2952.0,
-    "current_price": 2947.0,
+    "current_price": 2952.0,
     "first_recommended_at": "2026-08-08 07:26:09",
     "last_recommended_at": "2026-08-08 08:32:48"
   },
@@ -115,19 +115,19 @@
     "count": 3,
     "top10_count": 6,
     "entry_price": 127.0,
-    "current_price": 128.0,
+    "current_price": 127.0,
     "first_recommended_at": "2026-08-08 07:53:02",
     "last_recommended_at": "2026-08-08 08:53:01"
   },
   "0G": {
     "name": "제로지",
     "symbol": "0G",
-    "count": 5,
-    "top10_count": 8,
+    "count": 6,
+    "top10_count": 9,
     "entry_price": 203.0,
-    "current_price": 211.0,
+    "current_price": 208.0,
     "first_recommended_at": "2026-08-08 08:32:48",
-    "last_recommended_at": "2026-08-08 10:34:09"
+    "last_recommended_at": "2026-08-08 10:53:25"
   },
   "POLYX": {
     "name": "폴리매쉬",
@@ -135,7 +135,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 45.2,
-    "current_price": 45.2,
+    "current_price": 45.3,
     "first_recommended_at": "2026-08-08 08:43:06",
     "last_recommended_at": "2026-08-08 09:03:07"
   },
@@ -155,7 +155,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 6.66,
-    "current_price": 6.44,
+    "current_price": 6.46,
     "first_recommended_at": "2026-08-08 09:03:07",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -175,7 +175,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 80.6,
-    "current_price": 79.6,
+    "current_price": 79.9,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 62.3,
-    "current_price": 59.4,
+    "current_price": 59.7,
     "first_recommended_at": "2026-08-08 09:13:05",
     "last_recommended_at": "2026-08-08 09:13:05"
   },
@@ -195,27 +195,27 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 28.6,
-    "current_price": 30.6,
+    "current_price": 30.7,
     "first_recommended_at": "2026-08-08 09:22:55",
     "last_recommended_at": "2026-08-08 09:22:55"
   },
   "BSV": {
     "name": "비트코인에스브이",
     "symbol": "BSV",
-    "count": 5,
-    "top10_count": 5,
+    "count": 6,
+    "top10_count": 6,
     "entry_price": 19370.0,
-    "current_price": 19500.0,
+    "current_price": 19540.0,
     "first_recommended_at": "2026-08-08 09:22:55",
-    "last_recommended_at": "2026-08-08 10:34:09"
+    "last_recommended_at": "2026-08-08 10:53:25"
   },
   "DKA": {
     "name": "디카르고",
     "symbol": "DKA",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 4.82,
-    "current_price": 4.76,
+    "current_price": 4.75,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:32:54"
   },
@@ -223,9 +223,9 @@
     "name": "밀크",
     "symbol": "MLK",
     "count": 2,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 46.9,
-    "current_price": 46.0,
+    "current_price": 46.3,
     "first_recommended_at": "2026-08-08 09:32:54",
     "last_recommended_at": "2026-08-08 09:42:37"
   },
@@ -235,19 +235,19 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 50.9,
-    "current_price": 50.7,
+    "current_price": 51.2,
     "first_recommended_at": "2026-08-08 09:42:37",
     "last_recommended_at": "2026-08-08 10:13:03"
   },
   "IRYS": {
     "name": "아이리스",
     "symbol": "IRYS",
-    "count": 2,
-    "top10_count": 3,
+    "count": 3,
+    "top10_count": 4,
     "entry_price": 23.2,
     "current_price": 23.0,
     "first_recommended_at": "2026-08-08 09:53:05",
-    "last_recommended_at": "2026-08-08 10:34:09"
+    "last_recommended_at": "2026-08-08 10:53:25"
   },
   "TAIKO": {
     "name": "타이코",
@@ -272,12 +272,12 @@
   "ATH": {
     "name": "에이셔",
     "symbol": "ATH",
-    "count": 1,
-    "top10_count": 2,
+    "count": 2,
+    "top10_count": 3,
     "entry_price": 5.87,
-    "current_price": 5.93,
+    "current_price": 5.92,
     "first_recommended_at": "2026-08-08 10:22:43",
-    "last_recommended_at": "2026-08-08 10:22:43"
+    "last_recommended_at": "2026-08-08 10:53:25"
   },
   "WAXP": {
     "name": "왁스",
@@ -285,7 +285,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 5.31,
-    "current_price": 5.31,
+    "current_price": 5.26,
     "first_recommended_at": "2026-08-08 10:22:43",
     "last_recommended_at": "2026-08-08 10:22:43"
   }
