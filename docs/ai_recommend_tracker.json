@@ -22,12 +22,12 @@
   "W": {
     "name": "웜홀",
     "symbol": "W",
-    "count": 16,
-    "top10_count": 21,
+    "count": 17,
+    "top10_count": 22,
     "entry_price": 11.7,
     "current_price": 12.0,
     "first_recommended_at": "2026-08-08 19:59:59",
-    "last_recommended_at": "2026-08-08 22:27:46"
+    "last_recommended_at": "2026-08-08 22:33:06"
   },
   "BABY": {
     "name": "바빌론",
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 6,
     "entry_price": 16.7,
-    "current_price": 17.6,
+    "current_price": 17.5,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 21:52:53"
   },
@@ -65,7 +65,7 @@
     "count": 1,
     "top10_count": 5,
     "entry_price": 0.847,
-    "current_price": 0.848,
+    "current_price": 0.846,
     "first_recommended_at": "2026-08-08 20:12:40",
     "last_recommended_at": "2026-08-08 20:12:40"
   },
@@ -123,9 +123,9 @@
     "name": "블러",
     "symbol": "BLUR",
     "count": 3,
-    "top10_count": 7,
+    "top10_count": 8,
     "entry_price": 19.2,
-    "current_price": 19.3,
+    "current_price": 19.2,
     "first_recommended_at": "2026-08-08 20:32:50",
     "last_recommended_at": "2026-08-08 21:02:54"
   },
@@ -185,7 +185,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 230.0,
-    "current_price": 231.0,
+    "current_price": 232.0,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -223,7 +223,7 @@
     "name": "월드리버티파이낸셜",
     "symbol": "WLFI",
     "count": 1,
-    "top10_count": 7,
+    "top10_count": 8,
     "entry_price": 72.0,
     "current_price": 71.9,
     "first_recommended_at": "2026-08-08 21:43:07",
@@ -263,7 +263,7 @@
     "name": "아캄",
     "symbol": "ARKM",
     "count": 4,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 137.0,
     "current_price": 137.0,
     "first_recommended_at": "2026-08-08 22:07:40",
@@ -282,22 +282,22 @@
   "IQ": {
     "name": "아이큐",
     "symbol": "IQ",
-    "count": 2,
-    "top10_count": 3,
+    "count": 3,
+    "top10_count": 4,
     "entry_price": 0.919,
     "current_price": 0.919,
     "first_recommended_at": "2026-08-08 22:17:31",
-    "last_recommended_at": "2026-08-08 22:27:46"
+    "last_recommended_at": "2026-08-08 22:33:06"
   },
   "BCH": {
     "name": "비트코인캐시",
     "symbol": "BCH",
-    "count": 1,
-    "top10_count": 2,
+    "count": 2,
+    "top10_count": 3,
     "entry_price": 304500.0,
     "current_price": 304500.0,
     "first_recommended_at": "2026-08-08 22:22:59",
-    "last_recommended_at": "2026-08-08 22:22:59"
+    "last_recommended_at": "2026-08-08 22:33:06"
   },
   "MTL": {
     "name": "메탈",
@@ -312,11 +312,11 @@
   "DOGE": {
     "name": "도지코인",
     "symbol": "DOGE",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 99.1,
     "current_price": 99.1,
     "first_recommended_at": "2026-08-08 22:27:46",
-    "last_recommended_at": "2026-08-08 22:27:46"
+    "last_recommended_at": "2026-08-08 22:33:06"
   }
 }
