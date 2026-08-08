@@ -15,7 +15,7 @@
     "count": 2,
     "top10_count": 13,
     "entry_price": 72.0,
-    "current_price": 72.4,
+    "current_price": 72.2,
     "first_recommended_at": "2026-08-08 21:43:07",
     "last_recommended_at": "2026-08-08 22:37:32"
   },
@@ -25,37 +25,37 @@
     "count": 1,
     "top10_count": 5,
     "entry_price": 3110.0,
-    "current_price": 3052.0,
+    "current_price": 3060.0,
     "first_recommended_at": "2026-08-09 02:52:59",
     "last_recommended_at": "2026-08-09 02:52:59"
   },
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 20,
-    "top10_count": 20,
+    "count": 21,
+    "top10_count": 21,
     "entry_price": 8.34,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 06:13:02"
+    "last_recommended_at": "2026-08-09 06:18:04"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 20,
-    "top10_count": 20,
+    "count": 21,
+    "top10_count": 21,
     "entry_price": 25.8,
     "current_price": 25.8,
     "first_recommended_at": "2026-08-09 04:18:00",
-    "last_recommended_at": "2026-08-09 06:13:02"
+    "last_recommended_at": "2026-08-09 06:18:04"
   },
   "BLUR": {
     "name": "블러",
     "symbol": "BLUR",
     "count": 5,
-    "top10_count": 7,
+    "top10_count": 8,
     "entry_price": 19.5,
-    "current_price": 19.5,
+    "current_price": 19.4,
     "first_recommended_at": "2026-08-09 04:18:00",
     "last_recommended_at": "2026-08-09 04:37:42"
   },
@@ -92,22 +92,22 @@
   "PYTH": {
     "name": "피스네트워크",
     "symbol": "PYTH",
-    "count": 11,
-    "top10_count": 12,
+    "count": 12,
+    "top10_count": 13,
     "entry_price": 57.3,
     "current_price": 56.9,
     "first_recommended_at": "2026-08-09 05:17:54",
-    "last_recommended_at": "2026-08-09 06:13:02"
+    "last_recommended_at": "2026-08-09 06:18:04"
   },
   "CBK": {
     "name": "코박토큰",
     "symbol": "CBK",
-    "count": 9,
-    "top10_count": 12,
+    "count": 10,
+    "top10_count": 13,
     "entry_price": 238.0,
     "current_price": 236.0,
     "first_recommended_at": "2026-08-09 05:17:54",
-    "last_recommended_at": "2026-08-09 06:13:02"
+    "last_recommended_at": "2026-08-09 06:18:04"
   },
   "AXL": {
     "name": "엑셀라",
@@ -125,7 +125,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 5.3,
-    "current_price": 5.27,
+    "current_price": 5.28,
     "first_recommended_at": "2026-08-09 05:53:04",
     "last_recommended_at": "2026-08-09 05:53:04"
   },
