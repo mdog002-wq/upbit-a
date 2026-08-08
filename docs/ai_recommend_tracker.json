@@ -5,7 +5,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 90.7,
-    "current_price": 89.1,
+    "current_price": 89.3,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -22,12 +22,12 @@
   "W": {
     "name": "웜홀",
     "symbol": "W",
-    "count": 4,
-    "top10_count": 9,
+    "count": 5,
+    "top10_count": 10,
     "entry_price": 11.7,
-    "current_price": 11.8,
+    "current_price": 11.9,
     "first_recommended_at": "2026-08-08 19:59:59",
-    "last_recommended_at": "2026-08-08 21:02:54"
+    "last_recommended_at": "2026-08-08 21:32:59"
   },
   "BABY": {
     "name": "바빌론",
@@ -35,7 +35,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 16.7,
-    "current_price": 17.0,
+    "current_price": 17.1,
     "first_recommended_at": "2026-08-08 19:59:59",
     "last_recommended_at": "2026-08-08 19:59:59"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 933.0,
-    "current_price": 931.0,
+    "current_price": 930.0,
     "first_recommended_at": "2026-08-08 20:03:03",
     "last_recommended_at": "2026-08-08 20:03:03"
   },
@@ -93,21 +93,21 @@
     "name": "스택스",
     "symbol": "STX",
     "count": 5,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 186.0,
-    "current_price": 185.0,
+    "current_price": 186.0,
     "first_recommended_at": "2026-08-08 20:22:47",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
   "SYRUP": {
     "name": "메이플파이낸스",
     "symbol": "SYRUP",
-    "count": 3,
-    "top10_count": 5,
+    "count": 4,
+    "top10_count": 6,
     "entry_price": 212.0,
     "current_price": 212.0,
     "first_recommended_at": "2026-08-08 20:22:47",
-    "last_recommended_at": "2026-08-08 21:12:55"
+    "last_recommended_at": "2026-08-08 21:32:59"
   },
   "WCT": {
     "name": "월렛커넥트",
@@ -165,7 +165,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 124.0,
-    "current_price": 124.0,
+    "current_price": 125.0,
     "first_recommended_at": "2026-08-08 21:12:55",
     "last_recommended_at": "2026-08-08 21:22:34"
   },
@@ -188,5 +188,25 @@
     "current_price": 230.0,
     "first_recommended_at": "2026-08-08 21:22:34",
     "last_recommended_at": "2026-08-08 21:22:34"
+  },
+  "CTC": {
+    "name": "크레딧코인",
+    "symbol": "CTC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 97.3,
+    "current_price": 97.3,
+    "first_recommended_at": "2026-08-08 21:32:59",
+    "last_recommended_at": "2026-08-08 21:32:59"
+  },
+  "RVN": {
+    "name": "레이븐코인",
+    "symbol": "RVN",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 5.04,
+    "current_price": 5.04,
+    "first_recommended_at": "2026-08-08 21:32:59",
+    "last_recommended_at": "2026-08-08 21:32:59"
   }
 }
