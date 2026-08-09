@@ -126,7 +126,7 @@ os.makedirs(DOCS_DIR, exist_ok=True)
 
 
 # ==============================================================================
-# [신규 추가] 골든 패턴 로드 및 DTW (Dynamic Time Warping) 계산 모듈
+# [골든 패턴 로드 및 DTW 계산 모듈]
 # ==============================================================================
 def load_golden_pattern():
     """GitHub Raw URL에서 학습된 golden_pattern.json 로드"""
@@ -146,7 +146,6 @@ def load_golden_pattern():
         print(f"⚠️ 골든 패턴 불러오기 중 오류 발생: {e}")
     return None
 
-# 글로벌 변수로 골든 패턴 로드
 GLOBAL_GOLDEN_PATTERN = load_golden_pattern()
 
 def calculate_dtw_distance(s1, s2):
@@ -159,9 +158,9 @@ def calculate_dtw_distance(s1, s2):
         for j in range(1, m + 1):
             cost = abs(s1[i - 1] - s2[j - 1])
             dtw_matrix[i, j] = cost + min(
-                dtw_matrix[i - 1, j], # 삽입
-                dtw_matrix[i, j - 1], # 삭제
-                dtw_matrix[i - 1, j - 1] # 일치
+                dtw_matrix[i - 1, j],
+                dtw_matrix[i, j - 1],
+                dtw_matrix[i - 1, j - 1]
             )
     return dtw_matrix[n, m]
 
@@ -174,13 +173,9 @@ def calculate_pattern_similarity(series, target_pattern):
     if s_max == s_min:
         return 0.0
     
-    # 0~1 정규화
     norm_series = (np.array(series) - s_min) / (s_max - s_min + 1e-8)
-    
-    # DTW 거리 계산
     dist = calculate_dtw_distance(norm_series, np.array(target_pattern))
     
-    # 거리를 0~100 범위의 유사도 점수로 변환 (최대 거리 24 기준)
     max_possible_dist = len(target_pattern)
     similarity = max(0.0, 100.0 * (1.0 - (dist / max_possible_dist)))
     return round(similarity, 1)
@@ -205,7 +200,6 @@ def send_telegram_alert(message):
             pass
 
 def get_active_ai_recommended_map():
-    """docs/ai_recommend_tracker.json에서 현재 추적 중인 AI 추천 종목과 추천 횟수를 가져옵니다."""
     rec_map = {}
     if os.path.exists(AI_TRACKER_HISTORY_FILE):
         try:
@@ -222,58 +216,8 @@ def get_active_ai_recommended_map():
     return rec_map
 
 # ==============================================================================
-# [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (토큰포스트 RSS 기반)
+# [뉴스 수집기]
 # ==============================================================================
-def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
-    abs_path = os.path.abspath(filepath)
-
-    if not os.path.exists(abs_path):
-        print(f"⚠️ 파일이 존재하지 않습니다: {abs_path}")
-        return []
-
-    try:
-        with open(abs_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-
-        coins = []
-
-        if isinstance(data, list):
-            for item in data:
-                if isinstance(item, dict):
-                    name = item.get("name") or item.get("coin") or item.get("coin_name")
-                    symbol = item.get("symbol") or item.get("ticker")
-                    if name: coins.append(str(name))
-                    if symbol and symbol != name: coins.append(str(symbol))
-                elif isinstance(item, str):
-                    coins.append(item)
-
-        elif isinstance(data, dict):
-            target_list = None
-            for key in ["recommended", "coins", "data", "items"]:
-                if key in data and isinstance(data[key], list):
-                    target_list = data[key]
-                    break
-
-            if target_list:
-                for item in target_list:
-                    if isinstance(item, dict):
-                        name = item.get("name") or item.get("coin") or item.get("coin_name")
-                        symbol = item.get("symbol") or item.get("ticker")
-                        if name: coins.append(str(name))
-                        if symbol and symbol != name: coins.append(str(symbol))
-                    elif isinstance(item, str):
-                        coins.append(item)
-            else:
-                coins = [str(k) for k in data.keys()]
-
-        coins = list(set([c.strip() for c in coins if str(c).strip()]))
-        return coins
-
-    except Exception as e:
-        print(f"⚠️ JSON 읽기 오류: {e}")
-        return []
-
-
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
     coin_news_dict = {}
 
@@ -283,7 +227,6 @@ def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
             
         coin_str = str(coin).strip()
         query = urllib.parse.quote(f"{coin_str} 코인")
-        
         rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko&tbs=sbd:1"
 
         try:
@@ -330,7 +273,7 @@ def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
     return coin_news_dict
 
 # ==============================================================================
-# [AI 모듈 1] 시계열 딥러닝(LSTM) 자가학습 덤핑 예측
+# [AI 모듈 1 & 2] LSTM & STGT
 # ==============================================================================
 class LSTMIcebergPredictor:
     def __init__(self, sequence_length=15, num_features=3):
@@ -373,9 +316,6 @@ class LSTMIcebergPredictor:
 
 lstm_dumping_predictor = LSTMIcebergPredictor()
 
-# ==============================================================================
-# [AI 모듈 2] STGT (Spatiotemporal Graph Transformer) 자가학습
-# ==============================================================================
 class STGTModel(nn.Module if TORCH_AVAILABLE else object):
     def __init__(self, in_feats=9, hidden_size=32):
         if not TORCH_AVAILABLE: return
@@ -438,7 +378,7 @@ class STGTManager:
 stgt_manager = STGTManager()
 
 # ==============================================================================
-# [자가학습 엔진] 과거 경험 검증 및 모델 자동 업데이트
+# [자가학습 엔진]
 # ==============================================================================
 class AIEvolutionEngine:
     def __init__(self):
@@ -516,7 +456,7 @@ class AIEvolutionEngine:
 ai_engine = AIEvolutionEngine()
 
 # ==============================================================================
-# [스캔 분석 유틸 및 점수 보정 함수]
+# [스캔 분석 유틸 및 선행성 지표 보정 개편]
 # ==============================================================================
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
@@ -533,7 +473,6 @@ def calculate_t1_advanced_metrics(ticker):
         try:
             df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
             df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=30)
-            # DTW 계산용 5분봉 24개 데이터 수집
             df_5m = pyupbit.get_ohlcv(ticker, interval="minute5", count=24)
            
             if df_1h is None or len(df_1h) < 30 or df_daily is None or len(df_daily) < 10:
@@ -542,16 +481,24 @@ def calculate_t1_advanced_metrics(ticker):
             close_1h = df_1h['close']
             vol_1h = df_1h['volume']
            
-            vol_mean_24h = vol_1h.iloc[-25:-1].mean() + 1e-8
-            vol_spike_ratio = float(vol_1h.iloc[-1] / vol_mean_24h)
+            # 1. 단기 거래량 급등 속도 (Volume Velocity)
+            vol_recent_3m = df_5m['volume'].iloc[-3:].sum() if df_5m is not None and len(df_5m) >= 3 else vol_1h.iloc[-1]
+            vol_prev_avg = (df_5m['volume'].iloc[-18:-3].mean() * 3) if df_5m is not None and len(df_5m) >= 18 else (vol_1h.iloc[-5:-1].mean() + 1e-8)
+            vol_velocity = float(vol_recent_3m / (vol_prev_avg + 1e-8))
+            vol_spike_ratio = float(vol_1h.iloc[-1] / (vol_1h.iloc[-25:-1].mean() + 1e-8))
            
+            # 2. 볼린저밴드 수렴 후 돌파 (BB Squeeze Breakout)
             ma20_1h = close_1h.rolling(20).mean()
             std20_1h = close_1h.rolling(20).std()
             upper_band = ma20_1h + (std20_1h * 2)
             lower_band = ma20_1h - (std20_1h * 2)
             bb_width = float((upper_band.iloc[-1] - lower_band.iloc[-1]) / (ma20_1h.iloc[-1] + 1e-8))
-           
             bb_breakout = float((close_1h.iloc[-1] - lower_band.iloc[-1]) / (upper_band.iloc[-1] - lower_band.iloc[-1] + 1e-8))
+
+            # 3. 이평선 수렴율 (Golden Cross 초입)
+            ma5_1h = close_1h.rolling(5).mean().iloc[-1]
+            ma20_curr = ma20_1h.iloc[-1]
+            ma_diff_pct = float(abs(ma5_1h - ma20_curr) / (close_1h.iloc[-1] + 1e-8) * 100.0)
 
             mfv = ((close_1h - df_1h['low']) - (df_1h['high'] - close_1h)) / (df_1h['high'] - df_1h['low'] + 1e-8) * vol_1h
             cmf_1h = float(mfv.iloc[-20:].sum() / (vol_1h.iloc[-20:].sum() + 1e-8))
@@ -573,7 +520,6 @@ def calculate_t1_advanced_metrics(ticker):
                     float(cmf_1h)
                 ])
 
-            # 골든 패턴 기반 DTW 유사도 산출
             pattern_similarity = 0.0
             volume_similarity = 0.0
             if GLOBAL_GOLDEN_PATTERN and df_5m is not None and len(df_5m) == 24:
@@ -590,9 +536,11 @@ def calculate_t1_advanced_metrics(ticker):
 
             return {
                 "last_close": float(close_1h.iloc[-1]),
+                "vol_velocity": round(vol_velocity, 2),
                 "vol_spike_ratio": round(vol_spike_ratio, 2),
                 "bb_width": round(bb_width, 4),
                 "bb_breakout": round(bb_breakout, 2),
+                "ma_diff_pct": round(ma_diff_pct, 2),
                 "cmf_1h": round(cmf_1h, 2),
                 "rsi_1h": round(rsi_1h, 1),
                 "lstm_sequence": lstm_sequence,
@@ -638,46 +586,63 @@ def process_single_coin(item, current_price_map, ai_rec_map=None):
 
         iceberg_metrics = get_highfreq_iceberg_metrics(ticker, metrics.get("lstm_sequence"))
        
-        score = 40.0
-        vol_score = min(25.0, (metrics['vol_spike_ratio'] - 1.0) * 10.0) if metrics['vol_spike_ratio'] > 1.0 else 0
-       
-        squeeze_bonus = 0
-        if metrics['bb_width'] < 0.08:
-            squeeze_bonus += 10.0
-            if metrics['bb_breakout'] >= 0.8:
-                squeeze_bonus += 10.0
-               
-        cmf_score = max(-10.0, min(15.0, metrics['cmf_1h'] * 20.0))
-        rsi_penalty = -10.0 if metrics['rsi_1h'] >= 75.0 else 0.0
+        # 🔥 [선행성 AI 스코어링 개편 로직 (Leading Indicator)] 🔥
+        # 1. 단기 거래량 급승 속도 점수 (35점 만점)
+        vol_vel = metrics.get('vol_velocity', 1.0)
+        vol_score = min(35.0, max(0.0, (vol_vel - 1.0) * 15.0))
 
-        # 🔥 [신규 반영] 골든 패턴 및 거래량 패턴 유사도 가산점 (최대 15점)
+        # 2. 볼린저밴드 변동성 수렴 후 초기 돌파 (25점 만점)
+        squeeze_score = 0.0
+        if metrics['bb_width'] < 0.05:
+            squeeze_score += 15.0
+            if metrics['bb_breakout'] >= 0.8:
+                squeeze_score += 10.0
+        elif metrics['bb_width'] < 0.08:
+            squeeze_score += 8.0
+
+        # 3. 이평선 수렴 (Golden Cross 직전 포착, 20점 만점)
+        ma_diff = metrics.get('ma_diff_pct', 5.0)
+        ma_convergence_score = max(0.0, 20.0 - (ma_diff * 4.0))
+
+        # 4. RSI 과열 구간 감점 및 초기 상승 가점
+        rsi = metrics['rsi_1h']
+        if rsi >= 72.0:
+            rsi_factor = 0.75  # 이미 폭등한 뒷북 종목 점수 깎음 (상단 물림 방지)
+        elif 45.0 <= rsi <= 62.0:
+            rsi_factor = 1.15  # 돌파 직전/상승 초기 구간 우대
+        else:
+            rsi_factor = 1.0
+
+        cmf_score = max(-10.0, min(10.0, metrics['cmf_1h'] * 15.0))
+
+        # 5. 골든 패턴 및 거래량 패턴 유사도 가산점 (최대 15점)
         pattern_sim = metrics.get('pattern_similarity', 0.0)
         volume_sim = metrics.get('volume_similarity', 0.0)
         pattern_bonus = 0.0
         if pattern_sim >= 75.0:
-            pattern_bonus += (pattern_sim - 75.0) * 0.4 # 최대 약 +10점
+            pattern_bonus += (pattern_sim - 75.0) * 0.4
         if volume_sim >= 75.0:
-            pattern_bonus += (volume_sim - 75.0) * 0.2 # 최대 약 +5점
+            pattern_bonus += (volume_sim - 75.0) * 0.2
 
-        # AI 추천 트래킹 종목 가산점 계산
+        # AI 추천 트래킹 가점
         ai_bonus = 0.0
         if symbol in ai_rec_map and iceberg_metrics['score_modifier'] > 0:
             rec_info = ai_rec_map[symbol]
             rec_cnt = rec_info.get("count", 1)
             ai_bonus = 5.0 + min(2.0, (rec_cnt - 1) * 0.5)
 
-        total_score = score + vol_score + squeeze_bonus + cmf_score + rsi_penalty + pattern_bonus + iceberg_metrics['score_modifier'] + ai_bonus
-        acc_score = round(max(0.0, min(100.0, total_score)), 1)
+        raw_score = (vol_score + squeeze_score + ma_convergence_score + cmf_score + pattern_bonus + iceberg_metrics['score_modifier'] + ai_bonus) * rsi_factor
+        acc_score = round(max(0.0, min(100.0, raw_score)), 1)
 
         c_price = current_price_map.get(ticker, metrics['last_close'])
        
         stgt_feats = [
-            metrics['vol_spike_ratio'] / 10.0,
+            metrics['vol_velocity'] / 10.0,
             metrics['bb_width'],
             metrics['cmf_1h'],
             metrics['rsi_1h'] / 100.0,
             metrics['bb_breakout'],
-            pattern_sim / 100.0, # STGT 피처에 패턴 유사도 정규화값 반영
+            pattern_sim / 100.0,
             1.0, 0.2, 0.5
         ]
        
@@ -751,7 +716,6 @@ def analyze_and_scan_market():
     return df.sort_values(by="종합예측점수", ascending=False)
 
 def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_status_map, top10_symbols=set()):
-    """docs/ai_recommend_tracker.json 파일에 추천 트래킹 데이터를 저장하고 불러옵니다."""
     history = {}
    
     if os.path.exists(AI_TRACKER_HISTORY_FILE):
@@ -845,7 +809,7 @@ def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_st
     return tracker_list
 
 # ==============================================================================
-# [Gemini Structured Output 기반 분석 리포트]
+# [Gemini Structured Output 분석 리포트]
 # ==============================================================================
 def generate_gemini_analysis(df_result):
     if df_result.empty:
@@ -928,13 +892,12 @@ def export_to_excel_and_email(df_result, ai_report):
         print(f"❌ 엑셀/이메일 발송 작업 중 오류: {e}")
 
 # ==============================================================================
-# [리포트 생성 및 대시보드 HTML 출력]
+# [대시보드 HTML 출력]
 # ==============================================================================
 def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
    
     monitored_symbols = {item['symbol'] for item in tracking_monitor_data}
-   
     alerts = []
    
     if not df_result.empty:
@@ -950,7 +913,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     if not df_result.empty:
         for rank, (_, row) in enumerate(df_result.iterrows(), start=1):
             symbol = row['심볼']
-            market_code = f"KRW-{symbol}"
             name = row['코인명']
             price = row['현재가(KRW)']
             score = float(row['종합예측점수'])
@@ -995,7 +957,6 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         news_html = "\n".join(news_items)
     else:
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
-
 
     tracking_items = []
     for item in tracking_monitor_data:
@@ -1197,7 +1158,6 @@ if __name__ == "__main__":
                 "dump_risk": float(r['STGT_그래프덤핑위험(%)'])
             }
 
-        # docs/ai_recommend_tracker.json을 생성/읽기하도록 호출
         tracking_monitor_data = update_ai_recommendation_tracker(
             ai_report_coins,
             symbol_to_raw_price,
