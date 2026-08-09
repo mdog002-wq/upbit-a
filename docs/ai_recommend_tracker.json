@@ -12,12 +12,12 @@
   "ETHFI": {
     "name": "이더파이",
     "symbol": "ETHFI",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 549.0,
     "current_price": 549.0,
     "first_recommended_at": "2026-08-09 15:52:57",
-    "last_recommended_at": "2026-08-09 16:03:17"
+    "last_recommended_at": "2026-08-09 16:08:02"
   },
   "SONIC": {
     "name": "소닉SVM",
@@ -52,31 +52,41 @@
   "RVN": {
     "name": "레이븐코인",
     "symbol": "RVN",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 5.13,
     "current_price": 5.13,
     "first_recommended_at": "2026-08-09 16:03:17",
-    "last_recommended_at": "2026-08-09 16:03:17"
+    "last_recommended_at": "2026-08-09 16:08:02"
   },
   "BAT": {
     "name": "베이직어텐션토큰",
     "symbol": "BAT",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 97.0,
     "current_price": 97.0,
     "first_recommended_at": "2026-08-09 16:03:17",
-    "last_recommended_at": "2026-08-09 16:03:17"
+    "last_recommended_at": "2026-08-09 16:08:02"
   },
   "TREE": {
     "name": "트리하우스",
     "symbol": "TREE",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 53.3,
     "current_price": 53.3,
     "first_recommended_at": "2026-08-09 16:03:17",
     "last_recommended_at": "2026-08-09 16:03:17"
+  },
+  "NEWT": {
+    "name": "뉴턴프로토콜",
+    "symbol": "NEWT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 56.3,
+    "current_price": 56.3,
+    "first_recommended_at": "2026-08-09 16:08:02",
+    "last_recommended_at": "2026-08-09 16:08:02"
   }
 }
