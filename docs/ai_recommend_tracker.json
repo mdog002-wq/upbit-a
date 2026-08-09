@@ -2,22 +2,22 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 23,
-    "top10_count": 23,
+    "count": 24,
+    "top10_count": 24,
     "entry_price": 83.5,
     "current_price": 83.9,
     "first_recommended_at": "2026-08-09 09:47:55",
-    "last_recommended_at": "2026-08-09 13:37:44"
+    "last_recommended_at": "2026-08-09 13:42:51"
   },
   "FCT2": {
     "name": "피르마체인",
     "symbol": "FCT2",
-    "count": 10,
-    "top10_count": 16,
+    "count": 11,
+    "top10_count": 17,
     "entry_price": 9.47,
     "current_price": 9.46,
     "first_recommended_at": "2026-08-09 09:52:59",
-    "last_recommended_at": "2026-08-09 13:37:44"
+    "last_recommended_at": "2026-08-09 13:42:51"
   },
   "TOKAMAK": {
     "name": "토카막네트워크",
@@ -32,21 +32,31 @@
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 119.0,
     "current_price": 119.0,
     "first_recommended_at": "2026-08-09 13:37:44",
-    "last_recommended_at": "2026-08-09 13:37:44"
+    "last_recommended_at": "2026-08-09 13:42:51"
   },
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 52.1,
-    "current_price": 52.1,
+    "current_price": 51.9,
     "first_recommended_at": "2026-08-09 13:37:44",
     "last_recommended_at": "2026-08-09 13:37:44"
+  },
+  "SUN": {
+    "name": "썬",
+    "symbol": "SUN",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 25.4,
+    "current_price": 25.4,
+    "first_recommended_at": "2026-08-09 13:42:51",
+    "last_recommended_at": "2026-08-09 13:42:51"
   }
 }
