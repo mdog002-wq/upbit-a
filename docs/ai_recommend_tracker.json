@@ -15,7 +15,7 @@
     "count": 6,
     "top10_count": 6,
     "entry_price": 549.0,
-    "current_price": 549.0,
+    "current_price": 550.0,
     "first_recommended_at": "2026-08-09 15:52:57",
     "last_recommended_at": "2026-08-09 16:17:52"
   },
@@ -73,9 +73,9 @@
     "name": "트리하우스",
     "symbol": "TREE",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 53.3,
-    "current_price": 53.3,
+    "current_price": 52.8,
     "first_recommended_at": "2026-08-09 16:03:17",
     "last_recommended_at": "2026-08-09 16:03:17"
   },
@@ -92,18 +92,18 @@
   "TRUST": {
     "name": "인튜이션",
     "symbol": "TRUST",
-    "count": 4,
-    "top10_count": 5,
+    "count": 5,
+    "top10_count": 6,
     "entry_price": 76.2,
-    "current_price": 75.3,
+    "current_price": 75.4,
     "first_recommended_at": "2026-08-09 16:12:50",
-    "last_recommended_at": "2026-08-09 16:33:07"
+    "last_recommended_at": "2026-08-09 16:37:45"
   },
   "WET": {
     "name": "휴미디파이",
     "symbol": "WET",
     "count": 4,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 98.5,
     "current_price": 98.8,
     "first_recommended_at": "2026-08-09 16:12:50",
@@ -122,12 +122,12 @@
   "SUPER": {
     "name": "슈퍼버스",
     "symbol": "SUPER",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 123.0,
     "current_price": 123.0,
     "first_recommended_at": "2026-08-09 16:27:50",
-    "last_recommended_at": "2026-08-09 16:33:07"
+    "last_recommended_at": "2026-08-09 16:37:45"
   },
   "SOMI": {
     "name": "솜니아",
@@ -135,8 +135,28 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 134.0,
-    "current_price": 134.0,
+    "current_price": 136.0,
     "first_recommended_at": "2026-08-09 16:33:07",
     "last_recommended_at": "2026-08-09 16:33:07"
+  },
+  "BERA": {
+    "name": "베라체인",
+    "symbol": "BERA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 223.0,
+    "current_price": 223.0,
+    "first_recommended_at": "2026-08-09 16:37:45",
+    "last_recommended_at": "2026-08-09 16:37:45"
+  },
+  "IO": {
+    "name": "아이오넷",
+    "symbol": "IO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 179.0,
+    "current_price": 179.0,
+    "first_recommended_at": "2026-08-09 16:37:45",
+    "last_recommended_at": "2026-08-09 16:37:45"
   }
 }
