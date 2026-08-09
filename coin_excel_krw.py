@@ -37,7 +37,8 @@ except ImportError:
 # ==============================================================================
 # [설정] 파일 경로 및 환경 설정
 # ==============================================================================
-DATA_DIR = "./data"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
 AI_MODELS_DIR = "./ai_models"
 CACHE_DIR = "./cache"
 EXPERIENCE_FILE = os.path.join(AI_MODELS_DIR, "ai_experience.json")
