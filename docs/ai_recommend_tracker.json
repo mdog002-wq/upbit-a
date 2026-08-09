@@ -3,7 +3,7 @@
     "name": "이더파이",
     "symbol": "ETHFI",
     "count": 2,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 548.0,
     "current_price": 546.0,
     "first_recommended_at": "2026-08-09 17:47:33",
@@ -12,38 +12,38 @@
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 5,
-    "top10_count": 6,
+    "count": 6,
+    "top10_count": 7,
     "entry_price": 127.0,
     "current_price": 127.0,
     "first_recommended_at": "2026-08-09 17:47:33",
-    "last_recommended_at": "2026-08-09 18:12:56"
+    "last_recommended_at": "2026-08-09 18:17:51"
   },
   "MINA": {
     "name": "미나",
     "symbol": "MINA",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 57.7,
-    "current_price": 57.6,
+    "current_price": 57.7,
     "first_recommended_at": "2026-08-09 18:07:52",
     "last_recommended_at": "2026-08-09 18:07:52"
   },
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 83.6,
     "current_price": 83.6,
     "first_recommended_at": "2026-08-09 18:07:52",
-    "last_recommended_at": "2026-08-09 18:12:56"
+    "last_recommended_at": "2026-08-09 18:17:51"
   },
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
     "count": 2,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 26.5,
     "current_price": 26.7,
     "first_recommended_at": "2026-08-09 18:07:52",
@@ -55,8 +55,28 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1.95,
-    "current_price": 1.95,
+    "current_price": 1.94,
     "first_recommended_at": "2026-08-09 18:12:56",
     "last_recommended_at": "2026-08-09 18:12:56"
+  },
+  "ZETA": {
+    "name": "제타체인",
+    "symbol": "ZETA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 42.3,
+    "current_price": 42.3,
+    "first_recommended_at": "2026-08-09 18:17:51",
+    "last_recommended_at": "2026-08-09 18:17:51"
+  },
+  "SPK": {
+    "name": "스파크",
+    "symbol": "SPK",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 21.1,
+    "current_price": 21.1,
+    "first_recommended_at": "2026-08-09 18:17:51",
+    "last_recommended_at": "2026-08-09 18:17:51"
   }
 }
