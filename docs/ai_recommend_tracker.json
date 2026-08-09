@@ -15,7 +15,7 @@
     "count": 10,
     "top10_count": 15,
     "entry_price": 89.0,
-    "current_price": 88.8,
+    "current_price": 89.0,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:23:08"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 16210.0,
-    "current_price": 16240.0,
+    "current_price": 16220.0,
     "first_recommended_at": "2026-08-09 19:53:01",
     "last_recommended_at": "2026-08-09 19:53:01"
   },
@@ -65,7 +65,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 20.7,
-    "current_price": 20.8,
+    "current_price": 20.6,
     "first_recommended_at": "2026-08-09 20:03:18",
     "last_recommended_at": "2026-08-09 20:13:31"
   },
@@ -93,7 +93,7 @@
     "name": "폴리매쉬",
     "symbol": "POLYX",
     "count": 1,
-    "top10_count": 7,
+    "top10_count": 8,
     "entry_price": 46.0,
     "current_price": 46.1,
     "first_recommended_at": "2026-08-09 20:17:57",
@@ -105,7 +105,7 @@
     "count": 8,
     "top10_count": 8,
     "entry_price": 8.08,
-    "current_price": 8.07,
+    "current_price": 8.08,
     "first_recommended_at": "2026-08-09 20:23:08",
     "last_recommended_at": "2026-08-09 20:58:19"
   },
@@ -115,29 +115,29 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 79.2,
-    "current_price": 79.0,
+    "current_price": 79.2,
     "first_recommended_at": "2026-08-09 20:27:56",
     "last_recommended_at": "2026-08-09 20:27:56"
   },
   "ANIME": {
     "name": "애니메코인",
     "symbol": "ANIME",
-    "count": 4,
-    "top10_count": 5,
+    "count": 5,
+    "top10_count": 6,
     "entry_price": 3.65,
-    "current_price": 3.63,
+    "current_price": 3.62,
     "first_recommended_at": "2026-08-09 20:33:40",
-    "last_recommended_at": "2026-08-09 20:53:07"
+    "last_recommended_at": "2026-08-09 21:03:22"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 1,
-    "top10_count": 3,
+    "count": 2,
+    "top10_count": 4,
     "entry_price": 27.2,
     "current_price": 27.2,
     "first_recommended_at": "2026-08-09 20:48:35",
-    "last_recommended_at": "2026-08-09 20:48:35"
+    "last_recommended_at": "2026-08-09 21:03:22"
   },
   "LA": {
     "name": "라그랑주",
@@ -145,19 +145,19 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 76.9,
-    "current_price": 76.8,
+    "current_price": 76.7,
     "first_recommended_at": "2026-08-09 20:48:35",
     "last_recommended_at": "2026-08-09 20:48:35"
   },
   "ARDR": {
     "name": "아더",
     "symbol": "ARDR",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-09 20:53:07",
-    "last_recommended_at": "2026-08-09 20:58:19"
+    "last_recommended_at": "2026-08-09 21:03:22"
   },
   "HYPER": {
     "name": "하이퍼레인",
@@ -168,5 +168,15 @@
     "current_price": 91.4,
     "first_recommended_at": "2026-08-09 20:58:19",
     "last_recommended_at": "2026-08-09 20:58:19"
+  },
+  "XCN": {
+    "name": "오닉스코인",
+    "symbol": "XCN",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 4.31,
+    "current_price": 4.31,
+    "first_recommended_at": "2026-08-09 21:03:22",
+    "last_recommended_at": "2026-08-09 21:03:22"
   }
 }
