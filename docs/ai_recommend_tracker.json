@@ -2,12 +2,12 @@
   "2Z": {
     "name": "더블제로",
     "symbol": "2Z",
-    "count": 8,
-    "top10_count": 8,
+    "count": 9,
+    "top10_count": 9,
     "entry_price": 79.0,
     "current_price": 79.4,
     "first_recommended_at": "2026-08-09 18:27:51",
-    "last_recommended_at": "2026-08-09 19:03:27"
+    "last_recommended_at": "2026-08-09 19:07:42"
   },
   "SPK": {
     "name": "스파크",
@@ -23,9 +23,9 @@
     "name": "제타체인",
     "symbol": "ZETA",
     "count": 3,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 42.3,
-    "current_price": 42.3,
+    "current_price": 42.1,
     "first_recommended_at": "2026-08-09 18:52:45",
     "last_recommended_at": "2026-08-09 19:03:27"
   },
@@ -35,7 +35,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 7.77,
-    "current_price": 7.73,
+    "current_price": 7.76,
     "first_recommended_at": "2026-08-09 18:52:45",
     "last_recommended_at": "2026-08-09 19:03:27"
   },
@@ -48,5 +48,35 @@
     "current_price": 0.924,
     "first_recommended_at": "2026-08-09 18:58:05",
     "last_recommended_at": "2026-08-09 18:58:05"
+  },
+  "HP": {
+    "name": "히포프로토콜",
+    "symbol": "HP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 9.75,
+    "current_price": 9.75,
+    "first_recommended_at": "2026-08-09 19:07:42",
+    "last_recommended_at": "2026-08-09 19:07:42"
+  },
+  "ELF": {
+    "name": "엘프",
+    "symbol": "ELF",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 83.6,
+    "current_price": 83.6,
+    "first_recommended_at": "2026-08-09 19:07:42",
+    "last_recommended_at": "2026-08-09 19:07:42"
+  },
+  "MINA": {
+    "name": "미나",
+    "symbol": "MINA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 57.9,
+    "current_price": 57.9,
+    "first_recommended_at": "2026-08-09 19:07:42",
+    "last_recommended_at": "2026-08-09 19:07:42"
   }
 }
