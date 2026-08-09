@@ -15,25 +15,25 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 94.2,
+    "current_price": 94.6,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 10,
-    "top10_count": 12,
+    "count": 11,
+    "top10_count": 13,
     "entry_price": 25.9,
-    "current_price": 26.3,
+    "current_price": 26.5,
     "first_recommended_at": "2026-08-09 09:42:56",
-    "last_recommended_at": "2026-08-09 10:52:53"
+    "last_recommended_at": "2026-08-09 11:08:18"
   },
   "API3": {
     "name": "에이피아이쓰리",
     "symbol": "API3",
     "count": 2,
-    "top10_count": 11,
+    "top10_count": 12,
     "entry_price": 273.0,
     "current_price": 274.0,
     "first_recommended_at": "2026-08-09 09:42:56",
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 11.2,
-    "current_price": 10.8,
+    "current_price": 10.7,
     "first_recommended_at": "2026-08-09 09:47:55",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
@@ -65,7 +65,7 @@
     "count": 11,
     "top10_count": 11,
     "entry_price": 83.5,
-    "current_price": 82.8,
+    "current_price": 83.5,
     "first_recommended_at": "2026-08-09 09:47:55",
     "last_recommended_at": "2026-08-09 10:37:52"
   },
@@ -73,7 +73,7 @@
     "name": "피르마체인",
     "symbol": "FCT2",
     "count": 5,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 9.47,
     "current_price": 9.46,
     "first_recommended_at": "2026-08-09 09:52:59",
@@ -85,7 +85,7 @@
     "count": 7,
     "top10_count": 7,
     "entry_price": 52.1,
-    "current_price": 51.8,
+    "current_price": 52.2,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 10:22:51"
   },
@@ -95,7 +95,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 293200.0,
-    "current_price": 289900.0,
+    "current_price": 288800.0,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 09:57:44"
   },
@@ -105,19 +105,19 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 5.08,
-    "current_price": 5.06,
+    "current_price": 5.1,
     "first_recommended_at": "2026-08-09 10:03:18",
     "last_recommended_at": "2026-08-09 10:08:02"
   },
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 8.36,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 10:28:01",
-    "last_recommended_at": "2026-08-09 10:52:53"
+    "last_recommended_at": "2026-08-09 11:08:18"
   },
   "META": {
     "name": "메타디움",
@@ -125,7 +125,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 9.63,
-    "current_price": 9.63,
+    "current_price": 9.51,
     "first_recommended_at": "2026-08-09 10:28:01",
     "last_recommended_at": "2026-08-09 10:28:01"
   },
@@ -133,7 +133,7 @@
     "name": "왁스",
     "symbol": "WAXP",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 5.47,
     "current_price": 5.45,
     "first_recommended_at": "2026-08-09 10:37:52",
@@ -145,8 +145,28 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 40.4,
-    "current_price": 40.5,
+    "current_price": 40.1,
     "first_recommended_at": "2026-08-09 10:43:11",
     "last_recommended_at": "2026-08-09 10:52:53"
+  },
+  "EGLD": {
+    "name": "멀티버스엑스",
+    "symbol": "EGLD",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 3826.0,
+    "current_price": 3826.0,
+    "first_recommended_at": "2026-08-09 11:08:18",
+    "last_recommended_at": "2026-08-09 11:08:18"
+  },
+  "CKB": {
+    "name": "너보스",
+    "symbol": "CKB",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 1.23,
+    "current_price": 1.23,
+    "first_recommended_at": "2026-08-09 11:08:18",
+    "last_recommended_at": "2026-08-09 11:08:18"
   }
 }
