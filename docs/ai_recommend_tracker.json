@@ -1,1 +1,42 @@
-{}
+{
+  "2Z": {
+    "name": "더블제로",
+    "symbol": "2Z",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 79.6,
+    "current_price": 79.6,
+    "first_recommended_at": "2026-08-09 22:03:22",
+    "last_recommended_at": "2026-08-09 22:03:22"
+  },
+  "ELF": {
+    "name": "엘프",
+    "symbol": "ELF",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 82.8,
+    "current_price": 82.8,
+    "first_recommended_at": "2026-08-09 22:03:22",
+    "last_recommended_at": "2026-08-09 22:03:22"
+  },
+  "GMT": {
+    "name": "스테픈",
+    "symbol": "GMT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 9.65,
+    "current_price": 9.65,
+    "first_recommended_at": "2026-08-09 22:03:22",
+    "last_recommended_at": "2026-08-09 22:03:22"
+  },
+  "ANIME": {
+    "name": "애니메코인",
+    "symbol": "ANIME",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 3.62,
+    "current_price": 3.62,
+    "first_recommended_at": "2026-08-09 22:03:22",
+    "last_recommended_at": "2026-08-09 22:03:22"
+  }
+}
