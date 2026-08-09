@@ -5,7 +5,7 @@
     "count": 17,
     "top10_count": 19,
     "entry_price": 35.7,
-    "current_price": 35.5,
+    "current_price": 35.7,
     "first_recommended_at": "2026-08-09 07:12:58",
     "last_recommended_at": "2026-08-09 08:53:09"
   },
@@ -53,7 +53,7 @@
     "name": "레이븐코인",
     "symbol": "RVN",
     "count": 7,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 5.07,
     "current_price": 5.09,
     "first_recommended_at": "2026-08-09 07:42:47",
@@ -65,7 +65,7 @@
     "count": 3,
     "top10_count": 5,
     "entry_price": 0.881,
-    "current_price": 0.879,
+    "current_price": 0.877,
     "first_recommended_at": "2026-08-09 07:42:47",
     "last_recommended_at": "2026-08-09 07:53:07"
   },
@@ -75,7 +75,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 0.913,
-    "current_price": 0.912,
+    "current_price": 0.922,
     "first_recommended_at": "2026-08-09 07:58:04",
     "last_recommended_at": "2026-08-09 07:58:04"
   },
@@ -93,7 +93,7 @@
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 1,
-    "top10_count": 10,
+    "top10_count": 11,
     "entry_price": 1408.0,
     "current_price": 1408.0,
     "first_recommended_at": "2026-08-09 08:13:01",
@@ -113,7 +113,7 @@
     "name": "베이직어텐션토큰",
     "symbol": "BAT",
     "count": 1,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 94.8,
     "current_price": 94.7,
     "first_recommended_at": "2026-08-09 08:22:41",
@@ -122,28 +122,28 @@
   "API3": {
     "name": "에이피아이쓰리",
     "symbol": "API3",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 272.0,
-    "current_price": 272.0,
+    "current_price": 273.0,
     "first_recommended_at": "2026-08-09 08:22:41",
-    "last_recommended_at": "2026-08-09 08:22:41"
+    "last_recommended_at": "2026-08-09 09:03:23"
   },
   "GMT": {
     "name": "스테픈",
     "symbol": "GMT",
-    "count": 5,
-    "top10_count": 7,
+    "count": 6,
+    "top10_count": 8,
     "entry_price": 9.62,
     "current_price": 9.58,
     "first_recommended_at": "2026-08-09 08:27:55",
-    "last_recommended_at": "2026-08-09 08:48:07"
+    "last_recommended_at": "2026-08-09 09:03:23"
   },
   "SOMI": {
     "name": "솜니아",
     "symbol": "SOMI",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 126.0,
     "current_price": 126.0,
     "first_recommended_at": "2026-08-09 08:27:55",
@@ -153,7 +153,7 @@
     "name": "펜들",
     "symbol": "PENDLE",
     "count": 1,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 1969.0,
     "current_price": 1975.0,
     "first_recommended_at": "2026-08-09 08:33:07",
@@ -162,12 +162,12 @@
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 51.5,
-    "current_price": 51.3,
+    "current_price": 51.5,
     "first_recommended_at": "2026-08-09 08:38:06",
-    "last_recommended_at": "2026-08-09 08:38:06"
+    "last_recommended_at": "2026-08-09 09:03:23"
   },
   "RED": {
     "name": "레드스톤",
@@ -205,7 +205,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 283300.0,
-    "current_price": 286800.0,
+    "current_price": 288400.0,
     "first_recommended_at": "2026-08-09 08:48:07",
     "last_recommended_at": "2026-08-09 08:57:47"
   },
@@ -218,5 +218,15 @@
     "current_price": 3.5,
     "first_recommended_at": "2026-08-09 08:57:47",
     "last_recommended_at": "2026-08-09 08:57:47"
+  },
+  "PROS": {
+    "name": "파로스",
+    "symbol": "PROS",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 552.0,
+    "current_price": 552.0,
+    "first_recommended_at": "2026-08-09 09:03:23",
+    "last_recommended_at": "2026-08-09 09:03:23"
   }
 }
