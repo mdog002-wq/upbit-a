@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 73.2,
-    "current_price": 74.2,
+    "current_price": 74.1,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:42:56"
   },
@@ -15,19 +15,19 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 93.3,
+    "current_price": 93.7,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 27,
-    "top10_count": 30,
+    "count": 28,
+    "top10_count": 31,
     "entry_price": 25.9,
     "current_price": 26.8,
     "first_recommended_at": "2026-08-09 09:42:56",
-    "last_recommended_at": "2026-08-09 13:03:04"
+    "last_recommended_at": "2026-08-09 13:07:49"
   },
   "API3": {
     "name": "에이피아이쓰리",
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 13,
     "entry_price": 273.0,
-    "current_price": 276.0,
+    "current_price": 278.0,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 10:17:57"
   },
@@ -62,12 +62,12 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 16,
-    "top10_count": 16,
+    "count": 17,
+    "top10_count": 17,
     "entry_price": 83.5,
     "current_price": 83.1,
     "first_recommended_at": "2026-08-09 09:47:55",
-    "last_recommended_at": "2026-08-09 13:03:04"
+    "last_recommended_at": "2026-08-09 13:07:49"
   },
   "FCT2": {
     "name": "피르마체인",
@@ -95,7 +95,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 293200.0,
-    "current_price": 293800.0,
+    "current_price": 291300.0,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 09:57:44"
   },
@@ -115,7 +115,7 @@
     "count": 23,
     "top10_count": 23,
     "entry_price": 8.36,
-    "current_price": 8.36,
+    "current_price": 8.37,
     "first_recommended_at": "2026-08-09 10:28:01",
     "last_recommended_at": "2026-08-09 12:33:12"
   },
@@ -135,7 +135,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 5.47,
-    "current_price": 5.49,
+    "current_price": 5.52,
     "first_recommended_at": "2026-08-09 10:37:52",
     "last_recommended_at": "2026-08-09 10:37:52"
   },
@@ -145,7 +145,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 40.4,
-    "current_price": 40.2,
+    "current_price": 40.3,
     "first_recommended_at": "2026-08-09 10:43:11",
     "last_recommended_at": "2026-08-09 10:52:53"
   },
@@ -175,7 +175,7 @@
     "count": 5,
     "top10_count": 5,
     "entry_price": 58.9,
-    "current_price": 59.2,
+    "current_price": 59.3,
     "first_recommended_at": "2026-08-09 11:33:14",
     "last_recommended_at": "2026-08-09 11:58:00"
   },
@@ -183,7 +183,7 @@
     "name": "스팀",
     "symbol": "STEEM",
     "count": 1,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 51.9,
     "current_price": 52.0,
     "first_recommended_at": "2026-08-09 11:42:51",
@@ -195,7 +195,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 455.0,
-    "current_price": 446.0,
+    "current_price": 441.0,
     "first_recommended_at": "2026-08-09 12:03:17",
     "last_recommended_at": "2026-08-09 12:03:17"
   },
@@ -222,12 +222,12 @@
   "SC": {
     "name": "시아코인",
     "symbol": "SC",
-    "count": 4,
-    "top10_count": 10,
+    "count": 5,
+    "top10_count": 11,
     "entry_price": 0.714,
     "current_price": 0.714,
     "first_recommended_at": "2026-08-09 12:18:04",
-    "last_recommended_at": "2026-08-09 12:53:12"
+    "last_recommended_at": "2026-08-09 13:07:49"
   },
   "AVNT": {
     "name": "아반티스",
@@ -235,7 +235,7 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 129.0,
-    "current_price": 128.0,
+    "current_price": 130.0,
     "first_recommended_at": "2026-08-09 12:38:04",
     "last_recommended_at": "2026-08-09 12:38:04"
   },
@@ -245,18 +245,18 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 99.2,
-    "current_price": 99.1,
+    "current_price": 99.5,
     "first_recommended_at": "2026-08-09 12:43:07",
     "last_recommended_at": "2026-08-09 12:43:07"
   },
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 119.0,
     "current_price": 119.0,
     "first_recommended_at": "2026-08-09 12:58:13",
-    "last_recommended_at": "2026-08-09 13:03:04"
+    "last_recommended_at": "2026-08-09 13:07:49"
   }
 }
