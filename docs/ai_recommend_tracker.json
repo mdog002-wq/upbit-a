@@ -12,18 +12,18 @@
   "SUN": {
     "name": "썬",
     "symbol": "SUN",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 25.4,
     "current_price": 25.4,
     "first_recommended_at": "2026-08-09 15:12:48",
-    "last_recommended_at": "2026-08-09 15:27:55"
+    "last_recommended_at": "2026-08-09 15:33:15"
   },
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
     "count": 4,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 83.9,
     "current_price": 83.9,
     "first_recommended_at": "2026-08-09 15:12:48",
@@ -32,12 +32,12 @@
   "ETHFI": {
     "name": "이더파이",
     "symbol": "ETHFI",
-    "count": 3,
-    "top10_count": 4,
+    "count": 4,
+    "top10_count": 5,
     "entry_price": 544.0,
     "current_price": 546.0,
     "first_recommended_at": "2026-08-09 15:12:48",
-    "last_recommended_at": "2026-08-09 15:27:55"
+    "last_recommended_at": "2026-08-09 15:33:15"
   },
   "PROVE": {
     "name": "서싱트",
@@ -45,18 +45,28 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 229.0,
-    "current_price": 228.0,
+    "current_price": 229.0,
     "first_recommended_at": "2026-08-09 15:12:48",
     "last_recommended_at": "2026-08-09 15:12:48"
   },
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 26.5,
     "current_price": 26.6,
     "first_recommended_at": "2026-08-09 15:17:47",
-    "last_recommended_at": "2026-08-09 15:27:55"
+    "last_recommended_at": "2026-08-09 15:33:15"
+  },
+  "POL": {
+    "name": "폴리곤에코시스템토큰",
+    "symbol": "POL",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 110.0,
+    "current_price": 110.0,
+    "first_recommended_at": "2026-08-09 15:33:15",
+    "last_recommended_at": "2026-08-09 15:33:15"
   }
 }
