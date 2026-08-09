@@ -3,7 +3,7 @@
     "name": "이더파이",
     "symbol": "ETHFI",
     "count": 2,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 548.0,
     "current_price": 546.0,
     "first_recommended_at": "2026-08-09 17:47:33",
@@ -12,32 +12,32 @@
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 6,
-    "top10_count": 7,
+    "count": 7,
+    "top10_count": 8,
     "entry_price": 127.0,
     "current_price": 127.0,
     "first_recommended_at": "2026-08-09 17:47:33",
-    "last_recommended_at": "2026-08-09 18:17:51"
+    "last_recommended_at": "2026-08-09 18:22:48"
   },
   "MINA": {
     "name": "미나",
     "symbol": "MINA",
-    "count": 1,
-    "top10_count": 3,
+    "count": 2,
+    "top10_count": 4,
     "entry_price": 57.7,
     "current_price": 57.7,
     "first_recommended_at": "2026-08-09 18:07:52",
-    "last_recommended_at": "2026-08-09 18:07:52"
+    "last_recommended_at": "2026-08-09 18:22:48"
   },
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 83.6,
     "current_price": 83.6,
     "first_recommended_at": "2026-08-09 18:07:52",
-    "last_recommended_at": "2026-08-09 18:17:51"
+    "last_recommended_at": "2026-08-09 18:22:48"
   },
   "SONIC": {
     "name": "소닉SVM",
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 1.95,
-    "current_price": 1.94,
+    "current_price": 1.95,
     "first_recommended_at": "2026-08-09 18:12:56",
     "last_recommended_at": "2026-08-09 18:12:56"
   },
@@ -72,11 +72,11 @@
   "SPK": {
     "name": "스파크",
     "symbol": "SPK",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 21.1,
     "current_price": 21.1,
     "first_recommended_at": "2026-08-09 18:17:51",
-    "last_recommended_at": "2026-08-09 18:17:51"
+    "last_recommended_at": "2026-08-09 18:22:48"
   }
 }
