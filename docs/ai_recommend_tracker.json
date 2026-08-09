@@ -3,7 +3,7 @@
     "name": "더블제로",
     "symbol": "2Z",
     "count": 7,
-    "top10_count": 10,
+    "top10_count": 11,
     "entry_price": 79.6,
     "current_price": 79.2,
     "first_recommended_at": "2026-08-09 22:03:22",
@@ -32,18 +32,18 @@
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 8,
-    "top10_count": 8,
+    "count": 9,
+    "top10_count": 9,
     "entry_price": 1929.0,
-    "current_price": 1938.0,
+    "current_price": 1947.0,
     "first_recommended_at": "2026-08-09 22:13:34",
-    "last_recommended_at": "2026-08-09 22:48:18"
+    "last_recommended_at": "2026-08-09 22:53:29"
   },
   "XCN": {
     "name": "오닉스코인",
     "symbol": "XCN",
     "count": 1,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 4.26,
     "current_price": 4.26,
     "first_recommended_at": "2026-08-09 22:18:22",
@@ -52,18 +52,18 @@
   "SIGN": {
     "name": "사인",
     "symbol": "SIGN",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 9.98,
     "current_price": 9.95,
     "first_recommended_at": "2026-08-09 22:23:24",
-    "last_recommended_at": "2026-08-09 22:48:18"
+    "last_recommended_at": "2026-08-09 22:53:29"
   },
   "PROS": {
     "name": "파로스",
     "symbol": "PROS",
     "count": 5,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 558.0,
     "current_price": 564.0,
     "first_recommended_at": "2026-08-09 22:23:24",
@@ -73,10 +73,30 @@
     "name": "비트코인",
     "symbol": "BTC",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 91590000.0,
-    "current_price": 91598000.0,
+    "current_price": 91560000.0,
     "first_recommended_at": "2026-08-09 22:43:33",
     "last_recommended_at": "2026-08-09 22:43:33"
+  },
+  "SYRUP": {
+    "name": "메이플파이낸스",
+    "symbol": "SYRUP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 214.0,
+    "current_price": 214.0,
+    "first_recommended_at": "2026-08-09 22:53:29",
+    "last_recommended_at": "2026-08-09 22:53:29"
+  },
+  "ANIME": {
+    "name": "애니메코인",
+    "symbol": "ANIME",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 3.65,
+    "current_price": 3.65,
+    "first_recommended_at": "2026-08-09 22:53:29",
+    "last_recommended_at": "2026-08-09 22:53:29"
   }
 }
