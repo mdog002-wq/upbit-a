@@ -2,12 +2,12 @@
   "2Z": {
     "name": "더블제로",
     "symbol": "2Z",
-    "count": 7,
-    "top10_count": 7,
+    "count": 8,
+    "top10_count": 8,
     "entry_price": 79.0,
     "current_price": 79.4,
     "first_recommended_at": "2026-08-09 18:27:51",
-    "last_recommended_at": "2026-08-09 18:58:05"
+    "last_recommended_at": "2026-08-09 19:03:27"
   },
   "SPK": {
     "name": "스파크",
@@ -22,28 +22,28 @@
   "ZETA": {
     "name": "제타체인",
     "symbol": "ZETA",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 42.3,
     "current_price": 42.3,
     "first_recommended_at": "2026-08-09 18:52:45",
-    "last_recommended_at": "2026-08-09 18:58:05"
+    "last_recommended_at": "2026-08-09 19:03:27"
   },
   "BIGTIME": {
     "name": "빅타임",
     "symbol": "BIGTIME",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 7.77,
-    "current_price": 7.74,
+    "current_price": 7.73,
     "first_recommended_at": "2026-08-09 18:52:45",
-    "last_recommended_at": "2026-08-09 18:58:05"
+    "last_recommended_at": "2026-08-09 19:03:27"
   },
   "IQ": {
     "name": "아이큐",
     "symbol": "IQ",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 0.924,
     "current_price": 0.924,
     "first_recommended_at": "2026-08-09 18:58:05",
