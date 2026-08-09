@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 73.2,
-    "current_price": 73.3,
+    "current_price": 74.1,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:42:56"
   },
@@ -15,7 +15,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 93.5,
+    "current_price": 93.8,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 11.2,
-    "current_price": 10.7,
+    "current_price": 10.6,
     "first_recommended_at": "2026-08-09 09:47:55",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
@@ -55,7 +55,7 @@
     "count": 6,
     "top10_count": 15,
     "entry_price": 16.9,
-    "current_price": 17.0,
+    "current_price": 16.9,
     "first_recommended_at": "2026-08-09 09:47:55",
     "last_recommended_at": "2026-08-09 11:37:58"
   },
@@ -73,7 +73,7 @@
     "name": "피르마체인",
     "symbol": "FCT2",
     "count": 9,
-    "top10_count": 12,
+    "top10_count": 13,
     "entry_price": 9.47,
     "current_price": 9.46,
     "first_recommended_at": "2026-08-09 09:52:59",
@@ -85,7 +85,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 52.1,
-    "current_price": 52.1,
+    "current_price": 52.0,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 10:22:51"
   },
@@ -95,7 +95,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 293200.0,
-    "current_price": 288300.0,
+    "current_price": 287600.0,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 09:57:44"
   },
@@ -112,12 +112,12 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 19,
-    "top10_count": 19,
+    "count": 20,
+    "top10_count": 20,
     "entry_price": 8.36,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 10:28:01",
-    "last_recommended_at": "2026-08-09 12:13:09"
+    "last_recommended_at": "2026-08-09 12:18:04"
   },
   "META": {
     "name": "메타디움",
@@ -125,7 +125,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 9.63,
-    "current_price": 9.52,
+    "current_price": 9.61,
     "first_recommended_at": "2026-08-09 10:28:01",
     "last_recommended_at": "2026-08-09 10:28:01"
   },
@@ -145,7 +145,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 40.4,
-    "current_price": 40.2,
+    "current_price": 40.3,
     "first_recommended_at": "2026-08-09 10:43:11",
     "last_recommended_at": "2026-08-09 10:52:53"
   },
@@ -153,7 +153,7 @@
     "name": "멀티버스엑스",
     "symbol": "EGLD",
     "count": 4,
-    "top10_count": 13,
+    "top10_count": 14,
     "entry_price": 3826.0,
     "current_price": 3809.0,
     "first_recommended_at": "2026-08-09 11:08:18",
@@ -162,12 +162,12 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 9,
-    "top10_count": 11,
+    "count": 10,
+    "top10_count": 12,
     "entry_price": 1.23,
     "current_price": 1.26,
     "first_recommended_at": "2026-08-09 11:08:18",
-    "last_recommended_at": "2026-08-09 12:13:09"
+    "last_recommended_at": "2026-08-09 12:18:04"
   },
   "HIVE": {
     "name": "하이브",
@@ -195,7 +195,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 455.0,
-    "current_price": 455.0,
+    "current_price": 451.0,
     "first_recommended_at": "2026-08-09 12:03:17",
     "last_recommended_at": "2026-08-09 12:03:17"
   },
@@ -212,11 +212,21 @@
   "TRX": {
     "name": "트론",
     "symbol": "TRX",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 464.0,
+    "current_price": 465.0,
+    "first_recommended_at": "2026-08-09 12:13:09",
+    "last_recommended_at": "2026-08-09 12:18:04"
+  },
+  "SC": {
+    "name": "시아코인",
+    "symbol": "SC",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 464.0,
-    "current_price": 464.0,
-    "first_recommended_at": "2026-08-09 12:13:09",
-    "last_recommended_at": "2026-08-09 12:13:09"
+    "entry_price": 0.714,
+    "current_price": 0.714,
+    "first_recommended_at": "2026-08-09 12:18:04",
+    "last_recommended_at": "2026-08-09 12:18:04"
   }
 }
