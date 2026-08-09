@@ -1,90 +1,22 @@
-name: 업비트 코인 매집점수 분석 및 메일 발송
-
-on:
-  workflow_dispatch:
-  repository_dispatch:
-    types: [run_backend]
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
-jobs:
-  run-upbit-bot:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    permissions:
-      contents: write
-
-    steps:
-      - name: Check Blocked Time Window (02:00 ~ 02:14 KST)
-        id: check_time
+- name: Trigger Backend Repository (upbit)
+        if: always() # 앞에 오류가 나더라도 실행하여 상태를 확인
         run: |
-          HOUR=$(TZ="Asia/Seoul" date +%k | tr -d ' ')
-          MINUTE=$(TZ="Asia/Seoul" date +%M | sed 's/^0//')
-          MINUTE=${MINUTE:-0}
+          echo "🚀 Sending dispatch event to mdog002-wq/upbit..."
           
-          echo "Current KST Time: ${HOUR}:${MINUTE}"
-          
-          if [ "$HOUR" -eq 2 ] && [ "$MINUTE" -ge 0 ] && [ "$MINUTE" -le 14 ]; then
-            echo "is_blocked=true" >> $GITHUB_OUTPUT
-            echo "Notice: Restricted window (02:00 ~ 02:14 KST). Skipping."
-          else
-            echo "is_blocked=false" >> $GITHUB_OUTPUT
-          fi
-
-      - name: 저장소 코드 불러오기
-        if: steps.check_time.outputs.is_blocked != 'true'
-        uses: actions/checkout@v4
-
-      - name: 파이썬 환경 설정
-        if: steps.check_time.outputs.is_blocked != 'true'
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-          cache: 'pip'
-
-      - name: 필요 라이브러리 설치
-        if: steps.check_time.outputs.is_blocked != 'true'
-        run: |
-          python -m pip install --upgrade pip
-          pip install pyupbit pandas numpy requests openpyxl tqdm google-genai oracledb redis paramiko tensorflow feedparser
-          pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
-
-      # 백엔드 스크립트 실행 (data/ 및 결과물 생성)
-      - name: 파이썬 분석 스크립트 실행
-        if: steps.check_time.outputs.is_blocked != 'true'
-        env:
-          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
-        run: python coin_excel_krw.py
-
-      - name: 데이터 변경사항 통합 커밋 및 푸시
-        if: steps.check_time.outputs.is_blocked != 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-    
-          git pull origin main --rebase --autostash || echo "No rebase needed"
-          git add docs/ scan_history.csv cache/ ai_models/ data/ 2>/dev/null || git add .
-    
-          if ! git diff --staged --quiet; then
-            git commit -m "🤖 [Bot] Update AI models and tracker data [skip ci]"
-            git push origin main
-          fi
-
-      # upbit-a 레포지토리로 실행 신호 전송
-      - name: Trigger Realtime Analyzer Repository (upbit-a)
-        if: steps.check_time.outputs.is_blocked != 'true' && success()
-        run: |
-          curl -X POST \
+          RESPONSE=$(curl -s -o response.txt -w "%{http_code}" -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
-            https://api.github.com/repos/mdog002-wq/upbit-a/dispatches \
-            -d '{"event_type": "backend_complete"}'
+            https://api.github.com/repos/mdog002-wq/upbit/dispatches \
+            -d '{"event_type": "run_backend"}')
+          
+          echo "HTTP Response Code: ${RESPONSE}"
+          echo "Response Body:"
+          cat response.txt
+          echo ""
+          
+          if [ "${RESPONSE}" -eq 204 ]; then
+            echo "✅ [성공] upbit 레포지토리로 신호 전송 완료 (204 No Content)"
+          else
+            echo "❌ [실패] 디스패치 전송 실패! 아래 원인을 확인하세요."
+            exit 1
+          fi
