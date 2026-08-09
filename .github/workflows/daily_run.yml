@@ -18,7 +18,7 @@ jobs:
       contents: write
 
     steps:
-      - name: Check Blocked Time Window (02:00 ~ 02:30 KST)
+      - name: Check Blocked Time Window (02:00 ~ 02:14 KST)
         id: check_time
         run: |
           # 10진수로 강제 변환 (10#) 하여 8진수 오류 방지
@@ -30,7 +30,7 @@ jobs:
           
           if [ "$HOUR" -eq 2 ] && [ "$MINUTE" -ge 0 ] && [ "$MINUTE" -le 30 ]; then
             echo "is_blocked=true" >> $GITHUB_OUTPUT
-            echo "Notice: Restricted window (02:00 ~ 02:30 KST). Skipping."
+            echo "Notice: Restricted window (02:00 ~ 02:14 KST). Skipping."
           else
             echo "is_blocked=false" >> $GITHUB_OUTPUT
           fi
