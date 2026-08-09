@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 73.2,
-    "current_price": 74.1,
+    "current_price": 73.9,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:42:56"
   },
@@ -15,19 +15,19 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 93.7,
+    "current_price": 93.5,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 28,
-    "top10_count": 31,
+    "count": 29,
+    "top10_count": 32,
     "entry_price": 25.9,
     "current_price": 26.8,
     "first_recommended_at": "2026-08-09 09:42:56",
-    "last_recommended_at": "2026-08-09 13:07:49"
+    "last_recommended_at": "2026-08-09 13:13:05"
   },
   "API3": {
     "name": "에이피아이쓰리",
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 13,
     "entry_price": 273.0,
-    "current_price": 278.0,
+    "current_price": 277.0,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 10:17:57"
   },
@@ -62,12 +62,12 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 17,
-    "top10_count": 17,
+    "count": 18,
+    "top10_count": 18,
     "entry_price": 83.5,
     "current_price": 83.1,
     "first_recommended_at": "2026-08-09 09:47:55",
-    "last_recommended_at": "2026-08-09 13:07:49"
+    "last_recommended_at": "2026-08-09 13:13:05"
   },
   "FCT2": {
     "name": "피르마체인",
@@ -85,7 +85,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 52.1,
-    "current_price": 52.2,
+    "current_price": 52.3,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 10:22:51"
   },
@@ -115,7 +115,7 @@
     "count": 23,
     "top10_count": 23,
     "entry_price": 8.36,
-    "current_price": 8.37,
+    "current_price": 8.38,
     "first_recommended_at": "2026-08-09 10:28:01",
     "last_recommended_at": "2026-08-09 12:33:12"
   },
@@ -182,12 +182,12 @@
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 1,
-    "top10_count": 7,
+    "count": 2,
+    "top10_count": 8,
     "entry_price": 51.9,
     "current_price": 52.0,
     "first_recommended_at": "2026-08-09 11:42:51",
-    "last_recommended_at": "2026-08-09 11:42:51"
+    "last_recommended_at": "2026-08-09 13:13:05"
   },
   "TOKAMAK": {
     "name": "토카막네트워크",
@@ -195,7 +195,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 455.0,
-    "current_price": 441.0,
+    "current_price": 444.0,
     "first_recommended_at": "2026-08-09 12:03:17",
     "last_recommended_at": "2026-08-09 12:03:17"
   },
@@ -215,7 +215,7 @@
     "count": 9,
     "top10_count": 10,
     "entry_price": 464.0,
-    "current_price": 465.0,
+    "current_price": 464.0,
     "first_recommended_at": "2026-08-09 12:13:09",
     "last_recommended_at": "2026-08-09 12:58:13"
   },
@@ -225,7 +225,7 @@
     "count": 5,
     "top10_count": 11,
     "entry_price": 0.714,
-    "current_price": 0.714,
+    "current_price": 0.713,
     "first_recommended_at": "2026-08-09 12:18:04",
     "last_recommended_at": "2026-08-09 13:07:49"
   },
@@ -245,18 +245,18 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 99.2,
-    "current_price": 99.5,
+    "current_price": 99.4,
     "first_recommended_at": "2026-08-09 12:43:07",
     "last_recommended_at": "2026-08-09 12:43:07"
   },
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 119.0,
     "current_price": 119.0,
     "first_recommended_at": "2026-08-09 12:58:13",
-    "last_recommended_at": "2026-08-09 13:07:49"
+    "last_recommended_at": "2026-08-09 13:13:05"
   }
 }
