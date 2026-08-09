@@ -23,7 +23,7 @@
     "name": "유에스디에스",
     "symbol": "USDS",
     "count": 1,
-    "top10_count": 13,
+    "top10_count": 14,
     "entry_price": 1408.0,
     "current_price": 1408.0,
     "first_recommended_at": "2026-08-09 08:13:01",
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 6,
     "entry_price": 94.8,
-    "current_price": 95.1,
+    "current_price": 95.2,
     "first_recommended_at": "2026-08-09 08:22:41",
     "last_recommended_at": "2026-08-09 08:22:41"
   },
@@ -85,7 +85,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 82.7,
-    "current_price": 83.0,
+    "current_price": 83.1,
     "first_recommended_at": "2026-08-09 08:48:07",
     "last_recommended_at": "2026-08-09 08:57:47"
   },
@@ -95,7 +95,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 283300.0,
-    "current_price": 288500.0,
+    "current_price": 290500.0,
     "first_recommended_at": "2026-08-09 08:48:07",
     "last_recommended_at": "2026-08-09 08:57:47"
   },
@@ -105,7 +105,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 91.8,
-    "current_price": 97.4,
+    "current_price": 97.6,
     "first_recommended_at": "2026-08-09 09:08:00",
     "last_recommended_at": "2026-08-09 09:13:01"
   },
@@ -113,7 +113,7 @@
     "name": "엠블",
     "symbol": "MVL",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 1.07,
     "current_price": 1.07,
     "first_recommended_at": "2026-08-09 09:08:00",
@@ -122,11 +122,41 @@
   "BIRB": {
     "name": "문버드",
     "symbol": "BIRB",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 73.1,
+    "current_price": 73.4,
+    "first_recommended_at": "2026-08-09 09:13:01",
+    "last_recommended_at": "2026-08-09 09:17:42"
+  },
+  "META": {
+    "name": "메타디움",
+    "symbol": "META",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 73.1,
-    "current_price": 73.1,
-    "first_recommended_at": "2026-08-09 09:13:01",
-    "last_recommended_at": "2026-08-09 09:13:01"
+    "entry_price": 9.71,
+    "current_price": 9.71,
+    "first_recommended_at": "2026-08-09 09:17:42",
+    "last_recommended_at": "2026-08-09 09:17:42"
+  },
+  "EDGE": {
+    "name": "디피니티브",
+    "symbol": "EDGE",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 89.3,
+    "current_price": 89.3,
+    "first_recommended_at": "2026-08-09 09:17:42",
+    "last_recommended_at": "2026-08-09 09:17:42"
+  },
+  "KERNEL": {
+    "name": "커널다오",
+    "symbol": "KERNEL",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 48.9,
+    "current_price": 48.9,
+    "first_recommended_at": "2026-08-09 09:17:42",
+    "last_recommended_at": "2026-08-09 09:17:42"
   }
 }
