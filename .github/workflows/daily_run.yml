@@ -70,6 +70,17 @@ jobs:
           if ! git diff --staged --quiet; then
             git commit -m "🤖 [Bot] Update dashboard, AI models, and tracker data [skip ci]"
           fi
-    
+
           # 4. 푸시
           git push origin main
+
+          # 5. 종합 분석 레포지토리 자동 트리거 (백엔드 완료 시 연쇄 실행)
+          - name: Trigger Comprehensive Analysis Repository
+            if: success()
+            run: |
+              curl -X POST \
+                -H "Accept: application/vnd.github+json" \
+                -H "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
+                https://api.github.com/repos/mdog002-wq/upbit/dispatches \
+                -d '{"event_type": "backend_complete"}'
+    
