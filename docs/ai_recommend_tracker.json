@@ -22,20 +22,20 @@
   "ZETA": {
     "name": "제타체인",
     "symbol": "ZETA",
-    "count": 3,
-    "top10_count": 7,
+    "count": 4,
+    "top10_count": 8,
     "entry_price": 42.3,
     "current_price": 42.1,
     "first_recommended_at": "2026-08-09 18:52:45",
-    "last_recommended_at": "2026-08-09 19:03:27"
+    "last_recommended_at": "2026-08-09 19:28:00"
   },
   "BIGTIME": {
     "name": "빅타임",
     "symbol": "BIGTIME",
     "count": 3,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 7.77,
-    "current_price": 7.73,
+    "current_price": 7.74,
     "first_recommended_at": "2026-08-09 18:52:45",
     "last_recommended_at": "2026-08-09 19:03:27"
   },
@@ -52,22 +52,22 @@
   "HP": {
     "name": "히포프로토콜",
     "symbol": "HP",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 9.75,
     "current_price": 9.74,
     "first_recommended_at": "2026-08-09 19:07:42",
-    "last_recommended_at": "2026-08-09 19:22:43"
+    "last_recommended_at": "2026-08-09 19:28:00"
   },
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 83.6,
     "current_price": 83.6,
     "first_recommended_at": "2026-08-09 19:07:42",
-    "last_recommended_at": "2026-08-09 19:22:43"
+    "last_recommended_at": "2026-08-09 19:28:00"
   },
   "MINA": {
     "name": "미나",
@@ -92,11 +92,11 @@
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 26.8,
-    "current_price": 26.8,
+    "current_price": 26.7,
     "first_recommended_at": "2026-08-09 19:22:43",
-    "last_recommended_at": "2026-08-09 19:22:43"
+    "last_recommended_at": "2026-08-09 19:28:00"
   }
 }
