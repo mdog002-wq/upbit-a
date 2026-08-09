@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 73.2,
-    "current_price": 73.9,
+    "current_price": 73.6,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:42:56"
   },
@@ -15,7 +15,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 93.4,
+    "current_price": 93.3,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
@@ -33,7 +33,7 @@
     "name": "에이피아이쓰리",
     "symbol": "API3",
     "count": 2,
-    "top10_count": 14,
+    "top10_count": 15,
     "entry_price": 273.0,
     "current_price": 277.0,
     "first_recommended_at": "2026-08-09 09:42:56",
@@ -62,12 +62,12 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 19,
-    "top10_count": 19,
+    "count": 20,
+    "top10_count": 20,
     "entry_price": 83.5,
     "current_price": 83.1,
     "first_recommended_at": "2026-08-09 09:47:55",
-    "last_recommended_at": "2026-08-09 13:17:59"
+    "last_recommended_at": "2026-08-09 13:23:04"
   },
   "FCT2": {
     "name": "피르마체인",
@@ -75,7 +75,7 @@
     "count": 9,
     "top10_count": 13,
     "entry_price": 9.47,
-    "current_price": 9.4,
+    "current_price": 9.39,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 12:13:09"
   },
@@ -85,7 +85,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 52.1,
-    "current_price": 52.3,
+    "current_price": 52.4,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 10:22:51"
   },
@@ -95,7 +95,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 293200.0,
-    "current_price": 292600.0,
+    "current_price": 294700.0,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 09:57:44"
   },
@@ -145,7 +145,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 40.4,
-    "current_price": 40.3,
+    "current_price": 40.4,
     "first_recommended_at": "2026-08-09 10:43:11",
     "last_recommended_at": "2026-08-09 10:52:53"
   },
@@ -183,9 +183,9 @@
     "name": "스팀",
     "symbol": "STEEM",
     "count": 3,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 51.9,
-    "current_price": 51.9,
+    "current_price": 52.1,
     "first_recommended_at": "2026-08-09 11:42:51",
     "last_recommended_at": "2026-08-09 13:17:59"
   },
@@ -193,7 +193,7 @@
     "name": "토카막네트워크",
     "symbol": "TOKAMAK",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 455.0,
     "current_price": 443.0,
     "first_recommended_at": "2026-08-09 12:03:17",
@@ -205,7 +205,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 298.0,
-    "current_price": 297.0,
+    "current_price": 299.0,
     "first_recommended_at": "2026-08-09 12:03:17",
     "last_recommended_at": "2026-08-09 12:08:01"
   },
@@ -215,19 +215,19 @@
     "count": 9,
     "top10_count": 10,
     "entry_price": 464.0,
-    "current_price": 464.0,
+    "current_price": 465.0,
     "first_recommended_at": "2026-08-09 12:13:09",
     "last_recommended_at": "2026-08-09 12:58:13"
   },
   "SC": {
     "name": "시아코인",
     "symbol": "SC",
-    "count": 5,
-    "top10_count": 11,
+    "count": 6,
+    "top10_count": 12,
     "entry_price": 0.714,
-    "current_price": 0.713,
+    "current_price": 0.714,
     "first_recommended_at": "2026-08-09 12:18:04",
-    "last_recommended_at": "2026-08-09 13:07:49"
+    "last_recommended_at": "2026-08-09 13:23:04"
   },
   "AVNT": {
     "name": "아반티스",
@@ -252,21 +252,31 @@
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 5,
-    "top10_count": 5,
+    "count": 6,
+    "top10_count": 6,
     "entry_price": 119.0,
     "current_price": 119.0,
     "first_recommended_at": "2026-08-09 12:58:13",
-    "last_recommended_at": "2026-08-09 13:17:59"
+    "last_recommended_at": "2026-08-09 13:23:04"
   },
   "ASTR": {
     "name": "아스타",
     "symbol": "ASTR",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 6.95,
-    "current_price": 6.95,
+    "current_price": 6.98,
     "first_recommended_at": "2026-08-09 13:17:59",
     "last_recommended_at": "2026-08-09 13:17:59"
+  },
+  "WET": {
+    "name": "휴미디파이",
+    "symbol": "WET",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 97.4,
+    "current_price": 97.4,
+    "first_recommended_at": "2026-08-09 13:23:04",
+    "last_recommended_at": "2026-08-09 13:23:04"
   }
 }
