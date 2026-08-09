@@ -1,1 +1,42 @@
-{}
+{
+  "BIRB": {
+    "name": "문버드",
+    "symbol": "BIRB",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 73.2,
+    "current_price": 73.2,
+    "first_recommended_at": "2026-08-09 09:42:56",
+    "last_recommended_at": "2026-08-09 09:42:56"
+  },
+  "BLEND": {
+    "name": "플루언트",
+    "symbol": "BLEND",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 97.2,
+    "current_price": 97.2,
+    "first_recommended_at": "2026-08-09 09:42:56",
+    "last_recommended_at": "2026-08-09 09:42:56"
+  },
+  "CVC": {
+    "name": "시빅",
+    "symbol": "CVC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 25.9,
+    "current_price": 25.9,
+    "first_recommended_at": "2026-08-09 09:42:56",
+    "last_recommended_at": "2026-08-09 09:42:56"
+  },
+  "API3": {
+    "name": "에이피아이쓰리",
+    "symbol": "API3",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 273.0,
+    "current_price": 273.0,
+    "first_recommended_at": "2026-08-09 09:42:56",
+    "last_recommended_at": "2026-08-09 09:42:56"
+  }
+}
