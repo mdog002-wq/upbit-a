@@ -15,19 +15,19 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 93.5,
+    "current_price": 93.6,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 25,
-    "top10_count": 27,
+    "count": 26,
+    "top10_count": 28,
     "entry_price": 25.9,
-    "current_price": 26.9,
+    "current_price": 26.7,
     "first_recommended_at": "2026-08-09 09:42:56",
-    "last_recommended_at": "2026-08-09 12:48:02"
+    "last_recommended_at": "2026-08-09 12:53:12"
   },
   "API3": {
     "name": "에이피아이쓰리",
@@ -62,12 +62,12 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 13,
-    "top10_count": 13,
+    "count": 14,
+    "top10_count": 14,
     "entry_price": 83.5,
     "current_price": 83.6,
     "first_recommended_at": "2026-08-09 09:47:55",
-    "last_recommended_at": "2026-08-09 12:48:02"
+    "last_recommended_at": "2026-08-09 12:53:12"
   },
   "FCT2": {
     "name": "피르마체인",
@@ -85,7 +85,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 52.1,
-    "current_price": 52.0,
+    "current_price": 52.2,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 10:22:51"
   },
@@ -95,7 +95,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 293200.0,
-    "current_price": 291600.0,
+    "current_price": 291500.0,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 09:57:44"
   },
@@ -135,7 +135,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 5.47,
-    "current_price": 5.48,
+    "current_price": 5.49,
     "first_recommended_at": "2026-08-09 10:37:52",
     "last_recommended_at": "2026-08-09 10:37:52"
   },
@@ -183,7 +183,7 @@
     "name": "스팀",
     "symbol": "STEEM",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 51.9,
     "current_price": 51.7,
     "first_recommended_at": "2026-08-09 11:42:51",
@@ -212,30 +212,30 @@
   "TRX": {
     "name": "트론",
     "symbol": "TRX",
-    "count": 7,
-    "top10_count": 8,
+    "count": 8,
+    "top10_count": 9,
     "entry_price": 464.0,
     "current_price": 465.0,
     "first_recommended_at": "2026-08-09 12:13:09",
-    "last_recommended_at": "2026-08-09 12:48:02"
+    "last_recommended_at": "2026-08-09 12:53:12"
   },
   "SC": {
     "name": "시아코인",
     "symbol": "SC",
-    "count": 3,
-    "top10_count": 7,
+    "count": 4,
+    "top10_count": 8,
     "entry_price": 0.714,
     "current_price": 0.714,
     "first_recommended_at": "2026-08-09 12:18:04",
-    "last_recommended_at": "2026-08-09 12:48:02"
+    "last_recommended_at": "2026-08-09 12:53:12"
   },
   "AVNT": {
     "name": "아반티스",
     "symbol": "AVNT",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 129.0,
-    "current_price": 128.0,
+    "current_price": 129.0,
     "first_recommended_at": "2026-08-09 12:38:04",
     "last_recommended_at": "2026-08-09 12:38:04"
   },
@@ -243,7 +243,7 @@
     "name": "크레딧코인",
     "symbol": "CTC",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 99.2,
     "current_price": 99.1,
     "first_recommended_at": "2026-08-09 12:43:07",
