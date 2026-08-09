@@ -98,7 +98,7 @@ def upload_html_to_oracle_server(local_file_path):
         print(f"❌ 오라클 서버 전송 실패: {e}")
 
 # ==============================================================================
-# [설정] 환경 변수 및 파일 경로
+# [설정] 환경 변수 및 파일 경로 / 골든 패턴 GitHub 동기화
 # ==============================================================================
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
@@ -115,12 +115,76 @@ AI_MODELS_DIR = "./ai_models"
 DOCS_DIR = "./docs"
 EXPERIENCE_FILE = os.path.join(AI_MODELS_DIR, "ai_experience.json")
 
-# docs/ 경로 내 JSON 저장 설정
+# GitHub golden_pattern.json URL (blob 주소를 raw 주소로 변환)
+GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit/main/data/golden_pattern.json"
+
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
 os.makedirs(DOCS_DIR, exist_ok=True)
+
+
+# ==============================================================================
+# [신규 추가] 골든 패턴 로드 및 DTW (Dynamic Time Warping) 계산 모듈
+# ==============================================================================
+def load_golden_pattern():
+    """GitHub Raw URL에서 학습된 golden_pattern.json 로드"""
+    try:
+        headers = {}
+        if GITHUB_TOKEN:
+            headers["Authorization"] = f"token {GITHUB_TOKEN}"
+        
+        res = requests.get(GOLDEN_PATTERN_URL, headers=headers, timeout=10)
+        if res.status_code == 200:
+            pattern_data = res.json()
+            print(f"✅ GitHub 골든 패턴 데이터 로드 완료! (샘플 수: {pattern_data.get('sample_count', 0)}개, 업데이트: {pattern_data.get('updated_at', 'N/A')})")
+            return pattern_data
+        else:
+            print(f"⚠️ 골든 패턴 다운로드 실패 (Status: {res.status_code})")
+    except Exception as e:
+        print(f"⚠️ 골든 패턴 불러오기 중 오류 발생: {e}")
+    return None
+
+# 글로벌 변수로 골든 패턴 로드
+GLOBAL_GOLDEN_PATTERN = load_golden_pattern()
+
+def calculate_dtw_distance(s1, s2):
+    """두 시계열 데이터(s1, s2) 간의 DTW (Dynamic Time Warping) 거리 계산"""
+    n, m = len(s1), len(s2)
+    dtw_matrix = np.full((n + 1, m + 1), np.inf)
+    dtw_matrix[0, 0] = 0
+
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            cost = abs(s1[i - 1] - s2[j - 1])
+            dtw_matrix[i, j] = cost + min(
+                dtw_matrix[i - 1, j], # 삽입
+                dtw_matrix[i, j - 1], # 삭제
+                dtw_matrix[i - 1, j - 1] # 일치
+            )
+    return dtw_matrix[n, m]
+
+def calculate_pattern_similarity(series, target_pattern):
+    """시계열 데이터와 골든 패턴 간의 유사도 점수 산출 (0~100점)"""
+    if not series or not target_pattern or len(series) == 0:
+        return 0.0
+    
+    s_min, s_max = np.min(series), np.max(series)
+    if s_max == s_min:
+        return 0.0
+    
+    # 0~1 정규화
+    norm_series = (np.array(series) - s_min) / (s_max - s_min + 1e-8)
+    
+    # DTW 거리 계산
+    dist = calculate_dtw_distance(norm_series, np.array(target_pattern))
+    
+    # 거리를 0~100 범위의 유사도 점수로 변환 (최대 거리 24 기준)
+    max_possible_dist = len(target_pattern)
+    similarity = max(0.0, 100.0 * (1.0 - (dist / max_possible_dist)))
+    return round(similarity, 1)
+
 
 # ==============================================================================
 # [유틸] 데이터 포맷팅 및 캐싱 / AI 추천 목록 읽기
@@ -469,6 +533,8 @@ def calculate_t1_advanced_metrics(ticker):
         try:
             df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
             df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=30)
+            # DTW 계산용 5분봉 24개 데이터 수집
+            df_5m = pyupbit.get_ohlcv(ticker, interval="minute5", count=24)
            
             if df_1h is None or len(df_1h) < 30 or df_daily is None or len(df_daily) < 10:
                 return None
@@ -507,6 +573,21 @@ def calculate_t1_advanced_metrics(ticker):
                     float(cmf_1h)
                 ])
 
+            # 골든 패턴 기반 DTW 유사도 산출
+            pattern_similarity = 0.0
+            volume_similarity = 0.0
+            if GLOBAL_GOLDEN_PATTERN and df_5m is not None and len(df_5m) == 24:
+                recent_prices = df_5m['close'].tolist()
+                recent_volumes = df_5m['volume'].tolist()
+                
+                golden_p = GLOBAL_GOLDEN_PATTERN.get("golden_pattern", [])
+                golden_v = GLOBAL_GOLDEN_PATTERN.get("golden_volume_pattern", [])
+                
+                if golden_p:
+                    pattern_similarity = calculate_pattern_similarity(recent_prices, golden_p)
+                if golden_v:
+                    volume_similarity = calculate_pattern_similarity(recent_volumes, golden_v)
+
             return {
                 "last_close": float(close_1h.iloc[-1]),
                 "vol_spike_ratio": round(vol_spike_ratio, 2),
@@ -514,7 +595,9 @@ def calculate_t1_advanced_metrics(ticker):
                 "bb_breakout": round(bb_breakout, 2),
                 "cmf_1h": round(cmf_1h, 2),
                 "rsi_1h": round(rsi_1h, 1),
-                "lstm_sequence": lstm_sequence
+                "lstm_sequence": lstm_sequence,
+                "pattern_similarity": pattern_similarity,
+                "volume_similarity": volume_similarity
             }
         except Exception:
             time.sleep(0.1)
@@ -549,7 +632,7 @@ def process_single_coin(item, current_price_map, ai_rec_map=None):
             return {
                 "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
                 "raw_price": float(c_price), "종합예측점수": 50.0, "거래량절벽(배)": 1.0,
-                "CMF지표": 0.0, "RSI": 50.0, "아이스버그역산(고주파)": "💎 정상 수급",
+                "CMF지표": 0.0, "RSI": 50.0, "골든패턴유사도(%)": 0.0, "아이스버그역산(고주파)": "💎 정상 수급",
                 "_stgt_feats": [0.5]*9
             }
 
@@ -567,15 +650,23 @@ def process_single_coin(item, current_price_map, ai_rec_map=None):
         cmf_score = max(-10.0, min(15.0, metrics['cmf_1h'] * 20.0))
         rsi_penalty = -10.0 if metrics['rsi_1h'] >= 75.0 else 0.0
 
-        # 🔥 [신규] AI 추천 트래킹 종목 가산점 계산
+        # 🔥 [신규 반영] 골든 패턴 및 거래량 패턴 유사도 가산점 (최대 15점)
+        pattern_sim = metrics.get('pattern_similarity', 0.0)
+        volume_sim = metrics.get('volume_similarity', 0.0)
+        pattern_bonus = 0.0
+        if pattern_sim >= 75.0:
+            pattern_bonus += (pattern_sim - 75.0) * 0.4 # 최대 약 +10점
+        if volume_sim >= 75.0:
+            pattern_bonus += (volume_sim - 75.0) * 0.2 # 최대 약 +5점
+
+        # AI 추천 트래킹 종목 가산점 계산
         ai_bonus = 0.0
         if symbol in ai_rec_map and iceberg_metrics['score_modifier'] > 0:
             rec_info = ai_rec_map[symbol]
             rec_cnt = rec_info.get("count", 1)
-            # 기본 추천 가산점 5점 + 누적 추천 회당 0.5점 추가 (최대 2점 추가 cap)
             ai_bonus = 5.0 + min(2.0, (rec_cnt - 1) * 0.5)
 
-        total_score = score + vol_score + squeeze_bonus + cmf_score + rsi_penalty + iceberg_metrics['score_modifier'] + ai_bonus
+        total_score = score + vol_score + squeeze_bonus + cmf_score + rsi_penalty + pattern_bonus + iceberg_metrics['score_modifier'] + ai_bonus
         acc_score = round(max(0.0, min(100.0, total_score)), 1)
 
         c_price = current_price_map.get(ticker, metrics['last_close'])
@@ -586,7 +677,8 @@ def process_single_coin(item, current_price_map, ai_rec_map=None):
             metrics['cmf_1h'],
             metrics['rsi_1h'] / 100.0,
             metrics['bb_breakout'],
-            0.5, 1.0, 0.2, 0.5
+            pattern_sim / 100.0, # STGT 피처에 패턴 유사도 정규화값 반영
+            1.0, 0.2, 0.5
         ]
        
         ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
@@ -600,6 +692,7 @@ def process_single_coin(item, current_price_map, ai_rec_map=None):
             "거래량절벽(배)": metrics['vol_spike_ratio'],
             "CMF지표": metrics['cmf_1h'],
             "RSI": metrics['rsi_1h'],
+            "골든패턴유사도(%)": pattern_sim,
             "아이스버그역산(고주파)": iceberg_metrics['status'],
             "_stgt_feats": stgt_feats
         }
@@ -608,7 +701,7 @@ def process_single_coin(item, current_price_map, ai_rec_map=None):
         return {
             "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
             "raw_price": float(c_price), "종합예측점수": 50.0, "거래량절벽(배)": 1.0,
-            "CMF지표": 0.0, "RSI": 50.0, "아이스버그역산(고주파)": "💎 정상 수급",
+            "CMF지표": 0.0, "RSI": 50.0, "골든패턴유사도(%)": 0.0, "아이스버그역산(고주파)": "💎 정상 수급",
             "_stgt_feats": [0.5]*9
         }
 
@@ -616,7 +709,6 @@ def analyze_and_scan_market():
     krw_coins = get_krw_upbit_tickers()
     if not krw_coins: return pd.DataFrame()
 
-    # 🔥 AI 트래킹 종목 맵 가져오기
     ai_rec_map = get_active_ai_recommended_map()
 
     print("\n🚀 [시세 일괄 조회] 배치 처리 중...")
@@ -862,6 +954,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
             name = row['코인명']
             price = row['현재가(KRW)']
             score = float(row['종합예측점수'])
+            pattern_sim = float(row.get('골든패턴유사도(%)', 0.0))
            
             sticker = ' <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7rem;">🎯 AI추천</span>' if symbol in monitored_symbols else ''
            
@@ -870,7 +963,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
                 f' <td class="text-center fw-bold text-muted">{rank}</td>\n'
                 f' <td class="fw-bold">{name} <span class="text-secondary small">({symbol})</span>{sticker}</td>\n'
                 f' <td>{price}</td>\n'
-                f' <td class="text-primary fw-bold">{score:.1f}점</td>\n'
+                f' <td class="text-primary fw-bold">{score:.1f}점 <span class="text-muted small">({pattern_sim:.0f}%)</span></td>\n'
                 f"</tr>\n"
             )
             table_rows_list.append(row_html)
@@ -1000,7 +1093,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </div>\n'
         ' <div class="table-scroll-box">\n'
         ' <table class="table table-hover align-middle mb-0" id="allCoinsTable">\n'
-        ' <thead class="table-light sticky-top"><tr><th class="text-center" style="width: 10%;">순위</th><th style="width: 40%;">코인명</th><th style="width: 25%;">현재가</th><th style="width: 25%;">예측점수</th></tr></thead>\n'
+        ' <thead class="table-light sticky-top"><tr><th class="text-center" style="width: 10%;">순위</th><th style="width: 40%;">코인명</th><th style="width: 25%;">현재가</th><th style="width: 25%;">예측점수 (유사도)</th></tr></thead>\n'
         ' <tbody>__ALL_COINS_TABLE_ROWS__</tbody>\n'
         ' </table>\n'
         ' </div>\n'
@@ -1064,7 +1157,7 @@ if __name__ == "__main__":
    
     if not df_result.empty:
         print(f"\n=== 🎯 [자가학습 AI 적용] 전체 분석 종목 수: {len(df_result)}개 ===")
-        print(df_result[["코인명", "종합예측점수", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(5))
+        print(df_result[["코인명", "종합예측점수", "골든패턴유사도(%)", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(5))
        
         top10_symbols = set(df_result.head(10)['심볼'].tolist())
 
