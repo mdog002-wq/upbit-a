@@ -215,30 +215,41 @@ def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
 
 # 2. 토큰포스트 뉴스 수집 함수
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
+    """
+    추천 코인의 한글명/심볼을 기준으로 구글 뉴스 RSS를 활용해 
+    가장 최신의 실시간 관련 뉴스/속보를 수집합니다.
+    """
     coin_news_dict = {}
 
     for coin in target_coins:
-        query = urllib.parse.quote(str(coin).strip())
-        rss_url = f"https://www.tokenpost.kr/rss/search?q={query}"
+        if not coin:
+            continue
+            
+        # 검색 정확도를 높이기 위해 구글 뉴스 RSS 활용 (한글 및 티커 모두 대응 가능)
+        query = urllib.parse.quote(f"{coin} 코인")
+        rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
 
         try:
             feed = feedparser.parse(rss_url)
             news_items = []
 
             for entry in feed.entries[:max_news_per_coin]:
-                # entry.title, entry.link 존재 여부 안전하게 체크
                 title = getattr(entry, "title", "제목 없음")
-                link = getattr(entry, "link", "")
+                link = getattr(entry, "link", "#")
+                
+                # 구글 뉴스 타이틀 끝의 출처(- 언론사명) 깔끔하게 정돈
+                if " - " in title:
+                    title = title.rsplit(" - ", 1)[0]
+
                 news_items.append({"title": title, "link": link})
 
             if news_items:
                 coin_news_dict[coin] = news_items
 
         except Exception as e:
-            print(f"⚠️ {coin} 속보 수집 스킵: {e}")
+            print(f"⚠️ {coin} 속보 수집 중 오류: {e}")
 
     return coin_news_dict
-
 
 # 3. 실제 실행 부분
 if __name__ == "__main__":
@@ -855,14 +866,26 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         alert_items.append(f'<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert_text}</div>')
     alerts_html = "\n".join(alert_items) if alert_items else '<div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>'
 
-    news_items = []
+     news_items = []
     if news_data:
         for coin, items in news_data.items():
-            li_tags = "".join([f'<li><a href="{item.get("link", "#")}" target="_blank" class="text-decoration-none text-dark">{item.get("title", "")}</a></li>' for item in items])
-            news_items.append(f'<div class="p-2 border rounded bg-light"><strong class="text-primary">{coin}</strong><ul class="mb-0 ps-3 small">{li_tags}</ul></div>')
+            li_tags = ""
+            for item in items:
+                title = item.get("title", "")
+                link = item.get("link", "#")
+                li_tags += f'<li class="mb-1"><a href="{link}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark hover-primary">{title}</a></li>'
+            
+            card_html = (
+                f'<div class="p-2 border rounded bg-light mb-2 shadow-sm">\n'
+                f' <div class="fw-bold text-primary mb-1 style="font-size: 0.85rem;"><i class="fa-solid fa-hashtag me-1"></i>{coin}</div>\n'
+                f' <ul class="mb-0 ps-3 small text-secondary">{li_tags}</ul>\n'
+                f'</div>'
+            )
+            news_items.append(card_html)
         news_html = "\n".join(news_items)
     else:
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
+
 
     tracking_items = []
     for item in tracking_monitor_data:
@@ -1072,8 +1095,21 @@ if __name__ == "__main__":
             top10_symbols=top10_symbols
         )
 
-        all_target_coins = [item['name'] for item in ai_report_coins]
-        news_data = fetch_news_for_recommended_coins(all_target_coins)
+        # 메인 함수 내 뉴스 수집 부분 수정
+        # 종목 한글명과 심볼을 모두 수집 대상 키워드로 등록
+        all_target_coins = []
+        for item in ai_report_coins:
+            if item.get('name'):
+                all_target_coins.append(item['name'])
+            if item.get('symbol') and item['symbol'] != item.get('name'):
+                all_target_coins.append(item['symbol'])
+        
+        # 중복 제거
+        all_target_coins = list(set(all_target_coins))
+
+        # 뉴스 데이터 수집
+        news_data = fetch_news_for_recommended_coins(all_target_coins, max_news_per_coin=2)
+
 
         generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
 
