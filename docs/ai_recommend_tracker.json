@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 73.2,
-    "current_price": 73.1,
+    "current_price": 73.3,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:42:56"
   },
@@ -15,25 +15,25 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 97.1,
+    "current_price": 97.0,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 5,
-    "top10_count": 7,
+    "count": 6,
+    "top10_count": 8,
     "entry_price": 25.9,
-    "current_price": 26.1,
+    "current_price": 26.2,
     "first_recommended_at": "2026-08-09 09:42:56",
-    "last_recommended_at": "2026-08-09 10:28:01"
+    "last_recommended_at": "2026-08-09 10:33:09"
   },
   "API3": {
     "name": "에이피아이쓰리",
     "symbol": "API3",
     "count": 2,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 273.0,
     "current_price": 274.0,
     "first_recommended_at": "2026-08-09 09:42:56",
@@ -55,19 +55,19 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 16.9,
-    "current_price": 16.6,
+    "current_price": 16.8,
     "first_recommended_at": "2026-08-09 09:47:55",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 9,
-    "top10_count": 9,
+    "count": 10,
+    "top10_count": 10,
     "entry_price": 83.5,
     "current_price": 83.5,
     "first_recommended_at": "2026-08-09 09:47:55",
-    "last_recommended_at": "2026-08-09 10:28:01"
+    "last_recommended_at": "2026-08-09 10:33:09"
   },
   "FCT2": {
     "name": "피르마체인",
@@ -93,7 +93,7 @@
     "name": "비트텐서",
     "symbol": "TAO",
     "count": 2,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 293200.0,
     "current_price": 290000.0,
     "first_recommended_at": "2026-08-09 09:52:59",
@@ -105,19 +105,19 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 5.08,
-    "current_price": 5.08,
+    "current_price": 5.06,
     "first_recommended_at": "2026-08-09 10:03:18",
     "last_recommended_at": "2026-08-09 10:08:02"
   },
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 8.36,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 10:28:01",
-    "last_recommended_at": "2026-08-09 10:28:01"
+    "last_recommended_at": "2026-08-09 10:33:09"
   },
   "META": {
     "name": "메타디움",
