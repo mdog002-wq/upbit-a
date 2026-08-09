@@ -15,27 +15,27 @@
     "count": 10,
     "top10_count": 15,
     "entry_price": 89.0,
-    "current_price": 88.9,
+    "current_price": 88.8,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:23:08"
   },
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
-    "count": 14,
-    "top10_count": 16,
+    "count": 15,
+    "top10_count": 17,
     "entry_price": 26.7,
     "current_price": 26.7,
     "first_recommended_at": "2026-08-09 19:37:55",
-    "last_recommended_at": "2026-08-09 20:53:07"
+    "last_recommended_at": "2026-08-09 20:58:19"
   },
   "HP": {
     "name": "히포프로토콜",
     "symbol": "HP",
     "count": 5,
-    "top10_count": 11,
+    "top10_count": 12,
     "entry_price": 9.65,
-    "current_price": 9.73,
+    "current_price": 9.63,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:13:31"
   },
@@ -53,9 +53,9 @@
     "name": "베니스토큰",
     "symbol": "VVV",
     "count": 1,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 16210.0,
-    "current_price": 16160.0,
+    "current_price": 16240.0,
     "first_recommended_at": "2026-08-09 19:53:01",
     "last_recommended_at": "2026-08-09 19:53:01"
   },
@@ -102,12 +102,12 @@
   "MANTRA": {
     "name": "만트라",
     "symbol": "MANTRA",
-    "count": 7,
-    "top10_count": 7,
+    "count": 8,
+    "top10_count": 8,
     "entry_price": 8.08,
     "current_price": 8.07,
     "first_recommended_at": "2026-08-09 20:23:08",
-    "last_recommended_at": "2026-08-09 20:53:07"
+    "last_recommended_at": "2026-08-09 20:58:19"
   },
   "2Z": {
     "name": "더블제로",
@@ -133,7 +133,7 @@
     "name": "시빅",
     "symbol": "CVC",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 27.2,
     "current_price": 27.2,
     "first_recommended_at": "2026-08-09 20:48:35",
@@ -143,20 +143,30 @@
     "name": "라그랑주",
     "symbol": "LA",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 76.9,
-    "current_price": 76.7,
+    "current_price": 76.8,
     "first_recommended_at": "2026-08-09 20:48:35",
     "last_recommended_at": "2026-08-09 20:48:35"
   },
   "ARDR": {
     "name": "아더",
     "symbol": "ARDR",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-09 20:53:07",
-    "last_recommended_at": "2026-08-09 20:53:07"
+    "last_recommended_at": "2026-08-09 20:58:19"
+  },
+  "HYPER": {
+    "name": "하이퍼레인",
+    "symbol": "HYPER",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 91.4,
+    "current_price": 91.4,
+    "first_recommended_at": "2026-08-09 20:58:19",
+    "last_recommended_at": "2026-08-09 20:58:19"
   }
 }
