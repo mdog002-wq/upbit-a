@@ -12,32 +12,32 @@
   "SUN": {
     "name": "썬",
     "symbol": "SUN",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 25.4,
     "current_price": 25.4,
     "first_recommended_at": "2026-08-09 15:12:48",
-    "last_recommended_at": "2026-08-09 15:23:41"
+    "last_recommended_at": "2026-08-09 15:27:55"
   },
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 83.9,
     "current_price": 83.9,
     "first_recommended_at": "2026-08-09 15:12:48",
-    "last_recommended_at": "2026-08-09 15:23:41"
+    "last_recommended_at": "2026-08-09 15:27:55"
   },
   "ETHFI": {
     "name": "이더파이",
     "symbol": "ETHFI",
-    "count": 2,
-    "top10_count": 3,
+    "count": 3,
+    "top10_count": 4,
     "entry_price": 544.0,
     "current_price": 546.0,
     "first_recommended_at": "2026-08-09 15:12:48",
-    "last_recommended_at": "2026-08-09 15:23:41"
+    "last_recommended_at": "2026-08-09 15:27:55"
   },
   "PROVE": {
     "name": "서싱트",
@@ -52,11 +52,11 @@
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 26.5,
     "current_price": 26.6,
     "first_recommended_at": "2026-08-09 15:17:47",
-    "last_recommended_at": "2026-08-09 15:23:41"
+    "last_recommended_at": "2026-08-09 15:27:55"
   }
 }
