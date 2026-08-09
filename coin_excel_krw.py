@@ -2,32 +2,15 @@ import os
 import io
 import time
 import datetime
-from datetime import timedelta
 import json
-import smtplib
 import requests
 import urllib.parse
 import feedparser
 import numpy as np
 import pandas as pd
 import pyupbit
-import openpyxl
 import asyncio
-import pickle
-import paramiko
-from typing import List, Dict, Any
-from pydantic import BaseModel, Field
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from collections import defaultdict
-from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
-from openpyxl.utils import get_column_letter
-
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from email.mime.application import MIMEApplication
-
-from google import genai
-from google.genai import types
 from tqdm import tqdm
 
 # 딥러닝 모델 경량 실행 및 로그 억제
@@ -39,7 +22,7 @@ try:
     TORCH_AVAILABLE = True
 except ImportError:
     TORCH_AVAILABLE = False
-    print("⚠️ PyTorch가 설치되어 있지 않습니다. STGT 모델은 통계 대체 로직으로 동작합니다.")
+    print("⚠️ PyTorch 미설치: STGT 모델은 대체 로직으로 동작합니다.")
 
 try:
     import tensorflow as tf
@@ -48,232 +31,66 @@ try:
     TF_AVAILABLE = True
 except ImportError:
     TF_AVAILABLE = False
-    print("⚠️ TensorFlow가 설치되어 있지 않습니다. 기본 통계 기반 알고리즘으로 동작합니다.")
+    print("⚠️ TensorFlow 미설치: 기본 통계 기반 로직으로 동작합니다.")
 
 
 # ==============================================================================
-# [Gemini Structured Output 스키마 정의]
+# [설정] 파일 경로 및 환경 설정
 # ==============================================================================
-class RecommendedCoin(BaseModel):
-    coin_name: str = Field(description="코인 한글명 (예: 바빌론, 너보스, 스파크, 바운드리스, 시빅)")
-    symbol: str = Field(description="티커 심볼 (예: BABY, CKB, SPK, ZKC, CVC)")
-    reason: str = Field(description="추천 핵심 사유 요약")
-
-class AIReportResponse(BaseModel):
-    report_markdown: str = Field(description="좌측 패널용 종합 퀀트 분석 리포트 전문 (마크다운 형식)")
-    recommended_coins: List[RecommendedCoin] = Field(description="AI가 최우선 추천하는 코인 종목 리스트")
-
-
-def upload_html_to_oracle_server(local_file_path):
-    """
-    GitHub Secrets에 등록된 ORACLE_SSH_KEY(.key 내용)를 이용해
-    오라클 서버로 대시보드 HTML 파일을 자동 전송하는 함수
-    """
-    hostname = os.environ.get("ORACLE_DSN")          
-    username = os.environ.get("ORACLE_USER", "ubuntu")
-    ssh_key_content = os.environ.get("ORACLE_SSH_KEY")
-
-    if not hostname or not ssh_key_content:
-        print("⚠️ 오라클 접속 정보(IP 또는 SSH 키)가 설정되지 않아 서버 전송을 스킵합니다.")
-        return
-
-    remote_file_path = "templates/dashboard.html"
-
-    try:
-        key_file_like = io.StringIO(ssh_key_content)
-        pkey = paramiko.RSAKey.from_private_key(key_file_like)
-
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(hostname, port=22, username=username, pkey=pkey, timeout=10)
-
-        sftp = ssh.open_sftp()
-        sftp.put(local_file_path, remote_file_path)
-        print(f"🚀 오라클 서버로 HTML 대시보드 전송 완료! ({remote_file_path})")
-       
-        sftp.close()
-        ssh.close()
-       
-    except Exception as e:
-        print(f"❌ 오라클 서버 전송 실패: {e}")
-
-# ==============================================================================
-# [설정] 환경 변수 및 파일 경로 / 골든 패턴 GitHub 동기화
-# ==============================================================================
-SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
-EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
-RECEIVER_EMAILS = [email.strip() for email in os.environ.get("RECEIVER_EMAIL", "").split(",") if email.strip()]
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
-TELEGRAM_CHAT_IDS = [chat_id.strip() for chat_id in os.environ.get("TELEGRAM_CHAT_ID", "").split(",") if chat_id.strip()]
-
-EXCEL_FILE_PATH = "업비트_원화마켓_매집_패턴분석_리포트.xlsx"
-HISTORY_CSV_PATH = "scan_history.csv"
-CACHE_DIR = "./cache"
+DATA_DIR = "./data"
 AI_MODELS_DIR = "./ai_models"
-DOCS_DIR = "./docs"
+CACHE_DIR = "./cache"
 EXPERIENCE_FILE = os.path.join(AI_MODELS_DIR, "ai_experience.json")
-
-# GitHub golden_pattern.json URL (blob 주소를 raw 주소로 변환)
+SCAN_RESULT_JSON = os.path.join(DATA_DIR, "market_scan_result.json")
 GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit/main/data/golden_pattern.json"
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
-AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
-
+os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
-os.makedirs(DOCS_DIR, exist_ok=True)
 
 
 # ==============================================================================
-# [골든 패턴 로드 및 DTW 계산 모듈]
+# [골든 패턴 및 DTW 수집 모듈]
 # ==============================================================================
 def load_golden_pattern():
-    """GitHub Raw URL에서 학습된 golden_pattern.json 로드"""
     try:
         headers = {}
         if GITHUB_TOKEN:
             headers["Authorization"] = f"token {GITHUB_TOKEN}"
-        
         res = requests.get(GOLDEN_PATTERN_URL, headers=headers, timeout=10)
         if res.status_code == 200:
-            pattern_data = res.json()
-            print(f"✅ GitHub 골든 패턴 데이터 로드 완료! (샘플 수: {pattern_data.get('sample_count', 0)}개, 업데이트: {pattern_data.get('updated_at', 'N/A')})")
-            return pattern_data
-        else:
-            print(f"⚠️ 골든 패턴 다운로드 실패 (Status: {res.status_code})")
+            return res.json()
     except Exception as e:
-        print(f"⚠️ 골든 패턴 불러오기 중 오류 발생: {e}")
+        print(f"⚠️ 골든 패턴 불러오기 중 오류: {e}")
     return None
 
 GLOBAL_GOLDEN_PATTERN = load_golden_pattern()
 
 def calculate_dtw_distance(s1, s2):
-    """두 시계열 데이터(s1, s2) 간의 DTW (Dynamic Time Warping) 거리 계산"""
     n, m = len(s1), len(s2)
     dtw_matrix = np.full((n + 1, m + 1), np.inf)
     dtw_matrix[0, 0] = 0
-
     for i in range(1, n + 1):
         for j in range(1, m + 1):
             cost = abs(s1[i - 1] - s2[j - 1])
-            dtw_matrix[i, j] = cost + min(
-                dtw_matrix[i - 1, j],
-                dtw_matrix[i, j - 1],
-                dtw_matrix[i - 1, j - 1]
-            )
+            dtw_matrix[i, j] = cost + min(dtw_matrix[i - 1, j], dtw_matrix[i, j - 1], dtw_matrix[i - 1, j - 1])
     return dtw_matrix[n, m]
 
 def calculate_pattern_similarity(series, target_pattern):
-    """시계열 데이터와 골든 패턴 간의 유사도 점수 산출 (0~100점)"""
     if not series or not target_pattern or len(series) == 0:
         return 0.0
-    
     s_min, s_max = np.min(series), np.max(series)
     if s_max == s_min:
         return 0.0
-    
     norm_series = (np.array(series) - s_min) / (s_max - s_min + 1e-8)
     dist = calculate_dtw_distance(norm_series, np.array(target_pattern))
-    
     max_possible_dist = len(target_pattern)
-    similarity = max(0.0, 100.0 * (1.0 - (dist / max_possible_dist)))
-    return round(similarity, 1)
+    return round(max(0.0, 100.0 * (1.0 - (dist / max_possible_dist))), 1)
 
 
 # ==============================================================================
-# [유틸] 데이터 포맷팅 및 캐싱 / AI 추천 목록 읽기
-# ==============================================================================
-def format_price(x):
-    try:
-        val = float(x)
-        return f"{int(val):,}" if val >= 100 else (f"{val:,.2f}" if val >= 1 else f"{val:,.5f}")
-    except Exception: return str(x)
-
-def send_telegram_alert(message):
-    if not TELEGRAM_BOT_TOKEN or not TELEGRAM_CHAT_IDS: return
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    for chat_id in TELEGRAM_CHAT_IDS:
-        try:
-            requests.post(url, json={"chat_id": chat_id, "text": message, "parse_mode": "Markdown"}, timeout=5)
-        except Exception:
-            pass
-
-def get_active_ai_recommended_map():
-    rec_map = {}
-    if os.path.exists(AI_TRACKER_HISTORY_FILE):
-        try:
-            with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                if isinstance(data, dict):
-                    for sym, item in data.items():
-                        rec_map[sym] = {
-                            "count": item.get("count", 1),
-                            "top10_count": item.get("top10_count", 0)
-                        }
-        except Exception as e:
-            print(f"⚠️ 트래킹 데이터 읽기 실패: {e}")
-    return rec_map
-
-# ==============================================================================
-# [뉴스 수집기]
-# ==============================================================================
-def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
-    coin_news_dict = {}
-
-    for coin in target_coins:
-        if not coin or not str(coin).strip():
-            continue
-            
-        coin_str = str(coin).strip()
-        query = urllib.parse.quote(f"{coin_str} 코인")
-        rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko&tbs=sbd:1"
-
-        try:
-            feed = feedparser.parse(rss_url)
-            news_items = []
-
-            for entry in feed.entries:
-                title = getattr(entry, "title", "제목 없음")
-                link = getattr(entry, "link", "#")
-                published_parsed = getattr(entry, "published_parsed", None)
-
-                if " - " in title:
-                    title = title.rsplit(" - ", 1)[0]
-
-                time_str = ""
-                if published_parsed:
-                    pub_dt = datetime.datetime(*published_parsed[:6])
-                    now_dt = datetime.datetime.utcnow()
-                    diff = now_dt - pub_dt
-                    
-                    if diff.total_seconds() > 172800:
-                        continue
-                        
-                    hours_ago = int(diff.total_seconds() // 3600)
-                    if hours_ago < 1:
-                        time_str = "방금 전"
-                    elif hours_ago < 24:
-                        time_str = f"{hours_ago}시간 전"
-                    else:
-                        time_str = f"{hours_ago // 24}일 전"
-
-                display_title = f"{title} [{time_str}]" if time_str else title
-                news_items.append({"title": display_title, "link": link})
-
-                if len(news_items) >= max_news_per_coin:
-                    break
-
-            if news_items:
-                coin_news_dict[coin_str] = news_items
-
-        except Exception as e:
-            print(f"⚠️ {coin_str} 속보 수집 중 오류: {e}")
-
-    return coin_news_dict
-
-# ==============================================================================
-# [AI 모듈 1 & 2] LSTM & STGT
+# [AI 딥러닝 엔진] LSTM & STGT
 # ==============================================================================
 class LSTMIcebergPredictor:
     def __init__(self, sequence_length=15, num_features=3):
@@ -285,8 +102,7 @@ class LSTMIcebergPredictor:
     def _load_or_build_model(self):
         if os.path.exists(self.model_path):
             try: return load_model(self.model_path)
-            except Exception: print("⚠️ 기존 LSTM 로드 실패, 새로 생성합니다.")
-       
+            except Exception: pass
         model = Sequential([
             LSTM(32, return_sequences=True, input_shape=(self.seq_len, self.feats)),
             Dropout(0.2),
@@ -298,23 +114,20 @@ class LSTMIcebergPredictor:
         return model
 
     def predict(self, features):
-        if not TF_AVAILABLE or self.model is None: return None
+        if not TF_AVAILABLE or self.model is None: return 0.3
         try:
             x_input = np.array(features).reshape(1, self.seq_len, self.feats)
             return float(self.model.predict(x_input, verbose=0)[0][0])
-        except Exception: return None
+        except Exception: return 0.3
 
     def train_step(self, x_data, y_labels):
         if not TF_AVAILABLE or self.model is None or not x_data: return
         try:
-            x_arr = np.array(x_data)
-            y_arr = np.array(y_labels)
-            self.model.fit(x_arr, y_arr, epochs=3, verbose=0)
+            self.model.fit(np.array(x_data), np.array(y_labels), epochs=3, verbose=0)
             self.model.save(self.model_path)
-        except Exception as e:
-            print(f"⚠️ LSTM 학습 스킵: {e}")
+        except Exception: pass
 
-lstm_dumping_predictor = LSTMIcebergPredictor()
+lstm_predictor = LSTMIcebergPredictor()
 
 class STGTModel(nn.Module if TORCH_AVAILABLE else object):
     def __init__(self, in_feats=9, hidden_size=32):
@@ -348,15 +161,13 @@ class STGTManager:
         self.model = STGTModel() if TORCH_AVAILABLE else None
         if TORCH_AVAILABLE:
             if os.path.exists(self.model_path):
-                try:
-                    self.model.load_state_dict(torch.load(self.model_path, weights_only=True))
-                except Exception:
-                    print("⚠️ STGT 가중치 로드 실패. 초기화합니다.")
+                try: self.model.load_state_dict(torch.load(self.model_path, weights_only=True))
+                except Exception: pass
             self.optimizer = optim.Adam(self.model.parameters(), lr=0.001)
             self.criterion = nn.BCELoss()
 
     def predict(self, x_tensor, edge_index):
-        if not TORCH_AVAILABLE or self.model is None: return None
+        if not TORCH_AVAILABLE or self.model is None: return []
         self.model.eval()
         with torch.no_grad():
             res = self.model(x_tensor, edge_index).squeeze()
@@ -372,10 +183,10 @@ class STGTManager:
             loss.backward()
             self.optimizer.step()
             torch.save(self.model.state_dict(), self.model_path)
-        except Exception as e:
-            print(f"⚠️ STGT 학습 스킵: {e}")
+        except Exception: pass
 
 stgt_manager = STGTManager()
+
 
 # ==============================================================================
 # [자가학습 엔진]
@@ -389,799 +200,167 @@ class AIEvolutionEngine:
             exps = {}
             if os.path.exists(self.exp_file):
                 with open(self.exp_file, "r", encoding="utf-8") as f: exps = json.load(f)
-           
-            exps[ticker] = {
-                "timestamp": time.time(),
-                "lstm_feats": lstm_feats,
-                "stgt_feats": stgt_feats,
-                "price": price
-            }
+            exps[ticker] = {"timestamp": time.time(), "lstm_feats": lstm_feats, "stgt_feats": stgt_feats, "price": price}
             with open(self.exp_file, "w", encoding="utf-8") as f: json.dump(exps, f, ensure_ascii=False)
         except Exception: pass
 
     def evolve_models(self):
         if not os.path.exists(self.exp_file): return
-       
         try:
             with open(self.exp_file, "r", encoding="utf-8") as f: exps = json.load(f)
         except Exception: return
 
         current_time = time.time()
-        lstm_x_train, lstm_y_train = [], []
-        stgt_x_train, stgt_y_train = [], []
-        keys_to_delete = []
-
         expired_tickers = [f"KRW-{t}" for t, d in exps.items() if current_time - d.get("timestamp", 0) > 14400]
         if not expired_tickers: return
 
-        print("🤖 [AI 진화 시스템] 과거 데이터 기반 자가학습 진행 중...")
+        print("🤖 [백엔드] 자가학습 진행 중...")
         try:
             prices_now = pyupbit.get_current_price(expired_tickers)
             if isinstance(prices_now, float): prices_now = {expired_tickers[0]: prices_now}
         except Exception: prices_now = {}
 
-        for ticker, data in list(exps.items()):
+        lstm_x_train, lstm_y_train, stgt_x_train, stgt_y_train, keys_to_delete = [], [], [], [], []
+        for ticker, data in exps.items():
             if current_time - data.get("timestamp", 0) > 14400:
-                market_symbol = f"KRW-{ticker}"
-                current_price = prices_now.get(market_symbol) if prices_now else None
-               
-                if current_price and data.get("price"):
-                    return_rate = (current_price - data["price"]) / data["price"] * 100
-                   
-                    is_dumped = 1.0 if return_rate <= -3.0 else 0.0
+                c_price = prices_now.get(f"KRW-{ticker}")
+                if c_price and data.get("price"):
+                    rate = (c_price - data["price"]) / data["price"] * 100
                     if data.get("lstm_feats"):
                         lstm_x_train.append(data["lstm_feats"])
-                        lstm_y_train.append(is_dumped)
-                   
-                    is_pumped = 1.0 if return_rate >= 5.0 else 0.0
+                        lstm_y_train.append(1.0 if rate <= -3.0 else 0.0)
                     if data.get("stgt_feats"):
                         stgt_x_train.append(data["stgt_feats"])
-                        stgt_y_train.append(is_pumped)
-               
+                        stgt_y_train.append(1.0 if rate >= 5.0 else 0.0)
                 keys_to_delete.append(ticker)
 
-        if lstm_x_train:
-            lstm_dumping_predictor.train_step(lstm_x_train, lstm_y_train)
-       
+        if lstm_x_train: lstm_predictor.train_step(lstm_x_train, lstm_y_train)
         if stgt_x_train and TORCH_AVAILABLE:
             x_t = torch.tensor(stgt_x_train, dtype=torch.float32)
             y_t = torch.tensor(stgt_y_train, dtype=torch.float32)
-            dummy_edge = torch.tensor([[i for i in range(len(stgt_x_train))], [i for i in range(len(stgt_x_train))]], dtype=torch.long)
-            stgt_manager.train_step(x_t, dummy_edge, y_t)
-           
-        for k in keys_to_delete:
-            if k in exps: del exps[k]
+            edge = torch.tensor([[i for i in range(len(stgt_x_train))], [i for i in range(len(stgt_x_train))]], dtype=torch.long)
+            stgt_manager.train_step(x_t, edge, y_t)
+
+        for k in keys_to_delete: exps.pop(k, None)
         with open(self.exp_file, "w", encoding="utf-8") as f: json.dump(exps, f, ensure_ascii=False)
 
 ai_engine = AIEvolutionEngine()
 
+
 # ==============================================================================
-# [스캔 분석 유틸 및 선행성 지표 보정 개편]
+# [수집 & 정밀 메트릭 수집]
 # ==============================================================================
-def get_krw_upbit_tickers():
-    url = "https://api.upbit.com/v1/market/all?isDetails=false"
+def calculate_metrics(ticker):
     try:
-        res = requests.get(url, timeout=5)
-        if res.status_code == 200:
-            return [{'ticker': c['market'], 'korean_name': c['korean_name'], 'symbol': c['market'].replace("KRW-", "")}
-                    for c in res.json() if c['market'].startswith("KRW-")]
-    except Exception: pass
-    return []
+        df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
+        df_5m = pyupbit.get_ohlcv(ticker, interval="minute5", count=24)
+        if df_1h is None or len(df_1h) < 30: return None
 
-def calculate_t1_advanced_metrics(ticker):
-    for attempt in range(2):
-        try:
-            df_1h = pyupbit.get_ohlcv(ticker, interval="minute60", count=100)
-            df_daily = pyupbit.get_ohlcv(ticker, interval="day", count=30)
-            df_5m = pyupbit.get_ohlcv(ticker, interval="minute5", count=24)
-           
-            if df_1h is None or len(df_1h) < 30 or df_daily is None or len(df_daily) < 10:
-                return None
+        close_1h, vol_1h = df_1h['close'], df_1h['volume']
+        vol_recent_3m = df_5m['volume'].iloc[-3:].sum() if df_5m is not None and len(df_5m) >= 3 else vol_1h.iloc[-1]
+        vol_prev_avg = (df_5m['volume'].iloc[-18:-3].mean() * 3) if df_5m is not None and len(df_5m) >= 18 else (vol_1h.iloc[-5:-1].mean() + 1e-8)
+        
+        vol_velocity = float(vol_recent_3m / (vol_prev_avg + 1e-8))
+        vol_spike_ratio = float(vol_1h.iloc[-1] / (vol_1h.iloc[-25:-1].mean() + 1e-8))
 
-            close_1h = df_1h['close']
-            vol_1h = df_1h['volume']
-           
-            # 1. 단기 거래량 급등 속도 (Volume Velocity)
-            vol_recent_3m = df_5m['volume'].iloc[-3:].sum() if df_5m is not None and len(df_5m) >= 3 else vol_1h.iloc[-1]
-            vol_prev_avg = (df_5m['volume'].iloc[-18:-3].mean() * 3) if df_5m is not None and len(df_5m) >= 18 else (vol_1h.iloc[-5:-1].mean() + 1e-8)
-            vol_velocity = float(vol_recent_3m / (vol_prev_avg + 1e-8))
-            vol_spike_ratio = float(vol_1h.iloc[-1] / (vol_1h.iloc[-25:-1].mean() + 1e-8))
-           
-            # 2. 볼린저밴드 수렴 후 돌파 (BB Squeeze Breakout)
-            ma20_1h = close_1h.rolling(20).mean()
-            std20_1h = close_1h.rolling(20).std()
-            upper_band = ma20_1h + (std20_1h * 2)
-            lower_band = ma20_1h - (std20_1h * 2)
-            bb_width = float((upper_band.iloc[-1] - lower_band.iloc[-1]) / (ma20_1h.iloc[-1] + 1e-8))
-            bb_breakout = float((close_1h.iloc[-1] - lower_band.iloc[-1]) / (upper_band.iloc[-1] - lower_band.iloc[-1] + 1e-8))
+        ma20 = close_1h.rolling(20).mean()
+        std20 = close_1h.rolling(20).std()
+        upper, lower = ma20 + (std20 * 2), ma20 - (std20 * 2)
+        bb_width = float((upper.iloc[-1] - lower.iloc[-1]) / (ma20.iloc[-1] + 1e-8))
+        bb_breakout = float((close_1h.iloc[-1] - lower.iloc[-1]) / (upper.iloc[-1] - lower.iloc[-1] + 1e-8))
 
-            # 3. 이평선 수렴율 (Golden Cross 초입)
-            ma5_1h = close_1h.rolling(5).mean().iloc[-1]
-            ma20_curr = ma20_1h.iloc[-1]
-            ma_diff_pct = float(abs(ma5_1h - ma20_curr) / (close_1h.iloc[-1] + 1e-8) * 100.0)
+        mfv = ((close_1h - df_1h['low']) - (df_1h['high'] - close_1h)) / (df_1h['high'] - df_1h['low'] + 1e-8) * vol_1h
+        cmf_1h = float(mfv.iloc[-20:].sum() / (vol_1h.iloc[-20:].sum() + 1e-8))
 
-            mfv = ((close_1h - df_1h['low']) - (df_1h['high'] - close_1h)) / (df_1h['high'] - df_1h['low'] + 1e-8) * vol_1h
-            cmf_1h = float(mfv.iloc[-20:].sum() / (vol_1h.iloc[-20:].sum() + 1e-8))
+        delta = close_1h.diff()
+        gain = (delta.where(delta > 0, 0)).rolling(14).mean()
+        loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
+        rsi_1h = float(100 - (100 / (1 + (gain / (loss + 1e-8)).iloc[-1])))
 
-            delta = close_1h.diff()
-            gain = (delta.where(delta > 0, 0)).rolling(14).mean()
-            loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
-            rs = gain / (loss + 1e-8)
-            rsi_1h = float(100 - (100 / (1 + rs.iloc[-1])))
+        vol_pct, price_pct = vol_1h.pct_change().fillna(0), close_1h.pct_change().fillna(0)
+        lstm_sequence = [[float(vol_pct.iloc[i]), float(price_pct.iloc[i]), float(cmf_1h)] for i in range(-15, 0)]
 
-            vol_pct = df_1h['volume'].pct_change().fillna(0)
-            price_pct = df_1h['close'].pct_change().fillna(0)
-           
-            lstm_sequence = []
-            for i in range(-15, 0):
-                lstm_sequence.append([
-                    float(vol_pct.iloc[i]),
-                    float(price_pct.iloc[i]),
-                    float(cmf_1h)
-                ])
+        pattern_sim = 0.0
+        if GLOBAL_GOLDEN_PATTERN and df_5m is not None and len(df_5m) == 24:
+            golden_p = GLOBAL_GOLDEN_PATTERN.get("golden_pattern", [])
+            if golden_p: pattern_sim = calculate_pattern_similarity(df_5m['close'].tolist(), golden_p)
 
-            pattern_similarity = 0.0
-            volume_similarity = 0.0
-            if GLOBAL_GOLDEN_PATTERN and df_5m is not None and len(df_5m) == 24:
-                recent_prices = df_5m['close'].tolist()
-                recent_volumes = df_5m['volume'].tolist()
-                
-                golden_p = GLOBAL_GOLDEN_PATTERN.get("golden_pattern", [])
-                golden_v = GLOBAL_GOLDEN_PATTERN.get("golden_volume_pattern", [])
-                
-                if golden_p:
-                    pattern_similarity = calculate_pattern_similarity(recent_prices, golden_p)
-                if golden_v:
-                    volume_similarity = calculate_pattern_similarity(recent_volumes, golden_v)
+        return {
+            "last_close": float(close_1h.iloc[-1]),
+            "vol_velocity": round(vol_velocity, 2),
+            "vol_spike_ratio": round(vol_spike_ratio, 2),
+            "bb_width": round(bb_width, 4),
+            "bb_breakout": round(bb_breakout, 2),
+            "cmf_1h": round(cmf_1h, 2),
+            "rsi_1h": round(rsi_1h, 1),
+            "lstm_sequence": lstm_sequence,
+            "pattern_similarity": pattern_sim
+        }
+    except Exception: return None
 
-            return {
-                "last_close": float(close_1h.iloc[-1]),
-                "vol_velocity": round(vol_velocity, 2),
-                "vol_spike_ratio": round(vol_spike_ratio, 2),
-                "bb_width": round(bb_width, 4),
-                "bb_breakout": round(bb_breakout, 2),
-                "ma_diff_pct": round(ma_diff_pct, 2),
-                "cmf_1h": round(cmf_1h, 2),
-                "rsi_1h": round(rsi_1h, 1),
-                "lstm_sequence": lstm_sequence,
-                "pattern_similarity": pattern_similarity,
-                "volume_similarity": volume_similarity
-            }
-        except Exception:
-            time.sleep(0.1)
-    return None
+def process_coin(item, price_map):
+    ticker, symbol, name = item['market'], item['market'].replace("KRW-", ""), item['korean_name']
+    metrics = calculate_metrics(ticker)
+    if not metrics: return None
 
-def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
-    if real_lstm_sequence and len(real_lstm_sequence) == 15:
-        lstm_feats = real_lstm_sequence
-    else:
-        lstm_feats = [[0.0, 0.0, 0.0] for _ in range(15)]
-       
-    dump_prob = lstm_dumping_predictor.predict(lstm_feats) if (lstm_dumping_predictor and lstm_dumping_predictor.model) else 0.3
-    if dump_prob is None: dump_prob = 0.3
-   
+    dump_prob = lstm_predictor.predict(metrics["lstm_sequence"])
+    dump_risk_flag = dump_prob >= 0.6
+
+    score = round((metrics['vol_velocity'] * 20) + (metrics['cmf_1h'] * 15) + (metrics['pattern_similarity'] * 0.3) - (30 if dump_risk_flag else -5), 1)
+    score = max(0.0, min(100.0, score))
+    c_price = price_map.get(ticker, metrics['last_close'])
+
+    stgt_feats = [metrics['vol_velocity'] / 10.0, metrics['bb_width'], metrics['cmf_1h'], metrics['rsi_1h'] / 100.0, metrics['bb_breakout'], metrics['pattern_similarity'] / 100.0, 1.0, 0.2, 0.5]
+    ai_engine.save_experience(symbol, price=c_price, lstm_feats=metrics["lstm_sequence"], stgt_feats=stgt_feats)
+
     return {
-        "status": f"💎 정상 수급 (덤핑확률 {round(dump_prob*100,1)}%)" if dump_prob < 0.6 else f"🚨 덤핑 위험 (덤핑확률 {round(dump_prob*100,1)}%)",
-        "score_modifier": -30 if dump_prob >= 0.6 else 5,
-        "raw_lstm_feats": lstm_feats
+        "market": ticker, "symbol": symbol, "name": name, "price": c_price,
+        "quant_score": score, "dump_risk_pct": round(dump_prob * 100, 1),
+        "pattern_similarity": metrics['pattern_similarity'], "rsi": metrics['rsi_1h'],
+        "vol_velocity": metrics['vol_velocity'], "stgt_feats": stgt_feats
     }
 
-def process_single_coin(item, current_price_map, ai_rec_map=None):
-    if ai_rec_map is None:
-        ai_rec_map = {}
+def main():
+    print("🚀 [Backend Data Collector] 매집 정보 수집 및 자가학습 실행 중...")
+    ai_engine.evolve_models()
 
-    ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
-    try:
-        time.sleep(0.1)
-        metrics = calculate_t1_advanced_metrics(ticker)
-       
-        if not metrics:
-            c_price = current_price_map.get(ticker, 0)
-            return {
-                "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
-                "raw_price": float(c_price), "종합예측점수": 0.0, "거래량절벽(배)": 1.0,
-                "CMF지표": 0.0, "RSI": 50.0, "골든패턴유사도(%)": 0.0, "아이스버그역산(고주파)": "💎 정상 수급",
-                "_stgt_feats": [0.5]*9
-            }
+    res = requests.get("https://api.upbit.com/v1/market/all?isDetails=false").json()
+    krw_coins = [c for c in res if c['market'].startswith("KRW-")]
+    
+    tickers = [c['market'] for c in krw_coins]
+    try: price_map = pyupbit.get_current_price(tickers)
+    except Exception: price_map = {}
 
-        iceberg_metrics = get_highfreq_iceberg_metrics(ticker, metrics.get("lstm_sequence"))
-       
-        # =========================================================================
-        # 🚨 [승률 개선 및 허수 필터링 강화 핵심 패치]
-        # =========================================================================
-        rsi = metrics['rsi_1h']
-        vol_vel = metrics.get('vol_velocity', 1.0)
-        cmf = metrics['cmf_1h']
-        
-        # 1. 유동성/거래량 속도 필터: 수급이 완전히 마른 거래량 절벽 종목 감점
-        if vol_vel < 0.8 and rsi < 50.0:
-            # 거래량도 없고 RSI도 50 미만인 하락세 종목은 강제 감점 처리 (가짜 고득점 방지)
-            liquidity_penalty = 0.5
-        else:
-            liquidity_penalty = 1.0
-
-        # 2. 선행 거래량 속도 점수 (30점)
-        vol_score = min(30.0, max(0.0, (vol_vel - 0.9) * 20.0))
-
-        # 3. 볼린저밴드 수렴 후 돌파 (25점)
-        squeeze_score = 0.0
-        if metrics['bb_width'] < 0.05:
-            squeeze_score += 15.0
-            if metrics['bb_breakout'] >= 0.75:
-                squeeze_score += 10.0
-
-        # 4. 이평선 수렴율 (20점)
-        ma_diff = metrics.get('ma_diff_pct', 5.0)
-        ma_convergence_score = max(0.0, 20.0 - (ma_diff * 4.0))
-
-        # 5. 자금 유출입(CMF) 및 RSI 모멘텀 반영 (15점)
-        cmf_score = max(-5.0, min(15.0, cmf * 20.0))
-        
-        # 6. 골든 패턴 보너스 (10점)
-        pattern_sim = metrics.get('pattern_similarity', 0.0)
-        pattern_bonus = (pattern_sim - 70.0) * 0.33 if pattern_sim >= 70.0 else 0.0
-
-        # 원천 점수 계산 및 페널티 적용
-        raw_score = (vol_score + squeeze_score + ma_convergence_score + cmf_score + pattern_bonus + iceberg_metrics['score_modifier'])
-        raw_score *= liquidity_penalty  # 유동성 결여 시 점수 반토막
-
-        # RSI 과열/ 침체 보정
-        if rsi >= 75.0 or rsi <= 35.0:
-            raw_score *= 0.7
-
-        acc_score = round(max(0.0, min(100.0, raw_score)), 1)
-        c_price = current_price_map.get(ticker, metrics['last_close'])
-       
-        stgt_feats = [
-            metrics['vol_velocity'] / 10.0,
-            metrics['bb_width'],
-            metrics['cmf_1h'],
-            metrics['rsi_1h'] / 100.0,
-            metrics['bb_breakout'],
-            pattern_sim / 100.0,
-            1.0, 0.2, 0.5
-        ]
-       
-        ai_engine.save_experience(symbol, price=c_price, lstm_feats=iceberg_metrics.get("raw_lstm_feats"), stgt_feats=stgt_feats)
-
-        return {
-            "코인명": korean_name,
-            "심볼": symbol,
-            "현재가(KRW)": format_price(c_price),
-            "raw_price": float(c_price),
-            "종합예측점수": acc_score,
-            "거래량절벽(배)": metrics['vol_spike_ratio'],
-            "CMF지표": metrics['cmf_1h'],
-            "RSI": metrics['rsi_1h'],
-            "골든패턴유사도(%)": pattern_sim,
-            "아이스버그역산(고주파)": iceberg_metrics['status'],
-            "_stgt_feats": stgt_feats
-        }
-    except Exception:
-        c_price = current_price_map.get(ticker, 0)
-        return {
-            "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
-            "raw_price": float(c_price), "종합예측점수": 0.0, "거래량절벽(배)": 1.0,
-            "CMF지표": 0.0, "RSI": 50.0, "골든패턴유사도(%)": 0.0, "아이스버그역산(고주파)": "💎 정상 수급",
-            "_stgt_feats": [0.5]*9
-        }
-
-def analyze_and_scan_market():
-    krw_coins = get_krw_upbit_tickers()
-    if not krw_coins: return pd.DataFrame()
-
-    ai_rec_map = get_active_ai_recommended_map()
-
-    print("\n🚀 [시세 일괄 조회] 배치 처리 중...")
-    tickers_list = [c['ticker'] for c in krw_coins]
-    try:
-        current_price_map = pyupbit.get_current_price(tickers_list)
-        if isinstance(current_price_map, float): current_price_map = {tickers_list[0]: current_price_map}
-    except Exception: current_price_map = {}
-
-    results = []
-    print(f"\n🚀 [멀티스레딩] 전체 원화마켓 코인({len(krw_coins)}개) 병렬 스캔 및 AI 예측 시작...")
+    scanned_data = []
     with ThreadPoolExecutor(max_workers=5) as executor:
-        futures = {executor.submit(process_single_coin, item, current_price_map, ai_rec_map): item for item in krw_coins}
-        for future in tqdm(as_completed(futures), total=len(futures), ncols=80):
-            res = future.result()
-            if res: results.append(res)
+        futures = {executor.submit(process_coin, c, price_map): c for c in krw_coins}
+        for f in tqdm(as_completed(futures), total=len(futures), ncols=80):
+            r = f.result()
+            if r: scanned_data.append(r)
 
-    df = pd.DataFrame(results)
-    if df.empty: return df
-
-    df['STGT_그래프덤핑위험(%)'] = 0.0
-
-    if TORCH_AVAILABLE and stgt_manager.model and '_stgt_feats' in df.columns:
+    # STGT 그래프 네트워크 덤핑 확률 재계산
+    if TORCH_AVAILABLE and stgt_manager.model and scanned_data:
         try:
-            feats = np.array(df['_stgt_feats'].tolist())
+            feats = np.array([d['stgt_feats'] for d in scanned_data])
             n = len(feats)
             if n > 1:
                 x_t = torch.tensor(feats, dtype=torch.float32)
                 e_src, e_dst = np.where(~np.eye(n, dtype=bool))
                 edge_idx = torch.tensor([e_src, e_dst], dtype=torch.long)
                 preds = stgt_manager.predict(x_t, edge_idx)
-                if isinstance(preds, (float, int)): preds = [preds]
-                df['STGT_그래프덤핑위험(%)'] = [round(p * 100, 1) for p in preds]
-        except Exception as e:
-            print(f"⚠️ STGT 분석 스킵: {e}")
+                for idx, p in enumerate(preds): scanned_data[idx]['stgt_dump_risk'] = round(p * 100, 1)
+        except Exception: pass
 
-    if '_stgt_feats' in df.columns:
-        df = df.drop(columns=['_stgt_feats'])
+    # 결과 데이터를 JSON으로 연동 저장 (Realtime 파이프라인으로 넘김)
+    output_payload = {
+        "updated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "total_count": len(scanned_data),
+        "data": scanned_data
+    }
+    with open(SCAN_RESULT_JSON, "w", encoding="utf-8") as f:
+        json.dump(output_payload, f, ensure_ascii=False, indent=2)
 
-    return df.sort_values(by="종합예측점수", ascending=False)
+    print(f"✅ 백엔드 매집 데이터 수집 완료! -> `{SCAN_RESULT_JSON}` 저장 됨.")
 
-def update_ai_recommendation_tracker(ai_report_coins, current_price_map, coin_status_map, top10_symbols=set()):
-    history = {}
-   
-    if os.path.exists(AI_TRACKER_HISTORY_FILE):
-        try:
-            with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
-                content = f.read().strip()
-                if content:
-                    history = json.loads(content)
-        except Exception as e:
-            print(f"⚠️ docs/ 내 트래킹 파일 로드 실패 (초기화 후 진행): {e}")
-            history = {}
-
-    kst_tz = datetime.timezone(datetime.timedelta(hours=9))
-    now_str = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
-
-    for coin in ai_report_coins:
-        symbol = coin['symbol']
-        name = coin['name']
-        c_price = current_price_map.get(symbol, coin.get('raw_price', 0.0))
-
-        if symbol in history:
-            history[symbol]['count'] += 1
-            history[symbol]['current_price'] = c_price
-            history[symbol]['last_recommended_at'] = now_str
-        else:
-            history[symbol] = {
-                "name": name,
-                "symbol": symbol,
-                "count": 1,
-                "top10_count": 0,
-                "entry_price": c_price,
-                "current_price": c_price,
-                "first_recommended_at": now_str,
-                "last_recommended_at": now_str
-            }
-
-    for symbol, item in history.items():
-        if 'top10_count' not in item:
-            item['top10_count'] = 0
-           
-        if symbol in top10_symbols:
-            item['top10_count'] += 1
-   
-    to_remove = []
-    for symbol, item in history.items():
-        if symbol in current_price_map:
-            item['current_price'] = current_price_map[symbol]
-       
-        entry_p = item['entry_price']
-        curr_p = item['current_price']
-        profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
-
-        status = coin_status_map.get(symbol, {})
-        dump_risk = status.get('dump_risk', 0.0)
-
-        is_target_reached = profit_rate >= 20.0
-        is_value_lost = (dump_risk >= 70.0) or (profit_rate <= -10.0)
-
-        if is_target_reached or is_value_lost:
-            to_remove.append(symbol)
-
-    for s in to_remove:
-        if s in history:
-            del history[s]
-
-    try:
-        with open(AI_TRACKER_HISTORY_FILE, "w", encoding="utf-8") as f:
-            json.dump(history, f, ensure_ascii=False, indent=2)
-        print(f"💾 docs/ 폴더 내 AI 추천 트래킹 데이터 저장 완료: {AI_TRACKER_HISTORY_FILE}")
-    except Exception as e:
-        print(f"⚠️ 트래킹 데이터 저장 실패: {e}")
-
-    tracker_list = []
-    for symbol, item in history.items():
-        entry_p = item['entry_price']
-        curr_p = item['current_price']
-        profit_rate = ((curr_p - entry_p) / entry_p * 100) if entry_p > 0 else 0.0
-       
-        tracker_list.append({
-            "name": item['name'],
-            "symbol": item['symbol'],
-            "count": item['count'],
-            "top10_count": item.get('top10_count', 0),
-            "entry_price": format_price(entry_p),
-            "current_price": format_price(curr_p),
-            "profit_rate": round(profit_rate, 2),
-            "recommend_time": item['last_recommended_at']
-        })
-
-    tracker_list.sort(key=lambda x: (x['count'], x['recommend_time']), reverse=True)
-    return tracker_list
-
-# ==============================================================================
-# [Gemini Structured Output 분석 리포트]
-# ==============================================================================
-def generate_gemini_analysis(df_result):
-    if df_result.empty:
-        return "분석할 종목 데이터가 없습니다.", []
-   
-    top_coins = df_result.head(5)['코인명'].tolist()
-    top_symbols = df_result.head(5)['심볼'].tolist()
-   
-    default_recommended = [
-        {"symbol": sym, "name": name, "reason": "퀀트 예측 점수 상위 종목"}
-        for sym, name in zip(top_symbols, top_coins)
-    ]
-
-    if not GEMINI_API_KEY:
-        report = f"AI 리포트: 현재 상위 모니터링 종목은 {', '.join(top_coins)} 입니다."
-        return report, default_recommended
-
-    try:
-        client = genai.Client(api_key=GEMINI_API_KEY)
-        prompt = (
-            "당신은 암호화폐 퀀트 투자 전문가입니다. 아래 업비트 원화마켓 AI 퀀트 분석 상위 종목 데이터를 바탕으로 "
-            "작성 원칙에 맞춰 종합 시장 분석 리포트를 작성하세요.\n\n"
-            "작성 원칙:\n"
-            "1. report_markdown 필드에는 마크다운 형식으로 작성된 종합 퀀트 분석 리포트 전문을 넣으세요.\n"
-            "2. 가장 강력하게 추천하는 코인 3~5개를 선정하여 recommended_coins 배열에 한글 코인명, 심볼, 핵심 추천 사유를 명시하세요.\n\n"
-            f"분석 데이터:\n{df_result.head(10).to_string()}"
-        )
-
-        response = client.models.generate_content(
-            model='gemini-3.1-flash-lite',
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=AIReportResponse,
-                temperature=0.2,
-            ),
-        )
-
-        parsed_data = json.loads(response.text)
-        ai_report = parsed_data.get("report_markdown", f"상위 모니터링 추천 종목: {', '.join(top_coins)}")
-        rec_coins_data = parsed_data.get("recommended_coins", [])
-
-        recommended_list = []
-        for item in rec_coins_data:
-            recommended_list.append({
-                "symbol": item.get("symbol", "").strip().upper(),
-                "name": item.get("coin_name", "").strip(),
-                "reason": item.get("reason", "").strip()
-            })
-
-        return ai_report, recommended_list
-
-    except Exception as e:
-        print(f"⚠️ Gemini Structured Output 생성 스킵 (대체 로직): {e}")
-        return f"AI 분석 리포트 (상위 추천 종목: {', '.join(top_coins)})", default_recommended
-
-def export_to_excel_and_email(df_result, ai_report):
-    try:
-        df_result.to_excel(EXCEL_FILE_PATH, index=False)
-        print(f"📊 엑셀 리포트 저장 완료: {EXCEL_FILE_PATH}")
-       
-        if SENDER_EMAIL and EMAIL_PASSWORD and RECEIVER_EMAILS:
-            msg = MIMEMultipart()
-            msg['From'] = SENDER_EMAIL
-            msg['To'] = ", ".join(RECEIVER_EMAILS)
-            msg['Subject'] = f"[업비트 AI Quant] 시장 분석 리포트 ({datetime.datetime.now().strftime('%Y-%m-%d %H:%M')})"
-            msg.attach(MIMEText(ai_report, 'plain', 'utf-8'))
-           
-            if os.path.exists(EXCEL_FILE_PATH):
-                with open(EXCEL_FILE_PATH, "rb") as f:
-                    part = MIMEApplication(f.read(), Name=os.path.basename(EXCEL_FILE_PATH))
-                    part['Content-Disposition'] = f'attachment; filename="{os.path.basename(EXCEL_FILE_PATH)}"'
-                    msg.attach(part)
-           
-            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
-                server.login(SENDER_EMAIL, EMAIL_PASSWORD)
-                server.send_message(msg)
-            print("📧 이메일 리포트 발송 완료!")
-    except Exception as e:
-        print(f"❌ 엑셀/이메일 발송 작업 중 오류: {e}")
-
-# ==============================================================================
-# [대시보드 HTML 출력]
-# ==============================================================================
-def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html"):
-    os.makedirs(os.path.dirname(html_path), exist_ok=True)
-   
-    monitored_symbols = {item['symbol'] for item in tracking_monitor_data}
-    alerts = []
-   
-    if not df_result.empty:
-        for _, row in df_result.iterrows():
-            dump_risk = float(row['STGT_그래프덤핑위험(%)'])
-            if dump_risk >= 75.0:
-                alerts.append({"text": f"⚠️ {row['코인명']}({row['심볼']}) - {row['아이스버그역산(고주파)']}"})
-
-    kst_tz = datetime.timezone(datetime.timedelta(hours=9))
-    updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
-
-    table_rows_list = []
-    if not df_result.empty:
-        for rank, (_, row) in enumerate(df_result.iterrows(), start=1):
-            symbol = row['심볼']
-            name = row['코인명']
-            price = row['현재가(KRW)']
-            score = float(row['종합예측점수'])
-            pattern_sim = float(row.get('골든패턴유사도(%)', 0.0))
-           
-            sticker = ' <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7rem;">🎯 AI추천</span>' if symbol in monitored_symbols else ''
-           
-            row_html = (
-                f'<tr>\n'
-                f' <td class="text-center fw-bold text-muted">{rank}</td>\n'
-                f' <td class="fw-bold">{name} <span class="text-secondary small">({symbol})</span>{sticker}</td>\n'
-                f' <td>{price}</td>\n'
-                f' <td class="text-primary fw-bold">{score:.1f}점 <span class="text-muted small">({pattern_sim:.0f}%)</span></td>\n'
-                f"</tr>\n"
-            )
-            table_rows_list.append(row_html)
-   
-    all_coins_table_rows = "".join(table_rows_list) if table_rows_list else '<tr><td colspan="4" class="text-center text-muted py-3">분석된 종목이 없습니다.</td></tr>'
-
-    alert_items = []
-    for alert in alerts[:15]:
-        alert_text = alert.get('text', '')
-        alert_items.append(f'<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert_text}</div>')
-    alerts_html = "\n".join(alert_items) if alert_items else '<div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>'
-
-    news_items = []
-    if news_data:
-        for coin, items in news_data.items():
-            li_tags = ""
-            for item in items:
-                title = item.get("title", "")
-                link = item.get("link", "#")
-                li_tags += f'<li class="mb-1"><a href="{link}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark hover-primary">{title}</a></li>'
-            
-            card_html = (
-                f'<div class="p-2 border rounded bg-light mb-2 shadow-sm">\n'
-                f' <div class="fw-bold text-primary mb-1" style="font-size: 0.85rem;"><i class="fa-solid fa-hashtag me-1"></i>{coin}</div>\n'
-                f' <ul class="mb-0 ps-3 small text-secondary">{li_tags}</ul>\n'
-                f'</div>'
-            )
-            news_items.append(card_html)
-        news_html = "\n".join(news_items)
-    else:
-        news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
-
-    tracking_items = []
-    for item in tracking_monitor_data:
-        p_rate = item['profit_rate']
-        rate_color = "text-danger" if p_rate > 0 else ("text-primary" if p_rate < 0 else "text-dark")
-        sign = "+" if p_rate > 0 else ""
-        top10_cnt = item.get('top10_count', 0)
-
-        card_html = (
-            f'<div class="p-3 border rounded bg-white shadow-sm mb-2">\n'
-            f' <div class="d-flex justify-content-between align-items-center mb-1">\n'
-            f' <strong class="text-dark fs-6">🎯 {item["name"]} <span class="text-muted small">({item["symbol"]})</span></strong>\n'
-            f' <div class="d-flex gap-1 align-items-center">\n'
-            f' <span class="badge bg-primary rounded-pill">추천 {item["count"]}회</span>\n'
-            f' <span class="badge bg-primary rounded-pill">TOP10 {top10_cnt}회</span>\n'
-            f' </div>\n'
-            f' </div>\n'
-            f' <div class="row g-1 small text-secondary mt-1">\n'
-            f' <div class="col-6">추천진입가: <b>{item["entry_price"]}</b></div>\n'
-            f' <div class="col-6 text-end">현재가: <b>{item["current_price"]}</b></div>\n'
-            f' <div class="col-6">수익률: <b class="{rate_color}">{sign}{p_rate}%</b></div>\n'
-            f' <div class="col-6 text-end text-muted" style="font-size:0.75rem;">{item["recommend_time"]}</div>\n'
-            f' </div>\n'
-            f'</div>\n'
-        )
-        tracking_items.append(card_html)
-    tracking_html = "\n".join(tracking_items) if tracking_items else '<div class="text-muted small text-center py-3">현재 모니터링 중인 AI 추천 종목이 없습니다.</div>'
-
-    html_template = (
-        '<!DOCTYPE html>\n'
-        '<html lang="ko">\n'
-        '<head>\n'
-        ' <meta charset="UTF-8">\n'
-        ' <meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
-        ' <meta http-equiv="refresh" content="300">\n'
-        ' <title>Upbit AI Quantitative Dashboard</title>\n'
-        ' <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">\n'
-        ' <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">\n'
-        ' <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>\n'
-        ' <style>\n'
-        ' body { background-color: #f8fafc; color: #1e293b; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; }\n'
-        ' .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }\n'
-        ' .alert-box { max-height: 140px; overflow-y: auto; }\n'
-        ' .news-box { max-height: 140px; overflow-y: auto; }\n'
-        ' .table-scroll-box { max-height: 650px; overflow-y: auto; }\n'
-        ' .tracking-box { max-height: 750px; overflow-y: auto; }\n'
-        ' .report-body h1, .report-body h2, .report-body h3 { font-size: 1rem; font-weight: bold; margin-top: 0.5rem; color: #0f172a; }\n'
-        ' .report-body ul { padding-left: 1.2rem; margin-bottom: 0.5rem; }\n'
-        ' #allCoinsTable tbody tr:hover { background-color: #f1f5f9 !important; transition: background-color 0.15s ease-in-out; }\n'
-        ' </style>\n'
-        '</head>\n'
-        '<body>\n'
-        ' <div id="mainDashboardApp" class="container-fluid my-4 px-4" style="max-width: 1700px;">\n'
-        ' <div class="row mb-4 align-items-center">\n'
-        ' <div class="col-md-3 text-start">\n'
-        ' <a href="https://upbit-r.onrender.com" class="btn btn-primary fw-bold px-3 py-2 shadow-sm">\n'
-        ' <i class="fa-solid fa-robot me-1"></i> AI 실시간\n'
-        ' </a>\n'
-        ' </div>\n'
-        ' <div class="col-md-6 text-center">\n'
-        ' <h2 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h2>\n'
-        ' <small class="text-muted">최종 업데이트: __UPDATED_TIME__ (총 __TOTAL_COINS__개 종목 분석 완료)</small>\n'
-        ' </div>\n'
-        ' <div class="col-md-3"></div>\n'
-        ' </div>\n'
-        ' <div class="row g-4">\n'
-        ' <div class="col-lg-3">\n'
-        ' <div class="d-flex flex-column gap-3">\n'
-        ' <div class="card p-3 shadow-sm">\n'
-        ' <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>\n'
-        ' <div class="alert-box d-flex flex-column gap-2">\n'
-        ' __ALERTS_HTML__\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' <div class="card p-3 shadow-sm">\n'
-        ' <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보</h6>\n'
-        ' <div class="news-box d-flex flex-column gap-2">\n'
-        ' __NEWS_HTML__\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' <div class="card p-3 shadow-sm">\n'
-        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트</h6>\n'
-        ' <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.5;"></div>\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' <div class="col-lg-5">\n'
-        ' <div class="card p-4 shadow-sm">\n'
-        ' <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">\n'
-        ' <h5 class="fw-bold mb-0 text-dark fs-5"><i class="fa-solid fa-trophy text-warning me-1"></i> 전체 코인 AI 예측 순위</h5>\n'
-        ' <div class="input-group" style="max-width: 200px;">\n'
-        ' <span class="input-group-text bg-white"><i class="fa-solid fa-search text-muted"></i></span>\n'
-        ' <input type="text" id="coinSearchInput" class="form-control form-control-sm" placeholder="코인명/심볼 검색..." onkeyup="filterCoins()">\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' <div class="table-scroll-box">\n'
-        ' <table class="table table-hover align-middle mb-0" id="allCoinsTable">\n'
-        ' <thead class="table-light sticky-top"><tr><th class="text-center" style="width: 10%;">순위</th><th style="width: 40%;">코인명</th><th style="width: 25%;">현재가</th><th style="width: 25%;">예측점수 (유사도)</th></tr></thead>\n'
-        ' <tbody>__ALL_COINS_TABLE_ROWS__</tbody>\n'
-        ' </table>\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' </div>\n'      
-        ' <div class="col-lg-4">\n'
-        ' <div class="card p-3 shadow-sm tracking-box">\n'
-        ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-chart-line me-1"></i> AI 추천종목 모니터 (🎯 표시 종목)</h6>\n'
-        ' <div class="d-flex flex-column gap-2">\n'
-        ' __TRACKING_HTML__\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' </div>\n'
-        ' <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>\n'
-        ' <script>\n'
-        ' const rawReportText = __AI_REPORT_JSON__;\n'
-        ' document.getElementById("reportMarkdownContainer").innerHTML = marked.parse(rawReportText);\n'
-        '\n'
-        ' function filterCoins() {\n'
-        ' let input = document.getElementById(\'coinSearchInput\').value.toLowerCase().trim();\n'
-        ' let allRows = document.querySelectorAll(\'#allCoinsTable tbody tr\');\n'
-        '\n'
-        ' allRows.forEach(row => {\n'
-        ' let coinText = row.cells[1]?.innerText.toLowerCase() || \'\';\n'
-        ' if (input === \'\') {\n'
-        ' row.style.display = \'\';\n'
-        ' } else {\n'
-        ' row.style.display = coinText.includes(input) ? \'\' : \'none\';\n'
-        ' }\n'
-        ' });\n'
-        ' }\n'
-        ' </script>\n'
-        '</body>\n'
-        '</html>'
-    )
-
-    html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
-                        .replace("__TOTAL_COINS__", str(len(df_result)))\
-                        .replace("__ALERTS_HTML__", alerts_html)\
-                        .replace("__NEWS_HTML__", news_html)\
-                        .replace("__AI_REPORT_JSON__", json.dumps(str(ai_report), ensure_ascii=False))\
-                        .replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)\
-                        .replace("__TRACKING_HTML__", tracking_html)
-
-    with open(html_path, "w", encoding="utf-8") as f:
-        f.write(html_content)
-    print(f"🎨 [대시보드] HTML 생성 완료 (`{html_path}`)!")
-    return html_content
-
-# ==============================================================================
-# [메인 실행부]
-# ==============================================================================
 if __name__ == "__main__":
-    start_time = time.time()
-   
-    ai_engine.evolve_models()
-   
-    df_result = analyze_and_scan_market()
-   
-    if not df_result.empty:
-        print(f"\n=== 🎯 [자가학습 AI 적용] 전체 분석 종목 수: {len(df_result)}개 ===")
-        print(df_result[["코인명", "종합예측점수", "골든패턴유사도(%)", "STGT_그래프덤핑위험(%)", "아이스버그역산(고주파)"]].head(5))
-       
-        top10_symbols = set(df_result.head(10)['심볼'].tolist())
-
-        danger_coins = df_result[df_result['STGT_그래프덤핑위험(%)'] >= 85.0]
-        if not danger_coins.empty:
-            print(f"\n🚨 [위험 감지] {len(danger_coins)}개 종목 덤핑 위험! (텔레그램 전송)")
-            send_telegram_alert(f"🚨 *[자가학습 AI 경고]* 덤핑 위험 감지: {', '.join(danger_coins['코인명'].tolist())}")
-
-        ai_report, recommended_coins_ai = generate_gemini_analysis(df_result)
-
-        symbol_to_raw_price = dict(zip(df_result['심볼'], df_result['raw_price']))
-       
-        ai_report_coins = []
-        for coin_info in recommended_coins_ai:
-            sym = coin_info['symbol']
-            name = coin_info['name']
-            matching_rows = df_result[df_result['심볼'] == sym]
-            if not matching_rows.empty:
-                row = matching_rows.iloc[0]
-                ai_report_coins.append({
-                    "symbol": sym,
-                    "name": row['코인명'],
-                    "raw_price": row['raw_price']
-                })
-            else:
-                c_price = symbol_to_raw_price.get(sym, 0.0)
-                ai_report_coins.append({
-                    "symbol": sym,
-                    "name": name if name else sym,
-                    "raw_price": c_price
-                })
-
-        coin_status_map = {}
-        for _, r in df_result.iterrows():
-            coin_status_map[r['심볼']] = {
-                "score": float(r['종합예측점수']),
-                "dump_risk": float(r['STGT_그래프덤핑위험(%)'])
-            }
-
-        tracking_monitor_data = update_ai_recommendation_tracker(
-            ai_report_coins,
-            symbol_to_raw_price,
-            coin_status_map,
-            top10_symbols=top10_symbols
-        )
-
-        all_target_coins = []
-        for item in ai_report_coins:
-            if item.get('name'):
-                all_target_coins.append(item['name'])
-            if item.get('symbol') and item['symbol'] != item.get('name'):
-                all_target_coins.append(item['symbol'])
-        
-        all_target_coins = list(set(all_target_coins))
-
-        news_data = fetch_news_for_recommended_coins(all_target_coins, max_news_per_coin=2)
-
-        generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
-
-        upload_html_to_oracle_server("docs/index.html")
-
-        kst_tz = datetime.timezone(datetime.timedelta(hours=9))
-        kst_now = datetime.datetime.now(kst_tz)
-        current_hour = kst_now.hour
-        target_hours = [9, 13, 17, 21]
-
-        if current_hour in target_hours:
-            export_to_excel_and_email(df_result, ai_report)
-        else:
-            print(f"⏰ 현재 시각(KST {current_hour}시)은 이메일 발송 시간이 아니므로 대시보드만 갱신합니다.")
+    main()
