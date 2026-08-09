@@ -15,7 +15,7 @@
     "count": 5,
     "top10_count": 7,
     "entry_price": 82.8,
-    "current_price": 82.3,
+    "current_price": 82.4,
     "first_recommended_at": "2026-08-09 22:03:22",
     "last_recommended_at": "2026-08-09 23:53:22"
   },
@@ -33,7 +33,7 @@
     "name": "펜들",
     "symbol": "PENDLE",
     "count": 13,
-    "top10_count": 20,
+    "top10_count": 21,
     "entry_price": 1929.0,
     "current_price": 1949.0,
     "first_recommended_at": "2026-08-09 22:13:34",
@@ -55,7 +55,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 9.98,
-    "current_price": 9.82,
+    "current_price": 9.8,
     "first_recommended_at": "2026-08-09 22:23:24",
     "last_recommended_at": "2026-08-09 22:53:29"
   },
@@ -75,19 +75,19 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 91590000.0,
-    "current_price": 91575000.0,
+    "current_price": 91578000.0,
     "first_recommended_at": "2026-08-09 22:43:33",
     "last_recommended_at": "2026-08-09 22:43:33"
   },
   "SYRUP": {
     "name": "메이플파이낸스",
     "symbol": "SYRUP",
-    "count": 7,
-    "top10_count": 14,
+    "count": 8,
+    "top10_count": 15,
     "entry_price": 214.0,
     "current_price": 214.0,
     "first_recommended_at": "2026-08-09 22:53:29",
-    "last_recommended_at": "2026-08-10 00:03:27"
+    "last_recommended_at": "2026-08-10 00:08:01"
   },
   "ANIME": {
     "name": "애니메코인",
@@ -103,7 +103,7 @@
     "name": "사이버",
     "symbol": "CYBER",
     "count": 7,
-    "top10_count": 13,
+    "top10_count": 14,
     "entry_price": 443.0,
     "current_price": 441.0,
     "first_recommended_at": "2026-08-09 22:58:07",
@@ -112,12 +112,12 @@
   "ELSA": {
     "name": "헤이엘사",
     "symbol": "ELSA",
-    "count": 6,
-    "top10_count": 12,
+    "count": 7,
+    "top10_count": 13,
     "entry_price": 79.9,
     "current_price": 81.2,
     "first_recommended_at": "2026-08-09 23:03:34",
-    "last_recommended_at": "2026-08-10 00:03:27"
+    "last_recommended_at": "2026-08-10 00:08:01"
   },
   "LSK": {
     "name": "리스크",
@@ -145,7 +145,7 @@
     "count": 5,
     "top10_count": 7,
     "entry_price": 140.0,
-    "current_price": 140.0,
+    "current_price": 138.0,
     "first_recommended_at": "2026-08-09 23:28:26",
     "last_recommended_at": "2026-08-09 23:58:27"
   },
@@ -155,7 +155,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 446.0,
-    "current_price": 452.0,
+    "current_price": 453.0,
     "first_recommended_at": "2026-08-09 23:53:22",
     "last_recommended_at": "2026-08-09 23:53:22"
   },
@@ -165,18 +165,28 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 262.0,
-    "current_price": 261.0,
+    "current_price": 262.0,
     "first_recommended_at": "2026-08-09 23:58:27",
     "last_recommended_at": "2026-08-09 23:58:27"
   },
   "ETHFI": {
     "name": "이더파이",
     "symbol": "ETHFI",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 553.0,
     "current_price": 553.0,
     "first_recommended_at": "2026-08-10 00:03:27",
-    "last_recommended_at": "2026-08-10 00:03:27"
+    "last_recommended_at": "2026-08-10 00:08:01"
+  },
+  "TRUST": {
+    "name": "인튜이션",
+    "symbol": "TRUST",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 75.8,
+    "current_price": 75.8,
+    "first_recommended_at": "2026-08-10 00:08:01",
+    "last_recommended_at": "2026-08-10 00:08:01"
   }
 }
