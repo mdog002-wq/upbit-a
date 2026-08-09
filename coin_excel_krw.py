@@ -122,8 +122,8 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
 os.makedirs(DOCS_DIR, exist_ok=True)
 
-#==============================================================================
-# [유틸] 데이터 포맷팅 및 캐싱
+# ==============================================================================
+# [유틸] 데이터 포맷팅 및 캐싱 / AI 추천 목록 읽기
 # ==============================================================================
 def format_price(x):
     try:
@@ -140,12 +140,27 @@ def send_telegram_alert(message):
         except Exception:
             pass
 
+def get_active_ai_recommended_map():
+    """docs/ai_recommend_tracker.json에서 현재 추적 중인 AI 추천 종목과 추천 횟수를 가져옵니다."""
+    rec_map = {}
+    if os.path.exists(AI_TRACKER_HISTORY_FILE):
+        try:
+            with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    for sym, item in data.items():
+                        rec_map[sym] = {
+                            "count": item.get("count", 1),
+                            "top10_count": item.get("top10_count", 0)
+                        }
+        except Exception as e:
+            print(f"⚠️ 트래킹 데이터 읽기 실패: {e}")
+    return rec_map
+
 # ==============================================================================
 # [신규 모듈] 추천 종목 실시간 속보/이슈 수집기 (토큰포스트 RSS 기반)
 # ==============================================================================
-# 1. JSON 파일에서 추천 코인 목록 읽어오는 함수
 def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
-    # 실행 위치(CWD) 차이로 인한 경로 오류 방지를 위해 absolute path 변환 권장
     abs_path = os.path.abspath(filepath)
 
     if not os.path.exists(abs_path):
@@ -158,27 +173,17 @@ def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
 
         coins = []
 
-        # JSON 구조가 리스트 형태인 경우
         if isinstance(data, list):
             for item in data:
                 if isinstance(item, dict):
-                    name = (
-                        item.get("name")
-                        or item.get("coin")
-                        or item.get("coin_name")
-                    )
+                    name = item.get("name") or item.get("coin") or item.get("coin_name")
                     symbol = item.get("symbol") or item.get("ticker")
-
-                    if name:
-                        coins.append(str(name))
-                    if symbol and symbol != name:
-                        coins.append(str(symbol))
+                    if name: coins.append(str(name))
+                    if symbol and symbol != name: coins.append(str(symbol))
                 elif isinstance(item, str):
                     coins.append(item)
 
-        # JSON 구조가 딕셔너리 형태인 경우
         elif isinstance(data, dict):
-            # 딕셔너리 내부 'recommended', 'coins', 'data' 등의 키에 리스트가 들어있는 경우 대응
             target_list = None
             for key in ["recommended", "coins", "data", "items"]:
                 if key in data and isinstance(data[key], list):
@@ -188,23 +193,15 @@ def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
             if target_list:
                 for item in target_list:
                     if isinstance(item, dict):
-                        name = (
-                            item.get("name")
-                            or item.get("coin")
-                            or item.get("coin_name")
-                        )
+                        name = item.get("name") or item.get("coin") or item.get("coin_name")
                         symbol = item.get("symbol") or item.get("ticker")
-                        if name:
-                            coins.append(str(name))
-                        if symbol and symbol != name:
-                            coins.append(str(symbol))
+                        if name: coins.append(str(name))
+                        if symbol and symbol != name: coins.append(str(symbol))
                     elif isinstance(item, str):
                         coins.append(item)
             else:
-                # 딕셔너리의 Key 자체가 종목명인 경우 (e.g., {"젠신": {...}, "알트레이어": {...}})
                 coins = [str(k) for k in data.keys()]
 
-        # 중복 제거 및 공백 제거
         coins = list(set([c.strip() for c in coins if str(c).strip()]))
         return coins
 
@@ -213,7 +210,6 @@ def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
         return []
 
 
-# 2. 뉴스 수집 함수
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
     coin_news_dict = {}
 
@@ -224,7 +220,6 @@ def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
         coin_str = str(coin).strip()
         query = urllib.parse.quote(f"{coin_str} 코인")
         
-        # URL 끝에 &tbs=sbd:1 (최신순 정렬) 추가
         rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko&tbs=sbd:1"
 
         try:
@@ -236,18 +231,15 @@ def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
                 link = getattr(entry, "link", "#")
                 published_parsed = getattr(entry, "published_parsed", None)
 
-                # 구글 뉴스 타이틀 끝의 언론사명(- OOO) 정돈
                 if " - " in title:
                     title = title.rsplit(" - ", 1)[0]
 
-                # 발행 시간 계산 및 오래된 기사 필터링
                 time_str = ""
                 if published_parsed:
                     pub_dt = datetime.datetime(*published_parsed[:6])
                     now_dt = datetime.datetime.utcnow()
                     diff = now_dt - pub_dt
                     
-                    # 48시간(172800초) 이상 지난 기사는 완전히 제외
                     if diff.total_seconds() > 172800:
                         continue
                         
@@ -273,18 +265,6 @@ def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
 
     return coin_news_dict
 
-
-# 3. 실제 실행 부분
-if __name__ == "__main__":
-    json_path = "docs/ai_recommend_tracker.json"
-
-    target_coins = get_target_coins_from_json(json_path)
-    print(f"📌 추적할 종목 목록: {target_coins}")
-
-    news_result = fetch_news_for_recommended_coins(
-        target_coins, max_news_per_coin=2
-    )
-    print(f"📰 수집된 뉴스 결과: {news_result}")
 # ==============================================================================
 # [AI 모듈 1] 시계열 딥러닝(LSTM) 자가학습 덤핑 예측
 # ==============================================================================
@@ -555,7 +535,10 @@ def get_highfreq_iceberg_metrics(ticker, real_lstm_sequence=None):
         "raw_lstm_feats": lstm_feats
     }
 
-def process_single_coin(item, current_price_map):
+def process_single_coin(item, current_price_map, ai_rec_map=None):
+    if ai_rec_map is None:
+        ai_rec_map = {}
+
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     try:
         time.sleep(0.1)
@@ -584,7 +567,15 @@ def process_single_coin(item, current_price_map):
         cmf_score = max(-10.0, min(15.0, metrics['cmf_1h'] * 20.0))
         rsi_penalty = -10.0 if metrics['rsi_1h'] >= 75.0 else 0.0
 
-        total_score = score + vol_score + squeeze_bonus + cmf_score + rsi_penalty + iceberg_metrics['score_modifier']
+        # 🔥 [신규] AI 추천 트래킹 종목 가산점 계산
+        ai_bonus = 0.0
+        if symbol in ai_rec_map and iceberg_metrics['score_modifier'] > 0:
+            rec_info = ai_rec_map[symbol]
+            rec_cnt = rec_info.get("count", 1)
+            # 기본 추천 가산점 5점 + 누적 추천 회당 0.5점 추가 (최대 2점 추가 cap)
+            ai_bonus = 5.0 + min(2.0, (rec_cnt - 1) * 0.5)
+
+        total_score = score + vol_score + squeeze_bonus + cmf_score + rsi_penalty + iceberg_metrics['score_modifier'] + ai_bonus
         acc_score = round(max(0.0, min(100.0, total_score)), 1)
 
         c_price = current_price_map.get(ticker, metrics['last_close'])
@@ -625,6 +616,9 @@ def analyze_and_scan_market():
     krw_coins = get_krw_upbit_tickers()
     if not krw_coins: return pd.DataFrame()
 
+    # 🔥 AI 트래킹 종목 맵 가져오기
+    ai_rec_map = get_active_ai_recommended_map()
+
     print("\n🚀 [시세 일괄 조회] 배치 처리 중...")
     tickers_list = [c['ticker'] for c in krw_coins]
     try:
@@ -635,7 +629,7 @@ def analyze_and_scan_market():
     results = []
     print(f"\n🚀 [멀티스레딩] 전체 원화마켓 코인({len(krw_coins)}개) 병렬 스캔 및 AI 예측 시작...")
     with ThreadPoolExecutor(max_workers=5) as executor:
-        futures = {executor.submit(process_single_coin, item, current_price_map): item for item in krw_coins}
+        futures = {executor.submit(process_single_coin, item, current_price_map, ai_rec_map): item for item in krw_coins}
         for future in tqdm(as_completed(futures), total=len(futures), ncols=80):
             res = future.result()
             if res: results.append(res)
@@ -900,7 +894,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
             
             card_html = (
                 f'<div class="p-2 border rounded bg-light mb-2 shadow-sm">\n'
-                f' <div class="fw-bold text-primary mb-1 style="font-size: 0.85rem;"><i class="fa-solid fa-hashtag me-1"></i>{coin}</div>\n'
+                f' <div class="fw-bold text-primary mb-1" style="font-size: 0.85rem;"><i class="fa-solid fa-hashtag me-1"></i>{coin}</div>\n'
                 f' <ul class="mb-0 ps-3 small text-secondary">{li_tags}</ul>\n'
                 f'</div>'
             )
@@ -1118,8 +1112,6 @@ if __name__ == "__main__":
             top10_symbols=top10_symbols
         )
 
-        # 메인 함수 내 뉴스 수집 부분 수정
-        # 종목 한글명과 심볼을 모두 수집 대상 키워드로 등록
         all_target_coins = []
         for item in ai_report_coins:
             if item.get('name'):
@@ -1127,12 +1119,9 @@ if __name__ == "__main__":
             if item.get('symbol') and item['symbol'] != item.get('name'):
                 all_target_coins.append(item['symbol'])
         
-        # 중복 제거
         all_target_coins = list(set(all_target_coins))
 
-        # 뉴스 데이터 수집
         news_data = fetch_news_for_recommended_coins(all_target_coins, max_news_per_coin=2)
-
 
         generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html")
 
