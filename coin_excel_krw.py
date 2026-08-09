@@ -213,43 +213,66 @@ def get_target_coins_from_json(filepath="docs/ai_recommend_tracker.json"):
         return []
 
 
-# 2. 토큰포스트 뉴스 수집 함수
+# 2. 뉴스 수집 함수
 def fetch_news_for_recommended_coins(target_coins, max_news_per_coin=2):
-    """
-    추천 코인의 한글명/심볼을 기준으로 구글 뉴스 RSS를 활용해 
-    가장 최신의 실시간 관련 뉴스/속보를 수집합니다.
-    """
     coin_news_dict = {}
 
     for coin in target_coins:
-        if not coin:
+        if not coin or not str(coin).strip():
             continue
             
-        # 검색 정확도를 높이기 위해 구글 뉴스 RSS 활용 (한글 및 티커 모두 대응 가능)
-        query = urllib.parse.quote(f"{coin} 코인")
-        rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko"
+        coin_str = str(coin).strip()
+        query = urllib.parse.quote(f"{coin_str} 코인")
+        
+        # URL 끝에 &tbs=sbd:1 (최신순 정렬) 추가
+        rss_url = f"https://news.google.com/rss/search?q={query}&hl=ko&gl=KR&ceid=KR:ko&tbs=sbd:1"
 
         try:
             feed = feedparser.parse(rss_url)
             news_items = []
 
-            for entry in feed.entries[:max_news_per_coin]:
+            for entry in feed.entries:
                 title = getattr(entry, "title", "제목 없음")
                 link = getattr(entry, "link", "#")
-                
-                # 구글 뉴스 타이틀 끝의 출처(- 언론사명) 깔끔하게 정돈
+                published_parsed = getattr(entry, "published_parsed", None)
+
+                # 구글 뉴스 타이틀 끝의 언론사명(- OOO) 정돈
                 if " - " in title:
                     title = title.rsplit(" - ", 1)[0]
 
-                news_items.append({"title": title, "link": link})
+                # 발행 시간 계산 및 오래된 기사 필터링
+                time_str = ""
+                if published_parsed:
+                    pub_dt = datetime.datetime(*published_parsed[:6])
+                    now_dt = datetime.datetime.utcnow()
+                    diff = now_dt - pub_dt
+                    
+                    # 48시간(172800초) 이상 지난 기사는 완전히 제외
+                    if diff.total_seconds() > 172800:
+                        continue
+                        
+                    hours_ago = int(diff.total_seconds() // 3600)
+                    if hours_ago < 1:
+                        time_str = "방금 전"
+                    elif hours_ago < 24:
+                        time_str = f"{hours_ago}시간 전"
+                    else:
+                        time_str = f"{hours_ago // 24}일 전"
+
+                display_title = f"{title} [{time_str}]" if time_str else title
+                news_items.append({"title": display_title, "link": link})
+
+                if len(news_items) >= max_news_per_coin:
+                    break
 
             if news_items:
-                coin_news_dict[coin] = news_items
+                coin_news_dict[coin_str] = news_items
 
         except Exception as e:
-            print(f"⚠️ {coin} 속보 수집 중 오류: {e}")
+            print(f"⚠️ {coin_str} 속보 수집 중 오류: {e}")
 
     return coin_news_dict
+
 
 # 3. 실제 실행 부분
 if __name__ == "__main__":
