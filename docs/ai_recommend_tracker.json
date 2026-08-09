@@ -12,12 +12,12 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 82.8,
-    "current_price": 81.9,
+    "current_price": 82.1,
     "first_recommended_at": "2026-08-09 22:03:22",
-    "last_recommended_at": "2026-08-09 22:18:22"
+    "last_recommended_at": "2026-08-09 23:53:22"
   },
   "XTZ": {
     "name": "테조스",
@@ -55,7 +55,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 9.98,
-    "current_price": 9.82,
+    "current_price": 9.85,
     "first_recommended_at": "2026-08-09 22:23:24",
     "last_recommended_at": "2026-08-09 22:53:29"
   },
@@ -63,9 +63,9 @@
     "name": "파로스",
     "symbol": "PROS",
     "count": 11,
-    "top10_count": 15,
+    "top10_count": 16,
     "entry_price": 558.0,
-    "current_price": 582.0,
+    "current_price": 580.0,
     "first_recommended_at": "2026-08-09 22:23:24",
     "last_recommended_at": "2026-08-09 23:48:03"
   },
@@ -83,7 +83,7 @@
     "name": "메이플파이낸스",
     "symbol": "SYRUP",
     "count": 6,
-    "top10_count": 11,
+    "top10_count": 12,
     "entry_price": 214.0,
     "current_price": 214.0,
     "first_recommended_at": "2026-08-09 22:53:29",
@@ -95,7 +95,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 3.65,
-    "current_price": 3.65,
+    "current_price": 3.64,
     "first_recommended_at": "2026-08-09 22:53:29",
     "last_recommended_at": "2026-08-09 22:53:29"
   },
@@ -103,9 +103,9 @@
     "name": "사이버",
     "symbol": "CYBER",
     "count": 7,
-    "top10_count": 10,
+    "top10_count": 11,
     "entry_price": 443.0,
-    "current_price": 442.0,
+    "current_price": 441.0,
     "first_recommended_at": "2026-08-09 22:58:07",
     "last_recommended_at": "2026-08-09 23:48:03"
   },
@@ -113,9 +113,9 @@
     "name": "헤이엘사",
     "symbol": "ELSA",
     "count": 4,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 79.9,
-    "current_price": 81.3,
+    "current_price": 81.0,
     "first_recommended_at": "2026-08-09 23:03:34",
     "last_recommended_at": "2026-08-09 23:48:03"
   },
@@ -132,21 +132,31 @@
   "ZKP": {
     "name": "지케이패스",
     "symbol": "ZKP",
-    "count": 5,
-    "top10_count": 9,
+    "count": 6,
+    "top10_count": 10,
     "entry_price": 67.3,
-    "current_price": 63.2,
+    "current_price": 63.5,
     "first_recommended_at": "2026-08-09 23:08:31",
-    "last_recommended_at": "2026-08-09 23:48:03"
+    "last_recommended_at": "2026-08-09 23:53:22"
   },
   "KITE": {
     "name": "카이트",
     "symbol": "KITE",
-    "count": 3,
-    "top10_count": 5,
+    "count": 4,
+    "top10_count": 6,
     "entry_price": 140.0,
-    "current_price": 138.0,
+    "current_price": 139.0,
     "first_recommended_at": "2026-08-09 23:28:26",
-    "last_recommended_at": "2026-08-09 23:38:07"
+    "last_recommended_at": "2026-08-09 23:53:22"
+  },
+  "WLD": {
+    "name": "월드코인",
+    "symbol": "WLD",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 446.0,
+    "current_price": 446.0,
+    "first_recommended_at": "2026-08-09 23:53:22",
+    "last_recommended_at": "2026-08-09 23:53:22"
   }
 }
