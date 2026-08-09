@@ -5,7 +5,7 @@
     "count": 6,
     "top10_count": 6,
     "entry_price": 53.1,
-    "current_price": 53.0,
+    "current_price": 52.8,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:23:08"
   },
@@ -15,7 +15,7 @@
     "count": 10,
     "top10_count": 15,
     "entry_price": 89.0,
-    "current_price": 89.2,
+    "current_price": 89.3,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:23:08"
   },
@@ -25,7 +25,7 @@
     "count": 15,
     "top10_count": 17,
     "entry_price": 26.7,
-    "current_price": 26.7,
+    "current_price": 26.6,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:58:19"
   },
@@ -35,7 +35,7 @@
     "count": 5,
     "top10_count": 13,
     "entry_price": 9.65,
-    "current_price": 9.63,
+    "current_price": 9.68,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:13:31"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 16210.0,
-    "current_price": 16240.0,
+    "current_price": 16200.0,
     "first_recommended_at": "2026-08-09 19:53:01",
     "last_recommended_at": "2026-08-09 19:53:01"
   },
@@ -65,7 +65,7 @@
     "count": 2,
     "top10_count": 3,
     "entry_price": 20.7,
-    "current_price": 20.6,
+    "current_price": 20.7,
     "first_recommended_at": "2026-08-09 20:03:18",
     "last_recommended_at": "2026-08-09 20:13:31"
   },
@@ -75,7 +75,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 42.3,
-    "current_price": 42.1,
+    "current_price": 41.9,
     "first_recommended_at": "2026-08-09 20:08:15",
     "last_recommended_at": "2026-08-09 20:08:15"
   },
@@ -83,7 +83,7 @@
     "name": "사이버",
     "symbol": "CYBER",
     "count": 8,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 445.0,
     "current_price": 445.0,
     "first_recommended_at": "2026-08-09 20:08:15",
@@ -93,7 +93,7 @@
     "name": "폴리매쉬",
     "symbol": "POLYX",
     "count": 1,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 46.0,
     "current_price": 46.1,
     "first_recommended_at": "2026-08-09 20:17:57",
@@ -103,9 +103,9 @@
     "name": "만트라",
     "symbol": "MANTRA",
     "count": 8,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 8.08,
-    "current_price": 8.08,
+    "current_price": 8.13,
     "first_recommended_at": "2026-08-09 20:23:08",
     "last_recommended_at": "2026-08-09 20:58:19"
   },
@@ -113,7 +113,7 @@
     "name": "더블제로",
     "symbol": "2Z",
     "count": 1,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 79.2,
     "current_price": 79.2,
     "first_recommended_at": "2026-08-09 20:27:56",
@@ -123,9 +123,9 @@
     "name": "애니메코인",
     "symbol": "ANIME",
     "count": 5,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 3.65,
-    "current_price": 3.59,
+    "current_price": 3.6,
     "first_recommended_at": "2026-08-09 20:33:40",
     "last_recommended_at": "2026-08-09 21:03:22"
   },
@@ -135,7 +135,7 @@
     "count": 2,
     "top10_count": 4,
     "entry_price": 27.2,
-    "current_price": 26.9,
+    "current_price": 27.2,
     "first_recommended_at": "2026-08-09 20:48:35",
     "last_recommended_at": "2026-08-09 21:03:22"
   },
@@ -145,7 +145,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 76.9,
-    "current_price": 76.7,
+    "current_price": 77.0,
     "first_recommended_at": "2026-08-09 20:48:35",
     "last_recommended_at": "2026-08-09 20:48:35"
   },
@@ -153,7 +153,7 @@
     "name": "아더",
     "symbol": "ARDR",
     "count": 3,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 25.2,
     "current_price": 25.2,
     "first_recommended_at": "2026-08-09 20:53:07",
@@ -172,31 +172,41 @@
   "XCN": {
     "name": "오닉스코인",
     "symbol": "XCN",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 4.31,
     "current_price": 4.29,
     "first_recommended_at": "2026-08-09 21:03:22",
-    "last_recommended_at": "2026-08-09 21:08:02"
+    "last_recommended_at": "2026-08-09 21:13:02"
   },
   "KAVA": {
     "name": "카바",
     "symbol": "KAVA",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 57.8,
     "current_price": 57.8,
     "first_recommended_at": "2026-08-09 21:08:02",
-    "last_recommended_at": "2026-08-09 21:08:02"
+    "last_recommended_at": "2026-08-09 21:13:02"
   },
   "BSV": {
     "name": "비트코인에스브이",
     "symbol": "BSV",
+    "count": 2,
+    "top10_count": 2,
+    "entry_price": 20760.0,
+    "current_price": 20840.0,
+    "first_recommended_at": "2026-08-09 21:08:02",
+    "last_recommended_at": "2026-08-09 21:13:02"
+  },
+  "BIRB": {
+    "name": "문버드",
+    "symbol": "BIRB",
     "count": 1,
     "top10_count": 1,
-    "entry_price": 20760.0,
-    "current_price": 20760.0,
-    "first_recommended_at": "2026-08-09 21:08:02",
-    "last_recommended_at": "2026-08-09 21:08:02"
+    "entry_price": 75.6,
+    "current_price": 75.6,
+    "first_recommended_at": "2026-08-09 21:13:02",
+    "last_recommended_at": "2026-08-09 21:13:02"
   }
 }
