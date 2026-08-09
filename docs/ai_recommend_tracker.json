@@ -12,12 +12,12 @@
   "ETHFI": {
     "name": "이더파이",
     "symbol": "ETHFI",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 549.0,
     "current_price": 549.0,
     "first_recommended_at": "2026-08-09 15:52:57",
-    "last_recommended_at": "2026-08-09 15:57:52"
+    "last_recommended_at": "2026-08-09 16:03:17"
   },
   "SONIC": {
     "name": "소닉SVM",
@@ -25,7 +25,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 26.8,
-    "current_price": 26.8,
+    "current_price": 26.7,
     "first_recommended_at": "2026-08-09 15:52:57",
     "last_recommended_at": "2026-08-09 15:57:52"
   },
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 25.4,
-    "current_price": 25.4,
+    "current_price": 25.2,
     "first_recommended_at": "2026-08-09 15:52:57",
     "last_recommended_at": "2026-08-09 15:57:52"
   },
@@ -45,8 +45,38 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 83.9,
-    "current_price": 83.9,
+    "current_price": 83.3,
     "first_recommended_at": "2026-08-09 15:52:57",
     "last_recommended_at": "2026-08-09 15:57:52"
+  },
+  "RVN": {
+    "name": "레이븐코인",
+    "symbol": "RVN",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 5.13,
+    "current_price": 5.13,
+    "first_recommended_at": "2026-08-09 16:03:17",
+    "last_recommended_at": "2026-08-09 16:03:17"
+  },
+  "BAT": {
+    "name": "베이직어텐션토큰",
+    "symbol": "BAT",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 97.0,
+    "current_price": 97.0,
+    "first_recommended_at": "2026-08-09 16:03:17",
+    "last_recommended_at": "2026-08-09 16:03:17"
+  },
+  "TREE": {
+    "name": "트리하우스",
+    "symbol": "TREE",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 53.3,
+    "current_price": 53.3,
+    "first_recommended_at": "2026-08-09 16:03:17",
+    "last_recommended_at": "2026-08-09 16:03:17"
   }
 }
