@@ -16,6 +16,19 @@ jobs:
       contents: write
 
     steps:
+      - name: Check Blocked Time Window (02:00 ~ 02:14 KST)
+        run: |
+          # 한국 시간(KST) 기준 현재 '시'와 '분' 구하기
+          HOUR=$(TZ="Asia/Seoul" date +%H)
+          MINUTE=$(TZ="Asia/Seoul" date +%M)
+          
+          echo "Current KST Time: ${HOUR}:${MINUTE}"
+          
+          # 새벽 2시(02시)이고, 분이 00분 ~ 14분 사이인 경우
+          if [ "$HOUR" -eq 02 ] && [ "$MINUTE" -ge 00 ] && [ "$MINUTE" -le 30 ]; then
+            echo "Notice: Current time is within the restricted window (02:00 ~ 02:30 KST). Skipping workflow execution."
+            exit 0
+          fi
       - name: 저장소 코드 불러오기
         uses: actions/checkout@v4
 
