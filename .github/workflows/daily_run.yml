@@ -12,22 +12,24 @@ concurrency:
 jobs:
   run-upbit-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     permissions:
       contents: write
 
     steps:
-      - name: Check Blocked Time Window (02:00 ~ 03:00 KST)
+      - name: Check Blocked Time Window (02:00 ~ 02:14 KST)
         id: check_time
         run: |
-          # 한국 시간(KST) 기준 새벽 02:00 ~ 02:14 전체 차단
           HOUR=$(TZ="Asia/Seoul" date +%k | tr -d ' ')
-          echo "Current KST Hour: ${HOUR}"
+          MINUTE=$(TZ="Asia/Seoul" date +%M | sed 's/^0//')
+          MINUTE=${MINUTE:-0}
           
-          if [ "$HOUR" -eq 2 ]; then
+          echo "Current KST Time: ${HOUR}:${MINUTE}"
+          
+          if [ "$HOUR" -eq 2 ] && [ "$MINUTE" -ge 0 ] && [ "$MINUTE" -le 14 ]; then
             echo "is_blocked=true" >> $GITHUB_OUTPUT
-            echo "Notice: Current time is within restricted window (02:00 ~ 02:14 KST). Skipping workflow execution."
+            echo "Notice: Restricted window (02:00 ~ 02:14 KST). Skipping."
           else
             echo "is_blocked=false" >> $GITHUB_OUTPUT
           fi
@@ -47,11 +49,11 @@ jobs:
         if: steps.check_time.outputs.is_blocked != 'true'
         run: |
           python -m pip install --upgrade pip
-          pip install pyupbit pandas numpy requests openpyxl tqdm google-genai oracledb redis paramiko tensorflow feedparser websockets
+          pip install pyupbit pandas numpy requests openpyxl tqdm google-genai oracledb redis paramiko tensorflow feedparser
           pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
-      # 1단계: 백엔드 매집 분석 및 data/market_scan_result.json 생성
-      - name: 파이썬 분석 스크립트 실행 (Backend)
+      # 백엔드 스크립트 실행 (data/ 및 결과물 생성)
+      - name: 파이썬 분석 스크립트 실행
         if: steps.check_time.outputs.is_blocked != 'true'
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
@@ -63,36 +65,26 @@ jobs:
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: python coin_excel_krw.py
 
-      # 2단계: 생성된 JSON을 읽어 대시보드 UI/웹소켓 실시간 데이터 결합 및 렌더링
-      - name: 대시보드 실시간 생성 스크립트 실행 (Frontend/Deploy)
-        if: steps.check_time.outputs.is_blocked != 'true'
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python coin_realtime.py
-
-      # 3단계: data/ 및 docs/ 경로를 포함하여 대시보드 파일 전체 커밋/푸시
-      - name: 대시보드 및 AI 데이터 변경사항 통합 커밋 및 푸시
+      - name: 데이터 변경사항 통합 커밋 및 푸시
         if: steps.check_time.outputs.is_blocked != 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
     
           git pull origin main --rebase --autostash || echo "No rebase needed"
-          git add docs/ data/ scan_history.csv cache/ ai_models/ 2>/dev/null || git add .
+          git add docs/ scan_history.csv cache/ ai_models/ data/ 2>/dev/null || git add .
     
           if ! git diff --staged --quiet; then
-            git commit -m "🤖 [Bot] Update dashboard, AI models, and tracker data [skip ci]"
+            git commit -m "🤖 [Bot] Update AI models and tracker data [skip ci]"
             git push origin main
           fi
 
-      # 4단계: 다른 레포지토리 연결 Dispatch
-      - name: Trigger Comprehensive Analysis Repository
+      # upbit-a 레포지토리로 실행 신호 전송
+      - name: Trigger Realtime Analyzer Repository (upbit-a)
         if: steps.check_time.outputs.is_blocked != 'true' && success()
         run: |
           curl -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
-            https://api.github.com/repos/mdog002-wq/upbit/dispatches \
+            https://api.github.com/repos/mdog002-wq/upbit-a/dispatches \
             -d '{"event_type": "backend_complete"}'
