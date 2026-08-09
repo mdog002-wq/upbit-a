@@ -579,61 +579,57 @@ def process_single_coin(item, current_price_map, ai_rec_map=None):
             c_price = current_price_map.get(ticker, 0)
             return {
                 "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
-                "raw_price": float(c_price), "종합예측점수": 50.0, "거래량절벽(배)": 1.0,
+                "raw_price": float(c_price), "종합예측점수": 0.0, "거래량절벽(배)": 1.0,
                 "CMF지표": 0.0, "RSI": 50.0, "골든패턴유사도(%)": 0.0, "아이스버그역산(고주파)": "💎 정상 수급",
                 "_stgt_feats": [0.5]*9
             }
 
         iceberg_metrics = get_highfreq_iceberg_metrics(ticker, metrics.get("lstm_sequence"))
        
-        # 🔥 [선행성 AI 스코어링 개편 로직 (Leading Indicator)] 🔥
-        # 1. 단기 거래량 급승 속도 점수 (35점 만점)
+        # =========================================================================
+        # 🚨 [승률 개선 및 허수 필터링 강화 핵심 패치]
+        # =========================================================================
+        rsi = metrics['rsi_1h']
         vol_vel = metrics.get('vol_velocity', 1.0)
-        vol_score = min(35.0, max(0.0, (vol_vel - 1.0) * 15.0))
+        cmf = metrics['cmf_1h']
+        
+        # 1. 유동성/거래량 속도 필터: 수급이 완전히 마른 거래량 절벽 종목 감점
+        if vol_vel < 0.8 and rsi < 50.0:
+            # 거래량도 없고 RSI도 50 미만인 하락세 종목은 강제 감점 처리 (가짜 고득점 방지)
+            liquidity_penalty = 0.5
+        else:
+            liquidity_penalty = 1.0
 
-        # 2. 볼린저밴드 변동성 수렴 후 초기 돌파 (25점 만점)
+        # 2. 선행 거래량 속도 점수 (30점)
+        vol_score = min(30.0, max(0.0, (vol_vel - 0.9) * 20.0))
+
+        # 3. 볼린저밴드 수렴 후 돌파 (25점)
         squeeze_score = 0.0
         if metrics['bb_width'] < 0.05:
             squeeze_score += 15.0
-            if metrics['bb_breakout'] >= 0.8:
+            if metrics['bb_breakout'] >= 0.75:
                 squeeze_score += 10.0
-        elif metrics['bb_width'] < 0.08:
-            squeeze_score += 8.0
 
-        # 3. 이평선 수렴 (Golden Cross 직전 포착, 20점 만점)
+        # 4. 이평선 수렴율 (20점)
         ma_diff = metrics.get('ma_diff_pct', 5.0)
         ma_convergence_score = max(0.0, 20.0 - (ma_diff * 4.0))
 
-        # 4. RSI 과열 구간 감점 및 초기 상승 가점
-        rsi = metrics['rsi_1h']
-        if rsi >= 72.0:
-            rsi_factor = 0.75  # 이미 폭등한 뒷북 종목 점수 깎음 (상단 물림 방지)
-        elif 45.0 <= rsi <= 62.0:
-            rsi_factor = 1.15  # 돌파 직전/상승 초기 구간 우대
-        else:
-            rsi_factor = 1.0
-
-        cmf_score = max(-10.0, min(10.0, metrics['cmf_1h'] * 15.0))
-
-        # 5. 골든 패턴 및 거래량 패턴 유사도 가산점 (최대 15점)
+        # 5. 자금 유출입(CMF) 및 RSI 모멘텀 반영 (15점)
+        cmf_score = max(-5.0, min(15.0, cmf * 20.0))
+        
+        # 6. 골든 패턴 보너스 (10점)
         pattern_sim = metrics.get('pattern_similarity', 0.0)
-        volume_sim = metrics.get('volume_similarity', 0.0)
-        pattern_bonus = 0.0
-        if pattern_sim >= 75.0:
-            pattern_bonus += (pattern_sim - 75.0) * 0.4
-        if volume_sim >= 75.0:
-            pattern_bonus += (volume_sim - 75.0) * 0.2
+        pattern_bonus = (pattern_sim - 70.0) * 0.33 if pattern_sim >= 70.0 else 0.0
 
-        # AI 추천 트래킹 가점
-        ai_bonus = 0.0
-        if symbol in ai_rec_map and iceberg_metrics['score_modifier'] > 0:
-            rec_info = ai_rec_map[symbol]
-            rec_cnt = rec_info.get("count", 1)
-            ai_bonus = 5.0 + min(2.0, (rec_cnt - 1) * 0.5)
+        # 원천 점수 계산 및 페널티 적용
+        raw_score = (vol_score + squeeze_score + ma_convergence_score + cmf_score + pattern_bonus + iceberg_metrics['score_modifier'])
+        raw_score *= liquidity_penalty  # 유동성 결여 시 점수 반토막
 
-        raw_score = (vol_score + squeeze_score + ma_convergence_score + cmf_score + pattern_bonus + iceberg_metrics['score_modifier'] + ai_bonus) * rsi_factor
+        # RSI 과열/ 침체 보정
+        if rsi >= 75.0 or rsi <= 35.0:
+            raw_score *= 0.7
+
         acc_score = round(max(0.0, min(100.0, raw_score)), 1)
-
         c_price = current_price_map.get(ticker, metrics['last_close'])
        
         stgt_feats = [
@@ -665,7 +661,7 @@ def process_single_coin(item, current_price_map, ai_rec_map=None):
         c_price = current_price_map.get(ticker, 0)
         return {
             "코인명": korean_name, "심볼": symbol, "현재가(KRW)": format_price(c_price),
-            "raw_price": float(c_price), "종합예측점수": 50.0, "거래량절벽(배)": 1.0,
+            "raw_price": float(c_price), "종합예측점수": 0.0, "거래량절벽(배)": 1.0,
             "CMF지표": 0.0, "RSI": 50.0, "골든패턴유사도(%)": 0.0, "아이스버그역산(고주파)": "💎 정상 수급",
             "_stgt_feats": [0.5]*9
         }
