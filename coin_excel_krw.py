@@ -866,7 +866,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         alert_items.append(f'<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert_text}</div>')
     alerts_html = "\n".join(alert_items) if alert_items else '<div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>'
 
-     news_items = []
+    news_items = []
     if news_data:
         for coin, items in news_data.items():
             li_tags = ""
