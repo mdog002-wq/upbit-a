@@ -1,1 +1,42 @@
-{}
+{
+  "FCT2": {
+    "name": "피르마체인",
+    "symbol": "FCT2",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 9.46,
+    "current_price": 9.46,
+    "first_recommended_at": "2026-08-09 14:12:59",
+    "last_recommended_at": "2026-08-09 14:12:59"
+  },
+  "SUN": {
+    "name": "썬",
+    "symbol": "SUN",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 25.4,
+    "current_price": 25.4,
+    "first_recommended_at": "2026-08-09 14:12:59",
+    "last_recommended_at": "2026-08-09 14:12:59"
+  },
+  "SONIC": {
+    "name": "소닉SVM",
+    "symbol": "SONIC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 26.5,
+    "current_price": 26.5,
+    "first_recommended_at": "2026-08-09 14:12:59",
+    "last_recommended_at": "2026-08-09 14:12:59"
+  },
+  "CBK": {
+    "name": "코박토큰",
+    "symbol": "CBK",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 242.0,
+    "current_price": 242.0,
+    "first_recommended_at": "2026-08-09 14:12:59",
+    "last_recommended_at": "2026-08-09 14:12:59"
+  }
+}
