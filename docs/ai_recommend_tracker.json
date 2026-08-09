@@ -5,48 +5,48 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 548.0,
-    "current_price": 547.0,
+    "current_price": 545.0,
     "first_recommended_at": "2026-08-09 17:47:33",
     "last_recommended_at": "2026-08-09 17:52:53"
   },
   "ME": {
     "name": "매직에덴",
     "symbol": "ME",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 87.0,
-    "current_price": 87.1,
+    "current_price": 87.4,
     "first_recommended_at": "2026-08-09 17:47:33",
-    "last_recommended_at": "2026-08-09 17:52:53"
+    "last_recommended_at": "2026-08-09 17:58:19"
   },
   "RED": {
     "name": "레드스톤",
     "symbol": "RED",
-    "count": 1,
-    "top10_count": 2,
+    "count": 2,
+    "top10_count": 3,
     "entry_price": 127.0,
     "current_price": 127.0,
     "first_recommended_at": "2026-08-09 17:47:33",
-    "last_recommended_at": "2026-08-09 17:47:33"
+    "last_recommended_at": "2026-08-09 17:58:19"
   },
   "BEAM": {
     "name": "빔",
     "symbol": "BEAM",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 1.95,
     "current_price": 1.95,
     "first_recommended_at": "2026-08-09 17:47:33",
-    "last_recommended_at": "2026-08-09 17:52:53"
+    "last_recommended_at": "2026-08-09 17:58:19"
   },
   "TOKAMAK": {
     "name": "토카막네트워크",
     "symbol": "TOKAMAK",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 440.0,
     "current_price": 440.0,
     "first_recommended_at": "2026-08-09 17:52:53",
-    "last_recommended_at": "2026-08-09 17:52:53"
+    "last_recommended_at": "2026-08-09 17:58:19"
   }
 }
