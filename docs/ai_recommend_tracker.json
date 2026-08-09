@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 73.2,
-    "current_price": 73.1,
+    "current_price": 72.9,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:42:56"
   },
@@ -15,19 +15,19 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 94.5,
+    "current_price": 94.6,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 13,
-    "top10_count": 15,
+    "count": 14,
+    "top10_count": 16,
     "entry_price": 25.9,
     "current_price": 26.7,
     "first_recommended_at": "2026-08-09 09:42:56",
-    "last_recommended_at": "2026-08-09 11:27:55"
+    "last_recommended_at": "2026-08-09 11:33:14"
   },
   "API3": {
     "name": "에이피아이쓰리",
@@ -53,9 +53,9 @@
     "name": "플룸",
     "symbol": "PLUME",
     "count": 5,
-    "top10_count": 9,
+    "top10_count": 10,
     "entry_price": 16.9,
-    "current_price": 17.0,
+    "current_price": 17.1,
     "first_recommended_at": "2026-08-09 09:47:55",
     "last_recommended_at": "2026-08-09 11:18:17"
   },
@@ -95,7 +95,7 @@
     "count": 2,
     "top10_count": 5,
     "entry_price": 293200.0,
-    "current_price": 288500.0,
+    "current_price": 288400.0,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 09:57:44"
   },
@@ -103,7 +103,7 @@
     "name": "레이븐코인",
     "symbol": "RVN",
     "count": 3,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 5.08,
     "current_price": 5.11,
     "first_recommended_at": "2026-08-09 10:03:18",
@@ -112,12 +112,12 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 10,
-    "top10_count": 10,
+    "count": 11,
+    "top10_count": 11,
     "entry_price": 8.36,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 10:28:01",
-    "last_recommended_at": "2026-08-09 11:27:55"
+    "last_recommended_at": "2026-08-09 11:33:14"
   },
   "META": {
     "name": "메타디움",
@@ -145,7 +145,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 40.4,
-    "current_price": 40.3,
+    "current_price": 40.2,
     "first_recommended_at": "2026-08-09 10:43:11",
     "last_recommended_at": "2026-08-09 10:52:53"
   },
@@ -153,7 +153,7 @@
     "name": "멀티버스엑스",
     "symbol": "EGLD",
     "count": 3,
-    "top10_count": 4,
+    "top10_count": 5,
     "entry_price": 3826.0,
     "current_price": 3809.0,
     "first_recommended_at": "2026-08-09 11:08:18",
@@ -162,11 +162,21 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 2,
-    "top10_count": 4,
+    "count": 3,
+    "top10_count": 5,
     "entry_price": 1.23,
     "current_price": 1.24,
     "first_recommended_at": "2026-08-09 11:08:18",
-    "last_recommended_at": "2026-08-09 11:27:55"
+    "last_recommended_at": "2026-08-09 11:33:14"
+  },
+  "HIVE": {
+    "name": "하이브",
+    "symbol": "HIVE",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 58.9,
+    "current_price": 58.9,
+    "first_recommended_at": "2026-08-09 11:33:14",
+    "last_recommended_at": "2026-08-09 11:33:14"
   }
 }
