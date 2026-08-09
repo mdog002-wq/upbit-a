@@ -13,9 +13,9 @@
     "name": "이더파이",
     "symbol": "ETHFI",
     "count": 6,
-    "top10_count": 6,
+    "top10_count": 7,
     "entry_price": 549.0,
-    "current_price": 550.0,
+    "current_price": 548.0,
     "first_recommended_at": "2026-08-09 15:52:57",
     "last_recommended_at": "2026-08-09 16:17:52"
   },
@@ -83,7 +83,7 @@
     "name": "뉴턴프로토콜",
     "symbol": "NEWT",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 56.3,
     "current_price": 56.0,
     "first_recommended_at": "2026-08-09 16:08:02",
@@ -135,7 +135,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 134.0,
-    "current_price": 136.0,
+    "current_price": 137.0,
     "first_recommended_at": "2026-08-09 16:33:07",
     "last_recommended_at": "2026-08-09 16:33:07"
   },
@@ -155,7 +155,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 179.0,
-    "current_price": 176.0,
+    "current_price": 177.0,
     "first_recommended_at": "2026-08-09 16:37:45",
     "last_recommended_at": "2026-08-09 16:37:45"
   },
@@ -165,7 +165,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 465.0,
-    "current_price": 464.0,
+    "current_price": 463.0,
     "first_recommended_at": "2026-08-09 16:42:47",
     "last_recommended_at": "2026-08-09 16:53:07"
   },
@@ -175,28 +175,48 @@
     "count": 5,
     "top10_count": 5,
     "entry_price": 0.925,
-    "current_price": 0.925,
+    "current_price": 0.918,
     "first_recommended_at": "2026-08-09 16:42:47",
     "last_recommended_at": "2026-08-09 17:03:19"
   },
   "PROS": {
     "name": "파로스",
     "symbol": "PROS",
-    "count": 2,
-    "top10_count": 4,
+    "count": 3,
+    "top10_count": 5,
     "entry_price": 553.0,
     "current_price": 553.0,
     "first_recommended_at": "2026-08-09 16:48:02",
-    "last_recommended_at": "2026-08-09 16:53:07"
+    "last_recommended_at": "2026-08-09 17:08:04"
   },
   "FCT2": {
     "name": "피르마체인",
     "symbol": "FCT2",
-    "count": 1,
-    "top10_count": 2,
+    "count": 2,
+    "top10_count": 3,
     "entry_price": 9.41,
     "current_price": 9.42,
     "first_recommended_at": "2026-08-09 16:58:02",
-    "last_recommended_at": "2026-08-09 16:58:02"
+    "last_recommended_at": "2026-08-09 17:08:04"
+  },
+  "RED": {
+    "name": "레드스톤",
+    "symbol": "RED",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 128.0,
+    "current_price": 128.0,
+    "first_recommended_at": "2026-08-09 17:08:04",
+    "last_recommended_at": "2026-08-09 17:08:04"
+  },
+  "XTZ": {
+    "name": "테조스",
+    "symbol": "XTZ",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 289.0,
+    "current_price": 289.0,
+    "first_recommended_at": "2026-08-09 17:08:04",
+    "last_recommended_at": "2026-08-09 17:08:04"
   }
 }
