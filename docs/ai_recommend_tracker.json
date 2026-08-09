@@ -12,32 +12,32 @@
   "ME": {
     "name": "매직에덴",
     "symbol": "ME",
-    "count": 6,
-    "top10_count": 6,
+    "count": 7,
+    "top10_count": 7,
     "entry_price": 89.0,
     "current_price": 89.9,
     "first_recommended_at": "2026-08-09 19:37:55",
-    "last_recommended_at": "2026-08-09 20:03:18"
+    "last_recommended_at": "2026-08-09 20:08:15"
   },
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
-    "count": 5,
-    "top10_count": 6,
+    "count": 6,
+    "top10_count": 7,
     "entry_price": 26.7,
-    "current_price": 26.9,
+    "current_price": 26.8,
     "first_recommended_at": "2026-08-09 19:37:55",
-    "last_recommended_at": "2026-08-09 20:03:18"
+    "last_recommended_at": "2026-08-09 20:08:15"
   },
   "HP": {
     "name": "히포프로토콜",
     "symbol": "HP",
-    "count": 3,
-    "top10_count": 6,
+    "count": 4,
+    "top10_count": 7,
     "entry_price": 9.65,
     "current_price": 9.71,
     "first_recommended_at": "2026-08-09 19:37:55",
-    "last_recommended_at": "2026-08-09 19:58:26"
+    "last_recommended_at": "2026-08-09 20:08:15"
   },
   "ELF": {
     "name": "엘프",
@@ -45,7 +45,7 @@
     "count": 3,
     "top10_count": 5,
     "entry_price": 83.1,
-    "current_price": 82.8,
+    "current_price": 83.2,
     "first_recommended_at": "2026-08-09 19:43:16",
     "last_recommended_at": "2026-08-09 20:03:18"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 16210.0,
-    "current_price": 16250.0,
+    "current_price": 16210.0,
     "first_recommended_at": "2026-08-09 19:53:01",
     "last_recommended_at": "2026-08-09 19:53:01"
   },
@@ -63,10 +63,30 @@
     "name": "더그래프",
     "symbol": "GRT",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 20.7,
     "current_price": 20.7,
     "first_recommended_at": "2026-08-09 20:03:18",
     "last_recommended_at": "2026-08-09 20:03:18"
+  },
+  "ZETA": {
+    "name": "제타체인",
+    "symbol": "ZETA",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 42.3,
+    "current_price": 42.3,
+    "first_recommended_at": "2026-08-09 20:08:15",
+    "last_recommended_at": "2026-08-09 20:08:15"
+  },
+  "CYBER": {
+    "name": "사이버",
+    "symbol": "CYBER",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 445.0,
+    "current_price": 445.0,
+    "first_recommended_at": "2026-08-09 20:08:15",
+    "last_recommended_at": "2026-08-09 20:08:15"
   }
 }
