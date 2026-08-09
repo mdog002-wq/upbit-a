@@ -13,29 +13,29 @@
     "name": "매직에덴",
     "symbol": "ME",
     "count": 10,
-    "top10_count": 13,
+    "top10_count": 14,
     "entry_price": 89.0,
-    "current_price": 89.3,
+    "current_price": 89.6,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:23:08"
   },
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
-    "count": 11,
-    "top10_count": 13,
+    "count": 12,
+    "top10_count": 14,
     "entry_price": 26.7,
-    "current_price": 26.7,
+    "current_price": 26.8,
     "first_recommended_at": "2026-08-09 19:37:55",
-    "last_recommended_at": "2026-08-09 20:38:37"
+    "last_recommended_at": "2026-08-09 20:43:28"
   },
   "HP": {
     "name": "히포프로토콜",
     "symbol": "HP",
     "count": 5,
-    "top10_count": 10,
+    "top10_count": 11,
     "entry_price": 9.65,
-    "current_price": 9.74,
+    "current_price": 9.73,
     "first_recommended_at": "2026-08-09 19:37:55",
     "last_recommended_at": "2026-08-09 20:13:31"
   },
@@ -55,7 +55,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 16210.0,
-    "current_price": 16310.0,
+    "current_price": 16230.0,
     "first_recommended_at": "2026-08-09 19:53:01",
     "last_recommended_at": "2026-08-09 19:53:01"
   },
@@ -82,18 +82,18 @@
   "CYBER": {
     "name": "사이버",
     "symbol": "CYBER",
-    "count": 6,
-    "top10_count": 7,
+    "count": 7,
+    "top10_count": 8,
     "entry_price": 445.0,
     "current_price": 445.0,
     "first_recommended_at": "2026-08-09 20:08:15",
-    "last_recommended_at": "2026-08-09 20:38:37"
+    "last_recommended_at": "2026-08-09 20:43:28"
   },
   "POLYX": {
     "name": "폴리매쉬",
     "symbol": "POLYX",
     "count": 1,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 46.0,
     "current_price": 46.1,
     "first_recommended_at": "2026-08-09 20:17:57",
@@ -102,12 +102,12 @@
   "MANTRA": {
     "name": "만트라",
     "symbol": "MANTRA",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 8.08,
-    "current_price": 8.04,
+    "current_price": 8.05,
     "first_recommended_at": "2026-08-09 20:23:08",
-    "last_recommended_at": "2026-08-09 20:38:37"
+    "last_recommended_at": "2026-08-09 20:43:28"
   },
   "2Z": {
     "name": "더블제로",
@@ -115,18 +115,18 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 79.2,
-    "current_price": 79.2,
+    "current_price": 79.0,
     "first_recommended_at": "2026-08-09 20:27:56",
     "last_recommended_at": "2026-08-09 20:27:56"
   },
   "ANIME": {
     "name": "애니메코인",
     "symbol": "ANIME",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 3.65,
-    "current_price": 3.65,
+    "current_price": 3.64,
     "first_recommended_at": "2026-08-09 20:33:40",
-    "last_recommended_at": "2026-08-09 20:38:37"
+    "last_recommended_at": "2026-08-09 20:43:28"
   }
 }
