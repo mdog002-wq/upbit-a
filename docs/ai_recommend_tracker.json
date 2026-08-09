@@ -3,7 +3,7 @@
     "name": "피르마체인",
     "symbol": "FCT2",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 9.46,
     "current_price": 9.46,
     "first_recommended_at": "2026-08-09 14:12:59",
@@ -12,31 +12,51 @@
   "SUN": {
     "name": "썬",
     "symbol": "SUN",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 25.4,
     "current_price": 25.4,
     "first_recommended_at": "2026-08-09 14:12:59",
-    "last_recommended_at": "2026-08-09 14:12:59"
+    "last_recommended_at": "2026-08-09 14:17:46"
   },
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 26.5,
     "current_price": 26.5,
     "first_recommended_at": "2026-08-09 14:12:59",
-    "last_recommended_at": "2026-08-09 14:12:59"
+    "last_recommended_at": "2026-08-09 14:17:46"
   },
   "CBK": {
     "name": "코박토큰",
     "symbol": "CBK",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 242.0,
-    "current_price": 242.0,
+    "current_price": 238.0,
     "first_recommended_at": "2026-08-09 14:12:59",
     "last_recommended_at": "2026-08-09 14:12:59"
+  },
+  "SOMI": {
+    "name": "솜니아",
+    "symbol": "SOMI",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 128.0,
+    "current_price": 128.0,
+    "first_recommended_at": "2026-08-09 14:17:46",
+    "last_recommended_at": "2026-08-09 14:17:46"
+  },
+  "CVC": {
+    "name": "시빅",
+    "symbol": "CVC",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 26.6,
+    "current_price": 26.6,
+    "first_recommended_at": "2026-08-09 14:17:46",
+    "last_recommended_at": "2026-08-09 14:17:46"
   }
 }
