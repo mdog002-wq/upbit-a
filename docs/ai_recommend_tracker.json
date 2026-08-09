@@ -23,7 +23,7 @@
     "name": "미나",
     "symbol": "MINA",
     "count": 2,
-    "top10_count": 7,
+    "top10_count": 8,
     "entry_price": 57.7,
     "current_price": 57.9,
     "first_recommended_at": "2026-08-09 18:07:52",
@@ -32,12 +32,12 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 5,
-    "top10_count": 7,
+    "count": 6,
+    "top10_count": 8,
     "entry_price": 83.6,
     "current_price": 83.6,
     "first_recommended_at": "2026-08-09 18:07:52",
-    "last_recommended_at": "2026-08-09 18:33:00"
+    "last_recommended_at": "2026-08-09 18:43:00"
   },
   "SONIC": {
     "name": "소닉SVM",
@@ -62,41 +62,41 @@
   "ZETA": {
     "name": "제타체인",
     "symbol": "ZETA",
-    "count": 4,
-    "top10_count": 4,
+    "count": 5,
+    "top10_count": 5,
     "entry_price": 42.3,
     "current_price": 42.3,
     "first_recommended_at": "2026-08-09 18:17:51",
-    "last_recommended_at": "2026-08-09 18:37:30"
+    "last_recommended_at": "2026-08-09 18:43:00"
   },
   "SPK": {
     "name": "스파크",
     "symbol": "SPK",
     "count": 5,
-    "top10_count": 5,
+    "top10_count": 6,
     "entry_price": 21.1,
-    "current_price": 21.1,
+    "current_price": 20.9,
     "first_recommended_at": "2026-08-09 18:17:51",
     "last_recommended_at": "2026-08-09 18:37:30"
   },
   "BIGTIME": {
     "name": "빅타임",
     "symbol": "BIGTIME",
-    "count": 2,
-    "top10_count": 3,
+    "count": 3,
+    "top10_count": 4,
     "entry_price": 7.8,
     "current_price": 7.73,
     "first_recommended_at": "2026-08-09 18:27:51",
-    "last_recommended_at": "2026-08-09 18:37:30"
+    "last_recommended_at": "2026-08-09 18:43:00"
   },
   "2Z": {
     "name": "더블제로",
     "symbol": "2Z",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 79.0,
     "current_price": 79.5,
     "first_recommended_at": "2026-08-09 18:27:51",
-    "last_recommended_at": "2026-08-09 18:37:30"
+    "last_recommended_at": "2026-08-09 18:43:00"
   }
 }
