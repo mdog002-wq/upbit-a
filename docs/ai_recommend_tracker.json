@@ -2,38 +2,38 @@
   "TREE": {
     "name": "트리하우스",
     "symbol": "TREE",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 53.1,
     "current_price": 53.1,
     "first_recommended_at": "2026-08-09 19:37:55",
-    "last_recommended_at": "2026-08-09 19:43:16"
+    "last_recommended_at": "2026-08-09 19:47:48"
   },
   "ME": {
     "name": "매직에덴",
     "symbol": "ME",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 89.0,
-    "current_price": 88.5,
+    "current_price": 88.9,
     "first_recommended_at": "2026-08-09 19:37:55",
-    "last_recommended_at": "2026-08-09 19:43:16"
+    "last_recommended_at": "2026-08-09 19:47:48"
   },
   "SONIC": {
     "name": "소닉SVM",
     "symbol": "SONIC",
-    "count": 2,
-    "top10_count": 2,
+    "count": 3,
+    "top10_count": 3,
     "entry_price": 26.7,
-    "current_price": 26.7,
+    "current_price": 26.8,
     "first_recommended_at": "2026-08-09 19:37:55",
-    "last_recommended_at": "2026-08-09 19:43:16"
+    "last_recommended_at": "2026-08-09 19:47:48"
   },
   "HP": {
     "name": "히포프로토콜",
     "symbol": "HP",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 9.65,
     "current_price": 9.69,
     "first_recommended_at": "2026-08-09 19:37:55",
@@ -42,11 +42,11 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 83.1,
     "current_price": 83.1,
     "first_recommended_at": "2026-08-09 19:43:16",
-    "last_recommended_at": "2026-08-09 19:43:16"
+    "last_recommended_at": "2026-08-09 19:47:48"
   }
 }
