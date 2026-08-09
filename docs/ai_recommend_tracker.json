@@ -1,72 +1,12 @@
 {
-  "ICX": {
-    "name": "아이콘",
-    "symbol": "ICX",
-    "count": 7,
-    "top10_count": 8,
-    "entry_price": 32.4,
-    "current_price": 32.3,
-    "first_recommended_at": "2026-08-09 07:12:58",
-    "last_recommended_at": "2026-08-09 08:13:01"
-  },
-  "BAT": {
-    "name": "베이직어텐션토큰",
-    "symbol": "BAT",
+  "BLEND": {
+    "name": "플루언트",
+    "symbol": "BLEND",
     "count": 1,
-    "top10_count": 6,
-    "entry_price": 94.8,
-    "current_price": 95.2,
-    "first_recommended_at": "2026-08-09 08:22:41",
-    "last_recommended_at": "2026-08-09 08:22:41"
-  },
-  "GMT": {
-    "name": "스테픈",
-    "symbol": "GMT",
-    "count": 6,
-    "top10_count": 8,
-    "entry_price": 9.62,
-    "current_price": 9.59,
-    "first_recommended_at": "2026-08-09 08:27:55",
-    "last_recommended_at": "2026-08-09 09:03:23"
-  },
-  "SOMI": {
-    "name": "솜니아",
-    "symbol": "SOMI",
-    "count": 1,
-    "top10_count": 3,
-    "entry_price": 126.0,
-    "current_price": 127.0,
-    "first_recommended_at": "2026-08-09 08:27:55",
-    "last_recommended_at": "2026-08-09 08:27:55"
-  },
-  "RED": {
-    "name": "레드스톤",
-    "symbol": "RED",
-    "count": 4,
-    "top10_count": 4,
-    "entry_price": 125.0,
-    "current_price": 125.0,
-    "first_recommended_at": "2026-08-09 08:42:58",
-    "last_recommended_at": "2026-08-09 08:57:47"
-  },
-  "AWE": {
-    "name": "에이더블유이",
-    "symbol": "AWE",
-    "count": 3,
-    "top10_count": 3,
-    "entry_price": 82.7,
-    "current_price": 83.1,
-    "first_recommended_at": "2026-08-09 08:48:07",
-    "last_recommended_at": "2026-08-09 08:57:47"
-  },
-  "TAO": {
-    "name": "비트텐서",
-    "symbol": "TAO",
-    "count": 3,
-    "top10_count": 4,
-    "entry_price": 283300.0,
-    "current_price": 289600.0,
-    "first_recommended_at": "2026-08-09 08:48:07",
-    "last_recommended_at": "2026-08-09 08:57:47"
+    "top10_count": 1,
+    "entry_price": 97.0,
+    "current_price": 97.0,
+    "first_recommended_at": "2026-08-09 09:27:52",
+    "last_recommended_at": "2026-08-09 09:27:52"
   }
 }
