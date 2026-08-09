@@ -2,49 +2,59 @@ name: 업비트 코인 매집점수 분석 및 메일 발송
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [run_backend]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true  # 새 작업 시작 시 밀려있던 이전 작업 자동 취소
+  cancel-in-progress: true
 
 jobs:
   run-upbit-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 10  # 10분이 지나도 안 끝나면 강제 종료
+    timeout-minutes: 10
 
     permissions:
       contents: write
 
     steps:
-      - name: Check Blocked Time Window (02:00 ~ 02:14 KST)
+      - name: Check Blocked Time Window (02:00 ~ 02:30 KST)
+        id: check_time
         run: |
-          # 한국 시간(KST) 기준 현재 '시'와 '분' 구하기
-          HOUR=$(TZ="Asia/Seoul" date +%H)
-          MINUTE=$(TZ="Asia/Seoul" date +%M)
+          # 10진수로 강제 변환 (10#) 하여 8진수 오류 방지
+          HOUR=$(TZ="Asia/Seoul" date +%k | tr -d ' ')
+          MINUTE=$(TZ="Asia/Seoul" date +%M | sed 's/^0//')
+          MINUTE=${MINUTE:-0}
           
           echo "Current KST Time: ${HOUR}:${MINUTE}"
           
-          # 새벽 2시(02시)이고, 분이 00분 ~ 14분 사이인 경우
-          if [ "$HOUR" -eq 02 ] && [ "$MINUTE" -ge 00 ] && [ "$MINUTE" -le 30 ]; then
-            echo "Notice: Current time is within the restricted window (02:00 ~ 02:30 KST). Skipping workflow execution."
-            exit 0
+          if [ "$HOUR" -eq 2 ] && [ "$MINUTE" -ge 0 ] && [ "$MINUTE" -le 30 ]; then
+            echo "is_blocked=true" >> $GITHUB_OUTPUT
+            echo "Notice: Restricted window (02:00 ~ 02:30 KST). Skipping."
+          else
+            echo "is_blocked=false" >> $GITHUB_OUTPUT
           fi
+
       - name: 저장소 코드 불러오기
+        if: steps.check_time.outputs.is_blocked != 'true'
         uses: actions/checkout@v4
 
       - name: 파이썬 환경 설정
+        if: steps.check_time.outputs.is_blocked != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: 'pip'
 
       - name: 필요 라이브러리 설치
+        if: steps.check_time.outputs.is_blocked != 'true'
         run: |
           python -m pip install --upgrade pip
           pip install pyupbit pandas numpy requests openpyxl tqdm google-genai oracledb redis paramiko tensorflow feedparser
           pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
       - name: 파이썬 분석 스크립트 실행
+        if: steps.check_time.outputs.is_blocked != 'true'
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
@@ -56,31 +66,26 @@ jobs:
         run: python coin_excel_krw.py
 
       - name: 대시보드 및 AI 데이터 변경사항 통합 커밋 및 푸시
+        if: steps.check_time.outputs.is_blocked != 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
     
-          # 1. 원격 저장소 최신 내역을 가장 먼저 병합 (--autostash로 미저장 변경사항 임시 보존)
           git pull origin main --rebase --autostash || echo "No rebase needed"
-    
-          # 2. 파일 변경사항 스테이징
           git add docs/ scan_history.csv cache/ ai_models/ 2>/dev/null || git add .
     
-          # 3. 커밋 처리 (변경사항이 있으면 커밋)
           if ! git diff --staged --quiet; then
             git commit -m "🤖 [Bot] Update dashboard, AI models, and tracker data [skip ci]"
           fi
 
-          # 4. 푸시
           git push origin main
 
-      # 5. 종합 분석 레포지토리 자동 트리거 (백엔드 완료 시 연쇄 실행)
+      # 5. 종합 분석 레포지토리 자동 트리거
       - name: Trigger Comprehensive Analysis Repository
-        if: success()
+        if: steps.check_time.outputs.is_blocked != 'true' && success()
         run: |
           curl -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.DISPATCH_TOKEN }}" \
             https://api.github.com/repos/mdog002-wq/upbit/dispatches \
             -d '{"event_type": "backend_complete"}'
-    
