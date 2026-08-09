@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 73.2,
-    "current_price": 73.7,
+    "current_price": 73.5,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:42:56"
   },
@@ -22,12 +22,12 @@
   "CVC": {
     "name": "시빅",
     "symbol": "CVC",
-    "count": 21,
-    "top10_count": 23,
+    "count": 22,
+    "top10_count": 24,
     "entry_price": 25.9,
     "current_price": 26.8,
     "first_recommended_at": "2026-08-09 09:42:56",
-    "last_recommended_at": "2026-08-09 12:27:59"
+    "last_recommended_at": "2026-08-09 12:33:12"
   },
   "API3": {
     "name": "에이피아이쓰리",
@@ -35,7 +35,7 @@
     "count": 2,
     "top10_count": 13,
     "entry_price": 273.0,
-    "current_price": 274.0,
+    "current_price": 273.0,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 10:17:57"
   },
@@ -45,7 +45,7 @@
     "count": 1,
     "top10_count": 3,
     "entry_price": 11.2,
-    "current_price": 10.6,
+    "current_price": 10.7,
     "first_recommended_at": "2026-08-09 09:47:55",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
@@ -85,7 +85,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 52.1,
-    "current_price": 52.1,
+    "current_price": 51.9,
     "first_recommended_at": "2026-08-09 09:52:59",
     "last_recommended_at": "2026-08-09 10:22:51"
   },
@@ -112,12 +112,12 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 22,
-    "top10_count": 22,
+    "count": 23,
+    "top10_count": 23,
     "entry_price": 8.36,
     "current_price": 8.36,
     "first_recommended_at": "2026-08-09 10:28:01",
-    "last_recommended_at": "2026-08-09 12:27:59"
+    "last_recommended_at": "2026-08-09 12:33:12"
   },
   "META": {
     "name": "메타디움",
@@ -145,7 +145,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 40.4,
-    "current_price": 40.2,
+    "current_price": 40.1,
     "first_recommended_at": "2026-08-09 10:43:11",
     "last_recommended_at": "2026-08-09 10:52:53"
   },
@@ -162,12 +162,12 @@
   "CKB": {
     "name": "너보스",
     "symbol": "CKB",
-    "count": 12,
-    "top10_count": 14,
+    "count": 13,
+    "top10_count": 15,
     "entry_price": 1.23,
     "current_price": 1.26,
     "first_recommended_at": "2026-08-09 11:08:18",
-    "last_recommended_at": "2026-08-09 12:27:59"
+    "last_recommended_at": "2026-08-09 12:33:12"
   },
   "HIVE": {
     "name": "하이브",
@@ -195,7 +195,7 @@
     "count": 1,
     "top10_count": 1,
     "entry_price": 455.0,
-    "current_price": 454.0,
+    "current_price": 451.0,
     "first_recommended_at": "2026-08-09 12:03:17",
     "last_recommended_at": "2026-08-09 12:03:17"
   },
@@ -212,18 +212,18 @@
   "TRX": {
     "name": "트론",
     "symbol": "TRX",
-    "count": 3,
-    "top10_count": 4,
+    "count": 4,
+    "top10_count": 5,
     "entry_price": 464.0,
-    "current_price": 465.0,
+    "current_price": 464.0,
     "first_recommended_at": "2026-08-09 12:13:09",
-    "last_recommended_at": "2026-08-09 12:27:59"
+    "last_recommended_at": "2026-08-09 12:33:12"
   },
   "SC": {
     "name": "시아코인",
     "symbol": "SC",
     "count": 2,
-    "top10_count": 3,
+    "top10_count": 4,
     "entry_price": 0.714,
     "current_price": 0.714,
     "first_recommended_at": "2026-08-09 12:18:04",
