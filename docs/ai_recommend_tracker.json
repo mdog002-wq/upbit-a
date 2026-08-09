@@ -5,7 +5,7 @@
     "count": 1,
     "top10_count": 2,
     "entry_price": 73.2,
-    "current_price": 73.3,
+    "current_price": 73.5,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:42:56"
   },
@@ -15,7 +15,7 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 97.2,
-    "current_price": 96.8,
+    "current_price": 96.4,
     "first_recommended_at": "2026-08-09 09:42:56",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
@@ -33,7 +33,7 @@
     "name": "에이피아이쓰리",
     "symbol": "API3",
     "count": 1,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 273.0,
     "current_price": 273.0,
     "first_recommended_at": "2026-08-09 09:42:56",
@@ -43,9 +43,9 @@
     "name": "시커",
     "symbol": "SKR",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 11.2,
-    "current_price": 11.2,
+    "current_price": 11.0,
     "first_recommended_at": "2026-08-09 09:47:55",
     "last_recommended_at": "2026-08-09 09:47:55"
   },
@@ -53,7 +53,7 @@
     "name": "플룸",
     "symbol": "PLUME",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 16.9,
     "current_price": 16.9,
     "first_recommended_at": "2026-08-09 09:47:55",
@@ -62,11 +62,41 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 83.5,
     "current_price": 83.5,
     "first_recommended_at": "2026-08-09 09:47:55",
-    "last_recommended_at": "2026-08-09 09:47:55"
+    "last_recommended_at": "2026-08-09 09:52:59"
+  },
+  "FCT2": {
+    "name": "피르마체인",
+    "symbol": "FCT2",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 9.47,
+    "current_price": 9.47,
+    "first_recommended_at": "2026-08-09 09:52:59",
+    "last_recommended_at": "2026-08-09 09:52:59"
+  },
+  "AXL": {
+    "name": "엑셀라",
+    "symbol": "AXL",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 52.1,
+    "current_price": 52.1,
+    "first_recommended_at": "2026-08-09 09:52:59",
+    "last_recommended_at": "2026-08-09 09:52:59"
+  },
+  "TAO": {
+    "name": "비트텐서",
+    "symbol": "TAO",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 293200.0,
+    "current_price": 293200.0,
+    "first_recommended_at": "2026-08-09 09:52:59",
+    "last_recommended_at": "2026-08-09 09:52:59"
   }
 }
