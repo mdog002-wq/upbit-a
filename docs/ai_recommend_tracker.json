@@ -2,12 +2,12 @@
   "2Z": {
     "name": "더블제로",
     "symbol": "2Z",
-    "count": 9,
-    "top10_count": 13,
+    "count": 10,
+    "top10_count": 14,
     "entry_price": 79.6,
     "current_price": 79.2,
     "first_recommended_at": "2026-08-09 22:03:22",
-    "last_recommended_at": "2026-08-09 23:03:34"
+    "last_recommended_at": "2026-08-09 23:08:31"
   },
   "ELF": {
     "name": "엘프",
@@ -33,9 +33,9 @@
     "name": "펜들",
     "symbol": "PENDLE",
     "count": 10,
-    "top10_count": 10,
+    "top10_count": 11,
     "entry_price": 1929.0,
-    "current_price": 1951.0,
+    "current_price": 1946.0,
     "first_recommended_at": "2026-08-09 22:13:34",
     "last_recommended_at": "2026-08-09 22:58:07"
   },
@@ -55,7 +55,7 @@
     "count": 7,
     "top10_count": 8,
     "entry_price": 9.98,
-    "current_price": 9.82,
+    "current_price": 9.84,
     "first_recommended_at": "2026-08-09 22:23:24",
     "last_recommended_at": "2026-08-09 22:53:29"
   },
@@ -65,7 +65,7 @@
     "count": 5,
     "top10_count": 7,
     "entry_price": 558.0,
-    "current_price": 568.0,
+    "current_price": 571.0,
     "first_recommended_at": "2026-08-09 22:23:24",
     "last_recommended_at": "2026-08-09 22:48:18"
   },
@@ -75,19 +75,19 @@
     "count": 1,
     "top10_count": 4,
     "entry_price": 91590000.0,
-    "current_price": 91514000.0,
+    "current_price": 91494000.0,
     "first_recommended_at": "2026-08-09 22:43:33",
     "last_recommended_at": "2026-08-09 22:43:33"
   },
   "SYRUP": {
     "name": "메이플파이낸스",
     "symbol": "SYRUP",
-    "count": 3,
-    "top10_count": 3,
+    "count": 4,
+    "top10_count": 4,
     "entry_price": 214.0,
     "current_price": 214.0,
     "first_recommended_at": "2026-08-09 22:53:29",
-    "last_recommended_at": "2026-08-09 23:03:34"
+    "last_recommended_at": "2026-08-09 23:08:31"
   },
   "ANIME": {
     "name": "애니메코인",
@@ -103,7 +103,7 @@
     "name": "사이버",
     "symbol": "CYBER",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 443.0,
     "current_price": 443.0,
     "first_recommended_at": "2026-08-09 22:58:07",
@@ -113,20 +113,30 @@
     "name": "헤이엘사",
     "symbol": "ELSA",
     "count": 1,
-    "top10_count": 1,
+    "top10_count": 2,
     "entry_price": 79.9,
-    "current_price": 79.9,
+    "current_price": 80.9,
     "first_recommended_at": "2026-08-09 23:03:34",
     "last_recommended_at": "2026-08-09 23:03:34"
   },
   "LSK": {
     "name": "리스크",
     "symbol": "LSK",
-    "count": 1,
-    "top10_count": 1,
+    "count": 2,
+    "top10_count": 2,
     "entry_price": 108.0,
     "current_price": 108.0,
     "first_recommended_at": "2026-08-09 23:03:34",
-    "last_recommended_at": "2026-08-09 23:03:34"
+    "last_recommended_at": "2026-08-09 23:08:31"
+  },
+  "ZKP": {
+    "name": "지케이패스",
+    "symbol": "ZKP",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 67.3,
+    "current_price": 67.3,
+    "first_recommended_at": "2026-08-09 23:08:31",
+    "last_recommended_at": "2026-08-09 23:08:31"
   }
 }
