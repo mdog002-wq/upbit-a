@@ -12,12 +12,12 @@
   "SUN": {
     "name": "썬",
     "symbol": "SUN",
-    "count": 9,
-    "top10_count": 9,
+    "count": 10,
+    "top10_count": 10,
     "entry_price": 25.4,
     "current_price": 25.4,
     "first_recommended_at": "2026-08-09 14:12:59",
-    "last_recommended_at": "2026-08-09 14:53:13"
+    "last_recommended_at": "2026-08-09 15:03:19"
   },
   "SONIC": {
     "name": "소닉SVM",
@@ -33,7 +33,7 @@
     "name": "코박토큰",
     "symbol": "CBK",
     "count": 1,
-    "top10_count": 10,
+    "top10_count": 11,
     "entry_price": 242.0,
     "current_price": 238.0,
     "first_recommended_at": "2026-08-09 14:12:59",
@@ -65,7 +65,7 @@
     "count": 4,
     "top10_count": 7,
     "entry_price": 99.3,
-    "current_price": 99.5,
+    "current_price": 99.6,
     "first_recommended_at": "2026-08-09 14:27:53",
     "last_recommended_at": "2026-08-09 14:53:13"
   },
@@ -73,21 +73,21 @@
     "name": "콘플럭스",
     "symbol": "CFX",
     "count": 2,
-    "top10_count": 2,
+    "top10_count": 3,
     "entry_price": 60.2,
-    "current_price": 59.2,
+    "current_price": 59.3,
     "first_recommended_at": "2026-08-09 14:27:53",
     "last_recommended_at": "2026-08-09 14:37:45"
   },
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 2,
-    "top10_count": 4,
+    "count": 3,
+    "top10_count": 5,
     "entry_price": 146.0,
     "current_price": 146.0,
     "first_recommended_at": "2026-08-09 14:37:45",
-    "last_recommended_at": "2026-08-09 14:57:55"
+    "last_recommended_at": "2026-08-09 15:03:19"
   },
   "STEEM": {
     "name": "스팀",
@@ -105,7 +105,7 @@
     "count": 4,
     "top10_count": 4,
     "entry_price": 75.2,
-    "current_price": 75.4,
+    "current_price": 75.5,
     "first_recommended_at": "2026-08-09 14:42:43",
     "last_recommended_at": "2026-08-09 14:57:55"
   },
@@ -115,7 +115,7 @@
     "count": 3,
     "top10_count": 3,
     "entry_price": 544.0,
-    "current_price": 544.0,
+    "current_price": 545.0,
     "first_recommended_at": "2026-08-09 14:48:04",
     "last_recommended_at": "2026-08-09 14:57:55"
   },
@@ -125,8 +125,28 @@
     "count": 2,
     "top10_count": 2,
     "entry_price": 108.0,
-    "current_price": 108.0,
+    "current_price": 109.0,
     "first_recommended_at": "2026-08-09 14:53:13",
     "last_recommended_at": "2026-08-09 14:57:55"
+  },
+  "ASTR": {
+    "name": "아스타",
+    "symbol": "ASTR",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 6.94,
+    "current_price": 6.94,
+    "first_recommended_at": "2026-08-09 15:03:19",
+    "last_recommended_at": "2026-08-09 15:03:19"
+  },
+  "API3": {
+    "name": "에이피아이쓰리",
+    "symbol": "API3",
+    "count": 1,
+    "top10_count": 1,
+    "entry_price": 278.0,
+    "current_price": 278.0,
+    "first_recommended_at": "2026-08-09 15:03:19",
+    "last_recommended_at": "2026-08-09 15:03:19"
   }
 }
