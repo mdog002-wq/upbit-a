@@ -722,11 +722,11 @@
   "PYTH": {
     "name": "피스네트워크",
     "symbol": "PYTH",
-    "count": 2,
+    "count": 3,
     "entry_price": 60.1,
-    "current_price": 60.4,
+    "current_price": 59.8,
     "first_recommended_at": "2026-08-10 15:22:44",
-    "last_recommended_at": "2026-08-10 15:57:36"
+    "last_recommended_at": "2026-08-10 17:17:48"
   },
   "MON": {
     "name": "모나드",
@@ -776,11 +776,11 @@
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 7,
+    "count": 8,
     "entry_price": 143.0,
-    "current_price": 143.0,
+    "current_price": 142.0,
     "first_recommended_at": "2026-08-10 16:03:06",
-    "last_recommended_at": "2026-08-10 17:12:52"
+    "last_recommended_at": "2026-08-10 17:17:48"
   },
   "IO": {
     "name": "아이오넷",
@@ -853,5 +853,14 @@
     "current_price": 141.0,
     "first_recommended_at": "2026-08-10 16:52:40",
     "last_recommended_at": "2026-08-10 17:03:04"
+  },
+  "EGLD": {
+    "name": "멀티버스엑스",
+    "symbol": "EGLD",
+    "count": 1,
+    "entry_price": 3808.0,
+    "current_price": 3808.0,
+    "first_recommended_at": "2026-08-10 17:17:48",
+    "last_recommended_at": "2026-08-10 17:17:48"
   }
 }
