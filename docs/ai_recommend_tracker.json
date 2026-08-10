@@ -122,12 +122,12 @@
   "LSK": {
     "name": "리스크",
     "symbol": "LSK",
-    "count": 13,
+    "count": 14,
     "top10_count": 2,
     "entry_price": 108.0,
     "current_price": 107.0,
     "first_recommended_at": "2026-08-09 23:03:34",
-    "last_recommended_at": "2026-08-10 17:03:04"
+    "last_recommended_at": "2026-08-10 17:07:49"
   },
   "ZKP": {
     "name": "지케이패스",
@@ -776,11 +776,11 @@
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 5,
+    "count": 6,
     "entry_price": 143.0,
     "current_price": 143.0,
     "first_recommended_at": "2026-08-10 16:03:06",
-    "last_recommended_at": "2026-08-10 17:03:04"
+    "last_recommended_at": "2026-08-10 17:07:49"
   },
   "IO": {
     "name": "아이오넷",
@@ -839,11 +839,11 @@
   "SKR": {
     "name": "시커",
     "symbol": "SKR",
-    "count": 1,
+    "count": 2,
     "entry_price": 11.3,
-    "current_price": 11.3,
+    "current_price": 11.2,
     "first_recommended_at": "2026-08-10 16:42:46",
-    "last_recommended_at": "2026-08-10 16:42:46"
+    "last_recommended_at": "2026-08-10 17:07:49"
   },
   "ARKM": {
     "name": "아캄",
