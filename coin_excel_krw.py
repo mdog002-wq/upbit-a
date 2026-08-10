@@ -53,7 +53,7 @@ class RecommendedCoin(BaseModel):
 
 class AIReportResponse(BaseModel):
     report_markdown: str = Field(description="종합 퀀트 분석 리포트 전문 (마크다운)")
-    recommended_coins: List[RecommendedCoin] = Field(description="AI 최우선 추천 코인 리스트")
+    recommended_coins: List[RecommendedCoin] = Field(description="AI 최우선 추천 코인 리스트 (조건 미달 시 빈 배열)")
 
 
 # [설정 및 환경변수]
@@ -72,7 +72,9 @@ DOCS_DIR = "./docs"
 EXPERIENCE_FILE = os.path.join(AI_MODELS_DIR, "ai_experience.json")
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 
-# 레포2의 golden_pattern.json URL
+# 추천 허용 최소 점수 (남발 방지 컷오프)
+MIN_RECOMMEND_SCORE = 60.0
+
 GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit/main/data/golden_pattern.json"
 
 os.makedirs(CACHE_DIR, exist_ok=True)
@@ -209,8 +211,10 @@ def process_single_coin(item, current_price_map):
     pattern_bonus = (metrics['pattern_similarity'] - 70.0) * 0.33 if metrics['pattern_similarity'] >= 70.0 else 0.0
 
     raw_score = (vol_score + squeeze_score + cmf_score + pattern_bonus) * liquidity_penalty
-    if rsi >= 75.0 or rsi <= 35.0:
-        raw_score *= 0.7
+    
+    # 과매수 / 과매도 구역 감점 강화
+    if rsi >= 70.0 or rsi <= 35.0:
+        raw_score *= 0.6
 
     acc_score = round(max(0.0, min(100.0, raw_score)), 1)
     return {
@@ -220,39 +224,76 @@ def process_single_coin(item, current_price_map):
     }
 
 
-def generate_gemini_analysis(df_result):
+# [수정] 추천 남발을 방지하는 절대점수 필터링 적용 Gemini 리포트 생성 함수
+def generate_gemini_analysis(df_result, min_score_threshold=MIN_RECOMMEND_SCORE):
     if df_result.empty:
         return "분석 데이터 없음", []
-    top_coins = df_result.head(5)['코인명'].tolist()
-    top_symbols = df_result.head(5)['심볼'].tolist()
-    default_rec = [{"symbol": sym, "name": name, "reason": "우량 매집 패턴 선별 종목"} for sym, name in zip(top_symbols, top_coins)]
+
+    # 1. 절대점수 기준(예: 60점 이상)을 통과한 종목만 1차 우수 후보로 선별 (최대 5개)
+    qualified_df = df_result[df_result['종합예측점수'] >= min_score_threshold].head(5)
+
+    # 기준 점수를 넘는 코인이 하나도 없는 경우: 무조건적인 추천 생성 차단
+    if qualified_df.empty:
+        no_rec_msg = (
+            f"### 🛡️ AI Market Alert\n"
+            f"현재 종합예측점수 기준({min_score_threshold:.0f}점)을 충족하는 강한 매집 패턴 종목이 포착되지 않았습니다.\n"
+            f"시장 변동성 주의 및 관망을 권장합니다."
+        )
+        print(f"ℹ️ [알림] 기준 점수({min_score_threshold}점) 이상을 기록한 종목이 없어 AI 추천을 생성하지 않습니다.")
+        return no_rec_msg, []
+
+    top_coins = qualified_df['코인명'].tolist()
+    top_symbols = qualified_df['심볼'].tolist()
 
     if not GEMINI_API_KEY:
-        return f"상위 추천 종목: {', '.join(top_coins)}", default_rec
+        default_rec = [{"symbol": sym, "name": name, "reason": "우량 매집 패턴 선별 종목"} for sym, name in zip(top_symbols, top_coins)]
+        return f"상위 선별 종목: {', '.join(top_coins)}", default_rec
 
     try:
         client = genai.Client(api_key=GEMINI_API_KEY)
-        prompt = f"다음 업비트 우량 매집 퀀트 데이터 상위 목록을 보고 분석 리포트를 작성하세요:\n{df_result.head(10).to_string()}"
+        prompt = f"""
+당신은 엄격한 암호화폐 퀀트 분석가입니다. 
+다음 데이터 중 종합예측점수 및 리스크 대비 매집 가능성이 정밀하게 입증된 종목만 선별하여 리포트를 작성하세요.
+
+[중요 지침 - 추천 엄격성]
+1. `recommended_coins` 배열에는 진정으로 매수 유효 패턴을 보이는 종목만 1~3개 이내로 포함하세요.
+2. 분석 대상 중 확실한 신호가 부족하다고 판단되면 무조건 개수를 채우지 말고 추천 대상을 최소화하거나 빈 배열(`[]`)로 넘겨주세요.
+
+[1차 정밀 선별 데이터]
+{qualified_df.to_string()}
+"""
         response = client.models.generate_content(
             model='gemini-3.1-flash-lite',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
                 response_schema=AIReportResponse,
-                temperature=0.2,
+                temperature=0.1, # 일관성과 엄격함을 높이기 위해 낮은 온도 설정
             ),
         )
         parsed = json.loads(response.text)
-        rec_list = [{"symbol": i.get("symbol", "").upper(), "name": i.get("coin_name", ""), "reason": i.get("reason", "")} for i in parsed.get("recommended_coins", [])]
+        raw_recs = parsed.get("recommended_coins", [])
+        
+        rec_list = [
+            {
+                "symbol": i.get("symbol", "").upper(),
+                "name": i.get("coin_name", ""),
+                "reason": i.get("reason", "")
+            }
+            for i in raw_recs if i.get("symbol")
+        ]
         return parsed.get("report_markdown", ""), rec_list
     except Exception as e:
         print(f"⚠️ Gemini 리포트 생성 예외: {e}")
-        return f"AI 분석 리포트 (상위: {', '.join(top_coins)})", default_rec
+        fallback_rec = [{"symbol": sym, "name": name, "reason": "우량 매집 패턴 선별 종목"} for sym, name in zip(top_symbols, top_coins)]
+        return f"AI 분석 리포트 (선별: {', '.join(top_coins)})", fallback_rec
 
 
-# [신규 추가] 구글 뉴스 RSS를 이용한 추천 종목 뉴스 수집 함수
 def fetch_crypto_news(rec_coins, max_items_per_coin=2):
     news_data = {}
+    if not rec_coins:
+        return news_data
+
     for coin in rec_coins:
         coin_name = coin.get("name") or coin.get("coin_name")
         symbol = coin.get("symbol")
@@ -291,27 +332,28 @@ def update_ai_tracker(rec_coins, current_price_map):
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
     now_str = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
-    for coin in rec_coins:
-        sym = coin['symbol']
-        c_price = current_price_map.get(f"KRW-{sym}", current_price_map.get(sym, 0.0))
-        if sym in history:
-            history[sym]['count'] += 1
-            history[sym]['current_price'] = c_price
-            history[sym]['last_recommended_at'] = now_str
-        else:
-            history[sym] = {
-                "name": coin.get('name', sym), "symbol": sym, "count": 1,
-                "entry_price": c_price, "current_price": c_price,
-                "first_recommended_at": now_str, "last_recommended_at": now_str
-            }
+    # 추천 종목이 존재하는 경우에만 히스토리 갱신
+    if rec_coins:
+        for coin in rec_coins:
+            sym = coin['symbol']
+            c_price = current_price_map.get(f"KRW-{sym}", current_price_map.get(sym, 0.0))
+            if sym in history:
+                history[sym]['count'] += 1
+                history[sym]['current_price'] = c_price
+                history[sym]['last_recommended_at'] = now_str
+            else:
+                history[sym] = {
+                    "name": coin.get('name', sym), "symbol": sym, "count": 1,
+                    "entry_price": c_price, "current_price": c_price,
+                    "first_recommended_at": now_str, "last_recommended_at": now_str
+                }
 
-    with open(AI_TRACKER_HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(history, f, ensure_ascii=False, indent=2)
+        with open(AI_TRACKER_HISTORY_FILE, "w", encoding="utf-8") as f:
+            json.dump(history, f, ensure_ascii=False, indent=2)
 
     return history
 
 
-# [추가] R 사이트 연동용 급락위험 종목 JSON 저장 함수
 WARNING_TRACKER_FILE = os.path.join(DOCS_DIR, "warning_coins.json")
 
 def update_warning_tracker(df_result):
@@ -321,7 +363,6 @@ def update_warning_tracker(df_result):
             dump_risk = float(row.get('STGT_그래프덤핑위험(%)', 0.0))
             rsi = float(row.get('RSI', 50.0))
             
-            # 위험/급락 조건 충족 시 R 사이트 표식용으로 저장
             if dump_risk >= 75.0 or rsi >= 80.0:
                 warning_coins.append({
                     "symbol": row['심볼'],
@@ -342,10 +383,8 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
     if news_data is None:
         news_data = {}
 
-    # 1. R 사이트 전용 위험 종목 파일(warning_coins.json) 생성/업데이트
     update_warning_tracker(df_result)
 
-    # 2. AI 추천 종목 모니터링 데이터 변환
     tracking_list = []
     if isinstance(tracking_monitor_data, dict):
         for sym, val in tracking_monitor_data.items():
@@ -366,7 +405,6 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
 
     monitored_symbols = {item['symbol'] for item in tracking_list}
 
-    # 3. 실시간 속보 데이터 작성
     news_items = []
     if news_data:
         for coin, items in news_data.items():
@@ -387,7 +425,6 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
     else:
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
 
-    # 4. 중앙 전체 코인 AI 예측 순위 테이블
     table_rows_list = []
     if not df_result.empty:
         for rank, (_, row) in enumerate(df_result.iterrows(), start=1):
@@ -411,7 +448,6 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
 
     all_coins_table_rows = "".join(table_rows_list) if table_rows_list else '<tr><td colspan="4" class="text-center text-muted py-3">분석된 종목이 없습니다.</td></tr>'
 
-    # 5. 우측 AI 추천 종목 카드
     tracking_items = []
     for item in tracking_list:
         p_rate = item.get('profit_rate', 0.0)
@@ -440,7 +476,6 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
     updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
-    # 6. HTML 레이아웃
     html_template = (
         '<!DOCTYPE html>\n'
         '<html lang="ko">\n'
@@ -585,7 +620,6 @@ def main():
         print("⚠️ 종목 정보를 가져오지 못했습니다.")
         return
 
-    # 현재가 매핑 조회
     tickers_list = [item['ticker'] for item in tickers_info]
     current_price_map = {}
     try:
@@ -604,10 +638,11 @@ def main():
                 results.append(res)
 
     df_res = pd.DataFrame(results).sort_values(by="종합예측점수", ascending=False)
-    ai_report, rec_coins = generate_gemini_analysis(df_res)
+    
+    # [개선 적용] 임계값을 통과한 양질의 종목만 추천
+    ai_report, rec_coins = generate_gemini_analysis(df_res, min_score_threshold=MIN_RECOMMEND_SCORE)
     tracker_data = update_ai_tracker(rec_coins, current_price_map)
 
-    # [수정] 뉴스 데이터 수집 후 대시보드 생성 함수에 전달
     news_data = fetch_crypto_news(rec_coins)
     generate_repo1_dashboard_html(df_res, ai_report, tracker_data, news_data=news_data, html_path="docs/index.html")
     print("✅ 레포1 매집 분석 및 대시보드 생성 완료!")
