@@ -14,13 +14,16 @@ from google.genai import types
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 
+DATA_DIR = "data"
 DOCS_DIR = "./docs"
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
+WEIGHTS_FILE = os.path.join(DATA_DIR, "weights.json")
 GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit/main/data/golden_pattern.json"
 
-MIN_RECOMMEND_SCORE = 75.0 # 컷오프 점수 상향
+MIN_RECOMMEND_SCORE = 75.0
 
+os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(DOCS_DIR, exist_ok=True)
 
 class RecommendedCoin(BaseModel):
@@ -31,6 +34,17 @@ class RecommendedCoin(BaseModel):
 class AIReportResponse(BaseModel):
     report_markdown: str = Field(description="종합 퀀트 분석 리포트 전문")
     recommended_coins: list[RecommendedCoin] = Field(description="AI 최우선 추천 코인 리스트 (미달 시 빈 배열)")
+
+def load_json(filepath, default):
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, "r", encoding="utf-8") as f: return json.load(f)
+        except Exception: pass
+    return default
+
+def save_json(filepath, data):
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
 
 def load_golden_pattern():
     try:
@@ -71,6 +85,62 @@ def calculate_max_pattern_similarity(series):
         if sim > max_sim: max_sim = sim
     return max_sim
 
+# 🔄 자율 진화 핵심: 과거 추천 결과 복기 및 가중치 자율 학습
+def auto_tune_weights_and_evaluate_history():
+    history = load_json(AI_TRACKER_HISTORY_FILE, [])
+    if not history: return
+
+    weights = load_json(WEIGHTS_FILE, {
+        "w_pattern": 0.20, "w_vol_cliff": 0.25, "w_ma_alignment": 0.25,
+        "w_vol_surge": 0.15, "w_daily_momentum": 0.10, "w_breakout": 0.05
+    })
+
+    updated = False
+    now_time = datetime.datetime.now()
+
+    for entry in history:
+        entry_time = datetime.datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S")
+        time_diff_hours = (now_time - entry_time).total_seconds() / 3600.0
+
+        # 추천 후 12시간 이상 경과한 미검증 항목 결과 추적
+        if time_diff_hours >= 12 and not entry.get("evaluated", False):
+            for coin in entry.get("recommended_coins", []):
+                symbol = coin.get("symbol")
+                ticker = f"KRW-{symbol}"
+                df = pyupbit.get_ohlcv(ticker, interval="minute60", count=24)
+                if df is None or df.empty: continue
+
+                entry_price = coin.get("entry_price", df.iloc[0]["open"])
+                max_price = df["high"].max()
+                min_price = df["low"].min()
+
+                max_return = (max_price - entry_price) / entry_price * 100.0
+                min_return = (min_price - entry_price) / entry_price * 100.0
+
+                is_success = max_return >= 3.0 and min_return >= -2.0
+
+                # 승리 시 수급/눌림목 가중치 상승, 실패 시 감소 (자율진화 조정)
+                learning_rate = 0.01
+                if is_success:
+                    weights["w_vol_cliff"] = round(weights.get("w_vol_cliff", 0.25) + learning_rate, 3)
+                    weights["w_pattern"] = round(weights.get("w_pattern", 0.20) + learning_rate, 3)
+                else:
+                    weights["w_vol_cliff"] = round(max(0.05, weights.get("w_vol_cliff", 0.25) - learning_rate), 3)
+                    weights["w_pattern"] = round(max(0.05, weights.get("w_pattern", 0.20) - learning_rate), 3)
+
+                coin["evaluated_result"] = {"max_return": round(max_return, 2), "success": is_success}
+
+            entry["evaluated"] = True
+            updated = True
+
+    if updated:
+        # 가중치 정규화 (합이 1.0이 되도록)
+        total_w = sum(weights.values())
+        normalized_weights = {k: round(v / total_w, 3) for k, v in weights.items()}
+        save_json(WEIGHTS_FILE, normalized_weights)
+        save_json(AI_TRACKER_HISTORY_FILE, history)
+        print(f"🧬 [자율 진화 완료] 과거 추천 승률 기반 가중치 업데이트: {normalized_weights}")
+
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
     try:
@@ -91,7 +161,6 @@ def process_single_coin(item, current_price_map):
     if df_1h is None or df_5m is None or len(df_1h) < 30 or len(df_5m) < 24:
         return None
 
-    # 24시간 거래대금 50억 미만 소형 잡코인 제거
     acc_price_24h = (df_1h['close'] * df_1h['volume']).iloc[-24:].sum()
     if acc_price_24h < 5_000_000_000:
         return None
@@ -117,7 +186,6 @@ def process_single_coin(item, current_price_map):
 
     raw_score = vol_score + cmf_score + pattern_bonus + 30.0
 
-    # 추격 매수 차단: 최근 1시간 내 5% 이상 상승했거나 RSI가 65 이상인 경우 70% 감점
     recent_1h_change = (df_5m['close'].iloc[-1] - df_5m['close'].iloc[0]) / df_5m['close'].iloc[0] * 100
     if rsi_1h >= 65.0 or recent_1h_change >= 5.0:
         raw_score *= 0.3
@@ -164,7 +232,16 @@ def generate_gemini_analysis(df_result):
         )
         parsed = json.loads(response.text)
         raw_recs = parsed.get("recommended_coins", [])
-        rec_list = [{"symbol": i.get("symbol", "").upper(), "name": i.get("coin_name", ""), "reason": i.get("reason", "")} for i in raw_recs if i.get("symbol")]
+        
+        rec_list = []
+        for i in raw_recs:
+            sym = i.get("symbol", "").upper()
+            if sym:
+                # 진화형: 추천 시점의 진입 가격 저장
+                match_row = qualified_df[qualified_df["심볼"] == sym]
+                entry_price = float(match_row["현재가(KRW)"].values[0]) if not match_row.empty else 0.0
+                rec_list.append({"symbol": sym, "name": i.get("coin_name", ""), "reason": i.get("reason", ""), "entry_price": entry_price})
+
         return parsed.get("report_markdown", ""), rec_list
     except Exception as e:
         print(f"⚠️ Gemini 생성 실패: {e}")
@@ -172,24 +249,22 @@ def generate_gemini_analysis(df_result):
 
 def save_tracker_history(rec_coins, df_res):
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    history_data = []
-    if os.path.exists(AI_TRACKER_HISTORY_FILE):
-        try:
-            with open(AI_TRACKER_HISTORY_FILE, "r", encoding="utf-8") as f:
-                history_data = json.load(f)
-        except Exception: pass
+    history_data = load_json(AI_TRACKER_HISTORY_FILE, [])
 
     new_entry = {
         "timestamp": now_str,
         "recommended_coins": rec_coins,
+        "evaluated": False,
         "top_candidates": df_res.head(5).to_dict(orient="records")
     }
     history_data.append(new_entry)
-    
-    with open(AI_TRACKER_HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(history_data[-100:], f, ensure_ascii=False, indent=4) # 최근 100회 이력 보존
+    save_json(AI_TRACKER_HISTORY_FILE, history_data[-100:])
 
 def main():
+    # 1. 이전 추천 백테스트 및 가중치 스스로 학습
+    auto_tune_weights_and_evaluate_history()
+
+    # 2. 시장 분석 실행
     tickers_info = get_krw_upbit_tickers()
     if not tickers_info: return
 
@@ -206,14 +281,11 @@ def main():
     df_res = pd.DataFrame(results).sort_values(by="종합예측점수", ascending=False)
     ai_report_md, rec_coins = generate_gemini_analysis(df_res)
 
-    # 1. Markdown 리포트 저장
     with open(REPORT_MD_FILE, "w", encoding="utf-8") as f:
         f.write(ai_report_md)
 
-    # 2. 히스토리 트래커 저장 (realtime.py에서 수집하는 파일)
     save_tracker_history(rec_coins, df_res)
-
-    print(f"✅ 1차 정밀 분석 및 리포트 저장 완료! (추천 코인: {len(rec_coins)}개)")
+    print(f"✅ 정밀 분석 및 자율 저장 완료! (추천 코인: {len(rec_coins)}개)")
 
 if __name__ == "__main__":
     main()
