@@ -32,12 +32,12 @@
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 16,
+    "count": 17,
     "top10_count": 22,
     "entry_price": 1929.0,
     "current_price": 1933.0,
     "first_recommended_at": "2026-08-09 22:13:34",
-    "last_recommended_at": "2026-08-10 14:42:53"
+    "last_recommended_at": "2026-08-10 14:47:52"
   },
   "XCN": {
     "name": "오닉스코인",
@@ -641,10 +641,19 @@
   "UNI": {
     "name": "유니스왑",
     "symbol": "UNI",
-    "count": 1,
+    "count": 2,
     "entry_price": 5725.0,
     "current_price": 5725.0,
     "first_recommended_at": "2026-08-10 14:42:53",
-    "last_recommended_at": "2026-08-10 14:42:53"
+    "last_recommended_at": "2026-08-10 14:47:52"
+  },
+  "INJ": {
+    "name": "인젝티브",
+    "symbol": "INJ",
+    "count": 1,
+    "entry_price": 6225.0,
+    "current_price": 6225.0,
+    "first_recommended_at": "2026-08-10 14:47:52",
+    "last_recommended_at": "2026-08-10 14:47:52"
   }
 }
