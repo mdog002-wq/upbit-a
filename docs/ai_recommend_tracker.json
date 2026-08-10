@@ -659,11 +659,11 @@
   "SNT": {
     "name": "스테이터스네트워크토큰",
     "symbol": "SNT",
-    "count": 3,
+    "count": 4,
     "entry_price": 7.65,
-    "current_price": 7.66,
+    "current_price": 7.67,
     "first_recommended_at": "2026-08-10 14:52:41",
-    "last_recommended_at": "2026-08-10 15:22:44"
+    "last_recommended_at": "2026-08-10 15:27:42"
   },
   "STX": {
     "name": "스택스",
@@ -713,11 +713,11 @@
   "SEI": {
     "name": "세이",
     "symbol": "SEI",
-    "count": 1,
+    "count": 2,
     "entry_price": 58.7,
-    "current_price": 58.7,
+    "current_price": 58.6,
     "first_recommended_at": "2026-08-10 15:22:44",
-    "last_recommended_at": "2026-08-10 15:22:44"
+    "last_recommended_at": "2026-08-10 15:27:42"
   },
   "PYTH": {
     "name": "피스네트워크",
@@ -727,5 +727,14 @@
     "current_price": 60.1,
     "first_recommended_at": "2026-08-10 15:22:44",
     "last_recommended_at": "2026-08-10 15:22:44"
+  },
+  "MON": {
+    "name": "모나드",
+    "symbol": "MON",
+    "count": 1,
+    "entry_price": 30.5,
+    "current_price": 30.5,
+    "first_recommended_at": "2026-08-10 15:27:42",
+    "last_recommended_at": "2026-08-10 15:27:42"
   }
 }
