@@ -261,22 +261,42 @@ def generate_gemini_analysis(df_result):
         print(f"⚠️ Gemini 생성 실패: {e}")
         return "AI 리포트 생성 실패", []
 
-def save_tracker_history(new_entry):
-    # 파일에서 기존 이력을 불러옴
-    history_data = load_json(AI_TRACKER_HISTORY_FILE, [])
+def save_tracker_history(rec_coins, df_res=None):
+    """
+    rec_coins: 추천된 코인 목록 또는 새 엔트리 데이터
+    df_res: 추천 시점의 분석 데이터프레임 (선택)
+    """
+    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # 불러온 데이터가 리스트가 아니라 딕셔너리 등 다른 타입일 경우 리스트로 강제 변환/초기화
+    # rec_coins가 이미 완성된 dict 형태가 아니라 코인 리스트 형태로 들어왔을 경우 구조화
+    if isinstance(rec_coins, list):
+        formatted_coins = []
+        for coin in rec_coins:
+            if isinstance(coin, dict):
+                formatted_coins.append(coin)
+            elif isinstance(coin, str):
+                formatted_coins.append({"symbol": coin, "entry_price": 0.0})
+        
+        new_entry = {
+            "timestamp": now_str,
+            "recommended_coins": formatted_coins,
+            "evaluated": False
+        }
+    elif isinstance(rec_coins, dict):
+        new_entry = rec_coins
+    else:
+        print("⚠️ 저장할 올바른 추천 데이터 양식이 아닙니다.")
+        return
+
+    # 기존 히스토리 로드 및 예외 처리
+    history_data = load_json(AI_TRACKER_HISTORY_FILE, [])
     if not isinstance(history_data, list):
         if isinstance(history_data, dict) and history_data:
-            # 딕셔너리로 잘못 누적되어 있던 경우 단일 요소를 갖는 리스트로 재구성
             history_data = [history_data]
         else:
             history_data = []
 
-    # 새 항목 추가
     history_data.append(new_entry)
-
-    # 데이터 파일 저장
     save_json(AI_TRACKER_HISTORY_FILE, history_data)
     print("✅ AI 추천 이력이 성공적으로 저장되었습니다.")
 
