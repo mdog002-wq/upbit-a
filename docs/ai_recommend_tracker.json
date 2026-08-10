@@ -272,12 +272,12 @@
   "WLFI": {
     "name": "월드리버티파이낸셜",
     "symbol": "WLFI",
-    "count": 4,
+    "count": 5,
     "top10_count": 4,
     "entry_price": 74.2,
     "current_price": 74.5,
     "first_recommended_at": "2026-08-10 00:48:07",
-    "last_recommended_at": "2026-08-10 15:57:36"
+    "last_recommended_at": "2026-08-10 16:03:06"
   },
   "ETH": {
     "name": "이더리움",
@@ -382,12 +382,12 @@
   "AAVE": {
     "name": "에이브",
     "symbol": "AAVE",
-    "count": 2,
+    "count": 3,
     "top10_count": 1,
     "entry_price": 128800.0,
-    "current_price": 129400.0,
+    "current_price": 130300.0,
     "first_recommended_at": "2026-08-10 01:13:35",
-    "last_recommended_at": "2026-08-10 15:03:02"
+    "last_recommended_at": "2026-08-10 16:03:06"
   },
   "MET2": {
     "name": "메테오라",
@@ -772,5 +772,14 @@
     "current_price": 52.3,
     "first_recommended_at": "2026-08-10 15:42:54",
     "last_recommended_at": "2026-08-10 15:42:54"
+  },
+  "JST": {
+    "name": "저스트",
+    "symbol": "JST",
+    "count": 1,
+    "entry_price": 143.0,
+    "current_price": 143.0,
+    "first_recommended_at": "2026-08-10 16:03:06",
+    "last_recommended_at": "2026-08-10 16:03:06"
   }
 }
