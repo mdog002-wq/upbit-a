@@ -26,6 +26,7 @@ from google import genai
 from google.genai import types
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 try:
     import torch
     import torch.nn as nn
@@ -42,15 +43,18 @@ try:
 except ImportError:
     TF_AVAILABLE = False
 
+
 # [Gemini Output Schema]
 class RecommendedCoin(BaseModel):
     coin_name: str = Field(description="코인 한글명 (예: 바빌론, 너보스, 스파크)")
     symbol: str = Field(description="티커 심볼 (예: BABY, CKB, SPK)")
     reason: str = Field(description="추천 핵심 사유 요약")
 
+
 class AIReportResponse(BaseModel):
     report_markdown: str = Field(description="종합 퀀트 분석 리포트 전문 (마크다운)")
     recommended_coins: List[RecommendedCoin] = Field(description="AI 최우선 추천 코인 리스트")
+
 
 # [설정 및 환경변수]
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
@@ -75,6 +79,7 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 os.makedirs(AI_MODELS_DIR, exist_ok=True)
 os.makedirs(DOCS_DIR, exist_ok=True)
 
+
 def load_golden_pattern():
     try:
         headers = {}
@@ -89,7 +94,9 @@ def load_golden_pattern():
         print(f"⚠️ 레포2 골든 패턴 로드 실패: {e}")
     return None
 
+
 GLOBAL_GOLDEN_PATTERN = load_golden_pattern()
+
 
 def calculate_dtw_distance(s1, s2):
     n, m = len(s1), len(s2)
@@ -101,6 +108,7 @@ def calculate_dtw_distance(s1, s2):
             dtw_matrix[i, j] = cost + min(dtw_matrix[i - 1, j], dtw_matrix[i, j - 1], dtw_matrix[i - 1, j - 1])
     return dtw_matrix[n, m]
 
+
 def calculate_pattern_similarity(series, target_pattern):
     if not series or not target_pattern or len(series) == 0:
         return 0.0
@@ -111,12 +119,14 @@ def calculate_pattern_similarity(series, target_pattern):
     dist = calculate_dtw_distance(norm_series, np.array(target_pattern))
     return round(max(0.0, 100.0 * (1.0 - (dist / len(target_pattern)))), 1)
 
+
 def format_price(x):
     try:
         val = float(x)
         return f"{int(val):,}" if val >= 100 else (f"{val:,.2f}" if val >= 1 else f"{val:,.5f}")
     except Exception:
         return str(x)
+
 
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
@@ -128,6 +138,7 @@ def get_krw_upbit_tickers():
     except Exception:
         pass
     return []
+
 
 def calculate_t1_advanced_metrics(ticker):
     try:
@@ -174,6 +185,7 @@ def calculate_t1_advanced_metrics(ticker):
     except Exception:
         return None
 
+
 def process_single_coin(item, current_price_map):
     ticker, symbol, korean_name = item['ticker'], item['symbol'], item['korean_name']
     metrics = calculate_t1_advanced_metrics(ticker)
@@ -207,6 +219,7 @@ def process_single_coin(item, current_price_map):
         "CMF지표": metrics['cmf_1h'], "RSI": metrics['rsi_1h'], "골든패턴유사도(%)": metrics['pattern_similarity']
     }
 
+
 def generate_gemini_analysis(df_result):
     if df_result.empty:
         return "분석 데이터 없음", []
@@ -235,6 +248,7 @@ def generate_gemini_analysis(df_result):
     except Exception as e:
         print(f"⚠️ Gemini 리포트 생성 예외: {e}")
         return f"AI 분석 리포트 (상위: {', '.join(top_coins)})", default_rec
+
 
 def update_ai_tracker(rec_coins, current_price_map):
     history = {}
@@ -267,17 +281,39 @@ def update_ai_tracker(rec_coins, current_price_map):
 
     return history
 
-def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data, html_path="docs/index.html"):
+
+def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data=None, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
-   
-    monitored_symbols = {item['symbol'] for item in tracking_monitor_data}
+    if news_data is None:
+        news_data = {}
+
+    # tracking_monitor_data 구조 호환성 처리 (dict인 경우 list 변환)
+    tracking_list = []
+    if isinstance(tracking_monitor_data, dict):
+        for sym, val in tracking_monitor_data.items():
+            entry_p = val.get("entry_price", 0.0)
+            curr_p = val.get("current_price", 0.0)
+            profit_r = round(((curr_p - entry_p) / (entry_p + 1e-8)) * 100, 2) if entry_p > 0 else 0.0
+            tracking_list.append({
+                "name": val.get("name", sym),
+                "symbol": sym,
+                "count": val.get("count", 1),
+                "entry_price": format_price(entry_p),
+                "current_price": format_price(curr_p),
+                "profit_rate": profit_r,
+                "recommend_time": val.get("last_recommended_at", "")
+            })
+    else:
+        tracking_list = tracking_monitor_data
+
+    monitored_symbols = {item['symbol'] for item in tracking_list}
     alerts = []
-   
-    if not df_result.empty:
+
+    if not df_result.empty and 'STGT_그래프덤핑위험(%)' in df_result.columns:
         for _, row in df_result.iterrows():
-            dump_risk = float(row['STGT_그래프덤핑위험(%)'])
+            dump_risk = float(row.get('STGT_그래프덤핑위험(%)', 0.0))
             if dump_risk >= 75.0:
-                alerts.append({"text": f"⚠️ {row['코인명']}({row['심볼']}) - {row['아이스버그역산(고주파)']}"})
+                alerts.append({"text": f"⚠️ {row['코인명']}({row['심볼']}) - {row.get('아이스버그역산(고주파)', '경고')}"})
 
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
     updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
@@ -290,19 +326,19 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
             price = row['현재가(KRW)']
             score = float(row['종합예측점수'])
             pattern_sim = float(row.get('골든패턴유사도(%)', 0.0))
-           
+
             sticker = ' <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7rem;">🎯 AI추천</span>' if symbol in monitored_symbols else ''
-           
+
             row_html = (
                 f'<tr>\n'
                 f' <td class="text-center fw-bold text-muted">{rank}</td>\n'
                 f' <td class="fw-bold">{name} <span class="text-secondary small">({symbol})</span>{sticker}</td>\n'
                 f' <td>{price}</td>\n'
                 f' <td class="text-primary fw-bold">{score:.1f}점 <span class="text-muted small">({pattern_sim:.0f}%)</span></td>\n'
-                f"</tr>\n"
+                f'</tr>\n'
             )
             table_rows_list.append(row_html)
-   
+
     all_coins_table_rows = "".join(table_rows_list) if table_rows_list else '<tr><td colspan="4" class="text-center text-muted py-3">분석된 종목이 없습니다.</td></tr>'
 
     alert_items = []
@@ -319,7 +355,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
                 title = item.get("title", "")
                 link = item.get("link", "#")
                 li_tags += f'<li class="mb-1"><a href="{link}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark hover-primary">{title}</a></li>'
-            
+
             card_html = (
                 f'<div class="p-2 border rounded bg-light mb-2 shadow-sm">\n'
                 f' <div class="fw-bold text-primary mb-1" style="font-size: 0.85rem;"><i class="fa-solid fa-hashtag me-1"></i>{coin}</div>\n'
@@ -332,8 +368,8 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
 
     tracking_items = []
-    for item in tracking_monitor_data:
-        p_rate = item['profit_rate']
+    for item in tracking_list:
+        p_rate = item.get('profit_rate', 0.0)
         rate_color = "text-danger" if p_rate > 0 else ("text-primary" if p_rate < 0 else "text-dark")
         sign = "+" if p_rate > 0 else ""
         top10_cnt = item.get('top10_count', 0)
@@ -351,7 +387,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
             f' <div class="col-6">추천진입가: <b>{item["entry_price"]}</b></div>\n'
             f' <div class="col-6 text-end">현재가: <b>{item["current_price"]}</b></div>\n'
             f' <div class="col-6">수익률: <b class="{rate_color}">{sign}{p_rate}%</b></div>\n'
-            f' <div class="col-6 text-end text-muted" style="font-size:0.75rem;">{item["recommend_time"]}</div>\n'
+            f' <div class="col-6 text-end text-muted" style="font-size:0.75rem;">{item.get("recommend_time", "")}</div>\n'
             f' </div>\n'
             f'</div>\n'
         )
@@ -452,7 +488,7 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
         ' </table>\n'
         ' </div>\n'
         ' </div>\n'
-        ' </div>\n'      
+        ' </div>\n'
         '\n'
         ' <!-- 우측 패널: AI 추천 종목 모니터링 -->\n'
         ' <div class="col-lg-4">\n'
@@ -495,23 +531,52 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     )
 
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
-                        .replace("__TOTAL_COINS__", str(len(df_result)))\
-                        .replace("__ALERTS_HTML__", alerts_html)\
-                        .replace("__NEWS_HTML__", news_html)\
-                        .replace("__AI_REPORT_JSON__", json.dumps(str(ai_report), ensure_ascii=False))\
-                        .replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)\
-                        .replace("__TRACKING_HTML__", tracking_html)
+                                .replace("__TOTAL_COINS__", str(len(df_result)))\
+                                .replace("__ALERTS_HTML__", alerts_html)\
+                                .replace("__NEWS_HTML__", news_html)\
+                                .replace("__AI_REPORT_JSON__", json.dumps(str(ai_report), ensure_ascii=False))\
+                                .replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)\
+                                .replace("__TRACKING_HTML__", tracking_html)
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
+
     print(f"🎨 [대시보드] HTML 생성 완료 (`{html_path}`)!")
     return html_content
+
+
+def main():
+    print("🚀 우량주 매집 데이터 수집 및 분석 시작...")
+    tickers_info = get_krw_upbit_tickers()
+    if not tickers_info:
+        print("⚠️ 종목 정보를 가져오지 못했습니다.")
+        return
+
+    # 현재가 매핑 조회
+    tickers_list = [item['ticker'] for item in tickers_info]
+    current_price_map = {}
+    try:
+        prices = pyupbit.get_current_price(tickers_list)
+        if isinstance(prices, dict):
+            current_price_map = prices
+    except Exception as e:
+        print(f"⚠️ 현재가 조회 예외: {e}")
+
+    results = []
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        futures = {executor.submit(process_single_coin, item, current_price_map): item for item in tickers_info}
+        for future in tqdm(as_completed(futures), total=len(futures)):
+            res = future.result()
+            if res:
+                results.append(res)
+
     df_res = pd.DataFrame(results).sort_values(by="종합예측점수", ascending=False)
     ai_report, rec_coins = generate_gemini_analysis(df_res)
     tracker_data = update_ai_tracker(rec_coins, current_price_map)
-    
-    generate_repo1_dashboard_html(df_res, ai_report, tracker_data, "docs/index.html")
+
+    generate_repo1_dashboard_html(df_res, ai_report, tracker_data, html_path="docs/index.html")
     print("✅ 레포1 매집 분석 및 대시보드 생성 완료!")
+
 
 if __name__ == "__main__":
     main()
