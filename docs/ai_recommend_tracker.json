@@ -322,12 +322,12 @@
   "TFUEL": {
     "name": "쎄타퓨엘",
     "symbol": "TFUEL",
-    "count": 10,
+    "count": 11,
     "top10_count": 5,
     "entry_price": 10.6,
-    "current_price": 10.7,
+    "current_price": 10.6,
     "first_recommended_at": "2026-08-10 01:03:26",
-    "last_recommended_at": "2026-08-10 18:07:40"
+    "last_recommended_at": "2026-08-10 18:17:50"
   },
   "QTUM": {
     "name": "퀀텀",

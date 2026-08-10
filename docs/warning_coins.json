@@ -4,20 +4,13 @@
     "name": "지토",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 18:12:42"
-  },
-  {
-    "symbol": "QUID",
-    "name": "스퀴드",
-    "warning_type": "OVERBOUGHT",
-    "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 18:12:42"
+    "updated_at": "2026-08-10 18:17:50"
   },
   {
     "symbol": "GRVT",
     "name": "그래비티토큰",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 18:12:42"
+    "updated_at": "2026-08-10 18:17:50"
   }
 ]
