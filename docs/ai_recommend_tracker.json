@@ -322,12 +322,12 @@
   "TFUEL": {
     "name": "쎄타퓨엘",
     "symbol": "TFUEL",
-    "count": 5,
+    "count": 6,
     "top10_count": 5,
     "entry_price": 10.6,
-    "current_price": 10.6,
+    "current_price": 10.7,
     "first_recommended_at": "2026-08-10 01:03:26",
-    "last_recommended_at": "2026-08-10 17:37:47"
+    "last_recommended_at": "2026-08-10 17:42:25"
   },
   "QTUM": {
     "name": "퀀텀",
@@ -871,5 +871,23 @@
     "current_price": 236.0,
     "first_recommended_at": "2026-08-10 17:32:52",
     "last_recommended_at": "2026-08-10 17:37:47"
+  },
+  "G": {
+    "name": "그래비티",
+    "symbol": "G",
+    "count": 1,
+    "entry_price": 5.15,
+    "current_price": 5.15,
+    "first_recommended_at": "2026-08-10 17:42:25",
+    "last_recommended_at": "2026-08-10 17:42:25"
+  },
+  "VVV": {
+    "name": "베니스토큰",
+    "symbol": "VVV",
+    "count": 1,
+    "entry_price": 17150.0,
+    "current_price": 17150.0,
+    "first_recommended_at": "2026-08-10 17:42:25",
+    "last_recommended_at": "2026-08-10 17:42:25"
   }
 }
