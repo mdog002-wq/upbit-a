@@ -18,15 +18,17 @@ jobs:
       contents: write
 
     steps:
-      - name: Check Blocked Time Window (02:00 ~ 02:14 KST)
+      - name: Check Blocked Time Window (02:00 ~ 02:39 KST)
         id: check_time
-        run: |
-          HOUR=$(TZ="Asia/Seoul" date +%k | tr -d ' ')
-          echo "Current KST Hour: ${HOUR}"
+       run: |
+          HOUR=$(TZ="Asia/Seoul" date +%H | tr -d ' ')
+          MINUTE=$(TZ="Asia/Seoul" date +%M | tr -d ' ')
+          echo "Current KST Time: ${HOUR}:${MINUTE}"
           
-          if [ "$HOUR" -eq 2 ]; then
+          # 2시 0분부터 59분까지 차단 (00분이 되는 순간부터는 실행됨)
+          if [ "$HOUR" -eq 2 ] && [ "$MINUTE" -le 59 ]; then
             echo "is_blocked=true" >> $GITHUB_OUTPUT
-            echo "Notice: Current time is within restricted window (02:00 ~ 02:14 KST). Skipping workflow execution."
+            echo "Notice: Current time is within restricted window (02:00 ~ 02:29 KST). Skipping workflow execution."
           else
             echo "is_blocked=false" >> $GITHUB_OUTPUT
           fi
