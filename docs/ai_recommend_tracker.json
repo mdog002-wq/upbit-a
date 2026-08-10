@@ -731,10 +731,28 @@
   "MON": {
     "name": "모나드",
     "symbol": "MON",
-    "count": 1,
+    "count": 2,
     "entry_price": 30.5,
     "current_price": 30.5,
     "first_recommended_at": "2026-08-10 15:27:42",
-    "last_recommended_at": "2026-08-10 15:27:42"
+    "last_recommended_at": "2026-08-10 15:33:09"
+  },
+  "CELO": {
+    "name": "셀로",
+    "symbol": "CELO",
+    "count": 1,
+    "entry_price": 91.7,
+    "current_price": 91.7,
+    "first_recommended_at": "2026-08-10 15:33:09",
+    "last_recommended_at": "2026-08-10 15:33:09"
+  },
+  "BIRB": {
+    "name": "문버드",
+    "symbol": "BIRB",
+    "count": 1,
+    "entry_price": 74.5,
+    "current_price": 74.5,
+    "first_recommended_at": "2026-08-10 15:33:09",
+    "last_recommended_at": "2026-08-10 15:33:09"
   }
 }
