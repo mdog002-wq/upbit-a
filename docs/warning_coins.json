@@ -1,9 +1,23 @@
 [
   {
+    "symbol": "USDC",
+    "name": "유에스디코인",
+    "warning_type": "OVERBOUGHT",
+    "reason": "급락 위험 포착",
+    "updated_at": "2026-08-10 19:12:47"
+  },
+  {
     "symbol": "JTO",
     "name": "지토",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 19:07:28"
+    "updated_at": "2026-08-10 19:12:47"
+  },
+  {
+    "symbol": "GRVT",
+    "name": "그래비티토큰",
+    "warning_type": "OVERBOUGHT",
+    "reason": "급락 위험 포착",
+    "updated_at": "2026-08-10 19:12:47"
   }
 ]
