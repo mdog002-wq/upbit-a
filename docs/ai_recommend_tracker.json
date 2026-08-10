@@ -740,19 +740,28 @@
   "CELO": {
     "name": "셀로",
     "symbol": "CELO",
-    "count": 1,
+    "count": 2,
     "entry_price": 91.7,
-    "current_price": 91.7,
+    "current_price": 92.1,
     "first_recommended_at": "2026-08-10 15:33:09",
-    "last_recommended_at": "2026-08-10 15:33:09"
+    "last_recommended_at": "2026-08-10 15:37:47"
   },
   "BIRB": {
     "name": "문버드",
     "symbol": "BIRB",
-    "count": 1,
+    "count": 2,
     "entry_price": 74.5,
-    "current_price": 74.5,
+    "current_price": 75.1,
     "first_recommended_at": "2026-08-10 15:33:09",
-    "last_recommended_at": "2026-08-10 15:33:09"
+    "last_recommended_at": "2026-08-10 15:37:47"
+  },
+  "CTC": {
+    "name": "크레딧코인",
+    "symbol": "CTC",
+    "count": 1,
+    "entry_price": 98.4,
+    "current_price": 98.4,
+    "first_recommended_at": "2026-08-10 15:37:47",
+    "last_recommended_at": "2026-08-10 15:37:47"
   }
 }

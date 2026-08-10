@@ -4,34 +4,34 @@
     "name": "지토",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 15:33:10"
+    "updated_at": "2026-08-10 15:37:48"
   },
   {
     "symbol": "KITE",
     "name": "카이트",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 15:33:10"
+    "updated_at": "2026-08-10 15:37:48"
   },
   {
     "symbol": "CAP",
     "name": "캡",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 15:33:10"
-  },
-  {
-    "symbol": "GRVT",
-    "name": "그래비티토큰",
-    "warning_type": "OVERBOUGHT",
-    "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 15:33:10"
+    "updated_at": "2026-08-10 15:37:48"
   },
   {
     "symbol": "META2",
     "name": "메타다오",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 15:33:10"
+    "updated_at": "2026-08-10 15:37:48"
+  },
+  {
+    "symbol": "GRVT",
+    "name": "그래비티토큰",
+    "warning_type": "OVERBOUGHT",
+    "reason": "급락 위험 포착",
+    "updated_at": "2026-08-10 15:37:48"
   }
 ]
