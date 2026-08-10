@@ -596,11 +596,11 @@
   "ICP": {
     "name": "인터넷컴퓨터",
     "symbol": "ICP",
-    "count": 1,
+    "count": 2,
     "entry_price": 3062.0,
-    "current_price": 3062.0,
+    "current_price": 3100.0,
     "first_recommended_at": "2026-08-10 13:40:08",
-    "last_recommended_at": "2026-08-10 13:40:08"
+    "last_recommended_at": "2026-08-10 14:57:47"
   },
   "ONG": {
     "name": "온톨로지가스",
@@ -664,5 +664,23 @@
     "current_price": 7.65,
     "first_recommended_at": "2026-08-10 14:52:41",
     "last_recommended_at": "2026-08-10 14:52:41"
+  },
+  "STX": {
+    "name": "스택스",
+    "symbol": "STX",
+    "count": 1,
+    "entry_price": 187.0,
+    "current_price": 187.0,
+    "first_recommended_at": "2026-08-10 14:57:47",
+    "last_recommended_at": "2026-08-10 14:57:47"
+  },
+  "ENSO": {
+    "name": "엔소",
+    "symbol": "ENSO",
+    "count": 1,
+    "entry_price": 1409.0,
+    "current_price": 1409.0,
+    "first_recommended_at": "2026-08-10 14:57:47",
+    "last_recommended_at": "2026-08-10 14:57:47"
   }
 }
