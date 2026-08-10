@@ -261,18 +261,25 @@ def generate_gemini_analysis(df_result):
         print(f"⚠️ Gemini 생성 실패: {e}")
         return "AI 리포트 생성 실패", []
 
-def save_tracker_history(rec_coins, df_res):
-    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+def save_tracker_history(new_entry):
+    # 파일에서 기존 이력을 불러옴
     history_data = load_json(AI_TRACKER_HISTORY_FILE, [])
 
-    new_entry = {
-        "timestamp": now_str,
-        "recommended_coins": rec_coins,
-        "evaluated": False,
-        "top_candidates": df_res.head(5).to_dict(orient="records")
-    }
+    # 불러온 데이터가 리스트가 아니라 딕셔너리 등 다른 타입일 경우 리스트로 강제 변환/초기화
+    if not isinstance(history_data, list):
+        if isinstance(history_data, dict) and history_data:
+            # 딕셔너리로 잘못 누적되어 있던 경우 단일 요소를 갖는 리스트로 재구성
+            history_data = [history_data]
+        else:
+            history_data = []
+
+    # 새 항목 추가
     history_data.append(new_entry)
-    save_json(AI_TRACKER_HISTORY_FILE, history_data[-100:])
+
+    # 데이터 파일 저장
+    save_json(AI_TRACKER_HISTORY_FILE, history_data)
+    print("✅ AI 추천 이력이 성공적으로 저장되었습니다.")
+
 
 def main():
     # 1. 이전 추천 백테스트 및 가중치 스스로 학습
