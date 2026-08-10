@@ -32,12 +32,12 @@
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 13,
+    "count": 14,
     "top10_count": 22,
     "entry_price": 1929.0,
-    "current_price": 1944.0,
+    "current_price": 1916.0,
     "first_recommended_at": "2026-08-09 22:13:34",
-    "last_recommended_at": "2026-08-10 00:03:27"
+    "last_recommended_at": "2026-08-10 13:40:08"
   },
   "XCN": {
     "name": "오닉스코인",
@@ -592,5 +592,23 @@
     "current_price": 20.5,
     "first_recommended_at": "2026-08-10 12:07:41",
     "last_recommended_at": "2026-08-10 12:17:29"
+  },
+  "ICP": {
+    "name": "인터넷컴퓨터",
+    "symbol": "ICP",
+    "count": 1,
+    "entry_price": 3062.0,
+    "current_price": 3062.0,
+    "first_recommended_at": "2026-08-10 13:40:08",
+    "last_recommended_at": "2026-08-10 13:40:08"
+  },
+  "ONG": {
+    "name": "온톨로지가스",
+    "symbol": "ONG",
+    "count": 1,
+    "entry_price": 60.4,
+    "current_price": 60.4,
+    "first_recommended_at": "2026-08-10 13:40:08",
+    "last_recommended_at": "2026-08-10 13:40:08"
   }
 }
