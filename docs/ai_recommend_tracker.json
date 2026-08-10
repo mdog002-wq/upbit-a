@@ -192,12 +192,12 @@
   "BCH": {
     "name": "비트코인캐시",
     "symbol": "BCH",
-    "count": 3,
+    "count": 4,
     "top10_count": 3,
     "entry_price": 305200.0,
     "current_price": 304900.0,
     "first_recommended_at": "2026-08-10 00:13:26",
-    "last_recommended_at": "2026-08-10 15:47:22"
+    "last_recommended_at": "2026-08-10 15:52:50"
   },
   "JTO": {
     "name": "지토",
@@ -551,11 +551,11 @@
   "A": {
     "name": "볼타",
     "symbol": "A",
-    "count": 3,
+    "count": 4,
     "entry_price": 91.3,
     "current_price": 91.1,
     "first_recommended_at": "2026-08-10 11:24:53",
-    "last_recommended_at": "2026-08-10 15:47:22"
+    "last_recommended_at": "2026-08-10 15:52:50"
   },
   "USDE": {
     "name": "유에스디이",
@@ -740,11 +740,11 @@
   "CELO": {
     "name": "셀로",
     "symbol": "CELO",
-    "count": 3,
+    "count": 4,
     "entry_price": 91.7,
     "current_price": 91.7,
     "first_recommended_at": "2026-08-10 15:33:09",
-    "last_recommended_at": "2026-08-10 15:42:54"
+    "last_recommended_at": "2026-08-10 15:52:50"
   },
   "BIRB": {
     "name": "문버드",
