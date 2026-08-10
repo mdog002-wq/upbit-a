@@ -122,12 +122,12 @@
   "LSK": {
     "name": "리스크",
     "symbol": "LSK",
-    "count": 3,
+    "count": 4,
     "top10_count": 2,
     "entry_price": 108.0,
     "current_price": 107.0,
     "first_recommended_at": "2026-08-09 23:03:34",
-    "last_recommended_at": "2026-08-10 16:12:35"
+    "last_recommended_at": "2026-08-10 16:17:33"
   },
   "ZKP": {
     "name": "지케이패스",
@@ -551,11 +551,11 @@
   "A": {
     "name": "볼타",
     "symbol": "A",
-    "count": 5,
+    "count": 6,
     "entry_price": 91.3,
-    "current_price": 91.1,
+    "current_price": 91.4,
     "first_recommended_at": "2026-08-10 11:24:53",
-    "last_recommended_at": "2026-08-10 15:57:36"
+    "last_recommended_at": "2026-08-10 16:17:33"
   },
   "USDE": {
     "name": "유에스디이",
@@ -803,11 +803,11 @@
   "COMP": {
     "name": "컴파운드",
     "symbol": "COMP",
-    "count": 1,
+    "count": 2,
     "entry_price": 23740.0,
     "current_price": 23740.0,
     "first_recommended_at": "2026-08-10 16:12:35",
-    "last_recommended_at": "2026-08-10 16:12:35"
+    "last_recommended_at": "2026-08-10 16:17:33"
   },
   "ORDER": {
     "name": "오덜리",
