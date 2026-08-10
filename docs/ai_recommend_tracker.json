@@ -32,12 +32,12 @@
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 17,
+    "count": 18,
     "top10_count": 22,
     "entry_price": 1929.0,
-    "current_price": 1933.0,
+    "current_price": 1937.0,
     "first_recommended_at": "2026-08-09 22:13:34",
-    "last_recommended_at": "2026-08-10 14:47:52"
+    "last_recommended_at": "2026-08-10 15:03:02"
   },
   "XCN": {
     "name": "오닉스코인",
@@ -382,12 +382,12 @@
   "AAVE": {
     "name": "에이브",
     "symbol": "AAVE",
-    "count": 1,
+    "count": 2,
     "top10_count": 1,
     "entry_price": 128800.0,
-    "current_price": 128000.0,
+    "current_price": 129400.0,
     "first_recommended_at": "2026-08-10 01:13:35",
-    "last_recommended_at": "2026-08-10 01:13:35"
+    "last_recommended_at": "2026-08-10 15:03:02"
   },
   "MET2": {
     "name": "메테오라",
@@ -596,11 +596,11 @@
   "ICP": {
     "name": "인터넷컴퓨터",
     "symbol": "ICP",
-    "count": 2,
+    "count": 3,
     "entry_price": 3062.0,
-    "current_price": 3100.0,
+    "current_price": 3095.0,
     "first_recommended_at": "2026-08-10 13:40:08",
-    "last_recommended_at": "2026-08-10 14:57:47"
+    "last_recommended_at": "2026-08-10 15:03:02"
   },
   "ONG": {
     "name": "온톨로지가스",
