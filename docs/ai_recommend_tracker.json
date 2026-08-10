@@ -32,12 +32,12 @@
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 19,
+    "count": 20,
     "top10_count": 22,
     "entry_price": 1929.0,
     "current_price": 1937.0,
     "first_recommended_at": "2026-08-09 22:13:34",
-    "last_recommended_at": "2026-08-10 15:07:44"
+    "last_recommended_at": "2026-08-10 15:12:52"
   },
   "XCN": {
     "name": "오닉스코인",
@@ -691,5 +691,23 @@
     "current_price": 279.0,
     "first_recommended_at": "2026-08-10 15:07:44",
     "last_recommended_at": "2026-08-10 15:07:44"
+  },
+  "OP": {
+    "name": "옵티미즘",
+    "symbol": "OP",
+    "count": 1,
+    "entry_price": 127.0,
+    "current_price": 127.0,
+    "first_recommended_at": "2026-08-10 15:12:52",
+    "last_recommended_at": "2026-08-10 15:12:52"
+  },
+  "ONDO": {
+    "name": "온도파이낸스",
+    "symbol": "ONDO",
+    "count": 1,
+    "entry_price": 496.0,
+    "current_price": 496.0,
+    "first_recommended_at": "2026-08-10 15:12:52",
+    "last_recommended_at": "2026-08-10 15:12:52"
   }
 }
