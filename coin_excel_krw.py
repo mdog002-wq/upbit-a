@@ -99,13 +99,29 @@ def auto_tune_weights_and_evaluate_history():
     now_time = datetime.datetime.now()
 
     for entry in history:
-        entry_time = datetime.datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S")
+        # entry가 딕셔너리가 아닌 경우(문자열 등) 예외 처리하여 건너뜀
+        if not isinstance(entry, dict):
+            continue
+
+        timestamp_str = entry.get("timestamp")
+        if not timestamp_str:
+            continue
+
+        try:
+            entry_time = datetime.datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
+        except ValueError:
+            continue
+
         time_diff_hours = (now_time - entry_time).total_seconds() / 3600.0
 
         # 추천 후 12시간 이상 경과한 미검증 항목 결과 추적
         if time_diff_hours >= 12 and not entry.get("evaluated", False):
             for coin in entry.get("recommended_coins", []):
+                if not isinstance(coin, dict): continue
+                
                 symbol = coin.get("symbol")
+                if not symbol: continue
+
                 ticker = f"KRW-{symbol}"
                 df = pyupbit.get_ohlcv(ticker, interval="minute60", count=24)
                 if df is None or df.empty: continue
@@ -119,7 +135,6 @@ def auto_tune_weights_and_evaluate_history():
 
                 is_success = max_return >= 3.0 and min_return >= -2.0
 
-                # 승리 시 수급/눌림목 가중치 상승, 실패 시 감소 (자율진화 조정)
                 learning_rate = 0.01
                 if is_success:
                     weights["w_vol_cliff"] = round(weights.get("w_vol_cliff", 0.25) + learning_rate, 3)
@@ -134,7 +149,6 @@ def auto_tune_weights_and_evaluate_history():
             updated = True
 
     if updated:
-        # 가중치 정규화 (합이 1.0이 되도록)
         total_w = sum(weights.values())
         normalized_weights = {k: round(v / total_w, 3) for k, v in weights.items()}
         save_json(WEIGHTS_FILE, normalized_weights)
