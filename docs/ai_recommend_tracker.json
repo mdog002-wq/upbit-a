@@ -322,12 +322,12 @@
   "TFUEL": {
     "name": "쎄타퓨엘",
     "symbol": "TFUEL",
-    "count": 3,
+    "count": 4,
     "top10_count": 5,
     "entry_price": 10.6,
-    "current_price": 10.7,
+    "current_price": 10.6,
     "first_recommended_at": "2026-08-10 01:03:26",
-    "last_recommended_at": "2026-08-10 02:38:28"
+    "last_recommended_at": "2026-08-10 17:32:52"
   },
   "QTUM": {
     "name": "퀀텀",
@@ -713,11 +713,11 @@
   "SEI": {
     "name": "세이",
     "symbol": "SEI",
-    "count": 2,
+    "count": 3,
     "entry_price": 58.7,
-    "current_price": 58.6,
+    "current_price": 59.0,
     "first_recommended_at": "2026-08-10 15:22:44",
-    "last_recommended_at": "2026-08-10 15:27:42"
+    "last_recommended_at": "2026-08-10 17:32:52"
   },
   "PYTH": {
     "name": "피스네트워크",
@@ -862,5 +862,14 @@
     "current_price": 3808.0,
     "first_recommended_at": "2026-08-10 17:17:48",
     "last_recommended_at": "2026-08-10 17:17:48"
+  },
+  "CFG": {
+    "name": "센트리퓨즈",
+    "symbol": "CFG",
+    "count": 1,
+    "entry_price": 235.0,
+    "current_price": 235.0,
+    "first_recommended_at": "2026-08-10 17:32:52",
+    "last_recommended_at": "2026-08-10 17:32:52"
   }
 }
