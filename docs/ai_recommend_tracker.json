@@ -322,12 +322,12 @@
   "TFUEL": {
     "name": "쎄타퓨엘",
     "symbol": "TFUEL",
-    "count": 6,
+    "count": 7,
     "top10_count": 5,
     "entry_price": 10.6,
     "current_price": 10.7,
     "first_recommended_at": "2026-08-10 01:03:26",
-    "last_recommended_at": "2026-08-10 17:42:25"
+    "last_recommended_at": "2026-08-10 17:47:33"
   },
   "QTUM": {
     "name": "퀀텀",
@@ -740,11 +740,11 @@
   "CELO": {
     "name": "셀로",
     "symbol": "CELO",
-    "count": 4,
+    "count": 5,
     "entry_price": 91.7,
-    "current_price": 91.7,
+    "current_price": 92.1,
     "first_recommended_at": "2026-08-10 15:33:09",
-    "last_recommended_at": "2026-08-10 15:52:50"
+    "last_recommended_at": "2026-08-10 17:47:33"
   },
   "BIRB": {
     "name": "문버드",
@@ -889,5 +889,14 @@
     "current_price": 17150.0,
     "first_recommended_at": "2026-08-10 17:42:25",
     "last_recommended_at": "2026-08-10 17:42:25"
+  },
+  "MLK": {
+    "name": "밀크",
+    "symbol": "MLK",
+    "count": 1,
+    "entry_price": 45.1,
+    "current_price": 45.1,
+    "first_recommended_at": "2026-08-10 17:47:33",
+    "last_recommended_at": "2026-08-10 17:47:33"
   }
 }
