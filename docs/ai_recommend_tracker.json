@@ -560,11 +560,11 @@
   "USDE": {
     "name": "유에스디이",
     "symbol": "USDE",
-    "count": 1,
+    "count": 2,
     "entry_price": 1413.0,
     "current_price": 1413.0,
     "first_recommended_at": "2026-08-10 11:24:53",
-    "last_recommended_at": "2026-08-10 11:24:53"
+    "last_recommended_at": "2026-08-10 14:52:41"
   },
   "KNC": {
     "name": "카이버네트워크",
@@ -641,11 +641,11 @@
   "UNI": {
     "name": "유니스왑",
     "symbol": "UNI",
-    "count": 2,
+    "count": 3,
     "entry_price": 5725.0,
     "current_price": 5725.0,
     "first_recommended_at": "2026-08-10 14:42:53",
-    "last_recommended_at": "2026-08-10 14:47:52"
+    "last_recommended_at": "2026-08-10 14:52:41"
   },
   "INJ": {
     "name": "인젝티브",
@@ -655,5 +655,14 @@
     "current_price": 6225.0,
     "first_recommended_at": "2026-08-10 14:47:52",
     "last_recommended_at": "2026-08-10 14:47:52"
+  },
+  "SNT": {
+    "name": "스테이터스네트워크토큰",
+    "symbol": "SNT",
+    "count": 1,
+    "entry_price": 7.65,
+    "current_price": 7.65,
+    "first_recommended_at": "2026-08-10 14:52:41",
+    "last_recommended_at": "2026-08-10 14:52:41"
   }
 }
