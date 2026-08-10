@@ -551,11 +551,11 @@
   "A": {
     "name": "볼타",
     "symbol": "A",
-    "count": 1,
+    "count": 2,
     "entry_price": 91.3,
-    "current_price": 91.3,
+    "current_price": 91.0,
     "first_recommended_at": "2026-08-10 11:24:53",
-    "last_recommended_at": "2026-08-10 11:24:53"
+    "last_recommended_at": "2026-08-10 15:42:54"
   },
   "USDE": {
     "name": "유에스디이",
@@ -740,11 +740,11 @@
   "CELO": {
     "name": "셀로",
     "symbol": "CELO",
-    "count": 2,
+    "count": 3,
     "entry_price": 91.7,
-    "current_price": 92.1,
+    "current_price": 91.7,
     "first_recommended_at": "2026-08-10 15:33:09",
-    "last_recommended_at": "2026-08-10 15:37:47"
+    "last_recommended_at": "2026-08-10 15:42:54"
   },
   "BIRB": {
     "name": "문버드",
@@ -763,5 +763,14 @@
     "current_price": 98.4,
     "first_recommended_at": "2026-08-10 15:37:47",
     "last_recommended_at": "2026-08-10 15:37:47"
+  },
+  "STEEM": {
+    "name": "스팀",
+    "symbol": "STEEM",
+    "count": 1,
+    "entry_price": 52.3,
+    "current_price": 52.3,
+    "first_recommended_at": "2026-08-10 15:42:54",
+    "last_recommended_at": "2026-08-10 15:42:54"
   }
 }
