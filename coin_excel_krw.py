@@ -250,6 +250,35 @@ def generate_gemini_analysis(df_result):
         return f"AI 분석 리포트 (상위: {', '.join(top_coins)})", default_rec
 
 
+# [신규 추가] 구글 뉴스 RSS를 이용한 추천 종목 뉴스 수집 함수
+def fetch_crypto_news(rec_coins, max_items_per_coin=2):
+    news_data = {}
+    for coin in rec_coins:
+        coin_name = coin.get("name") or coin.get("coin_name")
+        symbol = coin.get("symbol")
+        if not coin_name:
+            continue
+
+        query = f"{coin_name} 가상자산"
+        encoded_query = urllib.parse.quote(query)
+        rss_url = f"https://news.google.com/rss/search?q={encoded_query}&hl=ko&gl=KR&ceid=KR:ko"
+
+        try:
+            feed = feedparser.parse(rss_url)
+            items = []
+            for entry in feed.entries[:max_items_per_coin]:
+                items.append({
+                    "title": entry.get("title", ""),
+                    "link": entry.get("link", "#")
+                })
+            if items:
+                news_data[f"{coin_name} ({symbol})"] = items
+        except Exception as e:
+            print(f"⚠️ {coin_name} 뉴스 수집 실패: {e}")
+
+    return news_data
+
+
 def update_ai_tracker(rec_coins, current_price_map):
     history = {}
     if os.path.exists(AI_TRACKER_HISTORY_FILE):
@@ -271,7 +300,7 @@ def update_ai_tracker(rec_coins, current_price_map):
             history[sym]['last_recommended_at'] = now_str
         else:
             history[sym] = {
-                "name": coin['name'], "symbol": sym, "count": 1,
+                "name": coin.get('name', sym), "symbol": sym, "count": 1,
                 "entry_price": c_price, "current_price": c_price,
                 "first_recommended_at": now_str, "last_recommended_at": now_str
             }
@@ -307,7 +336,7 @@ def update_warning_tracker(df_result):
         
     return warning_coins
 
-# [수정] 대시보드 HTML 생성 함수
+
 def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data=None, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
     if news_data is None:
@@ -337,7 +366,7 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
 
     monitored_symbols = {item['symbol'] for item in tracking_list}
 
-    # 3. 실시간 속보 데이터만 작성 (경고 메시지 제외)
+    # 3. 실시간 속보 데이터 작성
     news_items = []
     if news_data:
         for coin, items in news_data.items():
@@ -411,7 +440,7 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
     kst_tz = datetime.timezone(datetime.timedelta(hours=9))
     updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
 
-    # 6. HTML 레이아웃 (좌측 패널: 실시간 속보 / AI 분석 리포트만 배치)
+    # 6. HTML 레이아웃
     html_template = (
         '<!DOCTYPE html>\n'
         '<html lang="ko">\n'
@@ -548,6 +577,7 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
     print(f"🎨 [대시보드] 속보 단일 구성 대시보드 생성 완료 (`{html_path}`)!")
     return html_content
 
+
 def main():
     print("🚀 우량주 매집 데이터 수집 및 분석 시작...")
     tickers_info = get_krw_upbit_tickers()
@@ -577,7 +607,9 @@ def main():
     ai_report, rec_coins = generate_gemini_analysis(df_res)
     tracker_data = update_ai_tracker(rec_coins, current_price_map)
 
-    generate_repo1_dashboard_html(df_res, ai_report, tracker_data, html_path="docs/index.html")
+    # [수정] 뉴스 데이터 수집 후 대시보드 생성 함수에 전달
+    news_data = fetch_crypto_news(rec_coins)
+    generate_repo1_dashboard_html(df_res, ai_report, tracker_data, news_data=news_data, html_path="docs/index.html")
     print("✅ 레포1 매집 분석 및 대시보드 생성 완료!")
 
 
