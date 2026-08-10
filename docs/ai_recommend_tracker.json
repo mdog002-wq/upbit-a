@@ -192,12 +192,12 @@
   "BCH": {
     "name": "비트코인캐시",
     "symbol": "BCH",
-    "count": 2,
+    "count": 3,
     "top10_count": 3,
     "entry_price": 305200.0,
-    "current_price": 304000.0,
+    "current_price": 304900.0,
     "first_recommended_at": "2026-08-10 00:13:26",
-    "last_recommended_at": "2026-08-10 14:42:53"
+    "last_recommended_at": "2026-08-10 15:47:22"
   },
   "JTO": {
     "name": "지토",
@@ -422,12 +422,12 @@
   "BLAST": {
     "name": "블라스트",
     "symbol": "BLAST",
-    "count": 4,
+    "count": 5,
     "top10_count": 6,
     "entry_price": 0.354,
     "current_price": 0.354,
     "first_recommended_at": "2026-08-10 01:33:17",
-    "last_recommended_at": "2026-08-10 01:48:25"
+    "last_recommended_at": "2026-08-10 15:47:22"
   },
   "VTHO": {
     "name": "비토르토큰",
@@ -551,11 +551,11 @@
   "A": {
     "name": "볼타",
     "symbol": "A",
-    "count": 2,
+    "count": 3,
     "entry_price": 91.3,
-    "current_price": 91.0,
+    "current_price": 91.1,
     "first_recommended_at": "2026-08-10 11:24:53",
-    "last_recommended_at": "2026-08-10 15:42:54"
+    "last_recommended_at": "2026-08-10 15:47:22"
   },
   "USDE": {
     "name": "유에스디이",
