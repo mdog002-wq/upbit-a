@@ -18,6 +18,9 @@ jobs:
       contents: write
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Check Blocked Time Window (02:00 ~ 02:49 KST)
         id: check_time
         run: |
