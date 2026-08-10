@@ -505,7 +505,8 @@ def generate_dashboard_html(df_result, ai_report, tracking_monitor_data, news_da
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
     print(f"🎨 [대시보드] HTML 생성 완료 (`{html_path}`)!")
-    return html_content    df_res = pd.DataFrame(results).sort_values(by="종합예측점수", ascending=False)
+    return html_content
+    df_res = pd.DataFrame(results).sort_values(by="종합예측점수", ascending=False)
     ai_report, rec_coins = generate_gemini_analysis(df_res)
     tracker_data = update_ai_tracker(rec_coins, current_price_map)
     
