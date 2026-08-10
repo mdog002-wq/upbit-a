@@ -4,13 +4,6 @@
     "name": "지토",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 18:42:51"
-  },
-  {
-    "symbol": "USDC",
-    "name": "유에스디코인",
-    "warning_type": "OVERBOUGHT",
-    "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 18:42:51"
+    "updated_at": "2026-08-10 18:47:40"
   }
 ]
