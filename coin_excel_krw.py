@@ -301,6 +301,8 @@ def save_tracker_history(rec_coins, df_res=None):
     print("✅ AI 추천 이력이 성공적으로 저장되었습니다.")
 
 
+# ... (상단 기존 Import 및 클래스, 함수 정의 생략) ...
+
 def main():
     # 1. 이전 추천 백테스트 및 가중치 스스로 학습
     auto_tune_weights_and_evaluate_history()
@@ -322,11 +324,22 @@ def main():
     df_res = pd.DataFrame(results).sort_values(by="종합예측점수", ascending=False)
     ai_report_md, rec_coins = generate_gemini_analysis(df_res)
 
+    # 마크다운 리포트 저장
     with open(REPORT_MD_FILE, "w", encoding="utf-8") as f:
         f.write(ai_report_md)
 
+    # 추천 트래커 히스토리 저장
     save_tracker_history(rec_coins, df_res)
+
+    # ------------------------------------------------------------
+    # 🎯 [핵심 추가] 대시보드 웹 화면(index.html) 연동용 JSON 저장
+    # ------------------------------------------------------------
+    dashboard_json_path = os.path.join(DOCS_DIR, "dashboard_data.json")
+    save_json(dashboard_json_path, df_res.to_dict(orient="records"))
+    print("🌐 [대시보드 연동 완료] docs/dashboard_data.json 저장 성공!")
+
     print(f"✅ 정밀 분석 및 자율 저장 완료! (추천 코인: {len(rec_coins)}개)")
 
 if __name__ == "__main__":
     main()
+
