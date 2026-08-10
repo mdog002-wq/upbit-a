@@ -794,11 +794,11 @@
   "SPK": {
     "name": "스파크",
     "symbol": "SPK",
-    "count": 2,
+    "count": 3,
     "entry_price": 20.7,
     "current_price": 20.7,
     "first_recommended_at": "2026-08-10 16:07:53",
-    "last_recommended_at": "2026-08-10 17:57:37"
+    "last_recommended_at": "2026-08-10 18:02:52"
   },
   "COMP": {
     "name": "컴파운드",
@@ -875,11 +875,11 @@
   "G": {
     "name": "그래비티",
     "symbol": "G",
-    "count": 1,
+    "count": 2,
     "entry_price": 5.15,
-    "current_price": 5.15,
+    "current_price": 5.14,
     "first_recommended_at": "2026-08-10 17:42:25",
-    "last_recommended_at": "2026-08-10 17:42:25"
+    "last_recommended_at": "2026-08-10 18:02:52"
   },
   "VVV": {
     "name": "베니스토큰",
@@ -907,5 +907,14 @@
     "current_price": 436.0,
     "first_recommended_at": "2026-08-10 17:52:50",
     "last_recommended_at": "2026-08-10 17:52:50"
+  },
+  "AZTEC": {
+    "name": "아즈텍",
+    "symbol": "AZTEC",
+    "count": 1,
+    "entry_price": 19.3,
+    "current_price": 19.3,
+    "first_recommended_at": "2026-08-10 18:02:52",
+    "last_recommended_at": "2026-08-10 18:02:52"
   }
 }
