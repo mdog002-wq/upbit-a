@@ -12,12 +12,12 @@
   "ELF": {
     "name": "엘프",
     "symbol": "ELF",
-    "count": 5,
+    "count": 6,
     "top10_count": 7,
     "entry_price": 82.8,
-    "current_price": 82.9,
+    "current_price": 82.4,
     "first_recommended_at": "2026-08-09 22:03:22",
-    "last_recommended_at": "2026-08-09 23:53:22"
+    "last_recommended_at": "2026-08-10 12:17:29"
   },
   "XTZ": {
     "name": "테조스",
@@ -292,12 +292,12 @@
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 3,
+    "count": 4,
     "top10_count": 2,
     "entry_price": 119.0,
     "current_price": 119.0,
     "first_recommended_at": "2026-08-10 00:53:21",
-    "last_recommended_at": "2026-08-10 12:12:47"
+    "last_recommended_at": "2026-08-10 12:17:29"
   },
   "RAY": {
     "name": "레이디움",
@@ -587,10 +587,10 @@
   "GRT": {
     "name": "더그래프",
     "symbol": "GRT",
-    "count": 2,
+    "count": 3,
     "entry_price": 20.6,
     "current_price": 20.5,
     "first_recommended_at": "2026-08-10 12:07:41",
-    "last_recommended_at": "2026-08-10 12:12:47"
+    "last_recommended_at": "2026-08-10 12:17:29"
   }
 }
