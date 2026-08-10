@@ -32,12 +32,12 @@
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 18,
+    "count": 19,
     "top10_count": 22,
     "entry_price": 1929.0,
     "current_price": 1937.0,
     "first_recommended_at": "2026-08-09 22:13:34",
-    "last_recommended_at": "2026-08-10 15:03:02"
+    "last_recommended_at": "2026-08-10 15:07:44"
   },
   "XCN": {
     "name": "오닉스코인",
@@ -596,11 +596,11 @@
   "ICP": {
     "name": "인터넷컴퓨터",
     "symbol": "ICP",
-    "count": 3,
+    "count": 4,
     "entry_price": 3062.0,
-    "current_price": 3095.0,
+    "current_price": 3097.0,
     "first_recommended_at": "2026-08-10 13:40:08",
-    "last_recommended_at": "2026-08-10 15:03:02"
+    "last_recommended_at": "2026-08-10 15:07:44"
   },
   "ONG": {
     "name": "온톨로지가스",
@@ -682,5 +682,14 @@
     "current_price": 1409.0,
     "first_recommended_at": "2026-08-10 14:57:47",
     "last_recommended_at": "2026-08-10 14:57:47"
+  },
+  "ADA": {
+    "name": "에이다",
+    "symbol": "ADA",
+    "count": 1,
+    "entry_price": 279.0,
+    "current_price": 279.0,
+    "first_recommended_at": "2026-08-10 15:07:44",
+    "last_recommended_at": "2026-08-10 15:07:44"
   }
 }
