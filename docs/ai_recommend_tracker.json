@@ -272,12 +272,12 @@
   "WLFI": {
     "name": "월드리버티파이낸셜",
     "symbol": "WLFI",
-    "count": 2,
+    "count": 3,
     "top10_count": 4,
     "entry_price": 74.2,
     "current_price": 74.4,
     "first_recommended_at": "2026-08-10 00:48:07",
-    "last_recommended_at": "2026-08-10 01:03:26"
+    "last_recommended_at": "2026-08-10 13:46:31"
   },
   "ETH": {
     "name": "이더리움",
@@ -578,11 +578,11 @@
   "CFX": {
     "name": "콘플럭스",
     "symbol": "CFX",
-    "count": 3,
+    "count": 4,
     "entry_price": 58.9,
-    "current_price": 59.1,
+    "current_price": 58.9,
     "first_recommended_at": "2026-08-10 11:51:48",
-    "last_recommended_at": "2026-08-10 12:12:47"
+    "last_recommended_at": "2026-08-10 13:46:31"
   },
   "GRT": {
     "name": "더그래프",
@@ -610,5 +610,14 @@
     "current_price": 60.4,
     "first_recommended_at": "2026-08-10 13:40:08",
     "last_recommended_at": "2026-08-10 13:40:08"
+  },
+  "LAYER": {
+    "name": "솔레이어",
+    "symbol": "LAYER",
+    "count": 1,
+    "entry_price": 85.7,
+    "current_price": 85.7,
+    "first_recommended_at": "2026-08-10 13:46:31",
+    "last_recommended_at": "2026-08-10 13:46:31"
   }
 }
