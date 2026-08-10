@@ -122,12 +122,12 @@
   "LSK": {
     "name": "리스크",
     "symbol": "LSK",
-    "count": 9,
+    "count": 10,
     "top10_count": 2,
     "entry_price": 108.0,
     "current_price": 107.0,
     "first_recommended_at": "2026-08-09 23:03:34",
-    "last_recommended_at": "2026-08-10 16:42:46"
+    "last_recommended_at": "2026-08-10 16:47:48"
   },
   "ZKP": {
     "name": "지케이패스",
@@ -767,20 +767,20 @@
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 2,
+    "count": 3,
     "entry_price": 52.3,
     "current_price": 52.5,
     "first_recommended_at": "2026-08-10 15:42:54",
-    "last_recommended_at": "2026-08-10 16:32:54"
+    "last_recommended_at": "2026-08-10 16:47:48"
   },
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 2,
+    "count": 3,
     "entry_price": 143.0,
     "current_price": 143.0,
     "first_recommended_at": "2026-08-10 16:03:06",
-    "last_recommended_at": "2026-08-10 16:07:53"
+    "last_recommended_at": "2026-08-10 16:47:48"
   },
   "IO": {
     "name": "아이오넷",

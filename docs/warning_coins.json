@@ -1,23 +1,30 @@
 [
   {
-    "symbol": "ALT",
-    "name": "알트레이어",
+    "symbol": "QUID",
+    "name": "스퀴드",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:42:48"
+    "updated_at": "2026-08-10 16:47:49"
   },
   {
     "symbol": "KITE",
     "name": "카이트",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:42:48"
+    "updated_at": "2026-08-10 16:47:49"
+  },
+  {
+    "symbol": "JTO",
+    "name": "지토",
+    "warning_type": "OVERBOUGHT",
+    "reason": "급락 위험 포착",
+    "updated_at": "2026-08-10 16:47:49"
   },
   {
     "symbol": "GRVT",
     "name": "그래비티토큰",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:42:48"
+    "updated_at": "2026-08-10 16:47:49"
   }
 ]
