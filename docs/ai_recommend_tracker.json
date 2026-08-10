@@ -538,5 +538,32 @@
     "current_price": 7.74,
     "first_recommended_at": "2026-08-10 02:08:21",
     "last_recommended_at": "2026-08-10 02:08:21"
+  },
+  "HUNT": {
+    "name": "헌트",
+    "symbol": "HUNT",
+    "count": 1,
+    "entry_price": 111.0,
+    "current_price": 111.0,
+    "first_recommended_at": "2026-08-10 11:24:53",
+    "last_recommended_at": "2026-08-10 11:24:53"
+  },
+  "A": {
+    "name": "볼타",
+    "symbol": "A",
+    "count": 1,
+    "entry_price": 91.3,
+    "current_price": 91.3,
+    "first_recommended_at": "2026-08-10 11:24:53",
+    "last_recommended_at": "2026-08-10 11:24:53"
+  },
+  "USDE": {
+    "name": "유에스디이",
+    "symbol": "USDE",
+    "count": 1,
+    "entry_price": 1413.0,
+    "current_price": 1413.0,
+    "first_recommended_at": "2026-08-10 11:24:53",
+    "last_recommended_at": "2026-08-10 11:24:53"
   }
 }
