@@ -1,23 +1,23 @@
 [
   {
-    "symbol": "JTO",
-    "name": "지토",
+    "symbol": "GRVT",
+    "name": "그래비티토큰",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 13:46:31"
+    "updated_at": "2026-08-10 14:37:30"
   },
   {
     "symbol": "CAP",
     "name": "캡",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 13:46:31"
+    "updated_at": "2026-08-10 14:37:30"
   },
   {
     "symbol": "META2",
     "name": "메타다오",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 13:46:31"
+    "updated_at": "2026-08-10 14:37:30"
   }
 ]

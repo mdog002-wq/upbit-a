@@ -32,12 +32,12 @@
   "PENDLE": {
     "name": "펜들",
     "symbol": "PENDLE",
-    "count": 14,
+    "count": 15,
     "top10_count": 22,
     "entry_price": 1929.0,
-    "current_price": 1916.0,
+    "current_price": 1933.0,
     "first_recommended_at": "2026-08-09 22:13:34",
-    "last_recommended_at": "2026-08-10 13:40:08"
+    "last_recommended_at": "2026-08-10 14:37:30"
   },
   "XCN": {
     "name": "오닉스코인",
@@ -619,5 +619,23 @@
     "current_price": 85.7,
     "first_recommended_at": "2026-08-10 13:46:31",
     "last_recommended_at": "2026-08-10 13:46:31"
+  },
+  "XLM": {
+    "name": "스텔라루멘",
+    "symbol": "XLM",
+    "count": 1,
+    "entry_price": 231.0,
+    "current_price": 231.0,
+    "first_recommended_at": "2026-08-10 14:37:30",
+    "last_recommended_at": "2026-08-10 14:37:30"
+  },
+  "ENA": {
+    "name": "에테나",
+    "symbol": "ENA",
+    "count": 1,
+    "entry_price": 125.0,
+    "current_price": 125.0,
+    "first_recommended_at": "2026-08-10 14:37:30",
+    "last_recommended_at": "2026-08-10 14:37:30"
   }
 }
