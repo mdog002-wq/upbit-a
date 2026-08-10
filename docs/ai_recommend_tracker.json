@@ -272,12 +272,12 @@
   "WLFI": {
     "name": "월드리버티파이낸셜",
     "symbol": "WLFI",
-    "count": 3,
+    "count": 4,
     "top10_count": 4,
     "entry_price": 74.2,
-    "current_price": 74.4,
+    "current_price": 74.5,
     "first_recommended_at": "2026-08-10 00:48:07",
-    "last_recommended_at": "2026-08-10 13:46:31"
+    "last_recommended_at": "2026-08-10 15:57:36"
   },
   "ETH": {
     "name": "이더리움",
@@ -551,11 +551,11 @@
   "A": {
     "name": "볼타",
     "symbol": "A",
-    "count": 4,
+    "count": 5,
     "entry_price": 91.3,
     "current_price": 91.1,
     "first_recommended_at": "2026-08-10 11:24:53",
-    "last_recommended_at": "2026-08-10 15:52:50"
+    "last_recommended_at": "2026-08-10 15:57:36"
   },
   "USDE": {
     "name": "유에스디이",
@@ -722,11 +722,11 @@
   "PYTH": {
     "name": "피스네트워크",
     "symbol": "PYTH",
-    "count": 1,
+    "count": 2,
     "entry_price": 60.1,
-    "current_price": 60.1,
+    "current_price": 60.4,
     "first_recommended_at": "2026-08-10 15:22:44",
-    "last_recommended_at": "2026-08-10 15:22:44"
+    "last_recommended_at": "2026-08-10 15:57:36"
   },
   "MON": {
     "name": "모나드",
