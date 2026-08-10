@@ -4,27 +4,13 @@
     "name": "스퀴드",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:52:41"
-  },
-  {
-    "symbol": "KITE",
-    "name": "카이트",
-    "warning_type": "OVERBOUGHT",
-    "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:52:41"
+    "updated_at": "2026-08-10 16:57:33"
   },
   {
     "symbol": "JTO",
     "name": "지토",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:52:41"
-  },
-  {
-    "symbol": "GRVT",
-    "name": "그래비티토큰",
-    "warning_type": "OVERBOUGHT",
-    "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:52:41"
+    "updated_at": "2026-08-10 16:57:33"
   }
 ]

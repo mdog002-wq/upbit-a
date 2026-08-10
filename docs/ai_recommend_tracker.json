@@ -122,12 +122,12 @@
   "LSK": {
     "name": "리스크",
     "symbol": "LSK",
-    "count": 11,
+    "count": 12,
     "top10_count": 2,
     "entry_price": 108.0,
     "current_price": 107.0,
     "first_recommended_at": "2026-08-09 23:03:34",
-    "last_recommended_at": "2026-08-10 16:52:40"
+    "last_recommended_at": "2026-08-10 16:57:32"
   },
   "ZKP": {
     "name": "지케이패스",
@@ -242,12 +242,12 @@
   "XPL": {
     "name": "플라즈마",
     "symbol": "XPL",
-    "count": 1,
+    "count": 2,
     "top10_count": 1,
     "entry_price": 111.0,
-    "current_price": 109.0,
+    "current_price": 113.0,
     "first_recommended_at": "2026-08-10 00:33:38",
-    "last_recommended_at": "2026-08-10 00:33:38"
+    "last_recommended_at": "2026-08-10 16:57:32"
   },
   "RENDER": {
     "name": "렌더토큰",
@@ -767,11 +767,11 @@
   "STEEM": {
     "name": "스팀",
     "symbol": "STEEM",
-    "count": 3,
+    "count": 4,
     "entry_price": 52.3,
     "current_price": 52.5,
     "first_recommended_at": "2026-08-10 15:42:54",
-    "last_recommended_at": "2026-08-10 16:47:48"
+    "last_recommended_at": "2026-08-10 16:57:32"
   },
   "JST": {
     "name": "저스트",
