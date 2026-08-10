@@ -4,20 +4,13 @@
     "name": "알트레이어",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:32:55"
+    "updated_at": "2026-08-10 16:37:40"
   },
   {
-    "symbol": "KITE",
-    "name": "카이트",
+    "symbol": "JTO",
+    "name": "지토",
     "warning_type": "OVERBOUGHT",
     "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:32:55"
-  },
-  {
-    "symbol": "GRVT",
-    "name": "그래비티토큰",
-    "warning_type": "OVERBOUGHT",
-    "reason": "급락 위험 포착",
-    "updated_at": "2026-08-10 16:32:55"
+    "updated_at": "2026-08-10 16:37:40"
   }
 ]
