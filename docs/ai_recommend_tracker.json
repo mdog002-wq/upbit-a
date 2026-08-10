@@ -292,12 +292,12 @@
   "1INCH": {
     "name": "1인치네트워크",
     "symbol": "1INCH",
-    "count": 2,
+    "count": 3,
     "top10_count": 2,
     "entry_price": 119.0,
-    "current_price": 118.0,
+    "current_price": 119.0,
     "first_recommended_at": "2026-08-10 00:53:21",
-    "last_recommended_at": "2026-08-10 00:58:01"
+    "last_recommended_at": "2026-08-10 12:12:47"
   },
   "RAY": {
     "name": "레이디움",
@@ -578,19 +578,19 @@
   "CFX": {
     "name": "콘플럭스",
     "symbol": "CFX",
-    "count": 2,
+    "count": 3,
     "entry_price": 58.9,
     "current_price": 59.1,
     "first_recommended_at": "2026-08-10 11:51:48",
-    "last_recommended_at": "2026-08-10 12:07:41"
+    "last_recommended_at": "2026-08-10 12:12:47"
   },
   "GRT": {
     "name": "더그래프",
     "symbol": "GRT",
-    "count": 1,
+    "count": 2,
     "entry_price": 20.6,
-    "current_price": 20.6,
+    "current_price": 20.5,
     "first_recommended_at": "2026-08-10 12:07:41",
-    "last_recommended_at": "2026-08-10 12:07:41"
+    "last_recommended_at": "2026-08-10 12:12:47"
   }
 }
