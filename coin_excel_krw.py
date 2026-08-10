@@ -442,7 +442,7 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
         ' <div class="card p-3 shadow-sm mb-4">\n'
         ' <div class="row align-items-center g-3">\n'
         ' <div class="col-md-4 col-lg-3">\n'
-        ' <a href="https://upbit-r.onrender.com" target="_blank" rel="noopener noreferrer" class="btn btn-render-link w-100 py-2 shadow-sm d-flex align-items-center justify-content-center gap-2">\n'
+        ' <a href="https://upbit-r.onrender.com" target="_self" rel="noopener noreferrer" class="btn btn-render-link w-100 py-2 shadow-sm d-flex align-items-center justify-content-center gap-2">\n'
         ' <i class="fa-solid fa-paper-plane"></i>\n'
         ' <span>Upbit Realtime Server (Render)</span>\n'
         ' </a>\n'
