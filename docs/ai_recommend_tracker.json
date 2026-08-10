@@ -776,10 +776,28 @@
   "JST": {
     "name": "저스트",
     "symbol": "JST",
-    "count": 1,
+    "count": 2,
     "entry_price": 143.0,
     "current_price": 143.0,
     "first_recommended_at": "2026-08-10 16:03:06",
-    "last_recommended_at": "2026-08-10 16:03:06"
+    "last_recommended_at": "2026-08-10 16:07:53"
+  },
+  "IO": {
+    "name": "아이오넷",
+    "symbol": "IO",
+    "count": 1,
+    "entry_price": 179.0,
+    "current_price": 179.0,
+    "first_recommended_at": "2026-08-10 16:07:53",
+    "last_recommended_at": "2026-08-10 16:07:53"
+  },
+  "SPK": {
+    "name": "스파크",
+    "symbol": "SPK",
+    "count": 1,
+    "entry_price": 20.7,
+    "current_price": 20.7,
+    "first_recommended_at": "2026-08-10 16:07:53",
+    "last_recommended_at": "2026-08-10 16:07:53"
   }
 }
