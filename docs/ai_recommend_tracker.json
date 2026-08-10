@@ -482,12 +482,12 @@
   "ALT": {
     "name": "알트레이어",
     "symbol": "ALT",
-    "count": 1,
+    "count": 2,
     "top10_count": 4,
     "entry_price": 8.43,
-    "current_price": 8.47,
+    "current_price": 8.5,
     "first_recommended_at": "2026-08-10 01:53:15",
-    "last_recommended_at": "2026-08-10 01:53:15"
+    "last_recommended_at": "2026-08-10 11:51:48"
   },
   "TAIKO": {
     "name": "타이코",
@@ -565,5 +565,23 @@
     "current_price": 1413.0,
     "first_recommended_at": "2026-08-10 11:24:53",
     "last_recommended_at": "2026-08-10 11:24:53"
+  },
+  "KNC": {
+    "name": "카이버네트워크",
+    "symbol": "KNC",
+    "count": 1,
+    "entry_price": 150.0,
+    "current_price": 150.0,
+    "first_recommended_at": "2026-08-10 11:51:48",
+    "last_recommended_at": "2026-08-10 11:51:48"
+  },
+  "CFX": {
+    "name": "콘플럭스",
+    "symbol": "CFX",
+    "count": 1,
+    "entry_price": 58.9,
+    "current_price": 58.9,
+    "first_recommended_at": "2026-08-10 11:51:48",
+    "last_recommended_at": "2026-08-10 11:51:48"
   }
 }
