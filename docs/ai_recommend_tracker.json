@@ -122,12 +122,12 @@
   "LSK": {
     "name": "리스크",
     "symbol": "LSK",
-    "count": 8,
+    "count": 9,
     "top10_count": 2,
     "entry_price": 108.0,
     "current_price": 107.0,
     "first_recommended_at": "2026-08-09 23:03:34",
-    "last_recommended_at": "2026-08-10 16:37:39"
+    "last_recommended_at": "2026-08-10 16:42:46"
   },
   "ZKP": {
     "name": "지케이패스",
@@ -272,12 +272,12 @@
   "WLFI": {
     "name": "월드리버티파이낸셜",
     "symbol": "WLFI",
-    "count": 5,
+    "count": 6,
     "top10_count": 4,
     "entry_price": 74.2,
-    "current_price": 74.5,
+    "current_price": 74.6,
     "first_recommended_at": "2026-08-10 00:48:07",
-    "last_recommended_at": "2026-08-10 16:03:06"
+    "last_recommended_at": "2026-08-10 16:42:46"
   },
   "ETH": {
     "name": "이더리움",
@@ -835,5 +835,14 @@
     "current_price": 1143.0,
     "first_recommended_at": "2026-08-10 16:37:39",
     "last_recommended_at": "2026-08-10 16:37:39"
+  },
+  "SKR": {
+    "name": "시커",
+    "symbol": "SKR",
+    "count": 1,
+    "entry_price": 11.3,
+    "current_price": 11.3,
+    "first_recommended_at": "2026-08-10 16:42:46",
+    "last_recommended_at": "2026-08-10 16:42:46"
   }
 }
