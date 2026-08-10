@@ -1,4 +1,4 @@
-name: 업비트 코인 매집점수 분석 및 메일 발송
+name: 업비트 우량주 매집 분석 및 데이터 수집
 
 on:
   workflow_dispatch:
@@ -21,7 +21,6 @@ jobs:
       - name: Check Blocked Time Window (02:00 ~ 02:14 KST)
         id: check_time
         run: |
-          # 한국 시간(KST) 기준 새벽 02:00 ~ 02:59 전체 차단
           HOUR=$(TZ="Asia/Seoul" date +%k | tr -d ' ')
           echo "Current KST Hour: ${HOUR}"
           
@@ -50,8 +49,8 @@ jobs:
           pip install pyupbit pandas numpy requests openpyxl tqdm google-genai oracledb redis paramiko tensorflow feedparser websockets
           pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
-      # 1단계: 백엔드 매집 분석 및 data/market_scan_result.json 생성
-      - name: 파이썬 분석 스크립트 실행 (Backend)
+      # 우량주 매집 분석 및 ai_recommend_tracker.json 생성
+      - name: 파이썬 매집 분석 스크립트 실행
         if: steps.check_time.outputs.is_blocked != 'true'
         env:
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
@@ -60,13 +59,11 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IS_MANUAL_RUN: ${{ github.event_name == 'workflow_dispatch' && 'true' || 'false' }}
         run: python coin_excel_krw.py
 
-      
-
-      # 3단계: data/ 및 docs/ 경로를 포함하여 대시보드 파일 전체 커밋/푸시
-      - name: 대시보드 및 AI 데이터 변경사항 통합 커밋 및 푸시
+      - name: 대시보드 및 AI 데이터 커밋 및 푸시
         if: steps.check_time.outputs.is_blocked != 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -76,12 +73,12 @@ jobs:
           git add docs/ data/ scan_history.csv cache/ ai_models/ 2>/dev/null || git add .
     
           if ! git diff --staged --quiet; then
-            git commit -m "🤖 [Bot] Update dashboard, AI models, and tracker data [skip ci]"
+            git commit -m "🤖 [Bot] Update analysis report & tracker data [skip ci]"
             git push origin main
           fi
 
-      # 4단계: 다른 레포지토리 연결 Dispatch
-      - name: Trigger Comprehensive Analysis Repository
+      # 레포1 완료 시 레포2(mdog002-wq/upbit) 실행 트리거 발송
+      - name: Trigger Comprehensive Analysis Repository (repo2)
         if: steps.check_time.outputs.is_blocked != 'true' && success()
         run: |
           curl -X POST \
