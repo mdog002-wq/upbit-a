@@ -282,12 +282,41 @@ def update_ai_tracker(rec_coins, current_price_map):
     return history
 
 
+# [추가] R 사이트 연동용 급락위험 종목 JSON 저장 함수
+WARNING_TRACKER_FILE = os.path.join(DOCS_DIR, "warning_coins.json")
+
+def update_warning_tracker(df_result):
+    warning_coins = []
+    if not df_result.empty:
+        for _, row in df_result.iterrows():
+            dump_risk = float(row.get('STGT_그래프덤핑위험(%)', 0.0))
+            rsi = float(row.get('RSI', 50.0))
+            
+            # 위험/급락 조건 충족 시 R 사이트 표식용으로 저장
+            if dump_risk >= 75.0 or rsi >= 80.0:
+                warning_coins.append({
+                    "symbol": row['심볼'],
+                    "name": row['코인명'],
+                    "warning_type": "DUMP_RISK" if dump_risk >= 75.0 else "OVERBOUGHT",
+                    "reason": row.get('아이스버그역산(고주파)', '급락 위험 포착'),
+                    "updated_at": datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
+    with open(WARNING_TRACKER_FILE, "w", encoding="utf-8") as f:
+        json.dump(warning_coins, f, ensure_ascii=False, indent=2)
+        
+    return warning_coins
+
+# [수정] 대시보드 HTML 생성 함수
 def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, news_data=None, html_path="docs/index.html"):
     os.makedirs(os.path.dirname(html_path), exist_ok=True)
     if news_data is None:
         news_data = {}
 
-    # tracking_monitor_data 구조 호환성 처리 (dict인 경우 list 변환)
+    # 1. R 사이트 전용 위험 종목 파일(warning_coins.json) 생성/업데이트
+    update_warning_tracker(df_result)
+
+    # 2. AI 추천 종목 모니터링 데이터 변환
     tracking_list = []
     if isinstance(tracking_monitor_data, dict):
         for sym, val in tracking_monitor_data.items():
@@ -307,17 +336,29 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
         tracking_list = tracking_monitor_data
 
     monitored_symbols = {item['symbol'] for item in tracking_list}
-    alerts = []
 
-    if not df_result.empty and 'STGT_그래프덤핑위험(%)' in df_result.columns:
-        for _, row in df_result.iterrows():
-            dump_risk = float(row.get('STGT_그래프덤핑위험(%)', 0.0))
-            if dump_risk >= 75.0:
-                alerts.append({"text": f"⚠️ {row['코인명']}({row['심볼']}) - {row.get('아이스버그역산(고주파)', '경고')}"})
+    # 3. 실시간 속보 데이터만 작성 (경고 메시지 제외)
+    news_items = []
+    if news_data:
+        for coin, items in news_data.items():
+            li_tags = ""
+            for item in items:
+                title = item.get("title", "")
+                link = item.get("link", "#")
+                li_tags += f'<li class="mb-1"><a href="{link}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark hover-primary">{title}</a></li>'
 
-    kst_tz = datetime.timezone(datetime.timedelta(hours=9))
-    updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
+            card_html = (
+                f'<div class="p-2 border rounded bg-light mb-2 shadow-sm">\n'
+                f' <div class="fw-bold text-primary mb-1" style="font-size: 0.85rem;"><i class="fa-solid fa-newspaper me-1"></i>{coin}</div>\n'
+                f' <ul class="mb-0 ps-3 small text-secondary">{li_tags}</ul>\n'
+                f'</div>'
+            )
+            news_items.append(card_html)
+        news_html = "\n".join(news_items)
+    else:
+        news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
 
+    # 4. 중앙 전체 코인 AI 예측 순위 테이블
     table_rows_list = []
     if not df_result.empty:
         for rank, (_, row) in enumerate(df_result.iterrows(), start=1):
@@ -341,38 +382,12 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
 
     all_coins_table_rows = "".join(table_rows_list) if table_rows_list else '<tr><td colspan="4" class="text-center text-muted py-3">분석된 종목이 없습니다.</td></tr>'
 
-    alert_items = []
-    for alert in alerts[:15]:
-        alert_text = alert.get('text', '')
-        alert_items.append(f'<div class="p-2 rounded bg-danger bg-opacity-10 border border-danger text-danger small fw-bold">{alert_text}</div>')
-    alerts_html = "\n".join(alert_items) if alert_items else '<div class="text-muted small text-center py-3">현재 주의/위험 종목이 없습니다.</div>'
-
-    news_items = []
-    if news_data:
-        for coin, items in news_data.items():
-            li_tags = ""
-            for item in items:
-                title = item.get("title", "")
-                link = item.get("link", "#")
-                li_tags += f'<li class="mb-1"><a href="{link}" target="_blank" rel="noopener noreferrer" class="text-decoration-none text-dark hover-primary">{title}</a></li>'
-
-            card_html = (
-                f'<div class="p-2 border rounded bg-light mb-2 shadow-sm">\n'
-                f' <div class="fw-bold text-primary mb-1" style="font-size: 0.85rem;"><i class="fa-solid fa-hashtag me-1"></i>{coin}</div>\n'
-                f' <ul class="mb-0 ps-3 small text-secondary">{li_tags}</ul>\n'
-                f'</div>'
-            )
-            news_items.append(card_html)
-        news_html = "\n".join(news_items)
-    else:
-        news_html = '<div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>'
-
+    # 5. 우측 AI 추천 종목 카드
     tracking_items = []
     for item in tracking_list:
         p_rate = item.get('profit_rate', 0.0)
         rate_color = "text-danger" if p_rate > 0 else ("text-primary" if p_rate < 0 else "text-dark")
         sign = "+" if p_rate > 0 else ""
-        top10_cnt = item.get('top10_count', 0)
 
         card_html = (
             f'<div class="p-3 border rounded bg-white shadow-sm mb-2">\n'
@@ -380,7 +395,6 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
             f' <strong class="text-dark fs-6">🎯 {item["name"]} <span class="text-muted small">({item["symbol"]})</span></strong>\n'
             f' <div class="d-flex gap-1 align-items-center">\n'
             f' <span class="badge bg-primary rounded-pill">추천 {item["count"]}회</span>\n'
-            f' <span class="badge bg-primary rounded-pill">TOP10 {top10_cnt}회</span>\n'
             f' </div>\n'
             f' </div>\n'
             f' <div class="row g-1 small text-secondary mt-1">\n'
@@ -394,6 +408,10 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
         tracking_items.append(card_html)
     tracking_html = "\n".join(tracking_items) if tracking_items else '<div class="text-muted small text-center py-3">현재 모니터링 중인 AI 추천 종목이 없습니다.</div>'
 
+    kst_tz = datetime.timezone(datetime.timedelta(hours=9))
+    updated_time = datetime.datetime.now(kst_tz).strftime("%Y-%m-%d %H:%M:%S")
+
+    # 6. HTML 레이아웃 (좌측 패널: 실시간 속보 / AI 분석 리포트만 배치)
     html_template = (
         '<!DOCTYPE html>\n'
         '<html lang="ko">\n'
@@ -408,8 +426,7 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
         ' <style>\n'
         ' body { background-color: #f8fafc; color: #1e293b; font-family: \'Segoe UI\', Tahoma, Geneva, Verdana, sans-serif; }\n'
         ' .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }\n'
-        ' .alert-box { max-height: 140px; overflow-y: auto; }\n'
-        ' .news-box { max-height: 140px; overflow-y: auto; }\n'
+        ' .news-box { max-height: 250px; overflow-y: auto; }\n'
         ' .table-scroll-box { max-height: 650px; overflow-y: auto; }\n'
         ' .tracking-box { max-height: 750px; overflow-y: auto; }\n'
         ' .report-body h1, .report-body h2, .report-body h3 { font-size: 1rem; font-weight: bold; margin-top: 0.5rem; color: #0f172a; }\n'
@@ -421,8 +438,7 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
         '</head>\n'
         '<body>\n'
         ' <div id="mainDashboardApp" class="container-fluid my-4 px-4" style="max-width: 1700px;">\n'
-        ' \n'
-        ' <!-- 상단 헤더 & 컨트롤 영역 (Render 이동 버튼 & 종목 통합 검색창 복구) -->\n'
+        ' <!-- 상단 헤더 -->\n'
         ' <div class="card p-3 shadow-sm mb-4">\n'
         ' <div class="row align-items-center g-3">\n'
         ' <div class="col-md-4 col-lg-3">\n'
@@ -444,17 +460,11 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
         ' </div>\n'
         ' </div>\n'
         '\n'
-        ' <!-- 메인 콘텐츠 영역 -->\n'
+        ' <!-- 메인 레이아웃 -->\n'
         ' <div class="row g-4">\n'
-        ' <!-- 좌측 패널: 경고 / 속보 / AI 리포트 -->\n'
+        ' <!-- 좌측 패널: 실시간 속보 / AI 리포트 -->\n'
         ' <div class="col-lg-3">\n'
         ' <div class="d-flex flex-column gap-3">\n'
-        ' <div class="card p-3 shadow-sm">\n'
-        ' <h6 class="fw-bold text-danger mb-3"><i class="fa-solid fa-triangle-exclamation me-1"></i> 실시간 급락/위험 경고</h6>\n'
-        ' <div class="alert-box d-flex flex-column gap-2">\n'
-        ' __ALERTS_HTML__\n'
-        ' </div>\n'
-        ' </div>\n'
         ' <div class="card p-3 shadow-sm">\n'
         ' <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보</h6>\n'
         ' <div class="news-box d-flex flex-column gap-2">\n'
@@ -463,12 +473,12 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
         ' </div>\n'
         ' <div class="card p-3 shadow-sm">\n'
         ' <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트</h6>\n'
-        ' <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 450px; overflow-y: auto; line-height: 1.5;"></div>\n'
+        ' <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 480px; overflow-y: auto; line-height: 1.5;"></div>\n'
         ' </div>\n'
         ' </div>\n'
         ' </div>\n'
         '\n'
-        ' <!-- 중앙 패널: 전체 코인 순위 테이블 -->\n'
+        ' <!-- 중앙 패널: 전체 코인 AI 예측 순위 -->\n'
         ' <div class="col-lg-5">\n'
         ' <div class="card p-4 shadow-sm">\n'
         ' <div class="d-flex justify-content-between align-items-center mb-3">\n'
@@ -507,18 +517,13 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
         ' const rawReportText = __AI_REPORT_JSON__;\n'
         ' document.getElementById("reportMarkdownContainer").innerHTML = marked.parse(rawReportText);\n'
         '\n'
-        ' // 검색어 입력 시 중앙 순위 테이블 및 우측 추천 종목 카드를 동시에 필터링하는 함수\n'
         ' function filterCoins() {\n'
         ' const query = document.getElementById(\'coinSearchInput\').value.toLowerCase().trim();\n'
-        ' \n'
-        ' // 1. 중앙 테이블 행 필터링\n'
         ' const tableRows = document.querySelectorAll(\'#allCoinsTable tbody tr\');\n'
         ' tableRows.forEach(row => {\n'
         ' const text = row.textContent.toLowerCase();\n'
         ' row.style.display = text.includes(query) ? \'\' : \'none\';\n'
         ' });\n'
-        ' \n'
-        ' // 2. 우측 모니터링 카드 필터링\n'
         ' const trackingCards = document.querySelectorAll(\'#trackingContainer > div\');\n'
         ' trackingCards.forEach(card => {\n'
         ' const text = card.textContent.toLowerCase();\n'
@@ -532,7 +537,6 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
 
     html_content = html_template.replace("__UPDATED_TIME__", str(updated_time))\
                                 .replace("__TOTAL_COINS__", str(len(df_result)))\
-                                .replace("__ALERTS_HTML__", alerts_html)\
                                 .replace("__NEWS_HTML__", news_html)\
                                 .replace("__AI_REPORT_JSON__", json.dumps(str(ai_report), ensure_ascii=False))\
                                 .replace("__ALL_COINS_TABLE_ROWS__", all_coins_table_rows)\
@@ -541,9 +545,8 @@ def generate_repo1_dashboard_html(df_result, ai_report, tracking_monitor_data, n
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(html_content)
 
-    print(f"🎨 [대시보드] HTML 생성 완료 (`{html_path}`)!")
+    print(f"🎨 [대시보드] 속보 단일 구성 대시보드 생성 완료 (`{html_path}`)!")
     return html_content
-
 
 def main():
     print("🚀 우량주 매집 데이터 수집 및 분석 시작...")
