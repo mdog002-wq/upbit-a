@@ -542,11 +542,11 @@
   "HUNT": {
     "name": "헌트",
     "symbol": "HUNT",
-    "count": 1,
+    "count": 2,
     "entry_price": 111.0,
     "current_price": 111.0,
     "first_recommended_at": "2026-08-10 11:24:53",
-    "last_recommended_at": "2026-08-10 11:24:53"
+    "last_recommended_at": "2026-08-10 12:07:41"
   },
   "A": {
     "name": "볼타",
@@ -578,10 +578,19 @@
   "CFX": {
     "name": "콘플럭스",
     "symbol": "CFX",
-    "count": 1,
+    "count": 2,
     "entry_price": 58.9,
-    "current_price": 58.9,
+    "current_price": 59.1,
     "first_recommended_at": "2026-08-10 11:51:48",
-    "last_recommended_at": "2026-08-10 11:51:48"
+    "last_recommended_at": "2026-08-10 12:07:41"
+  },
+  "GRT": {
+    "name": "더그래프",
+    "symbol": "GRT",
+    "count": 1,
+    "entry_price": 20.6,
+    "current_price": 20.6,
+    "first_recommended_at": "2026-08-10 12:07:41",
+    "last_recommended_at": "2026-08-10 12:07:41"
   }
 }
