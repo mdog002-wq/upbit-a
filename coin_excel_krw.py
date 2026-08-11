@@ -103,18 +103,17 @@ def auto_tune_weights_and_evaluate_history():
     now_time = datetime.datetime.now(KST)
 
     for entry in history:
-        # 🛡️ timestamp 키 유효성 검증 (KeyError 방지)
         if not isinstance(entry, dict) or "timestamp" not in entry or not entry["timestamp"]:
             continue
 
         try:
-            entry_time = datetime.datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S")
+            # 타임존(tzinfo=KST) 정보 추가하여 TypeError 방지
+            entry_time = datetime.datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S").replace(tzinfo=KST)
         except (ValueError, TypeError):
             continue
 
         time_diff_hours = (now_time - entry_time).total_seconds() / 3600.0
 
-        # 추천 후 12시간 이상 경과한 미검증 항목 결과 추적
         if time_diff_hours >= 12 and not entry.get("evaluated", False):
             for coin in entry.get("recommended_coins", []):
                 symbol = coin.get("symbol")
@@ -131,7 +130,6 @@ def auto_tune_weights_and_evaluate_history():
 
                 is_success = max_return >= 3.0 and min_return >= -2.0
 
-                # 승리 시 수급/눌림목 가중치 상승, 실패 시 감소 (자율진화 조정)
                 learning_rate = 0.01
                 if is_success:
                     weights["w_vol_cliff"] = round(weights.get("w_vol_cliff", 0.25) + learning_rate, 3)
@@ -146,13 +144,11 @@ def auto_tune_weights_and_evaluate_history():
             updated = True
 
     if updated:
-        # 가중치 정규화 (합이 1.0이 되도록)
         total_w = sum(weights.values())
         normalized_weights = {k: round(v / total_w, 3) for k, v in weights.items()}
         save_json(WEIGHTS_FILE, normalized_weights)
         save_json(AI_TRACKER_HISTORY_FILE, history)
         print(f"🧬 [자율 진화 완료] 과거 추천 승률 기반 가중치 업데이트: {normalized_weights}")
-
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
     try:
