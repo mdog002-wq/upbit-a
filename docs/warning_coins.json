@@ -1,23 +1,23 @@
 {
-    "updated_at": "2026-08-12 00:21:40",
+    "updated_at": "2026-08-12 00:26:28",
     "warning_coins": [
-        {
-            "symbol": "LINK",
-            "name": "체인링크",
-            "reason": "RSI 63.9로 과열권 진입 직전이며, 상승 모멘텀 약화 시 고점 차익실현 매물 출회 리스크 존재",
-            "entry_price": 12050.0
-        },
         {
             "symbol": "RE",
             "name": "리",
-            "reason": "RSI 62.3 및 단기 상승 반전 이후 변동성 확대에 따른 덤핑 주의",
-            "entry_price": 598.0
+            "reason": "RSI 61.5로 과열권 근접 및 단기 상승에 따른 차익실현 리스크 존재",
+            "entry_price": 596.0
+        },
+        {
+            "symbol": "MMT",
+            "name": "모멘텀",
+            "reason": "RSI 60.2로 단기 과매수 국면 진입 및 변동성 주의",
+            "entry_price": 312.0
         },
         {
             "symbol": "CAP",
             "name": "캡",
-            "reason": "RSI 58.5 수준에서 단기 하락 압력 및 매수세 이탈 가능성 경고",
-            "entry_price": 71.3
+            "reason": "RSI 58.9 및 최근 1시간 하락세(-1.38%)로 인한 매물 출회 가능성",
+            "entry_price": 71.2
         }
     ]
 }
