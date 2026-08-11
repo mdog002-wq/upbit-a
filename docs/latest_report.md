@@ -1,12 +1,1 @@
-**최종 분석 시각: 2026-08-12 02:22:44**
-
-# 퀀트 리스크 관리 종합 분석 리포트
-
-## 1. 시장 개요 및 퀀트 분석 결과
-현재 전체적인 시장은 종합예측점수 75.0점 이상의 기준을 충족하는 종목이 부재한 상태로, 강력한 상승 모멘텀을 형성하기보다는 전반적인 매도 우위 또는 관망세가 짙은 국면입니다. 리스크 관리를 최우선으로 하는 당사의 퀀트 모델 관점에서는 현재 무리한 포지션 진입보다는 현금 비중을 유지하며 안전한 눌림목을 기다리는 전략이 유효합니다.
-
-## 2. 추천 종목 (0개)
-- 현재 기준 종합예측점수 75.0점 이상과 안정적인 눌림목 조건을 동시에 만족하는 종목이 없어, 자본 보존을 위해 **추천 종목은 없습니다**.
-
-## 3. 주의 종목
-- **체인링크 (LINK)**: RSI가 67.6으로 과열권에 근접해 있으며 종합예측점수가 19.4로 매우 낮아 단기 고점 차익실현 및 덤핑 리스크가 높습니다.
+AI 분석 실패: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use a newer model for the latest features and improvements. We recommend you to use the Interactions API (https://ai.google.dev/gemini-api/docs/migrate-to-interactions).', 'status': 'NOT_FOUND'}}

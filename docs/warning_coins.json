@@ -1,11 +1,4 @@
 {
-    "updated_at": "2026-08-12 02:21:38",
-    "warning_coins": [
-        {
-            "symbol": "LINK",
-            "name": "체인링크",
-            "reason": "RSI 67.6의 과열권 진입 및 현저히 낮은 종합예측점수(19.4)로 인한 고점 차익실현 및 덤핑 위험",
-            "entry_price": 12080.0
-        }
-    ]
+    "updated_at": "2026-08-12 02:28:48",
+    "warning_coins": []
 }
