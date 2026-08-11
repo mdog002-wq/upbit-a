@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 08:59:22",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "높은 골든패턴 유사도(81.8)와 안정적인 저변동성(1.63%), 압도적인 거래대금을 바탕으로 한 바닥 매집 완료형 대장주",
+                "entry_price": 89680000.0
+            },
+            {
+                "symbol": "NEAR",
+                "name": "니어프로토콜",
+                "reason": "골든패턴 유사도 86.5%로 상위권이며, 안정적인 변동성 속에서 상승 추세 전환이 확실시되는 종목",
+                "entry_price": 2276.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "비추얼",
+                "reason": "골든패턴 유사도 86.5%를 기록하며 기술적 반등 시그널이 가장 강력하게 포착된 유망 종목",
+                "entry_price": 756.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 08:53:57",
         "recommended_coins": [
             {
