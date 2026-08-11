@@ -23,7 +23,7 @@ DOCS_DIR = "./docs"
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
 WEIGHTS_FILE = os.path.join(DATA_DIR, "weights.json")
-GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit/main/data/golden_pattern.json"
+GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit-p/main/data/golden_pattern.json"
 
 MIN_RECOMMEND_SCORE = 75.0
 
