@@ -213,8 +213,10 @@ def generate_gemini_analysis(df_result):
 
     qualified_df = df_result[df_result['종합예측점수'] >= MIN_RECOMMEND_SCORE].head(3)
 
+    # 🌟 핵심 수정: 추천 종목이 없더라도 현재 분석 시각을 마크다운에 명시하여 파일이 업데이트되도록 수정
     if qualified_df.empty:
-        no_rec_md = "## 🛡️ AI Market Alert\n\n현재 시장 상태에서 **눌림목 및 매집 유효 조건(75점 이상)**을 충족하는 종목이 없습니다. 현금 비중을 유지하고 관망하는 것을 권장합니다."
+        now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        no_rec_md = f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\n현재 시장 상태에서 **눌림목 및 매집 유효 조건({MIN_RECOMMEND_SCORE}점 이상)**을 충족하는 종목이 없습니다. 현금 비중을 유지하고 관망하는 것을 권장합니다."
         return no_rec_md, []
 
     if not GEMINI_API_KEY:
