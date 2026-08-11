@@ -24,6 +24,7 @@ DOCS_DIR = "./docs"
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
 NEWS_JSON_FILE = os.path.join(DOCS_DIR, "news.json")
+WARNING_COINS_FILE = os.path.join(DOCS_DIR, "warning_coins.json")  # 📌 주의 코인 저장 파일 경로
 WEIGHTS_FILE = os.path.join(DATA_DIR, "weights.json")
 GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit-p/main/data/golden_pattern.json"
 
@@ -37,9 +38,16 @@ class RecommendedCoin(BaseModel):
     symbol: str = Field(description="티커 심볼")
     reason: str = Field(description="추천 사유 (눌림목 및 수급 중심)")
 
+# 📌 주의 종목용 Pydantic 모델
+class CautionCoin(BaseModel):
+    coin_name: str = Field(description="코인 한글명")
+    symbol: str = Field(description="티커 심볼")
+    reason: str = Field(description="주의/경고 사유 (과열, 과매수, 고점 차익실현 리스크 등)")
+
 class AIReportResponse(BaseModel):
     report_markdown: str = Field(description="종합 퀀트 분석 리포트 전문")
     recommended_coins: list[RecommendedCoin] = Field(description="AI 최우선 추천 코인 리스트 (미달 시 빈 배열)")
+    caution_coins: list[CautionCoin] = Field(description="AI 주의/경고 코인 리스트 (위험 요인 감지 시)")
 
 def load_json(filepath, default):
     if os.path.exists(filepath):
@@ -63,7 +71,7 @@ def fetch_crypto_news():
         if res.status_code == 200:
             root = ET.fromstring(res.content)
             news_list = []
-            for item in root.findall(".//item")[:7]:  # 최신 속보 7개 수집
+            for item in root.findall(".//item")[:7]:
                 title = item.find("title").text if item.find("title") is not None else ""
                 link = item.find("link").text if item.find("link") is not None else ""
                 pubDate = item.find("pubDate").text if item.find("pubDate") is not None else ""
@@ -117,7 +125,6 @@ def calculate_max_pattern_similarity(series):
         if sim > max_sim: max_sim = sim
     return max_sim
 
-# 🔄 자율 진화 핵심: 과거 추천 결과 복기 및 가중치 자율 학습
 def auto_tune_weights_and_evaluate_history():
     history = load_json(AI_TRACKER_HISTORY_FILE, [])
     if not history: return
@@ -135,7 +142,6 @@ def auto_tune_weights_and_evaluate_history():
             continue
 
         try:
-            # 타임존(tzinfo=KST) 정보 추가하여 TypeError 방지
             entry_time = datetime.datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S").replace(tzinfo=KST)
         except (ValueError, TypeError):
             continue
@@ -241,23 +247,20 @@ def generate_gemini_analysis(df_result):
     now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
     if df_result.empty: 
-        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\n분석할 수 있는 시장 데이터가 존재하지 않습니다.", []
+        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\n분석할 수 있는 시장 데이터가 존재하지 않습니다.", [], []
 
-    qualified_df = df_result[df_result['종합예측점수'] >= MIN_RECOMMEND_SCORE].head(3)
-
-    # 🌟 추천 종목이 없어도 분석 시각을 항상 명시하여 리포트 갱신
-    if qualified_df.empty:
-        no_rec_md = f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\n현재 시장 상태에서 **눌림목 및 매집 유효 조건({MIN_RECOMMEND_SCORE}점 이상)**을 충족하는 종목이 없습니다. 현금 비중을 유지하고 관망하는 것을 권장합니다."
-        return no_rec_md, []
+    qualified_df = df_result.head(15)
 
     if not GEMINI_API_KEY:
-        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\nGemini API 키가 설정되지 않았습니다.", []
+        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\nGemini API 키가 설정되지 않았습니다.", [], []
 
     try:
         client = genai.Client(api_key=GEMINI_API_KEY)
         prompt = f"""
 당신은 리스크 관리를 최우선으로 하는 퀀트 헤지펀드 매니저입니다.
-아래 후보 중 **이미 급등한 추격 매수 종목은 전면 제외**하고, **눌림목 자리를 잡은 안전한 매집 종목**만 1~2개 선별하여 리포트를 작성하세요.
+아래 정밀 분석 데이터를 바탕으로 두 가지를 분석하세요:
+1. **추천 종목**: 이미 급등한 추격 매수 종목은 전면 제외하고, 점수가 높고({MIN_RECOMMEND_SCORE}점 이상) 눌림목 자리를 잡은 안전한 매집 종목 1~2개 선별 (미달 시 빈 배열).
+2. **주의 종목**: RSI 과열, 단기 급등, 과매수 신호 등으로 인해 덤핑 위험이나 고점 차익실현 물량이 나올 수 있는 리스크 높은 코인 1~3개 선별.
 
 [정밀 분석 데이터]
 {qualified_df.to_string()}
@@ -272,8 +275,9 @@ def generate_gemini_analysis(df_result):
             ),
         )
         parsed = json.loads(response.text)
-        raw_recs = parsed.get("recommended_coins", [])
         
+        # 추천 종목 파싱
+        raw_recs = parsed.get("recommended_coins", [])
         rec_list = []
         for i in raw_recs:
             sym = i.get("symbol", "").upper()
@@ -282,19 +286,30 @@ def generate_gemini_analysis(df_result):
                 entry_price = float(match_row["현재가(KRW)"].values[0]) if not match_row.empty else 0.0
                 rec_list.append({"symbol": sym, "name": i.get("coin_name", ""), "reason": i.get("reason", ""), "entry_price": entry_price})
 
+        # 📌 주의 종목 파싱
+        raw_cautions = parsed.get("caution_coins", [])
+        caution_list = []
+        for i in raw_cautions:
+            sym = i.get("symbol", "").upper()
+            if sym:
+                match_row = qualified_df[qualified_df["심볼"] == sym]
+                entry_price = float(match_row["현재가(KRW)"].values[0]) if not match_row.empty else 0.0
+                caution_list.append({"symbol": sym, "name": i.get("coin_name", ""), "reason": i.get("reason", ""), "entry_price": entry_price})
+
         report_md = f"**최종 분석 시각: {now_str}**\n\n" + parsed.get("report_markdown", "")
-        return report_md, rec_list
+        return report_md, rec_list, caution_list
     except Exception as e:
         print(f"⚠️ Gemini 생성 실패: {e}")
-        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\nAI 리포트 생성 실패: {e}", []
+        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\nAI 리포트 생성 실패: {e}", [], []
 
-def save_tracker_history(rec_coins, df_res):
+def save_tracker_history(rec_coins, caution_coins, df_res):
     now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
     history_data = load_json(AI_TRACKER_HISTORY_FILE, [])
 
     new_entry = {
         "timestamp": now_str,
         "recommended_coins": rec_coins,
+        "caution_coins": caution_coins,
         "evaluated": False,
         "top_candidates": df_res.head(5).to_dict(orient="records")
     }
@@ -308,7 +323,6 @@ def update_index_html_timestamp(now_str):
             with open(index_path, "r", encoding="utf-8") as f:
                 content = f.read()
             
-            # docs/index.html 내의 날짜 패턴을 강제 치환하여 웹사이트 시각 변경 보장
             new_content = re.sub(
                 r"\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}",
                 now_str,
@@ -324,13 +338,9 @@ def update_index_html_timestamp(now_str):
 def main():
     now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
-    # 1. 실시간 속보 데이터 수집
     fetch_crypto_news()
-
-    # 2. 이전 추천 백테스트 및 가중치 스스로 학습
     auto_tune_weights_and_evaluate_history()
 
-    # 3. 시장 분석 실행
     tickers_info = get_krw_upbit_tickers()
     if not tickers_info: return
 
@@ -345,17 +355,24 @@ def main():
             if res: results.append(res)
 
     df_res = pd.DataFrame(results).sort_values(by="종합예측점수", ascending=False)
-    ai_report_md, rec_coins = generate_gemini_analysis(df_res)
+    ai_report_md, rec_coins, caution_coins = generate_gemini_analysis(df_res)
 
     with open(REPORT_MD_FILE, "w", encoding="utf-8") as f:
         f.write(ai_report_md)
 
-    save_tracker_history(rec_coins, df_res)
+    save_tracker_history(rec_coins, caution_coins, df_res)
     
-    # 4. docs/index.html 내 날짜 텍스트 강제 갱신
+    # 📌 docs/warning_coins.json 파일 저장
+    warning_data = {
+        "updated_at": now_str,
+        "warning_coins": caution_coins
+    }
+    save_json(WARNING_COINS_FILE, warning_data)
+    print(f"⚠️ [docs/warning_coins.json 저장 완료] {len(caution_coins)}개 저장됨")
+
     update_index_html_timestamp(now_str)
 
-    print(f"✅ 정밀 분석 및 자율 저장 완료! (추천 코인: {len(rec_coins)}개)")
+    print(f"✅ 정밀 분석 및 자율 저장 완료! (추천 코인: {len(rec_coins)}개, 주의 코인: {len(caution_coins)}개)")
 
 if __name__ == "__main__":
     main()
