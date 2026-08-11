@@ -1,23 +1,17 @@
 {
-    "updated_at": "2026-08-12 01:01:54",
+    "updated_at": "2026-08-12 01:06:39",
     "warning_coins": [
-        {
-            "symbol": "LINK",
-            "name": "체인링크",
-            "reason": "RSI 64.0으로 과열권 진입 직전이며 단기 차익실현 리스크 존재",
-            "entry_price": 12030.0
-        },
-        {
-            "symbol": "CAP",
-            "name": "캡",
-            "reason": "RSI 63.5 및 최근 급락(-3.53%)으로 인한 변동성 주의",
-            "entry_price": 70.8
-        },
         {
             "symbol": "MMT",
             "name": "모멘텀",
-            "reason": "RSI 59.8 대비 낮은 종합예측점수(35.2)로 인한 펀더멘털 위험",
-            "entry_price": 312.0
+            "reason": "RSI 58.1로 단기 과열 양상을 보이며 고점 차익실현 리스크 존재",
+            "entry_price": 309.0
+        },
+        {
+            "symbol": "GRVT",
+            "name": "그래비티토큰",
+            "reason": "단기 상승(+3.02%) 대비 종합예측점수가 35.4점으로 낮아 덤핑 위험 경계 필요",
+            "entry_price": 443.0
         }
     ]
 }
