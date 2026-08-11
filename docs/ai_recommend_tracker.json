@@ -502,5 +502,29 @@
             }
         ],
         "evaluated": false
+    },
+    {
+        "timestamp": "2026-08-12 08:33:59",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "높은 거래대금과 79.3점의 골든패턴 점수, 안정적인 변동성으로 기관 및 고래의 매집 후 반등 신호 포착",
+                "entry_price": 89635000.0
+            },
+            {
+                "symbol": "DOGE",
+                "name": "도지코인",
+                "reason": "73.0점의 우수한 골든패턴 점수와 적정 변동성을 바탕으로 단기 추세 전환 가능성 높음",
+                "entry_price": 102.0
+            },
+            {
+                "symbol": "NEAR",
+                "name": "니어프로토콜",
+                "reason": "83.5점이라는 최상위권 골든패턴 유사도를 기록하여 반등 확률이 가장 높은 종목 중 하나로 선정",
+                "entry_price": 2263.0
+            }
+        ],
+        "evaluated": false
     }
 ]
