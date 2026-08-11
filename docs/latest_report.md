@@ -1,1 +1,47 @@
-AI 분석 실패: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 39.007250896s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '39s'}]}}
+**최종 분석 시각: 2026-08-12 05:09:37**
+
+# 퀀트 엔진 기반 암호화폐 정밀 분석 리포트
+
+본 리포트는 파이썬 퀀트 엔진을 통해 추출된 상위 20개 암호화폐의 거래대금, 24시간 변동성, 그리고 기술적 지표 기반의 '골든패턴 유사도 점수'를 종합적으로 분석하여 작성되었습니다. 시장의 유동성 흐름과 변동성 리스크를 계량적으로 평가하여 최적의 투자 전략을 제안합니다.
+
+---
+
+## 1. 퀀트 분석 방법론 및 시장 총평
+
+현재 암호화폐 시장은 거래대금의 극단적 쏠림 현상과 개별 자산의 변동성 차별화가 뚜렷하게 나타나고 있습니다. 본 퀀트 엔진은 다음 세 가지 핵심 지표를 기준으로 자산을 평가했습니다.
+1. **골든패턴 유사도 점수 (Golden Pattern Score)**: 과거 대세 상승 직전의 바닥 매집 및 이평선 수렴 패턴과의 유사성을 0~100점으로 수치화한 지표입니다.
+2. **24시간 변동성 (Volatility 24h)**: 단기 가격 등락폭을 나타내며, 지나치게 높은 변동성은 하방 리스크를 가중시킵니다.
+3. **24시간 거래대금 (Volume 24h)**: 시장의 실질적인 참여도와 유동성을 의미하며, 슬리피지 최소화 및 추세 지속성을 보장하는 척도입니다.
+
+분석 결과, 일부 메이저 및 준메이저 코인에서 매우 높은 골든패턴 점수와 안정적인 변동성이 관측되어 강력한 매수 신호를 보내고 있는 반면, 일부 신생 및 테마성 자산은 비이성적 과열 상태로 극도의 주의가 요구됩니다.
+
+---
+
+## 2. AI 최우선 추천 종목 분석
+
+### ① 체인링크 (LINK)
+* **퀀트 지표**: 골든패턴 점수 **100.0점** | 변동성 **5.32%** | 거래대금 **약 64.9억 원**
+* **투자 포인트**: 체인링크는 퀀트 엔진이 산출한 골든패턴 점수에서 만점(100점)을 기록하며 가장 완벽한 바닥 매집 및 추세 전환 신호를 보이고 있습니다. 5.32%의 안정적인 변동성 범위 내에서 거래대금이 견조하게 유지되고 있어, 하방 경직성이 확보된 상태에서의 점진적 우상향 가능성이 매우 높습니다. 기관 매집 패턴과 유사한 형태를 보이고 있어 포트폴리오 내 최우선 편입을 추천합니다.
+
+### ② 도지코인 (DOGE)
+* **퀀트 지표**: 골든패턴 점수 **87.9점** | 변동성 **2.85%** | 거래대금 **약 97.3억 원**
+* **투자 포인트**: 도지코인은 준메이저 자산 중 가장 이상적인 '저변동성-고점수' 상태를 유지하고 있습니다. 2.85%라는 극도로 안정적인 변동성을 기록하면서도 골든패턴 점수는 87.9점에 달해, 에너지가 고도로 응축된 수렴 구간의 끝자락에 위치해 있음을 시사합니다. 약 97.3억 원의 풍부한 거래대금은 돌파 상승 시 강력한 모멘텀으로 작용할 것입니다.
+
+---
+
+## 3. AI 위험 및 주의 종목 분석
+
+### ① 지오디 (GEOD)
+* **퀀트 지표**: 골든패턴 점수 **40.7점** | 변동성 **36.92%** | 거래대금 **약 256.2억 원**
+* **리스크 요인**: GEOD는 24시간 변동성이 36.92%로 분석 대상 중 가장 높은 수준을 기록하고 있습니다. 반면 골든패턴 점수는 40.7점에 불과하여 기술적 지지선이 붕괴된 상태에서의 투기성 단기 자금 유입으로 판단됩니다. 거래대금은 풍부하나 고점 대비 급락 시 패닉 셀이 유발될 수 있는 전형적인 고위험 자산입니다.
+
+### ② 캡 (CAP)
+* **퀀트 지표**: 골든패턴 점수 **63.2점** | 변동성 **31.64%** | 거래대금 **약 654.8억 원**
+* **리스크 요인**: CAP은 654억 원이 넘는 막대한 거래대금을 기록하며 시장의 이목을 끌고 있으나, 하루 변동성이 31.64%에 달해 단기 오버슈팅 구간에 진입한 것으로 분석됩니다. 골든패턴 점수(63.2점) 대비 변동성이 지나치게 비대칭적으로 높아, 신규 진입 시 단기 조정에 따른 대규모 원금 손실 가능성이 매우 큽니다. 추격 매수를 절대 금지해야 하는 구간입니다.
+
+---
+
+## 4. 포트폴리오 운용 전략
+
+* **안정형 자산 배분**: 포트폴리오의 60% 이상을 골든패턴 점수가 높고 변동성이 낮은 **LINK**와 **DOGE**에 분산 투자하여 안정적인 알파 수익을 추구하십시오.
+* **리스크 헤지**: **GEOD**, **CAP**과 같이 변동성이 30%를 초과하는 자산은 보유 비중을 최소화하거나 전량 현금화하여 시장 급변동성에 대비하는 것이 포트폴리오 MDD(최대낙폭) 관리에 유리합니다.
