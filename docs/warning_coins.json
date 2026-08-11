@@ -1,23 +1,17 @@
 {
-    "updated_at": "2026-08-12 01:41:34",
+    "updated_at": "2026-08-12 01:46:31",
     "warning_coins": [
         {
             "symbol": "LINK",
             "name": "체인링크",
-            "reason": "RSI 64.9로 과열권에 근접하여 단기 차익실현 매물 출회 가능성 존재",
+            "reason": "RSI 64.9로 과매수 구간에 근접해 있으며 단기 고점 차익실현 리스크 존재",
             "entry_price": 12070.0
         },
         {
-            "symbol": "MMT",
-            "name": "모멘텀",
-            "reason": "최근 1시간 변동성 -4.19% 기록 등 단기 하락 압력 및 변동성 확대 리스크",
-            "entry_price": 297.0
-        },
-        {
-            "symbol": "DOGE",
-            "name": "도지코인",
-            "reason": "RSI 57.5로 중립 상단 위치 및 고점 부근 덤핑 가능성 대비 필요",
-            "entry_price": 99.4
+            "symbol": "RE",
+            "name": "리",
+            "reason": "RSI 57.9로 단기 상승에 따른 변동성 확대 및 덤핑 위험 주의",
+            "entry_price": 592.0
         }
     ]
 }
