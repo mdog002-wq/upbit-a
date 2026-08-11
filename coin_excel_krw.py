@@ -1,6 +1,7 @@
 import os
 import time
 import datetime
+from datetime import timezone, timedelta
 import json
 import re
 import requests
@@ -97,7 +98,7 @@ def auto_tune_weights_and_evaluate_history():
     })
 
     updated = False
-    now_time = datetime.datetime.now()
+    now_time = datetime.datetime.now(KST)
 
     for entry in history:
         # 🛡️ timestamp 키 유효성 검증 (KeyError 방지)
@@ -210,7 +211,7 @@ def process_single_coin(item, current_price_map):
     }
 
 def generate_gemini_analysis(df_result):
-    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
     if df_result.empty: 
         return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\n분석할 수 있는 시장 데이터가 존재하지 않습니다.", []
@@ -261,7 +262,7 @@ def generate_gemini_analysis(df_result):
         return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\nAI 리포트 생성 실패: {e}", []
 
 def save_tracker_history(rec_coins, df_res):
-    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
     history_data = load_json(AI_TRACKER_HISTORY_FILE, [])
 
     new_entry = {
@@ -294,7 +295,7 @@ def update_index_html_timestamp(now_str):
             print(f"⚠️ docs/index.html 치환 실패: {e}")
 
 def main():
-    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
     # 1. 이전 추천 백테스트 및 가중치 스스로 학습
     auto_tune_weights_and_evaluate_history()
