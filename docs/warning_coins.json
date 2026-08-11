@@ -1,23 +1,11 @@
 {
-    "updated_at": "2026-08-12 02:16:31",
+    "updated_at": "2026-08-12 02:21:38",
     "warning_coins": [
         {
-            "symbol": "CAP",
-            "name": "캡",
-            "reason": "RSI 60.9로 과열권 진입 및 단기 상승에 따른 고점 차익실현 리스크 존재",
-            "entry_price": 73.1
-        },
-        {
-            "symbol": "MMT",
-            "name": "모멘텀",
-            "reason": "최근 1시간 -5.43% 급락 등 단기 변동성 확대 및 하락 압력 가중",
-            "entry_price": 296.0
-        },
-        {
-            "symbol": "EUL",
-            "name": "오일러",
-            "reason": "종합예측점수 18.3 및 RSI 18.9로 극단적 과매도 및 펀더멘털 약화 리스크",
-            "entry_price": 1617.0
+            "symbol": "LINK",
+            "name": "체인링크",
+            "reason": "RSI 67.6의 과열권 진입 및 현저히 낮은 종합예측점수(19.4)로 인한 고점 차익실현 및 덤핑 위험",
+            "entry_price": 12080.0
         }
     ]
 }
