@@ -1,1 +1,14 @@
-AI 분석 실패: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 30.372139823s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '30s'}]}}
+**최종 분석 시각: 2026-08-12 08:23:51**
+
+# 암호화폐 퀀트 투자 종합 분석 리포트
+
+본 리포트는 파이썬 퀀트 엔진을 통해 상위 20개 종목의 거래대금, 24시간 변동성, 골든패턴 유사도 점수를 종합 분석하여 작성되었습니다.
+
+## 1. 시장 요약 및 퀀트 동향
+- **비트코인(BTC):** 77.7점의 높은 골든패턴 점수와 안정적인 변동성(1.63%)을 기록하며 시장의 중심을 탄탄하게 지키고 있습니다.
+- **주요 추천 종목:** 골든패턴 점수 100점 만점을 기록한 **AVAX(아발란체)**와 안정성과 상승 모멘텀을 모두 갖춘 **BTC**를 최우선 추천합니다.
+- **주의 종목:** 34%를 상회하는 극단적인 변동성을 보이는 **GEOD**는 단기 과열 및 리스크 관리가 시급합니다.
+
+## 2. 투자 전략 제언
+- 변동성이 30%를 넘나드는 급등락 종목의 경우 철저한 분할 매수 및 손절가 설정이 필수적입니다.
+- 패턴 점수가 우수하고 대규모 거래대금이 유입되는 종목 위주로 포트폴리오를 압축하는 전략이 유효합니다.
