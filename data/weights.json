@@ -1,0 +1,8 @@
+{
+    "w_pattern": 0.2,
+    "w_vol_cliff": 0.25,
+    "w_ma_alignment": 0.25,
+    "w_vol_surge": 0.15,
+    "w_daily_momentum": 0.1,
+    "w_breakout": 0.05
+}
