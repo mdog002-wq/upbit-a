@@ -11,7 +11,7 @@
  <style>
  body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
  .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }
- .news-box { max-height: 250px; overflow-y: auto; }
+ .news-box { max-height: 220px; overflow-y: auto; }
  .table-scroll-box { max-height: 650px; overflow-y: auto; }
  .report-body h1, .report-body h2, .report-body h3 { font-size: 1rem; font-weight: bold; margin-top: 0.5rem; color: #0f172a; }
  .report-body ul { padding-left: 1.2rem; margin-bottom: 0.5rem; }
@@ -33,7 +33,7 @@
  </div>
  <div class="col-md-4 col-lg-5 text-center text-md-start">
  <h3 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h3>
- <small class="text-muted">최종 업데이트: 2026-08-12 01:33:01 (총 280개 종목 분석 완료)</small>
+ <small class="text-muted" id="lastUpdatedText">최종 업데이트: 2026-08-12 01:33:01 (총 280개 종목 분석 완료)</small>
  </div>
  <div class="col-md-4 col-lg-4">
  <div class="input-group">
@@ -46,18 +46,29 @@
 
  <!-- 메인 레이아웃 -->
  <div class="row g-4">
- <!-- 좌측 패널: 실시간 속보 / AI 리포트 -->
+ <!-- 좌측 패널: 속보 / 추천 모니터 / AI 리포트 -->
  <div class="col-lg-4">
  <div class="d-flex flex-column gap-3">
+ <!-- 1. 실시간 속보 & 공지 -->
  <div class="card p-3 shadow-sm">
  <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보 및 공지</h6>
  <div id="newsContainer" class="news-box d-flex flex-column gap-2">
  <div class="text-muted small text-center py-3">속보 데이터를 불러오는 중...</div>
  </div>
  </div>
+
+ <!-- 2. AI 추천 종목 모니터 (복원 완료) -->
+ <div class="card p-3 shadow-sm">
+ <h6 class="fw-bold text-warning text-dark mb-3"><i class="fa-solid fa-bullseye me-1 text-warning"></i> AI 추천 종목 모니터</h6>
+ <div id="recommendMonitorContainer" class="d-flex flex-column gap-2">
+ <div class="text-muted small text-center py-2">리포트에서 추천 종목을 추출하는 중...</div>
+ </div>
+ </div>
+
+ <!-- 3. AI 분석 리포트 -->
  <div class="card p-3 shadow-sm">
  <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트</h6>
- <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 480px; overflow-y: auto; line-height: 1.5;">
+ <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 400px; overflow-y: auto; line-height: 1.5;">
  리포트를 불러오는 중...
  </div>
  </div>
@@ -81,18 +92,14 @@
  </tr>
  </thead>
  <tbody>
+<!-- COIN_TABLE_BODY_START -->
 <tr>
  <td class="text-center fw-bold text-muted">1</td>
- <td class="fw-bold">파워렛저 <span class="text-secondary small">(POWR)</span></td>
- <td>55.30</td>
- <td class="text-primary fw-bold">54.4점 <span class="text-muted small">(0%)</span></td>
+ <td class="fw-bold">데이터 분석 대기 중...</td>
+ <td>-</td>
+ <td>-</td>
 </tr>
-<tr>
- <td class="text-center fw-bold text-muted">2</td>
- <td class="fw-bold">이더파이 <span class="text-secondary small">(ETHFI)</span> <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7rem;">🎯 AI추천</span></td>
- <td>557</td>
- <td class="text-primary fw-bold">52.3점 <span class="text-muted small">(79%)</span></td>
-</tr>
+<!-- COIN_TABLE_BODY_END -->
  </tbody>
  </table>
  </div>
@@ -139,13 +146,54 @@
 
  async function loadReportMarkdown() {
    const reportContainer = document.getElementById("reportMarkdownContainer");
+   const recContainer = document.getElementById("recommendMonitorContainer");
    try {
      const response = await fetch("latest_report.md?t=" + new Date().getTime());
      if (!response.ok) throw new Error();
      const markdownText = await response.text();
      reportContainer.innerHTML = marked.parse(markdownText);
+
+     // ai_recommend_tracker.json에서 최신 추천 종목 모니터링 데이터 바인딩
+     fetchRecommendTracker();
    } catch (err) {
      reportContainer.innerHTML = `<div class="text-muted small py-2">등록된 AI 분석 리포트가 없습니다.</div>`;
+   }
+ }
+
+ async function fetchRecommendTracker() {
+   const recContainer = document.getElementById("recommendMonitorContainer");
+   try {
+     const res = await fetch("ai_recommend_tracker.json?t=" + new Date().getTime());
+     if (!res.ok) throw new Error();
+     const history = await res.json();
+     if (!history || history.length === 0) {
+       recContainer.innerHTML = `<div class="text-muted small text-center py-2">현재 추천 종목이 없습니다.</div>`;
+       return;
+     }
+     
+     const lastEntry = history[history.length - 1];
+     const recs = lastEntry.recommended_coins || [];
+
+     if (recs.length === 0) {
+       recContainer.innerHTML = `<div class="text-muted small text-center py-2">현재 조건에 맞는 추천 종목이 없습니다.</div>`;
+       return;
+     }
+
+     let html = "";
+     recs.forEach(coin => {
+       html += `
+         <div class="p-2 border rounded bg-light">
+           <div class="d-flex justify-content-between align-items-center mb-1">
+             <span class="fw-bold text-dark">${coin.name || coin.symbol} <small class="text-muted">(${coin.symbol})</small></span>
+             <span class="badge bg-warning text-dark">🎯 추천</span>
+           </div>
+           <div class="small text-secondary" style="font-size: 0.8rem;">${coin.reason || ''}</div>
+         </div>
+       `;
+     });
+     recContainer.innerHTML = html;
+   } catch (err) {
+     recContainer.innerHTML = `<div class="text-muted small text-center py-2">추천 종목 모니터를 로드할 수 없습니다.</div>`;
    }
  }
 
