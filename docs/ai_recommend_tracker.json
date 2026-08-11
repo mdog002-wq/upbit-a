@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 08:53:57",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "81.1점의 높은 골든패턴 점수와 압도적인 유동성을 바탕으로 안정적인 추세 상승 시그널을 확인.",
+                "entry_price": 89700000.0
+            },
+            {
+                "symbol": "NEAR",
+                "name": "니어프로토콜",
+                "reason": "골든패턴 점수 86.2점으로 최상위권이며, 변동성이 안정적인 상태에서 바닥 매집 후 반등 직전 국면.",
+                "entry_price": 2274.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼프로토콜",
+                "reason": "골든패턴 점수 85.8점 및 적정 수준의 변동성으로 탄탄한 상승 탄력 기대.",
+                "entry_price": 757.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 08:49:40",
         "recommended_coins": [
             {
