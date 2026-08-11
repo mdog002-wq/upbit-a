@@ -24,7 +24,7 @@ DOCS_DIR = "./docs"
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
 NEWS_JSON_FILE = os.path.join(DOCS_DIR, "news.json")
-WARNING_COINS_FILE = os.path.join(DOCS_DIR, "warning_coins.json")  # 📌 주의 코인 저장 파일 경로
+WARNING_COINS_FILE = os.path.join(DOCS_DIR, "warning_coins.json")
 WEIGHTS_FILE = os.path.join(DATA_DIR, "weights.json")
 GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit-p/main/data/golden_pattern.json"
 
@@ -38,7 +38,6 @@ class RecommendedCoin(BaseModel):
     symbol: str = Field(description="티커 심볼")
     reason: str = Field(description="추천 사유 (눌림목 및 수급 중심)")
 
-# 📌 주의 종목용 Pydantic 모델
 class CautionCoin(BaseModel):
     coin_name: str = Field(description="코인 한글명")
     symbol: str = Field(description="티커 심볼")
@@ -60,19 +59,11 @@ def save_json(filepath, data):
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-NAVER_CLIENT_ID = os.environ.get("NAVER_CLIENT_ID", "")
-NAVER_CLIENT_SECRET = os.environ.get("NAVER_CLIENT_SECRET", "")
-
 def fetch_crypto_news():
-    """업비트 공지 및 코인니스 실시간 속보 수집 (docs/news.json 저장)"""
     news_list = []
-
-    # 1. 코인니스 실시간 속보 수집
     try:
         coinness_url = "https://api.coinness.com/v1/newsflash/list?limit=5"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
+        headers = {"User-Agent": "Mozilla/5.0"}
         res = requests.get(coinness_url, headers=headers, timeout=5)
         if res.status_code == 200:
             data = res.json()
@@ -82,22 +73,13 @@ def fetch_crypto_news():
                 news_id = item.get("id")
                 link = f"https://coinness.com/newsflash/{news_id}" if news_id else "https://coinness.com"
                 pubDate = item.get("created_at") or item.get("published_at", "")
-                
-                news_list.append({
-                    "title": f"[코인니스] {title}",
-                    "link": link,
-                    "pubDate": pubDate
-                })
-            print(f"⚡ [코인니스 속보 수집 성공] {len(items)}건")
+                news_list.append({"title": f"[코인니스] {title}", "link": link, "pubDate": pubDate})
     except Exception as e:
         print(f"⚠️ 코인니스 수집 중 에러: {e}")
 
-    # 2. 업비트 공지사항 수집
     try:
         upbit_url = "https://api-manager.upbit.com/v1/notices?page=1&per_page=5"
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-        }
+        headers = {"User-Agent": "Mozilla/5.0"}
         res = requests.get(upbit_url, headers=headers, timeout=5)
         if res.status_code == 200:
             notices = res.json().get("data", {}).get("list", [])
@@ -106,30 +88,19 @@ def fetch_crypto_news():
                 notice_id = notice.get("id")
                 link = f"https://upbit.com/service_center/notice?id={notice_id}" if notice_id else "https://upbit.com/service_center/notice"
                 pubDate = notice.get("created_at", "")
-                
-                news_list.append({
-                    "title": title,
-                    "link": link,
-                    "pubDate": pubDate
-                })
-            print(f"📢 [업비트 공지 수집 성공] {len(notices)}건")
+                news_list.append({"title": title, "link": link, "pubDate": pubDate})
     except Exception as e:
         print(f"⚠️ 업비트 수집 중 에러: {e}")
 
-    # 3. JSON 저장
     if news_list:
         save_json(NEWS_JSON_FILE, news_list)
-        print(f"📰 [최종 속보 및 공지 저장 완료] 총 {len(news_list)}건 -> {NEWS_JSON_FILE}")
-    else:
-        print("⚠️ 속보 수집 실패 (기존 news.json 데이터 유지)")
 
 def load_golden_pattern():
     try:
         headers = {}
         if GITHUB_TOKEN: headers["Authorization"] = f"token {GITHUB_TOKEN}"
         res = requests.get(f"{GOLDEN_PATTERN_URL}?t={int(time.time())}", headers=headers, timeout=10)
-        if res.status_code == 200:
-            return res.json()
+        if res.status_code == 200: return res.json()
     except Exception: pass
     return None
 
@@ -175,13 +146,10 @@ def auto_tune_weights_and_evaluate_history():
     now_time = datetime.datetime.now(KST)
 
     for entry in history:
-        if not isinstance(entry, dict) or "timestamp" not in entry or not entry["timestamp"]:
-            continue
-
+        if not isinstance(entry, dict) or "timestamp" not in entry or not entry["timestamp"]: continue
         try:
             entry_time = datetime.datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S").replace(tzinfo=KST)
-        except (ValueError, TypeError):
-            continue
+        except (ValueError, TypeError): continue
 
         time_diff_hours = (now_time - entry_time).total_seconds() / 3600.0
 
@@ -198,7 +166,6 @@ def auto_tune_weights_and_evaluate_history():
 
                 max_return = (max_price - entry_price) / entry_price * 100.0
                 min_return = (min_price - entry_price) / entry_price * 100.0
-
                 is_success = max_return >= 3.0 and min_return >= -2.0
 
                 learning_rate = 0.01
@@ -219,7 +186,6 @@ def auto_tune_weights_and_evaluate_history():
         normalized_weights = {k: round(v / total_w, 3) for k, v in weights.items()}
         save_json(WEIGHTS_FILE, normalized_weights)
         save_json(AI_TRACKER_HISTORY_FILE, history)
-        print(f"🧬 [자율 진화 완료] 과거 추천 승률 기반 가중치 업데이트: {normalized_weights}")
 
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
@@ -313,7 +279,6 @@ def generate_gemini_analysis(df_result):
         )
         parsed = json.loads(response.text)
         
-        # 추천 종목 파싱
         raw_recs = parsed.get("recommended_coins", [])
         rec_list = []
         for i in raw_recs:
@@ -323,7 +288,6 @@ def generate_gemini_analysis(df_result):
                 entry_price = float(match_row["현재가(KRW)"].values[0]) if not match_row.empty else 0.0
                 rec_list.append({"symbol": sym, "name": i.get("coin_name", ""), "reason": i.get("reason", ""), "entry_price": entry_price})
 
-        # 📌 주의 종목 파싱
         raw_cautions = parsed.get("caution_coins", [])
         caution_list = []
         for i in raw_cautions:
@@ -353,24 +317,59 @@ def save_tracker_history(rec_coins, caution_coins, df_res):
     history_data.append(new_entry)
     save_json(AI_TRACKER_HISTORY_FILE, history_data[-100:])
 
-def update_index_html_timestamp(now_str):
+def update_index_html(now_str, df_res, rec_coins):
     index_path = os.path.join(DOCS_DIR, "index.html")
-    if os.path.exists(index_path):
-        try:
-            with open(index_path, "r", encoding="utf-8") as f:
-                content = f.read()
+    if not os.path.exists(index_path):
+        return
+
+    try:
+        with open(index_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        
+        # 1. 타임스탬프 및 총 분석 수 치환
+        content = re.sub(
+            r"최종 업데이트:\s*\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}\s*\(총\s*\d+개",
+            f"최종 업데이트: {now_str} (총 {len(df_res)}개",
+            content
+        )
+
+        # 2. 전체 코인 표(tbody) 동적 생성
+        rec_symbols = [c["symbol"].upper() for c in rec_coins]
+        tbody_rows = []
+        
+        for idx, row in enumerate(df_res.itertuples(), start=1):
+            symbol = row.심볼
+            name = row.코인명
+            price = f"{row.현재가(KRW):,}" if row.현재가(KRW) >= 100 else f"{row.현재가(KRW):.2f}"
+            score = row.종합예측점수
+            pattern_sim = int(row.골든패턴유사도)
             
-            new_content = re.sub(
-                r"\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}",
-                now_str,
-                content
-            )
+            # 추천 코인 배지 표기
+            badge = ' <span class="badge bg-warning text-dark ms-1" style="font-size: 0.7rem;">🎯 AI추천</span>' if symbol.upper() in rec_symbols else ""
             
-            with open(index_path, "w", encoding="utf-8") as f:
-                f.write(new_content)
-            print(f"🕒 docs/index.html 타임스탬프 치환 성공: {now_str}")
-        except Exception as e:
-            print(f"⚠️ docs/index.html 치환 실패: {e}")
+            tr_html = f"""<tr>
+ <td class="text-center fw-bold text-muted">{idx}</td>
+ <td class="fw-bold">{name} <span class="text-secondary small">({symbol})</span>{badge}</td>
+ <td>{price}</td>
+ <td class="text-primary fw-bold">{score}점 <span class="text-muted small">({pattern_sim}%)</span></td>
+</tr>"""
+            tbody_rows.append(tr_html)
+
+        new_tbody_content = "\n".join(tbody_rows)
+        
+        # <tbody> 내용 교체
+        content = re.sub(
+            r"<tbody>(.*?)</tbody>",
+            f"<tbody>\n{new_tbody_content}\n </tbody>",
+            content,
+            flags=re.DOTALL
+        )
+        
+        with open(index_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"🕒 docs/index.html 타임스탬프 및 {len(df_res)}개 코인 데이터 치환 완료!")
+    except Exception as e:
+        print(f"⚠️ docs/index.html 치환 실패: {e}")
 
 def main():
     now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
@@ -399,15 +398,14 @@ def main():
 
     save_tracker_history(rec_coins, caution_coins, df_res)
     
-    # 📌 docs/warning_coins.json 파일 저장
     warning_data = {
         "updated_at": now_str,
         "warning_coins": caution_coins
     }
     save_json(WARNING_COINS_FILE, warning_data)
-    print(f"⚠️ [docs/warning_coins.json 저장 완료] {len(caution_coins)}개 저장됨")
 
-    update_index_html_timestamp(now_str)
+    # index.html 전체 업데이트 수행
+    update_index_html(now_str, df_res, rec_coins)
 
     print(f"✅ 정밀 분석 및 자율 저장 완료! (추천 코인: {len(rec_coins)}개, 주의 코인: {len(caution_coins)}개)")
 
