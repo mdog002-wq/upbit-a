@@ -1,4 +1,17 @@
 {
-    "updated_at": "2026-08-12 00:41:37",
-    "warning_coins": []
+    "updated_at": "2026-08-12 00:46:38",
+    "warning_coins": [
+        {
+            "symbol": "LINK",
+            "name": "체인링크",
+            "reason": "RSI 63.9로 상대적 과열권 진입, 단기 조정 시 차익실현 매물 출화 리스크 주의",
+            "entry_price": 12040.0
+        },
+        {
+            "symbol": "CAP",
+            "name": "캡",
+            "reason": "RSI 58.4 및 최근 하락(-2.75%) 속 변동성 확대에 따른 덤핑 위험 관리 필요",
+            "entry_price": 70.4
+        }
+    ]
 }
