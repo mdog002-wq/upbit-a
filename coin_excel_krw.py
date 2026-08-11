@@ -99,7 +99,15 @@ def auto_tune_weights_and_evaluate_history():
     now_time = datetime.datetime.now()
 
     for entry in history:
-        entry_time = datetime.datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S")
+        # 🛡️ timestamp 키 유효성 검증 (KeyError 방지)
+        if not isinstance(entry, dict) or "timestamp" not in entry or not entry["timestamp"]:
+            continue
+
+        try:
+            entry_time = datetime.datetime.strptime(entry["timestamp"], "%Y-%m-%d %H:%M:%S")
+        except (ValueError, TypeError):
+            continue
+
         time_diff_hours = (now_time - entry_time).total_seconds() / 3600.0
 
         # 추천 후 12시간 이상 경과한 미검증 항목 결과 추적
