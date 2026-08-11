@@ -1,1 +1,37 @@
-AI 분석 실패: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 31.678629012s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '31s'}]}}
+**최종 분석 시각: 2026-08-12 06:38:57**
+
+# 퀀트 엔진 기반 암호화폐 시장 정밀 분석 리포트
+
+## 1. 시장 총평 및 퀀트 스크리닝 개요
+현재 암호화폐 시장은 비트코인(BTC)의 안정적인 흐름(변동성 1.63%, 골든패턴 점수 66.4) 속에서 알트코인 시장의 순환매가 강하게 나타나고 있습니다. 테더(USDT)의 압도적인 거래대금(약 1,384억 달러)은 시장의 유동성이 충분히 공급되고 있음을 시사합니다.
+
+본 퀀트 엔진은 **거래대금(Volume)**, **24시간 변동성(Volatility)**, 그리고 자체 알고리즘으로 산출한 **골든패턴 유사도 점수(Golden Pattern Score)**를 종합적으로 분석하여, 바닥권 매집이 완료되어 기술적 반등 가능성이 극대화된 종목과 단기 과열로 인해 급락 위험이 높은 리스크 종목을 선별하였습니다.
+
+---
+
+## 2. AI 최우선 추천 종목 분석
+
+### ① 도지코인 (DOGE)
+*   **퀀트 지표**: 골든패턴 점수 **89.9점** | 24시간 변동성 **3.87%** | 24시간 거래대금 **약 109억 달러**
+*   **기술적 분석**: 도지코인은 대규모 거래대금을 동반하며 강력한 유동성 지지층을 형성하고 있습니다. 변동성이 3.87%로 매우 안정적인 수준을 유지하는 가운데, 골든패턴 점수가 89.9점에 달해 전형적인 '바닥 매집 후 횡보 및 상승 돌파' 직전의 패턴을 보여주고 있습니다. 하방 경직성이 확보된 상태에서 기관 및 고래의 매집세가 유입된 것으로 판단됩니다.
+
+### ② 버추얼 (VIRTUAL)
+*   **퀀트 지표**: 골든패턴 점수 **100.0점** | 24시간 변동성 **8.25%** | 24시간 거래대금 **약 31억 달러**
+*   **기술적 분석**: VIRTUAL은 골든패턴 유사도에서 **100점 만점**을 기록하며 완벽한 기술적 반등 시그널을 나타내고 있습니다. 변동성 또한 8.25%로 감내 가능한 수준이며, 거래대금 대비 매수 강세가 뚜렷합니다. 전형적인 U자형 라운딩 바텀(Rounding Bottom) 패턴의 완성 단계로, 단기 저항선 돌파 시 강한 오버슈팅이 기대됩니다.
+
+---
+
+## 3. AI 위험 및 주의 종목 분석
+
+### ① 지오디 (GEOD)
+*   **퀀트 지표**: 골든패턴 점수 **34.5점** | 24시간 변동성 **35.36%** | 24시간 거래대금 **약 257억 달러**
+*   **리스크 요인**: GEOD는 24시간 변동성이 **35.36%**에 달하는 극도의 불안정한 흐름을 보이고 있습니다. 거래대금은 크게 터졌으나 골든패턴 점수가 34.5점에 불과하여, 이는 체계적인 매집이 아닌 단기 투기 세력에 의한 펌핑앤덤프(Pump and Dump) 구간일 확률이 매우 높음을 의미합니다. 추격 매수 시 순식간에 고점에 물릴 위험이 큽니다.
+
+### ② 캡 (CAP)
+*   **퀀트 지표**: 골든패턴 점수 **52.8점** | 24시간 변동성 **31.64%** | 24시간 거래대금 **약 659억 달러**
+*   **리스크 요인**: CAP은 659억 달러라는 엄청난 거래대금을 기록하고 있으나, 변동성이 31.64%로 매우 비정상적인 변동 폭을 보이고 있습니다. 골든패턴 점수가 50점대 중반에 머물러 있어 추세의 지속성보다는 단기 차익 실현 매물이 쏟아질 가능성이 큽니다. 신규 진입은 극도로 지양해야 하는 구간입니다.
+
+---
+
+## 4. 투자 전략 제언
+현재 시장은 변동성이 낮은 대형주(BTC, ETH)가 중심을 잡아주는 가운데, 기술적 패턴이 완성된 알트코인(DOGE, VIRTUAL) 위주로 포트폴리오를 구성하는 것이 유리합니다. 반면, 거래대금만 보고 변동성이 30%를 초과하는 투기성 종목(GEOD, CAP)에 진입하는 것은 자산의 급격한 손실을 초래할 수 있으므로 철저한 분할 매수와 리스크 관리가 필수적입니다.
