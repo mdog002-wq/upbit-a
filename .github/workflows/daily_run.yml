@@ -52,21 +52,21 @@ jobs:
 
       # 🌐 대시보드(index.html) 및 AI 데이터 확실한 커밋 & 푸시
       - name: 대시보드 및 AI 데이터 커밋 및 푸시
-        if: steps.check_time.outputs.is_blocked != 'true'
+        if: steps.check_time.outputs.is_blocked != 'true'            
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-    
-          git pull origin main --rebase --autostash || echo "No rebase needed"
-          
-          # docs/ 및 data/ 폴더 강제 수집 (HTML 대시보드가 정상 반영되도록 보장)
+
+          # 1. 생성/수정된 모든 파일 대기열 추가
           git add -f docs/ data/ 2>/dev/null || git add .
-    
+
+          # 2. 변경사항이 있을 때만 커밋 후 원격 코드 수신 & 푸시
           if ! git diff --staged --quiet; then
-            git commit -m "🤖 [Bot] Update analysis report & tracker data [skip ci]"
-            git push origin main
+          git commit -m "🤖 [Bot] Update analysis report & tracker data"
+          git pull origin main --rebase
+          git push origin main
           else
-            echo "변경사항이 없어 커밋을 스킵합니다."
+          echo "변경사항이 없어 커밋을 스킬합니다."
           fi
 
       # 레포1 완료 시 레포2(mdog002-wq/upbit) 실행 트리거 발송
