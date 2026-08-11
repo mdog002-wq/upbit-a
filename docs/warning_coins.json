@@ -1,17 +1,4 @@
 {
-    "updated_at": "2026-08-12 00:36:33",
-    "warning_coins": [
-        {
-            "symbol": "LINK",
-            "name": "체인링크",
-            "reason": "RSI 60.3으로 과열권 진입 및 최근 1시간 하락(-1.48%)에 따른 단기 차익실현 물량 출회 리스크",
-            "entry_price": 12040.0
-        },
-        {
-            "symbol": "RE",
-            "name": "리",
-            "reason": "RSI 59.6으로 상대적 단기 상승에 따른 과매수 경계 및 낮은 종합예측점수로 인한 하방 변동성 위험",
-            "entry_price": 592.0
-        }
-    ]
+    "updated_at": "2026-08-12 00:41:37",
+    "warning_coins": []
 }
