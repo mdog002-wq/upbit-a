@@ -5,6 +5,7 @@ from datetime import timezone, timedelta
 import json
 import re
 import requests
+import xml.etree.ElementTree as ET
 import numpy as np
 import pandas as pd
 import pyupbit
@@ -22,6 +23,7 @@ DATA_DIR = "data"
 DOCS_DIR = "./docs"
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
+NEWS_JSON_FILE = os.path.join(DOCS_DIR, "news.json")
 WEIGHTS_FILE = os.path.join(DATA_DIR, "weights.json")
 GOLDEN_PATTERN_URL = "https://raw.githubusercontent.com/mdog002-wq/upbit-p/main/data/golden_pattern.json"
 
@@ -49,6 +51,32 @@ def load_json(filepath, default):
 def save_json(filepath, data):
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
+
+def fetch_crypto_news():
+    """가장 최근 암호화폐/비트코인 관련 속보 RSS 수집 및 docs/news.json 저장"""
+    url = "https://news.google.com/rss/search?q=%EB%B9%84%ED%8A%B8%EC%BD%94%EC%9D%B8+%EC%95%94%ED%98%B8%ED%99%94%ED%8F%90&hl=ko&gl=KR&ceid=KR:ko"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    }
+    try:
+        res = requests.get(url, headers=headers, timeout=10)
+        if res.status_code == 200:
+            root = ET.fromstring(res.content)
+            news_list = []
+            for item in root.findall(".//item")[:7]:  # 최신 속보 7개 수집
+                title = item.find("title").text if item.find("title") is not None else ""
+                link = item.find("link").text if item.find("link") is not None else ""
+                pubDate = item.find("pubDate").text if item.find("pubDate") is not None else ""
+                news_list.append({
+                    "title": title,
+                    "link": link,
+                    "pubDate": pubDate
+                })
+            
+            save_json(NEWS_JSON_FILE, news_list)
+            print(f"📰 [실시간 속보 수집 완료] {len(news_list)}건 저장 완료 -> {NEWS_JSON_FILE}")
+    except Exception as e:
+        print(f"⚠️ 실시간 속보 수집 실패: {e}")
 
 def load_golden_pattern():
     try:
@@ -149,6 +177,7 @@ def auto_tune_weights_and_evaluate_history():
         save_json(WEIGHTS_FILE, normalized_weights)
         save_json(AI_TRACKER_HISTORY_FILE, history)
         print(f"🧬 [자율 진화 완료] 과거 추천 승률 기반 가중치 업데이트: {normalized_weights}")
+
 def get_krw_upbit_tickers():
     url = "https://api.upbit.com/v1/market/all?isDetails=false"
     try:
@@ -295,10 +324,13 @@ def update_index_html_timestamp(now_str):
 def main():
     now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
 
-    # 1. 이전 추천 백테스트 및 가중치 스스로 학습
+    # 1. 실시간 속보 데이터 수집
+    fetch_crypto_news()
+
+    # 2. 이전 추천 백테스트 및 가중치 스스로 학습
     auto_tune_weights_and_evaluate_history()
 
-    # 2. 시장 분석 실행
+    # 3. 시장 분석 실행
     tickers_info = get_krw_upbit_tickers()
     if not tickers_info: return
 
@@ -320,7 +352,7 @@ def main():
 
     save_tracker_history(rec_coins, df_res)
     
-    # 3. docs/index.html 내 날짜 텍스트 강제 갱신
+    # 4. docs/index.html 내 날짜 텍스트 강제 갱신
     update_index_html_timestamp(now_str)
 
     print(f"✅ 정밀 분석 및 자율 저장 완료! (추천 코인: {len(rec_coins)}개)")
