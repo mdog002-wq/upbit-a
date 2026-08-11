@@ -19,6 +19,7 @@ AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
 NEWS_JSON_FILE = os.path.join(DOCS_DIR, "news.json")
 WARNING_COINS_FILE = os.path.join(DOCS_DIR, "warning_coins.json")
+WIN_RATE_HISTORY_FILE = os.path.join(DOCS_DIR, "win_rate_history.json")
 
 os.makedirs(DOCS_DIR, exist_ok=True)
 
@@ -85,6 +86,10 @@ def fetch_crypto_news():
         save_json(NEWS_JSON_FILE, news_list)
 
 def evaluate_and_update_history():
+    """
+    승률 및 검증 기록을 코인 스크립트 측으로 이전 및 영구 보관.
+    최근 검증된 항목이 가장 위에 위치하도록 정렬합니다.
+    """
     history = load_json(AI_TRACKER_HISTORY_FILE, [])
     if not history: return
 
@@ -123,16 +128,39 @@ def evaluate_and_update_history():
                 }
 
             entry["evaluated"] = True
+            entry["evaluated_at"] = now_time.strftime("%Y-%m-%d %H:%M:%S")
             updated = True
 
     if updated:
+        # 최근 검증된 종목이 상단(위)에 위치하도록 정렬
+        history.sort(
+            key=lambda x: x.get("evaluated_at", x.get("timestamp", "")), 
+            reverse=True
+        )
         save_json(AI_TRACKER_HISTORY_FILE, history)
 
+        # 영구 보존용 전체 누적 승률 기록 업데이트
+        total_evals, wins = 0, 0
+        for entry in history:
+            if entry.get("evaluated", False):
+                for coin in entry.get("recommended_coins", []):
+                    res = coin.get("evaluated_result")
+                    if res:
+                        total_evals += 1
+                        if res.get("success"): wins += 1
+
+        win_rate = round((wins / total_evals * 100), 1) if total_evals > 0 else 0.0
+        win_record = load_json(WIN_RATE_HISTORY_FILE, [])
+        win_record.append({
+            "updated_at": now_time.strftime("%Y-%m-%d %H:%M:%S"),
+            "win_rate": win_rate,
+            "total_trades": total_evals,
+            "wins": wins,
+            "losses": total_evals - wins
+        })
+        save_json(WIN_RATE_HISTORY_FILE, win_record)
+
 def get_enhanced_quant_market_data():
-    """
-    [강화된 종목 선별 로직]
-    업비트 KRW 마켓 전체를 순회하며 거래대금, 변동성, 골든패턴 유사도를 직접 수치화하여 분석합니다.
-    """
     tickers = pyupbit.get_tickers(fiat="KRW")
     market_data = []
 
@@ -148,21 +176,16 @@ def get_enhanced_quant_market_data():
             current_price = float(df['close'].iloc[-1])
             volume_24h = float((df['close'] * df['volume']).tail(24).sum())
             
-            # 1. 단기 변동성 계산 (최근 24시간 고저 차이 비율)
             high_max = float(df['high'].tail(24).max())
             low_min = float(df['low'].tail(24).min())
             volatility = ((high_max - low_min) / low_min) * 100.0 if low_min > 0 else 0.0
 
-            # 2. 골든패턴 유사도 추정 (저점 다지기 후 거래량 동반 반등 패턴 분석)
-            # 최근 12시간 거래량이 이전 12시간 대비 증가했는지 여부 체크
             recent_vol = df['volume'].tail(12).mean()
             prev_vol = df['volume'].iloc[-24:-12].mean()
             vol_growth_ratio = (recent_vol / prev_vol) if prev_vol > 0 else 1.0
             
-            # 패턴 점수화 (거래량 증가 + 완만한 우상향 또는 바닥 다지기)
             pattern_score = min(float(vol_growth_ratio * 50.0), 100.0)
 
-            # 3. 종합 예측 점수 산정 (거래대금 가중치 + 패턴 점수)
             market_data.append({
                 "symbol": symbol,
                 "current_price": current_price,
@@ -170,13 +193,12 @@ def get_enhanced_quant_market_data():
                 "volatility_24h": round(volatility, 2),
                 "golden_pattern_score": round(pattern_score, 1)
             })
-            time.sleep(0.05) # API 부하 방지
+            time.sleep(0.05)
         except Exception as e:
             continue
 
-    # 거래대금 상위 및 퀀트 스코어 기준 정렬
     sorted_coins = sorted(market_data, key=lambda x: (x["volume_24h"] * x["golden_pattern_score"]), reverse=True)
-    return sorted_coins[:20] # 상위 20개 정예 종목 선별
+    return sorted_coins[:20]
 
 def generate_ai_analysis(top_coins):
     now_str = datetime.datetime.now(KST).strftime("%Y-%m-%d %H:%M:%S")
@@ -238,14 +260,14 @@ def save_tracker_history(rec_coins):
         "recommended_coins": rec_coins,
         "evaluated": False
     }
-    history_data.append(new_entry)
-    save_json(AI_TRACKER_HISTORY_FILE, history_data[-50:])
+    # 신규 등록 건을 상단에 오도록 맨 앞에 추가
+    history_data.insert(0, new_entry)
+    save_json(AI_TRACKER_HISTORY_FILE, history_data[:50])
 
 def main():
     fetch_crypto_news()
     evaluate_and_update_history()
     
-    # 강화된 종목 선별 퀀트 로직 실행
     top_coins = get_enhanced_quant_market_data()
     report_md, rec_coins, caution_coins = generate_ai_analysis(top_coins)
 
