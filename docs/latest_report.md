@@ -1,1 +1,33 @@
-AI 분석 실패: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 43.64870804s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '43s'}]}}
+**최종 분석 시각: 2026-08-12 06:18:58**
+
+# 퀀트 엔진 기반 암호화폐 정밀 분석 리포트
+
+## 1. 종합 시장 동향 요약
+본 분석은 파이썬 퀀트 엔진을 통해 선별된 상위 20개 암호화폐의 거래대금, 24시간 변동성, 그리고 골든패턴 유사도 점수를 정량적으로 분석한 결과입니다. 현재 시장은 비트코인(BTC)과 도지코인(DOGE) 등 대형 자산 중심의 안정적인 수급 흐름과 함께, 일부 알트코인(VIRTUAL, ID)에서 강력한 기술적 바닥 매집 및 반등 시그널이 포착되고 있습니다. 반면, 일부 고변동성 종목(GEOD, CAP)은 단기 투기성 자금 유입으로 인해 극심한 변동성을 보이고 있어 리스크 관리가 필수적인 시점입니다.
+
+## 2. AI 최우선 추천 종목 분석
+
+### ① 도지코인 (DOGE)
+* **골든패턴 점수**: 84.8점
+* **24시간 변동성**: 3.87%
+* **분석 의견**: 도지코인은 84.8점이라는 매우 높은 골든패턴 유사도를 기록하며 전형적인 바닥 다지기 후 우상향 패턴을 보여주고 있습니다. 24시간 변동성이 3.87%로 매우 안정적인 흐름을 유지하는 가운데, 일일 거래대금 약 105억 원을 기록하며 탄탄한 유동성 지지선을 형성하고 있습니다. 하방 경직성이 확보된 상태에서 기관 및 개인의 매집세가 유입되고 있어 단기 및 중기 반등 확률이 매우 높습니다.
+
+### ② 버추얼 (VIRTUAL)
+* **골든패턴 점수**: 100.0점 (만점)
+* **24시간 변동성**: 8.25%
+* **분석 의견**: VIRTUAL은 퀀트 엔진이 산출한 골든패턴 유사도 점수에서 100.0점 만점을 기록하며 완벽한 기술적 반등 차트를 완성했습니다. 변동성은 8.25%로 다소 존재하나, 거래대금 약 31억 원과 함께 매수세가 유입되며 매물대를 돌파하는 초기 신호를 보이고 있습니다. 리스크 대비 기대 수익률이 매우 우수한 손익비 구간으로 판단됩니다.
+
+## 3. AI 위험 및 주의 종목 분석
+
+### ① 지오디 (GEOD)
+* **골든패턴 점수**: 34.4점
+* **24시간 변동성**: 35.36%
+* **분석 의견**: GEOD는 24시간 변동성이 35.36%에 달하는 극도의 과열 상태를 보이고 있습니다. 거래대금은 약 257억 원으로 활발하지만, 골든패턴 점수가 34.4점에 불과하여 추세적인 상승보다는 단기 세력의 수급에 의한 펌핑 앤 덤프 가능성이 매우 높습니다. 고점 추격 매수 시 급격한 낙폭으로 인한 원금 손실 위험이 매우 큽니다.
+
+### ② 캡 (CAP)
+* **골든패턴 점수**: 52.3점
+* **24시간 변동성**: 31.64%
+* **분석 의견**: CAP은 일일 거래대금이 약 656억 원에 육박하며 시장의 이목을 끌고 있으나, 변동성이 31.64%로 매우 높아 개인 투자자가 대응하기 까다로운 영역에 진입했습니다. 골든패턴 점수(52.3점)가 애매한 수준에 머물러 있어, 현재의 급등세가 지속적인 상승 추세로 이어지기보다는 단기 차익 실현 매물 출회로 급락할 위험이 상존합니다.
+
+## 4. 투자 전략 제언
+현재 시장은 무분별한 급등주 추격보다는 **'높은 골든패턴 점수 + 안정적인 변동성'**을 지닌 종목에 분할 매수로 접근하는 것이 유리합니다. DOGE와 같이 유동성이 풍부하고 변동성이 제어된 종목을 포트폴리오의 중심에 두고, VIRTUAL과 같이 기술적 패턴이 완성된 종목을 통해 초과 수익을 노리는 전략을 권장합니다. GEOD, CAP 등 변동성이 30%를 초과하는 종목은 철저히 매매 대상에서 제외하거나 극소액 단타 영역으로만 제한해야 합니다.
