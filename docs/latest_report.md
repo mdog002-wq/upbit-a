@@ -1,1 +1,41 @@
-AI 분석 실패: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 31.971796131s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '31s'}]}}
+**최종 분석 시각: 2026-08-12 07:18:50**
+
+# 퀀트 엔진 기반 암호화폐 정밀 분석 리포트
+
+## 1. 시장 총평 및 퀀트 분석 개요
+본 리포트는 파이썬 퀀트 엔진을 통해 추출된 상위 20개 암호화폐의 거래대금, 24시간 변동성, 그리고 기술적 지표의 정합성을 나타내는 '골든패턴 유사도 점수'를 종합적으로 분석하여 작성되었습니다.
+
+현재 시장은 비트코인(BTC)을 중심으로 한 대형 자산의 안정적인 흐름 속에서, 개별 알트코인들의 기술적 반등 패턴과 투기적 변동성이 극명하게 대립하는 양상을 보이고 있습니다. 특히 골든패턴 점수가 극대화된 종목들은 바닥권 매집이 완료되어 강한 추세 전환을 앞두고 있는 반면, 일부 고변동성 종목들은 기술적 근거 없는 단기 과열 양상을 보이고 있어 철저한 리스크 관리가 요구됩니다.
+
+---
+
+## 2. AI 최우선 추천 종목 분석 (Recommended Coins)
+
+### ① 도지코인 (DOGE)
+* **퀀트 데이터**: 현재가 102.0원 | 24시간 거래대금 약 114.2억 원 | 변동성 4.89% | 골든패턴 점수 89.2점
+* **분석 의견**: 골든패턴 유사도가 89.2점으로 최상위권에 위치하며, 변동성이 4.89%로 매우 안정적인 수치를 기록하고 있습니다. 충분한 거래대금(114억)이 뒷받침되는 가운데 안정적인 바닥 다지기 패턴을 완성하여, 하방 리스크 대비 상방 메리트가 매우 높은 손익비 우수 구간으로 판단됩니다.
+
+### ② 아이디 (ID)
+* **퀀트 데이터**: 현재가 40.7원 | 24시간 거래대금 약 36.9억 원 | 변동성 18.11% | 골든패턴 점수 100.0점
+* **분석 의견**: 골든패턴 유사도 점수 100.0점 만점을 기록하며 완벽한 기술적 반등 시그널을 나타내고 있습니다. 변동성이 18.11%로 다소 높은 편이나, 이는 바닥권 돌파를 위한 초기 거래량 유입 과정으로 해석됩니다. 공격적인 성향의 투자자에게 단기 고수익을 제공할 수 있는 최적의 차트 패턴입니다.
+
+### ③ 비트코인 (BTC)
+* **퀀트 데이터**: 현재가 89,799,000원 | 24시간 거래대금 약 561.1억 원 | 변동성 1.63% | 골든패턴 점수 72.1점
+* **분석 의견**: 561억 원이라는 압도적인 유동성과 함께 1.63%의 극도로 낮은 변동성을 유지하고 있습니다. 골든패턴 점수 또한 72.1점으로 우수하여 포트폴리오의 변동성을 낮추고 중심을 잡아줄 수 있는 가장 안전한 앵커 자산으로 추천합니다.
+
+---
+
+## 3. AI 위험 및 주의 종목 분석 (Caution Coins)
+
+### ① 지오디 (GEOD)
+* **퀀트 데이터**: 현재가 289.0원 | 24시간 거래대금 약 258.9억 원 | 변동성 35.36% | 골든패턴 점수 30.8점
+* **분석 의견**: 24시간 변동성이 35.36%로 분석 대상 중 가장 높은 수치를 기록하고 있으나, 골든패턴 점수는 30.8점에 불과합니다. 이는 기술적 지지선이나 추세적 신뢰도 없이 단순 투기성 자금 유입에 의해 가격이 급등락하고 있음을 시사합니다. 추격 매수 시 단기 급락으로 인한 대규모 손실 가능성이 매우 높습니다.
+
+### ② 캡 (CAP)
+* **퀀트 데이터**: 현재가 75.0원 | 24시간 거래대금 약 653.8억 원 | 변동성 31.64% | 골든패턴 점수 44.5점
+* **분석 의견**: 653억 원에 달하는 대규모 거래대금이 몰리며 시장의 이목을 끌고 있으나, 변동성이 31.64%로 매우 과열되어 있습니다. 골든패턴 점수가 44.5점으로 중간 이하에 머물러 있어, 현재의 상승세가 지속 가능한 추세라기보다는 단기 세력의 매도 물량 넘기기(설거지) 과정일 확률이 높아 진입에 극도의 주의가 필요합니다.
+
+---
+
+## 4. 투자 전략 제언
+현재 시장은 무조건적인 상승장이라기보다는 철저한 '종목 장세'의 성격을 띠고 있습니다. 따라서 포트폴리오 구성 시 **비트코인(BTC)**을 40% 내외로 배치하여 전체 자산의 안정성을 확보한 후, 기술적 완성도가 극대화된 **도지코인(DOGE)**과 **아이디(ID)**를 분할 매수하는 전략을 권장합니다. 반면, **GEOD**나 **CAP**과 같이 변동성만 높고 기술적 신뢰도가 낮은 종목은 철저히 배제하여 불필요한 MDD(최대 낙폭) 확대를 방지해야 합니다.
