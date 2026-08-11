@@ -2,6 +2,7 @@ import os
 import time
 import datetime
 import json
+import re
 import requests
 import numpy as np
 import pandas as pd
@@ -209,18 +210,20 @@ def process_single_coin(item, current_price_map):
     }
 
 def generate_gemini_analysis(df_result):
-    if df_result.empty: return "분석 데이터가 존재하지 않습니다.", []
+    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    if df_result.empty: 
+        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\n분석할 수 있는 시장 데이터가 존재하지 않습니다.", []
 
     qualified_df = df_result[df_result['종합예측점수'] >= MIN_RECOMMEND_SCORE].head(3)
 
-    # 🌟 핵심 수정: 추천 종목이 없더라도 현재 분석 시각을 마크다운에 명시하여 파일이 업데이트되도록 수정
+    # 🌟 추천 종목이 없어도 분석 시각을 항상 명시하여 리포트 갱신
     if qualified_df.empty:
-        now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         no_rec_md = f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\n현재 시장 상태에서 **눌림목 및 매집 유효 조건({MIN_RECOMMEND_SCORE}점 이상)**을 충족하는 종목이 없습니다. 현금 비중을 유지하고 관망하는 것을 권장합니다."
         return no_rec_md, []
 
     if not GEMINI_API_KEY:
-        return "Gemini API 키가 설정되지 않았습니다.", []
+        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\nGemini API 키가 설정되지 않았습니다.", []
 
     try:
         client = genai.Client(api_key=GEMINI_API_KEY)
@@ -232,7 +235,7 @@ def generate_gemini_analysis(df_result):
 {qualified_df.to_string()}
 """
         response = client.models.generate_content(
-            model='gemini-3.1-flash-lite',
+            model='gemini-3.531-flash-lite',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
@@ -247,15 +250,15 @@ def generate_gemini_analysis(df_result):
         for i in raw_recs:
             sym = i.get("symbol", "").upper()
             if sym:
-                # 진화형: 추천 시점의 진입 가격 저장
                 match_row = qualified_df[qualified_df["심볼"] == sym]
                 entry_price = float(match_row["현재가(KRW)"].values[0]) if not match_row.empty else 0.0
                 rec_list.append({"symbol": sym, "name": i.get("coin_name", ""), "reason": i.get("reason", ""), "entry_price": entry_price})
 
-        return parsed.get("report_markdown", ""), rec_list
+        report_md = f"**최종 분석 시각: {now_str}**\n\n" + parsed.get("report_markdown", "")
+        return report_md, rec_list
     except Exception as e:
         print(f"⚠️ Gemini 생성 실패: {e}")
-        return "AI 리포트 생성 실패", []
+        return f"## 🛡️ AI Market Alert\n\n**최종 분석 시각: {now_str}**\n\nAI 리포트 생성 실패: {e}", []
 
 def save_tracker_history(rec_coins, df_res):
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -270,7 +273,29 @@ def save_tracker_history(rec_coins, df_res):
     history_data.append(new_entry)
     save_json(AI_TRACKER_HISTORY_FILE, history_data[-100:])
 
+def update_index_html_timestamp(now_str):
+    index_path = os.path.join(DOCS_DIR, "index.html")
+    if os.path.exists(index_path):
+        try:
+            with open(index_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            
+            # docs/index.html 내의 날짜 패턴을 강제 치환하여 웹사이트 시각 변경 보장
+            new_content = re.sub(
+                r"\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}",
+                now_str,
+                content
+            )
+            
+            with open(index_path, "w", encoding="utf-8") as f:
+                f.write(new_content)
+            print(f"🕒 docs/index.html 타임스탬프 치환 성공: {now_str}")
+        except Exception as e:
+            print(f"⚠️ docs/index.html 치환 실패: {e}")
+
 def main():
+    now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     # 1. 이전 추천 백테스트 및 가중치 스스로 학습
     auto_tune_weights_and_evaluate_history()
 
@@ -295,6 +320,10 @@ def main():
         f.write(ai_report_md)
 
     save_tracker_history(rec_coins, df_res)
+    
+    # 3. docs/index.html 내 날짜 텍스트 강제 갱신
+    update_index_html_timestamp(now_str)
+
     print(f"✅ 정밀 분석 및 자율 저장 완료! (추천 코인: {len(rec_coins)}개)")
 
 if __name__ == "__main__":
