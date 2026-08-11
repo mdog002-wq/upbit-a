@@ -1,1 +1,31 @@
-AI 분석 실패: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 3.906732268s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}}
+**최종 분석 시각: 2026-08-12 06:49:36**
+
+# 퀀트 엔진 기반 암호화폐 시장 정밀 분석 리포트
+
+본 리포트는 파이썬 퀀트 엔진을 통해 추출된 상위 20개 암호화폐의 거래대금, 24시간 변동성, 그리고 골든 패턴 유사도 점수(Golden Pattern Score)를 정밀 분석하여 작성되었습니다. 시장의 유동성 흐름과 기술적 반등 가능성을 종합적으로 고려하여 최적의 포트폴리오 전략을 제시합니다.
+
+## 1. 시장 총평 및 유동성 분석
+현재 암호화폐 시장은 비트코인(BTC)과 도지코인(DOGE)을 필두로 한 메이저 자산으로의 유동성 집중 현상과 일부 알트코인의 극심한 변동성 장세가 공존하고 있습니다. 특히 테더(USDT)와 리플(XRP)의 압도적인 거래대금은 시장의 대기 자금과 거래 활성도가 여전히 높은 수준임을 시사합니다. 기술적 관점에서는 골든 패턴 점수가 극대화된 종목들을 중심으로 바닥권 매집 완료 후 강한 반등 시그널이 포착되고 있습니다.
+
+## 2. AI 최우선 추천 종목 분석
+
+### ① 도지코인 (DOGE)
+* **퀀트 데이터**: 골든 패턴 점수 90.0점 | 24시간 변동성 3.87% | 24시간 거래대금 약 109억 달러
+* **분석 의견**: 도지코인은 90점이라는 매우 높은 골든 패턴 점수를 기록하며 기술적 반등의 최적기에 진입했음을 보여줍니다. 대규모 거래대금(약 109억 달러)이 뒷받침되면서도 24시간 변동성은 3.87%로 안정적으로 유지되고 있어, 세력의 바닥권 매집이 안정적으로 완료된 전형적인 우상향 패턴을 나타내고 있습니다. 단기 및 중기 돌파 가능성이 매우 높은 최우선 추천 종목입니다.
+
+### ② 버추얼 (VIRTUAL)
+* **퀀트 데이터**: 골든 패턴 점수 100.0점 | 24시간 변동성 8.25% | 24시간 거래대금 약 31억 달러
+* **분석 의견**: VIRTUAL은 골든 패턴 유사도 점수 100점 만점을 기록하며 완벽한 기술적 반전 신호를 보이고 있습니다. 변동성(8.25%) 또한 감내 가능한 수준이며, 거래대금 역시 시가총액 대비 활발하게 유입되고 있어 단기 급등 모멘텀이 매우 강하게 작용할 것으로 분석됩니다.
+
+## 3. AI 위험 및 주의 종목 분석
+
+### ① 지오디 (GEOD)
+* **퀀트 데이터**: 골든 패턴 점수 34.9점 | 24시간 변동성 35.36% | 24시간 거래대금 약 258억 달러
+* **분석 의견**: GEOD는 24시간 변동성이 35.36%에 달하는 극도의 과열 상태를 보이고 있습니다. 막대한 거래대금이 유입되었으나 골든 패턴 점수는 34.9점에 불과하여, 이는 체계적인 매집보다는 단기 투기성 자금 유입에 따른 펌핑앤덤프(Pump and Dump) 리스크가 매우 높음을 의미합니다. 신규 진입을 극도로 자제해야 합니다.
+
+### ② 엠엠티 (MMT)
+* **퀀트 데이터**: 골든 패턴 점수 23.2점 | 24시간 변동성 20.00% | 24시간 거래대금 약 283억 달러
+* **분석 의견**: MMT는 20%의 높은 변동성과 함께 골든 패턴 점수가 23.2점으로 분석 대상 중 최하위권에 머물러 있습니다. 기술적 지지선이 붕괴된 상태에서 거래량만 터진 하락 추세 지속형 패턴일 가능성이 높으므로, 보유자들은 비중 축소를 고려해야 하며 신규 매수는 매우 위험합니다.
+
+## 4. 투자 전략 제언
+현재 장세는 무조건적인 낙관론보다는 기술적 신뢰도가 검증된 종목으로 압축 대응하는 전략이 유효합니다. 골든 패턴 점수가 높고 변동성이 통제된 **DOGE**와 **VIRTUAL**을 포트폴리오의 핵심 반등주로 편입하고, 변동성만 비정상적으로 높은 **GEOD** 및 **MMT**와 같은 투기성 종목은 철저히 배제하여 자산의 안정성을 극대화할 것을 권장합니다.
