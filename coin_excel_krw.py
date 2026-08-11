@@ -60,31 +60,68 @@ def save_json(filepath, data):
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
+NAVER_CLIENT_ID = os.environ.get("NAVER_CLIENT_ID", "")
+NAVER_CLIENT_SECRET = os.environ.get("NAVER_CLIENT_SECRET", "")
+
 def fetch_crypto_news():
-    """가장 최근 암호화폐/비트코인 관련 속보 RSS 수집 및 docs/news.json 저장"""
-    url = "https://news.google.com/rss/search?q=%EB%B9%84%ED%8A%B8%EC%BD%94%EC%9D%B8+%EC%95%94%ED%98%B8%ED%99%94%ED%8F%90&hl=ko&gl=KR&ceid=KR:ko"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    }
+    """업비트 공지 및 코인니스 실시간 속보 수집 (docs/news.json 저장)"""
+    news_list = []
+
+    # 1. 코인니스 실시간 속보 수집
     try:
-        res = requests.get(url, headers=headers, timeout=10)
+        coinness_url = "https://api.coinness.com/v1/newsflash/list?limit=5"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+        res = requests.get(coinness_url, headers=headers, timeout=5)
         if res.status_code == 200:
-            root = ET.fromstring(res.content)
-            news_list = []
-            for item in root.findall(".//item")[:7]:
-                title = item.find("title").text if item.find("title") is not None else ""
-                link = item.find("link").text if item.find("link") is not None else ""
-                pubDate = item.find("pubDate").text if item.find("pubDate") is not None else ""
+            data = res.json()
+            items = data.get("data", {}).get("list", []) if isinstance(data.get("data"), dict) else data.get("data", [])
+            for item in items:
+                title = item.get("title") or item.get("content", "")[:50]
+                news_id = item.get("id")
+                link = f"https://coinness.com/newsflash/{news_id}" if news_id else "https://coinness.com"
+                pubDate = item.get("created_at") or item.get("published_at", "")
+                
+                news_list.append({
+                    "title": f"[코인니스] {title}",
+                    "link": link,
+                    "pubDate": pubDate
+                })
+            print(f"⚡ [코인니스 속보 수집 성공] {len(items)}건")
+    except Exception as e:
+        print(f"⚠️ 코인니스 수집 중 에러: {e}")
+
+    # 2. 업비트 공지사항 수집
+    try:
+        upbit_url = "https://api-manager.upbit.com/v1/notices?page=1&per_page=5"
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+        }
+        res = requests.get(upbit_url, headers=headers, timeout=5)
+        if res.status_code == 200:
+            notices = res.json().get("data", {}).get("list", [])
+            for notice in notices:
+                title = f"[업비트] {notice.get('title', '')}"
+                notice_id = notice.get("id")
+                link = f"https://upbit.com/service_center/notice?id={notice_id}" if notice_id else "https://upbit.com/service_center/notice"
+                pubDate = notice.get("created_at", "")
+                
                 news_list.append({
                     "title": title,
                     "link": link,
                     "pubDate": pubDate
                 })
-            
-            save_json(NEWS_JSON_FILE, news_list)
-            print(f"📰 [실시간 속보 수집 완료] {len(news_list)}건 저장 완료 -> {NEWS_JSON_FILE}")
+            print(f"📢 [업비트 공지 수집 성공] {len(notices)}건")
     except Exception as e:
-        print(f"⚠️ 실시간 속보 수집 실패: {e}")
+        print(f"⚠️ 업비트 수집 중 에러: {e}")
+
+    # 3. JSON 저장
+    if news_list:
+        save_json(NEWS_JSON_FILE, news_list)
+        print(f"📰 [최종 속보 및 공지 저장 완료] 총 {len(news_list)}건 -> {NEWS_JSON_FILE}")
+    else:
+        print("⚠️ 속보 수집 실패 (기존 news.json 데이터 유지)")
 
 def load_golden_pattern():
     try:
