@@ -13,7 +13,6 @@
  .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }
  .news-box { max-height: 250px; overflow-y: auto; }
  .table-scroll-box { max-height: 650px; overflow-y: auto; }
- .tracking-box { max-height: 750px; overflow-y: auto; }
  .report-body h1, .report-body h2, .report-body h3 { font-size: 1rem; font-weight: bold; margin-top: 0.5rem; color: #0f172a; }
  .report-body ul { padding-left: 1.2rem; margin-bottom: 0.5rem; }
  #allCoinsTable tbody tr:hover { background-color: #f1f5f9 !important; transition: background-color 0.15s ease-in-out; }
@@ -34,7 +33,7 @@
  </div>
  <div class="col-md-4 col-lg-5 text-center text-md-start">
  <h3 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h3>
- <small class="text-muted">최종 업데이트: 2026-08-12 01:26:27 (총 281개 종목 분석 완료)</small>
+ <small class="text-muted">최종 업데이트: 2026-08-10 19:27:26 (총 281개 종목 분석 완료)</small>
  </div>
  <div class="col-md-4 col-lg-4">
  <div class="input-group">
@@ -48,23 +47,28 @@
  <!-- 메인 레이아웃 -->
  <div class="row g-4">
  <!-- 좌측 패널: 실시간 속보 / AI 리포트 -->
- <div class="col-lg-3">
+ <div class="col-lg-4">
  <div class="d-flex flex-column gap-3">
+ <!-- 1. 실시간 속보 & 공지 영역 (news.json 연동) -->
  <div class="card p-3 shadow-sm">
- <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보</h6>
- <div class="news-box d-flex flex-column gap-2">
- <div class="text-muted small text-center py-3">현재 등록된 추천 속보 이슈가 없습니다.</div>
+ <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보 및 공지</h6>
+ <div id="newsContainer" class="news-box d-flex flex-column gap-2">
+ <div class="text-muted small text-center py-3">속보 데이터를 불러오는 중...</div>
  </div>
  </div>
+
+ <!-- 2. AI 분석 리포트 영역 (latest_report.md 연동) -->
  <div class="card p-3 shadow-sm">
  <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트</h6>
- <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 480px; overflow-y: auto; line-height: 1.5;"></div>
+ <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 480px; overflow-y: auto; line-height: 1.5;">
+ 분석 리포트를 불러오는 중...
+ </div>
  </div>
  </div>
  </div>
 
- <!-- 중앙 패널: 전체 코인 AI 예측 순위 -->
- <div class="col-lg-5">
+ <!-- 중앙/우측 패널: 전체 코인 AI 예측 순위 -->
+ <div class="col-lg-8">
  <div class="card p-4 shadow-sm">
  <div class="d-flex justify-content-between align-items-center mb-3">
  <h5 class="fw-bold mb-0 text-dark fs-5"><i class="fa-solid fa-trophy text-warning me-1"></i> 전체 코인 AI 예측 순위</h5>
@@ -75,7 +79,7 @@
  <tr>
  <th class="text-center" style="width: 10%;">순위</th>
  <th style="width: 40%;">코인명</th>
- <th style="width: 25%;">현재가</th>
+ <th style="width: 25%;">현재가(KRW)</th>
  <th style="width: 25%;">예측점수 (유사도)</th>
  </tr>
  </thead>
@@ -118,8 +122,87 @@
  </div>
  </div>
 
- <!-- 필터링 및 기능 스크립트 추가 -->
+ <!-- 데이터 로드 및 UI 제어 자바스크립트 -->
  <script>
+ document.addEventListener("DOMContentLoaded", function () {
+   loadNewsData();
+   loadReportMarkdown();
+   highlightWarningCoins();
+ });
+
+ // 1. news.json 파일 로드 및 동적 랜더링
+ async function loadNewsData() {
+   const newsContainer = document.getElementById("newsContainer");
+   try {
+     const response = await fetch("news.json?t=" + new Date().getTime());
+     if (!response.ok) throw new Error("네트워크 응답 오류");
+     const newsList = await response.json();
+
+     if (!newsList || newsList.length === 0) {
+       newsContainer.innerHTML = `<div class="text-muted small text-center py-3">현재 등록된 속보 이슈가 없습니다.</div>`;
+       return;
+     }
+
+     let html = "";
+     newsList.forEach(item => {
+       html += `
+         <div class="border-bottom pb-2 mb-2">
+           <a href="${item.link}" target="_blank" class="text-decoration-none text-dark fw-bold small d-block text-truncate">
+             ${item.title}
+           </a>
+           <span class="text-muted" style="font-size: 0.75rem;">${item.pubDate || ''}</span>
+         </div>
+       `;
+     });
+     newsContainer.innerHTML = html;
+   } catch (err) {
+     newsContainer.innerHTML = `<div class="text-muted small text-center py-3">속보 데이터를 불러올 수 없습니다.</div>`;
+   }
+ }
+
+ // 2. latest_report.md 파일 로드 및 Marked 마크다운 변환
+ async function loadReportMarkdown() {
+   const reportContainer = document.getElementById("reportMarkdownContainer");
+   try {
+     const response = await fetch("latest_report.md?t=" + new Date().getTime());
+     if (!response.ok) throw new Error("리포트 파일 없음");
+     const markdownText = await response.text();
+     reportContainer.innerHTML = marked.parse(markdownText);
+   } catch (err) {
+     reportContainer.innerHTML = `<div class="text-muted small py-2">등록된 AI 분석 리포트가 없습니다.</div>`;
+   }
+ }
+
+ // 3. warning_coins.json 데이터를 로드하여 테이블 내 주의 코인 배지 표시
+ async function highlightWarningCoins() {
+   try {
+     const response = await fetch("warning_coins.json?t=" + new Date().getTime());
+     if (!response.ok) return;
+     const data = await response.json();
+     const warningList = data.warning_coins || [];
+
+     if (warningList.length === 0) return;
+
+     const warningSymbols = warningList.map(item => item.symbol.toUpperCase());
+     const table = document.getElementById("allCoinsTable");
+     const rows = table.getElementsByTagName("tr");
+
+     for (let i = 1; i < rows.length; i++) {
+       const tdName = rows[i].getElementsByTagName("td")[1];
+       if (tdName) {
+         warningSymbols.forEach(symbol => {
+           if (tdName.innerText.includes(`(${symbol})`) && !tdName.innerHTML.includes("⚠️ AI주의")) {
+             tdName.innerHTML += ` <span class="badge bg-danger text-white ms-1" style="font-size: 0.7rem;">⚠️ AI주의</span>`;
+           }
+         });
+       }
+     }
+   } catch (err) {
+     console.error("Warning coins fetch failed:", err);
+   }
+ }
+
+ // 4. 실시간 코인 검색 필터링
  function filterCoins() {
    const input = document.getElementById('coinSearchInput');
    const filter = input.value.toLowerCase();
