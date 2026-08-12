@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 22:58:56",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "골든패턴 점수 88.7로 매우 높으며, 대규모 거래대금을 동반한 안정적인 추세 전환 신호가 포착됨.",
+                "entry_price": 2680000.0
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 거래대금이 충분하여 기술적 반등 시 강한 탄력을 받을 것으로 예상됨.",
+                "entry_price": 90.3
+            },
+            {
+                "symbol": "LSK",
+                "name": "리스크",
+                "reason": "골든패턴 점수 100점 달성. 바닥권 매집 패턴이 뚜렷하며 변동성 대비 거래대금 효율이 우수함.",
+                "entry_price": 138.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 22:54:46",
         "recommended_coins": [
             {
@@ -1093,30 +1117,6 @@
                 "name": "엘프",
                 "reason": "골든패턴 100점 달성 종목으로, 기술적 반등 확률이 매우 높아 단기 트레이딩 관점에서 매력적임.",
                 "entry_price": 92.3
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 18:19:51",
-        "recommended_coins": [
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 유사도 100점 및 41조 원의 막대한 거래대금 동반. 바닥 매집 후 반등 잠재력이 매우 높음.",
-                "entry_price": 75.0
-            },
-            {
-                "symbol": "EUL",
-                "name": "이울러",
-                "reason": "골든패턴 유사도 94.8점으로 최상위권이며, 11%대의 상대적으로 안정적인 변동성으로 리스크 대비 기대수익이 우수함.",
-                "entry_price": 1573.0
-            },
-            {
-                "symbol": "ZBT",
-                "name": "지비티",
-                "reason": "골든패턴 유사도 80.6점과 7조 원의 탄탄한 거래대금을 바탕으로 안정적인 상승 흐름이 예상됨.",
-                "entry_price": 128.0
             }
         ],
         "evaluated": false
