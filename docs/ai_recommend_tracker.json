@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 09:49:05",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "안정적인 24시간 변동성(1.63%)과 높은 골든패턴 유사도(92.0점)를 기록하여 대형주 중심의 안정적 포트폴리오 편입에 최적입니다.",
+                "entry_price": 89816000.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 유사도 93.8점으로 매우 높고, 과도하지 않은 변동성 속에서 양호한 거래대금을 확보하여 반등 확률이 높습니다.",
+                "entry_price": 757.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 09:44:00",
         "recommended_coins": [
             {
