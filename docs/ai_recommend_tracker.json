@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 18:54:03",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 유사도 점수 100.0을 기록하였으며, 압도적인 거래대금을 동반하여 바닥 매집 후 강한 반등이 예상됨",
+                "entry_price": 74.5
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든패턴 점수 100.0으로 기술적 반등 시그널이 매우 뚜렷하며 안정적인 거래대금을 유지 중",
+                "entry_price": 92.6
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 18:49:53",
         "recommended_coins": [
             {
@@ -973,24 +991,6 @@
                 "name": "메타2",
                 "reason": "골든패턴 점수 100점 만점에 변동성 17.73%로 안정적인 바닥 매집 형태를 보임",
                 "entry_price": 6790.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 14:34:44",
-        "recommended_coins": [
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 유사도 100.0점을 기록하였으며, 과도하지 않은 적정 변동성(17.73%)과 안정적인 거래대금을 바탕으로 완벽한 매집 완료 후 반등이 예상됨.",
-                "entry_price": 6800.0
-            },
-            {
-                "symbol": "ID",
-                "name": "비트디엑스",
-                "reason": "골든패턴 유사도 98.2점으로 매우 높고, 탄탄한 거래대금과 함께 단기 조정 후 상승 탄력을 받을 확률이 가장 높은 우량 종목.",
-                "entry_price": 39.7
             }
         ],
         "evaluated": false
