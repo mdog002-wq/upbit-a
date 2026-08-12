@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 10:09:41",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "높은 거래대금과 88.5점의 우수한 골든패턴 유사도를 기록하며 시장 안정성을 견인하는 최우선 코어 자산",
+                "entry_price": 89804000.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 점수 100점을 기록한 동시에 변동성이 8.12%로 안정적이며 상승 반등 확률이 가장 높은 종목",
+                "entry_price": 756.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 10:04:24",
         "recommended_coins": [
             {
