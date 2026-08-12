@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 09:13:59",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "안정적인 거래대금과 높은 골든패턴 점수(88.1)를 기록하며 시장 전반의 반등 국면을 주도할 최우선 우량 자산.",
+                "entry_price": 89670000.0
+            },
+            {
+                "symbol": "SOL",
+                "name": "솔라나",
+                "reason": "변동성 2.57%의 안정적인 수급 속에서 골든패턴 유사도 점수 71.2점을 획득하여 상승 추세 지속 가능성이 높음.",
+                "entry_price": 107400.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 점수 87.6점으로 패턴 완성도가 매우 높으며, 과도하지 않은 변동성으로 단기 반등 탄력이 우수함.",
+                "entry_price": 756.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 09:09:34",
         "recommended_coins": [
             {
