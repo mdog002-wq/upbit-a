@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 00:34:56",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "거래대금이 매우 풍부하며 골든패턴 점수 100점을 기록, 기술적 신뢰도가 가장 높음.",
+                "entry_price": 2669000.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 점수 100점 달성 및 적절한 변동성 유지로 추세 상승 가능성 확인.",
+                "entry_price": 836.0
+            },
+            {
+                "symbol": "KAITO",
+                "name": "카이토",
+                "reason": "패턴 유사도 100점을 기록하며 바닥권에서 매집 신호가 포착됨.",
+                "entry_price": 654.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 00:29:37",
         "recommended_coins": [
             {
@@ -1159,30 +1183,6 @@
                 "name": "카이토",
                 "reason": "골든패턴 점수 100점 기록. 33%의 변동성 내에서 활발한 거래가 이루어지고 있어 기술적 반등 구간으로 판단됨.",
                 "entry_price": 705.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 20:14:29",
-        "recommended_coins": [
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 유사도 100점 만점과 막대한 24시간 거래대금을 기록하여 바닥 매집 후 강한 반등이 예상됨",
-                "entry_price": 72.9
-            },
-            {
-                "symbol": "HOLO",
-                "name": "홀로",
-                "reason": "골든패턴 점수 100점 및 풍부한 유동성을 바탕으로 안정적인 상승 추세 전환이 기대됨",
-                "entry_price": 108.0
-            },
-            {
-                "symbol": "ID",
-                "name": "이드",
-                "reason": "완벽한 골든패턴 매칭과 우수한 거래대금 유입으로 단기 수익 창출 확률이 매우 높음",
-                "entry_price": 39.8
             }
         ],
         "evaluated": false
