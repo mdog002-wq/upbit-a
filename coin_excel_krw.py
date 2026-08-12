@@ -20,6 +20,7 @@ REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
 NEWS_JSON_FILE = os.path.join(DOCS_DIR, "news.json")
 WARNING_COINS_FILE = os.path.join(DOCS_DIR, "warning_coins.json")
 WIN_RATE_HISTORY_FILE = os.path.join(DOCS_DIR, "win_rate_history.json")
+INDEX_HTML_FILE = os.path.join(DOCS_DIR, "index.html")
 
 os.makedirs(DOCS_DIR, exist_ok=True)
 
@@ -87,8 +88,8 @@ def fetch_crypto_news():
 
 def evaluate_and_update_history():
     """
-    승률 및 검증 기록을 코인 스크립트 측으로 이전 및 영구 보관.
-    최근 검증된 항목이 가장 위에 위치하도록 정렬합니다.
+    승률 및 검증 기록을 코인 스크립트 측으로 이전 및 영구 보존.
+    최근 검증된 항목이 가장 위에 위치하도록 최신순(역순) 정렬합니다.
     """
     history = load_json(AI_TRACKER_HISTORY_FILE, [])
     if not history: return
@@ -131,34 +132,33 @@ def evaluate_and_update_history():
             entry["evaluated_at"] = now_time.strftime("%Y-%m-%d %H:%M:%S")
             updated = True
 
-    if updated:
-        # 최근 검증된 종목이 상단(위)에 위치하도록 정렬
-        history.sort(
-            key=lambda x: x.get("evaluated_at", x.get("timestamp", "")), 
-            reverse=True
-        )
-        save_json(AI_TRACKER_HISTORY_FILE, history)
+    # 최근 검증 항목이 최상단(위)에 오도록 정렬
+    history.sort(
+        key=lambda x: x.get("evaluated_at", x.get("timestamp", "")), 
+        reverse=True
+    )
+    save_json(AI_TRACKER_HISTORY_FILE, history)
 
-        # 영구 보존용 전체 누적 승률 기록 업데이트
-        total_evals, wins = 0, 0
-        for entry in history:
-            if entry.get("evaluated", False):
-                for coin in entry.get("recommended_coins", []):
-                    res = coin.get("evaluated_result")
-                    if res:
-                        total_evals += 1
-                        if res.get("success"): wins += 1
+    # 영구 보존용 전체 누적 승률 기록 업데이트
+    total_evals, wins = 0, 0
+    for entry in history:
+        if entry.get("evaluated", False):
+            for coin in entry.get("recommended_coins", []):
+                res = coin.get("evaluated_result")
+                if res:
+                    total_evals += 1
+                    if res.get("success"): wins += 1
 
-        win_rate = round((wins / total_evals * 100), 1) if total_evals > 0 else 0.0
-        win_record = load_json(WIN_RATE_HISTORY_FILE, [])
-        win_record.append({
-            "updated_at": now_time.strftime("%Y-%m-%d %H:%M:%S"),
-            "win_rate": win_rate,
-            "total_trades": total_evals,
-            "wins": wins,
-            "losses": total_evals - wins
-        })
-        save_json(WIN_RATE_HISTORY_FILE, win_record)
+    win_rate = round((wins / total_evals * 100), 1) if total_evals > 0 else 0.0
+    win_record = load_json(WIN_RATE_HISTORY_FILE, [])
+    win_record.append({
+        "updated_at": now_time.strftime("%Y-%m-%d %H:%M:%S"),
+        "win_rate": win_rate,
+        "total_trades": total_evals,
+        "wins": wins,
+        "losses": total_evals - wins
+    })
+    save_json(WIN_RATE_HISTORY_FILE, win_record)
 
 def get_enhanced_quant_market_data():
     tickers = pyupbit.get_tickers(fiat="KRW")
@@ -264,6 +264,155 @@ def save_tracker_history(rec_coins):
     history_data.insert(0, new_entry)
     save_json(AI_TRACKER_HISTORY_FILE, history_data[:50])
 
+def build_tracker_html():
+    """우측 검증창 영역에 표시할 AI 추적 및 검증 결과 (최신순)"""
+    history = load_json(AI_TRACKER_HISTORY_FILE, [])
+    if not history:
+        return "<div style='color:#888; font-size:12px;'>검증 기록이 없습니다.</div>"
+
+    html = "<div class='tracker-list'>"
+    for item in history:
+        ts = item.get("timestamp", "")
+        evaluated = item.get("evaluated", False)
+        status_badge = "<span class='badge-eval'>검증완료</span>" if evaluated else "<span class='badge-wait'>진행중(12h)</span>"
+
+        html += f"""
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 {ts}</span>
+                {status_badge}
+            </div>
+            <div class='tracker-coins'>
+        """
+        for coin in item.get("recommended_coins", []):
+            sym = coin.get("symbol", "")
+            res = coin.get("evaluated_result")
+            if res:
+                res_text = f"<b style='color:{'#2b8a3e' if res.get('success') else '#e03131'}'>{res.get('status_text')} ({res.get('max_return')}% )</b>"
+            else:
+                res_text = "<span style='color:#888;'>측정중</span>"
+
+            html += f"<div class='tracker-coin-row'>• <b>{sym}</b> (진입: {coin.get('entry_price', 0):,}원) → {res_text}</div>"
+
+        html += "</div></div>"
+    html += "</div>"
+    return html
+
+def generate_full_dashboard_html():
+    report_md = ""
+    if os.path.exists(REPORT_MD_FILE):
+        with open(REPORT_MD_FILE, "r", encoding="utf-8") as f:
+            report_md = f.read()
+
+    tracker_html = build_tracker_html()
+    win_record = load_json(WIN_RATE_HISTORY_FILE, [])
+    latest_win = win_record[-1] if win_record else {"win_rate": 0.0, "total_trades": 0, "wins": 0, "losses": 0}
+
+    html_template = """<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Upbit AI Quantitative Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; margin: 0; padding: 15px; }
+        
+        .dashboard-top-section { display: grid; grid-template-columns: 1.2fr 1.5fr 1.3fr; gap: 12px; margin-bottom: 15px; align-items: stretch; }
+        .left-controls, .center-controls { display: flex; flex-direction: column; gap: 10px; }
+        
+        .status-combined-card { background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #ced4da; border-left: 5px solid #2b8a3e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-size: 13px; color: #495057; display: flex; flex-direction: column; gap: 6px; }
+        .winrate-val { font-size: 15px; color: #e03131; font-weight: bold; }
+        
+        .search-box { width: 100%; }
+        .search-box input { width: 100%; padding: 9px 12px; font-size: 14px; border: 1px solid #ced4da; border-radius: 6px; outline: none; background: #ffffff; box-sizing: border-box; }
+        
+        .ai-result-card { display: none; background: #eef3fc; border: 1px solid #b3d4ff; padding: 10px 14px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-size: 13px; line-height: 1.4; flex: 1; }
+        
+        .ai-diagnosis-box { display: flex; align-items: center; gap: 6px; background: #ffffff; padding: 8px 12px; border-radius: 6px; border: 1px solid #ced4da; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .ai-diagnosis-box input { padding: 6px 8px; border: 1px solid #ced4da; border-radius: 4px; font-size: 13px; outline: none; }
+        .ai-diagnosis-btn { background-color: #2b8a3e; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
+        
+        .watchlist-live-panel { background: #ffffff; border: 1px solid #ced4da; border-radius: 6px; padding: 10px 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .watchlist-panel-header { font-size: 13px; font-weight: bold; color: #495057; border-bottom: 1px solid #e9ecef; padding-bottom: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .watchlist-items-wrapper { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; max-height: 120px; overflow-y: auto; align-content: flex-start; }
+
+        .main-content-section { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-top: 15px; }
+        .report-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 14px; line-height: 1.6; }
+        .tracker-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .tracker-title { font-size: 15px; font-weight: bold; color: #333; margin-bottom: 12px; border-bottom: 2px solid #2b8a3e; padding-bottom: 6px; }
+        
+        .tracker-item { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 10px; margin-bottom: 10px; }
+        .tracker-header { display: flex; justify-content: space-between; font-size: 12px; color: #666; margin-bottom: 6px; }
+        .badge-eval { background: #2b8a3e; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+        .badge-wait { background: #f59f00; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+        .tracker-coin-row { font-size: 13px; margin-top: 3px; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-top-section">
+        <div class="left-controls">
+            <div class="status-combined-card">
+                <div>
+                    🎯 <b>실시간 백테스팅 승률:</b> 
+                    <span class="winrate-val">{{WIN_RATE}}%</span> 
+                    <span style="font-size: 11px; color: #666;">(총 {{TOTAL_TRADES}}건 — {{WINS}}승 {{LOSSES}}패)</span>
+                </div>
+                <div>
+                    🌐 <b>비트코인(BTC) 상태:</b> <span style="color:#007bff; font-weight: bold;">정상 / 상승 모멘텀</span>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="코인명 또는 티커 검색...">
+            </div>
+        </div>
+
+        <div class="center-controls">
+            <div id="aiResultCard" class="ai-result-card"></div>
+
+            <div class="ai-diagnosis-box">
+                <span style="font-weight: bold; font-size: 13px; color: #007bff; white-space: nowrap;">🤖 AI 진단:</span>
+                <input type="text" id="aiCoinInput" placeholder="종목명/티커" style="width: 80px;">
+                <input type="number" id="aiPriceInput" placeholder="진입가" style="width: 90px;">
+                <button class="ai-diagnosis-btn">분석</button>
+            </div>
+        </div>
+
+        <div class="watchlist-live-panel">
+            <div class="watchlist-panel-header">
+                <span>⭐ My 관심종목 현황</span>
+                <span style="color:#d9480f;"><strong id="watchlistLiveCount">0</strong>개</span>
+            </div>
+            <div id="watchlistLiveItems" class="watchlist-items-wrapper"></div>
+        </div>
+    </div>
+
+    <div class="main-content-section">
+        <div class="report-box">
+            <h3 style="margin-top:0; color:#2b8a3e;">📊 AI 퀀트 종합 분석 리포트</h3>
+            <hr>
+            <div>{{REPORT_MD}}</div>
+        </div>
+
+        <div class="tracker-box">
+            <div class="tracker-title">🔍 AI 추천 검증 히스토리</div>
+            <div>{{TRACKER_HTML}}</div>
+        </div>
+    </div>
+
+</body>
+</html>
+"""
+    full_html = html_template.replace("{{REPORT_MD}}", report_md.replace("\n", "<br>"))\
+                             .replace("{{TRACKER_HTML}}", tracker_html)\
+                             .replace("{{WIN_RATE}}", str(latest_win.get("win_rate", 0.0)))\
+                             .replace("{{TOTAL_TRADES}}", str(latest_win.get("total_trades", 0)))\
+                             .replace("{{WINS}}", str(latest_win.get("wins", 0)))\
+                             .replace("{{LOSSES}}", str(latest_win.get("losses", 0)))
+
+    with open(INDEX_HTML_FILE, "w", encoding="utf-8") as f:
+        f.write(full_html)
+
 def main():
     fetch_crypto_news()
     evaluate_and_update_history()
@@ -282,6 +431,8 @@ def main():
         "warning_coins": caution_coins
     }
     save_json(WARNING_COINS_FILE, warning_data)
+
+    generate_full_dashboard_html()
 
     print("✅ 강화된 퀀트 선별 및 AI 검증 프로세스 완료!")
 
