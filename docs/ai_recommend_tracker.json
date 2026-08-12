@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 17:14:03",
+        "recommended_coins": [
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "골든패턴 유사도 100.0점 만점을 기록하였으며, 약 289억 원의 탄탄한 거래대금을 동반하여 바닥 매집 후 반등 확률이 매우 높음.",
+                "entry_price": 106.0
+            },
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 점수 100.0점과 함께 365억 원 이상의 대규모 거래대금이 유입되어 모멘텀 지속성이 우수함.",
+                "entry_price": 76.6
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 17:09:10",
         "recommended_coins": [
             {
@@ -955,24 +973,6 @@
                 "name": "아이디",
                 "reason": "골든패턴 점수 100점을 달성하였고, 저가 매수세가 유입되며 단기 조정을 마치고 강한 반등 시그널을 형성 중.",
                 "entry_price": 39.6
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 12:53:56",
-        "recommended_coins": [
-            {
-                "symbol": "EUL",
-                "name": "이울",
-                "reason": "골든패턴 유사도 점수 62.3점으로 우수하며, 변동성이 12.13%로 지나치지 않아 안정적인 상승 반등이 기대됨",
-                "entry_price": 1579.0
-            },
-            {
-                "symbol": "SLX",
-                "name": "슬릭",
-                "reason": "골든패턴 점수 59.5점 및 안정적인 거래대금과 적정한 변동성(6.67%)을 기록하여 매수세 유입 확률이 높음",
-                "entry_price": 109.0
             }
         ],
         "evaluated": false
