@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 18:29:02",
+        "recommended_coins": [
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 100점을 기록한 종목 중 변동성(27.55%)이 상대적으로 안정적이며, 탄탄한 거래대금을 동반하여 바닥 매집 후 반등 확률이 매우 높음",
+                "entry_price": 40.2
+            },
+            {
+                "symbol": "EUL",
+                "name": "오일러",
+                "reason": "골든패턴 유사도 95.3점의 우수한 패턴을 보이면서도 24시간 변동성이 11.61%로 낮아 리스크 대비 기대 수익이 가장 뛰어남",
+                "entry_price": 1575.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 18:24:06",
         "recommended_coins": [
             {
@@ -961,24 +979,6 @@
                 "name": "홈",
                 "reason": "골든패턴 점수 52.9점 및 양호한 거래대금을 동반하며 안정적인 상승 모멘텀 형성 중",
                 "entry_price": 13.4
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 14:09:16",
-        "recommended_coins": [
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 유사도 96.6으로 매우 높으며, 적절한 거래대금과 변동성 조화로 반등 확률 우수",
-                "entry_price": 39.6
-            },
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 유사도 100점을 기록하면서도 변동성이 17%대로 안정되어 있어 안정적 매집 후 상승 기대",
-                "entry_price": 6990.0
             }
         ],
         "evaluated": false
