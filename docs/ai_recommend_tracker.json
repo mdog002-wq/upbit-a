@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 16:39:02",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 유사도 100.0 만점과 함께 약 31조 원의 막대한 거래대금이 유입되어 바닥 매집 완료 후 강한 반등이 예상됨",
+                "entry_price": 73.1
+            },
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "골든패턴 점수 100.0 및 28조 원 이상의 풍부한 거래대금 기반으로 상승 추세 전환 가능성이 매우 높음",
+                "entry_price": 110.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 16:34:13",
         "recommended_coins": [
             {
@@ -937,24 +955,6 @@
                 "name": "오일러",
                 "reason": "골든패턴 유사도 60.5점 및 안정적인 변동성(12.13%)을 보여주어 리스크 대비 기대 수익이 가장 우수한 종목입니다.",
                 "entry_price": 1589.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 12:14:16",
-        "recommended_coins": [
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 유사도 93.9로 상위권이며, 27.55%의 변동성과 유의미한 거래대금을 바탕으로 안정적인 반등이 기대됨",
-                "entry_price": 41.1
-            },
-            {
-                "symbol": "META2",
-                "name": "메타투",
-                "reason": "골든패턴 유사도 100.0 만점을 기록하였으며, 17.73%의 건전한 변동성 속에서 매집 완료 후 상승 추세 진입 가능성이 높음",
-                "entry_price": 7205.0
             }
         ],
         "evaluated": false
