@@ -363,7 +363,7 @@ def generate_full_dashboard_html():
             <div class="news-box">
                 <!-- AI실시간 버튼 (실시간 코인 속보 위쪽 위치) -->
                 <div>
-                    <a href="https://mdog002-wq.github.io/upbit/" target="_blank" class="ai-link-btn">🤖 AI실시간</a>
+                    <a href="https://mdog002-wq.github.io/upbit/" target="_self" class="ai-link-btn">🤖 AI실시간</a>
                 </div>
 
                 <div class="box-title-green">📰 실시간 코인 속보 & 공지</div>
