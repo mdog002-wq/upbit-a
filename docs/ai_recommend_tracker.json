@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 14:29:36",
+        "recommended_coins": [
+            {
+                "symbol": "META2",
+                "name": "메타2",
+                "reason": "골든패턴 유사도 100.0점을 기록하였으며, 17%대의 상대적으로 안정적인 변동성과 유의미한 거래대금을 동반하여 바닥 매집 후 안정적 반등이 예상됨.",
+                "entry_price": 7000.0
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 97.0점의 고득점 종목으로 100억 원 이상의 견조한 거래대금 속에서 상승 모멘텀이 확실시됨.",
+                "entry_price": 39.8
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 14:24:17",
         "recommended_coins": [
             {
@@ -913,24 +931,6 @@
                 "name": "버추얼",
                 "reason": "골든패턴 유사도 100.0을 기록하면서도 변동성이 8%대로 비교적 안정적인 우상향 패턴 형성",
                 "entry_price": 758.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 10:09:41",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "높은 거래대금과 88.5점의 우수한 골든패턴 유사도를 기록하며 시장 안정성을 견인하는 최우선 코어 자산",
-                "entry_price": 89804000.0
-            },
-            {
-                "symbol": "VIRTUAL",
-                "name": "버추얼",
-                "reason": "골든패턴 점수 100점을 기록한 동시에 변동성이 8.12%로 안정적이며 상승 반등 확률이 가장 높은 종목",
-                "entry_price": 756.0
             }
         ],
         "evaluated": false
