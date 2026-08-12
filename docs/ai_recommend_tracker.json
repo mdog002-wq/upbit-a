@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 18:59:15",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 유사도 점수 100점 만점을 기록하였으며, 43조 원이 넘는 막대한 거래대금과 함께 완벽한 바닥 매집 후 반등 국면에 진입함.",
+                "entry_price": 73.5
+            },
+            {
+                "symbol": "RVN",
+                "name": "레이븐코인",
+                "reason": "골든패턴 유사도 100점을 기록한 종목 중 상대적으로 안정적인 변동성을 보여주어 신뢰도 높은 반등 확률을 제공함.",
+                "entry_price": 3.44
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 18:54:03",
         "recommended_coins": [
             {
@@ -973,24 +991,6 @@
                 "name": "메타2",
                 "reason": "골든패턴 유사도 100.0을 기록하면서도 변동성이 17.73%로 과열되지 않아 안정적인 추세 전환과 상승 여력이 충분함",
                 "entry_price": 6800.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 14:39:32",
-        "recommended_coins": [
-            {
-                "symbol": "ID",
-                "name": "스페이스ID",
-                "reason": "골든패턴 점수 98.5로 매우 높으며, 변동성(27.55%)이 과도하지 않고 거래대금이 탄탄해 반등 확률이 높음",
-                "entry_price": 39.8
-            },
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 점수 100점 만점에 변동성 17.73%로 안정적인 바닥 매집 형태를 보임",
-                "entry_price": 6790.0
             }
         ],
         "evaluated": false
