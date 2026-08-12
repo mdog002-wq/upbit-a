@@ -1,217 +1,332 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta http-equiv="refresh" content="240">
- <title>Upbit AI Quantitative Dashboard</title>
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
- <style>
- body { background-color: #f8fafc; color: #1e293b; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
- .card { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); height: 100%; }
- .news-box { max-height: 220px; overflow-y: auto; }
- .table-scroll-box { max-height: 650px; overflow-y: auto; }
- .report-body h1, .report-body h2, .report-body h3 { font-size: 1rem; font-weight: bold; margin-top: 0.5rem; color: #0f172a; }
- .report-body ul { padding-left: 1.2rem; margin-bottom: 0.5rem; }
- #allCoinsTable tbody tr:hover { background-color: #f1f5f9 !important; transition: background-color 0.15s ease-in-out; }
- .btn-render-link { background-color: #093687; color: white; border: none; font-weight: bold; transition: all 0.2s; }
- .btn-render-link:hover { background-color: #001f5c; color: white; transform: translateY(-1px); }
- </style>
+    <meta charset="UTF-8">
+    <title>Upbit AI Quantitative Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; margin: 0; padding: 15px; }
+        
+        .dashboard-top-section { display: grid; grid-template-columns: 1.2fr 1.5fr 1.3fr; gap: 12px; margin-bottom: 15px; align-items: stretch; }
+        .left-controls, .center-controls { display: flex; flex-direction: column; gap: 10px; }
+        
+        .status-combined-card { background: #ffffff; padding: 10px 14px; border-radius: 6px; border: 1px solid #ced4da; border-left: 5px solid #2b8a3e; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-size: 13px; color: #495057; display: flex; flex-direction: column; gap: 6px; }
+        .winrate-val { font-size: 15px; color: #e03131; font-weight: bold; }
+        
+        .search-box { width: 100%; }
+        .search-box input { width: 100%; padding: 9px 12px; font-size: 14px; border: 1px solid #ced4da; border-radius: 6px; outline: none; background: #ffffff; box-sizing: border-box; }
+        
+        .ai-result-card { display: none; background: #eef3fc; border: 1px solid #b3d4ff; padding: 10px 14px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); font-size: 13px; line-height: 1.4; flex: 1; }
+        
+        .ai-diagnosis-box { display: flex; align-items: center; gap: 6px; background: #ffffff; padding: 8px 12px; border-radius: 6px; border: 1px solid #ced4da; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .ai-diagnosis-box input { padding: 6px 8px; border: 1px solid #ced4da; border-radius: 4px; font-size: 13px; outline: none; }
+        .ai-diagnosis-btn { background-color: #2b8a3e; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
+        
+        .watchlist-live-panel { background: #ffffff; border: 1px solid #ced4da; border-radius: 6px; padding: 10px 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .watchlist-panel-header { font-size: 13px; font-weight: bold; color: #495057; border-bottom: 1px solid #e9ecef; padding-bottom: 6px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .watchlist-items-wrapper { display: flex; flex-wrap: wrap; gap: 8px; flex: 1; max-height: 120px; overflow-y: auto; align-content: flex-start; }
+
+        .main-content-section { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-top: 15px; }
+        .report-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 14px; line-height: 1.6; }
+        .tracker-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .tracker-title { font-size: 15px; font-weight: bold; color: #333; margin-bottom: 12px; border-bottom: 2px solid #2b8a3e; padding-bottom: 6px; }
+        
+        .tracker-item { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 10px; margin-bottom: 10px; }
+        .tracker-header { display: flex; justify-content: space-between; font-size: 12px; color: #666; margin-bottom: 6px; }
+        .badge-eval { background: #2b8a3e; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+        .badge-wait { background: #f59f00; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px; }
+        .tracker-coin-row { font-size: 13px; margin-top: 3px; }
+    </style>
 </head>
 <body>
- <div id="mainDashboardApp" class="container-fluid my-4 px-4" style="max-width: 1700px;">
- <!-- 상단 헤더 -->
- <div class="card p-3 shadow-sm mb-4">
- <div class="row align-items-center g-3">
- <div class="col-md-4 col-lg-3">
- <a href="https://mdog002-wq.github.io/upbit/" target="_self" rel="noopener noreferrer" class="btn btn-render-link w-100 py-2 shadow-sm d-flex align-items-center justify-content-center gap-2">
- <i class="fa-solid fa-paper-plane"></i>
- <span>Upbit 실시간</span>
- </a>
- </div>
- <div class="col-md-4 col-lg-5 text-center text-md-start">
- <h3 class="fw-bold text-dark mb-0 fs-4"><i class="fa-solid fa-chart-pie text-primary me-2"></i>업비트 AI 분석 대시보드</h3>
- <small class="text-muted" id="lastUpdatedText">최종 업데이트: 2026-08-12 01:33:01 (총 280개 종목 분석 완료)</small>
- </div>
- <div class="col-md-4 col-lg-4">
- <div class="input-group">
- <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
- <input type="text" id="coinSearchInput" class="form-control border-start-0 bg-light" placeholder="종목명 또는 심볼 검색 (예: 비트코인, BTC)..." oninput="filterCoins()">
- </div>
- </div>
- </div>
- </div>
 
- <!-- 메인 레이아웃 -->
- <div class="row g-4">
- <!-- 좌측 패널: 속보 / 추천 모니터 / AI 리포트 -->
- <div class="col-lg-4">
- <div class="d-flex flex-column gap-3">
- <!-- 1. 실시간 속보 & 공지 -->
- <div class="card p-3 shadow-sm">
- <h6 class="fw-bold text-success mb-3"><i class="fa-solid fa-newspaper me-1"></i> 실시간 속보 및 공지</h6>
- <div id="newsContainer" class="news-box d-flex flex-column gap-2">
- <div class="text-muted small text-center py-3">속보 데이터를 불러오는 중...</div>
- </div>
- </div>
+    <div class="dashboard-top-section">
+        <div class="left-controls">
+            <div class="status-combined-card">
+                <div>
+                    🎯 <b>실시간 백테스팅 승률:</b> 
+                    <span class="winrate-val">0.0%</span> 
+                    <span style="font-size: 11px; color: #666;">(총 0건 — 0승 0패)</span>
+                </div>
+                <div>
+                    🌐 <b>비트코인(BTC) 상태:</b> <span style="color:#007bff; font-weight: bold;">정상 / 상승 모멘텀</span>
+                </div>
+            </div>
 
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="코인명 또는 티커 검색...">
+            </div>
+        </div>
 
- <!-- 3. AI 분석 리포트 -->
- <div class="card p-3 shadow-sm">
- <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-brain me-1"></i> AI 분석 리포트</h6>
- <div id="reportMarkdownContainer" class="report-body text-secondary small bg-light p-3 rounded" style="max-height: 400px; overflow-y: auto; line-height: 1.5;">
- 리포트를 불러오는 중...
- </div>
+        <div class="center-controls">
+            <div id="aiResultCard" class="ai-result-card"></div>
 
- </thead>
- <tbody>
-<!-- COIN_TABLE_BODY_START -->
-<tr>
- <td class="text-center fw-bold text-muted">1</td>
- <td class="fw-bold">데이터 분석 대기 중...</td>
- <td>-</td>
- <td>-</td>
-</tr>
-<!-- COIN_TABLE_BODY_END -->
- </tbody>
- </table>
- </div>
- </div>
- </div>
- </div>
- </div>
+            <div class="ai-diagnosis-box">
+                <span style="font-weight: bold; font-size: 13px; color: #007bff; white-space: nowrap;">🤖 AI 진단:</span>
+                <input type="text" id="aiCoinInput" placeholder="종목명/티커" style="width: 80px;">
+                <input type="number" id="aiPriceInput" placeholder="진입가" style="width: 90px;">
+                <button class="ai-diagnosis-btn">분석</button>
+            </div>
+        </div>
 
- <script>
- document.addEventListener("DOMContentLoaded", function () {
-   loadNewsData();
-   loadReportMarkdown();
-   highlightWarningCoins();
- });
+        <div class="watchlist-live-panel">
+            <div class="watchlist-panel-header">
+                <span>⭐ My 관심종목 현황</span>
+                <span style="color:#d9480f;"><strong id="watchlistLiveCount">0</strong>개</span>
+            </div>
+            <div id="watchlistLiveItems" class="watchlist-items-wrapper"></div>
+        </div>
+    </div>
 
- async function loadNewsData() {
-   const newsContainer = document.getElementById("newsContainer");
-   try {
-     const response = await fetch("news.json?t=" + new Date().getTime());
-     if (!response.ok) throw new Error();
-     const newsList = await response.json();
+    <div class="main-content-section">
+        <div class="report-box">
+            <h3 style="margin-top:0; color:#2b8a3e;">📊 AI 퀀트 종합 분석 리포트</h3>
+            <hr>
+            <div>**최종 분석 시각: 2026-08-12 09:19:30**<br><br># 퀀트 투자 분석 종합 리포트<br><br>## 1. 시장 개요 및 퀀트 엔진 분석 방향<br>본 리포트는 최신 퀀트 엔진이 선별한 암호화폐 상위 20개 종목의 거래대금, 24시간 변동성, 그리고 골든패턴 유사도 점수를 종합적으로 분석하여 작성되었습니다. 현재 시장은 주요 메이저 자산의 안정적인 흐름과 함께, 특정 알트코인 섹터에서 높은 변동성과 함께 강한 패턴 유사도를 보이는 종목들이 혼재되어 있습니다. 퀀트 알고리즘은 리스크 대비 기대 수익이 가장 높은 구간을 포착하는 데 초점을 맞추었습니다.<br><br>## 2. 최우선 추천 종목 분석 (Recommended Coins)<br>- **BTC (비트코인)**: 골든패턴 유사도 88.6점과 낮은 변동성(1.63%)을 기록하며 시장 전반의 안정성과 상승 주도권을 완벽하게 증명하고 있습니다. 대규모 거래대금을 동반한 견조한 흐름으로 포트폴리오의 코어 자산으로 강력 추천됩니다.<br>- **VIRTUAL (버추얼)**: 골든패턴 유사도 87.6점에 적정 수준의 변동성(8.12%)을 보이며, 최근 트렌드에 부합하는 매집 완료 후 반등 확률이 가장 높은 종목으로 분석되었습니다.<br><br>## 3. 위험 및 주의 종목 분석 (Caution Coins)<br>- **LSK (리스크)**: 24시간 변동성이 35.58%에 달하며 과도한 단기 과열 양상을 보이고 있습니다. 골든패턴 점수는 높으나 극심한 변동성으로 인해 뇌동매매 및 급락 리스크가 매우 큽니다.<br>- **CAP (캡)**: 변동성이 31.64%로 매우 높고 거래대금 대비 가격 등락 폭이 불안정하여 자본 손실 위험이 크므로 각별한 주의가 요구됩니다.<br><br>## 4. 투자 전략 결론<br>안정적인 수익률을 위해 비트코인(BTC)과 VIRTUAL 중심의 포트폴리오 분산 투자를 권장하며, 과열 종목인 LSK와 CAP 등은 단기 트레이딩 외의 접근을 자제해야 합니다.</div>
+        </div>
 
-     if (!newsList || newsList.length === 0) {
-       newsContainer.innerHTML = `<div class="text-muted small text-center py-3">현재 등록된 속보 이슈가 없습니다.</div>`;
-       return;
-     }
+        <div class="tracker-box">
+            <div class="tracker-title">🔍 AI 추천 검증 히스토리</div>
+            <div><div class='tracker-list'>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 09:19:34</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,662,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 756.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 09:13:59</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,670,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>SOL</b> (진입: 107,400.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 756.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 09:09:34</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,568,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 758.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 09:05:03</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,600,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 758.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 08:59:22</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,680,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>NEAR</b> (진입: 2,276.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 756.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 08:53:57</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,700,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>NEAR</b> (진입: 2,274.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 757.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 08:49:40</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,705,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>NEAR</b> (진입: 2,282.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 758.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 08:44:30</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,690,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>NEAR</b> (진입: 2,276.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>AVAX</b> (진입: 8,920.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 08:39:36</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,674,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>NEAR</b> (진입: 2,273.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 757.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 08:33:59</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,635,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 102.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>NEAR</b> (진입: 2,263.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 08:28:54</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>HOLO</b> (진입: 118.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>AVAX</b> (진입: 8,900.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>NEAR</b> (진입: 2,267.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 08:23:54</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,632,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>AVAX</b> (진입: 8,910.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 07:59:35</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>DOGE</b> (진입: 102.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,768,000.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 07:34:47</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>DOGE</b> (진입: 103.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,768,000.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 07:19:06</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>DOGE</b> (진입: 102.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>ID</b> (진입: 40.7원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,799,000.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 06:49:49</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>DOGE</b> (진입: 101.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 750.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 06:39:10</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>DOGE</b> (진입: 102.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 749.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 06:29:24</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 750.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>ID</b> (진입: 40.8원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 101.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 06:19:14</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>DOGE</b> (진입: 102.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 750.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 05:09:52</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,200.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 101.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 04:54:35</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,090.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 100.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>MMT</b> (진입: 294.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 04:44:07</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,060.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.7원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 739.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 04:35:12</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,090.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.8원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 735.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 04:29:54</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,070.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.8원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 735.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 04:24:48</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,070.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.6원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 733.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 04:19:10</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,050.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.4원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 731.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 04:14:42</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,040.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.5원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>VIRTUAL</b> (진입: 730.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 04:05:12</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,050.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.7원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 03:59:51</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,070.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>MMT</b> (진입: 292.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 03:54:23</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,080.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>MMT</b> (진입: 291.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.9원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 03:49:44</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,050.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>MMT</b> (진입: 293.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 03:44:10</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,050.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.6원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 03:39:46</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,060.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>MMT</b> (진입: 293.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 100.0원) → <span style='color:#888;'>측정중</span></div></div></div>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 03:34:21</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>LINK</b> (진입: 12,090.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>DOGE</b> (진입: 99.7원) → <span style='color:#888;'>측정중</span></div></div></div></div></div>
+        </div>
+    </div>
 
-     let html = "";
-     newsList.forEach(item => {
-       html += `
-         <div class="border-bottom pb-2 mb-2">
-           <a href="${item.link}" target="_blank" class="text-decoration-none text-dark fw-bold small d-block text-truncate">
-             ${item.title}
-           </a>
-           <span class="text-muted" style="font-size: 0.75rem;">${item.pubDate || ''}</span>
-         </div>
-       `;
-     });
-     newsContainer.innerHTML = html;
-   } catch (err) {
-     newsContainer.innerHTML = `<div class="text-muted small text-center py-3">속보 데이터를 불러올 수 없습니다.</div>`;
-   }
- }
-
- async function loadReportMarkdown() {
-   const reportContainer = document.getElementById("reportMarkdownContainer");
-   const recContainer = document.getElementById("recommendMonitorContainer");
-   try {
-     const response = await fetch("latest_report.md?t=" + new Date().getTime());
-     if (!response.ok) throw new Error();
-     const markdownText = await response.text();
-     reportContainer.innerHTML = marked.parse(markdownText);
-
-     // ai_recommend_tracker.json에서 최신 추천 종목 모니터링 데이터 바인딩
-     fetchRecommendTracker();
-   } catch (err) {
-     reportContainer.innerHTML = `<div class="text-muted small py-2">등록된 AI 분석 리포트가 없습니다.</div>`;
-   }
- }
-
- async function fetchRecommendTracker() {
-   const recContainer = document.getElementById("recommendMonitorContainer");
-   try {
-     const res = await fetch("ai_recommend_tracker.json?t=" + new Date().getTime());
-     if (!res.ok) throw new Error();
-     const history = await res.json();
-     if (!history || history.length === 0) {
-       recContainer.innerHTML = `<div class="text-muted small text-center py-2">현재 추천 종목이 없습니다.</div>`;
-       return;
-     }
-     
-     const lastEntry = history[history.length - 1];
-     const recs = lastEntry.recommended_coins || [];
-
-     if (recs.length === 0) {
-       recContainer.innerHTML = `<div class="text-muted small text-center py-2">현재 조건에 맞는 추천 종목이 없습니다.</div>`;
-       return;
-     }
-
-     let html = "";
-     recs.forEach(coin => {
-       html += `
-         <div class="p-2 border rounded bg-light">
-           <div class="d-flex justify-content-between align-items-center mb-1">
-             <span class="fw-bold text-dark">${coin.name || coin.symbol} <small class="text-muted">(${coin.symbol})</small></span>
-             <span class="badge bg-warning text-dark">🎯 추천</span>
-           </div>
-           <div class="small text-secondary" style="font-size: 0.8rem;">${coin.reason || ''}</div>
-         </div>
-       `;
-     });
-     recContainer.innerHTML = html;
-   } catch (err) {
-     recContainer.innerHTML = `<div class="text-muted small text-center py-2">추천 종목 모니터를 로드할 수 없습니다.</div>`;
-   }
- }
-
- async function highlightWarningCoins() {
-   try {
-     const response = await fetch("warning_coins.json?t=" + new Date().getTime());
-     if (!response.ok) return;
-     const data = await response.json();
-     const warningList = data.warning_coins || [];
-     if (warningList.length === 0) return;
-
-     const warningSymbols = warningList.map(item => item.symbol ? item.symbol.toUpperCase() : "");
-     const table = document.getElementById("allCoinsTable");
-     if (!table) return;
-     const rows = table.getElementsByTagName("tr");
-
-     for (let i = 1; i < rows.length; i++) {
-       const tdName = rows[i].getElementsByTagName("td")[1];
-       if (tdName) {
-         warningSymbols.forEach(symbol => {
-           if (symbol && tdName.innerText.includes(`(${symbol})`) && !tdName.innerHTML.includes("⚠️ AI주의")) {
-             tdName.innerHTML += ` <span class="badge bg-danger text-white ms-1" style="font-size: 0.7rem;">⚠️ AI주의</span>`;
-           }
-         });
-       }
-     }
-   } catch (err) {}
- }
-
- function filterCoins() {
-   const input = document.getElementById('coinSearchInput');
-   const filter = input.value.toLowerCase();
-   const table = document.getElementById('allCoinsTable');
-   const trs = table.getElementsByTagName('tr');
-
-   for (let i = 1; i < trs.length; i++) {
-     const tdName = trs[i].getElementsByTagName('td')[1];
-     if (tdName) {
-       const textValue = tdName.textContent || tdName.innerText;
-       trs[i].style.display = textValue.toLowerCase().indexOf(filter) > -1 ? "" : "none";
-     }
-   }
- }
- </script>
 </body>
 </html>
