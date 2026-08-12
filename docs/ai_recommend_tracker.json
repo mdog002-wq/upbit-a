@@ -1,5 +1,17 @@
 [
     {
+        "timestamp": "2026-08-12 10:39:43",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든패턴 유사도 92.1점으로 매우 높으며, 24시간 변동성이 1.63%로 안정적인 우상향 패턴을 보여 최우선 추천.",
+                "entry_price": 89786000.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 10:34:09",
         "recommended_coins": [
             {
