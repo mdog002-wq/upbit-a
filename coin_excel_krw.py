@@ -6,7 +6,7 @@ import json
 import requests
 import numpy as np
 import pandas as pd
-import pyupb
+import pyupbit
 from pydantic import BaseModel, Field
 from google import genai
 from google.genai import types
