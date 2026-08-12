@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 05:04:21",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "골든패턴 점수 98.4로 매우 높은 기술적 신뢰도를 보이며, 적절한 변동성(2.38%)과 대규모 거래대금을 동반하여 안정적인 상승 추세 전환이 기대됨.",
+                "entry_price": 2659000.0
+            },
+            {
+                "symbol": "ADA",
+                "name": "에이다",
+                "reason": "골든패턴 점수 89.9를 기록하며 바닥권에서 강한 매집 신호가 포착됨. 변동성이 낮아 안정적인 진입 구간으로 판단됨.",
+                "entry_price": 259.0
+            },
+            {
+                "symbol": "MTL",
+                "name": "메탈",
+                "reason": "골든패턴 점수 100.0으로 기술적 완성도가 최상위권임. 단기 변동성이 존재하나 패턴상 추가 상승 여력이 충분함.",
+                "entry_price": 281.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 04:59:00",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "온도",
                 "reason": "골든패턴 점수 85.5점으로 패턴 유사도가 높으며, 변동성이 낮아 안정적인 매집 구간으로 판단됨.",
                 "entry_price": 474.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 00:34:56",
-        "recommended_coins": [
-            {
-                "symbol": "ETH",
-                "name": "이더리움",
-                "reason": "거래대금이 매우 풍부하며 골든패턴 점수 100점을 기록, 기술적 신뢰도가 가장 높음.",
-                "entry_price": 2669000.0
-            },
-            {
-                "symbol": "VIRTUAL",
-                "name": "버추얼",
-                "reason": "골든패턴 점수 100점 달성 및 적절한 변동성 유지로 추세 상승 가능성 확인.",
-                "entry_price": 836.0
-            },
-            {
-                "symbol": "KAITO",
-                "name": "카이토",
-                "reason": "패턴 유사도 100점을 기록하며 바닥권에서 매집 신호가 포착됨.",
-                "entry_price": 654.0
             }
         ],
         "evaluated": false
