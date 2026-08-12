@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-13 05:09:24",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "골든패턴 점수 98.7점으로 매우 높은 기술적 신뢰도를 보이며, 대규모 거래대금을 동반한 안정적인 상승 흐름이 관측됨.",
+                "entry_price": 2656000.0
+            },
+            {
+                "symbol": "ADA",
+                "name": "에이다",
+                "reason": "골든패턴 점수 89.9점으로 반등 신호가 뚜렷하며, 변동성이 3.91%로 비교적 안정적인 구간에서 매집이 진행 중임.",
+                "entry_price": 259.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 05:04:21",
         "recommended_coins": [
             {
@@ -1171,30 +1189,6 @@
                 "name": "온도",
                 "reason": "골든패턴 점수 85.8점으로 우수하며, 변동성이 2.56%로 매우 안정적임. 저점 매집 후 완만한 우상향이 기대됨.",
                 "entry_price": 473.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 00:39:39",
-        "recommended_coins": [
-            {
-                "symbol": "ETH",
-                "name": "이더리움",
-                "reason": "거래대금 상위권 유지 및 골든패턴 점수 100점 달성으로 기술적 신뢰도가 매우 높음.",
-                "entry_price": 2674000.0
-            },
-            {
-                "symbol": "VIRTUAL",
-                "name": "버추얼",
-                "reason": "골든패턴 점수 100점 및 적정 변동성 유지로 안정적인 상승 추세 전환 가능성 확인.",
-                "entry_price": 834.0
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "골든패턴 점수 85.5점으로 패턴 유사도가 높으며, 변동성이 낮아 안정적인 매집 구간으로 판단됨.",
-                "entry_price": 474.0
             }
         ],
         "evaluated": false
