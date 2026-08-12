@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 17:04:24",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 점수 100.0점 및 풍부한 거래대금(약 356억 원)을 동반하여 바닥 매집 후 강력한 반등이 예상됨",
+                "entry_price": 78.8
+            },
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "골든패턴 점수 100.0점을 기록하였으며, 안정적인 거래대금 속에서 추세 전환 패턴이 완성된 최우선 추천 종목",
+                "entry_price": 107.0
+            },
+            {
+                "symbol": "META2",
+                "name": "메타2",
+                "reason": "골든패턴 점수 100.0이면서 상대적으로 양호한 변동성(18.09%)을 보여 리스크 대비 기대수익이 우수함",
+                "entry_price": 6770.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 16:59:46",
         "recommended_coins": [
             {
@@ -949,24 +973,6 @@
                 "name": "메타2",
                 "reason": "골든패턴 유사도 100.0점으로 완벽한 패턴을 형성하였으며, 17.73%의 비교적 안정적인 변동성 속에서 상승 여력이 큼",
                 "entry_price": 7160.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 12:44:49",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "압도적인 거래대금과 안정적인 변동성(1.63%), 골든패턴 유사도 50.6점으로 시장 신뢰도가 가장 높음",
-                "entry_price": 89935000.0
-            },
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 유사도 98.4점으로 바닥권 매집 완료 후 강력한 반등 모멘텀 형성",
-                "entry_price": 40.2
             }
         ],
         "evaluated": false
