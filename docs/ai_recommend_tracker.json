@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 21:54:13",
+        "recommended_coins": [
+            {
+                "symbol": "RE",
+                "name": "RE",
+                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 변동성이 9.19%로 타 패턴 완성 종목 대비 안정적인 흐름을 보여 바닥권 매집에 최적화됨.",
+                "entry_price": 592.0
+            },
+            {
+                "symbol": "RVN",
+                "name": "레이븐코인",
+                "reason": "골든패턴 점수 97.2점으로 매우 높은 패턴 유사도를 보이며, 거래대금 대비 안정적인 변동성을 유지하고 있어 상승 탄력 기대.",
+                "entry_price": 3.44
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 21:49:44",
         "recommended_coins": [
             {
@@ -1051,24 +1069,6 @@
                 "name": "메타2",
                 "reason": "골든패턴 유사도 100점 달성 및 18.09%의 균형 잡힌 변동성 수치로 바닥 매집 완료 후 안정적 우상향 반등이 기대됨",
                 "entry_price": 6765.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 17:14:03",
-        "recommended_coins": [
-            {
-                "symbol": "HOLO",
-                "name": "홀로",
-                "reason": "골든패턴 유사도 100.0점 만점을 기록하였으며, 약 289억 원의 탄탄한 거래대금을 동반하여 바닥 매집 후 반등 확률이 매우 높음.",
-                "entry_price": 106.0
-            },
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 점수 100.0점과 함께 365억 원 이상의 대규모 거래대금이 유입되어 모멘텀 지속성이 우수함.",
-                "entry_price": 76.6
             }
         ],
         "evaluated": false
