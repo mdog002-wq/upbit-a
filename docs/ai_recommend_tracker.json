@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 18:34:08",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 유사도 100.0점과 강력한 거래대금을 기록하여 바닥 매집 완료 후 반등 확률이 매우 높음",
+                "entry_price": 75.6
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "패턴 유사도 100.0점 달성 및 안정적인 수급 유입으로 단기 상승 모멘텀이 매우 강력함",
+                "entry_price": 92.6
+            },
+            {
+                "symbol": "EUL",
+                "name": "이울러",
+                "reason": "95.5점의 높은 패턴 점수와 함께 과도하지 않은 변동성으로 위험 대비 수익비가 우수함",
+                "entry_price": 1581.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 18:29:02",
         "recommended_coins": [
             {
@@ -961,24 +985,6 @@
                 "name": "메타2",
                 "reason": "골든패턴 점수 100점 만점에 과열되지 않은 안정적 변동성(17.73%)을 보여 추세 추종 매매에 최적화되어 있습니다.",
                 "entry_price": 7105.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 14:14:46",
-        "recommended_coins": [
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 유사도 100.0점을 기록하며 매집 구간을 완벽히 통과, 안정적인 변동성(17.73%) 속에서 반등 확률이 가장 높음",
-                "entry_price": 6950.0
-            },
-            {
-                "symbol": "HOME",
-                "name": "홈",
-                "reason": "골든패턴 점수 52.9점 및 양호한 거래대금을 동반하며 안정적인 상승 모멘텀 형성 중",
-                "entry_price": 13.4
             }
         ],
         "evaluated": false
