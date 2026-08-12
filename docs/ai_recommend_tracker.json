@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 12:44:49",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "압도적인 거래대금과 안정적인 변동성(1.63%), 골든패턴 유사도 50.6점으로 시장 신뢰도가 가장 높음",
+                "entry_price": 89935000.0
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 유사도 98.4점으로 바닥권 매집 완료 후 강력한 반등 모멘텀 형성",
+                "entry_price": 40.2
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 12:39:13",
         "recommended_coins": [
             {
@@ -961,24 +979,6 @@
                 "name": "니어프로토콜",
                 "reason": "골든패턴 유사도 점수 83.2로 높으며, 안정적인 거래대금 기반의 지속적인 우상향 반등 확률이 높음.",
                 "entry_price": 2267.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 08:23:54",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "골든패턴 유사도 77.7점으로 매우 높으며, 낮은 변동성(1.63%) 속에서도 대규모 거래대금을 동반하여 안정적인 상승 반등이 기대됨.",
-                "entry_price": 89632000.0
-            },
-            {
-                "symbol": "AVAX",
-                "name": "아발란체",
-                "reason": "골든패턴 유사도 100.0점 만점을 기록하여 바닥 매집 완료 후 강한 상승 탄력을 받을 확률이 가장 높은 최우선 추천 종목.",
-                "entry_price": 8910.0
             }
         ],
         "evaluated": false
