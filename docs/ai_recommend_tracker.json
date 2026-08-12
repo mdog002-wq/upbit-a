@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 23:14:50",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "골든 패턴 점수 100점 만점으로 기술적 완성도가 매우 높으며, 대규모 거래대금을 동반하여 추세 지속 가능성이 매우 큼.",
+                "entry_price": 2683000.0
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든 패턴 점수 100점 기록. 변동성 대비 패턴 유사도가 최상위권으로, 바닥권 매집 후 상승 전환 신호가 뚜렷함.",
+                "entry_price": 90.4
+            },
+            {
+                "symbol": "KAITO",
+                "name": "카이토",
+                "reason": "골든 패턴 점수 100점. 최근 거래량 유입과 함께 기술적 지표가 정배열로 전환되는 강력한 매수 시그널 발생.",
+                "entry_price": 674.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 23:08:51",
         "recommended_coins": [
             {
@@ -1099,30 +1123,6 @@
                 "name": "엘프",
                 "reason": "골든패턴 유사도 100.0점과 함께 안정적인 거래대금을 동반하며 매물대 소화를 완료하여 반등 탄력이 매우 높을 것으로 기대됩니다.",
                 "entry_price": 92.2
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 18:34:08",
-        "recommended_coins": [
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 유사도 100.0점과 강력한 거래대금을 기록하여 바닥 매집 완료 후 반등 확률이 매우 높음",
-                "entry_price": 75.6
-            },
-            {
-                "symbol": "ELF",
-                "name": "엘프",
-                "reason": "패턴 유사도 100.0점 달성 및 안정적인 수급 유입으로 단기 상승 모멘텀이 매우 강력함",
-                "entry_price": 92.6
-            },
-            {
-                "symbol": "EUL",
-                "name": "이울러",
-                "reason": "95.5점의 높은 패턴 점수와 함께 과도하지 않은 변동성으로 위험 대비 수익비가 우수함",
-                "entry_price": 1581.0
             }
         ],
         "evaluated": false
