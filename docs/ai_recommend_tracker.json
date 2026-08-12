@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 19:39:38",
+        "recommended_coins": [
+            {
+                "symbol": "RE",
+                "name": "RE",
+                "reason": "골든패턴 유사도 85.0점 및 안정적인 변동성(9.38%)을 보여주어 바닥 매집 후 상승 반등 확률이 매우 높음",
+                "entry_price": 599.0
+            },
+            {
+                "symbol": "EUL",
+                "name": "EUL",
+                "reason": "골든패턴 유사도 100.0점 만점과 건전한 변동성(11.61%)을 겸비하여 퀀트 최우선 매수 추천 종목으로 선정",
+                "entry_price": 1587.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 19:34:01",
         "recommended_coins": [
             {
@@ -979,24 +997,6 @@
                 "name": "아디",
                 "reason": "골든패턴 점수 100.0점으로 패턴 일치도가 매우 높으며 안정적인 저점 다지기 완료 구간으로 판단됨",
                 "entry_price": 39.6
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 15:24:41",
-        "recommended_coins": [
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 유사도 100점을 기록하였으며, 17%대의 안정적인 변동성과 함께 우수한 거래대금을 동반하여 바닥 매집 후 반등 확률이 매우 높음",
-                "entry_price": 6735.0
-            },
-            {
-                "symbol": "ELF",
-                "name": "엘프",
-                "reason": "골든패턴 점수 100점 달성 및 안정적인 패턴 형성으로 기술적 반등 기대감이 매우 높은 우수 종목",
-                "entry_price": 95.3
             }
         ],
         "evaluated": false
