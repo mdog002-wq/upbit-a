@@ -1,1 +1,8 @@
-AI 분석 실패: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+**최종 분석 시각: 2026-08-13 02:18:54**
+
+### 퀀트 분석 리포트: 시장 변동성 및 패턴 분석
+
+본 리포트는 24시간 거래대금, 변동성, 그리고 골든패턴 유사도 점수를 종합하여 산출되었습니다. 현재 시장은 대형주 위주의 안정적인 흐름과 특정 알트코인의 급격한 변동성이 공존하는 양상입니다. 
+
+1. **시장 총평**: 골든패턴 점수 100점을 기록한 종목들이 다수 포착되었으나, 변동성이 40%를 상회하는 종목들은 단기 과열 신호로 해석됩니다. 
+2. **투자 전략**: 골든패턴 점수가 높으면서도 변동성이 상대적으로 안정적인 종목(ETH, UNI)을 중심으로 포트폴리오를 구성하고, 변동성이 극도로 높은 종목(STORJ, KAITO)은 추격 매수를 지양하고 눌림목을 기다리는 전략이 유효합니다.
