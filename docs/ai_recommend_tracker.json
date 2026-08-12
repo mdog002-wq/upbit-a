@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-13 08:59:36",
+        "recommended_coins": [
+            {
+                "symbol": "DOGE",
+                "name": "도지코인",
+                "reason": "골든패턴 점수 100점 만점 기록. 116억 규모의 안정적인 거래대금이 뒷받침되고 있어 기술적 반등 신뢰도가 매우 높음.",
+                "entry_price": 98.5
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 점수 100점 달성. 변동성 대비 거래대금 효율이 우수하며, 매집 패턴이 완성된 것으로 분석됨.",
+                "entry_price": 838.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 08:54:09",
         "recommended_coins": [
             {
@@ -1129,30 +1147,6 @@
                 "name": "버추얼",
                 "reason": "골든패턴 점수 100점 기록. 최근 거래량 대비 패턴 완성도가 매우 높아 단기 반등 탄력이 가장 강력할 것으로 판단됨.",
                 "entry_price": 835.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 04:49:11",
-        "recommended_coins": [
-            {
-                "symbol": "ETH",
-                "name": "이더리움",
-                "reason": "골든패턴 점수 100점 만점 및 대규모 거래대금 유입으로 기술적 신뢰도가 매우 높음.",
-                "entry_price": 2655000.0
-            },
-            {
-                "symbol": "VIRTUAL",
-                "name": "버추얼",
-                "reason": "골든패턴 점수 100점 기록. 상대적으로 낮은 변동성 대비 패턴 완성도가 높아 안정적 상승 기대.",
-                "entry_price": 836.0
-            },
-            {
-                "symbol": "ADA",
-                "name": "에이다",
-                "reason": "86.8점의 높은 골든패턴 점수와 안정적인 변동성 관리로 바닥권 매집 후 반등 가능성 농후.",
-                "entry_price": 258.0
             }
         ],
         "evaluated": false
