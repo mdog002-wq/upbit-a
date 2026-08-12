@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 15:15:02",
+        "recommended_coins": [
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 유사도 100점 달성 및 과도하지 않은 변동성(27.55%) 속에서 완벽한 바닥 매집 패턴 형성",
+                "entry_price": 39.5
+            },
+            {
+                "symbol": "META2",
+                "name": "메타투",
+                "reason": "안정적인 17.73% 변동성 유지와 동시에 골든패턴 100점을 기록하여 반등 확률 극대화",
+                "entry_price": 6730.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 15:04:40",
         "recommended_coins": [
             {
@@ -919,24 +937,6 @@
                 "name": "아이디",
                 "reason": "골든패턴 유사도 100점을 기록하였으며, 준수한 거래대금과 함께 전형적인 상승형 패턴의 완성 국면에 진입함.",
                 "entry_price": 41.4
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 10:48:56",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "골든패턴 유사도 점수 92.8점으로 최상위권이며, 24시간 변동성이 1.63%로 매우 안정적이고 신뢰도 높은 추세를 형성함.",
-                "entry_price": 89853000.0
-            },
-            {
-                "symbol": "VIRTUAL",
-                "name": "버추얼",
-                "reason": "골든패턴 유사도 점수 100.0점을 기록함과 동시에 24시간 변동성이 8.12%로 과열되지 않은 건전한 상승 에너지를 보유함.",
-                "entry_price": 759.0
             }
         ],
         "evaluated": false
