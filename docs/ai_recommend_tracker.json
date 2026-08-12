@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 09:44:00",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든패턴 유사도 91.5점으로 매우 높으며, 안정적인 변동성 속에서 확실한 바닥 매집 후 상승 반전 패턴 형성 중",
+                "entry_price": 89820000.0
+            },
+            {
+                "symbol": "SOL",
+                "name": "솔라나",
+                "reason": "패턴 점수 72.5점과 함께 과열되지 않은 건전한 2%대 변동성을 보여주어 안정적인 우상향 반등 기대",
+                "entry_price": 107500.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 유사도 92.3점으로 최상위권을 기록했으며 적절한 거래대금과 함께 상승 압력이 집중되는 종목",
+                "entry_price": 756.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 09:39:02",
         "recommended_coins": [
             {
