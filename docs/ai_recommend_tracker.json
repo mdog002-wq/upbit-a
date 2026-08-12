@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 09:54:45",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든패턴 유사도 92.7점으로 시장 신뢰도가 높으며, 안정적인 변동성 속에서 상승 추세를 주도하고 있음.",
+                "entry_price": 89859000.0
+            },
+            {
+                "symbol": "SOL",
+                "name": "솔라나",
+                "reason": "골든패턴 유사도 73.1점과 탄탄한 거래대금을 기반으로 바닥 다지기 완료 후 반등 확률이 매우 높음.",
+                "entry_price": 107500.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 유사도 94.4점으로 최상위권의 패턴 일치율을 보이며 매집 완료 후 상승 탄력이 기대됨.",
+                "entry_price": 756.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 09:49:05",
         "recommended_coins": [
             {
