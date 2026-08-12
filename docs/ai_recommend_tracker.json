@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 23:34:26",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "높은 거래대금과 골든패턴 점수 100점을 기록하며 시장 주도주로서의 기술적 완성도가 매우 높음.",
+                "entry_price": 2670000.0
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든패턴 점수 100점 달성 및 적정 수준의 변동성을 유지하며 매집 후 상승 추세 전환 가능성 포착.",
+                "entry_price": 90.8
+            },
+            {
+                "symbol": "KAITO",
+                "name": "카이토",
+                "reason": "골든패턴 점수 100점과 함께 안정적인 거래량 흐름을 보이며 기술적 반등 구간에 진입함.",
+                "entry_price": 673.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 23:28:49",
         "recommended_coins": [
             {
@@ -1117,24 +1141,6 @@
                 "name": "레이븐코인",
                 "reason": "골든패턴 유사도 100점을 기록한 종목 중 상대적으로 안정적인 변동성을 보여주어 신뢰도 높은 반등 확률을 제공함.",
                 "entry_price": 3.44
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 18:54:03",
-        "recommended_coins": [
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 유사도 점수 100.0을 기록하였으며, 압도적인 거래대금을 동반하여 바닥 매집 후 강한 반등이 예상됨",
-                "entry_price": 74.5
-            },
-            {
-                "symbol": "ELF",
-                "name": "엘프",
-                "reason": "골든패턴 점수 100.0으로 기술적 반등 시그널이 매우 뚜렷하며 안정적인 거래대금을 유지 중",
-                "entry_price": 92.6
             }
         ],
         "evaluated": false
