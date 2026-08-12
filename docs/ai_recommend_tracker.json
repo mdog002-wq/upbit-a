@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 13:05:04",
+        "recommended_coins": [
+            {
+                "symbol": "ID",
+                "name": "ID",
+                "reason": "골든패턴 유사도 점수가 93.6점으로 매우 높으며, 적정 수준의 변동성과 탄탄한 거래대금을 바탕으로 단기 반등 확률이 가장 높음.",
+                "entry_price": 39.7
+            },
+            {
+                "symbol": "META2",
+                "name": "메타2",
+                "reason": "골든패턴 점수 100점을 기록한 종목으로, 과도하지 않은 17%대의 변동성 속에서 안정적인 매집 후 상승 흐름이 기대됨.",
+                "entry_price": 7050.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 12:59:27",
         "recommended_coins": [
             {
@@ -937,30 +955,6 @@
                 "name": "버추얼",
                 "reason": "골든패턴 유사도 85.0점과 안정적인 거래 환경을 바탕으로 단기 반등 확률이 매우 높게 측정됨",
                 "entry_price": 758.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 08:44:30",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "압도적인 거래대금과 79.9점의 우수한 골든패턴 점수를 바탕으로 시장 하방 경직성을 확보하며 안정적인 우상향이 기대됨",
-                "entry_price": 89690000.0
-            },
-            {
-                "symbol": "NEAR",
-                "name": "니어프로토콜",
-                "reason": "85.7점의 높은 골든패턴 유사도 점수와 적정한 변동성을 겸비하여 반등 확률이 매우 높음",
-                "entry_price": 2276.0
-            },
-            {
-                "symbol": "AVAX",
-                "name": "아바체",
-                "reason": "골든패턴 점수 100점을 기록하며 기술적 분석상 가장 확실한 바닥 매집 완료 후 반등 시그널을 나타냄",
-                "entry_price": 8920.0
             }
         ],
         "evaluated": false
