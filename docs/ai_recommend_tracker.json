@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 17:29:30",
+        "recommended_coins": [
+            {
+                "symbol": "EUL",
+                "name": "엘러리",
+                "reason": "골든패턴 유사도 점수 87.9점으로 매우 높으며, 변동성(12.77%)이 안정적이고 유동성이 확보되어 바닥 매집 후 상승 반등 확률이 매우 높음.",
+                "entry_price": 1554.0
+            },
+            {
+                "symbol": "ZBT",
+                "name": "제비",
+                "reason": "골든패턴 유사도 77.2점 및 10%대의 적정한 변동성으로 안정적인 추세 추종 매매가 가능한 유망 종목.",
+                "entry_price": 129.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 17:24:46",
         "recommended_coins": [
             {
@@ -955,24 +973,6 @@
                 "name": "META2",
                 "reason": "골든패턴 점수가 100점 만점으로 완벽한 패턴 일치율을 보이며, 과도하지 않은 변동성 속에서 상승 모멘텀이 잘 유지되고 있음.",
                 "entry_price": 7000.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 13:08:58",
-        "recommended_coins": [
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 유사도 100.0 및 안정적인 변동성(17.73%) 속에서 대규모 거래대금이 유입되어 바닥 매집 완료 후 반등 확률이 가장 높음.",
-                "entry_price": 6985.0
-            },
-            {
-                "symbol": "LSK",
-                "name": "리스크",
-                "reason": "골든패턴 유사도 100.0을 기록하며 저점 매수세가 집중되어 단기 상승 반등 모멘텀이 매우 유력함.",
-                "entry_price": 119.0
             }
         ],
         "evaluated": false
