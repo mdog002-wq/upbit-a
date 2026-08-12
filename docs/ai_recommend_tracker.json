@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 09:34:35",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "높은 골든패턴 유사도(89.9점)와 안정적인 변동성(1.63%)을 기록하여 시장 신뢰도가 가장 높음",
+                "entry_price": 89793000.0
+            },
+            {
+                "symbol": "SOL",
+                "name": "솔라나",
+                "reason": "탄탄한 거래대금과 72.2점의 우수한 패턴 점수로 바닥 매집 후 반등 확률이 높음",
+                "entry_price": 107500.0
+            },
+            {
+                "symbol": "AVAX",
+                "name": "아바체",
+                "reason": "골든패턴 점수 만점(100점)을 기록하며 기술적 분석상 최적의 반등 대기 상태",
+                "entry_price": 8895.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 09:29:03",
         "recommended_coins": [
             {

@@ -6,18 +6,23 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; margin: 0; padding: 15px; }
         
-        /* 2컬럼 메인 레이아웃 (좌측: 속보+리포트 / 중앙&우측 통합: 검증 히스토리) */
         .dashboard-main-container { display: grid; grid-template-columns: 1fr 1.3fr; gap: 15px; }
         .left-column, .right-column { display: flex; flex-direction: column; gap: 15px; }
         
-        /* 좌측 상단: 실시간 속보 패널 */
+        /* 좌측 상단: 실시간 속보 패널 복구 */
         .news-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .box-title-green { font-size: 15px; font-weight: bold; color: #2b8a3e; margin-bottom: 12px; border-bottom: 2px solid #2b8a3e; padding-bottom: 6px; }
         
-        /* 좌측 하단: AI 리포트 패널 */
+        /* Ai 실시간 진단 바 및 이동 버튼 복구 */
+        .ai-live-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; background: #f1f3f5; padding: 8px 10px; border-radius: 6px; }
+        .ai-live-bar input { padding: 6px 8px; border: 1px solid #ced4da; border-radius: 4px; font-size: 13px; outline: none; }
+        .ai-live-btn { background-color: #2b8a3e; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
+        .ai-live-btn:hover { background-color: #216a2f; }
+
+        /* 좌측 하단: AI 퀀트 리포트 */
         .report-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 14px; line-height: 1.6; }
         
-        /* 중앙 & 우측 통합: 검증 히스토리 패널 */
+        /* 중앙 & 우측 통합: 검증 히스토리 */
         .tracker-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         
         .tracker-item { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 12px; margin-bottom: 10px; }
@@ -30,16 +35,25 @@
 <body>
 
     <div class="dashboard-main-container">
-        <!-- 좌측 영역: (상) 최신 속보 / (하) AI 퀀트 리포트 -->
+        <!-- 좌측 영역: (상) 최신 속보 및 Ai 실시간 진단 / (하) AI 퀀트 리포트 -->
         <div class="left-column">
             <div class="news-box">
                 <div class="box-title-green">📰 실시간 코인 속보 & 공지</div>
+                
+                <!-- Ai 실시간 진단 및 이동 버튼 복구 -->
+                <div class="ai-live-bar">
+                    <span style="font-weight: bold; font-size: 13px; color: #007bff;">🤖 Ai 실시간 진단:</span>
+                    <input type="text" id="aiCoinInput" placeholder="종목/티커" style="width: 80px;">
+                    <input type="number" id="aiPriceInput" placeholder="진입가" style="width: 90px;">
+                    <button class="ai-live-btn" onclick="alert('Ai 진단 분석을 시작합니다.')">분석/이동</button>
+                </div>
+
                 <div><ul style='list-style: none; padding-left: 0; margin: 0; font-size: 13px;'><li style='margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 4px;'><a href='https://news.google.com/rss/articles/CBMiU0FVX3lxTFBGaXFHMWVMQnN6OWpLX3dSY0wtUHZPcHlQRzNCOUZ5cUc5QTlKTm84RFJfMHJGOVQwZjhwTVZRUndTSWJJODdNbmEyT3VmNnRqNk5Z0gFYQVVfeXFMTUtzWVVXWXQ2Tm1ZNTZabVNUdXlSa0dQWllRSVBTTWI0VG5RQUN6NzQ1UngtMkVOcG5pWnBpanh4NjRqTFZWNEVRTURBR2x4Ylp1SjIyc29tWg?oc=5' target='_blank' style='text-decoration: none; color: #333;'>러, 비트코인 등 3종 공식거래 암호화폐 지정…제도권 편입 시동 - 뉴스1</a></li><li style='margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 4px;'><a href='https://news.google.com/rss/articles/CBMicEFVX3lxTE1WY051VjQta0FhUDJJeHUza1NxM1I0QUpnSU84ZkJiQTlxUWNodE12YUZGZjNjTU04Z0kwN0pyTmRVMDBmeWlTVmhhTnljWTNCNG5KTFhXdVNuV0xmQm5fSjNtaVVONzhFRGE3c1h5ZGo?oc=5' target='_blank' style='text-decoration: none; color: #333;'>비트코인 팔고 AI주로…투자자 자금 대이동, 암호화폐 ’찬바람’ By EBN - Investing.com 한국어</a></li><li style='margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 4px;'><a href='https://news.google.com/rss/articles/CBMiaEFVX3lxTFBJTTdVQTNyMmhzWkpkYkNHUVpuUFpWNWxlaklTaUNrQTktbk9WaDVETEZoMlRSWnVHb3lwMGRFQnZ5Q1FpZDhJcnJySVFvaUdEU1BXakRISDVmakZ0QnJsQnRMVWYxcmhn0gFuQVVfeXFMT1hvNnd2Y1NuYTUzcURIcFl0MnFkQ1Nkal9LMXo1MlpwT1EyeWU3UEp0TTk5dk5CVDRPWmg0Y2M1VFEwVTBlM092UmtwY2ZobEJ3N1ljeWc4ZUYxb3J3ZG9oaU9rb3NwUjgtT19ZLWc?oc=5' target='_blank' style='text-decoration: none; color: #333;'>트럼프미디어, 비트코인에 투자했다 '쓴맛'… 상반기 6억弗 적자 - 머니투데이 - 머니투데이</a></li><li style='margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 4px;'><a href='https://news.google.com/rss/articles/CBMiXEFVX3lxTFBfdHFneE5teGtCR1JxdGhHWF9rYXppRDRQcFhRS3JBbldwZUxybEhCMlVXelJINkp3cC02QnJHRzJ2ZVBlZ0Q4STB3NElUc3RHRmJVVkpyWWtRWmpZ?oc=5' target='_blank' style='text-decoration: none; color: #333;'>[코인 시황] 비트코인 6만4000달러로 밀렸지만…고래들은 6개월 만에 최대 매집 - 뉴스핌</a></li><li style='margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 4px;'><a href='https://news.google.com/rss/articles/CBMic0FVX3lxTE1MVGdOX3pVRzJjLVZCTktlTmNKa1RIR3F3YUhBM3NadVJTcXVTLTZZdTl6c2V6UllhVUV1c2xkS2pIOGxTZUhVaXVINDlFNUY0TGt0SkY4bEkwX2FJQlpNbTZkMkcyVzRMdXdyUTJqNGsta0XSAWZBVV95cUxQUnF1cGdjUURVdXNJY2lSYmc1Y05xOEEwdnU0T2Q2cng1X2k4UmZ5U09qdk45emNWNnNYYkROWlhoSEl1QzR6QnhuaE1iNnNsRjlfTnlNbXJFNTlLTENZR2djM2QwMUE?oc=5' target='_blank' style='text-decoration: none; color: #333;'>트럼프 미디어, 비트코인 손실에 적자 눈덩이…핵융합으로 돌파구 - 동아일보</a></li><li style='margin-bottom: 8px; border-bottom: 1px dashed #eee; padding-bottom: 4px;'><a href='https://news.google.com/rss/articles/CBMiU0FVX3lxTE1VWTBJb3BXaUZEU3FhTWhKMHJ6RXk3UkROUFhrUk4taHp6bjVEWnUzcmFJVGhjSFlQTFNfY1BiYTVEeXdVV3ROMk1IdkdERFdUT1lv?oc=5' target='_blank' style='text-decoration: none; color: #333;'>킬, 미국 비트코인 채굴 사업 접었다…고성능 컴퓨팅 집중 - 네이트</a></li></ul></div>
             </div>
 
             <div class="report-box">
                 <div class="box-title-green">📊 AI 퀀트 종합 분석 리포트</div>
-                <div>**최종 분석 시각: 2026-08-12 09:28:59**<br><br># 암호화폐 퀀트 투자 분석 종합 리포트\n\n## 1. 시장 개요 및 퀀트 엔진 분석\n본 리포트는 제공된 상위 20개 암호화폐 종목 데이터를 바탕으로 거래대금, 24시간 변동성, 그리고 골든패턴 유사도 점수를 종합하여 작성되었습니다. 현재 시장은 대형 메이저 코인들의 안정적인 흐름과 함께 일부 중소형 테마 코인들의 극단적인 변동성이 공존하는 국면입니다.\n\n## 2. 최우선 추천 종목 분석\n- **비트코인 (BTC)**: 89,769,000원의 높은 가격대임에도 불구하고 약 580억 원의 탄탄한 거래대금을 기록하고 있으며, 골든패턴 유사도 점수 89.4점으로 매우 우수한 신뢰도를 보여줍니다. 변동성 또한 1.63%로 안정적입니다.\n- **솔라나 (SOL)**: 71.9점의 높은 골든패턴 유사도와 2.57%의 안정적인 변동성을 바탕으로, 바닥 매집 완료 후 안정적인 상승 탄력을 받을 것으로 기대됩니다.\n- **버추얼 (VIRTUAL)**: 88.9점에 달하는 매우 높은 골든패턴 유사도를 기록하며, 8.12%의 적절한 변동성과 함께 단기 반등 모멘텀이 매우 강력합니다.\n\n## 3. 위험 및 주의 종목 분석\n- **홀로 (HOLO)**: 24시간 변동성이 30.79%에 달하여 단기 과열 양상이 뚜렷하며, 급격한 변동에 따른 추격 매수 리스크가 매우 큽니다.\n- **리스크 (LSK)**: 변동성이 35.58%로 전체 종목 중 가장 높아 급등락에 따른 손실 위험이 매우 높으므로 엄격한 리스크 관리가 필요합니다.\n\n## 4. 퀀트 투자 전략 제언\n현재 시장은 골든패턴 유사도가 높고 변동성이 통제된 BTC, SOL, VIRTUAL 중심의 분할 매수 전략이 유효하며, 과열 종목인 HOLO와 LSK는 진입을 자제하거나 철저한 손절매 라인을 설정해야 합니다.</div>
+                <div>**최종 분석 시각: 2026-08-12 09:34:32**<br><br># 암호화폐 퀀트 투자 분석 종합 리포트<br><br>## 1. 시장 개요 및 퀀트 엔진 분석 방향<br>본 리포트는 제공된 상위 20개 종목의 거래대금, 24시간 가격 변동성, 그리고 과거 역사적 데이터 기반의 '골든패턴 유사도 점수'를 종합적으로 평가하여 도출되었습니다. 현재 시장은 대형주 중심의 안정적인 흐름과 함께, 특정 알트코인들 사이에서 극단적인 변동성을 동반한 패턴 형성 국면이 혼재되어 있습니다.<br><br>## 2. 최우선 추천 종목 선정 근거<br>- **비트코인 (BTC)**: 골든패턴 점수 89.9점으로 매우 높으며, 안정적인 변동성(1.63%)과 막대한 거래대금을 바탕으로 시장 전반의 방향성을 주도하는 핵심 자산입니다.<br>- **솔라나 (SOL)**: 골든패턴 점수 72.2점과 양호한 변동성(2.57%)을 기록하여 기관 및 고래 자금의 매집 완료 후 안정적인 우상향 반등이 가장 유력한 종목입니다.<br>- **아바체 (AVAX)**: 골든패턴 유사도 점수 100점을 기록하며 강력한 기술적 반등 시그널을 포착, 중기 관점에서 매력적인 매수 구간에 위치해 있습니다.<br><br>## 3. 위험 및 주의 종목 선정 근거<br>- **리스크 (LSK)**: 24시간 변동성이 35.58%에 달하며 과열 국면에 진입하여, 단기 급등락에 따른 투자자들의 각별한 주의가 요구됩니다.<br>- **홀로 (HOLO)**: 골든패턴 점수는 100점이나 변동성이 30.79%로 극심해 추격 매수 시 큰 손실로 이어질 수 있는 고위험 종목입니다.<br><br>## 4. 결론<br>퀀트 데이터에 기반하여 과열된 종목은 철저히 배제하고, 패턴 유사도와 유동성이 검증된 우량 자산 중심의 포트폴리오 구축을 권장합니다.</div>
             </div>
         </div>
 
@@ -48,6 +62,13 @@
             <div class="tracker-box">
                 <div class="box-title-green">🔍 AI 추천 종목 실시간 검증 히스토리</div>
                 <div><div class='tracker-list'>
+        <div class='tracker-item'>
+            <div class='tracker-header'>
+                <span>📅 2026-08-12 09:34:35</span>
+                <span class='badge-wait'>진행중(12h)</span>
+            </div>
+            <div class='tracker-coins'>
+        <div class='tracker-coin-row'>• <b>BTC</b> (진입: 89,793,000.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>SOL</b> (진입: 107,500.0원) → <span style='color:#888;'>측정중</span></div><div class='tracker-coin-row'>• <b>AVAX</b> (진입: 8,895.0원) → <span style='color:#888;'>측정중</span></div></div></div>
         <div class='tracker-item'>
             <div class='tracker-header'>
                 <span>📅 2026-08-12 09:29:03</span>
