@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 09:09:34",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "변동성 1.63%의 안정성과 87.9점의 높은 골든패턴 유사도를 기록하여 바닥 매집 완료 후 반등 확률이 가장 높음",
+                "entry_price": 89568000.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "적정한 변동성(8.12%)과 87.1점의 높은 패턴 점수로 상승 모멘텀이 매우 강력함",
+                "entry_price": 758.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 09:05:03",
         "recommended_coins": [
             {
