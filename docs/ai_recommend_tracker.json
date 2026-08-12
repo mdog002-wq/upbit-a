@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 00:59:09",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "골든패턴 점수 100점 만점과 함께 3.36%의 낮은 변동성을 유지하며 안정적인 상승 추세를 형성하고 있음.",
+                "entry_price": 2671000.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 점수 100점 대비 변동성이 18.16%로 비교적 안정적이며, 기술적 반등 가능성이 매우 높음.",
+                "entry_price": 852.0
+            },
+            {
+                "symbol": "ONDO",
+                "name": "온도",
+                "reason": "86.8점의 높은 패턴 점수와 2.56%의 매우 낮은 변동성을 기록하여 리스크 대비 수익률(Sharpe Ratio) 측면에서 우수함.",
+                "entry_price": 472.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 00:54:57",
         "recommended_coins": [
             {
@@ -1159,30 +1183,6 @@
                 "name": "아이디(ID)",
                 "reason": "골든 패턴 점수 100점 달성. 거래대금 대비 변동성이 적절히 통제되고 있어 단기 기술적 반등 타겟으로 적합함.",
                 "entry_price": 39.8
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 20:43:55",
-        "recommended_coins": [
-            {
-                "symbol": "RE",
-                "name": "리얼리티",
-                "reason": "골든패턴 점수 94.7점으로 매우 높으며, 변동성이 9.19%로 상대적으로 낮아 안정적인 상승 추세 전환이 기대됨.",
-                "entry_price": 589.0
-            },
-            {
-                "symbol": "EUL",
-                "name": "율러",
-                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 거래량 대비 변동성(9.35%)이 적절하게 통제되어 기술적 반등 확률이 매우 높음.",
-                "entry_price": 1578.0
-            },
-            {
-                "symbol": "ELF",
-                "name": "엘프",
-                "reason": "골든패턴 점수 100점 달성. 높은 거래대금을 동반한 패턴 형성으로 강력한 매수세가 유입되고 있음.",
-                "entry_price": 91.5
             }
         ],
         "evaluated": false
