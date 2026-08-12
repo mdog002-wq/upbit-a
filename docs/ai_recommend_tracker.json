@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 19:29:01",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 유사도 100.0점 및 대규모 거래대금을 동반하여 바닥 매집 완료 후 강력한 반등이 예상됨",
+                "entry_price": 74.6
+            },
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "유사도 100.0점을 기록하며 수급 유입과 함께 상승 모멘텀이 극대화된 상태",
+                "entry_price": 109.0
+            },
+            {
+                "symbol": "EUL",
+                "name": "오일러",
+                "reason": "안정적인 변동성 범위 내에서 골든패턴 유사도 100.0점을 기록하여 훌륭한 리스크 대비 수익비 제공",
+                "entry_price": 1584.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 19:24:04",
         "recommended_coins": [
             {
@@ -979,24 +1003,6 @@
                 "name": "메타투",
                 "reason": "골든패턴 유사도 점수 100점을 기록하였으며, 과도하지 않은 변동성 속에서 바닥 매집이 완료된 유망 종목입니다.",
                 "entry_price": 6715.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 15:15:02",
-        "recommended_coins": [
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 유사도 100점 달성 및 과도하지 않은 변동성(27.55%) 속에서 완벽한 바닥 매집 패턴 형성",
-                "entry_price": 39.5
-            },
-            {
-                "symbol": "META2",
-                "name": "메타투",
-                "reason": "안정적인 17.73% 변동성 유지와 동시에 골든패턴 100점을 기록하여 반등 확률 극대화",
-                "entry_price": 6730.0
             }
         ],
         "evaluated": false
