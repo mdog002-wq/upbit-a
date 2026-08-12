@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 21:44:49",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 점수 100점 만점과 압도적인 거래대금을 기록 중이며, 기술적 반등 구간에서의 매집 신호가 가장 뚜렷함.",
+                "entry_price": 71.4
+            },
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "골든패턴 점수 100점 및 높은 거래대금 유지. 안정적인 변동성 범위 내에서 기술적 지표가 최적화된 상태.",
+                "entry_price": 108.0
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든패턴 점수 100점 기록. 거래대금 대비 변동성 효율이 좋아 단기 반등 확률이 매우 높음.",
+                "entry_price": 93.2
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 21:39:20",
         "recommended_coins": [
             {
@@ -1039,30 +1063,6 @@
                 "name": "엘프",
                 "reason": "골든패턴 점수 100점을 기록하였고 안정적인 매물대 형성이 완료되어 향후 상승 추세 전환 확률이 높음.",
                 "entry_price": 92.4
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 17:04:24",
-        "recommended_coins": [
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 점수 100.0점 및 풍부한 거래대금(약 356억 원)을 동반하여 바닥 매집 후 강력한 반등이 예상됨",
-                "entry_price": 78.8
-            },
-            {
-                "symbol": "HOLO",
-                "name": "홀로",
-                "reason": "골든패턴 점수 100.0점을 기록하였으며, 안정적인 거래대금 속에서 추세 전환 패턴이 완성된 최우선 추천 종목",
-                "entry_price": 107.0
-            },
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 점수 100.0이면서 상대적으로 양호한 변동성(18.09%)을 보여 리스크 대비 기대수익이 우수함",
-                "entry_price": 6770.0
             }
         ],
         "evaluated": false
