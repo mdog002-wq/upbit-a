@@ -1,4 +1,11 @@
 {
-    "updated_at": "2026-08-12 19:59:27",
-    "warning_coins": []
+    "updated_at": "2026-08-12 20:09:57",
+    "warning_coins": [
+        {
+            "symbol": "STORJ",
+            "name": "스토리지",
+            "reason": "골든패턴 유사도는 높으나 24시간 변동성이 74.06%로 지나치게 높아 단기 과열 및 급락 리스크가 매우 큼",
+            "entry_price": 73.2
+        }
+    ]
 }

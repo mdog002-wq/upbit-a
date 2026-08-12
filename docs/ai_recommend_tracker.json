@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 20:09:57",
+        "recommended_coins": [
+            {
+                "symbol": "RE",
+                "name": "아르",
+                "reason": "골든패턴 유사도 92.1점 및 9.19%의 안정적인 변동성을 기록하며 바닥 매집 후 상승 반등 확률이 매우 높음",
+                "entry_price": 595.0
+            },
+            {
+                "symbol": "EUL",
+                "name": "오일러",
+                "reason": "골든패턴 유사도 100.0점으로 완벽한 패턴 일치를 보이며, 변동성(9.35%)이 적절하여 퀀트 관점의 최우선 매수 타점 제공",
+                "entry_price": 1581.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 19:44:30",
         "recommended_coins": [
             {
@@ -979,24 +997,6 @@
                 "name": "아이디",
                 "reason": "골든패턴 유사도 100점을 달성했으며, 과도하지 않은 변동성(27.55%)과 함께 안정적인 거래대금을 동반한 상승 초입 국면.",
                 "entry_price": 39.4
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 15:34:34",
-        "recommended_coins": [
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 유사도 100.0점 및 우수한 거래대금을 기록하여 바닥 매집 완료 후 강한 반등이 예상됨",
-                "entry_price": 79.7
-            },
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "완벽한 패턴 일치도(100.0점)를 보이며 안정적인 수급 유입으로 상승 모멘텀 확보",
-                "entry_price": 39.5
             }
         ],
         "evaluated": false
