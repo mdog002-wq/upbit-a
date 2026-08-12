@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 15:24:41",
+        "recommended_coins": [
+            {
+                "symbol": "META2",
+                "name": "메타2",
+                "reason": "골든패턴 유사도 100점을 기록하였으며, 17%대의 안정적인 변동성과 함께 우수한 거래대금을 동반하여 바닥 매집 후 반등 확률이 매우 높음",
+                "entry_price": 6735.0
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든패턴 점수 100점 달성 및 안정적인 패턴 형성으로 기술적 반등 기대감이 매우 높은 우수 종목",
+                "entry_price": 95.3
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 15:19:58",
         "recommended_coins": [
             {
@@ -931,18 +949,6 @@
                 "name": "아발란체",
                 "reason": "93.9점의 우수한 패턴 점수와 함께 안정적인 유동성을 바탕으로 상승 지속 가능성 높음",
                 "entry_price": 8870.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 10:58:51",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "골든패턴 유사도 93.7% 및 24시간 변동성 1.63%의 안정적인 지표를 기록하며, 대규모 거래대금(약 590억 원)을 동반한 바닥 매집 완료 후 강력한 반등이 예상됨.",
-                "entry_price": 89947000.0
             }
         ],
         "evaluated": false
