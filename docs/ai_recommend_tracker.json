@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 10:29:40",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든패턴 유사도 90.9점 및 24시간 안정적인 변동성(1.63%)을 기록하여 대세 상승 흐름에서 가장 신뢰도 높은 최우선 추천 종목입니다.",
+                "entry_price": 89850000.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "가상",
+                "reason": "골든패턴 유사도 100.0점을 기록함과 동시에 24시간 변동성이 8.12%로 통제 가능하여 반등 확률이 매우 높은 유망 종목입니다.",
+                "entry_price": 756.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 10:24:18",
         "recommended_coins": [
             {
