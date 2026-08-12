@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 18:44:33",
+        "recommended_coins": [
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 유사도 100점 만점에 적절한 거래대금과 안정적인 변동성을 겸비하여 반등 확률이 가장 높은 종목",
+                "entry_price": 40.2
+            },
+            {
+                "symbol": "EUL",
+                "name": "율",
+                "reason": "95.8점의 높은 골든패턴 유사도와 11%대의 건강한 변동성으로 안정적인 상승 기대",
+                "entry_price": 1577.0
+            },
+            {
+                "symbol": "ZBT",
+                "name": "제트비티",
+                "reason": "82.2점의 우수한 패턴 점수와 함께 완만한 상승 곡선을 그리며 매수세가 유입되는 중",
+                "entry_price": 130.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 18:38:52",
         "recommended_coins": [
             {
@@ -967,24 +991,6 @@
                 "name": "아이디",
                 "reason": "골든패턴 점수 97.0점의 고득점 종목으로 100억 원 이상의 견조한 거래대금 속에서 상승 모멘텀이 확실시됨.",
                 "entry_price": 39.8
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 14:24:17",
-        "recommended_coins": [
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 유사도 100.0점을 기록함과 동시에 17.73%의 안정적인 변동성을 보여주어 바닥 매집 완료 후 상승 반전 확률이 매우 높음.",
-                "entry_price": 7085.0
-            },
-            {
-                "symbol": "EUL",
-                "name": "율러",
-                "reason": "골든패턴 점수 63.5점으로 준수한 패턴 유사도를 보이고, 13.35%의 적절한 변동성으로 안정적인 트레이딩 기회를 제공함.",
-                "entry_price": 1563.0
             }
         ],
         "evaluated": false
