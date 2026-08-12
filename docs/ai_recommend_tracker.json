@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 15:29:07",
+        "recommended_coins": [
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "골든패턴 유사도 100.0점 만점을 기록하였으며 260억 원 이상의 견조한 거래대금과 함께 바닥 매집 완료 후 반등 확률이 매우 높음",
+                "entry_price": 117.0
+            },
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 유사도 100.0점 도달 및 210억 원대 거래대금 유입으로 단기 추세 반전 시 높은 상승 여력 보유",
+                "entry_price": 79.4
+            },
+            {
+                "symbol": "ID",
+                "name": "아디",
+                "reason": "골든패턴 점수 100.0점으로 패턴 일치도가 매우 높으며 안정적인 저점 다지기 완료 구간으로 판단됨",
+                "entry_price": 39.6
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 15:24:41",
         "recommended_coins": [
             {
@@ -931,24 +955,6 @@
                 "name": "SLX",
                 "reason": "골든패턴 유사도 71.2점 및 6.67%의 적정한 변동성으로 과열 리스크 없이 매집 후 상승 추세 전환이 유력함",
                 "entry_price": 110.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 11:05:02",
-        "recommended_coins": [
-            {
-                "symbol": "HOLO",
-                "name": "홀로",
-                "reason": "골든패턴 유사도 100.0점 기록 및 대규모 거래대금 유입으로 바닥 매집 후 강력한 반등 예상",
-                "entry_price": 134.0
-            },
-            {
-                "symbol": "AVAX",
-                "name": "아발란체",
-                "reason": "93.9점의 우수한 패턴 점수와 함께 안정적인 유동성을 바탕으로 상승 지속 가능성 높음",
-                "entry_price": 8870.0
             }
         ],
         "evaluated": false
