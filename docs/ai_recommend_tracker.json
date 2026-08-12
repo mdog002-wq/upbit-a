@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 13:14:47",
+        "recommended_coins": [
+            {
+                "symbol": "ID",
+                "name": "ID",
+                "reason": "골든패턴 유사도 점수가 94.4점으로 매우 높으며, 적정한 변동성(27.55%)과 견조한 거래대금을 바탕으로 바닥 매집 후 반등 확률이 매우 높음.",
+                "entry_price": 40.0
+            },
+            {
+                "symbol": "META2",
+                "name": "META2",
+                "reason": "골든패턴 점수가 100점 만점으로 완벽한 패턴 일치율을 보이며, 과도하지 않은 변동성 속에서 상승 모멘텀이 잘 유지되고 있음.",
+                "entry_price": 7000.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 13:08:58",
         "recommended_coins": [
             {
@@ -925,30 +943,6 @@
                 "name": "비추얼",
                 "reason": "골든패턴 유사도 86.5%를 기록하며 기술적 반등 시그널이 가장 강력하게 포착된 유망 종목",
                 "entry_price": 756.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 08:53:57",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "81.1점의 높은 골든패턴 점수와 압도적인 유동성을 바탕으로 안정적인 추세 상승 시그널을 확인.",
-                "entry_price": 89700000.0
-            },
-            {
-                "symbol": "NEAR",
-                "name": "니어프로토콜",
-                "reason": "골든패턴 점수 86.2점으로 최상위권이며, 변동성이 안정적인 상태에서 바닥 매집 후 반등 직전 국면.",
-                "entry_price": 2274.0
-            },
-            {
-                "symbol": "VIRTUAL",
-                "name": "버추얼프로토콜",
-                "reason": "골든패턴 점수 85.8점 및 적정 수준의 변동성으로 탄탄한 상승 탄력 기대.",
-                "entry_price": 757.0
             }
         ],
         "evaluated": false
