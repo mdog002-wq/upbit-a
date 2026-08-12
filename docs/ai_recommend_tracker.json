@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 00:19:49",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "거래대금 상위권 유지 및 골든패턴 점수 100점 기록. 대형주로서의 안정성과 기술적 반등 신호가 가장 명확함.",
+                "entry_price": 2673000.0
+            },
+            {
+                "symbol": "KAITO",
+                "name": "카이토",
+                "reason": "골든패턴 점수 100점 및 적정 수준의 변동성을 유지하며 매집 패턴이 완성된 것으로 판단됨.",
+                "entry_price": 669.0
+            },
+            {
+                "symbol": "XLM",
+                "name": "스텔라루멘",
+                "reason": "골든패턴 점수 80.6점으로 기술적 신뢰도가 높으며, 변동성이 낮아 안정적인 진입 구간을 형성하고 있음.",
+                "entry_price": 226.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 00:13:57",
         "recommended_coins": [
             {
@@ -1153,24 +1177,6 @@
                 "name": "오일러",
                 "reason": "골든패턴 유사도 100점을 기록한 종목 중 상대적으로 낮은 11.61%의 변동성을 보여주어, 급격한 휩소(Whipsaw) 위험 없이 안정적으로 우상향 반등할 확률이 높은 우수 종목입니다.",
                 "entry_price": 1586.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 19:39:38",
-        "recommended_coins": [
-            {
-                "symbol": "RE",
-                "name": "RE",
-                "reason": "골든패턴 유사도 85.0점 및 안정적인 변동성(9.38%)을 보여주어 바닥 매집 후 상승 반등 확률이 매우 높음",
-                "entry_price": 599.0
-            },
-            {
-                "symbol": "EUL",
-                "name": "EUL",
-                "reason": "골든패턴 유사도 100.0점 만점과 건전한 변동성(11.61%)을 겸비하여 퀀트 최우선 매수 추천 종목으로 선정",
-                "entry_price": 1587.0
             }
         ],
         "evaluated": false
