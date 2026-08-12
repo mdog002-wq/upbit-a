@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 21:23:58",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 점수 100점 만점과 함께 압도적인 거래대금을 기록 중이며, 기술적 지표상 바닥권 매집이 완료된 것으로 판단됨.",
+                "entry_price": 71.5
+            },
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "골든패턴 점수 100점 및 높은 거래대금 유지. 변동성이 적절하게 통제되고 있어 안정적인 상승 추세 전환이 기대됨.",
+                "entry_price": 108.0
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든패턴 점수 100점 달성. 최근 거래량 유입과 함께 패턴 완성도가 높아 단기 반등 확률이 매우 높음.",
+                "entry_price": 95.2
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 21:19:39",
         "recommended_coins": [
             {
@@ -1039,24 +1063,6 @@
                 "name": "오디세이/ID",
                 "reason": "골든패턴 유사도 100.0점을 달성하였고, 저점 매수세가 유입되며 단기 상승 모멘텀이 강화될 것으로 기대되는 종목입니다.",
                 "entry_price": 39.2
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 16:49:36",
-        "recommended_coins": [
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 유사도 100점 만점 및 325억 원의 압도적인 거래대금 유입으로 바닥 매집 완료 후 상승 반등 확률 최상",
-                "entry_price": 76.3
-            },
-            {
-                "symbol": "HOLO",
-                "name": "홀로",
-                "reason": "골든패턴 유사도 100점과 286억 원 규모의 거래대금이 뒷받침되어 단기 추세 전환 및 상승 랠리 기대",
-                "entry_price": 106.0
             }
         ],
         "evaluated": false
