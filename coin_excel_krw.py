@@ -256,7 +256,7 @@ def save_tracker_history(rec_coins):
     save_json(AI_TRACKER_HISTORY_FILE, history_data[:50])
 
 def build_news_html():
-    """좌측 상단: 최신 속보 및 공지사항 HTML 복구"""
+    """좌측 상단: 최신 속보 및 공지사항 HTML"""
     news_data = load_json(NEWS_JSON_FILE, [])
     if not news_data:
         return "<div style='color:#888; font-size:12px;'>수집된 속보가 없습니다.</div>"
@@ -323,15 +323,24 @@ def generate_full_dashboard_html():
         .dashboard-main-container { display: grid; grid-template-columns: 1fr 1.3fr; gap: 15px; }
         .left-column, .right-column { display: flex; flex-direction: column; gap: 15px; }
         
-        /* 좌측 상단: 실시간 속보 패널 복구 */
+        /* 좌측 상단: 실시간 속보 패널 */
         .news-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .box-title-green { font-size: 15px; font-weight: bold; color: #2b8a3e; margin-bottom: 12px; border-bottom: 2px solid #2b8a3e; padding-bottom: 6px; }
         
-        /* Ai 실시간 진단 바 및 이동 버튼 복구 */
-        .ai-live-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; background: #f1f3f5; padding: 8px 10px; border-radius: 6px; }
-        .ai-live-bar input { padding: 6px 8px; border: 1px solid #ced4da; border-radius: 4px; font-size: 13px; outline: none; }
-        .ai-live-btn { background-color: #2b8a3e; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
-        .ai-live-btn:hover { background-color: #216a2f; }
+        /* AI실시간 이동 버튼 (상단 배치) */
+        .ai-link-btn {
+            display: inline-block;
+            background-color: #2b8a3e;
+            color: #ffffff !important;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 12px;
+            transition: background-color 0.2s ease;
+        }
+        .ai-link-btn:hover { background-color: #216a2f; }
 
         /* 좌측 하단: AI 퀀트 리포트 */
         .report-box { background: #ffffff; border: 1px solid #ced4da; border-radius: 8px; padding: 18px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 14px; line-height: 1.6; }
@@ -349,19 +358,15 @@ def generate_full_dashboard_html():
 <body>
 
     <div class="dashboard-main-container">
-        <!-- 좌측 영역: (상) 최신 속보 및 Ai 실시간 진단 / (하) AI 퀀트 리포트 -->
+        <!-- 좌측 영역: (상) AI실시간 이동 버튼 + 실시간 속보 / (하) AI 퀀트 리포트 -->
         <div class="left-column">
             <div class="news-box">
-                <div class="box-title-green">📰 실시간 코인 속보 & 공지</div>
-                
-                <!-- Ai 실시간 진단 및 이동 버튼 복구 -->
-                <div class="ai-live-bar">
-                    <span style="font-weight: bold; font-size: 13px; color: #007bff;">🤖 Ai 실시간 진단:</span>
-                    <input type="text" id="aiCoinInput" placeholder="종목/티커" style="width: 80px;">
-                    <input type="number" id="aiPriceInput" placeholder="진입가" style="width: 90px;">
-                    <button class="ai-live-btn" onclick="alert('Ai 진단 분석을 시작합니다.')">분석/이동</button>
+                <!-- AI실시간 버튼 (실시간 코인 속보 위쪽 위치) -->
+                <div>
+                    <a href="https://mdog002-wq.github.io/upbit/" target="_blank" class="ai-link-btn">🤖 AI실시간</a>
                 </div>
 
+                <div class="box-title-green">📰 실시간 코인 속보 & 공지</div>
                 <div>{{NEWS_HTML}}</div>
             </div>
 
