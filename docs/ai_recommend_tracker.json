@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 03:58:55",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "골든패턴 점수 100점 만점 및 대규모 거래대금 유입으로 기술적 신뢰도가 가장 높음. 안정적인 상승 추세 전환 가능성 확인.",
+                "entry_price": 2665000.0
+            },
+            {
+                "symbol": "UNI",
+                "name": "유니스왑",
+                "reason": "골든패턴 점수 100점 기록. 최근 바닥권에서 기술적 반등 시그널이 명확하며, 변동성 대비 패턴 완성도가 우수함.",
+                "entry_price": 5005.0
+            },
+            {
+                "symbol": "MTL",
+                "name": "메탈",
+                "reason": "골든패턴 점수 100점 달성. 낮은 시가총액 대비 패턴 유사도가 완벽하여 단기 반등 탄력이 매우 강할 것으로 예측됨.",
+                "entry_price": 281.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 03:54:48",
         "recommended_coins": [
             {
@@ -1165,30 +1189,6 @@
                 "name": "카이토",
                 "reason": "골든패턴 점수 100점으로 기술적 반등 가능성이 매우 높음",
                 "entry_price": 675.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 23:34:26",
-        "recommended_coins": [
-            {
-                "symbol": "ETH",
-                "name": "이더리움",
-                "reason": "높은 거래대금과 골든패턴 점수 100점을 기록하며 시장 주도주로서의 기술적 완성도가 매우 높음.",
-                "entry_price": 2670000.0
-            },
-            {
-                "symbol": "ELF",
-                "name": "엘프",
-                "reason": "골든패턴 점수 100점 달성 및 적정 수준의 변동성을 유지하며 매집 후 상승 추세 전환 가능성 포착.",
-                "entry_price": 90.8
-            },
-            {
-                "symbol": "KAITO",
-                "name": "카이토",
-                "reason": "골든패턴 점수 100점과 함께 안정적인 거래량 흐름을 보이며 기술적 반등 구간에 진입함.",
-                "entry_price": 673.0
             }
         ],
         "evaluated": false
