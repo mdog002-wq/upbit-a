@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 02:04:40",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "골든패턴 점수 100점 만점 기록. 높은 거래대금과 함께 안정적인 변동성을 유지하고 있어 기술적 반등 가능성이 매우 높음.",
+                "entry_price": 2670000.0
+            },
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 점수 100점 기록. 상대적으로 적절한 변동성 범위 내에서 패턴 완성도가 높아 단기 상승 탄력이 기대됨.",
+                "entry_price": 860.0
+            },
+            {
+                "symbol": "ADA",
+                "name": "에이다",
+                "reason": "골든패턴 점수 86점으로 매우 우수하며, 변동성이 3.91%로 낮아 리스크 대비 수익률(Sharpe Ratio) 관점에서 매력적인 진입 구간.",
+                "entry_price": 258.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 01:59:22",
         "recommended_coins": [
             {
@@ -1165,24 +1189,6 @@
                 "name": "리",
                 "reason": "골든 패턴 점수 100점 대비 변동성이 9.19%로 매우 낮아, 리스크 대비 수익률(Sharpe Ratio) 측면에서 가장 우수한 진입 구간으로 판단됨.",
                 "entry_price": 591.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 21:54:13",
-        "recommended_coins": [
-            {
-                "symbol": "RE",
-                "name": "RE",
-                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 변동성이 9.19%로 타 패턴 완성 종목 대비 안정적인 흐름을 보여 바닥권 매집에 최적화됨.",
-                "entry_price": 592.0
-            },
-            {
-                "symbol": "RVN",
-                "name": "레이븐코인",
-                "reason": "골든패턴 점수 97.2점으로 매우 높은 패턴 유사도를 보이며, 거래대금 대비 안정적인 변동성을 유지하고 있어 상승 탄력 기대.",
-                "entry_price": 3.44
             }
         ],
         "evaluated": false
