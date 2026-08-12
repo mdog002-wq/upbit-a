@@ -6,7 +6,7 @@ import json
 import requests
 import numpy as np
 import pandas as pd
-import pyupbit
+import pyupb
 from pydantic import BaseModel, Field
 from google import genai
 from google.genai import types
@@ -210,7 +210,7 @@ def generate_ai_analysis(top_coins):
 {json.dumps(top_coins, ensure_ascii=False, indent=2)}
 """
         response = client.models.generate_content(
-            model='gemini-3.5-flash-lite',
+            model='gemini-3.1-flash-lite',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
