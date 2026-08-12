@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 15:34:34",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 유사도 100.0점 및 우수한 거래대금을 기록하여 바닥 매집 완료 후 강한 반등이 예상됨",
+                "entry_price": 79.7
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "완벽한 패턴 일치도(100.0점)를 보이며 안정적인 수급 유입으로 상승 모멘텀 확보",
+                "entry_price": 39.5
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 15:29:07",
         "recommended_coins": [
             {
@@ -936,24 +954,6 @@
                 "symbol": "SLX",
                 "name": "에스엘엑스",
                 "reason": "골든패턴 유사도 72.2점 대비 변동성이 6.67%로 매우 안정적이어서 안정적인 추세 추종 매매에 적합합니다.",
-                "entry_price": 110.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 11:09:36",
-        "recommended_coins": [
-            {
-                "symbol": "AVAX",
-                "name": "아발란체",
-                "reason": "골든패턴 유사도가 94.6점으로 매우 높고, 변동성이 6.89%로 안정적이며 건전한 거래대금을 수반하여 반등 확률이 가장 높음",
-                "entry_price": 8865.0
-            },
-            {
-                "symbol": "SLX",
-                "name": "SLX",
-                "reason": "골든패턴 유사도 71.2점 및 6.67%의 적정한 변동성으로 과열 리스크 없이 매집 후 상승 추세 전환이 유력함",
                 "entry_price": 110.0
             }
         ],
