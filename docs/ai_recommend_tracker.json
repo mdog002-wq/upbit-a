@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 17:53:50",
+        "recommended_coins": [
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 유사도 100.0점을 기록하였으며 막대한 거래대금이 유입되어 바닥 구간 매집 완료 후 강한 상승 반등이 예상됨",
+                "entry_price": 75.5
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "패턴 유사도 100점 만점으로 기술적 반등 시그널이 매우 뚜렷하며 상방 탄력이 뛰어남",
+                "entry_price": 91.8
+            },
+            {
+                "symbol": "TT",
+                "name": "썬더토큰",
+                "reason": "패턴 일치도가 완벽하며 안정적인 유동성을 바탕으로 저점 매수세 유입 확률이 높음",
+                "entry_price": 0.455
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 17:49:23",
         "recommended_coins": [
             {
@@ -954,30 +978,6 @@
                 "symbol": "ID",
                 "name": "아이디",
                 "reason": "골든패턴 유사도 95.8점과 100억 원 이상의 견조한 거래대금을 바탕으로 단기 반등 모멘텀이 매우 우수한 종목.",
-                "entry_price": 40.2
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 13:34:50",
-        "recommended_coins": [
-            {
-                "symbol": "META2",
-                "name": "메타2",
-                "reason": "골든패턴 유사도 100.0점 만점과 함께 17%대의 안정적인 변동성을 보여주어 가장 이상적인 매집 완료 후 반등 구간으로 분석됨",
-                "entry_price": 7095.0
-            },
-            {
-                "symbol": "LSK",
-                "name": "리스크",
-                "reason": "골든패턴 점수 100.0점 및 풍부한 거래대금을 동반하여 단기 상승 모멘텀이 매우 강력함",
-                "entry_price": 116.0
-            },
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 유사도 95.7점으로 패턴 적합도가 매우 높으며 반등 초입 구간에 위치",
                 "entry_price": 40.2
             }
         ],
