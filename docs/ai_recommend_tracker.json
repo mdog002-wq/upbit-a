@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 23:38:59",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "거래대금이 매우 높고 골든패턴 점수 100점을 기록하여 시장 신뢰도가 가장 높음",
+                "entry_price": 2667000.0
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든패턴 점수 100점 달성 및 강력한 매집 패턴 확인",
+                "entry_price": 90.9
+            },
+            {
+                "symbol": "KAITO",
+                "name": "카이토",
+                "reason": "골든패턴 점수 100점으로 기술적 반등 가능성이 매우 높음",
+                "entry_price": 675.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 23:34:26",
         "recommended_coins": [
             {
@@ -1123,24 +1147,6 @@
                 "name": "알이",
                 "reason": "골든패턴 점수 83.1점으로 상위권에 속하며, 변동성이 9.38%로 낮아 안정적인 스윙 트레이딩 및 반등 타점을 노리기 최적화된 구조를 지님.",
                 "entry_price": 594.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 18:59:15",
-        "recommended_coins": [
-            {
-                "symbol": "STORJ",
-                "name": "스토리지",
-                "reason": "골든패턴 유사도 점수 100점 만점을 기록하였으며, 43조 원이 넘는 막대한 거래대금과 함께 완벽한 바닥 매집 후 반등 국면에 진입함.",
-                "entry_price": 73.5
-            },
-            {
-                "symbol": "RVN",
-                "name": "레이븐코인",
-                "reason": "골든패턴 유사도 100점을 기록한 종목 중 상대적으로 안정적인 변동성을 보여주어 신뢰도 높은 반등 확률을 제공함.",
-                "entry_price": 3.44
             }
         ],
         "evaluated": false
