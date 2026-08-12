@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-12 09:24:31",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든패턴 유사도 89.0점의 우수한 수치와 대규모 거래대금을 기록하며 안정적인 바닥 매집 완료 후 반등 기대",
+                "entry_price": 89700000.0
+            },
+            {
+                "symbol": "SOL",
+                "name": "솔라나",
+                "reason": "안정적인 2.57%의 변동성 대비 골든패턴 유사도가 71.5점으로 높아 메이저 알트코인 중 상승 반등 확률 우수",
+                "entry_price": 107500.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 09:19:34",
         "recommended_coins": [
             {
