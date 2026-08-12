@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 23:24:09",
+        "recommended_coins": [
+            {
+                "symbol": "ETH",
+                "name": "이더리움",
+                "reason": "거래대금 상위권 유지 및 골든 패턴 점수 100점 기록. 기술적 지표상 가장 신뢰도 높은 상승 추세 확인.",
+                "entry_price": 2670000.0
+            },
+            {
+                "symbol": "ELF",
+                "name": "엘프",
+                "reason": "골든 패턴 점수 100점 달성. 변동성 대비 거래대금이 안정적으로 유입되고 있어 바닥권 매집 완료 후 반등 가능성 높음.",
+                "entry_price": 90.6
+            },
+            {
+                "symbol": "KAITO",
+                "name": "카이토",
+                "reason": "골든 패턴 점수 100점. 최근 매집 패턴이 뚜렷하게 나타나며 기술적 반등을 위한 준비가 완료된 상태.",
+                "entry_price": 670.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 23:19:13",
         "recommended_coins": [
             {
@@ -1104,30 +1128,6 @@
                 "symbol": "ZBT",
                 "name": "ZBT",
                 "reason": "유사도 점수 82.7을 기록하였고, 10%대 안정적인 변동성을 바탕으로 상승 추세 전환 가능성이 돋보임",
-                "entry_price": 130.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 18:44:33",
-        "recommended_coins": [
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 유사도 100점 만점에 적절한 거래대금과 안정적인 변동성을 겸비하여 반등 확률이 가장 높은 종목",
-                "entry_price": 40.2
-            },
-            {
-                "symbol": "EUL",
-                "name": "율",
-                "reason": "95.8점의 높은 골든패턴 유사도와 11%대의 건강한 변동성으로 안정적인 상승 기대",
-                "entry_price": 1577.0
-            },
-            {
-                "symbol": "ZBT",
-                "name": "제트비티",
-                "reason": "82.2점의 우수한 패턴 점수와 함께 완만한 상승 곡선을 그리며 매수세가 유입되는 중",
                 "entry_price": 130.0
             }
         ],
