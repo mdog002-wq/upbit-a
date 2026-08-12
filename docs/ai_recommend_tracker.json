@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-12 20:34:58",
+        "recommended_coins": [
+            {
+                "symbol": "ELF",
+                "name": "이오스(ELF)",
+                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 45%대의 변동성을 동반한 활발한 거래대금이 유입되고 있어 기술적 반등 가능성이 매우 높음.",
+                "entry_price": 92.0
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디(ID)",
+                "reason": "골든패턴 100점과 함께 27%대의 적정 변동성을 유지하고 있어, 급등락보다는 추세적 상승 흐름을 탈 가능성이 높은 안정적 우상향 후보.",
+                "entry_price": 39.8
+            },
+            {
+                "symbol": "EUL",
+                "name": "유울(EUL)",
+                "reason": "골든패턴 100점 달성 및 9%대의 낮은 변동성으로 리스크 대비 수익률(Sharpe Ratio) 측면에서 가장 매력적인 진입 구간 형성.",
+                "entry_price": 1576.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-12 20:29:38",
         "recommended_coins": [
             {
@@ -991,24 +1015,6 @@
                 "name": "엘프",
                 "reason": "골든패턴 유사도 100.0점을 달성하였으며, 안정적인 거래대금과 함께 매수세 유입이 확인되어 상승 탄력 기대",
                 "entry_price": 91.8
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-12 15:54:45",
-        "recommended_coins": [
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 유사도 100.0을 기록하며 완벽한 바닥 매집 완료 패턴 형성. 안정적인 거래대금과 함께 반등 확률 최상위권 포착.",
-                "entry_price": 39.5
-            },
-            {
-                "symbol": "ELF",
-                "name": "엘프",
-                "reason": "골든패턴 유사도 100.0 달성. 축적 기간 동안 견조한 매수세가 확인되어 향후 대세 상승 초입 구간으로 판단됨.",
-                "entry_price": 91.6
             }
         ],
         "evaluated": false
