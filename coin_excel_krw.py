@@ -54,52 +54,17 @@ def save_json(filepath, data):
 
 def fetch_crypto_news():
     news_list = []
-    # 요청 헤더 보강 (브라우저인 것처럼 위장)
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7"
+        "Accept": "application/json"
     }
 
-    # 1. 코인니스 속보 수집
+    # 1. 업비트 공식 Open API 공지사항 수집
     try:
-        coinness_url = "https://api.coinness.com/v1/newsflash/list?limit=5"
-        res = requests.get(coinness_url, headers=headers, timeout=5)
-        if res.status_code == 200:
-            res_data = res.json()
-            # 응답 구조가 dict 목록인지 확인
-            items = []
-            if isinstance(res_data, dict):
-                items = res_data.get("data", [])
-                if isinstance(items, dict):
-                    items = items.get("list", [])
-            elif isinstance(res_data, list):
-                items = res_data
-
-            for item in items:
-                # title이 없는 경우 content에서 HTML 태그 제거 후 사용
-                raw_text = item.get("title") or item.get("content", "")
-                clean_text = re.sub(r'<[^>]+>', '', raw_text).strip()
-                title = clean_text[:50] + "..." if len(clean_text) > 50 else clean_text
-                
-                news_id = item.get("id")
-                link = f"https://coinness.com/newsflash/{news_id}" if news_id else "https://coinness.com"
-                pubDate = item.get("created_at") or item.get("published_at", "")
-                
-                if title:
-                    news_list.append({"title": f"[코인니스] {title}", "link": link, "pubDate": pubDate})
-        else:
-            print(f"⚠️ 코인니스 응답 실패 (Status Code: {res.status_code})")
-    except Exception as e:
-        print(f"⚠️ 코인니스 수집 에러: {e}")
-
-    # 2. 업비트 공지사항 수집
-    try:
-        upbit_url = "https://api-manager.upbit.com/v1/notices?page=1&per_page=5"
+        upbit_url = "https://api.upbit.com/v1/notices?page=1&per_page=5"
         res = requests.get(upbit_url, headers=headers, timeout=5)
         if res.status_code == 200:
-            res_data = res.json()
-            notices = res_data.get("data", {}).get("list", []) if isinstance(res_data.get("data"), dict) else []
+            notices = res.json().get("data", {}).get("list", [])
             for notice in notices:
                 title = f"[업비트] {notice.get('title', '')}"
                 notice_id = notice.get("id")
@@ -107,12 +72,34 @@ def fetch_crypto_news():
                 pubDate = notice.get("created_at", "")
                 news_list.append({"title": title, "link": link, "pubDate": pubDate})
         else:
-            print(f"⚠️ 업비트 응답 실패 (Status Code: {res.status_code})")
+            print(f"⚠️ 업비트 응답 에러 (Status: {res.status_code})")
     except Exception as e:
         print(f"⚠️ 업비트 수집 에러: {e}")
 
-    # 수집 결과 저장 (데이터가 없을 경우 빈 리스트라도 저장하도록 수정을 권장)
+    # 2. 코인니스 v2 API 수집
+    try:
+        coinness_url = "https://api.coinness.com/v2/newsflash/list?limit=5"
+        res = requests.get(coinness_url, headers=headers, timeout=5)
+        if res.status_code == 200:
+            res_data = res.json()
+            items = res_data.get("data", []) if isinstance(res_data.get("data"), list) else res_data.get("data", {}).get("list", [])
+            for item in items:
+                raw_title = item.get("title") or item.get("content", "")
+                import re
+                clean_title = re.sub(r'<[^>]+>', '', raw_title).strip()
+                title = f"[코인니스] {clean_title[:50]}"
+                news_id = item.get("id")
+                link = f"https://coinness.com/newsflash/{news_id}" if news_id else "https://coinness.com"
+                pubDate = item.get("createdAt") or item.get("created_at", "")
+                news_list.append({"title": title, "link": link, "pubDate": pubDate})
+        else:
+            print(f"⚠️ 코인니스 응답 에러 (Status: {res.status_code})")
+    except Exception as e:
+        print(f"⚠️ 코인니스 수집 에러: {e}")
+
+    # 결과 저장
     save_json(NEWS_JSON_FILE, news_list)
+
 
 
 def evaluate_and_update_history():
