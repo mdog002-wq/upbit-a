@@ -62,69 +62,80 @@ def save_json(filepath, data):
 
 
 async def fetch_telegram_notices():
-    """텔레그램 채널에서 최신 메시지 수집하는 비동기 함수"""
+    # 환경변수 설정 (Bot Token 및 Chat ID)
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "@your_channel_or_chat_id")
+
+def fetch_telegram_notices_via_bot():
+    """텔레그램 Bot API를 활용하여 최근 메시지 수집 (대화형 인증 불필요)"""
     notices = []
-    session_file = os.path.join(DOCS_DIR, "telegram_session")
-    
+    if not TELEGRAM_BOT_TOKEN or TELEGRAM_BOT_TOKEN == "YOUR_BOT_TOKEN":
+        return notices
+
     try:
-        async with TelegramClient(session_file, TELEGRAM_API_ID, TELEGRAM_API_HASH) as client:
-            # 지정된 채널에서 최신 5개 메시지 가져오기
-            async for message in client.iter_messages(TELEGRAM_CHANNEL, limit=5):
-                if message.text:
-                    # 메시지 첫 줄을 제목으로 사용 (최대 50자)
-                    raw_text = message.text.strip()
-                    title_line = raw_text.split('\n')[0]
-                    title = f"[텔레그램] {title_line[:50]}"
-                    
-                    # 메시지 날짜 (KST 변환)
-                    msg_date = message.date.astimezone(KST).strftime("%Y-%m-%d %H:%M:%S") if message.date else ""
-                    # 텔레그램 메시지 바로가기 링크
-                    link = f"https://t.me/{TELEGRAM_CHANNEL}/{message.id}"
-                    
-                    notices.append({"title": title, "link": link, "pubDate": msg_date})
+        # Bot API getUpdates 또는 채널/대화방 최근 메시지 수집
+        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates?offset=-5"
+        res = requests.get(url, timeout=5)
+        if res.status_code == 200:
+            data = res.json()
+            results = data.get("result", [])
+            for item in reversed(results):
+                msg = item.get("message") or item.get("channel_post")
+                if not msg or "text" not in msg:
+                    continue
+                
+                raw_text = msg["text"].strip()
+                title_line = raw_text.split('\n')[0]
+                title = f"[텔레그램] {title_line[:50]}"
+                
+                # 날짜 변환
+                msg_date = datetime.datetime.fromtimestamp(msg.get("date", time.time()), tz=KST).strftime("%Y-%m-%d %H:%M:%S")
+                link = "https://t.me" # 보안상 기본 링크 처리
+                
+                notices.append({"title": title, "link": link, "pubDate": msg_date})
     except Exception as e:
-        print(f"⚠️ 텔레그램 수집 에러: {e}")
+        print(f"⚠️ 텔레그램 봇 수집 에러: {e}")
     
     return notices
-
 
 def fetch_crypto_news():
     news_list = []
     headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "application/json"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
     }
 
-    # 1. 텔레그램 알림 채널에서 최신 소식 수집 (수정된 부분)
-    try:
-        # 비동기 함수인 fetch_telegram_notices를 동기 환경에서 실행
-        telegram_news = asyncio.run(fetch_telegram_notices())
-        news_list.extend(telegram_news)
-    except Exception as e:
-        print(f"⚠️ 텔레그램 실행 에러: {e}")
+    # 1. 텔레그램 봇 방식 수집
+    telegram_news = fetch_telegram_notices_via_bot()
+    news_list.extend(telegram_news)
 
-    # 2. 코인니스 v2 API 수집
+    # 2. 네이버 뉴스 API 또는 대체 크롤링 (코인니스 404 대체)
     try:
-        coinness_url = "https://api.coinness.com/v2/newsflash/list?limit=5"
-        res = requests.get(coinness_url, headers=headers, timeout=5)
-        if res.status_code == 200:
-            res_data = res.json()
-            items = res_data.get("data", []) if isinstance(res_data.get("data"), list) else res_data.get("data", {}).get("list", [])
-            for item in items:
-                raw_title = item.get("title") or item.get("content", "")
-                clean_title = re.sub(r'<[^>]+>', '', raw_title).strip()
-                title = f"[코인니스] {clean_title[:50]}"
-                news_id = item.get("id")
-                link = f"https://coinness.com/newsflash/{news_id}" if news_id else "https://coinness.com"
-                pubDate = item.get("createdAt") or item.get("created_at", "")
-                news_list.append({"title": title, "link": link, "pubDate": pubDate})
-        else:
-            print(f"⚠️ 코인니스 응답 에러 (Status: {res.status_code})")
+        # 예시: 네이버 뉴스 검색 (가상화폐/코인)
+        naver_url = "https://openapi.naver.com/v1/search/news.json?query=가상화폐&display=5&sort=date"
+        client_id = os.environ.get("NAVER_CLIENT_ID")
+        client_secret = os.environ.get("NAVER_CLIENT_SECRET")
+        
+        if client_id and client_secret:
+            n_headers = {
+                "X-Naver-Client-Id": client_id,
+                "X-Naver-Client-Secret": client_secret
+            }
+            res = requests.get(naver_url, headers=n_headers, timeout=5)
+            if res.status_code == 200:
+                items = res.json().get("items", [])
+                for item in items:
+                    clean_title = re.sub(r'<[^>]+>|&quot;|&amp;', '', item.get("title", "")).strip()
+                    news_list.append({
+                        "title": f"[뉴스] {clean_title[:50]}",
+                        "link": item.get("originallink") or item.get("link"),
+                        "pubDate": item.get("pubDate", "")
+                    })
     except Exception as e:
-        print(f"⚠️ 코인니스 수집 에러: {e}")
+        print(f"⚠️ 뉴스 수집 에러: {e}")
 
     # 결과 저장
     save_json(NEWS_JSON_FILE, news_list)
+
 
 
 def evaluate_and_update_history():
