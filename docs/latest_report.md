@@ -1,1 +1,5 @@
-AI 분석 실패: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+**최종 분석 시각: 2026-08-14 02:24:47**
+
+### 퀀트 분석 리포트: 시장 변동성 및 패턴 분석
+
+본 리포트는 퀀트 엔진이 산출한 거래대금, 변동성, 골든패턴 유사도 점수를 종합 분석한 결과입니다. 현재 시장은 높은 변동성을 동반한 알트코인들의 강세가 두드러지며, 특히 골든패턴 점수가 100점에 도달한 종목들에서 기술적 반등 신호가 포착되었습니다. 다만, 변동성이 60%를 상회하는 종목들은 단기 과열 구간으로 판단되어 추격 매수 시 각별한 주의가 필요합니다.
