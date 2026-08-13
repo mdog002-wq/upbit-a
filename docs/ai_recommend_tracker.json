@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 23:54:51",
+        "recommended_coins": [
+            {
+                "symbol": "WLD",
+                "name": "월드코인",
+                "reason": "골든패턴 점수 100점을 기록하며, 변동성(8.46%)이 상대적으로 낮아 안정적인 상승 추세 전환이 기대됨.",
+                "entry_price": 494.0
+            },
+            {
+                "symbol": "ESP",
+                "name": "에스프레소",
+                "reason": "골든패턴 점수 100점을 유지 중이며, 거래대금 대비 변동성이 적절하게 통제되어 있어 기술적 반등 확률이 높음.",
+                "entry_price": 106.0
+            },
+            {
+                "symbol": "HOME",
+                "name": "홈",
+                "reason": "매우 높은 거래대금과 함께 골든패턴 점수 100점을 달성하여 강력한 매집 신호가 확인됨.",
+                "entry_price": 15.6
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 23:49:08",
         "recommended_coins": [
             {
@@ -1165,30 +1189,6 @@
                 "name": "아이디",
                 "reason": "골든패턴 점수 100점 기록. 변동성 14.03%로 타 급등주 대비 리스크 대비 수익률(Sharpe Ratio) 관점에서 우월함.",
                 "entry_price": 40.8
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 19:14:24",
-        "recommended_coins": [
-            {
-                "symbol": "TRUST",
-                "name": "트러스트",
-                "reason": "골든패턴 점수 100점 만점 기록. 거래대금 대비 변동성이 적절하게 통제되고 있어 안정적인 상승 추세 전환 가능성이 높음.",
-                "entry_price": 73.9
-            },
-            {
-                "symbol": "HOME",
-                "name": "홈",
-                "reason": "패턴 유사도 100점 달성. 바닥권에서 거래량이 동반된 매집 패턴이 확인되며, 기술적 반등 구간에 진입한 것으로 판단됨.",
-                "entry_price": 15.2
-            },
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 점수 100점. 최근 24시간 동안 견고한 거래대금을 유지하며 기술적 지표가 최적화된 상태임.",
-                "entry_price": 8.84
             }
         ],
         "evaluated": false
