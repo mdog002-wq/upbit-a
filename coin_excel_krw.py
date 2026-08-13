@@ -23,7 +23,9 @@ TELEGRAM_API_ID = os.environ.get("TELEGRAM_API_ID", "YOUR_TELEGRAM_API_ID")
 TELEGRAM_API_HASH = os.environ.get("TELEGRAM_API_HASH", "YOUR_TELEGRAM_API_HASH")
 # 수집 대상 텔레그램 채널 (예: 업비트 공식/알림 채널 Username 또는 ID)
 TELEGRAM_CHANNEL = os.environ.get("TELEGRAM_CHANNEL", "upbit_notice") 
-
+# 환경변수 설정 (Bot Token 및 Chat ID)
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "@your_channel_or_chat_id")
 DOCS_DIR = "./docs"
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
@@ -61,10 +63,6 @@ def save_json(filepath, data):
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 
-async def fetch_telegram_notices():
-    # 환경변수 설정 (Bot Token 및 Chat ID)
-    TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN")
-    TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "@your_channel_or_chat_id")
 
 def fetch_telegram_notices_via_bot():
     """텔레그램 Bot API를 활용하여 최근 메시지 수집 (대화형 인증 불필요)"""
