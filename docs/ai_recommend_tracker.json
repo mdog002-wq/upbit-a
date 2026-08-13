@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 09:53:59",
+        "recommended_coins": [
+            {
+                "symbol": "VIRTUAL",
+                "name": "버추얼",
+                "reason": "골든패턴 점수 100점 만점 기록. 100억 원 이상의 안정적인 거래대금을 동반하며 기술적 반등 가능성이 매우 높음.",
+                "entry_price": 843.0
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점. 낮은 가격대에서 패턴이 완성되어 단기 상승 탄력을 받을 확률이 높음.",
+                "entry_price": 9.27
+            },
+            {
+                "symbol": "MTL",
+                "name": "메탈",
+                "reason": "골든패턴 점수 100점. 패턴 완성도가 높으며, 기술적 지지선 확보 후 상승 전환 시그널이 포착됨.",
+                "entry_price": 272.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 09:49:06",
         "recommended_coins": [
             {
@@ -1117,30 +1141,6 @@
                 "name": "메탈",
                 "reason": "골든패턴 점수 100점 만점을 기록하여 기술적 신뢰도가 매우 높음. 변동성 대비 패턴 완성도가 뛰어나 단기 반등 타점으로 적합함.",
                 "entry_price": 282.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 05:39:43",
-        "recommended_coins": [
-            {
-                "symbol": "ETH",
-                "name": "이더리움",
-                "reason": "골든패턴 점수 99.8로 기술적 신뢰도가 매우 높으며, 31조 원 규모의 탄탄한 거래대금을 바탕으로 안정적인 상승 추세가 예상됨.",
-                "entry_price": 2664000.0
-            },
-            {
-                "symbol": "ADA",
-                "name": "에이다",
-                "reason": "골든패턴 점수 90.4를 기록하며 바닥권에서 강한 반등 시그널을 형성 중. 변동성 대비 패턴 완성도가 우수함.",
-                "entry_price": 258.0
-            },
-            {
-                "symbol": "VIRTUAL",
-                "name": "버추얼",
-                "reason": "골든패턴 점수 100점 만점을 기록하며 기술적 지표상 최적의 매수 구간에 진입함.",
-                "entry_price": 840.0
             }
         ],
         "evaluated": false
