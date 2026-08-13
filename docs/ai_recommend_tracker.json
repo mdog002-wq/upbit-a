@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 23:59:40",
+        "recommended_coins": [
+            {
+                "symbol": "WLD",
+                "name": "월드코인",
+                "reason": "골든패턴 점수 100점 만점을 기록했으며, 타 급등주 대비 변동성(8.46%)이 낮아 기술적 반등의 신뢰도가 가장 높음.",
+                "entry_price": 492.0
+            },
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "골든패턴 점수 100점과 함께 적절한 거래대금을 동반하며 안정적인 우상향 패턴을 형성 중.",
+                "entry_price": 99.5
+            },
+            {
+                "symbol": "ESP",
+                "name": "에스프레소",
+                "reason": "골든패턴 점수 100점을 기록하며 바닥권에서 매집 신호가 포착됨.",
+                "entry_price": 106.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 23:54:51",
         "recommended_coins": [
             {
@@ -1165,30 +1189,6 @@
                 "name": "홈",
                 "reason": "패턴 유사도 100점과 함께 변동성 대비 안정적인 거래량을 동반하고 있어 기술적 반등 확률이 매우 높음.",
                 "entry_price": 15.1
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 19:24:47",
-        "recommended_coins": [
-            {
-                "symbol": "TRUST",
-                "name": "트러스트",
-                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 변동성 25.6%로 패턴 신뢰도가 높고 반등 탄력이 우수함.",
-                "entry_price": 74.2
-            },
-            {
-                "symbol": "HOME",
-                "name": "홈",
-                "reason": "골든패턴 점수 100점 및 안정적인 거래대금 유입 확인. 기술적 반등 구간에서의 진입 매력이 높음.",
-                "entry_price": 15.1
-            },
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 점수 100점 기록. 변동성 14.03%로 타 급등주 대비 리스크 대비 수익률(Sharpe Ratio) 관점에서 우월함.",
-                "entry_price": 40.8
             }
         ],
         "evaluated": false
