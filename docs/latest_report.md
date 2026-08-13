@@ -1,8 +1,1 @@
-**최종 분석 시각: 2026-08-14 04:28:58**
-
-### 퀀트 분석 리포트: 시장 변동성 및 패턴 분석
-
-본 리포트는 24시간 거래대금, 변동성, 골든패턴 유사도 점수를 종합하여 산출되었습니다. 현재 시장은 일부 알트코인에 자금이 집중되는 '쏠림 현상'이 관찰되며, 골든패턴 점수가 90점 이상인 종목들이 기술적 반등 구간에 진입한 것으로 판단됩니다.
-
-1. **추천 전략**: 골든패턴 점수가 높으면서도 변동성이 상대적으로 안정적인 종목을 중심으로 분할 매수 전략을 권장합니다.
-2. **주의 전략**: BONK와 같이 변동성이 60%를 상회하는 종목은 단기 차익 실현 매물이 쏟아질 가능성이 크므로 추격 매수를 지양해야 합니다.
+AI 분석 실패: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
