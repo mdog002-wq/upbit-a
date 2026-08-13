@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 22:04:18",
+        "recommended_coins": [
+            {
+                "symbol": "RE",
+                "name": "RE",
+                "reason": "골든패턴 점수 100점 만점이며, 변동성 12.56%로 타 패턴 완성 종목 대비 상대적으로 안정적인 변동성을 보여 반등 확률이 높음.",
+                "entry_price": 640.0
+            },
+            {
+                "symbol": "HOLO",
+                "name": "홀로",
+                "reason": "골든패턴 점수 100점 달성. 거래대금 대비 변동성이 적절하게 통제되고 있어 기술적 반등 시 신뢰도가 높음.",
+                "entry_price": 98.2
+            },
+            {
+                "symbol": "ESP",
+                "name": "ESP",
+                "reason": "골든패턴 점수 100점. 낮은 가격대에서 패턴이 완성되어 기술적 반등 시 탄력적인 상승이 기대됨.",
+                "entry_price": 110.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 21:59:09",
         "recommended_coins": [
             {
@@ -1165,30 +1189,6 @@
                 "name": "아이디",
                 "reason": "골든패턴 점수 100점. 14%대의 적정 변동성을 유지하며 거래대금이 유입되고 있어 추세 전환 가능성이 매우 높음.",
                 "entry_price": 41.1
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 17:29:43",
-        "recommended_coins": [
-            {
-                "symbol": "TRUST",
-                "name": "트러스트",
-                "reason": "골든 패턴 점수 100점 만점으로 기술적 반등 신호가 가장 강력하며, 매집 구간에서의 안정적인 흐름이 기대됨.",
-                "entry_price": 78.1
-            },
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든 패턴 점수 100점 기록. 거래대금 대비 변동성이 적절하게 통제되고 있어 상승 추세 전환 확률이 높음.",
-                "entry_price": 8.83
-            },
-            {
-                "symbol": "HOME",
-                "name": "홈",
-                "reason": "골든 패턴 점수 100점. 최근 바닥권에서 의미 있는 거래량이 동반되며 패턴 완성도가 매우 높음.",
-                "entry_price": 14.3
             }
         ],
         "evaluated": false
