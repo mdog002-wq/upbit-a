@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 16:49:45",
+        "recommended_coins": [
+            {
+                "symbol": "TRUST",
+                "name": "트러스트",
+                "reason": "골든패턴 점수 100점 만점으로 기술적 신뢰도가 매우 높으며, 매집 완료 후 상승 추세 전환 가능성이 가장 큼.",
+                "entry_price": 75.6
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점 기록. 거래대금 대비 안정적인 변동성을 유지하며 기술적 지지선 확보 완료.",
+                "entry_price": 8.92
+            },
+            {
+                "symbol": "EUL",
+                "name": "율러",
+                "reason": "골든패턴 점수 92.8점으로 매우 우수하며, 과도하게 높지 않은 변동성으로 안정적인 수익 구간 진입 가능.",
+                "entry_price": 1604.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 16:44:45",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "투지",
                 "reason": "골든패턴 점수 100점 기록. 변동성이 다소 높으나 패턴 완성도가 매우 높아 단기 반등 확률이 압도적임.",
                 "entry_price": 67.8
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 11:29:36",
-        "recommended_coins": [
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 유사도 점수 100.0으로 기술적 완성도가 가장 높으며, 적절한 거래대금과 함께 상승 추세가 견고함.",
-                "entry_price": 9.19
-            },
-            {
-                "symbol": "EUL",
-                "name": "율",
-                "reason": "골든패턴 점수 98.8을 기록하며 바닥권에서 강한 매집 패턴을 형성, 반등 탄력이 매우 우수한 상태.",
-                "entry_price": 1668.0
-            },
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 점수 91.8로 높은 신뢰도를 보이며, 변동성 대비 안정적인 상승 흐름을 유지하고 있음.",
-                "entry_price": 41.1
             }
         ],
         "evaluated": false
