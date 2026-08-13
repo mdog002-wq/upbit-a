@@ -63,8 +63,8 @@ def save_json(filepath, data):
 
 async def fetch_telegram_notices():
     # 환경변수 설정 (Bot Token 및 Chat ID)
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN")
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "@your_channel_or_chat_id")
+    TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN")
+    TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "@your_channel_or_chat_id")
 
 def fetch_telegram_notices_via_bot():
     """텔레그램 Bot API를 활용하여 최근 메시지 수집 (대화형 인증 불필요)"""
