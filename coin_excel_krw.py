@@ -7,6 +7,7 @@ import requests
 import numpy as np
 import pandas as pd
 import pyupbit
+import re
 from pydantic import BaseModel, Field
 from google import genai
 from google.genai import types
@@ -50,41 +51,69 @@ def save_json(filepath, data):
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
+
 def fetch_crypto_news():
     news_list = []
+    # 요청 헤더 보강 (브라우저인 것처럼 위장)
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7"
+    }
+
+    # 1. 코인니스 속보 수집
     try:
         coinness_url = "https://api.coinness.com/v1/newsflash/list?limit=5"
-        headers = {"User-Agent": "Mozilla/5.0"}
         res = requests.get(coinness_url, headers=headers, timeout=5)
         if res.status_code == 200:
-            data = res.json()
-            items = data.get("data", {}).get("list", []) if isinstance(data.get("data"), dict) else data.get("data", [])
+            res_data = res.json()
+            # 응답 구조가 dict 목록인지 확인
+            items = []
+            if isinstance(res_data, dict):
+                items = res_data.get("data", [])
+                if isinstance(items, dict):
+                    items = items.get("list", [])
+            elif isinstance(res_data, list):
+                items = res_data
+
             for item in items:
-                title = item.get("title") or item.get("content", "")[:50]
+                # title이 없는 경우 content에서 HTML 태그 제거 후 사용
+                raw_text = item.get("title") or item.get("content", "")
+                clean_text = re.sub(r'<[^>]+>', '', raw_text).strip()
+                title = clean_text[:50] + "..." if len(clean_text) > 50 else clean_text
+                
                 news_id = item.get("id")
                 link = f"https://coinness.com/newsflash/{news_id}" if news_id else "https://coinness.com"
                 pubDate = item.get("created_at") or item.get("published_at", "")
-                news_list.append({"title": f"[코인니스] {title}", "link": link, "pubDate": pubDate})
+                
+                if title:
+                    news_list.append({"title": f"[코인니스] {title}", "link": link, "pubDate": pubDate})
+        else:
+            print(f"⚠️ 코인니스 응답 실패 (Status Code: {res.status_code})")
     except Exception as e:
         print(f"⚠️ 코인니스 수집 에러: {e}")
 
+    # 2. 업비트 공지사항 수집
     try:
         upbit_url = "https://api-manager.upbit.com/v1/notices?page=1&per_page=5"
-        headers = {"User-Agent": "Mozilla/5.0"}
         res = requests.get(upbit_url, headers=headers, timeout=5)
         if res.status_code == 200:
-            notices = res.json().get("data", {}).get("list", [])
+            res_data = res.json()
+            notices = res_data.get("data", {}).get("list", []) if isinstance(res_data.get("data"), dict) else []
             for notice in notices:
                 title = f"[업비트] {notice.get('title', '')}"
                 notice_id = notice.get("id")
                 link = f"https://upbit.com/service_center/notice?id={notice_id}" if notice_id else "https://upbit.com/service_center/notice"
                 pubDate = notice.get("created_at", "")
                 news_list.append({"title": title, "link": link, "pubDate": pubDate})
+        else:
+            print(f"⚠️ 업비트 응답 실패 (Status Code: {res.status_code})")
     except Exception as e:
         print(f"⚠️ 업비트 수집 에러: {e}")
 
-    if news_list:
-        save_json(NEWS_JSON_FILE, news_list)
+    # 수집 결과 저장 (데이터가 없을 경우 빈 리스트라도 저장하도록 수정을 권장)
+    save_json(NEWS_JSON_FILE, news_list)
+
 
 def evaluate_and_update_history():
     history = load_json(AI_TRACKER_HISTORY_FILE, [])
