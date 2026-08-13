@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 17:39:44",
+        "recommended_coins": [
+            {
+                "symbol": "TRUST",
+                "name": "트러스트",
+                "reason": "골든패턴 점수 100점 만점 기록. 거래대금 대비 변동성이 적절하게 통제되고 있어 기술적 반등 확률이 가장 높음.",
+                "entry_price": 77.6
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점. 최근 매집 흐름이 뚜렷하며, 안정적인 수급 유입이 확인됨.",
+                "entry_price": 8.98
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 100점. 거래대금 규모가 크고 패턴 유사도가 완벽하여 단기 상승 모멘텀이 강력함.",
+                "entry_price": 41.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 17:34:20",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "아이디",
                 "reason": "골든패턴 점수 100점 기록. 상대적으로 낮은 변동성 속에서 패턴 완성도가 높아 안정적인 우상향 추세 전환이 예상됨.",
                 "entry_price": 41.8
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 13:14:27",
-        "recommended_coins": [
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 점수 100점 만점으로 기술적 신뢰도가 매우 높으며, 거래대금이 뒷받침되는 안정적인 상승 추세 전환 가능성이 큼.",
-                "entry_price": 8.75
-            },
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 점수 100점 기록. 변동성이 7.65%로 비교적 안정적이며, 기술적 지표상 매집이 완료된 것으로 판단됨.",
-                "entry_price": 41.8
-            },
-            {
-                "symbol": "TRUST",
-                "name": "트러스트",
-                "reason": "골든패턴 점수 100점. 기술적 완성도가 높고 시장의 주목을 받고 있어 단기 반등 탄력이 기대됨.",
-                "entry_price": 82.0
             }
         ],
         "evaluated": false
