@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-13 15:54:04",
+        "recommended_coins": [
+            {
+                "symbol": "TRUST",
+                "name": "트러스트",
+                "reason": "골든패턴 점수 100점 만점으로 기술적 반등 신호가 가장 강력하며, 매집 구간에서의 안정적인 수급이 확인됨.",
+                "entry_price": 75.0
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점 기록. 거래대금 대비 변동성이 적절하게 통제되고 있어 상승 추세 전환 확률이 높음.",
+                "entry_price": 8.88
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 100점. 기술적 지표가 최적화되어 있으며, 추가 상승을 위한 매집이 완료된 것으로 분석됨.",
+                "entry_price": 41.3
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-13 15:48:57",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "아이디",
                 "reason": "78.6점의 우수한 패턴 점수를 보유하고 있으며, 최근 시장 흐름과 동조화된 안정적인 우상향 패턴을 보임.",
                 "entry_price": 40.7
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 10:34:40",
-        "recommended_coins": [
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 유사도 점수 100점 만점으로 기술적 반등 신호가 매우 강력함. 거래대금 또한 63억 규모로 안정적인 매집 구간 확인.",
-                "entry_price": 9.6
-            },
-            {
-                "symbol": "2Z",
-                "name": "투지",
-                "reason": "골든패턴 점수 100점 기록. 단기 급락 후 바닥권에서 패턴이 완성되어 기술적 반등 확률이 매우 높은 구간.",
-                "entry_price": 68.2
-            },
-            {
-                "symbol": "VIRTUAL",
-                "name": "버추얼",
-                "reason": "골든패턴 점수 95.9점으로 매우 높으며, 100억 이상의 대규모 거래대금이 유입되어 강력한 매수세가 확인됨.",
-                "entry_price": 831.0
             }
         ],
         "evaluated": false
