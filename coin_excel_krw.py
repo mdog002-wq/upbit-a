@@ -8,13 +8,22 @@ import numpy as np
 import pandas as pd
 import pyupbit
 import re
+import asyncio
 from pydantic import BaseModel, Field
 from google import genai
 from google.genai import types
+from telethon import TelegramClient
 
 KST = timezone(timedelta(hours=9))
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+
+# 텔레그램 API 인증 정보 (환경변수 설정 또는 직접 입력)
+TELEGRAM_API_ID = os.environ.get("TELEGRAM_API_ID", "YOUR_TELEGRAM_API_ID")
+TELEGRAM_API_HASH = os.environ.get("TELEGRAM_API_HASH", "YOUR_TELEGRAM_API_HASH")
+# 수집 대상 텔레그램 채널 (예: 업비트 공식/알림 채널 Username 또는 ID)
+TELEGRAM_CHANNEL = os.environ.get("TELEGRAM_CHANNEL", "upbit_notice") 
+
 DOCS_DIR = "./docs"
 AI_TRACKER_HISTORY_FILE = os.path.join(DOCS_DIR, "ai_recommend_tracker.json")
 REPORT_MD_FILE = os.path.join(DOCS_DIR, "latest_report.md")
@@ -52,6 +61,33 @@ def save_json(filepath, data):
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 
+async def fetch_telegram_notices():
+    """텔레그램 채널에서 최신 메시지 수집하는 비동기 함수"""
+    notices = []
+    session_file = os.path.join(DOCS_DIR, "telegram_session")
+    
+    try:
+        async with TelegramClient(session_file, TELEGRAM_API_ID, TELEGRAM_API_HASH) as client:
+            # 지정된 채널에서 최신 5개 메시지 가져오기
+            async for message in client.iter_messages(TELEGRAM_CHANNEL, limit=5):
+                if message.text:
+                    # 메시지 첫 줄을 제목으로 사용 (최대 50자)
+                    raw_text = message.text.strip()
+                    title_line = raw_text.split('\n')[0]
+                    title = f"[텔레그램] {title_line[:50]}"
+                    
+                    # 메시지 날짜 (KST 변환)
+                    msg_date = message.date.astimezone(KST).strftime("%Y-%m-%d %H:%M:%S") if message.date else ""
+                    # 텔레그램 메시지 바로가기 링크
+                    link = f"https://t.me/{TELEGRAM_CHANNEL}/{message.id}"
+                    
+                    notices.append({"title": title, "link": link, "pubDate": msg_date})
+    except Exception as e:
+        print(f"⚠️ 텔레그램 수집 에러: {e}")
+    
+    return notices
+
+
 def fetch_crypto_news():
     news_list = []
     headers = {
@@ -59,22 +95,13 @@ def fetch_crypto_news():
         "Accept": "application/json"
     }
 
-    # 1. 업비트 공식 Open API 공지사항 수집
+    # 1. 텔레그램 알림 채널에서 최신 소식 수집 (수정된 부분)
     try:
-        upbit_url = "https://api.upbit.com/v1/notices?page=1&per_page=5"
-        res = requests.get(upbit_url, headers=headers, timeout=5)
-        if res.status_code == 200:
-            notices = res.json().get("data", {}).get("list", [])
-            for notice in notices:
-                title = f"[업비트] {notice.get('title', '')}"
-                notice_id = notice.get("id")
-                link = f"https://upbit.com/service_center/notice?id={notice_id}" if notice_id else "https://upbit.com/service_center/notice"
-                pubDate = notice.get("created_at", "")
-                news_list.append({"title": title, "link": link, "pubDate": pubDate})
-        else:
-            print(f"⚠️ 업비트 응답 에러 (Status: {res.status_code})")
+        # 비동기 함수인 fetch_telegram_notices를 동기 환경에서 실행
+        telegram_news = asyncio.run(fetch_telegram_notices())
+        news_list.extend(telegram_news)
     except Exception as e:
-        print(f"⚠️ 업비트 수집 에러: {e}")
+        print(f"⚠️ 텔레그램 실행 에러: {e}")
 
     # 2. 코인니스 v2 API 수집
     try:
@@ -85,7 +112,6 @@ def fetch_crypto_news():
             items = res_data.get("data", []) if isinstance(res_data.get("data"), list) else res_data.get("data", {}).get("list", [])
             for item in items:
                 raw_title = item.get("title") or item.get("content", "")
-                import re
                 clean_title = re.sub(r'<[^>]+>', '', raw_title).strip()
                 title = f"[코인니스] {clean_title[:50]}"
                 news_id = item.get("id")
@@ -99,7 +125,6 @@ def fetch_crypto_news():
 
     # 결과 저장
     save_json(NEWS_JSON_FILE, news_list)
-
 
 
 def evaluate_and_update_history():
