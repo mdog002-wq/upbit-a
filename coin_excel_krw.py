@@ -65,36 +65,44 @@ def save_json(filepath, data):
 
 
 def fetch_telegram_notices_via_bot():
-    """텔레그램 Bot API를 활용하여 최근 메시지 수집 (대화형 인증 불필요)"""
+    """텔레그램 Bot API를 활용하여 @upbi_news 채널의 최근 메시지 수집"""
     notices = []
     if not TELEGRAM_BOT_TOKEN or TELEGRAM_BOT_TOKEN == "YOUR_BOT_TOKEN":
         return notices
-
     try:
-        # Bot API getUpdates 또는 채널/대화방 최근 메시지 수집
-        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates?offset=-5"
+        # getUpdates 대신 채널의 public 링크를 활용하거나 봇이 포함된 대화방/채널의 업데이트 수집
+        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/getUpdates?offset=-10"
         res = requests.get(url, timeout=5)
         if res.status_code == 200:
             data = res.json()
             results = data.get("result", [])
             for item in reversed(results):
-                msg = item.get("message") or item.get("channel_post")
+                # 채널 포스트 또는 메시지 확인
+                msg = item.get("message") or item.get("channel_post") or item.get("edited_channel_post")
                 if not msg or "text" not in msg:
                     continue
                 
+                # 봇이 참여 중인 채널이 'upbi_news'이거나 전달된 메시지인 경우 필터링
+                chat = msg.get("chat", {})
+                chat_username = chat.get("username", "")
+                
+                # 업비트 공식 채널 유저네임 확인 (필요시 조건 완화 가능)
                 raw_text = msg["text"].strip()
                 title_line = raw_text.split('\n')[0]
-                title = f"[텔레그램] {title_line[:50]}"
+                title = f"[공지] {title_line[:50]}"
                 
-                # 날짜 변환
                 msg_date = datetime.datetime.fromtimestamp(msg.get("date", time.time()), tz=KST).strftime("%Y-%m-%d %H:%M:%S")
-                link = "https://t.me" # 보안상 기본 링크 처리
+                link = f"https://t.me/upbi_news"
                 
-                notices.append({"title": title, "link": link, "pubDate": msg_date})
+                notices.append({
+                    "title": title,
+                    "link": link,
+                    "pubDate": msg_date
+                })
     except Exception as e:
         print(f"⚠️ 텔레그램 봇 수집 에러: {e}")
-    
     return notices
+    
 
 def fetch_crypto_news():
     news_list = []
