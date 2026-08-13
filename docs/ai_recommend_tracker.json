@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 00:53:56",
+        "recommended_coins": [
+            {
+                "symbol": "DOS",
+                "name": "도스",
+                "reason": "골든패턴 점수 100점 만점과 함께 285억 규모의 높은 거래대금을 동반하여 기술적 반등 신뢰도가 매우 높음.",
+                "entry_price": 390.0
+            },
+            {
+                "symbol": "HOME",
+                "name": "홈",
+                "reason": "패턴 유사도 100점 및 188억 규모의 거래대금을 기록, 바닥권 매집 후 상승 추세 전환 가능성이 큼.",
+                "entry_price": 15.2
+            },
+            {
+                "symbol": "TRUST",
+                "name": "트러스트",
+                "reason": "골든패턴 100점 기록, 안정적인 거래량과 함께 기술적 지표가 매수 구간에 진입함.",
+                "entry_price": 73.1
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 00:48:58",
         "recommended_coins": [
             {
@@ -1165,30 +1189,6 @@
                 "name": "GRVT",
                 "reason": "골든패턴 점수 100점 만점을 기록했음에도 변동성이 9.98%로 낮게 유지되어, 과열 없이 정석적인 상승 패턴을 형성하고 있는 우량 종목.",
                 "entry_price": 471.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-13 20:24:21",
-        "recommended_coins": [
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 점수 100점 만점이며, 변동성(13.27%)이 적정 수준으로 유지되어 기술적 반등 확률이 매우 높음.",
-                "entry_price": 8.81
-            },
-            {
-                "symbol": "GRVT",
-                "name": "그라비티",
-                "reason": "골든패턴 점수 100점 및 10% 미만의 안정적인 변동성을 보여주어 저점 매집 후 상승 탄력을 받을 가능성이 큼.",
-                "entry_price": 468.0
-            },
-            {
-                "symbol": "ID",
-                "name": "아이디",
-                "reason": "골든패턴 점수 100점 달성. 거래대금이 뒷받침되는 상황에서 기술적 완성도가 높아 추가 상승 여력이 충분함.",
-                "entry_price": 40.7
             }
         ],
         "evaluated": false
