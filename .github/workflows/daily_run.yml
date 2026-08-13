@@ -31,7 +31,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # 일반 경량 패키지 및 AI 필수 유틸 설치
-          pip install pyupbit pandas numpy requests openpyxl tqdm google-genai oracledb redis paramiko feedparser websockets pydantic fastdtw
+          pip install pyupbit pandas numpy requests telethon openpyxl tqdm google-genai oracledb redis paramiko feedparser websockets pydantic fastdtw
           # AI 프레임워크 설치 (CPU 전용 경량화 버전으로 설치하여 캐시 및 속도 최적화)
           pip install --no-cache-dir torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
           pip install tensorflow-cpu || pip install tensorflow
