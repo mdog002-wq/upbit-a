@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 04:54:43",
+        "recommended_coins": [
+            {
+                "symbol": "RE",
+                "name": "RE",
+                "reason": "골든패턴 점수 95.3으로 매우 높은 기술적 유사도를 보이며, 변동성(11.62%)이 과열권 대비 안정적이어서 상승 추세 지속 가능성이 높음.",
+                "entry_price": 631.0
+            },
+            {
+                "symbol": "SLX",
+                "name": "SLX",
+                "reason": "골든패턴 점수 88.4를 기록하며, 변동성(8.57%)이 낮아 리스크 대비 수익률(Sharpe Ratio) 관점에서 가장 매력적인 진입 구간에 위치함.",
+                "entry_price": 110.0
+            },
+            {
+                "symbol": "ESP",
+                "name": "ESP",
+                "reason": "골든패턴 점수 90.9로 기술적 신뢰도가 높고, 거래대금 대비 변동성이 적절하게 통제되고 있어 안정적인 반등이 기대됨.",
+                "entry_price": 107.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 04:49:39",
         "recommended_coins": [
             {
@@ -1159,30 +1183,6 @@
                 "name": "트러스트",
                 "reason": "골든패턴 점수 100점 및 150억 이상의 거래대금을 확보하여 단기 반등 모멘텀이 가장 강력한 종목 중 하나임.",
                 "entry_price": 73.6
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 00:19:30",
-        "recommended_coins": [
-            {
-                "symbol": "DOS",
-                "name": "도스",
-                "reason": "골든패턴 점수 100점 만점과 함께 280억 규모의 높은 거래대금을 유지하고 있어 기술적 반등 신뢰도가 매우 높음.",
-                "entry_price": 390.0
-            },
-            {
-                "symbol": "HOME",
-                "name": "홈",
-                "reason": "골든패턴 100점 및 180억 이상의 견고한 거래대금을 바탕으로 안정적인 상승 추세 전환 가능성 확인.",
-                "entry_price": 14.4
-            },
-            {
-                "symbol": "WLD",
-                "name": "월드",
-                "reason": "골든패턴 100점 기록. 변동성이 8.46%로 상대적으로 낮아 안정적인 우상향 패턴을 보일 것으로 기대됨.",
-                "entry_price": 492.0
             }
         ],
         "evaluated": false
