@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 07:04:16",
+        "recommended_coins": [
+            {
+                "symbol": "GRVT",
+                "name": "그라비티",
+                "reason": "골든패턴 유사도 점수 91.3으로 매우 높으며, 24시간 변동성이 26%대로 안정적이면서도 대규모 거래대금을 동반한 바닥 매집 완료 패턴 포착",
+                "entry_price": 451.0
+            },
+            {
+                "symbol": "ONG",
+                "name": "옹",
+                "reason": "골든패턴 유사도 점수 100.0 만점을 기록하여 역사적 반등 구간 진입 확률이 매우 높음",
+                "entry_price": 62.9
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 06:59:05",
         "recommended_coins": [
             {
@@ -943,30 +961,6 @@
                 "name": "이더리움",
                 "reason": "막대한 거래대금(약 273억 원)을 바탕으로 골든패턴 유사도 100점 및 안정적인 변동성(1.56%)을 보여주어 포트폴리오의 안정성과 수익성을 동시에 확보할 수 있음.",
                 "entry_price": 2650000.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 02:54:53",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "골든패턴 유사도 100점 및 안정적인 변동성(1.68%)으로 시장 신뢰도 확보",
-                "entry_price": 89000000.0
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "낮은 변동성(4.4%)과 골든패턴 100점 달성으로 바닥 매집 완료 후 안정적 반등 기대",
-                "entry_price": 460.0
-            },
-            {
-                "symbol": "SHIB",
-                "name": "시바이누",
-                "reason": "골든패턴 100점 및 탄탄한 거래대금 기반의 매수세 유입 구간 포착",
-                "entry_price": 0.0065
             }
         ],
         "evaluated": false
