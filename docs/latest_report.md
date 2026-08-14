@@ -1,1 +1,8 @@
-AI 분석 실패: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+**최종 분석 시각: 2026-08-14 12:09:36**
+
+### 퀀트 투자 분석 리포트
+
+본 리포트는 퀀트 엔진의 데이터를 기반으로 시장의 변동성과 골든패턴 유사도를 분석한 결과입니다. 현재 시장은 일부 알트코인에 거래대금이 집중되며 높은 변동성을 보이고 있습니다. 
+
+1. **추천 전략**: 골든패턴 점수가 100점에 도달했음에도 불구하고 상대적으로 거래대금이 안정적인 종목을 중심으로 포트폴리오를 구성하는 것이 유리합니다. 특히 QKC와 RED는 기술적 완성도가 매우 높게 평가되었습니다.
+2. **리스크 관리**: BONK와 같이 변동성이 60%를 상회하는 종목은 단기 과열 구간으로 진입했을 가능성이 매우 높으므로 추격 매수를 지양해야 합니다.
