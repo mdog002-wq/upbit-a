@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 16:44:07",
+        "recommended_coins": [
+            {
+                "symbol": "MMT",
+                "name": "엠엠티",
+                "reason": "골든패턴 점수 100점 만점으로 기술적 완성도가 매우 높으며, 적정 수준의 변동성을 유지하고 있어 반등 탄력이 기대됨.",
+                "entry_price": 256.0
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점 기록. 변동성이 7.43%로 비교적 낮아 안정적인 우상향 추세 전환 가능성이 높음.",
+                "entry_price": 9.17
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 100점 및 낮은 변동성(7.94%)을 바탕으로 매집 완료 후 안정적인 상승 흐름이 예상됨.",
+                "entry_price": 42.6
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 16:38:57",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "무브",
                 "reason": "골든패턴 점수 80.8점으로 우수한 기술적 지표를 보유하고 있으며, 변동성이 적절히 통제되어 안정적인 수익 기대 가능.",
                 "entry_price": 8.98
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 12:18:59",
-        "recommended_coins": [
-            {
-                "symbol": "QUID",
-                "name": "QUID",
-                "reason": "골든패턴 유사도 점수 100점 만점을 기록하며 기술적 지표상 최적의 매수 타점을 형성함. 변동성 대비 안정적인 수급 흐름을 보임.",
-                "entry_price": 101.0
-            },
-            {
-                "symbol": "QKC",
-                "name": "QKC",
-                "reason": "골든패턴 유사도 100점 달성. 바닥권에서 패턴 완성도가 매우 높아 향후 상승 탄력이 기대되는 종목임.",
-                "entry_price": 2.87
-            },
-            {
-                "symbol": "RED",
-                "name": "RED",
-                "reason": "골든패턴 유사도 100점 기록. 기술적 분석상 매집 완료 후 추세 전환 가능성이 가장 높은 종목으로 분류됨.",
-                "entry_price": 125.0
             }
         ],
         "evaluated": false
