@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 20:34:10",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든패턴 점수 100점 만점과 함께 압도적인 거래대금을 유지하며 시장의 방향성을 주도하고 있음. 안정적인 우상향 추세가 돋보임.",
+                "entry_price": 88766000.0
+            },
+            {
+                "symbol": "DOGE",
+                "name": "도지코인",
+                "reason": "골든패턴 점수 100점 대비 변동성이 1.53%로 매우 낮아, 리스크 대비 수익률(Sharpe Ratio) 측면에서 가장 안정적인 매집 구간으로 판단됨.",
+                "entry_price": 97.9
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 100점을 기록하였으며, 변동성이 8.6% 수준으로 관리되고 있어 단기 반등 탄력이 기대되는 종목임.",
+                "entry_price": 42.1
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 20:28:55",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "아이디",
                 "reason": "골든패턴 점수 100점 유지 중이며, 7.94%의 적정 변동성을 통해 안정적인 상승 추세 전환 가능성 확인.",
                 "entry_price": 42.9
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 16:09:34",
-        "recommended_coins": [
-            {
-                "symbol": "PROM",
-                "name": "프롬",
-                "reason": "골든패턴 점수 100점 만점과 함께 300억 규모의 강력한 거래대금을 동반하여 기술적 신뢰도가 매우 높음.",
-                "entry_price": 3782.0
-            },
-            {
-                "symbol": "MMT",
-                "name": "엠엠티",
-                "reason": "골든패턴 점수 100점 및 100억 이상의 안정적인 거래대금을 유지하며 매집 패턴이 완성된 것으로 판단됨.",
-                "entry_price": 255.0
-            },
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 점수 100점을 기록하며 저점 대비 안정적인 우상향 패턴을 보일 가능성이 높음.",
-                "entry_price": 9.0
             }
         ],
         "evaluated": false
