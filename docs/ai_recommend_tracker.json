@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 05:54:56",
+        "recommended_coins": [
+            {
+                "symbol": "UNI",
+                "name": "유니스왑",
+                "reason": "골든패턴 유사도 100.0점으로 기술적 반등 확률이 매우 높으며, 안정적인 거래대금을 동반하여 매집이 완료된 전형적인 패턴을 보임.",
+                "entry_price": 4525.0
+            },
+            {
+                "symbol": "ONG",
+                "name": "온버프",
+                "reason": "골든패턴 100.0점을 기록하였고, 거래대금 대비 상승 반전 국면에 진입하여 단기 탄력성이 뛰어난 종목임.",
+                "entry_price": 63.9
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 05:49:45",
         "recommended_coins": [
             {
@@ -991,24 +1009,6 @@
                 "name": "온도",
                 "reason": "변동성 4.4%의 안정적인 수치와 골든패턴 유사도 100점을 동시에 만족하여 리스크 대비 기대 수익률이 우수함.",
                 "entry_price": 463.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 01:39:51",
-        "recommended_coins": [
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "골든패턴 유사도 100점 만점과 안정적인 변동성(4.4%)을 동시에 만족하며 바닥 매집 후 상승 반등 확률이 가장 높은 종목입니다.",
-                "entry_price": 463.0
-            },
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "94.9점의 높은 골든패턴 점수와 풍부한 거래대금을 바탕으로 완만한 상승 추세 진입이 확인된 유망 종목입니다.",
-                "entry_price": 10.1
             }
         ],
         "evaluated": false
