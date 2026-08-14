@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 03:04:34",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든패턴 유사도 100.0점 완벽 달성 및 압도적인 거래대금으로 시장 신뢰도 최상위 유지",
+                "entry_price": 88943000.0
+            },
+            {
+                "symbol": "ONDO",
+                "name": "온도",
+                "reason": "골든패턴 유사도 100.0점 대비 변동성이 4.4%로 안정적이며 저점 매집 후 반등 기대감 유효",
+                "entry_price": 460.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 02:59:47",
         "recommended_coins": [
             {
@@ -1009,30 +1027,6 @@
                 "name": "도지코인",
                 "reason": "골든패턴 점수 100.0을 기록하며 기술적 완성도가 높고, 변동성이 1.74%로 낮아 리스크 대비 수익률(Sharpe Ratio) 관점에서 우수함.",
                 "entry_price": 98.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 22:49:02",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "골든패턴 점수 100.0으로 기술적 완성도가 매우 높으며, 높은 거래대금을 동반하여 시장의 주도권을 유지하고 있음.",
-                "entry_price": 88481000.0
-            },
-            {
-                "symbol": "DOGE",
-                "name": "도지코인",
-                "reason": "골든패턴 점수 100.0을 기록함과 동시에 변동성이 1.74%로 매우 안정적이며, 바닥권에서 신뢰도 높은 상승 패턴을 형성 중.",
-                "entry_price": 98.0
-            },
-            {
-                "symbol": "SOL",
-                "name": "솔라나",
-                "reason": "골든패턴 점수 90.8로 매우 우수하며, 1.79%의 낮은 변동성으로 안정적인 우상향 추세를 보이고 있어 매집하기 적합함.",
-                "entry_price": 106300.0
             }
         ],
         "evaluated": false
