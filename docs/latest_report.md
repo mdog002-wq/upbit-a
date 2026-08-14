@@ -1,1 +1,8 @@
-AI 분석 실패: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+**최종 분석 시각: 2026-08-14 22:48:56**
+
+### 퀀트 투자 분석 리포트
+
+본 리포트는 24시간 거래대금, 변동성, 그리고 골든패턴 유사도 점수를 종합적으로 분석한 결과입니다. 현재 시장은 비트코인(BTC)의 견고한 흐름과 함께 특정 알트코인으로의 자금 쏠림 현상이 뚜렷하게 나타나고 있습니다. 
+
+1. **시장 상황**: BTC와 DOGE가 높은 골든패턴 점수(100.0)를 유지하며 시장의 중심을 잡고 있습니다. 반면, CAP, 2Z 등 일부 종목은 극심한 변동성을 동반한 급등세를 보이고 있어 주의가 필요합니다.
+2. **투자 전략**: 골든패턴 점수가 높으면서도 변동성이 안정적인 우량주 위주의 포트폴리오 구성이 유리하며, 변동성이 25%를 상회하는 과열 종목은 추격 매수를 지양해야 합니다.
