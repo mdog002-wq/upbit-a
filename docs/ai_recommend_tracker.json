@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 16:09:34",
+        "recommended_coins": [
+            {
+                "symbol": "PROM",
+                "name": "프롬",
+                "reason": "골든패턴 점수 100점 만점과 함께 300억 규모의 강력한 거래대금을 동반하여 기술적 신뢰도가 매우 높음.",
+                "entry_price": 3782.0
+            },
+            {
+                "symbol": "MMT",
+                "name": "엠엠티",
+                "reason": "골든패턴 점수 100점 및 100억 이상의 안정적인 거래대금을 유지하며 매집 패턴이 완성된 것으로 판단됨.",
+                "entry_price": 255.0
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점을 기록하며 저점 대비 안정적인 우상향 패턴을 보일 가능성이 높음.",
+                "entry_price": 9.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 15:59:37",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "퀴드",
                 "reason": "골든패턴 점수 100점 도달. 거래량 대비 패턴 완성도가 높아 단기 반등 탄력이 기대됨.",
                 "entry_price": 99.3
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 11:39:44",
-        "recommended_coins": [
-            {
-                "symbol": "QKC",
-                "name": "쿼크체인",
-                "reason": "골든패턴 점수 100점 만점으로 기술적 신뢰도가 매우 높으며, 바닥권에서 안정적인 매집 패턴을 보임.",
-                "entry_price": 2.92
-            },
-            {
-                "symbol": "ENSO",
-                "name": "엔소",
-                "reason": "골든패턴 점수 100점 기록. 기술적 지표상 상승 추세 전환 가능성이 가장 높은 종목 중 하나임.",
-                "entry_price": 1090.0
-            },
-            {
-                "symbol": "BCH",
-                "name": "비트코인캐시",
-                "reason": "골든패턴 점수 100점. 대형주로서의 안정성과 기술적 패턴의 완벽한 일치를 보여주어 중장기적 반등 기대.",
-                "entry_price": 292000.0
             }
         ],
         "evaluated": false
