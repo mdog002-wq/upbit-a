@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-15 08:04:53",
+        "recommended_coins": [
+            {
+                "symbol": "PRL",
+                "name": "펄",
+                "reason": "골든패턴 유사도 100.0점으로 완벽한 바닥 매집 완료, 안정적인 변동성 속 반등 확률 극대화 구간",
+                "entry_price": 491.0
+            },
+            {
+                "symbol": "LA",
+                "name": "엘에이",
+                "reason": "골든패턴 유사도 100.0점 달성, 과열 없이 탄탄한 거래량을 바탕으로 한 상승 에너지가 응축된 상태",
+                "entry_price": 71.5
+            },
+            {
+                "symbol": "ONG",
+                "name": "온오프코인",
+                "reason": "골든패턴 만점(100.0)과 풍부한 거래대금을 동반하며 단기 조정 후 강력한 반등 시그널 발생",
+                "entry_price": 62.7
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 07:59:22",
         "recommended_coins": [
             {
@@ -949,24 +973,6 @@
                 "name": "시바이누",
                 "reason": "골든패턴 유사도 100.0점이며 변동성 5.76%로 과열되지 않은 상태에서 안정적인 거래대금을 형성 중",
                 "entry_price": 0.00651
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 03:48:59",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "골든패턴 유사도 100.0점 및 압도적인 거래대금과 안정적인 변동성으로 시장 신뢰도 최상위",
-                "entry_price": 88874000.0
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "골든패턴 100.0점 달성 및 4.4%의 안정적 변동성으로 바닥 매집 후 반등 확률 극대화",
-                "entry_price": 459.0
             }
         ],
         "evaluated": false
