@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 16:14:05",
+        "recommended_coins": [
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 변동성이 7.43%로 비교적 안정적인 구간에서 매집 신호가 포착됨.",
+                "entry_price": 9.01
+            },
+            {
+                "symbol": "ZBT",
+                "name": "제트비티",
+                "reason": "골든패턴 점수 100점과 함께 변동성이 6.56%로 매우 낮아, 기술적 반등 시 변동성 확대에 따른 수익 기대치가 높음.",
+                "entry_price": 128.0
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 100점 유지 중이며, 7.94%의 적정 변동성을 통해 안정적인 상승 추세 전환 가능성 확인.",
+                "entry_price": 42.9
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 16:09:34",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "쿼크체인",
                 "reason": "골든패턴 점수 100점 달성. 최근 바닥권에서 패턴 완성 후 반등 확률이 가장 높은 종목으로 판단됨.",
                 "entry_price": 2.91
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 11:44:21",
-        "recommended_coins": [
-            {
-                "symbol": "ENSO",
-                "name": "엔소",
-                "reason": "골든패턴 유사도 점수 100점 만점을 기록하며 기술적 지표상 완벽한 매수 타점을 형성함.",
-                "entry_price": 1086.0
-            },
-            {
-                "symbol": "QKC",
-                "name": "쿼크체인",
-                "reason": "패턴 점수 100점으로 기술적 신뢰도가 매우 높으며, 저점 매집 후 상승 전환 가능성이 큼.",
-                "entry_price": 2.91
-            },
-            {
-                "symbol": "QUID",
-                "name": "퀴드",
-                "reason": "골든패턴 점수 100점 도달. 거래량 대비 패턴 완성도가 높아 단기 반등 탄력이 기대됨.",
-                "entry_price": 99.3
             }
         ],
         "evaluated": false
