@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 10:54:26",
+        "recommended_coins": [
+            {
+                "symbol": "ENSO",
+                "name": "엔소",
+                "reason": "골든패턴 유사도 점수 100점 만점으로 기술적 분석상 최적의 진입 타점을 형성하고 있음.",
+                "entry_price": 1086.0
+            },
+            {
+                "symbol": "QKC",
+                "name": "쿼크체인",
+                "reason": "골든패턴 점수 100점 기록. 낮은 변동성 대비 패턴 완성도가 매우 높아 안정적인 수익 기대 가능.",
+                "entry_price": 2.88
+            },
+            {
+                "symbol": "PROM",
+                "name": "프롬",
+                "reason": "거래대금이 매우 높으며(300억 이상), 골든패턴 점수 77점으로 강한 상승 모멘텀을 보유함.",
+                "entry_price": 3671.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 10:49:38",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "플룸",
                 "reason": "패턴 점수 100점 달성. 낮은 가격대에서 거래량이 동반된 패턴 완성으로 추가 상승 여력이 충분함.",
                 "entry_price": 17.7
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 05:59:18",
-        "recommended_coins": [
-            {
-                "symbol": "ENSO",
-                "name": "엔소",
-                "reason": "골든패턴 점수 92.9점으로 매우 높은 기술적 유사도를 보이며, 적절한 거래대금과 함께 상승 추세가 견고함.",
-                "entry_price": 1116.0
-            },
-            {
-                "symbol": "RE",
-                "name": "리",
-                "reason": "골든패턴 점수 79.7점으로 우수한 패턴을 형성 중이며, 변동성 대비 안정적인 거래 흐름을 유지하고 있음.",
-                "entry_price": 643.0
-            },
-            {
-                "symbol": "HOME",
-                "name": "홈",
-                "reason": "골든패턴 점수 75.1점 및 대규모 거래대금을 동반하여 시장의 강력한 매수세가 확인됨.",
-                "entry_price": 15.2
             }
         ],
         "evaluated": false
