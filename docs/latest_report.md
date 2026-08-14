@@ -1,8 +1,1 @@
-**최종 분석 시각: 2026-08-14 09:14:40**
-
-### 퀀트 분석 리포트: 시장 변동성 및 패턴 분석
-
-본 분석은 20개 주요 암호화폐 종목의 거래대금, 변동성, 그리고 골든패턴 유사도 점수를 종합하여 수행되었습니다. 현재 시장은 비트코인(BTC)과 이더리움(ETH)의 안정적인 흐름 속에서 특정 알트코인들이 높은 패턴 점수를 기록하며 기술적 반등 가능성을 시사하고 있습니다.
-
-1. **추천 종목 분석**: ENSO, BCH, ETHFI는 골든패턴 점수 100점을 기록하며 기술적 완성도가 매우 높습니다. 특히 ENSO와 ETHFI는 변동성을 동반한 매집 구간을 지나고 있어 단기 모멘텀이 기대됩니다.
-2. **주의 종목 분석**: BONK와 AVNT는 24시간 변동성이 각각 66.45%, 32.03%에 달하며 극심한 과열 양상을 보이고 있습니다. 이는 기술적 조정 가능성이 매우 높음을 의미하므로 추격 매수에 각별한 주의가 필요합니다.
+AI 분석 실패: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
