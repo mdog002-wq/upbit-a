@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 17:49:07",
+        "recommended_coins": [
+            {
+                "symbol": "MMT",
+                "name": "MMT",
+                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 거래대금이 안정적으로 유지되고 있어 기술적 반등 가능성이 매우 높음.",
+                "entry_price": 259.0
+            },
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "패턴 유사도 100점과 함께 100억 이상의 거래대금을 확보하여 매집 완료 후 상승 추세 전환이 기대됨.",
+                "entry_price": 64.3
+            },
+            {
+                "symbol": "2Z",
+                "name": "2Z",
+                "reason": "골든패턴 점수 100점으로 기술적 지표가 최적화되어 있으며, 현재 가격대에서 강한 지지력을 보임.",
+                "entry_price": 77.8
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 17:44:16",
         "recommended_coins": [
             {
@@ -1170,30 +1194,6 @@
                 "symbol": "RED",
                 "name": "레드",
                 "reason": "골든패턴 점수 100점 기록. 기술적 지표상 바닥권 매집이 완료된 것으로 분석되어 상승 전환 확률이 높음.",
-                "entry_price": 124.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 13:23:59",
-        "recommended_coins": [
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 점수 100점 만점 기록. 거래대금이 안정적으로 유지되고 있어 기술적 반등 가능성이 가장 높음.",
-                "entry_price": 8.93
-            },
-            {
-                "symbol": "QKC",
-                "name": "쿼크체인",
-                "reason": "골든패턴 점수 100점 도달. 패턴 유사도가 매우 높으며, 현재 가격대에서 매집이 완료된 것으로 판단됨.",
-                "entry_price": 2.87
-            },
-            {
-                "symbol": "RED",
-                "name": "레드",
-                "reason": "골든패턴 점수 100점 기록. 최근 변동성 대비 패턴 완성도가 높아 상승 추세 전환의 초입으로 분석됨.",
                 "entry_price": 124.0
             }
         ],
