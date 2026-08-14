@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 21:19:14",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든 패턴 점수 100점 만점 및 압도적인 거래대금으로 시장의 신뢰도가 가장 높음.",
+                "entry_price": 88686000.0
+            },
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "96.2점의 높은 골든 패턴 점수와 함께 안정적인 기술적 지표를 형성 중.",
+                "entry_price": 62.9
+            },
+            {
+                "symbol": "GRVT",
+                "name": "그라비티",
+                "reason": "97.1점의 높은 패턴 유사도를 기록하며 최근 매집 흐름이 포착됨.",
+                "entry_price": 493.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 21:14:57",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "무브",
                 "reason": "골든패턴 점수 100점 달성. 상대적으로 낮은 변동성 속에서 패턴 완성도가 높아 안정적인 수익을 기대할 수 있는 종목.",
                 "entry_price": 9.17
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 16:49:24",
-        "recommended_coins": [
-            {
-                "symbol": "MMT",
-                "name": "MMT",
-                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 변동성(12.12%)이 타 급등주 대비 상대적으로 안정적이라 기술적 반등 신뢰도가 높음.",
-                "entry_price": 256.0
-            },
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 점수 100점과 함께 7.43%의 낮은 변동성을 유지하고 있어, 추세 전환 시 안정적인 상승 흐름을 보일 가능성이 큼.",
-                "entry_price": 9.14
-            },
-            {
-                "symbol": "ID",
-                "name": "ID",
-                "reason": "골든패턴 점수 100점 및 7.94%의 낮은 변동성으로, 기술적 완성도가 높고 매집이 완료된 것으로 판단됨.",
-                "entry_price": 42.7
             }
         ],
         "evaluated": false
