@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 15:19:47",
+        "recommended_coins": [
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 100점 만점을 기록했으며, 변동성이 7.94%로 비교적 안정적인 구간에서 매집 패턴이 확인됨.",
+                "entry_price": 43.1
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점 달성. 변동성 7.43% 수준으로 과열되지 않은 상태에서 상승 모멘텀이 유지되고 있음.",
+                "entry_price": 9.04
+            },
+            {
+                "symbol": "ZBT",
+                "name": "지비티",
+                "reason": "골든패턴 점수 100점. 변동성 6.56%로 상위권 종목 중 가장 안정적인 흐름을 보이며 반등 가능성이 높음.",
+                "entry_price": 126.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 15:14:04",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "엠엠티",
                 "reason": "골든패턴 점수 65점으로 상위권에 위치하며, 변동성 대비 패턴 신뢰도가 높아 안정적인 수익 추구가 가능함.",
                 "entry_price": 251.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 10:54:26",
-        "recommended_coins": [
-            {
-                "symbol": "ENSO",
-                "name": "엔소",
-                "reason": "골든패턴 유사도 점수 100점 만점으로 기술적 분석상 최적의 진입 타점을 형성하고 있음.",
-                "entry_price": 1086.0
-            },
-            {
-                "symbol": "QKC",
-                "name": "쿼크체인",
-                "reason": "골든패턴 점수 100점 기록. 낮은 변동성 대비 패턴 완성도가 매우 높아 안정적인 수익 기대 가능.",
-                "entry_price": 2.88
-            },
-            {
-                "symbol": "PROM",
-                "name": "프롬",
-                "reason": "거래대금이 매우 높으며(300억 이상), 골든패턴 점수 77점으로 강한 상승 모멘텀을 보유함.",
-                "entry_price": 3671.0
             }
         ],
         "evaluated": false
