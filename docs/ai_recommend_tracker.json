@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 08:44:15",
+        "recommended_coins": [
+            {
+                "symbol": "PRL",
+                "name": "피알엘",
+                "reason": "골든패턴 유사도 점수 100.0을 기록하며 기술적 반등 확률이 가장 높으며, 적정 변동성과 거래대금을 동반한 매집 완료 종목입니다.",
+                "entry_price": 496.0
+            },
+            {
+                "symbol": "ONG",
+                "name": "온고",
+                "reason": "유사도 점수 100.0 및 안정적인 거래대금을 바탕으로 저점 매수세가 유입되어 단기 상승 탄력이 기대되는 종목입니다.",
+                "entry_price": 63.8
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 08:39:40",
         "recommended_coins": [
             {
@@ -967,24 +985,6 @@
                 "name": "무브",
                 "reason": "골든패턴 유사도 88.4점으로 우수하며, 적절한 거래대금과 함께 반등 국면에서 강한 모멘텀을 기대할 수 있음.",
                 "entry_price": 9.53
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 04:29:38",
-        "recommended_coins": [
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 유사도 88.4점으로 매우 높으며, 1조 원 이상의 풍부한 거래대금과 안정적인 변동성을 바탕으로 반등 확률이 가장 높음",
-                "entry_price": 9.52
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "골든패턴 점수 81.1점과 4.18%의 낮은 변동성으로 안정적인 추세 상승이 기대되는 우량 종목",
-                "entry_price": 457.0
             }
         ],
         "evaluated": false
