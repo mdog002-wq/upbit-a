@@ -4282,5 +4282,12 @@
         "total_trades": 0,
         "wins": 0,
         "losses": 0
+    },
+    {
+        "updated_at": "2026-08-14 14:26:22",
+        "win_rate": 0.0,
+        "total_trades": 0,
+        "wins": 0,
+        "losses": 0
     }
 ]
