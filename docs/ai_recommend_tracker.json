@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 16:38:57",
+        "recommended_coins": [
+            {
+                "symbol": "PROM",
+                "name": "프롬",
+                "reason": "골든패턴 점수 100점 만점이며, 315억 규모의 강력한 거래대금이 유입되어 기술적 반등 신뢰도가 매우 높음.",
+                "entry_price": 3736.0
+            },
+            {
+                "symbol": "STORJ",
+                "name": "스토리지",
+                "reason": "골든패턴 점수 100점 기록. 거래대금 대비 안정적인 패턴을 보이며 매집 완료 후 상승 추세 전환 가능성 농후.",
+                "entry_price": 66.4
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "골든패턴 점수 100점. 변동성이 7.94%로 비교적 낮아 리스크 대비 수익률(Sharpe Ratio) 측면에서 우수한 진입 구간.",
+                "entry_price": 42.6
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 16:35:01",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "RED",
                 "reason": "골든패턴 유사도 100점 기록. 기술적 분석상 매집 완료 후 추세 전환 가능성이 가장 높은 종목으로 분류됨.",
                 "entry_price": 125.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 12:14:20",
-        "recommended_coins": [
-            {
-                "symbol": "QKC",
-                "name": "쿼크체인",
-                "reason": "골든패턴 점수 100점 만점으로 기술적 분석상 매집 구간이 완벽히 종료되었으며, 반등 탄력이 가장 높을 것으로 예상됨.",
-                "entry_price": 2.87
-            },
-            {
-                "symbol": "RED",
-                "name": "레드",
-                "reason": "패턴 점수 100점 기록. 거래대금 대비 안정적인 변동성을 유지하며 추세 전환의 신호가 명확함.",
-                "entry_price": 125.0
-            },
-            {
-                "symbol": "PROM",
-                "name": "프롬",
-                "reason": "높은 거래대금(약 290억)과 81.9점의 높은 패턴 점수를 보유하여, 시장 주도주로서의 상승 잠재력이 매우 큼.",
-                "entry_price": 3645.0
             }
         ],
         "evaluated": false
