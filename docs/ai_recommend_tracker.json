@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 22:54:00",
+        "recommended_coins": [
+            {
+                "symbol": "BTC",
+                "name": "비트코인",
+                "reason": "골든패턴 점수 100.0으로 기술적 신뢰도가 가장 높으며, 대규모 거래대금을 동반한 안정적인 추세 유지 중.",
+                "entry_price": 88470000.0
+            },
+            {
+                "symbol": "SOL",
+                "name": "솔라나",
+                "reason": "골든패턴 점수 91.0으로 매우 우수하며, 변동성이 1.79%로 낮아 안정적인 우상향 추세가 기대됨.",
+                "entry_price": 106300.0
+            },
+            {
+                "symbol": "DOGE",
+                "name": "도지코인",
+                "reason": "골든패턴 점수 100.0을 기록하며 기술적 완성도가 높고, 변동성이 1.74%로 낮아 리스크 대비 수익률(Sharpe Ratio) 관점에서 우수함.",
+                "entry_price": 98.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 22:49:02",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "스토리지",
                 "reason": "골든패턴 점수 100점. 변동성이 적절히 통제된 상태에서 패턴 완성도가 높아 단기 수익 극대화 구간으로 판단됨.",
                 "entry_price": 64.5
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 18:14:09",
-        "recommended_coins": [
-            {
-                "symbol": "PROM",
-                "name": "프로미스",
-                "reason": "골든 패턴 점수 100점 만점과 함께 314억 규모의 강력한 거래대금이 유입되어 바닥권 매집이 완료된 것으로 판단됨.",
-                "entry_price": 3735.0
-            },
-            {
-                "symbol": "MMT",
-                "name": "엠엠티",
-                "reason": "골든 패턴 점수 100점을 기록하며 안정적인 변동성 범위 내에서 매집 패턴이 뚜렷하게 관찰됨.",
-                "entry_price": 255.0
-            },
-            {
-                "symbol": "2Z",
-                "name": "투지",
-                "reason": "골든 패턴 점수 100점 및 높은 거래대금을 동반하여 기술적 반등 확률이 매우 높은 구간에 위치함.",
-                "entry_price": 77.6
             }
         ],
         "evaluated": false
