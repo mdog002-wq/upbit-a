@@ -1,1 +1,8 @@
-AI 분석 실패: 503 UNAVAILABLE. {'error': {'code': 503, 'message': 'This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.', 'status': 'UNAVAILABLE'}}
+**최종 분석 시각: 2026-08-14 10:24:20**
+
+### 퀀트 분석 리포트: 시장 변동성 및 패턴 분석
+
+본 분석은 24시간 거래대금, 변동성, 그리고 골든패턴 유사도 점수를 종합하여 수행되었습니다. 현재 시장은 대형주 중심의 안정적인 흐름과 특정 알트코인의 급격한 변동성이 공존하는 양상입니다. 
+
+1. **시장 요약**: 골든패턴 점수가 100점에 도달한 ENSO, BCH, QKC가 기술적 반등의 핵심 지표로 포착되었습니다. 특히 BCH는 대형주임에도 불구하고 패턴 완성도가 높아 신뢰도가 높습니다.
+2. **투자 전략**: 변동성이 60%를 상회하는 종목(BONK 등)은 기술적 과열 구간으로 판단되어 추격 매수를 지양하고, 패턴 점수가 높으면서 거래대금이 뒷받침되는 종목 위주의 분할 매수를 권장합니다.
