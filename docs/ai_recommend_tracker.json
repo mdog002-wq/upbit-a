@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 04:44:01",
+        "recommended_coins": [
+            {
+                "symbol": "ONDO",
+                "name": "온도",
+                "reason": "변동성 4.18%로 비교적 안정적이며 골든패턴 유사도 81.4점으로 기관 매집 완료 구간으로 판단됨",
+                "entry_price": 458.0
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "140억 원 이상의 견조한 거래대금을 동반하며 골든패턴 점수 88.6점으로 강한 상방 압력 포착",
+                "entry_price": 9.54
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 04:39:28",
         "recommended_coins": [
             {
@@ -991,24 +1009,6 @@
                 "name": "온도",
                 "reason": "골든패턴 유사도 점수 100.0을 기록하면서도 변동성이 4.4%로 낮아 과열 부담 없이 안정적인 반등이 기대되는 우수 종목",
                 "entry_price": 461.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 00:29:23",
-        "recommended_coins": [
-            {
-                "symbol": "BTC",
-                "name": "비트코인",
-                "reason": "골든패턴 유사도 100.0점 및 막대한 거래대금을 기록하여 바닥 매집 완료 후 안정적인 상승 추세 반등 확률이 가장 높음",
-                "entry_price": 88623000.0
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "낮은 변동성(4.4%)을 유지하면서도 골든패턴 유사도 100.0점을 기록하여 안정적인 상승 모멘텀 확보",
-                "entry_price": 460.0
             }
         ],
         "evaluated": false
