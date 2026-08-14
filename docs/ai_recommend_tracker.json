@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 12:59:05",
+        "recommended_coins": [
+            {
+                "symbol": "QUID",
+                "name": "QUID",
+                "reason": "골든패턴 점수 100점으로 기술적 지표가 최상위권이며, 안정적인 추세 전환 가능성이 높음.",
+                "entry_price": 101.0
+            },
+            {
+                "symbol": "QKC",
+                "name": "QKC",
+                "reason": "골든패턴 점수 100점 달성. 기술적 신뢰도가 매우 높으며 바닥권에서 반등 신호가 포착됨.",
+                "entry_price": 2.86
+            },
+            {
+                "symbol": "RED",
+                "name": "RED",
+                "reason": "골든패턴 점수 100점. 기술적 정합성이 완벽하며 상승 추세로의 전환 가능성이 가장 높은 종목.",
+                "entry_price": 126.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 12:54:11",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "엔소",
                 "reason": "골든패턴 점수 83.5점으로 매우 우수하며, 변동성 대비 패턴 유사도가 높아 단기 수익 극대화 전략에 적합.",
                 "entry_price": 1106.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 08:14:17",
-        "recommended_coins": [
-            {
-                "symbol": "BCH",
-                "name": "비트코인캐시",
-                "reason": "골든패턴 점수 100점 만점으로 기술적 신뢰도가 매우 높으며, 안정적인 거래대금과 함께 추세 전환의 핵심 구간에 위치함.",
-                "entry_price": 292700.0
-            },
-            {
-                "symbol": "ATOM",
-                "name": "코스모스",
-                "reason": "골든패턴 점수 100점 기록. 바닥권 매집 패턴이 완성되었으며, 기술적 지표상 반등 확률이 가장 높은 종목 중 하나임.",
-                "entry_price": 2127.0
-            },
-            {
-                "symbol": "ENSO",
-                "name": "엔소",
-                "reason": "83.2점의 높은 골든패턴 점수를 기록 중이며, 변동성 대비 패턴 완성도가 높아 단기 수익 극대화가 가능한 구간임.",
-                "entry_price": 1105.0
             }
         ],
         "evaluated": false
