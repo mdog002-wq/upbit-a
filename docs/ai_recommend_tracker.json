@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 14:05:13",
+        "recommended_coins": [
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 점수 100점 만점으로 기술적 신뢰도가 매우 높으며, 안정적인 거래대금을 동반한 반등 구간 진입.",
+                "entry_price": 8.97
+            },
+            {
+                "symbol": "ID",
+                "name": "아이디",
+                "reason": "패턴 유사도 100점 기록. 바닥권에서의 매집 신호가 뚜렷하며 기술적 반등 확률이 가장 높은 종목 중 하나.",
+                "entry_price": 43.3
+            },
+            {
+                "symbol": "QUID",
+                "name": "퀴드",
+                "reason": "골든패턴 점수 100점 달성. 최근 하락세를 멈추고 추세 전환을 시도하는 기술적 지표가 포착됨.",
+                "entry_price": 100.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 13:59:22",
         "recommended_coins": [
             {
@@ -1170,30 +1194,6 @@
                 "symbol": "ONDO",
                 "name": "온도",
                 "reason": "골든패턴 점수 52.9로 상위권이며, 변동성이 3.0%로 매우 낮아 리스크 대비 수익률(Sharpe Ratio) 측면에서 우수함.",
-                "entry_price": 471.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 09:24:34",
-        "recommended_coins": [
-            {
-                "symbol": "ENSO",
-                "name": "엔소",
-                "reason": "골든패턴 유사도 점수 100점 만점을 기록하며 기술적 지표상 가장 완벽한 매수 신호를 보임.",
-                "entry_price": 1100.0
-            },
-            {
-                "symbol": "BCH",
-                "name": "비트코인캐시",
-                "reason": "골든패턴 점수 100점으로 기술적 신뢰도가 매우 높으며, 안정적인 추세 전환 가능성이 큼.",
-                "entry_price": 292800.0
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "골든패턴 점수 51.5점으로 상위권에 위치하며, 안정적인 변동성 대비 높은 상승 잠재력을 보유함.",
                 "entry_price": 471.0
             }
         ],
