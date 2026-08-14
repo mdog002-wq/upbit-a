@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-14 17:24:01",
+        "recommended_coins": [
+            {
+                "symbol": "MMT",
+                "name": "MMT",
+                "reason": "골든패턴 점수 100점 만점을 기록하였으며, 변동성(13.42%)이 타 급등주 대비 낮아 안정적인 반등 추세가 예상됨.",
+                "entry_price": 260.0
+            },
+            {
+                "symbol": "MOVE",
+                "name": "MOVE",
+                "reason": "골든패턴 점수 100점과 함께 7.43%의 낮은 변동성을 유지하고 있어, 기술적 반등 시 리스크 대비 수익률(Sharpe Ratio)이 가장 우수함.",
+                "entry_price": 9.16
+            },
+            {
+                "symbol": "ID",
+                "name": "ID",
+                "reason": "골든패턴 점수 100점 달성. 거래대금 대비 변동성이 9.68%로 관리되고 있어 추가 상승 여력이 충분함.",
+                "entry_price": 43.8
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-14 17:19:18",
         "recommended_coins": [
             {
@@ -1171,30 +1195,6 @@
                 "name": "레드",
                 "reason": "골든패턴 점수 100점 기록. 거래대금 대비 안정적인 변동성을 유지하며 기술적 신뢰도가 매우 높은 상태임.",
                 "entry_price": 125.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-14 12:59:05",
-        "recommended_coins": [
-            {
-                "symbol": "QUID",
-                "name": "QUID",
-                "reason": "골든패턴 점수 100점으로 기술적 지표가 최상위권이며, 안정적인 추세 전환 가능성이 높음.",
-                "entry_price": 101.0
-            },
-            {
-                "symbol": "QKC",
-                "name": "QKC",
-                "reason": "골든패턴 점수 100점 달성. 기술적 신뢰도가 매우 높으며 바닥권에서 반등 신호가 포착됨.",
-                "entry_price": 2.86
-            },
-            {
-                "symbol": "RED",
-                "name": "RED",
-                "reason": "골든패턴 점수 100점. 기술적 정합성이 완벽하며 상승 추세로의 전환 가능성이 가장 높은 종목.",
-                "entry_price": 126.0
             }
         ],
         "evaluated": false
