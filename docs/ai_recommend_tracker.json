@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-15 10:59:32",
+        "recommended_coins": [
+            {
+                "symbol": "ONG",
+                "name": "온고잉",
+                "reason": "골든패턴 유사도 100점을 기록하며 바닥권 매집 완료 후 상승 전환할 확률이 매우 높음.",
+                "entry_price": 64.0
+            },
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 77.7점으로 높은 기술적 정합성을 보이며, 안정적인 거래대금을 동반한 상승 추세 진입 기대.",
+                "entry_price": 13110.0
+            },
+            {
+                "symbol": "MOVE",
+                "name": "무브",
+                "reason": "골든패턴 유사도 65.9점과 함께 우수한 거래대금 및 적정 변동성을 보여 단기 반등 모멘텀이 우수함.",
+                "entry_price": 9.66
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 10:53:57",
         "recommended_coins": [
             {
@@ -985,24 +1009,6 @@
                 "name": "시바이누",
                 "reason": "골든패턴 점수 85.4점으로 높은 신뢰도를 보이며, 5%대의 낮은 변동성으로 안정적인 추세 상승이 기대됨",
                 "entry_price": 0.00645
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 06:34:31",
-        "recommended_coins": [
-            {
-                "symbol": "UNI",
-                "name": "유니스왑",
-                "reason": "골든패턴 유사도 100.0점 만점과 함께 10.88%의 안정적인 변동성을 기록하여 바닥 매집 후 반등 가능성이 가장 높음",
-                "entry_price": 4523.0
-            },
-            {
-                "symbol": "SHIB",
-                "name": "시바이누",
-                "reason": "골든패턴 유사도 85.4점으로 매우 높으며, 5.59%의 낮은 변동성과 탄탄한 거래대금으로 안정적인 상승 여력 보유",
-                "entry_price": 0.00646
             }
         ],
         "evaluated": false
