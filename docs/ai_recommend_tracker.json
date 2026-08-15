@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 14:29:35",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 점수 100.0을 기록하였으며, 안정적인 거래대금을 바탕으로 상승 반등 확률이 가장 높은 최우선 추천 종목입니다.",
+                "entry_price": 13390.0
+            },
+            {
+                "symbol": "PRL",
+                "name": "PRL",
+                "reason": "골든패턴 유사도 점수 100.0으로 완벽한 바닥 매집 형태를 보이고 있어 향후 급등 가능성이 높습니다.",
+                "entry_price": 554.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 14:23:56",
         "recommended_coins": [
             {
@@ -925,30 +943,6 @@
                 "name": "PRL",
                 "reason": "골든패턴 유사도 100.0을 기록하며 바닥권 매집 완료 패턴이 검증된 고확률 반등 종목",
                 "entry_price": 503.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 09:49:23",
-        "recommended_coins": [
-            {
-                "symbol": "CAP",
-                "name": "캡",
-                "reason": "골든패턴 유사도 점수 100.0 및 915억 원의 강력한 거래대금이 유입되어 바닥 매집 완료 후 반등 확률이 매우 높음",
-                "entry_price": 95.7
-            },
-            {
-                "symbol": "ONG",
-                "name": "온고",
-                "reason": "골든패턴 유사도 100.0을 기록하며 기술적 반등 시그널이 가장 뚜렷하게 포착된 종목",
-                "entry_price": 62.9
-            },
-            {
-                "symbol": "PRL",
-                "name": "펄",
-                "reason": "기관 및 고래 수급이 집중되는 골든패턴 100점 종목으로 단기 상승 모멘텀이 우수함",
-                "entry_price": 505.0
             }
         ],
         "evaluated": false
