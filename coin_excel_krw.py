@@ -268,7 +268,7 @@ def generate_ai_analysis(top_coins):
 {json.dumps(top_coins, ensure_ascii=False, indent=2)}
 """
         response = client.models.generate_content(
-            model='gemini-3.5-flash-lite',
+            model='gemini-2.5-flash-lite',
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
