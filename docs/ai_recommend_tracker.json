@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 10:33:58",
+        "recommended_coins": [
+            {
+                "symbol": "TT",
+                "name": "TT",
+                "reason": "골든 패턴 스코어 93.8로 매우 우수하며, 14.7%대의 안정적인 변동성 속에서 수급이 유입되어 반등 확률이 높음.",
+                "entry_price": 0.466
+            },
+            {
+                "symbol": "ONG",
+                "name": "ONG",
+                "reason": "골든 패턴 스코어 100.0 만점을 기록하였고, 대규모 거래대금을 동반한 바닥 매집 완료 패턴 포착.",
+                "entry_price": 63.3
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 10:29:45",
         "recommended_coins": [
             {
@@ -984,24 +1002,6 @@
                 "symbol": "ONDO",
                 "name": "온도",
                 "reason": "낮은 변동성(4.18%) 대비 높은 패턴 점수(64.7점)를 보여 안정적인 리스크 대비 리턴 구조를 제공함.",
-                "entry_price": 459.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 06:09:37",
-        "recommended_coins": [
-            {
-                "symbol": "UNI",
-                "name": "유니스왑",
-                "reason": "골든패턴 유사도 점수 100.0을 달성하였고, 적절한 변동성(10.88%) 속에서 바닥 매집이 완료되어 반등 확률이 매우 높음",
-                "entry_price": 4532.0
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "낮은 변동성(4.18%) 대비 높은 골든패턴 점수(64.7)를 기록하여 안정적인 상승 모멘텀을 보유함",
                 "entry_price": 459.0
             }
         ],
