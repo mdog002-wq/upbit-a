@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 19:29:38",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 점수 100.0점을 기록하였으며, 11%대의 적정한 변동성과 함께 유의미한 거래대금을 동반하여 바닥 매집 후 안정적인 상승 탄력이 기대됨.",
+                "entry_price": 13230.0
+            },
+            {
+                "symbol": "COW",
+                "name": "카우",
+                "reason": "골든패턴 유사도 100.0점을 달성하여 기술적으로 완벽한 반등 패턴을 형성하고 있음.",
+                "entry_price": 229.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 19:24:04",
         "recommended_coins": [
             {
@@ -973,24 +991,6 @@
                 "name": "아발란체",
                 "reason": "골든패턴 점수 100점 만점에 변동성 8.49%로 20개 종목 중 가장 이상적인 리스크 대비 수익비(Sharpe Ratio)를 보여줌.",
                 "entry_price": 9440.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 15:09:02",
-        "recommended_coins": [
-            {
-                "symbol": "LINK",
-                "name": "체인링크",
-                "reason": "골든패턴 유사도 점수 100.0 만점을 기록하였고, 10억 원이 넘는 탄탄한 거래대금과 11.76%의 건전한 변동성을 동반하여 바닥 매집 후 반등 확률이 매우 높음.",
-                "entry_price": 13340.0
-            },
-            {
-                "symbol": "AVAX",
-                "name": "아발란체",
-                "reason": "골든패턴 점수 100.0이며 변동성이 8.49%로 과열되지 않아 안정적이면서도 높은 상승 탄력을 기대할 수 있음.",
-                "entry_price": 9445.0
             }
         ],
         "evaluated": false
