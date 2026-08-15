@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 14:48:51",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100점 만점에 11.76%의 건전한 변동성, 안정적인 거래대금을 동반하여 바닥권 반등 확률이 매우 높음.",
+                "entry_price": 13410.0
+            },
+            {
+                "symbol": "PRL",
+                "name": "PRL",
+                "reason": "골든패턴 유사도 100점을 기록하며 매집 패턴 완료 후 상방 이탈 가능성이 높은 최우선 추천 종목.",
+                "entry_price": 543.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 14:44:16",
         "recommended_coins": [
             {
@@ -925,24 +943,6 @@
                 "name": "온고",
                 "reason": "골든패턴 유사도 100.0을 달성하며 매집 패턴이 뚜렷하고 안정적인 거래대금을 유지하고 있어 상방 압력이 우세함",
                 "entry_price": 63.1
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 10:09:38",
-        "recommended_coins": [
-            {
-                "symbol": "ONG",
-                "name": "온버프",
-                "reason": "골든패턴 유사도 100점을 기록하였으며, 23.97%의 안정적인 변동성과 함께 바닥권 매집이 완료된 패턴을 형성하여 반등 확률이 매우 높음.",
-                "entry_price": 63.7
-            },
-            {
-                "symbol": "RVN",
-                "name": "레이븐코인",
-                "reason": "골든패턴 점수 100점을 달성한 종목 중 24시간 변동성이 8.18%로 비교적 낮아 안정적인 우상향 반등 랠리가 기대됨.",
-                "entry_price": 3.52
             }
         ],
         "evaluated": false
