@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 09:43:52",
+        "recommended_coins": [
+            {
+                "symbol": "ONG",
+                "name": "온버프",
+                "reason": "골든패턴 유사도 점수 100점 만점을 기록하였으며, 건전한 거래대금과 함께 바닥 매집 완료 후 반등 확률이 매우 높음",
+                "entry_price": 63.0
+            },
+            {
+                "symbol": "PRL",
+                "name": "PRL",
+                "reason": "골든패턴 점수 100점 달성 및 안정적인 수급 유입으로 단기 상승 탄력이 기대되는 종목",
+                "entry_price": 502.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 09:38:58",
         "recommended_coins": [
             {
@@ -967,24 +985,6 @@
                 "name": "온도",
                 "reason": "4.18%의 낮은 변동성과 71.2점의 우수한 패턴 점수를 기록하여 리스크 대비 기대 수익률이 매우 높은 바닥 매집 완료 종목",
                 "entry_price": 457.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 05:18:56",
-        "recommended_coins": [
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 유사도 83.2점으로 높으며, 19%대의 적정한 변동성과 풍부한 거래대금을 동반하여 단기 반등 확률이 매우 높음.",
-                "entry_price": 9.54
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "골든패턴 유사도 71.0점으로 준수하며, 4.18%의 낮은 변동성으로 안정적인 우상향 패턴을 형성 중인 저위험 추천 종목.",
-                "entry_price": 458.0
             }
         ],
         "evaluated": false
