@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 21:59:37",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100.0점 및 안정적인 변동성(11.49%) 속에서 강력한 거래대금이 유입되어 반등 확률이 가장 높음",
+                "entry_price": 13380.0
+            },
+            {
+                "symbol": "PRL",
+                "name": "피알엘",
+                "reason": "골든패턴 유사도 100.0점 도달 및 탄탄한 거래대금 기반으로 바닥 매집 후 상승 반전 패턴 형성 중",
+                "entry_price": 482.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 21:54:09",
         "recommended_coins": [
             {
@@ -937,30 +955,6 @@
                 "name": "스텔라루멘",
                 "reason": "골든패턴 유사도 90.0점으로 높으며, 2.71%의 낮은 변동성으로 안정적인 바닥 매집 완료 후 반등 확률이 매우 높음",
                 "entry_price": 223.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 17:45:05",
-        "recommended_coins": [
-            {
-                "symbol": "LINK",
-                "name": "체인링크",
-                "reason": "골든패턴 유사도 100점 만점을 기록하였으며, 견조한 거래대금과 함께 안정적인 우상향 패턴을 형성 중.",
-                "entry_price": 13130.0
-            },
-            {
-                "symbol": "AVAX",
-                "name": "아발란체",
-                "reason": "변동성이 8.49%로 비교적 안정적이면서도 골든패턴 유사도 100점을 달성하여 높은 반등 확률 보유.",
-                "entry_price": 9315.0
-            },
-            {
-                "symbol": "XLM",
-                "name": "스텔라루멘",
-                "reason": "2.71%의 낮은 변동성 속에서 89.9점의 높은 패턴 유사도를 보여 바닥 매집 완료 후 안정적 상승 기대.",
-                "entry_price": 224.0
             }
         ],
         "evaluated": false
