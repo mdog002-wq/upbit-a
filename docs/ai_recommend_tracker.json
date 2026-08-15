@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 12:49:08",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100.0점을 기록하며 바닥 매집이 완벽히 완료된 상태로, 안정적인 거래대금 속에서 높은 반등 확률을 보임.",
+                "entry_price": 13580.0
+            },
+            {
+                "symbol": "AVAX",
+                "name": "아발란체",
+                "reason": "적정한 변동성(8.49%)과 골든패턴 유사도 100.0점을 동시에 만족하여 퀀트 관점에서 최적의 매수 타이밍을 형성함.",
+                "entry_price": 9575.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 12:44:18",
         "recommended_coins": [
             {
@@ -943,30 +961,6 @@
                 "name": "피알엘",
                 "reason": "골든패턴 유사도 점수 100.0으로 매수 타이밍이 포착되었으며, 거래대금 유입 대비 저평가 구간 위치",
                 "entry_price": 493.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 08:04:53",
-        "recommended_coins": [
-            {
-                "symbol": "PRL",
-                "name": "펄",
-                "reason": "골든패턴 유사도 100.0점으로 완벽한 바닥 매집 완료, 안정적인 변동성 속 반등 확률 극대화 구간",
-                "entry_price": 491.0
-            },
-            {
-                "symbol": "LA",
-                "name": "엘에이",
-                "reason": "골든패턴 유사도 100.0점 달성, 과열 없이 탄탄한 거래량을 바탕으로 한 상승 에너지가 응축된 상태",
-                "entry_price": 71.5
-            },
-            {
-                "symbol": "ONG",
-                "name": "온오프코인",
-                "reason": "골든패턴 만점(100.0)과 풍부한 거래대금을 동반하며 단기 조정 후 강력한 반등 시그널 발생",
-                "entry_price": 62.7
             }
         ],
         "evaluated": false
