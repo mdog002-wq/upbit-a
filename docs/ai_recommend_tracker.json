@@ -1,5 +1,17 @@
 [
     {
+        "timestamp": "2026-08-15 11:24:01",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 점수 99.8점 및 안정적인 변동성(10.14%)을 기록하며 바닥 매집 완료 후 반등 확률이 가장 높은 최우선 종목",
+                "entry_price": 13580.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 11:18:52",
         "recommended_coins": [
             {
@@ -985,24 +997,6 @@
                 "name": "옹",
                 "reason": "골든패턴 유사도 점수 100.0 만점을 기록하여 역사적 반등 구간 진입 확률이 매우 높음",
                 "entry_price": 62.9
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 06:59:05",
-        "recommended_coins": [
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 유사도 74.5점과 144억 원 규모의 강력한 거래대금을 동반하여 단기 반등 확률이 매우 높음",
-                "entry_price": 9.59
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "변동성(4.18%)이 낮아 안정적이며 골든패턴 점수 68.5점을 기록해 바닥 매집 후 상승 반전이 유력함",
-                "entry_price": 456.0
             }
         ],
         "evaluated": false
