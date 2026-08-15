@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-15 17:04:19",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100.0점 및 안정적인 10%대 변동성으로 매집 완료 후 반등 확률 최상위",
+                "entry_price": 13150.0
+            },
+            {
+                "symbol": "AVAX",
+                "name": "아발란체",
+                "reason": "골든패턴 점수 100.0점 기록, 낮은 변동성 대비 우수한 패턴 적합성 보유",
+                "entry_price": 9370.0
+            },
+            {
+                "symbol": "XLM",
+                "name": "스텔라루멘",
+                "reason": "골든패턴 유사도 88.7점 및 낮은 변동성(2.71%)으로 안정적인 반등 기대",
+                "entry_price": 223.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 16:59:11",
         "recommended_coins": [
             {
@@ -943,24 +967,6 @@
                 "name": "아발란체",
                 "reason": "골든패턴 점수 100점 만점과 함께 8.49%의 안정적인 24시간 변동성을 보여주어, 바닥 매집 완료 후 상승 모멘텀이 매우 높은 종목입니다.",
                 "entry_price": 9555.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 12:49:08",
-        "recommended_coins": [
-            {
-                "symbol": "LINK",
-                "name": "체인링크",
-                "reason": "골든패턴 유사도 100.0점을 기록하며 바닥 매집이 완벽히 완료된 상태로, 안정적인 거래대금 속에서 높은 반등 확률을 보임.",
-                "entry_price": 13580.0
-            },
-            {
-                "symbol": "AVAX",
-                "name": "아발란체",
-                "reason": "적정한 변동성(8.49%)과 골든패턴 유사도 100.0점을 동시에 만족하여 퀀트 관점에서 최적의 매수 타이밍을 형성함.",
-                "entry_price": 9575.0
             }
         ],
         "evaluated": false
