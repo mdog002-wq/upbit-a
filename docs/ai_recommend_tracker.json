@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-15 14:09:30",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100.0점으로 기술적 반등 확률이 가장 높으며, 안정적인 변동성(11.76%)과 꾸준한 거래대금이 유입 중임.",
+                "entry_price": 13440.0
+            },
+            {
+                "symbol": "AVAX",
+                "name": "아발란체",
+                "reason": "대형 생태계 코인 중 유일하게 골든패턴 유사도 100.0점을 기록, 건전한 변동성(8.49%) 속에서 기관 및 고래의 매집 흔적이 포착됨.",
+                "entry_price": 9520.0
+            },
+            {
+                "symbol": "PRL",
+                "name": "PRL",
+                "reason": "골든패턴 점수 100.0점 만점과 함께 유의미한 거래대금이 받쳐주어 단기 상승 모멘텀이 매우 강력함.",
+                "entry_price": 551.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 14:04:24",
         "recommended_coins": [
             {
@@ -913,24 +937,6 @@
                 "name": "ONG",
                 "reason": "골든패턴 유사도 100점 만점을 기록하였으며, 준수한 거래대금과 함께 건전한 상승 반등 모멘텀이 포착됨.",
                 "entry_price": 64.5
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 09:19:28",
-        "recommended_coins": [
-            {
-                "symbol": "ONG",
-                "name": "온톨로지 개스",
-                "reason": "골든패턴 유사도 100.0점을 기록하였으며, 23.97%의 안정적인 변동성 속에서 강력한 매집 후 반등 신호 포착",
-                "entry_price": 64.6
-            },
-            {
-                "symbol": "PRL",
-                "name": "피알엘",
-                "reason": "골든패턴 점수 100.0점 만점과 함께 24.03%의 변동성을 보이며 추세 전환 직전의 최적 매수 구간 형성",
-                "entry_price": 511.0
             }
         ],
         "evaluated": false
