@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 16:14:43",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100.0을 달성하였으며, 11.76%의 건전한 변동성과 우수한 거래대금을 바탕으로 강력한 바닥 반등 시그널을 형성함.",
+                "entry_price": 13290.0
+            },
+            {
+                "symbol": "AVAX",
+                "name": "아발란체",
+                "reason": "유사도 점수 100.0과 함께 비교적 안정적인 8.49%의 변동성을 보여주어 리스크 대비 기대 수익률이 매우 높음.",
+                "entry_price": 9400.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 16:09:42",
         "recommended_coins": [
             {
@@ -931,24 +949,6 @@
                 "name": "PRL",
                 "reason": "골든패턴 유사도 100.0 달성 및 우수한 거래대금 대비 상승 반전 직전의 완벽한 기술적 패턴 형성",
                 "entry_price": 517.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 11:39:37",
-        "recommended_coins": [
-            {
-                "symbol": "LINK",
-                "name": "체인링크",
-                "reason": "골든패턴 유사도 점수 100.0점으로 패턴 일치도가 가장 높으며, 11.52%의 적정한 변동성과 안정적인 거래대금을 바탕으로 바닥 매집 후 반등 가능성이 매우 높음",
-                "entry_price": 13730.0
-            },
-            {
-                "symbol": "PRL",
-                "name": "PRL",
-                "reason": "골든패턴 점수 100.0점을 기록하였고 적절한 거래대금과 함께 상승 압력이 집중되고 있어 단기 반등 확률이 높음",
-                "entry_price": 522.0
             }
         ],
         "evaluated": false
