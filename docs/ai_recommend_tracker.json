@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 14:54:41",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100점을 기록하였으며, 11.76%의 안정적인 변동성과 100억 원 이상의 견조한 거래대금을 동반하여 반등 확률이 매우 높음.",
+                "entry_price": 13410.0
+            },
+            {
+                "symbol": "AVAX",
+                "name": "아발란체",
+                "reason": "골든패턴 유사도 100점 만점에 변동성 8.49%로 과열되지 않은 상태에서 저점 매수세가 유입되어 상승 여력이 충분함.",
+                "entry_price": 9470.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 14:48:51",
         "recommended_coins": [
             {
@@ -925,24 +943,6 @@
                 "name": "PRL",
                 "reason": "골든패턴 점수 100.0과 함께 적절한 변동성(25.49%)을 동반하여 반등 탄력이 가장 우수할 것으로 평가됩니다.",
                 "entry_price": 508.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 10:13:57",
-        "recommended_coins": [
-            {
-                "symbol": "CAP",
-                "name": "캡",
-                "reason": "골든패턴 유사도 100.0 및 940억 원 이상의 압도적 거래대금을 기록하여 바닥 매집 완료 후 반등 확률이 가장 높은 종목",
-                "entry_price": 97.1
-            },
-            {
-                "symbol": "ONG",
-                "name": "온고",
-                "reason": "골든패턴 유사도 100.0을 달성하며 매집 패턴이 뚜렷하고 안정적인 거래대금을 유지하고 있어 상방 압력이 우세함",
-                "entry_price": 63.1
             }
         ],
         "evaluated": false
