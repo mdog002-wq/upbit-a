@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 10:38:48",
+        "recommended_coins": [
+            {
+                "symbol": "TT",
+                "name": "타이달",
+                "reason": "골든패턴 유사도 96.6점으로 바닥 매집이 거의 완료되었으며, 과도하지 않은 변동성 속에서 상승 반등 확률이 매우 높음.",
+                "entry_price": 0.468
+            },
+            {
+                "symbol": "RVN",
+                "name": "레이븐코인",
+                "reason": "골든패턴 유사도 100점 만점을 기록하였고, 24시간 변동성이 8.18%로 비교적 안정적이어 안정적인 추세 상승이 기대됨.",
+                "entry_price": 3.49
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 10:33:58",
         "recommended_coins": [
             {
@@ -985,24 +1003,6 @@
                 "name": "온도",
                 "reason": "낮은 변동성(4.18%) 대비 높은 골든패턴 유사도(64.7)를 보여주어 하방 리스크가 적고 안정적인 매집이 가능한 종목",
                 "entry_price": 458.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 06:14:28",
-        "recommended_coins": [
-            {
-                "symbol": "UNI",
-                "name": "유니스왑",
-                "reason": "골든패턴 유사도 100.0점 만점을 기록하며 바닥 매집 완료 후 안정적인 우상향 반등 구간에 진입함.",
-                "entry_price": 4525.0
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "낮은 변동성(4.18%) 대비 높은 패턴 점수(64.7점)를 보여 안정적인 리스크 대비 리턴 구조를 제공함.",
-                "entry_price": 459.0
             }
         ],
         "evaluated": false
