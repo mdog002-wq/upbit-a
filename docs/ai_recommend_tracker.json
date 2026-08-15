@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-15 12:08:54",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100.0점을 기록하며 기술적 반등 시그널이 매우 강력하며, 적절한 변동성 속에서 안정적인 우상향이 기대됨.",
+                "entry_price": 13770.0
+            },
+            {
+                "symbol": "PRL",
+                "name": "PRL",
+                "reason": "골든패턴 스코어 만점(100.0)을 달성하였고, 유의미한 거래대금과 함께 바닥권 매집 후 급등 구간에 진입할 확률이 높음.",
+                "entry_price": 531.0
+            },
+            {
+                "symbol": "TT",
+                "name": "TT",
+                "reason": "패턴 유사도 100.0점으로 퀀트 알고리즘상 최상위 매수 타이밍이 포착된 종목임.",
+                "entry_price": 0.437
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 12:04:59",
         "recommended_coins": [
             {
@@ -955,30 +979,6 @@
                 "name": "오일러",
                 "reason": "골든패턴 유사도 84.5점과 10%대의 건강한 변동성 조화로 추가 상승 여력 풍부",
                 "entry_price": 1699.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 07:39:38",
-        "recommended_coins": [
-            {
-                "symbol": "GRVT",
-                "name": "그라비티",
-                "reason": "골든패턴 유사도 91.8점으로 최상위권이며, 26%대의 건전한 변동성과 함께 매집 후 반등 직전의 완벽한 퀀트 시그널을 형성함.",
-                "entry_price": 447.0
-            },
-            {
-                "symbol": "SHIB",
-                "name": "시바이누",
-                "reason": "골든패턴 유사도 85.1점 및 낮은 변동성(5.59%)을 기록하여 안정적인 우상향 반등 국면에 진입함.",
-                "entry_price": 0.00645
-            },
-            {
-                "symbol": "EUL",
-                "name": "오일러",
-                "reason": "골든패턴 유사도 83.7점으로 바닥권 매집 완료 후 추세 전환 확률이 매우 높음.",
-                "entry_price": 1707.0
             }
         ],
         "evaluated": false
