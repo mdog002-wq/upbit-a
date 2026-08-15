@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 15:24:16",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100.0점을 기록하며 바닥 매집 완료 후 안정적인 거래대금을 동반한 상방 돌파 확률이 매우 높음.",
+                "entry_price": 13370.0
+            },
+            {
+                "symbol": "AVAX",
+                "name": "아바체",
+                "reason": "유사도 점수 100.0점으로 완벽한 패턴 일치율을 보이며, 적정한 변동성 속에서 반등 모멘텀이 극대화된 상태임.",
+                "entry_price": 9420.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 15:19:41",
         "recommended_coins": [
             {
@@ -913,24 +931,6 @@
                 "name": "레이븐코인",
                 "reason": "골든패턴 점수 100점과 함께 변동성이 8.18%로 비교적 안정적이며 바닥 매집 완료 후 안정적인 우상향 패턴이 예상됨",
                 "entry_price": 3.51
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 10:44:30",
-        "recommended_coins": [
-            {
-                "symbol": "TT",
-                "name": "타이탄",
-                "reason": "골든 패턴 스코어 99.8점 및 안정적인 변동성(14.72%)을 동반하여 바닥 매집 후 반등 확률이 가장 높은 종목",
-                "entry_price": 0.467
-            },
-            {
-                "symbol": "RVN",
-                "name": "레이븐코인",
-                "reason": "골든 패턴 스코어 100점 만점에 변동성 8.18%로 과열되지 않은 상태에서 안정적인 상승 패턴을 형성 중",
-                "entry_price": 3.47
             }
         ],
         "evaluated": false
