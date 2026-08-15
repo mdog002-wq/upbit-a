@@ -1,5 +1,23 @@
 [
     {
+        "timestamp": "2026-08-15 12:04:59",
+        "recommended_coins": [
+            {
+                "symbol": "LINK",
+                "name": "체인링크",
+                "reason": "골든패턴 유사도 100.0 및 11.76%의 안정적인 변동성을 기록하여 바닥 매집 완료 후 반등 확률이 가장 높은 최우선 추천 종목입니다.",
+                "entry_price": 13700.0
+            },
+            {
+                "symbol": "AVAX",
+                "name": "아발란체",
+                "reason": "골든패턴 유사도 100.0과 함께 8.49%의 낮은 변동성을 유지하며 탄탄한 수급을 동반한 안정적 상승 패턴을 보이고 있습니다.",
+                "entry_price": 9645.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 12:00:26",
         "recommended_coins": [
             {
@@ -961,24 +979,6 @@
                 "name": "오일러",
                 "reason": "골든패턴 유사도 83.7점으로 바닥권 매집 완료 후 추세 전환 확률이 매우 높음.",
                 "entry_price": 1707.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 07:29:36",
-        "recommended_coins": [
-            {
-                "symbol": "GRVT",
-                "name": "그래비티",
-                "reason": "골든패턴 유사도 91.6점과 준수한 거래대금을 기록하며 바닥권 매집 후 강한 반등 모멘텀이 포착됨.",
-                "entry_price": 448.0
-            },
-            {
-                "symbol": "EUL",
-                "name": "유일",
-                "reason": "골든패턴 유사도 82.0점인 동시에 24시간 변동성이 10%대로 비교적 안정적이어 리스크 대비 수익률이 우수함.",
-                "entry_price": 1712.0
             }
         ],
         "evaluated": false
