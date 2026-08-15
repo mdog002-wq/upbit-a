@@ -1,5 +1,29 @@
 [
     {
+        "timestamp": "2026-08-15 09:49:23",
+        "recommended_coins": [
+            {
+                "symbol": "CAP",
+                "name": "캡",
+                "reason": "골든패턴 유사도 점수 100.0 및 915억 원의 강력한 거래대금이 유입되어 바닥 매집 완료 후 반등 확률이 매우 높음",
+                "entry_price": 95.7
+            },
+            {
+                "symbol": "ONG",
+                "name": "온고",
+                "reason": "골든패턴 유사도 100.0을 기록하며 기술적 반등 시그널이 가장 뚜렷하게 포착된 종목",
+                "entry_price": 62.9
+            },
+            {
+                "symbol": "PRL",
+                "name": "펄",
+                "reason": "기관 및 고래 수급이 집중되는 골든패턴 100점 종목으로 단기 상승 모멘텀이 우수함",
+                "entry_price": 505.0
+            }
+        ],
+        "evaluated": false
+    },
+    {
         "timestamp": "2026-08-15 09:43:52",
         "recommended_coins": [
             {
@@ -961,30 +985,6 @@
                 "name": "온도",
                 "reason": "골든패턴 유사도 71.3점과 4.18%의 낮은 변동성을 기록하여 리스크 관리가 용이하고 반등 확률이 높습니다.",
                 "entry_price": 458.0
-            }
-        ],
-        "evaluated": false
-    },
-    {
-        "timestamp": "2026-08-15 05:24:02",
-        "recommended_coins": [
-            {
-                "symbol": "SHIB",
-                "name": "시바이누",
-                "reason": "골든패턴 유사도 점수 95.6점으로 매우 높고, 5.59%의 안정적인 변동성 속에서 탄탄한 거래대금이 유입되어 반등 확률 극대화",
-                "entry_price": 0.00646
-            },
-            {
-                "symbol": "MOVE",
-                "name": "무브",
-                "reason": "골든패턴 점수 83.2점과 함께 142억 원 규모의 강력한 거래대금 형성, 적정한 변동성으로 추세 추종 매매에 최적",
-                "entry_price": 9.54
-            },
-            {
-                "symbol": "ONDO",
-                "name": "온도",
-                "reason": "4.18%의 낮은 변동성과 71.2점의 우수한 패턴 점수를 기록하여 리스크 대비 기대 수익률이 매우 높은 바닥 매집 완료 종목",
-                "entry_price": 457.0
             }
         ],
         "evaluated": false
